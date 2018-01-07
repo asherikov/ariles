@@ -33,10 +33,6 @@ template<class t_Configurable>
         void setDefaults()
         {
             vector_.resize(4);
-            for(std::size_t i = 0; i < vector_.size(); ++i)
-            {
-                vector_[i].integer_ = i;
-            }
         }
 };
 

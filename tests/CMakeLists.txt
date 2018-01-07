@@ -16,3 +16,4 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY     "${PROJECT_BINARY_DIR}/bin_tests/")
 # tests
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "000" "yaml;msgpack")
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "001" "yaml;msgpack")
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "002" "yaml;msgpack")
