@@ -20,6 +20,7 @@ class BasicInterfaceFixture
             // Exlicit instantiation of reader and writer classes
             BOOST_CHECK_NO_THROW(
                 t_Configurable configurable;
+                configurable.randomize();
 
                 t_Writer writer("configurable.cfg");
                 configurable.writeConfig(writer);
@@ -38,6 +39,7 @@ class BasicInterfaceFixture
 
             BOOST_CHECK_NO_THROW(
                 t_Configurable configurable;
+                configurable.randomize();
                 configurable.template writeConfig<t_Writer>("configurable2.cfg");
             );
 

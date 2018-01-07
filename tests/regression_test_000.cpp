@@ -40,7 +40,7 @@ class ConfigurableAutoDeclare : public ariles::ConfigurableBase
         ARILES_TYPED_ENTRY_(integer,     int) \
         ARILES_TYPED_ENTRY_(real,        double)
     // mandatory
-    #include ARILES_DEFINE_ACCESSORS
+    #include ARILES_INITIALIZE
 
 
     public:
@@ -53,10 +53,18 @@ class ConfigurableAutoDeclare : public ariles::ConfigurableBase
         /**
          * @brief This method must be defined
          */
-        void setDefaults()
+        virtual void setDefaults()
         {
             integer_ = 10;
             real_ = 1.33;
+        }
+
+
+        void randomize()
+        {
+            integer_ = GET_RANDOM_INT;
+            real_    = GET_RANDOM_REAL;
+            finalize();
         }
 };
 
@@ -72,7 +80,7 @@ class ConfigurableVerbose : public ariles::ConfigurableBase
     #define ARILES_ENTRIES \
         ARILES_ENTRY_(integer) \
         ARILES_ENTRY_(real)
-    #include ARILES_DEFINE_ACCESSORS
+    #include ARILES_INITIALIZE
 
 
     public:
@@ -87,10 +95,18 @@ class ConfigurableVerbose : public ariles::ConfigurableBase
         }
 
 
-        void setDefaults()
+        virtual void setDefaults()
         {
             integer_ = 10;
             real_ = 1.33;
+        }
+
+
+        void randomize()
+        {
+            integer_ = GET_RANDOM_INT;
+            real_    = GET_RANDOM_REAL;
+            finalize();
         }
 };
 
@@ -104,7 +120,7 @@ class ConfigurableNoConstructors : public ariles::ConfigurableBase
     #define ARILES_ENTRIES \
         ARILES_TYPED_ENTRY_(integer,     int) \
         ARILES_TYPED_ENTRY_(real,        double)
-    #include ARILES_DEFINE_ACCESSORS
+    #include ARILES_INITIALIZE
 
 
     public:
@@ -117,10 +133,18 @@ class ConfigurableNoConstructors : public ariles::ConfigurableBase
         /**
          * @brief This method must be defined
          */
-        void setDefaults()
+        virtual void setDefaults()
         {
             integer_ = 10;
             real_ = 1.33;
+        }
+
+
+        void randomize()
+        {
+            integer_ = GET_RANDOM_INT;
+            real_    = GET_RANDOM_REAL;
+            finalize();
         }
 };
 
@@ -133,7 +157,7 @@ class ConfigurableNoAutoID : public ariles::ConfigurableBase
     #define ARILES_ENTRIES \
         ARILES_TYPED_ENTRY_(integer,     int) \
         ARILES_TYPED_ENTRY_(real,        double)
-    #include ARILES_DEFINE_ACCESSORS
+    #include ARILES_INITIALIZE
 
     protected:
         std::string id_;
@@ -149,7 +173,7 @@ class ConfigurableNoAutoID : public ariles::ConfigurableBase
         /**
          * @brief This method must be defined
          */
-        void setDefaults()
+        virtual void setDefaults()
         {
             integer_ = 10;
             real_ = 1.33;
@@ -165,6 +189,14 @@ class ConfigurableNoAutoID : public ariles::ConfigurableBase
         {
             return (id_);
         }
+
+
+        void randomize()
+        {
+            integer_ = GET_RANDOM_INT;
+            real_    = GET_RANDOM_REAL;
+            finalize();
+        }
 };
 
 
@@ -174,7 +206,7 @@ class ConfigurableNoAutoID : public ariles::ConfigurableBase
 class ConfigurableEmpty : public ariles::ConfigurableBase
 {
     #define ARILES_ENTRIES
-    #include ARILES_DEFINE_ACCESSORS
+    #include ARILES_INITIALIZE
 
     protected:
         std::string id_;
@@ -190,7 +222,7 @@ class ConfigurableEmpty : public ariles::ConfigurableBase
         /**
          * @brief This method must be defined
          */
-        void setDefaults()
+        virtual void setDefaults()
         {
         }
 
@@ -203,6 +235,12 @@ class ConfigurableEmpty : public ariles::ConfigurableBase
         const std::string & getConfigSectionID() const
         {
             return (id_);
+        }
+
+
+        void randomize()
+        {
+            finalize();
         }
 };
 

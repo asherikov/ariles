@@ -18,6 +18,7 @@ class ComparisonViaBaseFixture
             void test()
         {
             t_Configurable configurable_out;
+            configurable_out.randomize();
             t_ConfigurableBase *configurable_out_base = &configurable_out;
             BOOST_CHECK_NO_THROW(
                 configurable_out_base->template writeConfig<t_Writer>("configurable_match_member_definitions.cfg", "Configurable");

@@ -18,6 +18,11 @@
 #include <boost/timer/timer.hpp>
 #include <boost/lexical_cast.hpp>
 
+#include <boost/random/random_device.hpp>
+#include <boost/random/uniform_int_distribution.hpp>
+#include <boost/random/uniform_real_distribution.hpp>
+
+
 
 struct GlobalFixtureConfig
 {
@@ -44,6 +49,19 @@ BOOST_GLOBAL_FIXTURE( GlobalFixtureConfig ) ;
         test<CONFIGURABLE_TYPE, ariles::FORMAT_NAMESPACE::Reader, ariles::FORMAT_NAMESPACE::Writer>(); \
     }
 
+
+// -----
+// random
+boost::random::random_device                g_random_generator;
+boost::random::uniform_int_distribution<>   g_int_uniform_distribution(
+        std::numeric_limits<int>::min(),
+        std::numeric_limits<int>::max());
+
+boost::random::uniform_real_distribution<>  g_real_uniform_distribution(-1e-5, 1e5);
+
+#define GET_RANDOM_INT      g_int_uniform_distribution(g_random_generator);
+#define GET_RANDOM_REAL     g_real_uniform_distribution(g_random_generator);
+// -----
 
 
 const double g_tolerance = 1e-12;

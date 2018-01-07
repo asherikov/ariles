@@ -22,13 +22,13 @@
     public:
         #ifdef ARILES_ENTRIES
             #define ARILES_NAMED_ENTRY(entry, name)
-            #define ARILES_PARENT_CLASS(entry)
+            #define ARILES_PARENT(entry)
             #define ARILES_TYPED_NAMED_ENTRY(type, entry, name)  type    entry;
 
             ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
 
             #undef ARILES_NAMED_ENTRY
-            #undef ARILES_PARENT_CLASS
+            #undef ARILES_PARENT
             #undef ARILES_TYPED_NAMED_ENTRY
 
             #define ARILES_TYPED_NAMED_ENTRY(type, entry, name)  ARILES_NAMED_ENTRY(entry, name)
@@ -41,7 +41,7 @@
         // Define write methods
 
             #define ARILES_NAMED_ENTRY(entry, name)  ARILES_WRITE_NAMED_ENTRY(entry, name)
-            #define ARILES_PARENT_CLASS(entry)       ARILES_WRITE_PARENT_CLASS(entry)
+            #define ARILES_PARENT(entry)       ARILES_WRITE_PARENT(entry)
 
             template <class t_Writer>
                 void writeConfigEntriesTemplate(t_Writer & writer) const
@@ -50,13 +50,13 @@
             }
 
             #undef ARILES_NAMED_ENTRY
-            #undef ARILES_PARENT_CLASS
+            #undef ARILES_PARENT
 
 
         // Define read methods
 
             #define ARILES_NAMED_ENTRY(entry, name)  ARILES_READ_NAMED_ENTRY(entry, name)
-            #define ARILES_PARENT_CLASS(entry)       ARILES_READ_PARENT_CLASS(entry)
+            #define ARILES_PARENT(entry)       ARILES_READ_PARENT(entry)
 
             template <class t_Reader>
                 void readConfigEntriesTemplate( t_Reader & reader,
@@ -67,13 +67,13 @@
             }
 
             #undef ARILES_NAMED_ENTRY
-            #undef ARILES_PARENT_CLASS
+            #undef ARILES_PARENT
 
 
         // Count number of entries and define a function, which returns it.
 
             #define ARILES_NAMED_ENTRY(entry, name)  +1
-            #define ARILES_PARENT_CLASS(entry)       +entry::getNumberOfEntries()
+            #define ARILES_PARENT(entry)       +entry::getNumberOfEntries()
 
             std::size_t getNumberOfEntries() const
             {
@@ -82,7 +82,7 @@
             }
 
             #undef ARILES_NAMED_ENTRY
-            #undef ARILES_PARENT_CLASS
+            #undef ARILES_PARENT
 
 
             #undef ARILES_TYPED_NAMED_ENTRY

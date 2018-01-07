@@ -30,7 +30,7 @@ class ConfigurableMember : public ariles::ConfigurableBase
     #define ARILES_ENTRIES \
         ARILES_TYPED_ENTRY_(integer, int) \
         ARILES_TYPED_ENTRY_(real   , double)
-    #include ARILES_DEFINE_ACCESSORS
+    #include ARILES_INITIALIZE
 
 
     public:
@@ -40,10 +40,18 @@ class ConfigurableMember : public ariles::ConfigurableBase
         }
 
 
-        void setDefaults()
+        virtual void setDefaults()
         {
             integer_ = 10;
             real_ = 1.33;
+        }
+
+
+        void randomize()
+        {
+            integer_ = GET_RANDOM_INT;
+            real_    = GET_RANDOM_REAL;
+            finalize();
         }
 };
 
@@ -53,7 +61,7 @@ class ConfigurableBase : public ariles::ConfigurableBase
     #define ARILES_SECTION_ID "ConfigurableBase"
     #define ARILES_ENTRIES \
         ARILES_TYPED_ENTRY_(member,         ConfigurableMember)
-    #include ARILES_DEFINE_ACCESSORS
+    #include ARILES_INITIALIZE
 
 
     public:
@@ -63,9 +71,16 @@ class ConfigurableBase : public ariles::ConfigurableBase
         }
 
 
-        void setDefaults()
+        virtual void setDefaults()
         {
             member_.setDefaults();
+        }
+
+
+        void randomize()
+        {
+            member_.randomize();
+            finalize();
         }
 };
 
@@ -74,8 +89,9 @@ class ConfigurableDerived : public ConfigurableBase
 {
     #define ARILES_SECTION_ID "ConfigurableDerived"
     #define ARILES_ENTRIES \
+        ARILES_PARENT(ConfigurableBase) \
         ARILES_TYPED_ENTRY_(another_member,         ConfigurableMember)
-    #include ARILES_DEFINE_ACCESSORS
+    #include ARILES_INITIALIZE
 
 
     public:
@@ -85,10 +101,18 @@ class ConfigurableDerived : public ConfigurableBase
         }
 
 
-        void setDefaults()
+        virtual void setDefaults()
         {
             another_member_.setDefaults();
             ConfigurableBase::setDefaults();
+        }
+
+
+        void randomize()
+        {
+            another_member_.randomize();
+            ConfigurableBase::randomize();
+            finalize();
         }
 };
 
@@ -104,9 +128,9 @@ void    compare(const t_Configurable_out    &configurable_out,
                 const t_Configurable_in     &configurable_in)
 {
     BOOST_CHECK_EQUAL(configurable_out.another_member_.integer_, configurable_in.another_member_.integer_);
-    BOOST_CHECK_EQUAL(configurable_out.another_member_.real_,    configurable_in.another_member_.real_);
+    BOOST_CHECK_CLOSE(configurable_out.another_member_.real_,    configurable_in.another_member_.real_, g_tolerance);
     BOOST_CHECK_EQUAL(configurable_out.member_.integer_,         configurable_in.member_.integer_);
-    BOOST_CHECK_EQUAL(configurable_out.member_.real_,            configurable_in.member_.real_);
+    BOOST_CHECK_CLOSE(configurable_out.member_.real_,            configurable_in.member_.real_, g_tolerance);
 }
 
 
@@ -125,7 +149,7 @@ void    compare(const t_Configurable_out    &configurable_out,
     ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, NAMESPACE, ConfigurableDerived) \
     ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, NAMESPACE, ConfigurableDerived) \
     ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, NAMESPACE, ConfigurableDerived) \
-    BOOST_FIXTURE_TEST_CASE(ComparisonViaBaseFixture##_##NAMESPACE##, ComparisonViaBaseFixture) \
+    BOOST_FIXTURE_TEST_CASE(ComparisonViaBaseFixture##_##NAMESPACE, ComparisonViaBaseFixture) \
     { \
         test<ConfigurableBase, ConfigurableDerived, ariles::NAMESPACE::Reader, ariles::NAMESPACE::Writer>(); \
     }

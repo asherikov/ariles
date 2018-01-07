@@ -19,6 +19,7 @@ class ConstructorInterfaceFixture
         {
             BOOST_CHECK_NO_THROW(
                 t_Configurable configurable;
+                configurable.randomize();
 
                 t_Writer writer("configurable.cfg");
                 configurable.writeConfig(writer);

@@ -33,7 +33,7 @@
     #define ARILES_WRITE_ENTRY_(entry)   ARILES_WRITE_NAMED_ENTRY(entry##_, #entry)
     #define ARILES_WRITE_ENTRY(entry)    ARILES_WRITE_NAMED_ENTRY(entry, #entry)
 
-    #define ARILES_WRITE_PARENT_CLASS(parent_class)  parent_class::writeConfigEntries(writer);
+    #define ARILES_WRITE_PARENT(parent_class)  parent_class::writeConfigEntries(writer);
 
 
     #define ARILES_READ_NAMED_ENTRY(entry, name)  ariles::reader::readEntry(reader, entry, name, crash_on_missing_entry);
@@ -41,7 +41,7 @@
     #define ARILES_READ_ENTRY_(entry)    ARILES_READ_NAMED_ENTRY(entry##_, #entry);
     #define ARILES_READ_ENTRY(entry)     ARILES_READ_NAMED_ENTRY(entry, #entry);
 
-    #define ARILES_READ_PARENT_CLASS(parent_class)  parent_class::readConfigEntries(reader, crash_on_missing_entry);
+    #define ARILES_READ_PARENT(parent_class)  parent_class::readConfigEntries(reader, crash_on_missing_entry);
 
     // ----------------------------
 

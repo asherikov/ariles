@@ -17,7 +17,7 @@ template<class t_Configurable>
     #define ARILES_SECTION_ID "ConfigurableVector"
     #define ARILES_ENTRIES \
         ARILES_ENTRY_(vector)
-    #include ARILES_DEFINE_ACCESSORS
+    #include ARILES_INITIALIZE
 
     public:
         std::vector<t_Configurable> vector_;
@@ -32,7 +32,17 @@ template<class t_Configurable>
 
         void setDefaults()
         {
+        }
+
+
+        void randomize()
+        {
             vector_.resize(4);
+
+            for(std::size_t i = 0; i < vector_.size(); ++i)
+            {
+                vector_[i].randomize();
+            }
         }
 };
 
@@ -44,6 +54,7 @@ class ComparisonVectorFixture
             void test()
         {
             ConfigurableVector<t_Configurable> configurable_vector_out;
+            configurable_vector_out.randomize();
             BOOST_CHECK_NO_THROW(
                 configurable_vector_out.template writeConfig<t_Writer>("configurable_match_vector.cfg");
             );

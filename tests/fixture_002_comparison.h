@@ -18,6 +18,7 @@ class ComparisonSimpleFixture
             void test()
         {
             t_Configurable  configurable_out;
+            configurable_out.randomize();
             BOOST_CHECK_NO_THROW(
                 configurable_out.template writeConfig<t_Writer>("configurable_match_simple.cfg");
             );
@@ -44,6 +45,9 @@ class ComparisonMultiFixture
         {
             t_Configurable configurable_out1;
             t_Configurable configurable_out2;
+
+            configurable_out1.randomize();
+            configurable_out2.randomize();
 
             BOOST_CHECK_NO_THROW(
                 t_Writer writer("configurable_match_multi.cfg");

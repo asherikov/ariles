@@ -48,7 +48,7 @@ class ConfigurableVerbose : public ariles::ConfigurableBase
         ARILES_ENTRY_(std_vector_evector) \
         ARILES_ENTRY_(std_nested_vector_evector) \
         ARILES_ENTRY_(enum)
-    #include ARILES_DEFINE_ACCESSORS
+    #include ARILES_INITIALIZE
 
 
     public:
@@ -77,7 +77,7 @@ class ConfigurableVerbose : public ariles::ConfigurableBase
         }
 
 
-        void setDefaults()
+        virtual void setDefaults()
         {
             integer_ = 10;
             real_ = 1.33;
@@ -123,6 +123,12 @@ class ConfigurableVerbose : public ariles::ConfigurableBase
             }
 
             enum_ = ANOTHER_VALUE;
+        }
+
+
+        void randomize()
+        {
+            finalize();
         }
 };
 
@@ -143,7 +149,7 @@ class ConfigurableAutoDeclare : public ariles::ConfigurableBase
         ARILES_TYPED_ENTRY_(std_vector_evector,  std::vector<Eigen::Vector3d>) \
         ARILES_TYPED_ENTRY_(std_nested_vector_evector, std::vector< std::vector<Eigen::Vector3d> >)\
         ARILES_TYPED_ENTRY_(enum, SomeEnum)
-    #include ARILES_DEFINE_ACCESSORS
+    #include ARILES_INITIALIZE
 
 
     public:
@@ -153,7 +159,7 @@ class ConfigurableAutoDeclare : public ariles::ConfigurableBase
         }
 
 
-        void setDefaults()
+        virtual void setDefaults()
         {
             integer_ = 10;
             real_ = 1.33;
@@ -199,6 +205,12 @@ class ConfigurableAutoDeclare : public ariles::ConfigurableBase
             }
 
             enum_ = ANOTHER_VALUE;
+        }
+
+
+        void randomize()
+        {
+            finalize();
         }
 };
 

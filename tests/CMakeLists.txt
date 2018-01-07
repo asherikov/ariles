@@ -1,7 +1,7 @@
 find_package(Eigen3 REQUIRED)
 include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
 
-find_package(Boost REQUIRED unit_test_framework timer system)
+find_package(Boost REQUIRED unit_test_framework timer random system)
 include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 
 
@@ -17,3 +17,4 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY     "${PROJECT_BINARY_DIR}/bin_tests/")
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "000" "yaml;msgpack")
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "001" "yaml;msgpack")
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "002" "yaml;msgpack")
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "003" "yaml;msgpack")

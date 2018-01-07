@@ -39,6 +39,7 @@ function(ariles_define_regression_test ARILES_MODULE REGRESSION_TEST_ID DEPENDEN
     target_link_libraries(${TGT_NAME} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARIES})
     target_link_libraries(${TGT_NAME} ${Boost_SYSTEM_LIBRARIES}             )
     target_link_libraries(${TGT_NAME} ${Boost_TIMER_LIBRARIES}              )
+    target_link_libraries(${TGT_NAME} ${Boost_RANDOM_LIBRARIES}             )
 
 
     ariles_copy_extra_test_files(${TGT_NAME} "copy_cfg" "${CMAKE_CURRENT_LIST_DIR}" "${TEST_NAME}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
