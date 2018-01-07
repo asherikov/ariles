@@ -1,0 +1,33 @@
+cmake modules:
+    - ariles_add_regression_test.cmake
+      adds a regression test for the core or a submodule
+
+    - ariles_add_test.cmake
+      adds a simple test for the core or a submodule
+
+    - ariles_add_external_git_project
+      wrappers for ExternalProject_Add(), allow compilation without
+      Internet connection.
+
+    - ariles_copy_dir_if_exists
+    - ariles_copy_file_if_exists
+      add custom targets to copy directories or files if they exists.
+
+    - ariles_copy_extra_test_files
+      add custom target to copy extra files for a particular test.
+
+    - ariles_define_regression_test.cmake
+      define regression test.
+
+    - ariles_dump_variables.cmake
+      dump all cmake variables (for debugging)
+
+    - ariles_parse_test_dependencies.cmake
+      parse test dependencies -- should be called from ariles_define_regression_test
+
+    - ariles_list_filenames
+      list filenames in the given directory
+
+    * third party
+        - FindEigen3.cmake
+          find Eigen headers, copied from Eigen distribution
