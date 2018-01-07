@@ -128,6 +128,50 @@ class ConfigurableVerbose : public ariles::ConfigurableBase
 
         void randomize()
         {
+            integer_ = GET_RANDOM_INT;
+            real_ = GET_RANDOM_REAL;
+            vector_.setRandom();
+            matrix_.setRandom();
+            string_ = "blahblah";
+
+            matrix_x_.resize(2, 3);
+            matrix_x_.setRandom();
+
+            std_vector_.resize(5);
+            for(std::size_t i = 0; i < std_vector_.size(); ++i)
+            {
+                std_vector_[i] = GET_RANDOM_REAL;
+            }
+
+            std_nested_vector_.resize(3);
+            for(std::size_t i = 0; i < std_nested_vector_.size(); ++i)
+            {
+                std_nested_vector_[i].resize(7-i);
+
+                for(std::size_t j = 0; j < std_nested_vector_[i].size(); ++j)
+                {
+                    std_nested_vector_[i][j] = GET_RANDOM_REAL;
+                }
+            }
+
+            std_vector_evector_.resize(4);
+            for(std::size_t i = 0; i < std_vector_evector_.size(); ++i)
+            {
+                std_vector_evector_[i].setRandom();
+            }
+
+            std_nested_vector_evector_.resize(2);
+            for(std::size_t i = 0; i < std_nested_vector_evector_.size(); ++i)
+            {
+                std_nested_vector_evector_[i].resize(1+i);
+
+                for(std::size_t j = 0; j < std_nested_vector_evector_[i].size(); ++j)
+                {
+                    std_nested_vector_evector_[i][j].setRandom();
+                }
+            }
+
+            enum_ = ANOTHER_VALUE;
             finalize();
         }
 };
@@ -210,6 +254,50 @@ class ConfigurableAutoDeclare : public ariles::ConfigurableBase
 
         void randomize()
         {
+            integer_ = GET_RANDOM_INT;
+            real_ = GET_RANDOM_REAL;
+            vector_.setRandom();
+            matrix_.setRandom();
+            string_ = "blahblah";
+
+            matrix_x_.resize(2, 3);
+            matrix_x_.setRandom();
+
+            std_vector_.resize(5);
+            for(std::size_t i = 0; i < std_vector_.size(); ++i)
+            {
+                std_vector_[i] = GET_RANDOM_REAL;
+            }
+
+            std_nested_vector_.resize(3);
+            for(std::size_t i = 0; i < std_nested_vector_.size(); ++i)
+            {
+                std_nested_vector_[i].resize(7-i);
+
+                for(std::size_t j = 0; j < std_nested_vector_[i].size(); ++j)
+                {
+                    std_nested_vector_[i][j] = GET_RANDOM_REAL;
+                }
+            }
+
+            std_vector_evector_.resize(4);
+            for(std::size_t i = 0; i < std_vector_evector_.size(); ++i)
+            {
+                std_vector_evector_[i].setRandom();
+            }
+
+            std_nested_vector_evector_.resize(2);
+            for(std::size_t i = 0; i < std_nested_vector_evector_.size(); ++i)
+            {
+                std_nested_vector_evector_[i].resize(1+i);
+
+                for(std::size_t j = 0; j < std_nested_vector_evector_[i].size(); ++j)
+                {
+                    std_nested_vector_evector_[i][j].setRandom();
+                }
+            }
+
+            enum_ = ANOTHER_VALUE;
             finalize();
         }
 };
@@ -226,10 +314,10 @@ void    compare(const t_Configurable_out    &configurable_out,
                 const t_Configurable_in     &configurable_in)
 {
     BOOST_CHECK_EQUAL(configurable_out.integer_,          configurable_in.integer_);
-    BOOST_CHECK_EQUAL(configurable_out.real_,             configurable_in.real_);
-    BOOST_CHECK_EQUAL(configurable_out.vector_,           configurable_in.vector_);
-    BOOST_CHECK_EQUAL(configurable_out.matrix_,           configurable_in.matrix_);
-    BOOST_CHECK_EQUAL(configurable_out.matrix_x_,         configurable_in.matrix_x_);
+    BOOST_CHECK_CLOSE(configurable_out.real_,             configurable_in.real_, g_tolerance);
+    BOOST_CHECK(configurable_out.vector_.isApprox(configurable_in.vector_, g_tolerance));
+    BOOST_CHECK(configurable_out.matrix_.isApprox(configurable_in.matrix_, g_tolerance));
+    BOOST_CHECK(configurable_out.matrix_x_.isApprox(configurable_in.matrix_x_, g_tolerance));
     BOOST_CHECK_EQUAL(configurable_out.string_,           configurable_in.string_);
 
     BOOST_CHECK_EQUAL(configurable_out.std_vector_.size(),                configurable_in.std_vector_.size());
@@ -246,8 +334,8 @@ void    compare(const t_Configurable_out    &configurable_out,
 
     for (std::size_t i = 0; i < configurable_out.std_vector_evector_.size(); ++i)
     {
-        BOOST_CHECK_EQUAL(  configurable_out.std_vector_evector_[i],
-                    configurable_in.std_vector_evector_[i]);
+        BOOST_CHECK(configurable_out.std_vector_evector_[i].isApprox(
+                    configurable_in.std_vector_evector_[i], g_tolerance));
     }
 
 
@@ -267,8 +355,8 @@ void    compare(const t_Configurable_out    &configurable_out,
         BOOST_CHECK_EQUAL(configurable_out.std_nested_vector_evector_[i].size(),  configurable_in.std_nested_vector_evector_[i].size());
         for (std::size_t j = 0; j < configurable_out.std_nested_vector_evector_[i].size(); ++j)
         {
-            BOOST_CHECK_EQUAL(  configurable_out.std_nested_vector_evector_[i][j],
-                        configurable_in.std_nested_vector_evector_[i][j]);
+            BOOST_CHECK(configurable_out.std_nested_vector_evector_[i][j].isApprox(
+                        configurable_in.std_nested_vector_evector_[i][j], g_tolerance));
         }
     }
 }
