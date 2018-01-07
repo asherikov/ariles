@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "helpers.h"
+#include "internal/helpers.h"
 
 #include "adapters/eigen.h"
 #include "adapters/std_vector.h"

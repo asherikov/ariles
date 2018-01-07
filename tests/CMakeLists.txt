@@ -10,7 +10,7 @@ include(ariles_define_regression_test)
 include(ariles_parse_test_dependencies)
 
 
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY     "${PROJECT_BINARY_DIR}/bin_tests/")
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY     "${PROJECT_BINARY_DIR}/tests_bin/")
 
 
 # tests
@@ -18,3 +18,5 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "000" "yaml;msgpack")
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "001" "yaml;msgpack")
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "002" "yaml;msgpack")
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "003" "yaml;msgpack")
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "004" "yaml;msgpack")
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "005" "yaml;msgpack")

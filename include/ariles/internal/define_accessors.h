@@ -11,14 +11,7 @@
     header from / to a configuration file.
 */
 
-
-#ifdef ARILES_ENABLED
-#   ifndef ARILES_ENTRIES
-#       error "ARILES_ENTRIES must be defined."
-#   endif
-
-
-    #ifndef ARILES_DOXYGEN_PROCESSING
+#ifndef ARILES_DOXYGEN_PROCESSING
     public:
         #ifdef ARILES_ENTRIES
             #define ARILES_NAMED_ENTRY(entry, name)
@@ -33,7 +26,16 @@
 
             #define ARILES_TYPED_NAMED_ENTRY(type, entry, name)  ARILES_NAMED_ENTRY(entry, name)
         #endif
+#endif
 
+
+#ifdef ARILES_ENABLED
+#   ifndef ARILES_ENTRIES
+#       error "ARILES_ENTRIES must be defined."
+#   endif
+
+
+    #ifndef ARILES_DOXYGEN_PROCESSING
 
     protected:
         #ifdef ARILES_ENTRIES

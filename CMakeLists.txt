@@ -261,6 +261,18 @@ endif (ARILES_LIBRARIES)
 configure_file("cmake/arilesConfig.cmake.in"    "${PROJECT_BINARY_DIR}/arilesConfig.cmake")
 
 
+#---
+set(ARILES_BUILD_CONFIG "")
+
+foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
+    set(ARILES_BUILD_CONFIG "${ARILES_BUILD_CONFIG}#cmakedefine ARILES_BRIDGE_${ARILES_BRIDGE}\n")
+endforeach(ARILES_BRIDGE)
+
+string(CONFIGURE "${ARILES_BUILD_CONFIG}" ARILES_BUILD_CONFIG)
+file(WRITE "${ARILES_INCLUDE_DIR}/ariles/internal/build_config.h" "${ARILES_BUILD_CONFIG}")
+#---
+
+
 #####################################
 ## Installation
 #####################################

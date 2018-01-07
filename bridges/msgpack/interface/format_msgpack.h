@@ -18,8 +18,8 @@
 #endif
 
 
-#include "helpers.h"
-#include "reader_base.h"
+#include "internal/helpers.h"
+#include "internal/reader_base.h"
 
 #include "msgpack.hpp"
 

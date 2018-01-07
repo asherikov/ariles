@@ -13,19 +13,22 @@
 
 #pragma once
 
+#include "internal/helpers.h"
+
+// These defines are always necessary
+#define ARILES_TYPED_ENTRY_(entry, type) ARILES_TYPED_NAMED_ENTRY(type, entry##_, #entry)
+#define ARILES_TYPED_ENTRY(entry, type)  ARILES_TYPED_NAMED_ENTRY(type, entry, #entry)
+
+
 #ifdef ARILES_NAMESPACE_0
 #   define ARILES_ENABLED
 
 
-#   include "helpers.h"
-#   include "process_namespaces.h"
+#   include "internal/process_namespaces.h"
 
 
     #define ARILES_ENTRY_(entry)     ARILES_NAMED_ENTRY(entry##_, #entry)
     #define ARILES_ENTRY(entry)      ARILES_NAMED_ENTRY(entry, #entry)
-
-    #define ARILES_TYPED_ENTRY_(entry, type) ARILES_TYPED_NAMED_ENTRY(type, entry##_, #entry)
-    #define ARILES_TYPED_ENTRY(entry, type)  ARILES_TYPED_NAMED_ENTRY(type, entry, #entry)
 
 
     #define ARILES_WRITE_NAMED_ENTRY(entry, name)    ariles::writer::writeEntry(writer, entry, name);

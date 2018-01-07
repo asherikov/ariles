@@ -10,12 +10,7 @@
 
 #include "utility.h"
 
-// Enable YAML configuration files (must be first)
-#include "ariles/format_yaml.h"
-#include "ariles/format_msgpack.h"
-// common & abstract classes
-#include "ariles/adapters_all.h"
-#include "ariles/ariles.h"
+#include "ariles/ariles_all.h"
 
 
 // ===============================================================
