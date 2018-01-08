@@ -1,0 +1,6 @@
+[submodule "bridges/yaml/yaml-cpp"]
+	path = bridges/yaml/yaml-cpp
+	url = https://github.com/jbeder/yaml-cpp.git
+[submodule "bridges/msgpack/msgpack-c"]
+	path = bridges/msgpack/msgpack-c
+	url = https://github.com/msgpack/msgpack-c.git
