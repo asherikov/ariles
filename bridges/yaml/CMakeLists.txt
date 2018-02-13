@@ -26,8 +26,6 @@ ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                     "format_
 add_dependencies("TGT_ariles_copy_headers_format_yaml_h" "TGT_ariles_copy_headers_ariles")
 
 
-set(ARILES_USE_CONFIG ON PARENT_SCOPE)
-set(ARILES_BRIDGE_${ARILES_BRIDGE}_NAMESPACE "YAML" PARENT_SCOPE)
 set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES "" PARENT_SCOPE)
 set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS
     "${ARILES_BRIDGES_LIBDIR}/${CMAKE_SHARED_MODULE_PREFIX}yaml-cpp${CMAKE_STATIC_LIBRARY_SUFFIX}" PARENT_SCOPE)

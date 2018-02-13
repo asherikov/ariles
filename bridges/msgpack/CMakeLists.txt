@@ -33,8 +33,6 @@ ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                         "for
                             "${MESSAGEPACK_INTERFACE_DIR}/format_msgpack"   "${ARILES_INCLUDE_DIR}/ariles/format_msgpack")
 add_dependencies("TGT_ariles_copy_headers_format_msgpack_h" "TGT_ariles_copy_headers_ariles")
 
-set(ARILES_USE_CONFIG ON PARENT_SCOPE)
-set(ARILES_BRIDGE_${ARILES_BRIDGE}_NAMESPACE "msgpack" PARENT_SCOPE)
 set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES "" PARENT_SCOPE)
 set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS
     "${ARILES_BRIDGES_LIBDIR}/${CMAKE_SHARED_MODULE_PREFIX}msgpackc${CMAKE_STATIC_LIBRARY_SUFFIX}" PARENT_SCOPE)
