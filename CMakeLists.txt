@@ -3,9 +3,13 @@ cmake_minimum_required (VERSION 2.8.12)
 project (ariles CXX)
 
 
-set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
+include(FindPkgConfig)
 include(ExternalProject)
 include(CMakeParseArguments)
+
+
+set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
+
 include(ariles_copy_dir_if_exists)
 include(ariles_copy_file_if_exists)
 include(ariles_add_external_git_project)
@@ -19,8 +23,8 @@ include(ariles_dump_variables)
 #####################################
 
 # bridges
-option (ARILES_ENABLE_BRIDGES_BY_DEFAULT    "If true all modules are enabled by default." ON)
-option (ARILES_INSTALL_BRIDGES              "Install bridges on the system." OFF)
+set    (ARILES_BRIDGES_DEFAULT_MODE     "BUILD" CACHE STRING "ON = enable, OFF = disable, BUILD = build from sources")
+option (ARILES_INSTALL_BRIDGES          "Install bridges on the system." OFF)
 
 # build parameters
 option (ARILES_VERBOSE                  "Verbose build"                     ON)
@@ -51,11 +55,11 @@ foreach (ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
 
         list(REMOVE_ITEM ARILES_CACHED_BRIDGES "ARILES_BRIDGE_${ARILES_BRIDGE}")
         if (ARILES_BRIDGE_${ARILES_BRIDGE})
-            option ("ARILES_BRIDGE_${ARILES_BRIDGE}"
-                    "Enable bridge '${ARILES_BRIDGE}'" ${ARILES_BRIDGE_${ARILES_BRIDGE}})
+            set    ("ARILES_BRIDGE_${ARILES_BRIDGE}" "${ARILES_BRIDGE_${ARILES_BRIDGE}}"
+                    CACHE STRING "Bridge '${ARILES_BRIDGE} (ON / OFF / BUILD)")
         else()
-            option ("ARILES_BRIDGE_${ARILES_BRIDGE}"
-                    "Enable bridge '${ARILES_BRIDGE}'" ${ARILES_ENABLE_BRIDGES_BY_DEFAULT})
+            set    ("ARILES_BRIDGE_${ARILES_BRIDGE}" "${ARILES_BRIDGES_DEFAULT_MODE}"
+                    CACHE STRING "Bridge '${ARILES_BRIDGE} (ON / OFF / BUILD)")
         endif()
 
 
@@ -203,7 +207,8 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
     ariles_list_filenames("${ARILES_BRIDGES_DIR}"   "ARILES_BRIDGES_TMP" DIRS_WITH_CMAKELISTS)
 
     foreach(ARILES_BRIDGE ${ARILES_BRIDGES_TMP})
-        if (ARILES_BRIDGE_${ARILES_BRIDGE})
+        if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
+            set (${ARILES_BRIDGE}_INTERFACE_DIR  "${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/interface")
             add_subdirectory("${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}" "${ARILES_BRIDGES_BINARY_DIR}/${ARILES_BRIDGE}")
 
             if (ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS)
@@ -213,6 +218,11 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
             if (ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES)
                 list(APPEND ARILES_OPTIONAL_INCLUDES    "${ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES}")
                 include_directories("${ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES}")
+            endif()
+
+            if (ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS)
+                message ("---------------------------------------- ${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS}")
+                link_directories("${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS}")
             endif()
         endif()
     endforeach(ARILES_BRIDGE)
@@ -225,7 +235,7 @@ endforeach(ARILES_BRIDGES_DIR)
 #####################################
 
 
-set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -fPIC -pedantic -Wall")
+set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -fPIC -pedantic -Wall ${ARILES_CXX_FLAGS}")
 # extra warnings
 set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -Wempty-body -Wignored-qualifiers -Wmissing-field-initializers")
 set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -Wsign-compare -Wtype-limits -Wuninitialized -Woverloaded-virtual")
@@ -265,7 +275,11 @@ configure_file("cmake/arilesConfig.cmake.in"    "${PROJECT_BINARY_DIR}/arilesCon
 set(ARILES_BUILD_CONFIG "")
 
 foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
-    set(ARILES_BUILD_CONFIG "${ARILES_BUILD_CONFIG}#cmakedefine ARILES_BRIDGE_${ARILES_BRIDGE}\n")
+    set(ARILES_BUILD_CONFIG "${ARILES_BUILD_CONFIG}#define ARILES_BRIDGE_${ARILES_BRIDGE}\n")
+    if(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDE_HEADER)
+        set(ARILES_BUILD_CONFIG
+            "${ARILES_BUILD_CONFIG}#define ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDE_HEADER \"${ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDE_HEADER}\"\n")
+    endif()
 endforeach(ARILES_BRIDGE)
 
 string(CONFIGURE "${ARILES_BUILD_CONFIG}" ARILES_BUILD_CONFIG)

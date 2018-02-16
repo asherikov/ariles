@@ -18,6 +18,7 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_enum.hpp>
 
+#include "build_config.h"
 
 #ifndef ARILES_DEFAULT_CONFIG_PREFIX
 #   define ARILES_DEFAULT_CONFIG_PREFIX     ""

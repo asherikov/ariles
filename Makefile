@@ -9,7 +9,7 @@ ROOT_DIR=../../
 # Toolchains
 TC?=generic
 
-OPTIONS?=default
+BRIDGES_MODE?=BUILD
 
 # Build type as in CMAKE_BUILD_TYPE
 TYPE?=Debug
@@ -28,12 +28,13 @@ clean:
 # Generic targets
 #----------------------------------------------
 
-BUILD_SUBDIR=${BUILD_DIR}/${TC}-${TYPE}-${OPTIONS}
+BUILD_SUBDIR=${BUILD_DIR}/${TC}-${TYPE}-BRIDGES_${BRIDGES_MODE}
 
 build:
 	mkdir -p ${BUILD_SUBDIR};
 	cd ${BUILD_SUBDIR}; cmake 	-DCMAKE_BUILD_TYPE=${TYPE} \
-								-DCMAKE_TOOLCHAIN_FILE=${CMAKE_DIR}/toolchain_${TC}.cmake \
+								-DCMAKE_TOOLCHAIN_FILE=${CMAKE_DIR}/toolchain_${TC}.cmake\
+								-DARILES_BRIDGES_DEFAULT_MODE=${BRIDGES_MODE}\
 								${EXTRA_CMAKE_PARAM} \
 								${ROOT_DIR};
 	cd ${BUILD_SUBDIR}; ${MAKE} ${MAKE_FLAGS} ${TARGETS}
@@ -57,10 +58,10 @@ fetch:
 #----------------------------------------------
 
 debug-all:
-	${MAKE} build TC=${TC} TYPE=Debug OPTIONS=all TARGETS="${TARGETS}"
+	${MAKE} build TC=${TC} TYPE=Debug TARGETS="${TARGETS}"
 
 debug-all-tests:
-	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=all TARGETS="${TARGETS}"
+	${MAKE} build-tests TC=${TC} TYPE=Debug TARGETS="${TARGETS}"
 
 all: debug-all
 
@@ -70,27 +71,15 @@ debug: debug-all
 
 
 #----------------------------------------------
-# debug mode (default)
-# Build & test
-#----------------------------------------------
-
-debug-default:
-	${MAKE} build TC=${TC} TYPE=Debug OPTIONS=default TARGETS="${TARGETS}"
-
-debug-default-tests:
-	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=default TARGETS="${TARGETS}"
-
-
-#----------------------------------------------
 # release mode
 # Build & test
 #----------------------------------------------
 
 release-all:
-	${MAKE} build TC=${TC} TYPE=Release OPTIONS=all TARGETS="${TARGETS}"
+	${MAKE} build TC=${TC} TYPE=Release TARGETS="${TARGETS}"
 
 release-all-tests: release-all
-	${MAKE} build-tests TC=${TC} TYPE=Release OPTIONS=all TARGETS="${TARGETS}"
+	${MAKE} build-tests TC=${TC} TYPE=Release TARGETS="${TARGETS}"
 
 release: release-all
 
@@ -100,8 +89,11 @@ release: release-all
 #----------------------------------------------
 
 check-build: clean
-	${MAKE}	debug-all-tests EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
-	${MAKE}	debug-all-tests TC=gcc EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+	${MAKE} build-tests TC=${TC} TYPE=Debug BRIDGES_MODE=ON TARGETS="${TARGETS}" 	EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+	${MAKE} build-tests TC=${TC} TYPE=Debug BRIDGES_MODE=BUILD TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+#	${MAKE} build-tests TC=gcc TYPE=Debug BRIDGES_MODE=ON TARGETS="${TARGETS}" 		EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+#	${MAKE} build-tests TC=gcc TYPE=Debug BRIDGES_MODE=BUILD TARGETS="${TARGETS}" 	EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+#	${MAKE} build-tests TC=gcc TYPE=Debug BRIDGES_MODE=ON TARGETS="${TARGETS}" 		EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM} -DARILES_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=0"
 
 check: check-build
 

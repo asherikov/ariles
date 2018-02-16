@@ -4,6 +4,7 @@ include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
 find_package(Boost REQUIRED unit_test_framework timer random system)
 include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 
+list(APPEND ARILES_MANDATORY_LIBRARIES  "${Boost_LIBRARIES}")
 
 include(ariles_copy_extra_test_files)
 include(ariles_define_regression_test)

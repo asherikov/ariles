@@ -22,7 +22,7 @@
 #include "internal/helpers.h"
 #include "internal/reader_base.h"
 
-#include "yaml-cpp/yaml.h"
+#include ARILES_BRIDGE_yaml_INCLUDE_HEADER
 
 #include "format_yaml/reader.h"
 #include "format_yaml/writer.h"
