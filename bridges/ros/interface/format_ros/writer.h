@@ -20,53 +20,51 @@ namespace ariles
         class ARILES_VISIBILITY_ATTRIBUTE Writer
         {
             protected:
-                /*
-                 * @brief Initialize emitter
-                 *
-                void initEmitter()
-                {
-                    emitter_ = new YAML::Emitter;
-                    emitter_->SetDoublePrecision(std::numeric_limits<double>::digits10);
-                    if (config_ofs_.tellp() != 0)
-                    {
-                        *emitter_ << YAML::Newline;
-                    }
-                    *emitter_ << YAML::BeginMap;
-                }
+                typedef ariles::Node<XmlRpc::XmlRpcValue> NodeWrapper;
 
 
-                **
-                 * @brief Destroy emitter
-                 *
-                void destroyEmitter()
-                {
-                    *emitter_ << YAML::EndMap;
-                    config_ofs_ << emitter_->c_str();
-                    delete emitter_;
-                }
-                */
+            protected:
+                /// Stack of nodes.
+                std::vector<NodeWrapper>    node_stack_;
+
+                std::string                 root_name_;
+                XmlRpc::XmlRpcValue         root_value_;
+
+                ::ros::NodeHandle nh_;
+
 
 
             public:
-                explicit Writer(const std::string& file_name)
+                explicit Writer(const ::ros::NodeHandle &nh)
                 {
-                    /*
-                    config_ofs_.open(file_name.c_str());
-
-                    if (!config_ofs_.good())
-                    {
-                        ARILES_THROW_MSG(std::string("Could not open configuration file for writing: ") +  file_name.c_str());
-                    }
-
-                    initEmitter();
-                    */
+                    nh_ = nh;
                 }
 
 
                 ~Writer()
                 {
-                    //delete emitter_;
                 }
+
+
+
+                /**
+                 * @brief Starts a nested map in the configuration file
+                 */
+                void initRoot()
+                {
+                    root_name_ = "";
+                    root_value_.clear();
+                }
+
+
+                /**
+                 * @brief Flush the configuration to the file
+                 */
+                void flush()
+                {
+                    nh_.setParam(root_name_, root_value_);
+                }
+
 
 
                 /**
@@ -76,11 +74,23 @@ namespace ariles
                  */
                 void descend(const std::string &map_name)
                 {
-                    /*
-                    *emitter_ << YAML::Key << map_name;
-                    *emitter_ << YAML::Value;
-                    */
+                    if (0 == node_stack_.size())
+                    {
+                        root_name_ = map_name;
+                        node_stack_.push_back(&root_value_);
+                    }
+                    else
+                    {
+                        node_stack_.push_back(NodeWrapper( &( (*node_stack_.back().node_) [map_name]) ));
+                    }
                 }
+
+
+                void ascend()
+                {
+                    node_stack_.pop_back();
+                }
+
 
 
                 /**
@@ -90,15 +100,7 @@ namespace ariles
                  */
                 void startMap(const std::size_t num_entries)
                 {
-                    //*emitter_ << YAML::BeginMap;
-                }
-
-
-                /**
-                 * @brief Starts a nested map in the configuration file
-                 */
-                void initRoot()
-                {
+                    //node_stack_.back().node_->setSize(num_entries);
                 }
 
 
@@ -107,35 +109,17 @@ namespace ariles
                  */
                 void endMap()
                 {
-                    //*emitter_ << YAML::EndMap;
-                }
-
-                void ascend()
-                {
-                }
-
-
-
-                /**
-                 * @brief Flush the configuration to the file
-                 */
-                void flush()
-                {
-                    //destroyEmitter();
-                    //initEmitter();
                 }
 
 
 
                 void startArray(const std::size_t size)
                 {
-                    //*emitter_ << YAML::Flow;
-                    //*emitter_ << YAML::BeginSeq;
+                    node_stack_.back().node_->setSize(size);
                 }
 
                 void endArray()
                 {
-                    //*emitter_ << YAML::EndSeq;
                 }
 
 
@@ -149,7 +133,7 @@ namespace ariles
                 template<class t_Element>
                     void writeElement(const t_Element & element)
                 {
-                    //*emitter_ << element;
+                    *node_stack_.back().node_ = element;
                 }
         };
     }

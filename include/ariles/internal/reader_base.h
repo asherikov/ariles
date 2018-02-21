@@ -16,12 +16,12 @@ namespace ariles
         class ARILES_VISIBILITY_ATTRIBUTE Node
     {
         public:
-            const t_RawNode     *node_;
+            t_RawNode           *node_;
             std::size_t         index_;
             std::size_t         size_;
 
         public:
-            Node(const t_RawNode *node) : node_(node)
+            Node(t_RawNode *node) : node_(node)
             {
                 index_ = 0;
                 size_ = 0;

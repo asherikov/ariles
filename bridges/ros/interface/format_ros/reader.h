@@ -29,6 +29,20 @@ namespace ariles
 
 
             protected:
+
+                // http://docs.ros.org/api/xmlrpcpp/html/classXmlRpc_1_1XmlRpcValue.html
+/*
+XmlRpc::XmlRpcValue my_list;
+nh.getParam("my_list", my_list);
+ROS_ASSERT(my_list.getType() == XmlRpc::XmlRpcValue::TypeArray);
+
+for (int32_t i = 0; i < my_list.size(); ++i)
+{
+    ROS_ASSERT(my_list[i].getType() == XmlRpc::XmlRpcValue::TypeDouble);
+    sum += static_cast<double>(my_list[i]);
+}
+*/
+
                 /*
                  * @brief Get current node
                  *

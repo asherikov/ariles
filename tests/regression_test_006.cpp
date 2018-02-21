@@ -28,7 +28,9 @@
 class Configurable : public ariles::ConfigurableBase
 {
     #define ARILES_SECTION_ID "Configurable"
-    #define ARILES_ENTRIES
+    #define ARILES_ENTRIES \
+        ARILES_TYPED_ENTRY_(integer,     int) \
+        ARILES_TYPED_ENTRY_(real,        double)
     #include ARILES_INITIALIZE
 
 
@@ -44,11 +46,16 @@ class Configurable : public ariles::ConfigurableBase
          */
         virtual void setDefaults()
         {
+            integer_ = 10;
+            real_ = 1.33;
         }
 
 
         void randomize()
         {
+            integer_ = GET_RANDOM_INT;
+            real_    = GET_RANDOM_REAL;
+
             finalize();
         }
 };
@@ -58,7 +65,7 @@ class Configurable : public ariles::ConfigurableBase
 // FIXTURES
 // ===============================================================
 
-#include "fixture_000_basic_interface.h"
+#include "fixture_007_basic_interface_ros.h"
 
 
 

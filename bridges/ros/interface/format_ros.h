@@ -18,7 +18,8 @@
 #include "internal/helpers.h"
 #include "internal/reader_base.h"
 
-#include "ros/ros.h"
+#include <ros/ros.h>
+#include <XmlRpcValue.h>
 
 #include "format_ros/reader.h"
 #include "format_ros/writer.h"

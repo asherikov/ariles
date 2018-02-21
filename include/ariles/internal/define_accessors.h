@@ -202,11 +202,11 @@
          * @param[in] file_name file name
          * @param[in] crash_on_missing_entry
          */
-        template <class t_Reader>
-            void readConfig(const std::string &file_name,
-                            const bool        crash_on_missing_entry = true)
+        template <class t_Reader, class t_ReaderInitializer>
+            void readConfig(const t_ReaderInitializer   &reader_initializer,
+                            const bool                  crash_on_missing_entry = true)
         {
-            t_Reader reader(file_name);
+            t_Reader reader(reader_initializer);
             ariles::reader::readEntry(reader, *this, this->getConfigSectionID(), crash_on_missing_entry);
         }
 
@@ -219,12 +219,12 @@
          * @param[in] node_name   node name, the default is used if empty
          * @param[in] crash_on_missing_entry
          */
-        template <class t_Reader>
-            void readConfig(const std::string &file_name,
-                            const std::string &node_name,
-                            const bool        crash_on_missing_entry = true)
+        template <class t_Reader, class t_ReaderInitializer>
+            void readConfig(const t_ReaderInitializer   &reader_initializer,
+                            const std::string           &node_name,
+                            const bool                  crash_on_missing_entry = true)
         {
-            t_Reader reader(file_name);
+            t_Reader reader(reader_initializer);
             ariles::reader::readEntry(reader, *this, node_name, crash_on_missing_entry);
         }
 
@@ -239,12 +239,12 @@
          *
          * @note Intercept implicit conversion of a pointer to bool.
          */
-        template <class t_Reader>
-            void readConfig(const std::string &file_name,
-                            const char        *node_name,
-                            const bool        crash_on_missing_entry = true)
+        template <class t_Reader, class t_ReaderInitializer>
+            void readConfig(const t_ReaderInitializer   &reader_initializer,
+                            const char                  *node_name,
+                            const bool                  crash_on_missing_entry = true)
         {
-            t_Reader reader(file_name);
+            t_Reader reader(reader_initializer);
             ariles::reader::readEntry(reader, *this, node_name, crash_on_missing_entry);
         }
 
@@ -285,10 +285,10 @@
          *
          * @param[in] file_name file name
          */
-        template <class t_Writer>
-            void writeConfig(const std::string &file_name) const
+        template <class t_Writer, class t_WriterInitializer>
+            void writeConfig(const t_WriterInitializer &writer_initializer) const
         {
-            t_Writer writer(file_name);
+            t_Writer writer(writer_initializer);
             writeConfig(writer);
         }
 
@@ -299,11 +299,11 @@
          * @param[in] file_name file name
          * @param[in] node_name   node name, the default is used if empty
          */
-        template <class t_Writer>
-            void writeConfig(const std::string &file_name,
+        template <class t_Writer, class t_WriterInitializer>
+            void writeConfig(const t_WriterInitializer &writer_initializer,
                              const std::string &node_name) const
         {
-            t_Writer writer(file_name);
+            t_Writer writer(writer_initializer);
             writeConfig(writer, node_name);
         }
 
