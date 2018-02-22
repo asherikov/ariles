@@ -34,7 +34,7 @@ class BasicInterfaceFixture
             BOOST_CHECK_NO_THROW(
                 t_Configurable configurable;
 
-                t_Reader reader("configurable.cfg");
+                t_Reader reader(nh);
                 configurable.readConfig(reader);
             );
 
@@ -50,7 +50,7 @@ class BasicInterfaceFixture
 
             BOOST_CHECK_NO_THROW(
                 t_Configurable configurable;
-                configurable.template readConfig<t_Reader>("configurable2.cfg");
+                configurable.template readConfig<t_Reader>(nh);
             );
         }
 };

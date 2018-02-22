@@ -19,6 +19,7 @@
 #include "internal/reader_base.h"
 
 #include <ros/ros.h>
+// http://docs.ros.org/api/xmlrpcpp/html/classXmlRpc_1_1XmlRpcValue.html
 #include <XmlRpcValue.h>
 
 #include "format_ros/reader.h"

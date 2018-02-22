@@ -20,35 +20,26 @@ namespace ariles
         class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase
         {
             protected:
-                typedef ariles::Node<std::string> NodeWrapper;
+                typedef ariles::Node<XmlRpc::XmlRpcValue> NodeWrapper;
 
 
             protected:
                 /// Stack of nodes.
                 std::vector<NodeWrapper>    node_stack_;
 
+                std::string                 root_name_;
+                XmlRpc::XmlRpcValue         root_value_;
+                ::ros::NodeHandle nh_;
+
+
 
             protected:
-
-                // http://docs.ros.org/api/xmlrpcpp/html/classXmlRpc_1_1XmlRpcValue.html
-/*
-XmlRpc::XmlRpcValue my_list;
-nh.getParam("my_list", my_list);
-ROS_ASSERT(my_list.getType() == XmlRpc::XmlRpcValue::TypeArray);
-
-for (int32_t i = 0; i < my_list.size(); ++i)
-{
-    ROS_ASSERT(my_list[i].getType() == XmlRpc::XmlRpcValue::TypeDouble);
-    sum += static_cast<double>(my_list[i]);
-}
-*/
-
-                /*
+                /**
                  * @brief Get current node
                  *
                  * @return pointer to the current node
-                 *
-                const YAML::Node & getRawNode(const std::size_t depth)
+                 */
+                XmlRpc::XmlRpcValue & getRawNode(const std::size_t depth)
                 {
                     if (node_stack_[depth].isArray())
                     {
@@ -61,11 +52,10 @@ for (int32_t i = 0; i < my_list.size(); ++i)
                 }
 
 
-                const YAML::Node & getRawNode()
+                XmlRpc::XmlRpcValue & getRawNode()
                 {
                     return(getRawNode(node_stack_.size()-1));
                 }
-                */
 
 
 
@@ -75,9 +65,9 @@ for (int32_t i = 0; i < my_list.size(); ++i)
                  *
                  * @param[in] file_name
                  */
-                explicit Reader(const std::string& file_name)
+                explicit Reader(const ::ros::NodeHandle &nh)
                 {
-                    //openFile(file_name);
+                    nh_ = nh;
                 }
 
 
@@ -98,19 +88,17 @@ for (int32_t i = 0; i < my_list.size(); ++i)
                  */
                 bool descend(const std::string & child_name)
                 {
-                    /*
-                    const YAML::Node * child = getRawNode().FindValue(child_name);
-
-                    if (child == NULL)
+                    if (0 == node_stack_.size())
                     {
-                        return(false);
+                        root_name_ = child_name;
+                        nh_.getParam(root_name_, root_value_);
+                        node_stack_.push_back(&root_value_);
                     }
                     else
                     {
-                        node_stack_.push_back(NodeWrapper(child));
-                        return(true);
+                        ARILES_ASSERT(XmlRpc::XmlRpcValue::TypeStruct == node_stack_.back().node_->getType(), "Expected struct.");
+                        node_stack_.push_back(   NodeWrapper(  &( getRawNode()[child_name] )  )   );
                     }
-                    */
                     return(true);
                 }
 
@@ -126,8 +114,9 @@ for (int32_t i = 0; i < my_list.size(); ++i)
 
                 std::size_t startArray()
                 {
-                    //std::size_t size = getRawNode().size();
-                    std::size_t size = 0;
+                    ARILES_ASSERT(XmlRpc::XmlRpcValue::TypeArray == node_stack_.back().node_->getType(), "Expected array.");
+
+                    std::size_t size = node_stack_.back().node_->size();
                     node_stack_.push_back(NodeWrapper(0, size));
 
                     return(size);
@@ -152,7 +141,8 @@ for (int32_t i = 0; i < my_list.size(); ++i)
                 template<class t_ElementType>
                     void readElement(t_ElementType &element)
                 {
-                    //getRawNode() >> element;
+                    // ROS_ASSERT(my_list[i].getType() == XmlRpc::XmlRpcValue::TypeDouble);
+                    element = static_cast<t_ElementType>(getRawNode());
                 }
         };
     }
