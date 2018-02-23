@@ -10,8 +10,7 @@
 
 #pragma once
 
-
-class BasicInterfaceFixture
+class BasicInterfaceFixture : public FixtureBase
 {
     protected:
         template<class t_Configurable, class t_Reader, class t_Writer>
@@ -22,14 +21,14 @@ class BasicInterfaceFixture
                 t_Configurable configurable;
                 configurable.randomize();
 
-                t_Writer writer("configurable.cfg");
+                t_Writer writer(getInitializer("configurable.cfg"));
                 configurable.writeConfig(writer);
             );
 
             BOOST_CHECK_NO_THROW(
                 t_Configurable configurable;
 
-                t_Reader reader("configurable.cfg");
+                t_Reader reader(getInitializer("configurable.cfg"));
                 configurable.readConfig(reader);
             );
 
@@ -40,12 +39,12 @@ class BasicInterfaceFixture
             BOOST_CHECK_NO_THROW(
                 t_Configurable configurable;
                 configurable.randomize();
-                configurable.template writeConfig<t_Writer>("configurable2.cfg");
+                configurable.template writeConfig<t_Writer>(getInitializer("configurable2.cfg"));
             );
 
             BOOST_CHECK_NO_THROW(
                 t_Configurable configurable;
-                configurable.template readConfig<t_Reader>("configurable2.cfg");
+                configurable.template readConfig<t_Reader>(getInitializer("configurable2.cfg"));
             );
         }
 };

@@ -244,6 +244,7 @@ class ConfigurableEmpty : public ariles::ConfigurableBase
 // FIXTURES
 // ===============================================================
 
+#include "fixture_base_default.h"
 #include "fixture_000_basic_interface.h"
 #include "fixture_001_constructor_interface.h"
 

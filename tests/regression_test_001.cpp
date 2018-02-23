@@ -357,6 +357,7 @@ void    compare(const t_Configurable_out    &configurable_out,
 }
 
 
+#include "fixture_base_default.h"
 #include "fixture_000_basic_interface.h"
 #include "fixture_001_constructor_interface.h"
 #include "fixture_002_comparison.h"

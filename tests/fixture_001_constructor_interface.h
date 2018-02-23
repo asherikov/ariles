@@ -11,7 +11,7 @@
 #pragma once
 
 
-class ConstructorInterfaceFixture
+class ConstructorInterfaceFixture : public FixtureBase
 {
     protected:
         template<class t_Configurable, class t_Reader, class t_Writer>
@@ -21,12 +21,12 @@ class ConstructorInterfaceFixture
                 t_Configurable configurable;
                 configurable.randomize();
 
-                t_Writer writer("configurable.cfg");
+                t_Writer writer(getInitializer("configurable.cfg"));
                 configurable.writeConfig(writer);
             );
 
             BOOST_CHECK_NO_THROW(
-                t_Reader reader("configurable.cfg");
+                t_Reader reader(getInitializer("configurable.cfg"));
                 t_Configurable configurable(reader);
             );
         }

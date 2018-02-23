@@ -140,6 +140,10 @@ namespace ariles
                     *emitter_ << YAML::BeginSeq;
                 }
 
+                void shiftArray()
+                {
+                }
+
                 void endArray()
                 {
                     *emitter_ << YAML::EndSeq;

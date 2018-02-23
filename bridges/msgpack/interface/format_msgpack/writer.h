@@ -116,6 +116,9 @@ namespace ariles
                     packer_->pack_array(size);
                 }
 
+                void shiftArray()
+                {
+                }
 
                 void endArray() const {}
 

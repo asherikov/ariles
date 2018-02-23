@@ -33,6 +33,30 @@ namespace ariles
                 ::ros::NodeHandle nh_;
 
 
+            protected:
+                /**
+                 * @brief Get current node
+                 *
+                 * @return pointer to the current node
+                 */
+                XmlRpc::XmlRpcValue & getRawNode(const std::size_t depth)
+                {
+                    if (node_stack_[depth].isArray())
+                    {
+                        return(getRawNode(depth-1)[node_stack_[depth].index_]);
+                    }
+                    else
+                    {
+                        return(*node_stack_[depth].node_);
+                    }
+                }
+
+
+                XmlRpc::XmlRpcValue & getRawNode()
+                {
+                    return(getRawNode(node_stack_.size()-1));
+                }
+
 
             public:
                 explicit Writer(const ::ros::NodeHandle &nh)
@@ -81,7 +105,7 @@ namespace ariles
                     }
                     else
                     {
-                        node_stack_.push_back(NodeWrapper( &( (*node_stack_.back().node_) [map_name]) ));
+                        node_stack_.push_back(   NodeWrapper(  &( getRawNode()[map_name] )  )   );
                     }
                 }
 
@@ -100,7 +124,6 @@ namespace ariles
                  */
                 void startMap(const std::size_t num_entries)
                 {
-                    //node_stack_.back().node_->setSize(num_entries);
                 }
 
 
@@ -112,14 +135,23 @@ namespace ariles
                 }
 
 
-
                 void startArray(const std::size_t size)
                 {
-                    node_stack_.back().node_->setSize(size);
+                    getRawNode().setSize(size);
+                    node_stack_.push_back(NodeWrapper(0, size));
+                }
+
+                void shiftArray()
+                {
+                    if (node_stack_.back().isArray())
+                    {
+                        ++node_stack_.back().index_;
+                    }
                 }
 
                 void endArray()
                 {
+                    node_stack_.pop_back();
                 }
 
 
@@ -133,7 +165,22 @@ namespace ariles
                 template<class t_Element>
                     void writeElement(const t_Element & element)
                 {
-                    *node_stack_.back().node_ = element;
+                    getRawNode() = element;
+                }
+
+
+                /**
+                 * @brief Write a configuration entry (scalar template)
+                 *
+                 * @param[in] entry      data
+                 */
+                void writeElement(const long int element)
+                {
+                    ARILES_ASSERT(  (element <= std::numeric_limits<int>::max())
+                                    && (element >= std::numeric_limits<int>::min()),
+                                    "Integer is too large to be saved.");
+
+                    getRawNode() = static_cast<int>(element);
                 }
         };
     }

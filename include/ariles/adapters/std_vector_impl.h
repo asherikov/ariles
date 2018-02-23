@@ -59,6 +59,7 @@ namespace ariles
             for (std::size_t i = 0; i < entry.size(); ++i)
             {
                 writeBody(writer, entry[i]);
+                writer.shiftArray();
             }
             writer.endArray();
         }

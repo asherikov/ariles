@@ -29,8 +29,8 @@ namespace ariles
 
                 std::string                 root_name_;
                 XmlRpc::XmlRpcValue         root_value_;
-                ::ros::NodeHandle nh_;
 
+                ::ros::NodeHandle nh_;
 
 
             protected:
@@ -96,7 +96,7 @@ namespace ariles
                     }
                     else
                     {
-                        ARILES_ASSERT(XmlRpc::XmlRpcValue::TypeStruct == node_stack_.back().node_->getType(), "Expected struct.");
+                        ARILES_ASSERT(XmlRpc::XmlRpcValue::TypeStruct == getRawNode().getType(), "Expected struct.");
                         node_stack_.push_back(   NodeWrapper(  &( getRawNode()[child_name] )  )   );
                     }
                     return(true);
@@ -114,9 +114,9 @@ namespace ariles
 
                 std::size_t startArray()
                 {
-                    ARILES_ASSERT(XmlRpc::XmlRpcValue::TypeArray == node_stack_.back().node_->getType(), "Expected array.");
+                    ARILES_ASSERT(XmlRpc::XmlRpcValue::TypeArray == getRawNode().getType(), "Expected array.");
 
-                    std::size_t size = node_stack_.back().node_->size();
+                    std::size_t size = getRawNode().size();
                     node_stack_.push_back(NodeWrapper(0, size));
 
                     return(size);
@@ -141,8 +141,15 @@ namespace ariles
                 template<class t_ElementType>
                     void readElement(t_ElementType &element)
                 {
-                    // ROS_ASSERT(my_list[i].getType() == XmlRpc::XmlRpcValue::TypeDouble);
                     element = static_cast<t_ElementType>(getRawNode());
+                }
+
+
+                void readElement(long int &element)
+                {
+                    ARILES_ASSERT(getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt,
+                                "Integer type expected.");
+                    element = static_cast<int>(getRawNode());
                 }
         };
     }

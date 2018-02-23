@@ -119,6 +119,7 @@ namespace ariles
             for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < entry.rows(); ++i)
             {
                 writer.writeElement(entry[i]);
+                writer.shiftArray();
             }
             writer.endArray();
         }
@@ -157,6 +158,7 @@ namespace ariles
                 for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < entry.cols(); ++j)
                 {
                     writer.writeElement(entry(i, j));
+                    writer.shiftArray();
                 }
             }
             writer.endArray();
