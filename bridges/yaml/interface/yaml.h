@@ -1,6 +1,7 @@
 /**
     @file
     @author Alexander Sherikov
+    @author Jan Michalczyk
 
     @copyright 2014-2017 INRIA. Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
@@ -18,42 +19,42 @@
 #endif
 
 
-#include "internal/helpers.h"
-#include "internal/reader_base.h"
+#include "../internal/helpers.h"
+#include "../internal/reader_base.h"
 
-#include "msgpack.hpp"
+#include ARILES_BRIDGE_yaml_INCLUDE_HEADER
 
-#include "format_msgpack/reader.h"
-#include "format_msgpack/writer.h"
+#include "./yaml/reader.h"
+#include "./yaml/writer.h"
 
 
-#define ARILES_MSGPACK_NAMESPACE msgpack
+#define ARILES_YAML_NAMESPACE yaml
 
 
 // If something is stupid but it works, it is not stupid (c)
 #ifndef ARILES_NAMESPACE_0
-#   define ARILES_NAMESPACE_0 ARILES_MSGPACK_NAMESPACE
+#   define ARILES_NAMESPACE_0 ARILES_YAML_NAMESPACE
 #else
 #   ifndef ARILES_NAMESPACE_1
-#       define ARILES_NAMESPACE_1 ARILES_MSGPACK_NAMESPACE
+#       define ARILES_NAMESPACE_1 ARILES_YAML_NAMESPACE
 #   else
 #       ifndef ARILES_NAMESPACE_2
-#           define ARILES_NAMESPACE_2 ARILES_MSGPACK_NAMESPACE
+#           define ARILES_NAMESPACE_2 ARILES_YAML_NAMESPACE
 #       else
 #           ifndef ARILES_NAMESPACE_3
-#               define ARILES_NAMESPACE_3 ARILES_MSGPACK_NAMESPACE
+#               define ARILES_NAMESPACE_3 ARILES_YAML_NAMESPACE
 #           else
 #               ifndef ARILES_NAMESPACE_4
-#                   define ARILES_NAMESPACE_4 ARILES_MSGPACK_NAMESPACE
+#                   define ARILES_NAMESPACE_4 ARILES_YAML_NAMESPACE
 #               else
 #                   ifndef ARILES_NAMESPACE_5
-#                       define ARILES_NAMESPACE_5 ARILES_MSGPACK_NAMESPACE
+#                       define ARILES_NAMESPACE_5 ARILES_YAML_NAMESPACE
 #                   else
 #                       ifndef ARILES_NAMESPACE_6
-#                           define ARILES_NAMESPACE_6 ARILES_MSGPACK_NAMESPACE
+#                           define ARILES_NAMESPACE_6 ARILES_YAML_NAMESPACE
 #                       else
 #                           ifndef ARILES_NAMESPACE_7
-#                               define ARILES_NAMESPACE_7 ARILES_MSGPACK_NAMESPACE
+#                               define ARILES_NAMESPACE_7 ARILES_YAML_NAMESPACE
 #                           else
 #                               error "Too many config namespaces."
 #                           endif
@@ -65,12 +66,13 @@
 #   endif
 #endif
 
+
 namespace ariles
 {
     /**
-     * @brief MessagePack bridge namespace.
+     * @brief YAML bridge namespace.
      */
-    namespace msgpack
+    namespace yaml
     {
     }
 }

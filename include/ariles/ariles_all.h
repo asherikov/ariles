@@ -14,11 +14,11 @@
 #include "internal/build_config.h"
 
 #ifdef ARILES_BRIDGE_msgpack
-#   include "format_msgpack.h"
+#   include "formats/msgpack.h"
 #endif
 
 #ifdef ARILES_BRIDGE_yaml
-#   include "format_yaml.h"
+#   include "formats/yaml.h"
 #endif
 
 #include "adapters_all.h"

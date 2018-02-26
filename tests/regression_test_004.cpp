@@ -11,7 +11,7 @@
 #include "utility.h"
 
 // Enable YAML configuration files (must be first)
-#include "ariles/format_yaml.h"
+#include "ariles/formats/yaml.h"
 // all adapters
 // #include "ariles/adapters_all.h"
 // only Eigen adapters

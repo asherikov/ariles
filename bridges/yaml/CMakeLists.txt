@@ -1,7 +1,7 @@
-ariles_copy_file_if_exists( TGT_ariles_copy_headers                             "format_yaml_h"
-                            "${${ARILES_BRIDGE}_INTERFACE_DIR}/format_yaml.h"   "${ARILES_INCLUDE_DIR}/ariles/")
-ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                             "format_yaml_dir"
-                            "${${ARILES_BRIDGE}_INTERFACE_DIR}/format_yaml"     "${ARILES_INCLUDE_DIR}/ariles/format_yaml")
+ariles_copy_file_if_exists( TGT_ariles_copy_headers                     "format_yaml_h"
+                            "${${ARILES_BRIDGE}_INTERFACE_DIR}/yaml.h"  "${ARILES_INCLUDE_DIR}/ariles/formats/")
+ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                     "format_yaml_dir"
+                            "${${ARILES_BRIDGE}_INTERFACE_DIR}/yaml"    "${ARILES_INCLUDE_DIR}/ariles/formats/yaml")
 add_dependencies("TGT_ariles_copy_headers_format_yaml_h" "TGT_ariles_copy_headers_ariles")
 
 

@@ -1,12 +1,8 @@
 /**
     @file
     @author Alexander Sherikov
-    @author Jan Michalczyk
 
-    @copyright 2014-2017 INRIA. Licensed under the Apache License, Version 2.0.
-    (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
-
-    @copyright 2017-2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
+    @copyright 2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
 
     @brief
@@ -19,42 +15,44 @@
 #endif
 
 
-#include "internal/helpers.h"
-#include "internal/reader_base.h"
+#include "../internal/helpers.h"
+#include "../internal/reader_base.h"
 
-#include ARILES_BRIDGE_yaml_INCLUDE_HEADER
+#include <ros/ros.h>
+// http://docs.ros.org/api/xmlrpcpp/html/classXmlRpc_1_1XmlRpcValue.html
+#include <XmlRpcValue.h>
 
-#include "format_yaml/reader.h"
-#include "format_yaml/writer.h"
+#include "./ros/reader.h"
+#include "./ros/writer.h"
 
 
-#define ARILES_YAML_NAMESPACE yaml
+#define ARILES_ROS_NAMESPACE ros
 
 
 // If something is stupid but it works, it is not stupid (c)
 #ifndef ARILES_NAMESPACE_0
-#   define ARILES_NAMESPACE_0 ARILES_YAML_NAMESPACE
+#   define ARILES_NAMESPACE_0 ARILES_ROS_NAMESPACE
 #else
 #   ifndef ARILES_NAMESPACE_1
-#       define ARILES_NAMESPACE_1 ARILES_YAML_NAMESPACE
+#       define ARILES_NAMESPACE_1 ARILES_ROS_NAMESPACE
 #   else
 #       ifndef ARILES_NAMESPACE_2
-#           define ARILES_NAMESPACE_2 ARILES_YAML_NAMESPACE
+#           define ARILES_NAMESPACE_2 ARILES_ROS_NAMESPACE
 #       else
 #           ifndef ARILES_NAMESPACE_3
-#               define ARILES_NAMESPACE_3 ARILES_YAML_NAMESPACE
+#               define ARILES_NAMESPACE_3 ARILES_ROS_NAMESPACE
 #           else
 #               ifndef ARILES_NAMESPACE_4
-#                   define ARILES_NAMESPACE_4 ARILES_YAML_NAMESPACE
+#                   define ARILES_NAMESPACE_4 ARILES_ROS_NAMESPACE
 #               else
 #                   ifndef ARILES_NAMESPACE_5
-#                       define ARILES_NAMESPACE_5 ARILES_YAML_NAMESPACE
+#                       define ARILES_NAMESPACE_5 ARILES_ROS_NAMESPACE
 #                   else
 #                       ifndef ARILES_NAMESPACE_6
-#                           define ARILES_NAMESPACE_6 ARILES_YAML_NAMESPACE
+#                           define ARILES_NAMESPACE_6 ARILES_ROS_NAMESPACE
 #                       else
 #                           ifndef ARILES_NAMESPACE_7
-#                               define ARILES_NAMESPACE_7 ARILES_YAML_NAMESPACE
+#                               define ARILES_NAMESPACE_7 ARILES_ROS_NAMESPACE
 #                           else
 #                               error "Too many config namespaces."
 #                           endif
@@ -70,9 +68,9 @@
 namespace ariles
 {
     /**
-     * @brief YAML bridge namespace.
+     * @brief ROS parameter server bridge namespace.
      */
-    namespace yaml
+    namespace ros
     {
     }
 }
