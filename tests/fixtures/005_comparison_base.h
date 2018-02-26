@@ -11,7 +11,7 @@
 #pragma once
 
 
-class ComparisonViaBaseFixture
+class ComparisonViaBaseFixture : public FixtureBase  
 {
     protected:
         template<class t_ConfigurableBase, class t_Configurable, class t_Reader, class t_Writer>
@@ -21,7 +21,7 @@ class ComparisonViaBaseFixture
             configurable_out.randomize();
             t_ConfigurableBase *configurable_out_base = &configurable_out;
             BOOST_CHECK_NO_THROW(
-                configurable_out_base->template writeConfig<t_Writer>("configurable_match_member_definitions.cfg", "Configurable");
+                configurable_out_base->template writeConfig<t_Writer>(getInitializer("configurable_match_member_definitions.cfg"), "Configurable");
             );
 
             // -------
@@ -29,7 +29,7 @@ class ComparisonViaBaseFixture
             t_Configurable configurable_in;
             t_ConfigurableBase *configurable_in_base = &configurable_in;
             BOOST_CHECK_NO_THROW(
-                configurable_in_base->template readConfig<t_Reader>("configurable_match_member_definitions.cfg", "Configurable");
+                configurable_in_base->template readConfig<t_Reader>(getInitializer("configurable_match_member_definitions.cfg"), "Configurable");
             );
 
             // -------

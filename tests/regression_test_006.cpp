@@ -157,6 +157,69 @@ class Configurable : public ariles::ConfigurableBase
 };
 
 
+class ConfigurableBase : public ariles::ConfigurableBase
+{
+    #define ARILES_SECTION_ID "ConfigurableBase"
+    #define ARILES_CONSTRUCTOR ConfigurableBase
+    #define ARILES_ENTRIES \
+        ARILES_TYPED_ENTRY_(member,         Configurable)
+    #include ARILES_INITIALIZE
+
+
+    public:
+        ConfigurableBase()
+        {
+            setDefaults();
+        }
+
+
+        virtual void setDefaults()
+        {
+            member_.setDefaults();
+        }
+
+
+        void randomize()
+        {
+            member_.randomize();
+            finalize();
+        }
+};
+
+
+class ConfigurableDerived : public ConfigurableBase
+{
+    #define ARILES_SECTION_ID "ConfigurableDerived"
+    #define ARILES_CONSTRUCTOR ConfigurableDerived
+    #define ARILES_ENTRIES \
+        ARILES_PARENT(ConfigurableBase) \
+        ARILES_TYPED_ENTRY_(another_member,         Configurable)
+    #include ARILES_INITIALIZE
+
+
+    public:
+        ConfigurableDerived()
+        {
+            setDefaults();
+        }
+
+
+        virtual void setDefaults()
+        {
+            another_member_.setDefaults();
+            ConfigurableBase::setDefaults();
+        }
+
+
+        void randomize()
+        {
+            another_member_.randomize();
+            ConfigurableBase::randomize();
+            finalize();
+        }
+};
+
+
 // ===============================================================
 // FIXTURES
 // ===============================================================
@@ -216,10 +279,12 @@ void    compare(const t_Configurable_out    &configurable_out,
 }
 
 
-#include "fixture_base_ros.h"
-#include "fixture_000_basic_interface.h"
-#include "fixture_001_constructor_interface.h"
-#include "fixture_002_comparison.h"
+#include "fixtures/base_ros.h"
+#include "fixtures/000_basic_interface.h"
+#include "fixtures/001_constructor_interface.h"
+#include "fixtures/002_comparison.h"
+#include "fixtures/003_comparison_vector.h"
+#include "fixtures/005_comparison_base.h"
 
 
 // ===============================================================
@@ -227,8 +292,10 @@ void    compare(const t_Configurable_out    &configurable_out,
 // ===============================================================
 
 #define ARILES_TESTS(NAMESPACE) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, Configurable) \
-    ARILES_FIXTURE_TEST_CASE(ConstructorInterfaceFixture, NAMESPACE, Configurable) \
-    ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, NAMESPACE, Configurable)
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, ConfigurableDerived) \
+    ARILES_FIXTURE_TEST_CASE(ConstructorInterfaceFixture, NAMESPACE, ConfigurableDerived) \
+    ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, NAMESPACE, Configurable) \
+    ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, NAMESPACE, Configurable) \
+    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, NAMESPACE, Configurable)
 
 ARILES_TESTS(ros)

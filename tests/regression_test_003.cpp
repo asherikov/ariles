@@ -75,10 +75,10 @@ void    compare(const t_Configurable_out    &configurable_out,
 }
 
 
-#include "fixture_base_default.h"
-#include "fixture_000_basic_interface.h"
-#include "fixture_002_comparison.h"
-#include "fixture_003_comparison_vector.h"
+#include "fixtures/base_default.h"
+#include "fixtures/000_basic_interface.h"
+#include "fixtures/002_comparison.h"
+#include "fixtures/003_comparison_vector.h"
 
 
 // ===============================================================

@@ -65,8 +65,8 @@ class Configurable : public ariles::ConfigurableBase
 // FIXTURES
 // ===============================================================
 
-#include "fixture_base_default.h"
-#include "fixture_000_basic_interface.h"
+#include "fixtures/base_default.h"
+#include "fixtures/000_basic_interface.h"
 
 
 

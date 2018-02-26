@@ -11,7 +11,7 @@
 #pragma once
 
 
-class ComparisonEquivalenceFixture
+class ComparisonEquivalenceFixture : public FixtureBase
 {
     protected:
         template<class t_Configurable1, class t_Configurable2, class t_Reader, class t_Writer>
@@ -21,14 +21,14 @@ class ComparisonEquivalenceFixture
                 t_Configurable1 configurable_out;
                 configurable_out.randomize();
                 BOOST_CHECK_NO_THROW(
-                    configurable_out.template writeConfig<t_Writer>("configurable_match_member_definitions.cfg", "Configurable");
+                    configurable_out.template writeConfig<t_Writer>(getInitializer("configurable_match_member_definitions.cfg"), "Configurable");
                 );
 
                 // -------
 
                 t_Configurable2 configurable_in;
                 BOOST_CHECK_NO_THROW(
-                    configurable_in.template readConfig<t_Reader>("configurable_match_member_definitions.cfg", "Configurable");
+                    configurable_in.template readConfig<t_Reader>(getInitializer("configurable_match_member_definitions.cfg"), "Configurable");
                 );
 
                 // -------
@@ -44,14 +44,14 @@ class ComparisonEquivalenceFixture
                 t_Configurable2 configurable_out;
                 configurable_out.randomize();
                 BOOST_CHECK_NO_THROW(
-                    configurable_out.template writeConfig<t_Writer>("configurable_match_member_definitions.cfg", "Configurable");
+                    configurable_out.template writeConfig<t_Writer>(getInitializer("configurable_match_member_definitions.cfg"), "Configurable");
                 );
 
                 // -------
 
                 t_Configurable1 configurable_in;
                 BOOST_CHECK_NO_THROW(
-                    configurable_in.template readConfig<t_Reader>("configurable_match_member_definitions.cfg", "Configurable");
+                    configurable_in.template readConfig<t_Reader>(getInitializer("configurable_match_member_definitions.cfg"), "Configurable");
                 );
 
                 // -------

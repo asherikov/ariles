@@ -47,7 +47,7 @@ template<class t_Configurable>
 };
 
 
-class ComparisonVectorFixture
+class ComparisonVectorFixture : public FixtureBase
 {
     protected:
         template<class t_Configurable, class t_Reader, class t_Writer>
@@ -56,14 +56,14 @@ class ComparisonVectorFixture
             ConfigurableVector<t_Configurable> configurable_vector_out;
             configurable_vector_out.randomize();
             BOOST_CHECK_NO_THROW(
-                configurable_vector_out.template writeConfig<t_Writer>("configurable_match_vector.cfg");
+                configurable_vector_out.template writeConfig<t_Writer>(getInitializer("configurable_match_vector.cfg"));
             );
 
             // -------
 
             ConfigurableVector<t_Configurable> configurable_vector_in;
             BOOST_CHECK_NO_THROW(
-                configurable_vector_in.template readConfig<t_Reader>("configurable_match_vector.cfg");
+                configurable_vector_in.template readConfig<t_Reader>(getInitializer("configurable_match_vector.cfg"));
             );
 
             // -------
