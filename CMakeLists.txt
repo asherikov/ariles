@@ -287,6 +287,21 @@ file(WRITE "${ARILES_INCLUDE_DIR}/ariles/internal/build_config.h" "${ARILES_BUIL
 #---
 
 
+#---
+set(ARILES_HEADER_ALL   "#pragma once\n")
+set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"internal/build_config.h\"\n")
+
+foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
+    set(ARILES_HEADER_ALL "${ARILES_HEADER_ALL}#include \"formats/${ARILES_BRIDGE}.h\"\n")
+endforeach(ARILES_BRIDGE)
+
+set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"adapters_all.h\"\n")
+set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"ariles.h\"\n")
+
+file(WRITE "${ARILES_INCLUDE_DIR}/ariles/ariles_all.h" "${ARILES_HEADER_ALL}")
+#---
+
+
 #####################################
 ## Installation
 #####################################

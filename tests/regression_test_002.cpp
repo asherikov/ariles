@@ -11,7 +11,10 @@
 
 #include "utility.h"
 
-#include "ariles/ariles_all.h"
+#include "ariles/formats/yaml.h"
+#include "ariles/formats/msgpack.h"
+#include "ariles/adapters_all.h"
+#include "ariles/ariles.h"
 
 
 // ===============================================================
