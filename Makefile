@@ -9,7 +9,7 @@ ROOT_DIR=../../
 # Toolchains
 TC?=generic
 
-BRIDGES_MODE?=BUILD
+OPTIONS?=default
 
 # Build type as in CMAKE_BUILD_TYPE
 TYPE?=Debug
@@ -28,13 +28,13 @@ clean:
 # Generic targets
 #----------------------------------------------
 
-BUILD_SUBDIR=${BUILD_DIR}/${TC}-${TYPE}-BRIDGES_${BRIDGES_MODE}
+BUILD_SUBDIR=${BUILD_DIR}/${TC}-${TYPE}-OPTIONS_${OPTIONS}
 
 build:
 	mkdir -p ${BUILD_SUBDIR};
-	cd ${BUILD_SUBDIR}; cmake 	-DCMAKE_BUILD_TYPE=${TYPE} \
+	cd ${BUILD_SUBDIR}; cmake 	-C ${ROOT_DIR}/${CMAKE_DIR}/options_${OPTIONS}.cmake\
+								-DCMAKE_BUILD_TYPE=${TYPE} \
 								-DCMAKE_TOOLCHAIN_FILE=${CMAKE_DIR}/toolchain_${TC}.cmake\
-								-DARILES_BRIDGES_DEFAULT_MODE=${BRIDGES_MODE}\
 								${EXTRA_CMAKE_PARAM} \
 								${ROOT_DIR};
 	cd ${BUILD_SUBDIR}; ${MAKE} ${MAKE_FLAGS} ${TARGETS}
@@ -89,8 +89,8 @@ release: release-all
 #----------------------------------------------
 
 check-build: clean
-	${MAKE} build-tests TC=${TC} TYPE=Debug BRIDGES_MODE=ON TARGETS="${TARGETS}" 	EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
-	${MAKE} build-tests TC=${TC} TYPE=Debug BRIDGES_MODE=BUILD TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=on_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=build_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 
 check: check-build
 
