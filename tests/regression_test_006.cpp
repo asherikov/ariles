@@ -220,6 +220,9 @@ class ConfigurableDerived : public ConfigurableBase
 };
 
 
+#include "types/000_strictness.h"
+
+
 // ===============================================================
 // FIXTURES
 // ===============================================================
@@ -285,6 +288,7 @@ void    compare(const t_Configurable_out    &configurable_out,
 #include "fixtures/002_comparison.h"
 #include "fixtures/003_comparison_vector.h"
 #include "fixtures/005_comparison_base.h"
+#include "fixtures/007_strictness.h"
 
 
 // ===============================================================
@@ -296,6 +300,7 @@ void    compare(const t_Configurable_out    &configurable_out,
     ARILES_FIXTURE_TEST_CASE(ConstructorInterfaceFixture, NAMESPACE, ConfigurableDerived) \
     ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, NAMESPACE, Configurable) \
     ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, NAMESPACE, Configurable) \
-    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, NAMESPACE, Configurable)
+    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, NAMESPACE, Configurable) \
+    ARILES_FIXTURE_TEST_CASE_2CLASSES(StrictnessFixture, NAMESPACE, ConfigurableStrictness1, ConfigurableStrictness2)
 
 ARILES_TESTS(ros)

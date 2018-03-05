@@ -96,8 +96,10 @@ namespace ariles
                     }
                     else
                     {
-                        ARILES_ASSERT(XmlRpc::XmlRpcValue::TypeStruct == getRawNode().getType(), "Expected struct.");
-                        node_stack_.push_back(   NodeWrapper(  &( getRawNode()[child_name] )  )   );
+                        XmlRpc::XmlRpcValue & node = getRawNode();
+                        ARILES_ASSERT(XmlRpc::XmlRpcValue::TypeStruct == node.getType(), "Expected struct.");
+                        ARILES_ASSERT(true == node.hasMember(child_name), std::string("Child not found: ") + child_name);
+                        node_stack_.push_back(   NodeWrapper(  &( node[child_name] )  )   );
                     }
                     return(true);
                 }
