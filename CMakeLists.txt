@@ -292,7 +292,9 @@ set(ARILES_HEADER_ALL   "#pragma once\n")
 set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"internal/build_config.h\"\n")
 
 foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
-    set(ARILES_HEADER_ALL "${ARILES_HEADER_ALL}#include \"formats/${ARILES_BRIDGE}.h\"\n")
+    if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
+        set(ARILES_HEADER_ALL "${ARILES_HEADER_ALL}#include \"formats/${ARILES_BRIDGE}.h\"\n")
+    endif()
 endforeach(ARILES_BRIDGE)
 
 set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"adapters_all.h\"\n")
