@@ -11,7 +11,14 @@
 
 #include "utility.h"
 
-#include "ariles/formats/yaml.h"
+#ifdef ARILES_BRIDGE_yaml_cpp03
+#include "ariles/formats/yaml_cpp03.h"
+#endif
+
+#ifdef ARILES_BRIDGE_yaml_cpp
+#include "ariles/formats/yaml_cpp.h"
+#endif
+
 #include "ariles/formats/msgpack.h"
 #include "ariles/adapters_all.h"
 #include "ariles/ariles.h"
@@ -389,4 +396,9 @@ void    compare(const t_Configurable_out    &configurable_out,
     }
 
 ARILES_TESTS(msgpack)
-ARILES_TESTS(yaml)
+#ifdef ARILES_BRIDGE_yaml_cpp03
+ARILES_TESTS(yaml_cpp03)
+#endif
+#ifdef ARILES_BRIDGE_yaml_cpp
+ARILES_TESTS(yaml_cpp)
+#endif

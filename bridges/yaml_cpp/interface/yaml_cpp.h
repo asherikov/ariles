@@ -1,10 +1,6 @@
 /**
     @file
     @author Alexander Sherikov
-    @author Jan Michalczyk
-
-    @copyright 2014-2017 INRIA. Licensed under the Apache License, Version 2.0.
-    (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
 
     @copyright 2017-2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
@@ -22,13 +18,13 @@
 #include "../internal/helpers.h"
 #include "../internal/reader_base.h"
 
-#include ARILES_BRIDGE_yaml_INCLUDE_HEADER
+#include ARILES_BRIDGE_yaml_cpp_INCLUDE_HEADER
 
-#include "./yaml/reader.h"
-#include "./yaml/writer.h"
+#include "./yaml_cpp/reader.h"
+#include "./yaml_cpp/writer.h"
 
 
-#define ARILES_YAML_NAMESPACE yaml
+#define ARILES_YAML_NAMESPACE yaml_cpp
 
 
 // If something is stupid but it works, it is not stupid (c)
@@ -70,9 +66,9 @@
 namespace ariles
 {
     /**
-     * @brief YAML bridge namespace.
+     * @brief YAML C++11 bridge namespace.
      */
-    namespace yaml
+    namespace yaml_cpp
     {
     }
 }

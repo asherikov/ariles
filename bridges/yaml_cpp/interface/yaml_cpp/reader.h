@@ -1,12 +1,8 @@
 /**
     @file
-    @author Jan Michalczyk
     @author Alexander Sherikov
 
-    @copyright 2014-2017 INRIA. Licensed under the Apache License, Version 2.0.
-    (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
-
-    @copyright 2017-2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
+    @copyright 2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
 
     @brief
@@ -16,7 +12,7 @@
 
 namespace ariles
 {
-    namespace yaml
+    namespace yaml_cpp
     {
         /**
          * @brief Configuration reader class
@@ -24,18 +20,38 @@ namespace ariles
         class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase
         {
             protected:
-                typedef ariles::Node<const YAML::Node> NodeWrapper;
+                class NodeWrapper
+                {
+                    public:
+                        YAML::Node          node_;
+                        std::size_t         index_;
+                        std::size_t         size_;
+                        bool                is_array_;
+
+                    public:
+                        NodeWrapper(YAML::Node node) : node_(node)
+                        {
+                            index_ = 0;
+                            size_ = 0;
+                            is_array_ = false;
+                        }
+
+                        NodeWrapper(const std::size_t index, const std::size_t size) : index_(index)
+                        {
+                            size_ = size;
+                            is_array_ = true;
+                        }
+
+                        bool isArray() const
+                        {
+                            return(is_array_);
+                        }
+                };
 
 
             protected:
-                /// input file stream
-                std::ifstream config_ifs_;
-
                 /// instance of YAML parser
                 YAML::Parser  parser_;
-
-                /// root node
-                YAML::Node    root_node_;
 
                 /// Stack of nodes.
                 std::vector<NodeWrapper>    node_stack_;
@@ -49,11 +65,7 @@ namespace ariles
                  */
                 void openFile(const std::string& file_name)
                 {
-                    ReaderBase::openFile(config_ifs_, file_name);
-
-                    parser_.Load(config_ifs_),
-                    parser_.GetNextDocument(root_node_);
-                    node_stack_.push_back(NodeWrapper(&root_node_));
+                    node_stack_.push_back(  NodeWrapper( YAML::LoadFile(file_name) )  );
                 }
 
 
@@ -62,7 +74,7 @@ namespace ariles
                  *
                  * @return pointer to the current node
                  */
-                const YAML::Node & getRawNode(const std::size_t depth)
+                const YAML::Node getRawNode(const std::size_t depth)
                 {
                     if (node_stack_[depth].isArray())
                     {
@@ -70,14 +82,14 @@ namespace ariles
                     }
                     else
                     {
-                        return(*node_stack_[depth].node_);
+                        return(node_stack_[depth].node_);
                     }
                 }
 
 
-                const YAML::Node & getRawNode()
+                const YAML::Node getRawNode()
                 {
-                    return(getRawNode(node_stack_.size()-1));
+                    return (getRawNode(node_stack_.size()-1));
                 }
 
 
@@ -111,9 +123,9 @@ namespace ariles
                  */
                 bool descend(const std::string & child_name)
                 {
-                    const YAML::Node * child = getRawNode().FindValue(child_name);
+                    YAML::Node child = getRawNode()[child_name];
 
-                    if (child == NULL)
+                    if (true == child.IsNull())
                     {
                         return(false);
                     }
@@ -161,7 +173,7 @@ namespace ariles
                 template<class t_ElementType>
                     void readElement(t_ElementType &element)
                 {
-                    getRawNode() >> element;
+                    element = getRawNode().as<t_ElementType>();
                 }
         };
     }

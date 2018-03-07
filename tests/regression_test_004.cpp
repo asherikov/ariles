@@ -11,7 +11,14 @@
 #include "utility.h"
 
 // Enable YAML configuration files (must be first)
-#include "ariles/formats/yaml.h"
+#ifdef ARILES_BRIDGE_yaml_cpp03
+#include "ariles/formats/yaml_cpp03.h"
+#endif
+
+#ifdef ARILES_BRIDGE_yaml_cpp
+#include "ariles/formats/yaml_cpp.h"
+#endif
+
 // all adapters
 // #include "ariles/adapters_all.h"
 // only Eigen adapters
@@ -77,4 +84,9 @@ class Configurable : public ariles::ConfigurableBase
 #define ARILES_TESTS(NAMESPACE) \
     ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, Configurable)
 
-ARILES_TESTS(yaml)
+#ifdef ARILES_BRIDGE_yaml_cpp03
+ARILES_TESTS(yaml_cpp03)
+#endif
+#ifdef ARILES_BRIDGE_yaml_cpp
+ARILES_TESTS(yaml_cpp)
+#endif

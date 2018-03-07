@@ -16,7 +16,7 @@
 
 namespace ariles
 {
-    namespace yaml
+    namespace yaml_cpp03
     {
         /**
          * @brief Configuration writer class
