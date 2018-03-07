@@ -47,6 +47,7 @@ endforeach(CACHED_VARIABLE)
 
 set(ARILES_BRIDGES_DIRS "${PROJECT_SOURCE_DIR}/bridges/")
 set(ARILES_BRIDGES "")
+set(ARILES_ENABLED_BRIDGES "")
 foreach (ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
     ariles_list_filenames("${ARILES_BRIDGES_DIR}"  "ARILES_BRIDGES_TMP" DIRS_WITH_CMAKELISTS)
     list(APPEND ARILES_BRIDGES ${ARILES_BRIDGES_TMP})
@@ -55,12 +56,20 @@ foreach (ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
         set(ARILES_BRIDGE_${ARILES_BRIDGE}_DIR  "${ARILES_BRIDGES_DIR}/${ARILES_BRIDGE}")
 
         list(REMOVE_ITEM ARILES_CACHED_BRIDGES "ARILES_BRIDGE_${ARILES_BRIDGE}")
-        if (ARILES_BRIDGE_${ARILES_BRIDGE})
+        if (DEFINED ARILES_BRIDGE_${ARILES_BRIDGE})
             set    ("ARILES_BRIDGE_${ARILES_BRIDGE}" "${ARILES_BRIDGE_${ARILES_BRIDGE}}"
                     CACHE STRING "Bridge '${ARILES_BRIDGE} (ON / OFF / BUILD)")
+
+            if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
+                list(APPEND ARILES_ENABLED_BRIDGES "${ARILES_BRIDGE}")
+            endif()
         else()
             set    ("ARILES_BRIDGE_${ARILES_BRIDGE}" "${ARILES_BRIDGES_DEFAULT_MODE}"
                     CACHE STRING "Bridge '${ARILES_BRIDGE} (ON / OFF / BUILD)")
+
+            if (NOT ${ARILES_BRIDGES_DEFAULT_MODE} STREQUAL "OFF")
+                list(APPEND ARILES_ENABLED_BRIDGES "${ARILES_BRIDGE}")
+            endif()
         endif()
 
 
@@ -222,7 +231,6 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
             endif()
 
             if (ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS)
-                message ("---------------------------------------- ${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS}")
                 link_directories("${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS}")
             endif()
         endif()

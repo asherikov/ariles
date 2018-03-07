@@ -41,3 +41,8 @@ else()
     set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES "${${ARILES_BRIDGE}_INCLUDE_DIRS}" PARENT_SCOPE)
     set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS "${${ARILES_BRIDGE}_LIBRARIES}" PARENT_SCOPE)
 endif()
+
+list (FIND ARILES_ENABLED_BRIDGES "yaml_cpp03" INDEX)
+if (${INDEX} GREATER -1)
+    message(FATAL_ERROR "Conflict between the bridges detected (yaml_cpp03 -- yaml_cpp).")
+endif()
