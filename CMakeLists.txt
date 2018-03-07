@@ -27,6 +27,7 @@ set    (ARILES_BRIDGES_DEFAULT_MODE     "BUILD" CACHE STRING "ON = enable, OFF =
 option (ARILES_INSTALL_BRIDGES          "Install bridges on the system." OFF)
 
 # build parameters
+set    (ARILES_CPP_STANDARD             "c++98" CACHE STRING "C++ standard version")
 option (ARILES_VERBOSE                  "Verbose build"                     ON)
 option (ARILES_BUILD_REGRESSION_TESTS   "Build regression tests."           ON)
 
@@ -240,7 +241,7 @@ set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -fPIC -pedantic -Wall ${ARIL
 set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -Wempty-body -Wignored-qualifiers -Wmissing-field-initializers")
 set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -Wsign-compare -Wtype-limits -Wuninitialized -Woverloaded-virtual")
 
-set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -std=c++98")
+set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -std=${ARILES_CPP_STANDARD}")
 
 
 #####################################

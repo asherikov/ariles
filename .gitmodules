@@ -4,3 +4,6 @@
 [submodule "bridges/msgpack/msgpack-c"]
 	path = bridges/msgpack/msgpack-c
 	url = https://github.com/msgpack/msgpack-c.git
+[submodule "bridges/yaml_cpp/yaml-cpp"]
+	path = bridges/yaml_cpp/yaml-cpp
+	url = https://github.com/jbeder/yaml-cpp.git
