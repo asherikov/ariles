@@ -121,7 +121,7 @@ class ConfigurableDerived : public ConfigurableBase
         }
 };
 
-#include "types/000_strictness.h"
+#include "types/strictness.h"
 
 
 

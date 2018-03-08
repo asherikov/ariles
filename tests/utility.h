@@ -58,12 +58,18 @@ BOOST_GLOBAL_FIXTURE( GlobalFixtureConfig ) ;
 // -----
 // random
 boost::random::random_device                g_random_generator;
-boost::random::uniform_int_distribution<>   g_int_uniform_distribution(
+
+boost::random::uniform_int_distribution<int>   g_int_uniform_distribution(
         std::numeric_limits<int>::min(),
+        std::numeric_limits<int>::max());
+
+boost::random::uniform_int_distribution<unsigned int>   g_uint_uniform_distribution(
+        std::numeric_limits<unsigned int>::min(),
         std::numeric_limits<int>::max());
 
 boost::random::uniform_real_distribution<>  g_real_uniform_distribution(-1e-5, 1e5);
 
+#define GET_RANDOM_UINT     g_uint_uniform_distribution(g_random_generator);
 #define GET_RANDOM_INT      g_int_uniform_distribution(g_random_generator);
 #define GET_RANDOM_REAL     g_real_uniform_distribution(g_random_generator);
 // -----
