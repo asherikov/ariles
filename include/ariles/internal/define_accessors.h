@@ -110,7 +110,8 @@
             template <class t_Reader>
                 explicit ARILES_CONSTRUCTOR(
                         t_Reader &reader,
-                        const bool crash_on_missing_entry = true)
+                        const bool crash_on_missing_entry = true,
+                        ARILES_IS_CHILD_ENABLER_TYPE(ariles::ReaderBase, t_Reader) *dummy = NULL)
             {
                 readConfig(reader, crash_on_missing_entry);
             }

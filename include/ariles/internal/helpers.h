@@ -43,6 +43,9 @@
 #define ARILES_IS_ENUM_ENABLER_TYPE(Enum) \
     const typename boost::enable_if_c< (boost::is_enum<Enum>::value) >::type
 
+#define ARILES_IS_CHILD_ENABLER_TYPE(parent, child) \
+    const typename boost::enable_if_c< (boost::is_base_of<parent, child>::value) >::type
+
 
 #define ARILES_BASIC_TYPES_LIST \
     ARILES_BASIC_TYPE(std::string) \
