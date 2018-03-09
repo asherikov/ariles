@@ -36,6 +36,7 @@ class FixtureBase
 
         ros::NodeHandle & getInitializer(const std::string & string_id)
         {
+            ARILES_IGNORE_UNUSED(string_id);
             return (*nh_);
         }
 };
