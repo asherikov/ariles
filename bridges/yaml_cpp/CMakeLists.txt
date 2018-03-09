@@ -1,3 +1,8 @@
+list (FIND ARILES_ENABLED_BRIDGES "yaml_cpp03" INDEX)
+if (${INDEX} GREATER -1)
+    message(FATAL_ERROR "Conflict between the bridges detected (yaml_cpp03 -- yaml_cpp).")
+endif()
+
 ariles_copy_file_if_exists( TGT_ariles_copy_headers                             "format_yaml_cpp_h"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/yaml_cpp.h"      "${ARILES_INCLUDE_DIR}/ariles/formats/")
 ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                             "format_yaml_cpp_dir"
@@ -40,9 +45,4 @@ else()
     set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDE_HEADER "yaml-cpp/yaml.h" PARENT_SCOPE)
     set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES "${${ARILES_BRIDGE}_INCLUDE_DIRS}" PARENT_SCOPE)
     set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS "${${ARILES_BRIDGE}_LIBRARIES}" PARENT_SCOPE)
-endif()
-
-list (FIND ARILES_ENABLED_BRIDGES "yaml_cpp03" INDEX)
-if (${INDEX} GREATER -1)
-    message(FATAL_ERROR "Conflict between the bridges detected (yaml_cpp03 -- yaml_cpp).")
 endif()
