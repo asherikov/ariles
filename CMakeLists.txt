@@ -26,6 +26,9 @@ include(ariles_dump_variables)
 set    (ARILES_BRIDGES_DEFAULT_MODE     "BUILD" CACHE STRING "ON = enable, OFF = disable, BUILD = build from sources")
 option (ARILES_INSTALL_BRIDGES          "Install bridges on the system." OFF)
 
+# extra adapters
+option (ARILES_ADAPTER_EIGEN            "Enable eigen support." ON)
+
 # build parameters
 set    (ARILES_CPP_STANDARD             "c++98" CACHE STRING "C++ standard version")
 option (ARILES_VERBOSE                  "Verbose build"                     ON)
@@ -148,6 +151,10 @@ add_custom_target( TGT_ariles_copy_headers ALL )
 
 ariles_copy_dir_if_exists(TGT_ariles_copy_headers          "ariles"
                           "${PROJECT_SOURCE_DIR}/include"  "${ARILES_INCLUDE_DIR}")
+if (ARILES_ADAPTER_EIGEN)
+    ariles_copy_dir_if_exists(TGT_ariles_copy_headers                       "adapter_eigen"
+                              "${PROJECT_SOURCE_DIR}/extra_adapters/eigen"  "${ARILES_INCLUDE_DIR}/ariles/adapters/")
+endif(ARILES_ADAPTER_EIGEN)
 
 # All headers are collected in one directory
 include_directories ("${PROJECT_BINARY_DIR}/include/")
@@ -172,6 +179,11 @@ list(APPEND ARILES_MANDATORY_INCLUDES "${Boost_INCLUDE_DIRS}")
 ##
 
 set(BRIDGE_TARGET_PREFIX TGT_bridge)
+
+if (ARILES_ADAPTER_EIGEN)
+    find_package(Eigen3 REQUIRED)
+    list(APPEND ARILES_MANDATORY_INCLUDES "${EIGEN3_INCLUDE_DIR}")
+endif(ARILES_ADAPTER_EIGEN)
 
 set (ARILES_BRIDGES_BINARY_DIR "${PROJECT_BINARY_DIR}/bridges/")
 if (ARILES_INSTALL_BRIDGES)
