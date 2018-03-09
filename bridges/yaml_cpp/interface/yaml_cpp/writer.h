@@ -93,6 +93,7 @@ namespace ariles
                  */
                 void startMap(const std::size_t num_entries)
                 {
+                    ARILES_IGNORE_UNUSED(num_entries);
                     *emitter_ << YAML::BeginMap;
                 }
 
@@ -132,6 +133,7 @@ namespace ariles
 
                 void startArray(const std::size_t size)
                 {
+                    ARILES_IGNORE_UNUSED(size);
                     *emitter_ << YAML::Flow;
                     *emitter_ << YAML::BeginSeq;
                 }

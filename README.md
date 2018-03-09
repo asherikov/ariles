@@ -3,7 +3,7 @@ code generation capabilities. The main features are
 
 * Ariles relies on third-party libraries for support of various data
   representation formats. Currently supported formats are (all are optional):
-  - yaml (via yaml-cpp);
+  - yaml (via yaml-cpp, both old C++03 and new API supported);
   - msgpack (via msgpack-c);
   - ROS parameter server (via standard ROS libs).
 

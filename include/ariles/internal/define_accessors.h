@@ -48,6 +48,7 @@
             template <class t_Writer>
                 void writeConfigEntriesTemplate(t_Writer & writer) const
             {
+                ARILES_IGNORE_UNUSED(writer);
                 ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
             }
 
@@ -64,6 +65,8 @@
                 void readConfigEntriesTemplate( t_Reader & reader,
                                                 const bool crash_on_missing_entry = false)
             {
+                ARILES_IGNORE_UNUSED(reader);
+                ARILES_IGNORE_UNUSED(crash_on_missing_entry);
                 ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
                 finalize();
             }
@@ -113,6 +116,7 @@
                         const bool crash_on_missing_entry = true,
                         ARILES_IS_CHILD_ENABLER_TYPE(ariles::ReaderBase, t_Reader) *dummy = NULL)
             {
+                ARILES_IGNORE_UNUSED(dummy);
                 readConfig(reader, crash_on_missing_entry);
             }
         #endif

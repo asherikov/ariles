@@ -125,6 +125,7 @@ namespace ariles
                  */
                 void startMap(const std::size_t num_entries)
                 {
+                    ARILES_IGNORE_UNUSED(num_entries);
                 }
 
 

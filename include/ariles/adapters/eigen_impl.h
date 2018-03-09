@@ -32,6 +32,8 @@ namespace ariles
                             Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
                             const bool crash_on_missing_entry)
         {
+            ARILES_IGNORE_UNUSED(crash_on_missing_entry);
+
             std::size_t size = reader.startArray();
 
             if (Eigen::Dynamic == t_rows)
@@ -74,6 +76,8 @@ namespace ariles
                             Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
                             const bool crash_on_missing_entry)
         {
+            ARILES_IGNORE_UNUSED(crash_on_missing_entry);
+
             EIGEN_DEFAULT_DENSE_INDEX_TYPE num_rows;
             EIGEN_DEFAULT_DENSE_INDEX_TYPE num_cols;
 

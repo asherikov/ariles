@@ -245,10 +245,7 @@ endforeach(ARILES_BRIDGES_DIR)
 
 
 set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -fPIC -pedantic -Wall ${ARILES_CXX_FLAGS}")
-# extra warnings
-set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -Wempty-body -Wignored-qualifiers -Wmissing-field-initializers")
-set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -Wsign-compare -Wtype-limits -Wuninitialized -Woverloaded-virtual")
-
+set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -std=${ARILES_CPP_STANDARD}")
 
 

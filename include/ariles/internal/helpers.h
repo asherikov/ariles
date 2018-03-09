@@ -26,6 +26,7 @@
 
 #define ARILES_INITIALIZE  "ariles/internal/define_accessors.h"
 
+#define ARILES_IGNORE_UNUSED(parameter)   (void)parameter;
 
 #define ARILES_THROW_MSG(s) \
     throw std::runtime_error(std::string("In ") + __FILE__ + " // " + (s))
