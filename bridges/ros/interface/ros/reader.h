@@ -10,6 +10,8 @@
 
 #pragma once
 
+#include <boost/lexical_cast.hpp>
+
 namespace ariles
 {
     namespace ros
@@ -161,6 +163,24 @@ namespace ariles
                     int tmp_value = static_cast<int>(getRawNode());
                     ARILES_ASSERT(tmp_value >= 0, "Positive integer expected.");
                     element = tmp_value;
+                }
+
+                void readElement(double &element)
+                {
+                    switch(getRawNode().getType())
+                    {
+                        case XmlRpc::XmlRpcValue::TypeDouble:
+                            element = static_cast<double>(getRawNode());
+                            break;
+
+                        case XmlRpc::XmlRpcValue::TypeString:
+                            element = boost::lexical_cast<double>(  static_cast<std::string>( getRawNode() )  );
+                            break;
+
+                        default:
+                            ARILES_THROW_MSG("Double type expected.");
+                            break;
+                    }
                 }
         };
     }

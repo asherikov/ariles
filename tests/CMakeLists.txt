@@ -22,3 +22,4 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "003" "msgpack" "yaml_cpp03;
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "004" "msgpack" "yaml_cpp03;yaml_cpp")
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "005" "msgpack" "yaml_cpp03;yaml_cpp")
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "006" "ros")
+#ariles_define_regression_test(${CMAKE_PROJECT_NAME} "007" "ros")
