@@ -177,6 +177,10 @@ namespace ariles
                             element = boost::lexical_cast<double>(  static_cast<std::string>( getRawNode() )  );
                             break;
 
+                        case XmlRpc::XmlRpcValue::TypeInt:
+                            element = static_cast<int>(getRawNode());
+                            break;
+
                         default:
                             ARILES_THROW_MSG("Double type expected.");
                             break;
