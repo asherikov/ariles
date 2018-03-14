@@ -62,4 +62,7 @@ void    compare(const t_Configurable_out    &configurable_out,
                         configurable_in.std_nested_vector_evector_[i][j], g_tolerance));
         }
     }
+
+    BOOST_CHECK_EQUAL(configurable_out.std_pair_.first,     configurable_in.std_pair_.first);
+    BOOST_CHECK_CLOSE(configurable_out.std_pair_.second,    configurable_in.std_pair_.second, g_tolerance);
 }

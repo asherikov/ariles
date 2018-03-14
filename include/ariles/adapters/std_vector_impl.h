@@ -25,9 +25,10 @@ namespace ariles
          */
         template <  class t_Reader,
                     typename t_VectorEntryType>
-            void ARILES_VISIBILITY_ATTRIBUTE readBody(   t_Reader & reader,
-                                    std::vector<t_VectorEntryType> & entry,
-                                    const bool crash_on_missing_entry)
+            void ARILES_VISIBILITY_ATTRIBUTE readBody(
+                    t_Reader & reader,
+                    std::vector<t_VectorEntryType> & entry,
+                    const bool crash_on_missing_entry)
         {
             entry.resize(reader.startArray());
             for(std::size_t i = 0; i < entry.size(); ++i)
@@ -52,8 +53,9 @@ namespace ariles
          */
         template <  class t_Writer,
                     typename t_VectorEntryType>
-            void ARILES_VISIBILITY_ATTRIBUTE writeBody( t_Writer & writer,
-                            const std::vector<t_VectorEntryType> & entry)
+            void ARILES_VISIBILITY_ATTRIBUTE writeBody(
+                    t_Writer & writer,
+                    const std::vector<t_VectorEntryType> & entry)
         {
             writer.startArray(entry.size());
             for (std::size_t i = 0; i < entry.size(); ++i)

@@ -28,8 +28,12 @@ class ConfigurableComplex : public ariles::ConfigurableBase
         ARILES_TYPED_ENTRY_(std_nested_vector,   std::vector< std::vector<double> >) \
         ARILES_TYPED_ENTRY_(std_vector_evector,  std::vector<Eigen::Vector3d>) \
         ARILES_TYPED_ENTRY_(std_nested_vector_evector, std::vector< std::vector<Eigen::Vector3d> >) \
-        ARILES_TYPED_ENTRY_(enum, SomeEnum)
+        ARILES_TYPED_ENTRY_(enum, SomeEnum) \
+        ARILES_ENTRY_(std_pair)
     #include ARILES_INITIALIZE
+
+    public:
+        std::pair<std::string, double>  std_pair_;
 
 
     public:
@@ -86,6 +90,9 @@ class ConfigurableComplex : public ariles::ConfigurableBase
             }
 
             enum_ = ANOTHER_VALUE;
+
+            std_pair_.first = "test";
+            std_pair_.second = 13;
         }
 
 
@@ -136,6 +143,10 @@ class ConfigurableComplex : public ariles::ConfigurableBase
             }
 
             enum_ = ANOTHER_VALUE;
+
+            std_pair_.first = "testtt";
+            std_pair_.second = GET_RANDOM_REAL;
+
             finalize();
         }
 };

@@ -10,19 +10,20 @@
 
 #pragma once
 
-#define ARILES_ADAPTER_STD_VECTOR
+#define ARILES_ADAPTER_STD_PAIR
 
-#include <vector>
+#include <utility>
 
 namespace ariles
 {
     namespace reader
     {
         template <  class t_Reader,
-                    typename t_VectorEntryType>
+                    typename t_First,
+                    typename t_Second>
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader & reader,
-                    std::vector<t_VectorEntryType> & entry,
+                    std::pair<t_First, t_Second> & entry,
                     const bool crash_on_missing_entry = false);
     }
 
@@ -30,9 +31,10 @@ namespace ariles
     namespace writer
     {
         template <  class t_Writer,
-                    typename t_VectorEntryType>
+                    typename t_First,
+                    typename t_Second>
             void ARILES_VISIBILITY_ATTRIBUTE writeBody(
                     t_Writer & writer,
-                    const std::vector<t_VectorEntryType> & entry);
+                    const std::pair<t_First, t_Second> & entry);
     }
 }

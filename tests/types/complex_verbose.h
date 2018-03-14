@@ -28,7 +28,8 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase
         ARILES_ENTRY_(string) \
         ARILES_ENTRY_(std_vector_evector) \
         ARILES_ENTRY_(std_nested_vector_evector) \
-        ARILES_ENTRY_(enum)
+        ARILES_ENTRY_(enum) \
+        ARILES_ENTRY_(std_pair)
     #include ARILES_INITIALIZE
 
 
@@ -50,6 +51,8 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase
         std::vector< std::vector<Eigen::Vector3d> > std_nested_vector_evector_;
 
         SomeEnum enum_;
+
+        std::pair<std::string, double> std_pair_;
 
 
     public:
@@ -106,6 +109,9 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase
             }
 
             enum_ = ANOTHER_VALUE;
+
+            std_pair_.first = "test";
+            std_pair_.second = 13;
         }
 
 
@@ -156,6 +162,10 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase
             }
 
             enum_ = ANOTHER_VALUE;
+
+            std_pair_.first = "testtt";
+            std_pair_.second = GET_RANDOM_REAL;
+
             finalize();
         }
 };

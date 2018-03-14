@@ -18,3 +18,7 @@
 #ifdef ARILES_ADAPTER_STD_VECTOR
 #   include "std_vector_impl.h"
 #endif
+
+#ifdef ARILES_ADAPTER_STD_PAIR
+#   include "std_pair_impl.h"
+#endif

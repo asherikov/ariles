@@ -14,3 +14,4 @@
 
 #include "adapters/eigen.h"
 #include "adapters/std_vector.h"
+#include "adapters/std_pair.h"
