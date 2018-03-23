@@ -135,10 +135,13 @@ namespace ariles
 
 
 
-                void startArray(const std::size_t size)
+                void startArray(const std::size_t size, const bool compact = false)
                 {
                     ARILES_IGNORE_UNUSED(size);
-                    *emitter_ << YAML::Flow;
+                    if (true == compact)
+                    {
+                        *emitter_ << YAML::Flow;
+                    }
                     *emitter_ << YAML::BeginSeq;
                 }
 

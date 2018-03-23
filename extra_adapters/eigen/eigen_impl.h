@@ -119,7 +119,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE writeBody( t_Writer & writer,
                             const Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry)
         {
-            writer.startArray(entry.rows());
+            writer.startArray(entry.rows(), true);
             for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < entry.rows(); ++i)
             {
                 writer.writeElement(entry[i]);
@@ -156,7 +156,7 @@ namespace ariles
 
 
             writer.descend("data");
-            writer.startArray(entry.size());
+            writer.startArray(entry.size(), true);
             for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < entry.rows(); ++i)
             {
                 for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < entry.cols(); ++j)

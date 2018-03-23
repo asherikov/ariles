@@ -137,8 +137,9 @@ namespace ariles
                 }
 
 
-                void startArray(const std::size_t size)
+                void startArray(const std::size_t size, const bool compact = false)
                 {
+                    ARILES_IGNORE_UNUSED(compact);
                     getRawNode().setSize(size);
                     node_stack_.push_back(NodeWrapper(0, size));
                 }
