@@ -29,7 +29,8 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase
         ARILES_ENTRY_(std_vector_evector) \
         ARILES_ENTRY_(std_nested_vector_evector) \
         ARILES_ENTRY_(enum) \
-        ARILES_ENTRY_(std_pair)
+        ARILES_ENTRY_(std_pair) \
+        ARILES_ENTRY_(std_map)
     #include ARILES_INITIALIZE
 
 
@@ -53,6 +54,7 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase
         SomeEnum enum_;
 
         std::pair<std::string, double> std_pair_;
+        std::map<std::string, std::vector<std::string> > std_map_;
 
 
     public:
@@ -112,6 +114,14 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase
 
             std_pair_.first = "test";
             std_pair_.second = 13;
+
+            std::vector<std::string> std_map_test;
+            std_map_test.push_back("one");
+            std_map_["one"] = std_map_test;
+            std_map_test.push_back("two");
+            std_map_["two"] = std_map_test;
+            std_map_test.push_back("three");
+            std_map_["three"] = std_map_test;
         }
 
 

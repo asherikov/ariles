@@ -29,11 +29,13 @@ class ConfigurableComplex : public ariles::ConfigurableBase
         ARILES_TYPED_ENTRY_(std_vector_evector,  std::vector<Eigen::Vector3d>) \
         ARILES_TYPED_ENTRY_(std_nested_vector_evector, std::vector< std::vector<Eigen::Vector3d> >) \
         ARILES_TYPED_ENTRY_(enum, SomeEnum) \
-        ARILES_ENTRY_(std_pair)
+        ARILES_ENTRY_(std_pair) \
+        ARILES_ENTRY_(std_map)
     #include ARILES_INITIALIZE
 
     public:
         std::pair<std::string, double>  std_pair_;
+        std::map<std::string, std::vector<std::string> > std_map_;
 
 
     public:
@@ -93,6 +95,14 @@ class ConfigurableComplex : public ariles::ConfigurableBase
 
             std_pair_.first = "test";
             std_pair_.second = 13;
+
+            std::vector<std::string> std_map_test;
+            std_map_test.push_back("one");
+            std_map_["one"] = std_map_test;
+            std_map_test.push_back("two");
+            std_map_["two"] = std_map_test;
+            std_map_test.push_back("three");
+            std_map_["three"] = std_map_test;
         }
 
 

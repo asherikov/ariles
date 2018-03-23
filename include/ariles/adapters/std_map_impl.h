@@ -2,7 +2,7 @@
     @file
     @author  Alexander Sherikov
 
-    @copyright 2017-2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
+    @copyright 2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
 
     @brief
@@ -16,7 +16,7 @@ namespace ariles
     namespace reader
     {
         /**
-         * @brief Read configuration entry (std::vector)
+         * @brief Read configuration entry (std::map)
          *
          * @tparam t_VectorEntryType type of the entry of std::vector
          *
@@ -24,17 +24,27 @@ namespace ariles
          * @param[in]  crash_on_missing_entry
          */
         template <  class t_Reader,
-                    typename t_VectorEntryType,
+                    typename t_Key,
+                    typename t_Value,
+                    class t_Compare,
                     class t_Allocator>
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader & reader,
-                    std::vector<t_VectorEntryType, t_Allocator> & entry,
+                    std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry,
                     const bool crash_on_missing_entry)
         {
-            entry.resize(reader.startArray());
+            ARILES_IGNORE_UNUSED(crash_on_missing_entry);
+
+            reader.startArray();
+            entry.clear();
             for(std::size_t i = 0; i < entry.size(); ++i)
             {
-                readBody(reader, entry[i], crash_on_missing_entry);
+                std::pair<t_Key, t_Value> map_entry;
+
+                readBody(reader, map_entry, true);
+
+                entry.insert(map_entry);
+
                 reader.shiftArray();
             }
             reader.endArray();
@@ -53,16 +63,21 @@ namespace ariles
          * @param[in] entry_name name
          */
         template <  class t_Writer,
-                    typename t_VectorEntryType,
+                    typename t_Key,
+                    typename t_Value,
+                    class t_Compare,
                     class t_Allocator>
             void ARILES_VISIBILITY_ATTRIBUTE writeBody(
                     t_Writer & writer,
-                    const std::vector<t_VectorEntryType, t_Allocator> & entry)
+                    const std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry)
         {
             writer.startArray(entry.size());
-            for (std::size_t i = 0; i < entry.size(); ++i)
+            for (
+                typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator it = entry.begin();
+                it != entry.end();
+                ++it)
             {
-                writeBody(writer, entry[i]);
+                writeBody(writer, *it);
                 writer.shiftArray();
             }
             writer.endArray();

@@ -65,4 +65,18 @@ void    compare(const t_Configurable_out    &configurable_out,
 
     BOOST_CHECK_EQUAL(configurable_out.std_pair_.first,     configurable_in.std_pair_.first);
     BOOST_CHECK_CLOSE(configurable_out.std_pair_.second,    configurable_in.std_pair_.second, g_tolerance);
+
+    for (   std::map<std::string, std::vector<std::string> >::const_iterator it = configurable_in.std_map_.begin();
+            it != configurable_in.std_map_.end();
+            ++it)
+    {
+        std::map<std::string, std::vector<std::string> >::const_iterator search = configurable_out.std_map_.find(it->first);
+        BOOST_CHECK(search != configurable_out.std_map_.end());
+
+        BOOST_CHECK_EQUAL(it->second.size(), search->second.size());
+        for (std::size_t i = 0; i < it->second.size(); ++i)
+        {
+            BOOST_CHECK_EQUAL(it->second[i], search->second[i]);
+        }
+    }
 }

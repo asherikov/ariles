@@ -2,7 +2,7 @@
     @file
     @author  Alexander Sherikov
 
-    @copyright 2017-2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
+    @copyright 2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
 
     @brief
@@ -10,20 +10,22 @@
 
 #pragma once
 
-#define ARILES_ADAPTER_STD_VECTOR
+#define ARILES_ADAPTER_STD_MAP
 
-#include <vector>
+#include <map>
 
 namespace ariles
 {
     namespace reader
     {
         template <  class t_Reader,
-                    typename t_VectorEntryType,
+                    typename t_Key,
+                    typename t_Value,
+                    class t_Compare,
                     class t_Allocator>
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader & reader,
-                    std::vector<t_VectorEntryType, t_Allocator> & entry,
+                    std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry,
                     const bool crash_on_missing_entry = false);
     }
 
@@ -31,10 +33,12 @@ namespace ariles
     namespace writer
     {
         template <  class t_Writer,
-                    typename t_VectorEntryType,
+                    typename t_Key,
+                    typename t_Value,
+                    class t_Compare,
                     class t_Allocator>
             void ARILES_VISIBILITY_ATTRIBUTE writeBody(
                     t_Writer & writer,
-                    const std::vector<t_VectorEntryType, t_Allocator> & entry);
+                    const std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry);
     }
 }
