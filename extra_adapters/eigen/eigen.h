@@ -29,6 +29,7 @@ namespace ariles
                         Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
                         const bool crash_on_missing_entry = false);
 
+
         template <  class t_Reader,
                     typename t_Scalar,
                     int t_rows,
@@ -37,6 +38,17 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             readBody(   t_Reader & reader,
                         Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
+                        const bool crash_on_missing_entry = false);
+
+
+        template <  class t_Reader,
+                    typename t_Scalar,
+                    int t_dim,
+                    int t_mode,
+                    int t_options>
+            void ARILES_VISIBILITY_ATTRIBUTE
+            readBody(   t_Reader & reader,
+                        Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
                         const bool crash_on_missing_entry = false);
     }
 
@@ -80,5 +92,15 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             writeBody(  t_Writer & writer,
                         const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry);
+
+
+        template <  class t_Writer,
+                    typename t_Scalar,
+                    int t_dim,
+                    int t_mode,
+                    int t_options>
+            void ARILES_VISIBILITY_ATTRIBUTE
+            writeBody(  t_Writer & writer,
+                        const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry);
     }
 }

@@ -25,7 +25,6 @@
 
 #include "types/strictness.h"
 #include "types/complex.h"
-#include "types/comparison_complex.h"
 
 class ConfigurableBase : public ariles::ConfigurableBase
 {

@@ -28,9 +28,10 @@ namespace ariles
                     typename t_Scalar,
                     int t_rows,
                     int t_flags>
-            void ARILES_VISIBILITY_ATTRIBUTE readBody(  t_Reader &reader,
-                            Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
-                            const bool crash_on_missing_entry)
+            void ARILES_VISIBILITY_ATTRIBUTE readBody(
+                    t_Reader &reader,
+                    Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
+                    const bool crash_on_missing_entry)
         {
             ARILES_IGNORE_UNUSED(crash_on_missing_entry);
 
@@ -72,9 +73,10 @@ namespace ariles
                     int t_rows,
                     int t_cols,
                     int t_flags>
-            void ARILES_VISIBILITY_ATTRIBUTE readBody(  t_Reader & reader,
-                            Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
-                            const bool crash_on_missing_entry)
+            void ARILES_VISIBILITY_ATTRIBUTE
+            readBody(  t_Reader & reader,
+                       Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
+                       const bool crash_on_missing_entry)
         {
             ARILES_IGNORE_UNUSED(crash_on_missing_entry);
 
@@ -99,6 +101,25 @@ namespace ariles
                                                     num_cols);
             entry = map;
         }
+
+
+        template <  class t_Reader,
+                    typename t_Scalar,
+                    int t_dim,
+                    int t_mode,
+                    int t_options>
+            void ARILES_VISIBILITY_ATTRIBUTE
+            readBody(   t_Reader & reader,
+                        Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
+                        const bool crash_on_missing_entry)
+        {
+            Eigen::Matrix<
+                t_Scalar,
+                Eigen::Dynamic == t_dim ? Eigen::Dynamic : t_dim+1,
+                Eigen::Dynamic == t_dim ? Eigen::Dynamic : t_dim+1> raw_matrix;
+            readBody(reader, raw_matrix, crash_on_missing_entry);
+            entry.matrix() = raw_matrix;
+        }
     }
 
 
@@ -116,8 +137,9 @@ namespace ariles
                     typename t_Scalar,
                     int t_rows,
                     int t_flags>
-            void ARILES_VISIBILITY_ATTRIBUTE writeBody( t_Writer & writer,
-                            const Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry)
+            void ARILES_VISIBILITY_ATTRIBUTE
+            writeBody( t_Writer & writer,
+                       const Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry)
         {
             writer.startArray(entry.rows(), true);
             for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < entry.rows(); ++i)
@@ -146,8 +168,9 @@ namespace ariles
                     int t_rows,
                     int t_cols,
                     int t_flags>
-            void ARILES_VISIBILITY_ATTRIBUTE writeBody( t_Writer & writer,
-                            const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry)
+            void ARILES_VISIBILITY_ATTRIBUTE
+            writeBody( t_Writer & writer,
+                       const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry)
         {
             writer.startMap(3);
 
@@ -169,6 +192,19 @@ namespace ariles
             writer.ascend();
 
             writer.endMap();
+        }
+
+
+        template <  class t_Writer,
+                    typename t_Scalar,
+                    int t_dim,
+                    int t_mode,
+                    int t_options>
+            void ARILES_VISIBILITY_ATTRIBUTE
+            writeBody(  t_Writer & writer,
+                        const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry)
+        {
+            writeBody(writer, entry.matrix());
         }
     }
 }
