@@ -35,9 +35,9 @@ namespace ariles
         {
             ARILES_IGNORE_UNUSED(crash_on_missing_entry);
 
-            reader.startArray();
+            std::size_t size = reader.startArray();
             entry.clear();
-            for(std::size_t i = 0; i < entry.size(); ++i)
+            for(std::size_t i = 0; i < size; ++i)
             {
                 std::pair<t_Key, t_Value> map_entry;
 

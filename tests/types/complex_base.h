@@ -140,6 +140,17 @@ class ConfigurableComplexBase
             impl.std_pair_.first = "testtt";
             impl.std_pair_.second = GET_RANDOM_REAL;
 
+            impl.std_map_.clear();
+            std::vector<std::string> std_map_test;
+            std_map_test.push_back("1one");
+            impl.std_map_["one1"] = std_map_test;
+            std_map_test.push_back("2two");
+            impl.std_map_["two2"] = std_map_test;
+            std_map_test.push_back("3three");
+            impl.std_map_["three3"] = std_map_test;
+            std_map_test.push_back("4four");
+            impl.std_map_["four4"] = std_map_test;
+
             impl.finalize();
         }
 };
@@ -200,6 +211,9 @@ void    compare(const t_Configurable_out    &configurable_out,
 
     BOOST_CHECK_EQUAL(configurable_out.std_pair_.first,     configurable_in.std_pair_.first);
     BOOST_CHECK_CLOSE(configurable_out.std_pair_.second,    configurable_in.std_pair_.second, g_tolerance);
+
+
+    BOOST_CHECK_EQUAL(configurable_out.std_map_.size(),     configurable_in.std_map_.size());
 
     for (   std::map<std::string, std::vector<std::string> >::const_iterator it = configurable_in.std_map_.begin();
             it != configurable_in.std_map_.end();
