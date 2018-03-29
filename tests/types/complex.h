@@ -30,6 +30,7 @@ class ConfigurableComplex : public ariles::ConfigurableBase, public Configurable
         ARILES_TYPED_ENTRY_(std_nested_vector_evector, std::vector< std::vector<Eigen::Vector3d> >) \
         ARILES_TYPED_ENTRY_(enum, SomeEnum) \
         ARILES_TYPED_ENTRY_(isometry,    Eigen::Isometry3d) \
+        ARILES_TYPED_ENTRY_(quaternion,    Eigen::Quaterniond) \
         ARILES_ENTRY_(std_pair) \
         ARILES_ENTRY_(std_map)
     #include ARILES_INITIALIZE

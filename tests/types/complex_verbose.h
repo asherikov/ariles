@@ -30,6 +30,7 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase, public Confi
         ARILES_ENTRY_(std_nested_vector_evector) \
         ARILES_ENTRY_(enum) \
         ARILES_ENTRY_(isometry) \
+        ARILES_ENTRY_(quaternion) \
         ARILES_ENTRY_(std_pair) \
         ARILES_ENTRY_(std_map)
     #include ARILES_INITIALIZE
@@ -58,6 +59,8 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase, public Confi
         std::map<std::string, std::vector<std::string> > std_map_;
 
         Eigen::Isometry3d   isometry_;
+
+        Eigen::Quaterniond  quaternion_;
 
 
     public:

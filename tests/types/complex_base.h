@@ -84,6 +84,8 @@ class ConfigurableComplexBase
             impl.std_map_["three"] = std_map_test;
 
             impl.isometry_.setIdentity();
+
+            impl.quaternion_.setIdentity();
         }
 
 
@@ -150,6 +152,13 @@ class ConfigurableComplexBase
             impl.std_map_["three3"] = std_map_test;
             std_map_test.push_back("4four");
             impl.std_map_["four4"] = std_map_test;
+
+            impl.isometry_.matrix() = Eigen::MatrixXd::Random(4,4);
+
+            impl.quaternion_.x() = GET_RANDOM_REAL;
+            impl.quaternion_.y() = GET_RANDOM_REAL;
+            impl.quaternion_.z() = GET_RANDOM_REAL;
+            impl.quaternion_.w() = GET_RANDOM_REAL;
 
             impl.finalize();
         }
@@ -230,4 +239,5 @@ void    compare(const t_Configurable_out    &configurable_out,
     }
 
     BOOST_CHECK(configurable_out.isometry_.isApprox(configurable_in.isometry_, g_tolerance));
+    BOOST_CHECK(configurable_out.quaternion_.isApprox(configurable_in.quaternion_, g_tolerance));
 }
