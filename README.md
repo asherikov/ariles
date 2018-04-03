@@ -38,5 +38,5 @@ class Configurable : public ariles::ConfigurableBase
   a YAML file (explicit instantiation of an 'archive' class is not needed):
 ```
 Configurable configurable;
-configurable.readConfig<ariles::yaml::Reader>("config_file.yaml");
+configurable.readConfig<ariles::yaml_cpp>("config_file.yaml");
 ```
