@@ -209,10 +209,29 @@
          */
         template <class t_Reader, class t_ReaderInitializer>
             void readConfig(const t_ReaderInitializer   &reader_initializer,
-                            const bool                  crash_on_missing_entry = true)
+                            const bool                  crash_on_missing_entry = true,
+                            ARILES_IS_CHILD_ENABLER_TYPE(ariles::ReaderBase, t_Reader) *dummy = NULL)
         {
+            ARILES_IGNORE_UNUSED(dummy);
             t_Reader reader(reader_initializer);
             ariles::reader::readEntry(reader, *this, this->getConfigSectionID(), crash_on_missing_entry);
+        }
+
+
+        /**
+         * @brief Read configuration (assuming the configuration node
+         * to be in the root).
+         *
+         * @param[in] file_name file name
+         * @param[in] crash_on_missing_entry
+         */
+        template <class t_Bridge, class t_ReaderInitializer>
+            void readConfig(const t_ReaderInitializer   &reader_initializer,
+                            const bool                  crash_on_missing_entry = true,
+                            ARILES_IS_CHILD_ENABLER_TYPE(ariles::BridgeSelectorBase, t_Bridge) *dummy = NULL)
+        {
+            ARILES_IGNORE_UNUSED(dummy);
+            readConfig<typename t_Bridge::Reader>(reader_initializer, crash_on_missing_entry);
         }
 
 
@@ -227,10 +246,31 @@
         template <class t_Reader, class t_ReaderInitializer>
             void readConfig(const t_ReaderInitializer   &reader_initializer,
                             const std::string           &node_name,
-                            const bool                  crash_on_missing_entry = true)
+                            const bool                  crash_on_missing_entry = true,
+                            ARILES_IS_CHILD_ENABLER_TYPE(ariles::ReaderBase, t_Reader) *dummy = NULL)
         {
+            ARILES_IGNORE_UNUSED(dummy);
             t_Reader reader(reader_initializer);
             ariles::reader::readEntry(reader, *this, node_name, crash_on_missing_entry);
+        }
+
+
+        /**
+         * @brief Read configuration (assuming the configuration node
+         * to be in the root).
+         *
+         * @param[in] file_name file name
+         * @param[in] node_name   node name, the default is used if empty
+         * @param[in] crash_on_missing_entry
+         */
+        template <class t_Bridge, class t_ReaderInitializer>
+            void readConfig(const t_ReaderInitializer   &reader_initializer,
+                            const std::string           &node_name,
+                            const bool                  crash_on_missing_entry = true,
+                            ARILES_IS_CHILD_ENABLER_TYPE(ariles::BridgeSelectorBase, t_Bridge) *dummy = NULL)
+        {
+            ARILES_IGNORE_UNUSED(dummy);
+            readConfig<typename t_Bridge::Reader>(reader_initializer, node_name, crash_on_missing_entry);
         }
 
 
@@ -247,10 +287,33 @@
         template <class t_Reader, class t_ReaderInitializer>
             void readConfig(const t_ReaderInitializer   &reader_initializer,
                             const char                  *node_name,
-                            const bool                  crash_on_missing_entry = true)
+                            const bool                  crash_on_missing_entry = true,
+                            ARILES_IS_CHILD_ENABLER_TYPE(ariles::ReaderBase, t_Reader) *dummy = NULL)
         {
+            ARILES_IGNORE_UNUSED(dummy);
             t_Reader reader(reader_initializer);
             ariles::reader::readEntry(reader, *this, node_name, crash_on_missing_entry);
+        }
+
+
+        /**
+         * @brief Read configuration (assuming the configuration node
+         * to be in the root).
+         *
+         * @param[in] file_name file name
+         * @param[in] crash_on_missing_entry
+         * @param[in] node_name   node name, the default is used if empty
+         *
+         * @note Intercept implicit conversion of a pointer to bool.
+         */
+        template <class t_Bridge, class t_ReaderInitializer>
+            void readConfig(const t_ReaderInitializer   &reader_initializer,
+                            const char                  *node_name,
+                            const bool                  crash_on_missing_entry = true,
+                            ARILES_IS_CHILD_ENABLER_TYPE(ariles::BridgeSelectorBase, t_Bridge) *dummy = NULL)
+        {
+            ARILES_IGNORE_UNUSED(dummy);
+            readConfig<typename t_Bridge::Reader>(reader_initializer, node_name, crash_on_missing_entry);
         }
 
 
@@ -291,8 +354,10 @@
          * @param[in] file_name file name
          */
         template <class t_Writer, class t_WriterInitializer>
-            void writeConfig(const t_WriterInitializer &writer_initializer) const
+            void writeConfig(   const t_WriterInitializer &writer_initializer,
+                                ARILES_IS_CHILD_ENABLER_TYPE(ariles::WriterBase, t_Writer) *dummy = NULL) const
         {
+            ARILES_IGNORE_UNUSED(dummy);
             t_Writer writer(writer_initializer);
             writeConfig(writer);
         }
@@ -302,15 +367,81 @@
          * @brief Write configuration.
          *
          * @param[in] file_name file name
-         * @param[in] node_name   node name, the default is used if empty
+         */
+        template <class t_Bridge, class t_WriterInitializer>
+            void writeConfig(   const t_WriterInitializer &writer_initializer,
+                                ARILES_IS_CHILD_ENABLER_TYPE(ariles::BridgeSelectorBase, t_Bridge) *dummy = NULL) const
+        {
+            ARILES_IGNORE_UNUSED(dummy);
+            writeConfig<typename t_Bridge::Writer>(writer_initializer);
+        }
+
+
+        /**
+         * @brief Write configuration.
+         *
+         * @param[in] file_name file name
+         * @param[in] node_name node name, the default is used if empty
          */
         template <class t_Writer, class t_WriterInitializer>
-            void writeConfig(const t_WriterInitializer &writer_initializer,
-                             const std::string &node_name) const
+            void writeConfig(   const t_WriterInitializer &writer_initializer,
+                                const std::string &node_name,
+                                ARILES_IS_CHILD_ENABLER_TYPE(ariles::WriterBase, t_Writer) *dummy = NULL) const
         {
+            ARILES_IGNORE_UNUSED(dummy);
             t_Writer writer(writer_initializer);
             writeConfig(writer, node_name);
         }
+
+
+        /**
+         * @brief Write configuration.
+         *
+         * @param[in] file_name file name
+         * @param[in] node_name node name, the default is used if empty
+         */
+        template <class t_Writer, class t_WriterInitializer>
+            void writeConfig(   const t_WriterInitializer &writer_initializer,
+                                const char *node_name,
+                                ARILES_IS_CHILD_ENABLER_TYPE(ariles::WriterBase, t_Writer) *dummy = NULL) const
+        {
+            ARILES_IGNORE_UNUSED(dummy);
+            t_Writer writer(writer_initializer);
+            writeConfig(writer, node_name);
+        }
+
+
+        /**
+         * @brief Write configuration.
+         *
+         * @param[in] file_name file name
+         * @param[in] node_name node name, the default is used if empty
+         */
+        template <class t_Bridge, class t_WriterInitializer>
+            void writeConfig(   const t_WriterInitializer &writer_initializer,
+                                const std::string &node_name,
+                                ARILES_IS_CHILD_ENABLER_TYPE(ariles::BridgeSelectorBase, t_Bridge) *dummy = NULL) const
+        {
+            ARILES_IGNORE_UNUSED(dummy);
+            writeConfig<typename t_Bridge::Writer>(writer_initializer, node_name);
+        }
+
+
+        /**
+         * @brief Write configuration.
+         *
+         * @param[in] file_name file name
+         * @param[in] node_name node name, the default is used if empty
+         */
+        template <class t_Bridge, class t_WriterInitializer>
+            void writeConfig(   const t_WriterInitializer &writer_initializer,
+                                const char *node_name,
+                                ARILES_IS_CHILD_ENABLER_TYPE(ariles::BridgeSelectorBase, t_Bridge) *dummy = NULL) const
+        {
+            ARILES_IGNORE_UNUSED(dummy);
+            writeConfig<typename t_Bridge::Writer>(writer_initializer, node_name);
+        }
+
 
 #endif //ARILES_ENABLED
 

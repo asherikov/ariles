@@ -13,7 +13,7 @@
 class BasicInterfaceFixture : public FixtureBase
 {
     protected:
-        template<class t_Configurable, class t_Reader, class t_Writer>
+        template<class t_Configurable, class t_Bridge>
             void test()
         {
             // Exlicit instantiation of reader and writer classes
@@ -21,14 +21,14 @@ class BasicInterfaceFixture : public FixtureBase
                 t_Configurable configurable;
                 configurable.randomize();
 
-                t_Writer writer(getInitializer("configurable.cfg"));
+                typename t_Bridge::Writer writer(getInitializer("configurable.cfg"));
                 configurable.writeConfig(writer);
             );
 
             BOOST_CHECK_NO_THROW(
                 t_Configurable configurable;
 
-                t_Reader reader(getInitializer("configurable.cfg"));
+                typename t_Bridge::Reader reader(getInitializer("configurable.cfg"));
                 configurable.readConfig(reader);
             );
 
@@ -39,12 +39,12 @@ class BasicInterfaceFixture : public FixtureBase
             BOOST_CHECK_NO_THROW(
                 t_Configurable configurable;
                 configurable.randomize();
-                configurable.template writeConfig<t_Writer>(getInitializer("configurable2.cfg"));
+                configurable.template writeConfig<t_Bridge>(getInitializer("configurable2.cfg"));
             );
 
             BOOST_CHECK_NO_THROW(
                 t_Configurable configurable;
-                configurable.template readConfig<t_Reader>(getInitializer("configurable2.cfg"));
+                configurable.template readConfig<t_Bridge>(getInitializer("configurable2.cfg"));
             );
         }
 };

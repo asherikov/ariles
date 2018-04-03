@@ -161,7 +161,7 @@ void    compare(const t_Configurable_out    &configurable_out,
     ARILES_FIXTURE_TEST_CASE_2CLASSES(StrictnessFixture, NAMESPACE, ConfigurableStrictness1, ConfigurableStrictness2) \
     BOOST_FIXTURE_TEST_CASE(ComparisonViaBaseFixture##_##NAMESPACE, ComparisonViaBaseFixture) \
     { \
-        test<ConfigurableBase, ConfigurableDerived, ariles::NAMESPACE::Reader, ariles::NAMESPACE::Writer>(); \
+        test<ConfigurableBase, ConfigurableDerived, ariles::NAMESPACE>(); \
     }
 
 ARILES_TESTS(msgpack)

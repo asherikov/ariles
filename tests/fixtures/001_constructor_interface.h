@@ -14,19 +14,19 @@
 class ConstructorInterfaceFixture : public FixtureBase
 {
     protected:
-        template<class t_Configurable, class t_Reader, class t_Writer>
+        template<class t_Configurable, class t_Bridge>
             void test()
         {
             BOOST_CHECK_NO_THROW(
                 t_Configurable configurable;
                 configurable.randomize();
 
-                t_Writer writer(getInitializer("configurable.cfg"));
+                typename t_Bridge::Writer writer(getInitializer("configurable.cfg"));
                 configurable.writeConfig(writer);
             );
 
             BOOST_CHECK_NO_THROW(
-                t_Reader reader(getInitializer("configurable.cfg"));
+                typename t_Bridge::Reader reader(getInitializer("configurable.cfg"));
                 t_Configurable configurable(reader);
             );
         }

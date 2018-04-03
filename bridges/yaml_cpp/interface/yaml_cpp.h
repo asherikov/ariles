@@ -66,9 +66,11 @@
 namespace ariles
 {
     /**
-     * @brief YAML C++11 bridge namespace.
+     * @brief YAML C++11 bridge.
      */
-    namespace yaml_cpp
+    struct ARILES_VISIBILITY_ATTRIBUTE yaml_cpp : public BridgeSelectorBase
     {
-    }
+        typedef bridge::yaml_cpp::Reader Reader;
+        typedef bridge::yaml_cpp::Writer Writer;
+    };
 }

@@ -63,7 +63,7 @@
     ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, NAMESPACE, ConfigurableComplex) \
     BOOST_FIXTURE_TEST_CASE( ComparisonEquivalenceFixture##_##NAMESPACE##_##Equivalence, ComparisonEquivalenceFixture) \
     { \
-        test<ConfigurableComplexVerbose, ConfigurableComplex, ariles::NAMESPACE::Reader, ariles::NAMESPACE::Writer>(); \
+        test<ConfigurableComplexVerbose, ConfigurableComplex, ariles::NAMESPACE>(); \
     }
 
 ARILES_TESTS(msgpack)

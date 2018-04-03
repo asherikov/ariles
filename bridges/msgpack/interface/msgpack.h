@@ -68,9 +68,11 @@
 namespace ariles
 {
     /**
-     * @brief MessagePack bridge namespace.
+     * @brief MessagePack bridge.
      */
-    namespace msgpack
+    struct ARILES_VISIBILITY_ATTRIBUTE msgpack : public BridgeSelectorBase
     {
-    }
+        typedef bridge::msgpack::Reader Reader;
+        typedef bridge::msgpack::Writer Writer;
+    };
 }

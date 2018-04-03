@@ -85,3 +85,14 @@
 #endif
 
 
+namespace ariles
+{
+    struct ARILES_VISIBILITY_ATTRIBUTE BridgeSelectorBase
+    {
+    };
+
+
+    struct ARILES_VISIBILITY_ATTRIBUTE WriterBase
+    {
+    };
+}

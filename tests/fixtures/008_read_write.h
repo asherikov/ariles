@@ -13,13 +13,13 @@
 class ReadWriteFixture : public FixtureBase
 {
     protected:
-        template<class t_Configurable, class t_Reader, class t_Writer>
+        template<class t_Configurable, class t_Bridge>
             void test()
         {
             BOOST_CHECK_NO_THROW(
                 t_Configurable configurable;
-                configurable.template readConfig<t_Reader>(getInitializer("configurable2.cfg"));
-                configurable.template writeConfig<t_Writer>(getInitializer("configurable2.cfg"));
+                configurable.template readConfig<t_Bridge>(getInitializer("configurable2.cfg"));
+                configurable.template writeConfig<t_Bridge>(getInitializer("configurable2.cfg"));
             );
         }
 };

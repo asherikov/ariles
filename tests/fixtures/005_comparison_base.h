@@ -14,14 +14,14 @@
 class ComparisonViaBaseFixture : public FixtureBase  
 {
     protected:
-        template<class t_ConfigurableBase, class t_Configurable, class t_Reader, class t_Writer>
+        template<class t_ConfigurableBase, class t_Configurable, class t_Bridge>
             void test()
         {
             t_Configurable configurable_out;
             configurable_out.randomize();
             t_ConfigurableBase *configurable_out_base = &configurable_out;
             BOOST_CHECK_NO_THROW(
-                configurable_out_base->template writeConfig<t_Writer>(getInitializer("configurable_match_member_definitions.cfg"), "Configurable");
+                configurable_out_base->template writeConfig<t_Bridge>(getInitializer("configurable_match_member_definitions.cfg"), "Configurable");
             );
 
             // -------
@@ -29,7 +29,7 @@ class ComparisonViaBaseFixture : public FixtureBase
             t_Configurable configurable_in;
             t_ConfigurableBase *configurable_in_base = &configurable_in;
             BOOST_CHECK_NO_THROW(
-                configurable_in_base->template readConfig<t_Reader>(getInitializer("configurable_match_member_definitions.cfg"), "Configurable");
+                configurable_in_base->template readConfig<t_Bridge>(getInitializer("configurable_match_member_definitions.cfg"), "Configurable");
             );
 
             // -------
