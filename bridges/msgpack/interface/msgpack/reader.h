@@ -43,15 +43,10 @@ namespace ariles
                      *
                      * @param[in] file_name
                      */
-                    void openFile(const std::string& file_name)
+                    void initialize(std::istream & input_stream)
                     {
-                        std::ifstream config_ifs_;
-
-                        ReaderBase::openFile(config_ifs_, file_name);
-
-
                         std::stringstream   str_stream;
-                        str_stream << config_ifs_.rdbuf();
+                        str_stream << input_stream.rdbuf();
                         buffer_ = str_stream.str();
 
 
@@ -106,7 +101,20 @@ namespace ariles
                      */
                     explicit Reader(const std::string& file_name)
                     {
-                        openFile(file_name);
+                        std::ifstream config_ifs;
+                        ReaderBase::openFile(config_ifs, file_name);
+                        initialize(config_ifs);
+                    }
+
+
+                    /**
+                     * @brief Constructor
+                     *
+                     * @param[in] file_name
+                     */
+                    explicit Reader(std::istream & input_stream)
+                    {
+                        initialize(input_stream);
                     }
 
 

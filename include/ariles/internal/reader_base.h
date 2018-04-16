@@ -46,18 +46,18 @@ namespace ariles
             /**
              * @brief open configuration file
              *
-             * @param[out] config_ifs_
+             * @param[out] config_ifs
              * @param[in] file_name
              */
-            void openFile(std::ifstream &config_ifs_, const std::string& file_name)
+            void openFile(std::ifstream &config_ifs, const std::string& file_name)
             {
-                config_ifs_.open(file_name.c_str());
-                if (!config_ifs_.good())
+                config_ifs.open(file_name.c_str());
+                if (!config_ifs.good())
                 {
                     std::string file_name_default = std::string(ARILES_DEFAULT_CONFIG_PREFIX) + file_name;
-                    config_ifs_.open(file_name_default.c_str());
+                    config_ifs.open(file_name_default.c_str());
                 }
-                if (!config_ifs_.good())
+                if (!config_ifs.good())
                 {
                     ARILES_THROW_MSG(std::string("Could not open configuration file: ") +  file_name.c_str());
                 }

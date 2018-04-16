@@ -28,7 +28,10 @@ namespace ariles
                     /// output file stream
                     std::ofstream   config_ofs_;
 
-                    ::msgpack::packer< std::ofstream > *packer_;
+                    /// output stream
+                    std::ostream    *output_stream_;
+
+                    ::msgpack::packer< std::ostream > *packer_;
 
 
                 public:
@@ -39,15 +42,23 @@ namespace ariles
                      */
                     explicit Writer(const std::string& file_name)
                     {
-                        config_ofs_.open(file_name.c_str());
-
-                        if (!config_ofs_.good())
-                        {
-                            ARILES_THROW_MSG(std::string("Could not open configuration file for writing: ") +  file_name.c_str());
-                        }
-
-                        packer_ = new ::msgpack::packer< std::ofstream >(config_ofs_);
+                        WriterBase::openFile(config_ofs_, file_name);
+                        output_stream_ = &config_ofs_;
+                        packer_ = new ::msgpack::packer< std::ostream >(*output_stream_);
                     }
+
+
+                    /**
+                     * @brief Constructor
+                     *
+                     * @param[out] output_stream
+                     */
+                    explicit Writer(std::ostream& output_stream)
+                    {
+                        output_stream_ = &output_stream;
+                        packer_ = new ::msgpack::packer< std::ostream >(*output_stream_);
+                    }
+
 
 
                     /**
@@ -107,7 +118,7 @@ namespace ariles
                      */
                     void flush()
                     {
-                        config_ofs_.flush();
+                        output_stream_->flush();
                     }
 
 

@@ -21,7 +21,7 @@ class ComparisonViaBaseFixture : public FixtureBase
             configurable_out.randomize();
             t_ConfigurableBase *configurable_out_base = &configurable_out;
             BOOST_CHECK_NO_THROW(
-                configurable_out_base->template writeConfig<t_Bridge>(getInitializer("configurable_match_member_definitions.cfg"), "Configurable");
+                configurable_out_base->template writeConfig<t_Bridge>(getWriterInitializer("configurable_match_member_definitions.cfg"), "Configurable");
             );
 
             // -------
@@ -29,7 +29,7 @@ class ComparisonViaBaseFixture : public FixtureBase
             t_Configurable configurable_in;
             t_ConfigurableBase *configurable_in_base = &configurable_in;
             BOOST_CHECK_NO_THROW(
-                configurable_in_base->template readConfig<t_Bridge>(getInitializer("configurable_match_member_definitions.cfg"), "Configurable");
+                configurable_in_base->template readConfig<t_Bridge>(getReaderInitializer("configurable_match_member_definitions.cfg"), "Configurable");
             );
 
             // -------

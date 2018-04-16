@@ -20,14 +20,14 @@ class ComparisonSimpleFixture : public FixtureBase
             t_Configurable  configurable_out;
             configurable_out.randomize();
             BOOST_CHECK_NO_THROW(
-                configurable_out.template writeConfig<t_Bridge>(getInitializer("configurable_match_simple.cfg"));
+                configurable_out.template writeConfig<t_Bridge>(getWriterInitializer("configurable_match_simple.cfg"));
             );
 
             // -------
 
             t_Configurable  configurable_in;
             BOOST_CHECK_NO_THROW(
-                configurable_in.template readConfig<t_Bridge>(getInitializer("configurable_match_simple.cfg"));
+                configurable_in.template readConfig<t_Bridge>(getReaderInitializer("configurable_match_simple.cfg"));
             );
 
             // -------
@@ -50,7 +50,7 @@ class ComparisonMultiFixture : public FixtureBase
             configurable_out2.randomize();
 
             BOOST_CHECK_NO_THROW(
-                typename t_Bridge::Writer writer(getInitializer("configurable_match_multi.cfg"));
+                typename t_Bridge::Writer writer(getWriterInitializer("configurable_match_multi.cfg"));
                 configurable_out1.template writeConfig(writer, "node1");
                 configurable_out2.template writeConfig(writer, "node2");
             );
@@ -61,7 +61,7 @@ class ComparisonMultiFixture : public FixtureBase
             t_Configurable configurable_in2;
 
             BOOST_CHECK_NO_THROW(
-                typename t_Bridge::Reader reader(getInitializer("configurable_match_multi.cfg"));
+                typename t_Bridge::Reader reader(getReaderInitializer("configurable_match_multi.cfg"));
                 configurable_in1.template readConfig(reader, "node1");
                 configurable_in2.template readConfig(reader, "node2");
             );

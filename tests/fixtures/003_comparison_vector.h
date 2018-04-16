@@ -56,14 +56,14 @@ class ComparisonVectorFixture : public FixtureBase
             ConfigurableVector<t_Configurable> configurable_vector_out;
             configurable_vector_out.randomize();
             BOOST_CHECK_NO_THROW(
-                configurable_vector_out.template writeConfig<t_Bridge>(getInitializer("configurable_match_vector.cfg"));
+                configurable_vector_out.template writeConfig<t_Bridge>(getWriterInitializer("configurable_match_vector.cfg"));
             );
 
             // -------
 
             ConfigurableVector<t_Configurable> configurable_vector_in;
             BOOST_CHECK_NO_THROW(
-                configurable_vector_in.template readConfig<t_Bridge>(getInitializer("configurable_match_vector.cfg"));
+                configurable_vector_in.template readConfig<t_Bridge>(getReaderInitializer("configurable_match_vector.cfg"));
             );
 
             // -------

@@ -21,14 +21,14 @@ class BasicInterfaceFixture : public FixtureBase
                 t_Configurable configurable;
                 configurable.randomize();
 
-                typename t_Bridge::Writer writer(getInitializer("configurable.cfg"));
+                typename t_Bridge::Writer writer(getWriterInitializer("configurable.cfg"));
                 configurable.writeConfig(writer);
             );
 
             BOOST_CHECK_NO_THROW(
                 t_Configurable configurable;
 
-                typename t_Bridge::Reader reader(getInitializer("configurable.cfg"));
+                typename t_Bridge::Reader reader(getReaderInitializer("configurable.cfg"));
                 configurable.readConfig(reader);
             );
 
@@ -39,12 +39,12 @@ class BasicInterfaceFixture : public FixtureBase
             BOOST_CHECK_NO_THROW(
                 t_Configurable configurable;
                 configurable.randomize();
-                configurable.template writeConfig<t_Bridge>(getInitializer("configurable2.cfg"));
+                configurable.template writeConfig<t_Bridge>(getWriterInitializer("configurable2.cfg"));
             );
 
             BOOST_CHECK_NO_THROW(
                 t_Configurable configurable;
-                configurable.template readConfig<t_Bridge>(getInitializer("configurable2.cfg"));
+                configurable.template readConfig<t_Bridge>(getReaderInitializer("configurable2.cfg"));
             );
         }
 };

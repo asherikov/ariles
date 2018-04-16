@@ -33,8 +33,13 @@ class FixtureBase
             delete nh_;
         }
 
+        ros::NodeHandle & getReaderInitializer(const std::string & string_id)
+        {
+            ARILES_IGNORE_UNUSED(string_id);
+            return (*nh_);
+        }
 
-        ros::NodeHandle & getInitializer(const std::string & string_id)
+        ros::NodeHandle & getWriterInitializer(const std::string & string_id)
         {
             ARILES_IGNORE_UNUSED(string_id);
             return (*nh_);

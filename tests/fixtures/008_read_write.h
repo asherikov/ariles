@@ -18,8 +18,8 @@ class ReadWriteFixture : public FixtureBase
         {
             BOOST_CHECK_NO_THROW(
                 t_Configurable configurable;
-                configurable.template readConfig<t_Bridge>(getInitializer("configurable2.cfg"));
-                configurable.template writeConfig<t_Bridge>(getInitializer("configurable2.cfg"));
+                configurable.template readConfig<t_Bridge>(getReaderInitializer("configurable2.cfg"));
+                configurable.template writeConfig<t_Bridge>(getWriterInitializer("configurable2.cfg"));
             );
         }
 };

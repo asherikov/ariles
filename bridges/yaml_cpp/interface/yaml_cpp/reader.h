@@ -61,17 +61,6 @@ namespace ariles
 
                 protected:
                     /**
-                     * @brief open configuration file
-                     *
-                     * @param[in] file_name
-                     */
-                    void openFile(const std::string& file_name)
-                    {
-                        node_stack_.push_back(  NodeWrapper( YAML::LoadFile(file_name) )  );
-                    }
-
-
-                    /**
                      * @brief Get current node
                      *
                      * @return pointer to the current node
@@ -104,7 +93,18 @@ namespace ariles
                      */
                     explicit Reader(const std::string& file_name)
                     {
-                        openFile(file_name);
+                        node_stack_.push_back(  NodeWrapper( YAML::LoadFile(file_name) )  );
+                    }
+
+
+                    /**
+                     * @brief Constructor
+                     *
+                     * @param[in] input_stream
+                     */
+                    explicit Reader(std::istream& input_stream)
+                    {
+                        node_stack_.push_back(  NodeWrapper( YAML::Load(input_stream) )  );
                     }
 
 

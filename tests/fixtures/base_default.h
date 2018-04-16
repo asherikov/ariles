@@ -18,7 +18,12 @@ class FixtureBase
         {
         }
 
-        const std::string getInitializer(const std::string & string_id)
+        const std::string getReaderInitializer(const std::string & string_id)
+        {
+            return (string_id);
+        }
+
+        const std::string getWriterInitializer(const std::string & string_id)
         {
             return (string_id);
         }

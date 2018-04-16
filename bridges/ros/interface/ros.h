@@ -17,6 +17,7 @@
 
 #include "../internal/helpers.h"
 #include "../internal/reader_base.h"
+#include "../internal/writer_base.h"
 
 #include <ros/ros.h>
 // http://docs.ros.org/api/xmlrpcpp/html/classXmlRpc_1_1XmlRpcValue.html

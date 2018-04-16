@@ -17,6 +17,7 @@
 
 #include "../internal/helpers.h"
 #include "../internal/reader_base.h"
+#include "../internal/writer_base.h"
 
 #include ARILES_BRIDGE_yaml_cpp_INCLUDE_HEADER
 

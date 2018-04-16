@@ -21,12 +21,12 @@ class ConstructorInterfaceFixture : public FixtureBase
                 t_Configurable configurable;
                 configurable.randomize();
 
-                typename t_Bridge::Writer writer(getInitializer("configurable.cfg"));
+                typename t_Bridge::Writer writer(getWriterInitializer("configurable.cfg"));
                 configurable.writeConfig(writer);
             );
 
             BOOST_CHECK_NO_THROW(
-                typename t_Bridge::Reader reader(getInitializer("configurable.cfg"));
+                typename t_Bridge::Reader reader(getReaderInitializer("configurable.cfg"));
                 t_Configurable configurable(reader);
             );
         }

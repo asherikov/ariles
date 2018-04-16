@@ -30,9 +30,6 @@ namespace ariles
 
 
                 protected:
-                    /// input file stream
-                    std::ifstream config_ifs_;
-
                     /// instance of YAML parser
                     YAML::Parser  parser_;
 
@@ -44,21 +41,6 @@ namespace ariles
 
 
                 protected:
-                    /**
-                     * @brief open configuration file
-                     *
-                     * @param[in] file_name
-                     */
-                    void openFile(const std::string& file_name)
-                    {
-                        ReaderBase::openFile(config_ifs_, file_name);
-
-                        parser_.Load(config_ifs_),
-                        parser_.GetNextDocument(root_node_);
-                        node_stack_.push_back(NodeWrapper(&root_node_));
-                    }
-
-
                     /**
                      * @brief Get current node
                      *
@@ -92,7 +74,25 @@ namespace ariles
                      */
                     explicit Reader(const std::string& file_name)
                     {
-                        openFile(file_name);
+                        std::ifstream config_ifs;
+                        ReaderBase::openFile(config_ifs, file_name);
+
+                        parser_.Load(config_ifs),
+                        parser_.GetNextDocument(root_node_);
+                        node_stack_.push_back(NodeWrapper(&root_node_));
+                    }
+
+
+                    /**
+                     * @brief Constructor
+                     *
+                     * @param[in] input_stream
+                     */
+                    explicit Reader(std::istream& input_stream)
+                    {
+                        parser_.Load(input_stream),
+                        parser_.GetNextDocument(root_node_);
+                        node_stack_.push_back(NodeWrapper(&root_node_));
                     }
 
 

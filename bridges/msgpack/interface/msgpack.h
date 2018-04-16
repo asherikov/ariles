@@ -20,6 +20,7 @@
 
 #include "../internal/helpers.h"
 #include "../internal/reader_base.h"
+#include "../internal/writer_base.h"
 
 #include <msgpack.hpp>
 

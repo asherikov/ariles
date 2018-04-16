@@ -25,6 +25,9 @@ namespace ariles
                     /// output file stream
                     std::ofstream   config_ofs_;
 
+                    /// output stream
+                    std::ostream    *output_stream_;
+
                     /// instance of YAML emitter, is destroyed and reinitialized by flush()
                     YAML::Emitter   *emitter_;
 
@@ -37,7 +40,7 @@ namespace ariles
                     {
                         emitter_ = new YAML::Emitter;
                         emitter_->SetDoublePrecision(std::numeric_limits<double>::digits10);
-                        if (config_ofs_.tellp() != 0)
+                        if (output_stream_->tellp() != 0)
                         {
                             *emitter_ << YAML::Newline;
                         }
@@ -51,7 +54,7 @@ namespace ariles
                     void destroyEmitter()
                     {
                         *emitter_ << YAML::EndMap;
-                        config_ofs_ << emitter_->c_str();
+                        *output_stream_ << emitter_->c_str();
                         delete emitter_;
                     }
 
@@ -59,13 +62,15 @@ namespace ariles
                 public:
                     explicit Writer(const std::string& file_name)
                     {
-                        config_ofs_.open(file_name.c_str());
+                        WriterBase::openFile(config_ofs_, file_name);
+                        output_stream_ = &config_ofs_;
+                        initEmitter();
+                    }
 
-                        if (!config_ofs_.good())
-                        {
-                            ARILES_THROW_MSG(std::string("Could not open configuration file for writing: ") +  file_name.c_str());
-                        }
 
+                    explicit Writer(std::ostream& output_stream)
+                    {
+                        output_stream_ = &output_stream;
                         initEmitter();
                     }
 
