@@ -10,7 +10,7 @@
 
 #pragma once
 
-#define ARILES_ADAPTER_EIGEN
+#define ARILES_INCLUDED_ADAPTER_EIGEN
 
 #include <Eigen/Core>
 #include <Eigen/Geometry>

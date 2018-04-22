@@ -19,7 +19,14 @@
 #include "ariles/formats/yaml_cpp.h"
 #endif
 
+#ifdef ARILES_BRIDGE_msgpack
 #include "ariles/formats/msgpack.h"
+#endif
+
+#ifdef ARILES_BRIDGE_ros
+#include "ariles/formats/ros.h"
+#endif
+
 #include "ariles/adapters_all.h"
 #include "ariles/ariles.h"
 
@@ -141,7 +148,7 @@ void    compare(const t_Configurable_out    &configurable_out,
 }
 
 
-#include "fixtures/base_default.h"
+#include "fixtures/initializers.h"
 #include "fixtures/000_basic_interface.h"
 #include "fixtures/002_comparison.h"
 #include "fixtures/003_comparison_vector.h"
@@ -153,21 +160,16 @@ void    compare(const t_Configurable_out    &configurable_out,
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(NAMESPACE) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, ConfigurableDerived) \
-    ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, NAMESPACE, ConfigurableDerived) \
-    ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, NAMESPACE, ConfigurableDerived) \
-    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, NAMESPACE, ConfigurableDerived) \
-    ARILES_FIXTURE_TEST_CASE_2CLASSES(StrictnessFixture, NAMESPACE, ConfigurableStrictness1, ConfigurableStrictness2) \
-    BOOST_FIXTURE_TEST_CASE(ComparisonViaBaseFixture##_##NAMESPACE, ComparisonViaBaseFixture) \
+#define ARILES_TESTS(NAMESPACE, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, ConfigurableDerived, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, NAMESPACE, ConfigurableDerived, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, NAMESPACE, ConfigurableDerived, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, NAMESPACE, ConfigurableDerived, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE_2CLASSES(StrictnessFixture, NAMESPACE, ConfigurableStrictness1, ConfigurableStrictness2, INITIALIZER) \
+    BOOST_FIXTURE_TEST_CASE(ComparisonViaBaseFixture##_##NAMESPACE##_##INITIALIZER, ComparisonViaBaseFixture<initializers::INITIALIZER>) \
     { \
         test<ConfigurableBase, ConfigurableDerived, ariles::NAMESPACE>(); \
     }
 
-ARILES_TESTS(msgpack)
-#ifdef ARILES_BRIDGE_yaml_cpp03
-ARILES_TESTS(yaml_cpp03)
-#endif
-#ifdef ARILES_BRIDGE_yaml_cpp
-ARILES_TESTS(yaml_cpp)
-#endif
+
+#include "instantiate.h"

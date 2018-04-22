@@ -10,7 +10,6 @@
 
 #include "utility.h"
 
-// Enable YAML configuration files (must be first)
 #ifdef ARILES_BRIDGE_yaml_cpp03
 #include "ariles/formats/yaml_cpp03.h"
 #endif
@@ -19,10 +18,17 @@
 #include "ariles/formats/yaml_cpp.h"
 #endif
 
+#ifdef ARILES_BRIDGE_msgpack
+#include "ariles/formats/msgpack.h"
+#endif
+
+#ifdef ARILES_BRIDGE_ros
+#include "ariles/formats/ros.h"
+#endif
+
 // all adapters
 // #include "ariles/adapters_all.h"
-// only Eigen adapters
-#include "ariles/adapters/eigen.h"
+// only basic adapters
 // definition of ariles::ConfigurableBase
 #include "ariles/ariles.h"
 
@@ -40,7 +46,7 @@ class Configurable : public ariles::ConfigurableBase
 {
     #define ARILES_SECTION_ID "Configurable"
     #define ARILES_ENTRIES \
-        ARILES_TYPED_ENTRY_(evector,     Eigen::Vector2d)
+        ARILES_TYPED_ENTRY_(real, double)
     #include ARILES_INITIALIZE
 
 
@@ -56,13 +62,13 @@ class Configurable : public ariles::ConfigurableBase
          */
         virtual void setDefaults()
         {
-            evector_.setZero();
+            real_ = 0.0;
         }
 
 
         void randomize()
         {
-            evector_.setRandom();
+            real_ = GET_RANDOM_REAL;
             finalize();
         }
 };
@@ -72,7 +78,7 @@ class Configurable : public ariles::ConfigurableBase
 // FIXTURES
 // ===============================================================
 
-#include "fixtures/base_default.h"
+#include "fixtures/initializers.h"
 #include "fixtures/000_basic_interface.h"
 
 
@@ -81,12 +87,7 @@ class Configurable : public ariles::ConfigurableBase
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(NAMESPACE) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, Configurable)
+#define ARILES_TESTS(NAMESPACE, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, Configurable, INITIALIZER)
 
-#ifdef ARILES_BRIDGE_yaml_cpp03
-ARILES_TESTS(yaml_cpp03)
-#endif
-#ifdef ARILES_BRIDGE_yaml_cpp
-ARILES_TESTS(yaml_cpp)
-#endif
+#include "instantiate.h"

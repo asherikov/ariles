@@ -10,7 +10,7 @@
 
 #pragma once
 
-#define ARILES_ADAPTER_STD_MAP
+#define ARILES_INCLUDED_ADAPTER_STD_MAP
 
 #include <map>
 

@@ -28,6 +28,7 @@ option (ARILES_INSTALL_BRIDGES          "Install bridges on the system." OFF)
 
 # extra adapters
 option (ARILES_ADAPTER_EIGEN            "Enable eigen support." ON)
+option (ARILES_ADAPTER_BOOSTPTR         "Enable boost pointer support." ON)
 
 # build parameters
 set    (ARILES_CPP_STANDARD             "c++98" CACHE STRING "C++ standard version")
@@ -155,6 +156,10 @@ if (ARILES_ADAPTER_EIGEN)
     ariles_copy_dir_if_exists(TGT_ariles_copy_headers                       "adapter_eigen"
                               "${PROJECT_SOURCE_DIR}/extra_adapters/eigen"  "${ARILES_INCLUDE_DIR}/ariles/adapters/")
 endif(ARILES_ADAPTER_EIGEN)
+if (ARILES_ADAPTER_BOOSTPTR)
+    ariles_copy_dir_if_exists(TGT_ariles_copy_headers                           "adapter_boostptr"
+                              "${PROJECT_SOURCE_DIR}/extra_adapters/boostptr"   "${ARILES_INCLUDE_DIR}/ariles/adapters/")
+endif(ARILES_ADAPTER_BOOSTPTR)
 
 # All headers are collected in one directory
 include_directories ("${PROJECT_BINARY_DIR}/include/")
@@ -184,6 +189,11 @@ if (ARILES_ADAPTER_EIGEN)
     find_package(Eigen3 REQUIRED)
     list(APPEND ARILES_MANDATORY_INCLUDES "${EIGEN3_INCLUDE_DIR}")
 endif(ARILES_ADAPTER_EIGEN)
+
+if (ARILES_ADAPTER_BOOSTPTR)
+    # BOOST is a mandatory dependency
+endif(ARILES_ADAPTER_BOOSTPTR)
+
 
 set (ARILES_BRIDGES_BINARY_DIR "${PROJECT_BINARY_DIR}/bridges/")
 if (ARILES_INSTALL_BRIDGES)
@@ -302,6 +312,14 @@ foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
     endif()
 endforeach(ARILES_BRIDGE)
 
+if (ARILES_ADAPTER_EIGEN)
+    set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_ADAPTER_EIGEN\n")
+endif(ARILES_ADAPTER_EIGEN)
+
+if (ARILES_ADAPTER_BOOSTPTR)
+    set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_ADAPTER_BOOSTPTR\n")
+endif(ARILES_ADAPTER_BOOSTPTR)
+
 string(CONFIGURE "${ARILES_BUILD_CONFIG}" ARILES_BUILD_CONFIG)
 file(WRITE "${ARILES_INCLUDE_DIR}/ariles/internal/build_config.h" "${ARILES_BUILD_CONFIG}")
 #---
@@ -321,6 +339,58 @@ set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"adapters_all.h\"\n")
 set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"ariles.h\"\n")
 
 file(WRITE "${ARILES_INCLUDE_DIR}/ariles/ariles_all.h" "${ARILES_HEADER_ALL}")
+#---
+
+
+#---
+set(ARILES_ADAPTERS_ALL   "#pragma once\n")
+set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"internal/helpers.h\"\n")
+
+set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/std_vector.h\"\n")
+set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/std_pair.h\"\n")
+set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/std_map.h\"\n")
+
+if (ARILES_ADAPTER_EIGEN)
+    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/eigen.h\"\n")
+endif(ARILES_ADAPTER_EIGEN)
+
+if (ARILES_ADAPTER_BOOSTPTR)
+    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/boostptr.h\"\n")
+endif(ARILES_ADAPTER_BOOSTPTR)
+
+file(WRITE "${ARILES_INCLUDE_DIR}/ariles/adapters_all.h" "${ARILES_ADAPTERS_ALL}")
+
+#-
+
+set(ARILES_ADAPTERS_INCLUDED   "#pragma once\n\
+#ifdef ARILES_INCLUDED_ADAPTER_STD_VECTOR\n\
+#   include \"std_vector_impl.h\"\n\
+#endif\n\
+\n\
+#ifdef ARILES_INCLUDED_ADAPTER_STD_PAIR\n\
+#   include \"std_pair_impl.h\"\n\
+#endif\n\
+\n\
+#ifdef ARILES_INCLUDED_ADAPTER_STD_PAIR\n\
+#   include \"std_map_impl.h\"\n\
+#endif\n")
+
+if (ARILES_ADAPTER_EIGEN)
+set(ARILES_ADAPTERS_INCLUDED "${ARILES_ADAPTERS_INCLUDED}\n\
+#ifdef ARILES_INCLUDED_ADAPTER_EIGEN\n\
+#   include \"eigen_impl.h\"\n\
+#endif\n")
+endif(ARILES_ADAPTER_EIGEN)
+
+if (ARILES_ADAPTER_BOOSTPTR)
+set(ARILES_ADAPTERS_INCLUDED "${ARILES_ADAPTERS_INCLUDED}\n\
+#ifdef ARILES_INCLUDED_ADAPTER_BOOSTPTR\n\
+#   include \"boostptr_impl.h\"\n\
+#endif\n")
+endif(ARILES_ADAPTER_BOOSTPTR)
+
+file(WRITE "${ARILES_INCLUDE_DIR}/ariles/adapters/included.h" "${ARILES_ADAPTERS_INCLUDED}")
+
 #---
 
 

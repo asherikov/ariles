@@ -65,7 +65,7 @@ class Configurable : public ariles::ConfigurableBase
 // FIXTURES
 // ===============================================================
 
-#include "fixtures/base_ros.h"
+#include "fixtures/initializers.h"
 #include "fixtures/008_read_write.h"
 
 
@@ -73,7 +73,7 @@ class Configurable : public ariles::ConfigurableBase
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(NAMESPACE) \
-    ARILES_FIXTURE_TEST_CASE(ReadWriteFixture, NAMESPACE, Configurable)
+#define ARILES_TESTS(NAMESPACE, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ReadWriteFixture, NAMESPACE, Configurable, INITIALIZER)
 
-ARILES_TESTS(ros)
+ARILES_TESTS(ros, ROSInitializer)

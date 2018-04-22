@@ -10,8 +10,14 @@
 
 #pragma once
 
-class StrictnessFixture : public FixtureBase
+template<class t_FixtureBase>
+class StrictnessFixture : public t_FixtureBase
 {
+    public:
+        using t_FixtureBase::getWriterInitializer;
+        using t_FixtureBase::getReaderInitializer;
+
+
     protected:
         template<class t_Configurable1, class t_Configurable2, class t_Bridge>
             void test()

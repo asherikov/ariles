@@ -18,7 +18,14 @@
 #include "ariles/formats/yaml_cpp.h"
 #endif
 
+#ifdef ARILES_BRIDGE_msgpack
 #include "ariles/formats/msgpack.h"
+#endif
+
+#ifdef ARILES_BRIDGE_ros
+#include "ariles/formats/ros.h"
+#endif
+
 #include "ariles/adapters_all.h"
 #include "ariles/ariles.h"
 
@@ -254,7 +261,7 @@ class ConfigurableEmpty : public ariles::ConfigurableBase
 // FIXTURES
 // ===============================================================
 
-#include "fixtures/base_default.h"
+#include "fixtures/initializers.h"
 #include "fixtures/000_basic_interface.h"
 #include "fixtures/001_constructor_interface.h"
 
@@ -264,20 +271,14 @@ class ConfigurableEmpty : public ariles::ConfigurableBase
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(NAMESPACE) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, ConfigurableVerbose) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, ConfigurableAutoDeclare) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, ConfigurableNoConstructors) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, ConfigurableNoAutoID) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, ConfigurableEmpty) \
-    ARILES_FIXTURE_TEST_CASE(ConstructorInterfaceFixture, NAMESPACE, ConfigurableVerbose) \
-    ARILES_FIXTURE_TEST_CASE(ConstructorInterfaceFixture, NAMESPACE, ConfigurableAutoDeclare)
+#define ARILES_TESTS(NAMESPACE, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, ConfigurableVerbose, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, ConfigurableNoConstructors, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, ConfigurableNoAutoID, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, ConfigurableEmpty, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ConstructorInterfaceFixture, NAMESPACE, ConfigurableVerbose, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ConstructorInterfaceFixture, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
 
-ARILES_TESTS(msgpack)
 
-#ifdef ARILES_BRIDGE_yaml_cpp03
-ARILES_TESTS(yaml_cpp03)
-#endif
-#ifdef ARILES_BRIDGE_yaml_cpp
-ARILES_TESTS(yaml_cpp)
-#endif
+#include "instantiate.h"

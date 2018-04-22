@@ -16,24 +16,48 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase, public Confi
 {
     #define ARILES_SECTION_ID "ConfigurableComplexVerbose"
     #define ARILES_CONSTRUCTOR ConfigurableComplexVerbose
-    #define ARILES_ENTRIES \
+    #define ARILES_ENTRIES_STANDARD_TYPES \
         ARILES_ENTRY_(integer) \
         ARILES_ENTRY_(unsigned_integer) \
         ARILES_ENTRY_(real) \
-        ARILES_ENTRY_(vector) \
-        ARILES_ENTRY_(matrix) \
-        ARILES_ENTRY_(matrix_x) \
         ARILES_ENTRY_(std_vector) \
         ARILES_ENTRY_(std_nested_vector) \
         ARILES_ENTRY_(string) \
-        ARILES_ENTRY_(std_vector_evector) \
-        ARILES_ENTRY_(std_nested_vector_evector) \
         ARILES_ENTRY_(enum) \
-        ARILES_ENTRY_(isometry) \
-        ARILES_ENTRY_(quaternion) \
         ARILES_ENTRY_(std_pair) \
         ARILES_ENTRY_(std_map)
+
+#ifdef ARILES_ADAPTER_EIGEN
+    #define ARILES_ENTRIES_1 \
+        ARILES_ENTRIES_STANDARD_TYPES \
+        ARILES_ENTRY_(vector) \
+        ARILES_ENTRY_(matrix) \
+        ARILES_ENTRY_(matrix_x) \
+        ARILES_ENTRY_(std_vector_evector) \
+        ARILES_ENTRY_(std_nested_vector_evector) \
+        ARILES_ENTRY_(isometry) \
+        ARILES_ENTRY_(quaternion)
+#else
+    #define ARILES_ENTRIES_1 ARILES_ENTRIES_STANDARD_TYPES
+#endif
+
+
+#ifdef ARILES_ADAPTER_BOOSTPTR
+    #define ARILES_ENTRIES_2 \
+        ARILES_ENTRIES_1 \
+        ARILES_ENTRY_(shared_ptr_double) \
+        ARILES_ENTRY_(shared_ptr_double_null)
+#else
+    #define ARILES_ENTRIES_2 ARILES_ENTRIES_1
+#endif
+
+
+    #define ARILES_ENTRIES ARILES_ENTRIES_2
     #include ARILES_INITIALIZE
+
+#undef ARILES_ENTRIES_STANDARD_TYPES
+#undef ARILES_ENTRIES_1
+#undef ARILES_ENTRIES_2
 
 
     public:
@@ -41,26 +65,37 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase, public Confi
         std::size_t             unsigned_integer_; \
         double                  real_;
 
-        Eigen::Vector3d         vector_;
-        Eigen::Matrix3d         matrix_;
-        Eigen::MatrixXd         matrix_x_;
 
         std::vector<double>                 std_vector_;
         std::vector< std::vector<double> >  std_nested_vector_;
 
         std::string             string_;
 
-        std::vector<Eigen::Vector3d>                std_vector_evector_;
-        std::vector< std::vector<Eigen::Vector3d> > std_nested_vector_evector_;
 
         SomeEnum enum_;
 
         std::pair<std::string, double> std_pair_;
         std::map<std::string, std::vector<std::string> > std_map_;
 
+
+#ifdef ARILES_ADAPTER_EIGEN
+        Eigen::Vector3d         vector_;
+        Eigen::Matrix3d         matrix_;
+        Eigen::MatrixXd         matrix_x_;
+
+        std::vector<Eigen::Vector3d>                std_vector_evector_;
+        std::vector< std::vector<Eigen::Vector3d> > std_nested_vector_evector_;
+
         Eigen::Isometry3d   isometry_;
 
         Eigen::Quaterniond  quaternion_;
+#endif
+
+
+#ifdef ARILES_ADAPTER_BOOSTPTR
+        boost::shared_ptr<double>   shared_ptr_double_;
+        boost::shared_ptr<double>   shared_ptr_double_null_;
+#endif
 
 
     public:

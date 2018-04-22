@@ -19,7 +19,14 @@
 #include "ariles/formats/yaml_cpp.h"
 #endif
 
+#ifdef ARILES_BRIDGE_msgpack
 #include "ariles/formats/msgpack.h"
+#endif
+
+#ifdef ARILES_BRIDGE_ros
+#include "ariles/formats/ros.h"
+#endif
+
 #include "ariles/adapters_all.h"
 #include "ariles/ariles.h"
 
@@ -38,7 +45,7 @@
 // ===============================================================
 
 
-#include "fixtures/base_default.h"
+#include "fixtures/initializers.h"
 #include "fixtures/000_basic_interface.h"
 #include "fixtures/001_constructor_interface.h"
 #include "fixtures/002_comparison.h"
@@ -50,26 +57,21 @@
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(NAMESPACE) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, ConfigurableComplexVerbose) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, ConfigurableComplex) \
-    ARILES_FIXTURE_TEST_CASE(ConstructorInterfaceFixture, NAMESPACE, ConfigurableComplexVerbose) \
-    ARILES_FIXTURE_TEST_CASE(ConstructorInterfaceFixture, NAMESPACE, ConfigurableComplex) \
-    ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, NAMESPACE, ConfigurableComplexVerbose) \
-    ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, NAMESPACE, ConfigurableComplex) \
-    ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, NAMESPACE, ConfigurableComplexVerbose) \
-    ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, NAMESPACE, ConfigurableComplex) \
-    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, NAMESPACE, ConfigurableComplexVerbose) \
-    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, NAMESPACE, ConfigurableComplex) \
-    BOOST_FIXTURE_TEST_CASE( ComparisonEquivalenceFixture##_##NAMESPACE##_##Equivalence, ComparisonEquivalenceFixture) \
+#define ARILES_TESTS(NAMESPACE, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, ConfigurableComplexVerbose, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, NAMESPACE, ConfigurableComplex, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ConstructorInterfaceFixture, NAMESPACE, ConfigurableComplexVerbose, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ConstructorInterfaceFixture, NAMESPACE, ConfigurableComplex, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, NAMESPACE, ConfigurableComplexVerbose, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, NAMESPACE, ConfigurableComplex, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, NAMESPACE, ConfigurableComplexVerbose, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, NAMESPACE, ConfigurableComplex, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, NAMESPACE, ConfigurableComplexVerbose, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, NAMESPACE, ConfigurableComplex, INITIALIZER) \
+    BOOST_FIXTURE_TEST_CASE(ComparisonEquivalenceFixture##_##NAMESPACE##_##Equivalence##_##INITIALIZER, ComparisonEquivalenceFixture<initializers::INITIALIZER>) \
     { \
         test<ConfigurableComplexVerbose, ConfigurableComplex, ariles::NAMESPACE>(); \
     }
 
-ARILES_TESTS(msgpack)
-#ifdef ARILES_BRIDGE_yaml_cpp03
-ARILES_TESTS(yaml_cpp03)
-#endif
-#ifdef ARILES_BRIDGE_yaml_cpp
-ARILES_TESTS(yaml_cpp)
-#endif
+
+#include "instantiate.h"

@@ -10,8 +10,14 @@
 
 #pragma once
 
-class ReadWriteFixture : public FixtureBase
+template<class t_FixtureBase>
+class ReadWriteFixture : public t_FixtureBase
 {
+    public:
+        using t_FixtureBase::getWriterInitializer;
+        using t_FixtureBase::getReaderInitializer;
+
+
     protected:
         template<class t_Configurable, class t_Bridge>
             void test()

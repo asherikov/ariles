@@ -164,7 +164,7 @@
     }
 
 #   include "adapters/basic.h"
-#   include "adapters/selected.h"
+#   include "adapters/included.h"
 
 #else
 
