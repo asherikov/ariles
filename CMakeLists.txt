@@ -349,6 +349,7 @@ set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"internal/helpers.h\"
 set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/std_vector.h\"\n")
 set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/std_pair.h\"\n")
 set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/std_map.h\"\n")
+set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/pointer.h\"\n")
 
 if (ARILES_ADAPTER_EIGEN)
     set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/eigen.h\"\n")
@@ -363,6 +364,9 @@ file(WRITE "${ARILES_INCLUDE_DIR}/ariles/adapters_all.h" "${ARILES_ADAPTERS_ALL}
 #-
 
 set(ARILES_ADAPTERS_INCLUDED   "#pragma once\n\
+#ifdef ARILES_INCLUDED_ADAPTER_POINTER\n\
+#   include \"pointer_impl.h\"\n\
+#endif\n\
 #ifdef ARILES_INCLUDED_ADAPTER_STD_VECTOR\n\
 #   include \"std_vector_impl.h\"\n\
 #endif\n\

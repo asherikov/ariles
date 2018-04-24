@@ -12,29 +12,16 @@
 
 #define ARILES_INCLUDED_ADAPTER_BOOSTPTR
 
-#include <Eigen/Core>
-#include <Eigen/Geometry>
+
+#include <boost/smart_ptr/shared_ptr.hpp>
+#include <boost/smart_ptr/make_shared.hpp>
+
+#define ARILES_POINTER_TYPE(entry_type) boost::shared_ptr<entry_type>
+#include <ariles/adapters/generic_pointer.h>
 
 
-namespace ariles
-{
-    namespace reader
-    {
-        template <  class t_Reader,
-                    typename t_Entry>
-            void ARILES_VISIBILITY_ATTRIBUTE
-            readBody(   t_Reader &reader,
-                        boost::shared_ptr<t_Entry> &entry,
-                        const bool crash_on_missing_entry = false);
-    }
+#include <boost/move/unique_ptr.hpp>
+#include <boost/move/make_unique.hpp>
 
-
-    namespace writer
-    {
-        template <  class t_Writer,
-                    typename t_Entry>
-            void ARILES_VISIBILITY_ATTRIBUTE
-            writeBody(  t_Writer & writer,
-                        const boost::shared_ptr<t_Entry> &entry);
-    }
-}
+#define ARILES_POINTER_TYPE(entry_type) boost::movelib::unique_ptr<entry_type>
+#include <ariles/adapters/generic_pointer.h>
