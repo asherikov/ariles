@@ -90,12 +90,6 @@ class ConfigurableComplexBase
 
             impl.quaternion_.setIdentity();
 #endif
-
-
-#ifdef ARILES_ADAPTER_BOOSTPTR
-            impl.shared_ptr_double_.reset();
-            impl.shared_ptr_double_null_.reset();
-#endif
         }
 
 
@@ -171,14 +165,6 @@ class ConfigurableComplexBase
             impl.quaternion_.y() = GET_RANDOM_REAL;
             impl.quaternion_.z() = GET_RANDOM_REAL;
             impl.quaternion_.w() = GET_RANDOM_REAL;
-#endif
-
-
-#ifdef ARILES_ADAPTER_BOOSTPTR
-            impl.shared_ptr_double_ = boost::make_shared<double>();
-            *impl.shared_ptr_double_ = GET_RANDOM_REAL;
-
-            impl.shared_ptr_double_null_.reset();
 #endif
 
             impl.finalize();
@@ -265,21 +251,5 @@ void    compare(const t_Configurable_out    &configurable_out,
 
     BOOST_CHECK(configurable_out.isometry_.isApprox(configurable_in.isometry_, g_tolerance));
     BOOST_CHECK(configurable_out.quaternion_.isApprox(configurable_in.quaternion_, g_tolerance));
-#endif
-
-
-#ifdef ARILES_ADAPTER_BOOSTPTR
-    if (configurable_in.shared_ptr_double_ == NULL)
-    {
-        BOOST_CHECK_EQUAL(configurable_out.shared_ptr_double_null_, configurable_in.shared_ptr_double_null_);
-    }
-    else
-    {
-        BOOST_CHECK(configurable_out.shared_ptr_double_ != NULL);
-        BOOST_CHECK_CLOSE(*configurable_out.shared_ptr_double_, *configurable_in.shared_ptr_double_, g_tolerance);
-    }
-
-    BOOST_CHECK(configurable_out.shared_ptr_double_null_ == NULL);
-    BOOST_CHECK_EQUAL(configurable_out.shared_ptr_double_null_, configurable_in.shared_ptr_double_null_);
 #endif
 }

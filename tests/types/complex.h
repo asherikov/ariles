@@ -31,7 +31,7 @@ class ConfigurableComplex : public ariles::ConfigurableBase, public Configurable
 
 
 #ifdef ARILES_ADAPTER_EIGEN
-    #define ARILES_ENTRIES_1 \
+    #define ARILES_ENTRIES_0 \
         ARILES_ENTRIES_STANDARD_TYPES \
         ARILES_TYPED_ENTRY_(vector,      Eigen::Vector3d) \
         ARILES_TYPED_ENTRY_(matrix,      Eigen::Matrix3d) \
@@ -41,26 +41,16 @@ class ConfigurableComplex : public ariles::ConfigurableBase, public Configurable
         ARILES_TYPED_ENTRY_(isometry,    Eigen::Isometry3d) \
         ARILES_TYPED_ENTRY_(quaternion,  Eigen::Quaterniond)
 #else
-    #define ARILES_ENTRIES_1 ARILES_ENTRIES_STANDARD_TYPES
+    #define ARILES_ENTRIES_0 ARILES_ENTRIES_STANDARD_TYPES
 #endif
 
 
-#ifdef ARILES_ADAPTER_BOOSTPTR
-    #define ARILES_ENTRIES_2 \
-        ARILES_ENTRIES_1 \
-        ARILES_TYPED_ENTRY_(shared_ptr_double,          boost::shared_ptr<double>) \
-        ARILES_TYPED_ENTRY_(shared_ptr_double_null,     boost::shared_ptr<double>)
-#else
-    #define ARILES_ENTRIES_2 ARILES_ENTRIES_1
-#endif
-
-
-    #define ARILES_ENTRIES ARILES_ENTRIES_2
+    #define ARILES_ENTRIES ARILES_ENTRIES_0
     #include ARILES_INITIALIZE
 
 #undef ARILES_ENTRIES_STANDARD_TYPES
-#undef ARILES_ENTRIES_1
-#undef ARILES_ENTRIES_2
+#undef ARILES_ENTRIES_0
+
 
     public:
         std::pair<std::string, double>  std_pair_;

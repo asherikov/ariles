@@ -18,7 +18,7 @@
 
 
 #define ARILES_POINTER_TYPE(entry_type)                 std::unique_ptr<entry_type>
-#define ARILES_POINTER_ALLOCATE(entry_type, pointer)    pointer = new entry_type()
+#define ARILES_POINTER_ALLOCATE(entry_type, pointer)    pointer.reset(new double())
 #define ARILES_POINTER_RESET(pointer)                   pointer.reset(NULL)
 #include <ariles/adapters/generic_pointer_impl.h>
 

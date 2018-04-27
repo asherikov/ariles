@@ -28,7 +28,7 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase, public Confi
         ARILES_ENTRY_(std_map)
 
 #ifdef ARILES_ADAPTER_EIGEN
-    #define ARILES_ENTRIES_1 \
+    #define ARILES_ENTRIES_0 \
         ARILES_ENTRIES_STANDARD_TYPES \
         ARILES_ENTRY_(vector) \
         ARILES_ENTRY_(matrix) \
@@ -38,26 +38,15 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase, public Confi
         ARILES_ENTRY_(isometry) \
         ARILES_ENTRY_(quaternion)
 #else
-    #define ARILES_ENTRIES_1 ARILES_ENTRIES_STANDARD_TYPES
+    #define ARILES_ENTRIES_0 ARILES_ENTRIES_STANDARD_TYPES
 #endif
 
 
-#ifdef ARILES_ADAPTER_BOOSTPTR
-    #define ARILES_ENTRIES_2 \
-        ARILES_ENTRIES_1 \
-        ARILES_ENTRY_(shared_ptr_double) \
-        ARILES_ENTRY_(shared_ptr_double_null)
-#else
-    #define ARILES_ENTRIES_2 ARILES_ENTRIES_1
-#endif
-
-
-    #define ARILES_ENTRIES ARILES_ENTRIES_2
+    #define ARILES_ENTRIES ARILES_ENTRIES_0
     #include ARILES_INITIALIZE
 
 #undef ARILES_ENTRIES_STANDARD_TYPES
-#undef ARILES_ENTRIES_1
-#undef ARILES_ENTRIES_2
+#undef ARILES_ENTRIES_0
 
 
     public:
@@ -89,12 +78,6 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase, public Confi
         Eigen::Isometry3d   isometry_;
 
         Eigen::Quaterniond  quaternion_;
-#endif
-
-
-#ifdef ARILES_ADAPTER_BOOSTPTR
-        boost::shared_ptr<double>   shared_ptr_double_;
-        boost::shared_ptr<double>   shared_ptr_double_null_;
 #endif
 
 
