@@ -188,6 +188,28 @@ namespace ariles
                                 break;
                         }
                     }
+
+                    void readElement(bool &element)
+                    {
+                        switch(getRawNode().getType())
+                        {
+                            case XmlRpc::XmlRpcValue::TypeString:
+                                element = boost::lexical_cast<bool>(  static_cast<std::string>( getRawNode() )  );
+                                break;
+
+                            case XmlRpc::XmlRpcValue::TypeBoolean:
+                                element = static_cast<bool>(getRawNode());
+                                break;
+
+                            case XmlRpc::XmlRpcValue::TypeInt:
+                                element = static_cast<int>(getRawNode()) > 0;
+                                break;
+
+                            default:
+                                ARILES_THROW_MSG("Double type expected.");
+                                break;
+                        }
+                    }
             };
         }
     }

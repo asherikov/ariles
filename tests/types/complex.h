@@ -26,6 +26,8 @@ class ConfigurableComplex : public ariles::ConfigurableBase, public Configurable
         ARILES_TYPED_ENTRY_(std_vector,          std::vector<double>) \
         ARILES_TYPED_ENTRY_(std_nested_vector,   std::vector< std::vector<double> >) \
         ARILES_TYPED_ENTRY_(enum, SomeEnum) \
+        ARILES_TYPED_ENTRY_(boolean_true, bool) \
+        ARILES_TYPED_ENTRY_(boolean_false, bool) \
         ARILES_ENTRY_(std_pair) \
         ARILES_ENTRY_(std_map)
 

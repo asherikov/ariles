@@ -24,6 +24,8 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase, public Confi
         ARILES_ENTRY_(std_nested_vector) \
         ARILES_ENTRY_(string) \
         ARILES_ENTRY_(enum) \
+        ARILES_ENTRY_(boolean_true) \
+        ARILES_ENTRY_(boolean_false) \
         ARILES_ENTRY_(std_pair) \
         ARILES_ENTRY_(std_map)
 
@@ -60,6 +62,8 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase, public Confi
 
         std::string             string_;
 
+        bool boolean_true_;
+        bool boolean_false_;
 
         SomeEnum enum_;
 

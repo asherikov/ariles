@@ -48,6 +48,8 @@ class ConfigurableComplexBase
                 }
             }
 
+            impl.boolean_false_ = false;
+            impl.boolean_true_ = true;
 
             impl.enum_ = ANOTHER_VALUE;
 
@@ -119,6 +121,9 @@ class ConfigurableComplexBase
                 }
             }
 
+            impl.boolean_false_ = false;
+            impl.boolean_true_ = true;
+
             impl.enum_ = ANOTHER_VALUE;
 
             impl.std_pair_.first = "testtt";
@@ -181,6 +186,11 @@ void    compare(const t_Configurable_out    &configurable_out,
     BOOST_CHECK_EQUAL(configurable_out.unsigned_integer_, configurable_in.unsigned_integer_);
     BOOST_CHECK_CLOSE(configurable_out.real_,             configurable_in.real_, g_tolerance);
     BOOST_CHECK_EQUAL(configurable_out.string_,           configurable_in.string_);
+    BOOST_CHECK_EQUAL(configurable_out.boolean_false_,    configurable_in.boolean_false_);
+    BOOST_CHECK_EQUAL(configurable_out.boolean_false_,    false);
+    BOOST_CHECK_EQUAL(configurable_out.boolean_true_,     configurable_in.boolean_true_);
+    BOOST_CHECK_EQUAL(configurable_out.boolean_true_,     true);
+    BOOST_CHECK_EQUAL(configurable_out.enum_,             configurable_in.enum_);
 
     BOOST_CHECK_EQUAL(configurable_out.std_vector_.size(),                configurable_in.std_vector_.size());
     BOOST_CHECK_EQUAL(configurable_out.std_nested_vector_.size(),         configurable_in.std_nested_vector_.size());

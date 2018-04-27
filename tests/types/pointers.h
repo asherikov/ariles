@@ -83,6 +83,7 @@ class ConfigurablePointers : public ariles::ConfigurableBase
             unique_ptr_real_ = boost::movelib::make_unique<double>();
 
             *shared_ptr_real_ = GET_RANDOM_REAL;
+            *unique_ptr_real_ = GET_RANDOM_REAL;
 
             shared_ptr_real_null_.reset();
 #endif
