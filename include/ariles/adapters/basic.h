@@ -46,12 +46,10 @@ namespace ariles
                     typename t_Enumeration>
             void ARILES_VISIBILITY_ATTRIBUTE readBody(  t_Reader & reader,
                             t_Enumeration &entry,
-                            const bool crash_on_missing_entry = false,
+                            const bool /*crash_on_missing_entry*/ = false,
                             // ENABLE this function for enums
-                            ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) *dummy_enum = NULL)
+                            ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
         {
-            ARILES_IGNORE_UNUSED(crash_on_missing_entry);
-            ARILES_IGNORE_UNUSED(dummy_enum);
             int tmp_value = 0;
             reader.readElement(tmp_value);
             entry = static_cast<t_Enumeration> (tmp_value);
@@ -62,9 +60,8 @@ namespace ariles
                 template <  class t_Reader> \
                     void ARILES_VISIBILITY_ATTRIBUTE readBody(  t_Reader & reader, \
                                     type &entry, \
-                                    const bool crash_on_missing_entry = false) \
+                                    const bool /*crash_on_missing_entry*/ = false) \
                 { \
-                    ARILES_IGNORE_UNUSED(crash_on_missing_entry);\
                     reader.readElement(entry);\
                 }
 
@@ -131,9 +128,8 @@ namespace ariles
                     typename t_Enumeration>
             void ARILES_VISIBILITY_ATTRIBUTE writeBody( t_Writer & writer,
                             const t_Enumeration  entry,
-                            ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) *dummy_enum = NULL)
+                            ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
         {
-            ARILES_IGNORE_UNUSED(dummy_enum);
             int tmp_value = entry;
             writer.writeElement(tmp_value);
         }

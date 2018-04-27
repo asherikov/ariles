@@ -102,9 +102,8 @@ namespace ariles
                      *
                      * @param[in] num_entries number of child entries
                      */
-                    void startMap(const std::size_t num_entries)
+                    void startMap(const std::size_t /*num_entries*/)
                     {
-                        ARILES_IGNORE_UNUSED(num_entries);
                         *emitter_ << YAML::BeginMap;
                     }
 
@@ -142,9 +141,8 @@ namespace ariles
 
 
 
-                    void startArray(const std::size_t size, const bool compact = false)
+                    void startArray(const std::size_t /*size*/, const bool compact = false)
                     {
-                        ARILES_IGNORE_UNUSED(size);
                         if (true == compact)
                         {
                             *emitter_ << YAML::Flow;

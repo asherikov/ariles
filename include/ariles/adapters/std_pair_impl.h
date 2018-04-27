@@ -21,9 +21,8 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader & reader,
                     std::pair<t_First, t_Second> & entry,
-                    const bool crash_on_missing_entry)
+                    const bool /*crash_on_missing_entry*/)
         {
-            ARILES_IGNORE_UNUSED(crash_on_missing_entry);
             readEntry(reader, entry.first, "first", true);
             readEntry(reader, entry.second, "second", true);
         }

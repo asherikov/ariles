@@ -122,10 +122,8 @@ namespace ariles
                     }
 
 
-                    void startArray(const std::size_t size, const bool compact = false)
+                    void startArray(const std::size_t size, const bool /*compact*/ = false)
                     {
-                        ARILES_IGNORE_UNUSED(compact);
-
                         ARILES_ASSERT(size <= std::numeric_limits<uint32_t>::max(), "Vector is too long.");
 
                         packer_->pack_array(size);

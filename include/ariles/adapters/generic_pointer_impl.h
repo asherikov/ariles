@@ -21,10 +21,8 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader &reader,
                     ARILES_POINTER_TYPE(t_Entry) &entry,
-                    const bool crash_on_missing_entry)
+                    const bool /*crash_on_missing_entry*/)
         {
-            ARILES_IGNORE_UNUSED(crash_on_missing_entry);
-
             bool is_null = true;
             readEntry(reader, is_null, "is_null", true);
 

@@ -31,10 +31,8 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader & reader,
                     std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry,
-                    const bool crash_on_missing_entry)
+                    const bool /*crash_on_missing_entry*/)
         {
-            ARILES_IGNORE_UNUSED(crash_on_missing_entry);
-
             std::size_t size = reader.startArray();
             entry.clear();
             for(std::size_t i = 0; i < size; ++i)

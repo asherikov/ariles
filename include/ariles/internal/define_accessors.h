@@ -114,9 +114,8 @@
                 explicit ARILES_CONSTRUCTOR(
                         t_Reader &reader,
                         const bool crash_on_missing_entry = true,
-                        ARILES_IS_CHILD_ENABLER_TYPE(ariles::ReaderBase, t_Reader) *dummy = NULL)
+                        ARILES_IS_CHILD_ENABLER_TYPE(ariles::ReaderBase, t_Reader) * = NULL)
             {
-                ARILES_IGNORE_UNUSED(dummy);
                 readConfig(reader, crash_on_missing_entry);
             }
         #endif
@@ -210,9 +209,8 @@
         template <class t_Reader, class t_ReaderInitializer>
             void readConfig(t_ReaderInitializer         &reader_initializer,
                             const bool                  crash_on_missing_entry = true,
-                            ARILES_IS_CHILD_ENABLER_TYPE(ariles::ReaderBase, t_Reader) *dummy = NULL)
+                            ARILES_IS_CHILD_ENABLER_TYPE(ariles::ReaderBase, t_Reader) * = NULL)
         {
-            ARILES_IGNORE_UNUSED(dummy);
             t_Reader reader(reader_initializer);
             ariles::reader::readEntry(reader, *this, this->getConfigSectionID(), crash_on_missing_entry);
         }
@@ -228,9 +226,8 @@
         template <class t_Bridge, class t_ReaderInitializer>
             void readConfig(t_ReaderInitializer         &reader_initializer,
                             const bool                  crash_on_missing_entry = true,
-                            ARILES_IS_CHILD_ENABLER_TYPE(ariles::BridgeSelectorBase, t_Bridge) *dummy = NULL)
+                            ARILES_IS_CHILD_ENABLER_TYPE(ariles::BridgeSelectorBase, t_Bridge) * = NULL)
         {
-            ARILES_IGNORE_UNUSED(dummy);
             readConfig<typename t_Bridge::Reader>(reader_initializer, crash_on_missing_entry);
         }
 
@@ -247,9 +244,8 @@
             void readConfig(t_ReaderInitializer         &reader_initializer,
                             const std::string           &node_name,
                             const bool                  crash_on_missing_entry = true,
-                            ARILES_IS_CHILD_ENABLER_TYPE(ariles::ReaderBase, t_Reader) *dummy = NULL)
+                            ARILES_IS_CHILD_ENABLER_TYPE(ariles::ReaderBase, t_Reader) * = NULL)
         {
-            ARILES_IGNORE_UNUSED(dummy);
             t_Reader reader(reader_initializer);
             ariles::reader::readEntry(reader, *this, node_name, crash_on_missing_entry);
         }
@@ -267,9 +263,8 @@
             void readConfig(t_ReaderInitializer         &reader_initializer,
                             const std::string           &node_name,
                             const bool                  crash_on_missing_entry = true,
-                            ARILES_IS_CHILD_ENABLER_TYPE(ariles::BridgeSelectorBase, t_Bridge) *dummy = NULL)
+                            ARILES_IS_CHILD_ENABLER_TYPE(ariles::BridgeSelectorBase, t_Bridge) * = NULL)
         {
-            ARILES_IGNORE_UNUSED(dummy);
             readConfig<typename t_Bridge::Reader>(reader_initializer, node_name, crash_on_missing_entry);
         }
 
@@ -288,9 +283,8 @@
             void readConfig(t_ReaderInitializer         &reader_initializer,
                             const char                  *node_name,
                             const bool                  crash_on_missing_entry = true,
-                            ARILES_IS_CHILD_ENABLER_TYPE(ariles::ReaderBase, t_Reader) *dummy = NULL)
+                            ARILES_IS_CHILD_ENABLER_TYPE(ariles::ReaderBase, t_Reader) * = NULL)
         {
-            ARILES_IGNORE_UNUSED(dummy);
             t_Reader reader(reader_initializer);
             ariles::reader::readEntry(reader, *this, node_name, crash_on_missing_entry);
         }
@@ -310,9 +304,8 @@
             void readConfig(t_ReaderInitializer         &reader_initializer,
                             const char                  *node_name,
                             const bool                  crash_on_missing_entry = true,
-                            ARILES_IS_CHILD_ENABLER_TYPE(ariles::BridgeSelectorBase, t_Bridge) *dummy = NULL)
+                            ARILES_IS_CHILD_ENABLER_TYPE(ariles::BridgeSelectorBase, t_Bridge) * = NULL)
         {
-            ARILES_IGNORE_UNUSED(dummy);
             readConfig<typename t_Bridge::Reader>(reader_initializer, node_name, crash_on_missing_entry);
         }
 
@@ -355,9 +348,8 @@
          */
         template <class t_Writer, class t_WriterInitializer>
             void writeConfig(   t_WriterInitializer &writer_initializer,
-                                ARILES_IS_CHILD_ENABLER_TYPE(ariles::WriterBase, t_Writer) *dummy = NULL) const
+                                ARILES_IS_CHILD_ENABLER_TYPE(ariles::WriterBase, t_Writer) * = NULL) const
         {
-            ARILES_IGNORE_UNUSED(dummy);
             t_Writer writer(writer_initializer);
             writeConfig(writer);
         }
@@ -370,9 +362,8 @@
          */
         template <class t_Bridge, class t_WriterInitializer>
             void writeConfig(   t_WriterInitializer &writer_initializer,
-                                ARILES_IS_CHILD_ENABLER_TYPE(ariles::BridgeSelectorBase, t_Bridge) *dummy = NULL) const
+                                ARILES_IS_CHILD_ENABLER_TYPE(ariles::BridgeSelectorBase, t_Bridge) * = NULL) const
         {
-            ARILES_IGNORE_UNUSED(dummy);
             writeConfig<typename t_Bridge::Writer>(writer_initializer);
         }
 
@@ -386,9 +377,8 @@
         template <class t_Writer, class t_WriterInitializer>
             void writeConfig(   t_WriterInitializer &writer_initializer,
                                 const std::string &node_name,
-                                ARILES_IS_CHILD_ENABLER_TYPE(ariles::WriterBase, t_Writer) *dummy = NULL) const
+                                ARILES_IS_CHILD_ENABLER_TYPE(ariles::WriterBase, t_Writer) * = NULL) const
         {
-            ARILES_IGNORE_UNUSED(dummy);
             t_Writer writer(writer_initializer);
             writeConfig(writer, node_name);
         }
@@ -403,9 +393,8 @@
         template <class t_Writer, class t_WriterInitializer>
             void writeConfig(   t_WriterInitializer &writer_initializer,
                                 const char *node_name,
-                                ARILES_IS_CHILD_ENABLER_TYPE(ariles::WriterBase, t_Writer) *dummy = NULL) const
+                                ARILES_IS_CHILD_ENABLER_TYPE(ariles::WriterBase, t_Writer) * = NULL) const
         {
-            ARILES_IGNORE_UNUSED(dummy);
             t_Writer writer(writer_initializer);
             writeConfig(writer, node_name);
         }
@@ -420,9 +409,8 @@
         template <class t_Bridge, class t_WriterInitializer>
             void writeConfig(   t_WriterInitializer &writer_initializer,
                                 const std::string &node_name,
-                                ARILES_IS_CHILD_ENABLER_TYPE(ariles::BridgeSelectorBase, t_Bridge) *dummy = NULL) const
+                                ARILES_IS_CHILD_ENABLER_TYPE(ariles::BridgeSelectorBase, t_Bridge) * = NULL) const
         {
-            ARILES_IGNORE_UNUSED(dummy);
             writeConfig<typename t_Bridge::Writer>(writer_initializer, node_name);
         }
 
@@ -436,9 +424,8 @@
         template <class t_Bridge, class t_WriterInitializer>
             void writeConfig(   t_WriterInitializer &writer_initializer,
                                 const char *node_name,
-                                ARILES_IS_CHILD_ENABLER_TYPE(ariles::BridgeSelectorBase, t_Bridge) *dummy = NULL) const
+                                ARILES_IS_CHILD_ENABLER_TYPE(ariles::BridgeSelectorBase, t_Bridge) * = NULL) const
         {
-            ARILES_IGNORE_UNUSED(dummy);
             writeConfig<typename t_Bridge::Writer>(writer_initializer, node_name);
         }
 
