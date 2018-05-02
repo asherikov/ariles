@@ -10,7 +10,7 @@
 
 #pragma once
 
-#define ARILES_INCLUDED_ADAPTER_BOOSTPTR
+#define ARILES_INCLUDED_ADAPTER_BOOST_POINTER
 
 
 #include <boost/smart_ptr/shared_ptr.hpp>

@@ -2,8 +2,8 @@ if (ARILES_ADAPTER_EIGEN)
     find_package(Eigen3 REQUIRED)
     include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
 endif()
-if (ARILES_ADAPTER_BOOSTPTR)
-endif(ARILES_ADAPTER_BOOSTPTR)
+if (ARILES_ADAPTER_BOOST_POINTER)
+endif(ARILES_ADAPTER_BOOST_POINTER)
 
 
 find_package(Boost REQUIRED unit_test_framework timer random system)

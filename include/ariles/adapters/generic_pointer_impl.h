@@ -11,6 +11,7 @@
 // ARILES_POINTER_TYPE(entry_type)
 // ARILES_POINTER_ALLOCATE(entry_type, pointer)
 // ARILES_POINTER_RESET(pointer)
+// ARILES_POINTER_CHECK_DEFINED(pointer)
 
 namespace ariles
 {
@@ -49,7 +50,7 @@ namespace ariles
         {
             bool is_null = true;
 
-            if (NULL == entry)
+            if (ARILES_POINTER_CHECK_DEFINED(entry))
             {
                 is_null = true;
                 writer.startMap(1);
@@ -71,3 +72,4 @@ namespace ariles
 #undef ARILES_POINTER_TYPE
 #undef ARILES_POINTER_ALLOCATE
 #undef ARILES_POINTER_RESET
+#undef ARILES_POINTER_CHECK_DEFINED

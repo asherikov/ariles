@@ -8,7 +8,7 @@
 
 #pragma once
 
-
+#include <iostream>
 class ConfigurablePointers : public ariles::ConfigurableBase
 {
     #define ARILES_SECTION_ID "ConfigurablePointers"
@@ -27,7 +27,7 @@ class ConfigurablePointers : public ariles::ConfigurableBase
 #endif
 
 
-#ifdef ARILES_ADAPTER_BOOSTPTR
+#ifdef ARILES_ADAPTER_BOOST_POINTER
     #define ARILES_ENTRIES_2 \
         ARILES_ENTRIES_1 \
         ARILES_TYPED_ENTRY_(shared_ptr_real,          boost::shared_ptr<double>) \
@@ -38,12 +38,23 @@ class ConfigurablePointers : public ariles::ConfigurableBase
 #endif
 
 
-    #define ARILES_ENTRIES ARILES_ENTRIES_2
+#ifdef ARILES_ADAPTER_BOOST_OPTIONAL
+    #define ARILES_ENTRIES_3 \
+        ARILES_ENTRIES_2 \
+        ARILES_TYPED_ENTRY_(optional_real,          boost::optional<double>) \
+        ARILES_TYPED_ENTRY_(optional_real_null,     boost::optional<double>)
+#else
+    #define ARILES_ENTRIES_3 ARILES_ENTRIES_2
+#endif
+
+
+    #define ARILES_ENTRIES ARILES_ENTRIES_3
     #include ARILES_INITIALIZE
 
 #undef ARILES_ENTRIES_0
 #undef ARILES_ENTRIES_1
 #undef ARILES_ENTRIES_2
+#undef ARILES_ENTRIES_3
 
 
     public:
@@ -60,10 +71,15 @@ class ConfigurablePointers : public ariles::ConfigurableBase
             std_unique_ptr_real_.reset();
 #endif
 
-#ifdef ARILES_ADAPTER_BOOSTPTR
+#ifdef ARILES_ADAPTER_BOOST_POINTER
             shared_ptr_real_.reset();
             shared_ptr_real_null_.reset();
             unique_ptr_real_.reset();
+#endif
+
+#ifdef ARILES_ADAPTER_BOOST_OPTIONAL
+            optional_real_ = boost::none;
+            optional_real_null_ = boost::none;
 #endif
         }
 
@@ -78,7 +94,7 @@ class ConfigurablePointers : public ariles::ConfigurableBase
             *std_unique_ptr_real_ = GET_RANDOM_REAL;
 #endif
 
-#ifdef ARILES_ADAPTER_BOOSTPTR
+#ifdef ARILES_ADAPTER_BOOST_POINTER
             shared_ptr_real_ = boost::make_shared<double>();
             unique_ptr_real_ = boost::movelib::make_unique<double>();
 
@@ -86,6 +102,11 @@ class ConfigurablePointers : public ariles::ConfigurableBase
             *unique_ptr_real_ = GET_RANDOM_REAL;
 
             shared_ptr_real_null_.reset();
+#endif
+
+#ifdef ARILES_ADAPTER_BOOST_OPTIONAL
+            optional_real_ = GET_RANDOM_REAL;
+            optional_real_null_ = boost::none;
 #endif
         }
 };
@@ -117,7 +138,7 @@ void    compare(const t_Configurable_out    &configurable_out,
 #endif
 
 
-#ifdef ARILES_ADAPTER_BOOSTPTR
+#ifdef ARILES_ADAPTER_BOOST_POINTER
     if (configurable_in.shared_ptr_real_ == NULL)
     {
         BOOST_CHECK_EQUAL(configurable_out.shared_ptr_real_, configurable_in.shared_ptr_real_);
@@ -139,5 +160,14 @@ void    compare(const t_Configurable_out    &configurable_out,
 
     BOOST_CHECK(configurable_out.shared_ptr_real_null_ == NULL);
     BOOST_CHECK_EQUAL(configurable_out.shared_ptr_real_null_, configurable_in.shared_ptr_real_null_);
+#endif
+
+
+#ifdef ARILES_ADAPTER_BOOST_OPTIONAL
+    BOOST_CHECK(configurable_out.optional_real_ != boost::none);
+    BOOST_CHECK(configurable_in.optional_real_ != boost::none);
+    BOOST_CHECK_CLOSE(*configurable_out.optional_real_ , *configurable_in.optional_real_, g_tolerance);
+    BOOST_CHECK(configurable_out.optional_real_null_ == boost::none);
+    BOOST_CHECK(configurable_out.optional_real_null_ == configurable_in.optional_real_null_);
 #endif
 }
