@@ -23,7 +23,7 @@ namespace ariles
             /**
              * @brief Configuration reader class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase
+            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase, public ariles::SloppyMapReaderBase
             {
                 protected:
                     typedef ariles::Node<const YAML::Node> NodeWrapper;
@@ -133,6 +133,28 @@ namespace ariles
                     void ascend()
                     {
                         node_stack_.pop_back();
+                    }
+
+
+                    bool getEntryNames(std::vector<std::string> &child_names)
+                    {
+                        const YAML::Node *selected_node = &getRawNode();
+
+                        if(YAML::NodeType::Map != selected_node->Type())
+                        {
+                            return (false);
+                        }
+                        else
+                        {
+                            child_names.resize(selected_node->size());
+
+                            std::size_t i = 0;
+                            for(YAML::Iterator it = selected_node->begin(); it != selected_node->end(); ++it, ++i)
+                            {
+                                it.first() >> child_names[i];
+                            }
+                            return (true);
+                        }
                     }
 
 

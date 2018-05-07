@@ -41,4 +41,35 @@ namespace ariles
                     t_Writer & writer,
                     const std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry);
     }
+
+
+#define ARILES_ENABLE_SLOPPY_MAP
+
+#ifdef ARILES_ENABLE_SLOPPY_MAP
+    namespace reader
+    {
+        template <  class t_Reader,
+                    typename t_Value,
+                    class t_Compare,
+                    class t_Allocator>
+            void ARILES_VISIBILITY_ATTRIBUTE readBody(
+                    t_Reader & reader,
+                    std::map<std::string, t_Value, t_Compare, t_Allocator> & entry,
+                    const bool crash_on_missing_entry = false,
+                    ARILES_IS_CHILD_ENABLER_TYPE(ariles::SloppyMapReaderBase, t_Reader) * /*dummy*/ = NULL);
+    }
+
+
+    namespace writer
+    {
+        template <  class t_Writer,
+                    typename t_Value,
+                    class t_Compare,
+                    class t_Allocator>
+            void ARILES_VISIBILITY_ATTRIBUTE writeBody(
+                    t_Writer & writer,
+                    const std::map<std::string, t_Value, t_Compare, t_Allocator> & entry,
+                    ARILES_IS_CHILD_ENABLER_TYPE(ariles::SloppyMapWriterBase, t_Writer) * /*dummy*/ = NULL);
+    }
+#endif
 }

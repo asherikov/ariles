@@ -32,4 +32,9 @@ namespace ariles
                 }
             }
     };
+
+
+    class SloppyMapWriterBase
+    {
+    };
 }

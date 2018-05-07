@@ -63,4 +63,9 @@ namespace ariles
                 }
             }
     };
+
+
+    class SloppyMapReaderBase
+    {
+    };
 }

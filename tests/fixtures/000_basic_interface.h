@@ -23,34 +23,34 @@ class BasicInterfaceFixture : public t_FixtureBase
             void test()
         {
             // Exlicit instantiation of reader and writer classes
-            BOOST_CHECK_NO_THROW(
+            {
                 t_Configurable configurable;
                 configurable.randomize();
 
                 typename t_Bridge::Writer writer(getWriterInitializer("configurable.cfg"));
                 configurable.writeConfig(writer);
-            );
+            }
 
-            BOOST_CHECK_NO_THROW(
+            {
                 t_Configurable configurable;
 
                 typename t_Bridge::Reader reader(getReaderInitializer("configurable.cfg"));
                 configurable.readConfig(reader);
-            );
+            }
 
             // --------------------------------
 
             // Implicit instantiation of reader and writer classes
 
-            BOOST_CHECK_NO_THROW(
+            {
                 t_Configurable configurable;
                 configurable.randomize();
                 configurable.template writeConfig<t_Bridge>(getWriterInitializer("configurable2.cfg"));
-            );
+            }
 
-            BOOST_CHECK_NO_THROW(
+            {
                 t_Configurable configurable;
                 configurable.template readConfig<t_Bridge>(getReaderInitializer("configurable2.cfg"));
-            );
+            }
         }
 };
