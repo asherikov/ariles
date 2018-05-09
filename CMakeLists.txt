@@ -26,7 +26,9 @@ include(ariles_dump_variables)
 set    (ARILES_BRIDGES_DEFAULT_MODE     "BUILD" CACHE STRING "ON = enable, OFF = disable, BUILD = build from sources")
 option (ARILES_INSTALL_BRIDGES          "Install bridges on the system." OFF)
 
-# extra adapters
+# extra adapters & options
+option (ARILES_ENABLE_SLOPPY_MAP        "Enable sloppy std::map support" OFF)
+
 option (ARILES_ADAPTER_EIGEN            "Enable eigen support." ON)
 option (ARILES_ADAPTER_BOOST_POINTER    "Enable boost pointer support." ON)
 option (ARILES_ADAPTER_BOOST_OPTIONAL   "Enable boost optional support." ON)
@@ -319,6 +321,10 @@ foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
         endif()
     endif()
 endforeach(ARILES_BRIDGE)
+
+if (ARILES_ENABLE_SLOPPY_MAP)
+    set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_ENABLE_SLOPPY_MAP\n")
+endif(ARILES_ENABLE_SLOPPY_MAP)
 
 if (ARILES_ADAPTER_EIGEN)
     set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_ADAPTER_EIGEN\n")

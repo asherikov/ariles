@@ -21,7 +21,6 @@ namespace ariles
          * @tparam t_VectorEntryType type of the entry of std::vector
          *
          * @param[out] entry      configuration parameter
-         * @param[in]  crash_on_missing_entry
          */
         template <  class t_Reader,
                     typename t_Key,
@@ -31,21 +30,54 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader & reader,
                     std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry,
-                    const bool /*crash_on_missing_entry*/)
+                    const ariles::ConfigurableParameters & param)
         {
             std::size_t size = reader.startArray();
             entry.clear();
+            ariles::ConfigurableParameters param_local = param;
+            param_local.crash_on_missing_entry_ = true;
             for(std::size_t i = 0; i < size; ++i)
             {
                 std::pair<t_Key, t_Value> map_entry;
 
-                readBody(reader, map_entry, true);
+                readBody(reader, map_entry, param_local);
 
                 entry.insert(map_entry);
 
                 reader.shiftArray();
             }
             reader.endArray();
+        }
+
+
+        template <  class t_Reader,
+                    typename t_Value,
+                    class t_Compare,
+                    class t_Allocator>
+            void ARILES_VISIBILITY_ATTRIBUTE readBody(
+                    t_Reader & reader,
+                    std::map<std::string, t_Value, t_Compare, t_Allocator> & entry,
+                    const ariles::ConfigurableParameters & param,
+                    ARILES_IS_CHILD_ENABLER_TYPE(ariles::SloppyMapReaderBase, t_Reader) * /*dummy*/)
+        {
+            if (true == param.enable_sloppy_maps_if_supported_)
+            {
+                std::vector<std::string> entry_names;
+                ARILES_ASSERT(true == reader.getEntryNames(entry_names), "Could not read names of map entries.");
+                entry.clear();
+                ariles::ConfigurableParameters param_local = param;
+                param_local.crash_on_missing_entry_ = true;
+                for (std::size_t i = 0; i < entry_names.size(); ++i)
+                {
+                    t_Value entry_value;
+                    readEntry(reader, entry_value, entry_names[i], param_local);
+                    entry[entry_names[i]] = entry_value;
+                }
+            }
+            else
+            {
+                readBody<t_Reader, std::string, t_Value, t_Compare, t_Allocator>(reader, entry, param);
+            }
         }
     }
 
@@ -67,50 +99,22 @@ namespace ariles
                     class t_Allocator>
             void ARILES_VISIBILITY_ATTRIBUTE writeBody(
                     t_Writer & writer,
-                    const std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry)
+                    const std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry,
+                    const ariles::ConfigurableParameters & param)
         {
-            writer.startArray(entry.size());
+            writer.startArray(entry.size(), param.compact_arrays_if_supported_);
             for (
                 typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator it = entry.begin();
                 it != entry.end();
                 ++it)
             {
-                writeBody(writer, *it);
+                writeBody(writer, *it, param);
                 writer.shiftArray();
             }
             writer.endArray();
         }
-    }
 
 
-#ifdef ARILES_ENABLE_SLOPPY_MAP
-    namespace reader
-    {
-        template <  class t_Reader,
-                    typename t_Value,
-                    class t_Compare,
-                    class t_Allocator>
-            void ARILES_VISIBILITY_ATTRIBUTE readBody(
-                    t_Reader & reader,
-                    std::map<std::string, t_Value, t_Compare, t_Allocator> & entry,
-                    const bool /*crash_on_missing_entry*/,
-                    ARILES_IS_CHILD_ENABLER_TYPE(ariles::SloppyMapReaderBase, t_Reader) * /*dummy*/)
-        {
-            std::vector<std::string> entry_names;
-            ARILES_ASSERT(true == reader.getEntryNames(entry_names), "Could not read names of map entries.");
-            entry.clear();
-            for (std::size_t i = 0; i < entry_names.size(); ++i)
-            {
-                t_Value entry_value;
-                readEntry(reader, entry_value, entry_names[i], true);
-                entry[entry_names[i]] = entry_value;
-            }
-        }
-    }
-
-
-    namespace writer
-    {
         template <  class t_Writer,
                     typename t_Value,
                     class t_Compare,
@@ -118,18 +122,25 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE writeBody(
                     t_Writer & writer,
                     const std::map<std::string, t_Value, t_Compare, t_Allocator> & entry,
+                    const ariles::ConfigurableParameters & param,
                     ARILES_IS_CHILD_ENABLER_TYPE(ariles::SloppyMapWriterBase, t_Writer) * /*dummy*/)
         {
-            writer.startMap(entry.size());
-            for (
-                typename std::map<std::string, t_Value, t_Compare, t_Allocator>::const_iterator it = entry.begin();
-                it != entry.end();
-                ++it)
+            if (true == param.enable_sloppy_maps_if_supported_)
             {
-                writeEntry(writer, it->second, it->first);
+                writer.startMap(entry.size());
+                for (
+                    typename std::map<std::string, t_Value, t_Compare, t_Allocator>::const_iterator it = entry.begin();
+                    it != entry.end();
+                    ++it)
+                {
+                    writeEntry(writer, it->second, it->first, param);
+                }
+                writer.endMap();
             }
-            writer.endMap();
+            else
+            {
+                writeBody<t_Writer, std::string, t_Value, t_Compare, t_Allocator>(writer, entry, param);
+            }
         }
     }
-#endif
 }

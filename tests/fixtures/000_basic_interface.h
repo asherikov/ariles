@@ -52,5 +52,42 @@ class BasicInterfaceFixture : public t_FixtureBase
                 t_Configurable configurable;
                 configurable.template readConfig<t_Bridge>(getReaderInitializer("configurable2.cfg"));
             }
+
+
+            // --------------------------------
+            // strictness control
+            // --------------------------------
+            bool strict = true;
+
+            // Exlicit instantiation of reader and writer classes
+            {
+                t_Configurable configurable;
+                configurable.randomize();
+
+                typename t_Bridge::Writer writer(getWriterInitializer("configurable.cfg"));
+                configurable.writeConfig(writer, strict);
+            }
+
+            {
+                t_Configurable configurable;
+
+                typename t_Bridge::Reader reader(getReaderInitializer("configurable.cfg"));
+                configurable.readConfig(reader, strict);
+            }
+
+            // --------------------------------
+
+            // Implicit instantiation of reader and writer classes
+
+            {
+                t_Configurable configurable;
+                configurable.randomize();
+                configurable.template writeConfig<t_Bridge>(getWriterInitializer("configurable2.cfg"), strict);
+            }
+
+            {
+                t_Configurable configurable;
+                configurable.template readConfig<t_Bridge>(getReaderInitializer("configurable2.cfg"), strict);
+            }
         }
 };

@@ -22,7 +22,6 @@ namespace ariles
          * @tparam t_flags  Eigen template parameter
          *
          * @param[out] entry     configuration parameter
-         * @param[in] crash_on_missing_entry
          */
         template <  class t_Reader,
                     typename t_Scalar,
@@ -31,7 +30,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader &reader,
                     Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
-                    const bool /*crash_on_missing_entry*/)
+                    const ariles::ConfigurableParameters & param)
         {
             std::size_t size = reader.startArray();
 
@@ -47,7 +46,7 @@ namespace ariles
 
             for(EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows); ++i)
             {
-                readBody(reader,entry[i]);
+                readBody(reader, entry[i], param);
                 reader.shiftArray();
             }
             reader.endArray();
@@ -64,7 +63,6 @@ namespace ariles
          * @tparam t_flags  Eigen template parameter
          *
          * @param[out] entry      data
-         * @param[in] crash_on_missing_entry
          */
         template <  class t_Reader,
                     typename t_Scalar,
@@ -74,17 +72,20 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             readBody(  t_Reader & reader,
                        Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
-                       const bool /*crash_on_missing_entry*/)
+                       const ariles::ConfigurableParameters & param)
         {
             EIGEN_DEFAULT_DENSE_INDEX_TYPE num_rows;
             EIGEN_DEFAULT_DENSE_INDEX_TYPE num_cols;
 
-            readEntry(reader, num_rows, "rows", true);
-            readEntry(reader, num_cols, "cols", true);
+            ariles::ConfigurableParameters param_local = param;
+            param_local.crash_on_missing_entry_ = true;
+
+            readEntry(reader, num_rows, "rows", param_local);
+            readEntry(reader, num_cols, "cols", param_local);
 
 
             Eigen::VectorXd v;
-            readEntry(reader, v, "data", true);
+            readEntry(reader, v, "data", param_local);
 
             ARILES_ASSERT(v.rows() == num_rows*num_cols, "Wrong entry size.");
 
@@ -107,13 +108,13 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             readBody(   t_Reader & reader,
                         Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
-                        const bool crash_on_missing_entry)
+                        const ariles::ConfigurableParameters & param)
         {
             Eigen::Matrix<
                 t_Scalar,
                 Eigen::Dynamic == t_dim ? Eigen::Dynamic : t_dim+1,
                 Eigen::Dynamic == t_dim ? Eigen::Dynamic : t_dim+1> raw_matrix;
-            readBody(reader, raw_matrix, crash_on_missing_entry);
+            readBody(reader, raw_matrix, param);
             entry.matrix() = raw_matrix;
         }
 
@@ -124,12 +125,15 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             readBody(   t_Reader & reader,
                         Eigen::Quaternion< t_Scalar, t_options > &entry,
-                        const bool /*crash_on_missing_entry*/)
+                        const ariles::ConfigurableParameters & param)
         {
-            readEntry(reader, entry.x(), "x", true);
-            readEntry(reader, entry.y(), "y", true);
-            readEntry(reader, entry.z(), "z", true);
-            readEntry(reader, entry.w(), "w", true);
+            ariles::ConfigurableParameters param_local = param;
+            param_local.crash_on_missing_entry_ = true;
+
+            readEntry(reader, entry.x(), "x", param_local);
+            readEntry(reader, entry.y(), "y", param_local);
+            readEntry(reader, entry.z(), "z", param_local);
+            readEntry(reader, entry.w(), "w", param_local);
         }
     }
 
@@ -150,7 +154,8 @@ namespace ariles
                     int t_flags>
             void ARILES_VISIBILITY_ATTRIBUTE
             writeBody( t_Writer & writer,
-                       const Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry)
+                       const Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
+                       const ariles::ConfigurableParameters & /*param*/)
         {
             writer.startArray(entry.rows(), true);
             for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < entry.rows(); ++i)
@@ -181,12 +186,13 @@ namespace ariles
                     int t_flags>
             void ARILES_VISIBILITY_ATTRIBUTE
             writeBody( t_Writer & writer,
-                       const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry)
+                       const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
+                       const ariles::ConfigurableParameters & param)
         {
             writer.startMap(3);
 
-            writeEntry(writer, entry.cols(), "cols");
-            writeEntry(writer, entry.rows(), "rows");
+            writeEntry(writer, entry.cols(), "cols", param);
+            writeEntry(writer, entry.rows(), "rows", param);
 
 
             writer.descend("data");
@@ -213,9 +219,10 @@ namespace ariles
                     int t_options>
             void ARILES_VISIBILITY_ATTRIBUTE
             writeBody(  t_Writer & writer,
-                        const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry)
+                        const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
+                        const ariles::ConfigurableParameters & param)
         {
-            writeBody(writer, entry.matrix());
+            writeBody(writer, entry.matrix(), param);
         }
 
 
@@ -224,14 +231,15 @@ namespace ariles
                     int t_options>
             void ARILES_VISIBILITY_ATTRIBUTE
             writeBody(  t_Writer & writer,
-                        const Eigen::Quaternion< t_Scalar, t_options > &entry)
+                        const Eigen::Quaternion< t_Scalar, t_options > &entry,
+                        const ariles::ConfigurableParameters & param)
         {
             writer.startMap(4);
 
-            writeEntry(writer, entry.x(), "x");
-            writeEntry(writer, entry.y(), "y");
-            writeEntry(writer, entry.z(), "z");
-            writeEntry(writer, entry.w(), "w");
+            writeEntry(writer, entry.x(), "x", param);
+            writeEntry(writer, entry.y(), "y", param);
+            writeEntry(writer, entry.z(), "z", param);
+            writeEntry(writer, entry.w(), "w", param);
 
             writer.endMap();
         }

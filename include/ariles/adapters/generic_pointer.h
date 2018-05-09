@@ -19,7 +19,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             readBody(   t_Reader &reader,
                         ARILES_POINTER_TYPE(t_Entry) &entry,
-                        const bool crash_on_missing_entry = false);
+                        const ariles::ConfigurableParameters & param);
     }
 
 
@@ -29,7 +29,8 @@ namespace ariles
                     typename t_Entry>
             void ARILES_VISIBILITY_ATTRIBUTE
             writeBody(  t_Writer & writer,
-                        const ARILES_POINTER_TYPE(t_Entry) &entry);
+                        const ARILES_POINTER_TYPE(t_Entry) &entry,
+                        const ariles::ConfigurableParameters & param);
     }
 }
 

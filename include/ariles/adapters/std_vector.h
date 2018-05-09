@@ -24,7 +24,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader & reader,
                     std::vector<t_VectorEntryType, t_Allocator> & entry,
-                    const bool crash_on_missing_entry = false);
+                    const ariles::ConfigurableParameters & param);
     }
 
 
@@ -35,6 +35,7 @@ namespace ariles
                     class t_Allocator>
             void ARILES_VISIBILITY_ATTRIBUTE writeBody(
                     t_Writer & writer,
-                    const std::vector<t_VectorEntryType, t_Allocator> & entry);
+                    const std::vector<t_VectorEntryType, t_Allocator> & entry,
+                    const ariles::ConfigurableParameters & param);
     }
 }

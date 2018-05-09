@@ -21,15 +21,15 @@ namespace ariles
          * @tparam t_Entry type of the entry
          *
          * @param[out] entry     configuration parameter
-         * @param[in] crash_on_missing_entry
          */
         template <class t_Reader>
-            void ARILES_VISIBILITY_ATTRIBUTE readBody(   t_Reader  & reader,
+            void ARILES_VISIBILITY_ATTRIBUTE readBody(
+                                    t_Reader  & reader,
                                     ariles::CommonConfigurableBase & entry,
-                                    const bool crash_on_missing_entry = false)
+                                    const ariles::ConfigurableParameters & param)
         {
             entry.setDefaults();
-            entry.readConfigEntries(reader, crash_on_missing_entry);
+            entry.readConfigEntries(reader, param);
         }
 
 
@@ -40,13 +40,13 @@ namespace ariles
          * @tparam t_Entry type of the entry
          *
          * @param[out] entry     configuration parameter
-         * @param[in] crash_on_missing_entry
          */
         template <  class t_Reader,
                     typename t_Enumeration>
-            void ARILES_VISIBILITY_ATTRIBUTE readBody(  t_Reader & reader,
+            void ARILES_VISIBILITY_ATTRIBUTE readBody(
+                            t_Reader & reader,
                             t_Enumeration &entry,
-                            const bool /*crash_on_missing_entry*/ = false,
+                            const ariles::ConfigurableParameters & /*param*/,
                             // ENABLE this function for enums
                             ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
         {
@@ -58,10 +58,12 @@ namespace ariles
 
         #define ARILES_BASIC_TYPE(type) \
                 template <  class t_Reader> \
-                    void ARILES_VISIBILITY_ATTRIBUTE readBody(  t_Reader & reader, \
+                    void ARILES_VISIBILITY_ATTRIBUTE readBody( \
+                                    t_Reader & reader, \
                                     type &entry, \
-                                    const bool /*crash_on_missing_entry*/ = false) \
+                                    const ariles::ConfigurableParameters & param) \
                 { \
+                    ARILES_IGNORE_UNUSED(param);\
                     reader.readElement(entry);\
                 }
 
@@ -78,20 +80,20 @@ namespace ariles
          *
          * @param[out] entry      configuration parameter
          * @param[in]  entry_name name of the configuration parameter
-         * @param[in]  crash_on_missing_entry
          */
         template <  class t_Reader,
                     class t_Entry>
-            void ARILES_VISIBILITY_ATTRIBUTE readEntry( t_Reader & reader,
+            void ARILES_VISIBILITY_ATTRIBUTE readEntry(
+                            t_Reader & reader,
                             t_Entry &entry,
                             const std::string & entry_name,
-                            const bool crash_on_missing_entry = false)
+                            const ariles::ConfigurableParameters & param)
         {
             if (reader.descend(entry_name))
             {
                 try
                 {
-                    readBody(reader, entry, crash_on_missing_entry);
+                    readBody(reader, entry, param);
                 }
                 catch(const std::exception &e)
                 {
@@ -105,7 +107,7 @@ namespace ariles
             }
             else
             {
-                if (crash_on_missing_entry)
+                if (param.crash_on_missing_entry_)
                 {
                     ARILES_THROW_MSG(std::string("Configuration file does not contain entry '") + entry_name + "'.");
                 }
@@ -126,8 +128,10 @@ namespace ariles
          */
         template <  class t_Writer,
                     typename t_Enumeration>
-            void ARILES_VISIBILITY_ATTRIBUTE writeBody( t_Writer & writer,
+            void ARILES_VISIBILITY_ATTRIBUTE writeBody(
+                            t_Writer & writer,
                             const t_Enumeration  entry,
+                            const ariles::ConfigurableParameters & /*param*/,
                             ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
         {
             int tmp_value = entry;
@@ -135,12 +139,14 @@ namespace ariles
         }
 
 
-        template <  class t_Writer>
-            void ARILES_VISIBILITY_ATTRIBUTE writeBody( t_Writer & writer,
-                            const ariles::CommonConfigurableBase & entry)
+        template <class t_Writer>
+            void ARILES_VISIBILITY_ATTRIBUTE writeBody(
+                            t_Writer & writer,
+                            const ariles::CommonConfigurableBase & entry,
+                            const ariles::ConfigurableParameters & param)
         {
             writer.startMap(entry.getNumberOfEntries());
-            entry.writeConfigEntries(writer);
+            entry.writeConfigEntries(writer, param);
             writer.endMap();
         }
 
@@ -148,9 +154,12 @@ namespace ariles
 
         #define ARILES_BASIC_TYPE(type) \
                 template <class t_Writer> \
-                    void ARILES_VISIBILITY_ATTRIBUTE writeBody( t_Writer &  writer,\
-                                    const type & entry) \
+                    void ARILES_VISIBILITY_ATTRIBUTE writeBody( \
+                                    t_Writer &  writer, \
+                                    const type & entry, \
+                                    const ariles::ConfigurableParameters & param) \
                 {\
+                    ARILES_IGNORE_UNUSED(param); \
                     writer.writeElement(entry);\
                 }
 
@@ -162,12 +171,14 @@ namespace ariles
 
         template <  class t_Writer,
                     typename t_Entry>
-            void ARILES_VISIBILITY_ATTRIBUTE writeEntry( t_Writer & writer,
+            void ARILES_VISIBILITY_ATTRIBUTE writeEntry(
+                            t_Writer & writer,
                             const t_Entry & entry,
-                            const std::string  & entry_name)
+                            const std::string & entry_name,
+                            const ariles::ConfigurableParameters & param)
         {
             writer.descend(entry_name);
-            writeBody(writer, entry);
+            writeBody(writer, entry, param);
             writer.ascend();
         }
     }

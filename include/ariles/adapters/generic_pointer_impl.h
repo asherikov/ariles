@@ -22,10 +22,14 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader &reader,
                     ARILES_POINTER_TYPE(t_Entry) &entry,
-                    const bool /*crash_on_missing_entry*/)
+                    const ariles::ConfigurableParameters & param)
         {
             bool is_null = true;
-            readEntry(reader, is_null, "is_null", true);
+
+            ariles::ConfigurableParameters param_local = param;
+            param_local.crash_on_missing_entry_ = true;
+
+            readEntry(reader, is_null, "is_null", param_local);
 
             if (true == is_null)
             {
@@ -34,7 +38,7 @@ namespace ariles
             else
             {
                 ARILES_POINTER_ALLOCATE(t_Entry, entry);
-                readEntry(reader, *entry, "value", true);
+                readEntry(reader, *entry, "value", param_local);
             }
         }
     }
@@ -46,7 +50,8 @@ namespace ariles
                     typename t_Entry>
             void ARILES_VISIBILITY_ATTRIBUTE
             writeBody( t_Writer & writer,
-                       const ARILES_POINTER_TYPE(t_Entry) &entry)
+                       const ARILES_POINTER_TYPE(t_Entry) &entry,
+                       const ariles::ConfigurableParameters & param)
         {
             bool is_null = true;
 
@@ -54,15 +59,15 @@ namespace ariles
             {
                 is_null = true;
                 writer.startMap(1);
-                writeEntry(writer, is_null, "is_null");
+                writeEntry(writer, is_null, "is_null", param);
                 writer.endMap();
             }
             else
             {
                 is_null = false;
                 writer.startMap(2);
-                writeEntry(writer, is_null, "is_null");
-                writeEntry(writer, *entry, "value");
+                writeEntry(writer, is_null, "is_null", param);
+                writeEntry(writer, *entry, "value", param);
                 writer.endMap();
             }
         }

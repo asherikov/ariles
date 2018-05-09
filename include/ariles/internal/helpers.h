@@ -90,4 +90,25 @@ namespace ariles
     struct ARILES_VISIBILITY_ATTRIBUTE BridgeSelectorBase
     {
     };
+
+
+    class ConfigurableParameters
+    {
+        public:
+            bool crash_on_missing_entry_;
+            bool enable_sloppy_maps_if_supported_;
+            bool compact_arrays_if_supported_;
+
+        public:
+            ConfigurableParameters(const bool crash_on_missing_entry)
+            {
+                crash_on_missing_entry_ = crash_on_missing_entry;
+#ifdef ARILES_ENABLE_SLOPPY_MAP
+                enable_sloppy_maps_if_supported_ = true;
+#else
+                enable_sloppy_maps_if_supported_ = false;
+#endif
+                compact_arrays_if_supported_ = false;
+            }
+    };
 }

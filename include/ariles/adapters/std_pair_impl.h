@@ -21,10 +21,12 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader & reader,
                     std::pair<t_First, t_Second> & entry,
-                    const bool /*crash_on_missing_entry*/)
+                    const ariles::ConfigurableParameters & param)
         {
-            readEntry(reader, entry.first, "first", true);
-            readEntry(reader, entry.second, "second", true);
+            ariles::ConfigurableParameters param_local = param;
+            param_local.crash_on_missing_entry_ = true;
+            readEntry(reader, entry.first, "first", param_local);
+            readEntry(reader, entry.second, "second", param_local);
         }
     }
 
@@ -36,11 +38,12 @@ namespace ariles
                     typename t_Second>
             void ARILES_VISIBILITY_ATTRIBUTE writeBody(
                     t_Writer & writer,
-                    const std::pair<t_First, t_Second> & entry)
+                    const std::pair<t_First, t_Second> & entry,
+                    const ariles::ConfigurableParameters & param)
         {
             writer.startMap(2);
-            writeEntry(writer, entry.first, "first");
-            writeEntry(writer, entry.second, "second");
+            writeEntry(writer, entry.first, "first", param);
+            writeEntry(writer, entry.second, "second", param);
             writer.endMap();
         }
     }

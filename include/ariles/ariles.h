@@ -31,20 +31,20 @@
     #define ARILES_ENTRY(entry)      ARILES_NAMED_ENTRY(entry, #entry)
 
 
-    #define ARILES_WRITE_NAMED_ENTRY(entry, name)    ariles::writer::writeEntry(writer, entry, name);
+    #define ARILES_WRITE_NAMED_ENTRY(entry, name)    ariles::writer::writeEntry(writer, entry, name, param);
 
     #define ARILES_WRITE_ENTRY_(entry)   ARILES_WRITE_NAMED_ENTRY(entry##_, #entry)
     #define ARILES_WRITE_ENTRY(entry)    ARILES_WRITE_NAMED_ENTRY(entry, #entry)
 
-    #define ARILES_WRITE_PARENT(parent_class)  parent_class::writeConfigEntries(writer);
+    #define ARILES_WRITE_PARENT(parent_class)  parent_class::writeConfigEntries(writer, param);
 
 
-    #define ARILES_READ_NAMED_ENTRY(entry, name)  ariles::reader::readEntry(reader, entry, name, crash_on_missing_entry);
+    #define ARILES_READ_NAMED_ENTRY(entry, name)  ariles::reader::readEntry(reader, entry, name, param);
 
     #define ARILES_READ_ENTRY_(entry)    ARILES_READ_NAMED_ENTRY(entry##_, #entry);
     #define ARILES_READ_ENTRY(entry)     ARILES_READ_NAMED_ENTRY(entry, #entry);
 
-    #define ARILES_READ_PARENT(parent_class)  parent_class::readConfigEntries(reader, crash_on_missing_entry);
+    #define ARILES_READ_PARENT(parent_class)  parent_class::readConfigEntries(reader, param);
 
     // ----------------------------
 
@@ -63,8 +63,7 @@
                 ~CommonConfigurableBase() {}
                 CommonConfigurableBase() {}
 
-
-                virtual bool getCrashOnMissingEntryFlag() = 0;
+                virtual const ConfigurableParameters &getArilesConfigurableParameters() const = 0;
 
 
             public:
@@ -108,9 +107,10 @@
                  * These functions are always defined automatically.
                  */
                 #define ARILES_NAMESPACE(config_namespace) \
-                    virtual void writeConfigEntries(ariles::config_namespace::Writer &) const = 0; \
+                    virtual void writeConfigEntries(ariles::config_namespace::Writer &, \
+                                                    const ConfigurableParameters & param) const = 0; \
                     virtual void readConfigEntries( ariles::config_namespace::Reader & reader, \
-                                                    const bool crash_flag) = 0;
+                                                    const ConfigurableParameters & param) = 0;
                 ARILES_MACRO_SUBSTITUTE(ARILES_NAMESPACE_LIST)
                 #undef ARILES_NAMESPACE
                 /// @}
@@ -120,25 +120,23 @@
         class ARILES_VISIBILITY_ATTRIBUTE StrictConfigurableBase : public ariles::CommonConfigurableBase
         {
             protected:
-                bool getCrashOnMissingEntryFlag() {return (true);}
-
-
-            protected:
                 /**
                  * @brief Protected destructor: prevent destruction of the child
                  * classes through a base pointer.
                  */
                 ~StrictConfigurableBase() {}
                 StrictConfigurableBase() {}
+
+                const ConfigurableParameters &getArilesConfigurableParameters() const
+                {
+                    static ConfigurableParameters parameters(true);
+                    return (parameters);
+                }
         };
 
 
         class ARILES_VISIBILITY_ATTRIBUTE RelaxedConfigurableBase : public ariles::CommonConfigurableBase
         {
-            protected:
-                bool getCrashOnMissingEntryFlag() {return (false);}
-
-
             protected:
                 /**
                  * @brief Protected destructor: prevent destruction of the child
@@ -146,6 +144,12 @@
                  */
                 ~RelaxedConfigurableBase() {}
                 RelaxedConfigurableBase() {}
+
+                const ConfigurableParameters &getArilesConfigurableParameters() const
+                {
+                    static ConfigurableParameters parameters(false);
+                    return (parameters);
+                }
         };
 
 

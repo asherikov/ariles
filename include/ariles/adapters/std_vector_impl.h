@@ -21,7 +21,6 @@ namespace ariles
          * @tparam t_VectorEntryType type of the entry of std::vector
          *
          * @param[out] entry      configuration parameter
-         * @param[in]  crash_on_missing_entry
          */
         template <  class t_Reader,
                     typename t_VectorEntryType,
@@ -29,12 +28,12 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader & reader,
                     std::vector<t_VectorEntryType, t_Allocator> & entry,
-                    const bool crash_on_missing_entry)
+                    const ariles::ConfigurableParameters & param)
         {
             entry.resize(reader.startArray());
             for(std::size_t i = 0; i < entry.size(); ++i)
             {
-                readBody(reader, entry[i], crash_on_missing_entry);
+                readBody(reader, entry[i], param);
                 reader.shiftArray();
             }
             reader.endArray();
@@ -57,12 +56,13 @@ namespace ariles
                     class t_Allocator>
             void ARILES_VISIBILITY_ATTRIBUTE writeBody(
                     t_Writer & writer,
-                    const std::vector<t_VectorEntryType, t_Allocator> & entry)
+                    const std::vector<t_VectorEntryType, t_Allocator> & entry,
+                    const ariles::ConfigurableParameters & param)
         {
-            writer.startArray(entry.size());
+            writer.startArray(entry.size(), param.compact_arrays_if_supported_);
             for (std::size_t i = 0; i < entry.size(); ++i)
             {
-                writeBody(writer, entry[i]);
+                writeBody(writer, entry[i], param);
                 writer.shiftArray();
             }
             writer.endArray();
