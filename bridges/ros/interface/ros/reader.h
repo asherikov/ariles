@@ -21,7 +21,7 @@ namespace ariles
             /**
              * @brief Configuration reader class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase
+            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase, public ariles::SloppyMapReaderBase
             {
                 protected:
                     typedef ariles::Node<XmlRpc::XmlRpcValue> NodeWrapper;
@@ -115,6 +115,28 @@ namespace ariles
                     void ascend()
                     {
                         node_stack_.pop_back();
+                    }
+
+
+                    bool getEntryNames(std::vector<std::string> &child_names)
+                    {
+                        XmlRpc::XmlRpcValue selected_node = getRawNode();
+
+                        if(XmlRpc::XmlRpcValue::TypeStruct != selected_node.getType())
+                        {
+                            return (false);
+                        }
+                        else
+                        {
+                            child_names.resize(selected_node.size());
+
+                            std::size_t i = 0;
+                            for(XmlRpc::XmlRpcValue::iterator it = selected_node.begin(); it != selected_node.end(); ++it, ++i)
+                            {
+                                child_names[i] = it->first;
+                            }
+                            return (true);
+                        }
                     }
 
 

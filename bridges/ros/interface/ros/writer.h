@@ -19,7 +19,7 @@ namespace ariles
             /**
              * @brief Configuration writer class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::WriterBase
+            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::WriterBase, public ariles::SloppyMapWriterBase
             {
                 protected:
                     typedef ariles::Node<XmlRpc::XmlRpcValue> NodeWrapper;

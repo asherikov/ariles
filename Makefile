@@ -65,8 +65,6 @@ debug-all-tests:
 
 all: debug-all
 
-test: debug-all-tests
-
 debug: debug-all
 
 
@@ -89,6 +87,7 @@ release: release-all
 #----------------------------------------------
 
 test-ros: clean
+	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=default TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=ros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 
 
