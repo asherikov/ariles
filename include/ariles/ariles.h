@@ -127,7 +127,7 @@
                 ~StrictConfigurableBase() {}
                 StrictConfigurableBase() {}
 
-                const ConfigurableParameters &getArilesConfigurableParameters() const
+                virtual const ConfigurableParameters &getArilesConfigurableParameters() const
                 {
                     static ConfigurableParameters parameters(true);
                     return (parameters);
@@ -145,7 +145,7 @@
                 ~RelaxedConfigurableBase() {}
                 RelaxedConfigurableBase() {}
 
-                const ConfigurableParameters &getArilesConfigurableParameters() const
+                virtual const ConfigurableParameters &getArilesConfigurableParameters() const
                 {
                     static ConfigurableParameters parameters(false);
                     return (parameters);
