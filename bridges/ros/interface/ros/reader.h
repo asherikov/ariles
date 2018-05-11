@@ -189,6 +189,16 @@ namespace ariles
                         element = tmp_value;
                     }
 
+                    void readElement(unsigned int &element)
+                    {
+                        ARILES_ASSERT(getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt,
+                                    "Integer type expected.");
+                        int tmp_value = static_cast<int>(getRawNode());
+                        ARILES_ASSERT(tmp_value >= 0, "Positive integer expected.");
+                        element = tmp_value;
+                    }
+
+
                     void readElement(double &element)
                     {
                         switch(getRawNode().getType())
