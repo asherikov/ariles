@@ -188,11 +188,25 @@ namespace ariles
 
 
                     /**
-                     * @brief Write a configuration entry (scalar template)
+                     * @brief Write a configuration entry ()
                      *
                      * @param[in] entry      data
                      */
                     void writeElement(const long unsigned int element)
+                    {
+                        ARILES_ASSERT(  element <= std::numeric_limits<int>::max(),
+                                        "Integer is too large to be saved.");
+
+                        getRawNode() = static_cast<int>(element);
+                    }
+
+
+                    /**
+                     * @brief Write a configuration entry ()
+                     *
+                     * @param[in] entry      data
+                     */
+                    void writeElement(const unsigned int element)
                     {
                         ARILES_ASSERT(  element <= std::numeric_limits<int>::max(),
                                         "Integer is too large to be saved.");
