@@ -172,47 +172,20 @@ namespace ariles
                     }
 
 
-                    /**
-                     * @brief Write a configuration entry (scalar template)
-                     *
-                     * @param[in] entry      data
-                     */
-                    void writeElement(const long int element)
-                    {
-                        ARILES_ASSERT(  (element <= std::numeric_limits<int>::max())
-                                        && (element >= std::numeric_limits<int>::min()),
-                                        "Integer is too large to be saved.");
 
-                        getRawNode() = static_cast<int>(element);
-                    }
+                    #define ARILES_BASIC_TYPE(type) \
+                            void writeElement(const type element) \
+                            { \
+                                ARILES_ASSERT(element <= std::numeric_limits<int>::max(), \
+                                              && element >= std::numeric_limits<int>::min(), \
+                                              "Value is out of range of type '" #int "'."); \
+                                getRawNode() = static_cast<int>(element); \
+                            }
 
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
-                    /**
-                     * @brief Write a configuration entry ()
-                     *
-                     * @param[in] entry      data
-                     */
-                    void writeElement(const long unsigned int element)
-                    {
-                        ARILES_ASSERT(  element <= std::numeric_limits<int>::max(),
-                                        "Integer is too large to be saved.");
-
-                        getRawNode() = static_cast<int>(element);
-                    }
-
-
-                    /**
-                     * @brief Write a configuration entry ()
-                     *
-                     * @param[in] entry      data
-                     */
-                    void writeElement(const unsigned int element)
-                    {
-                        ARILES_ASSERT(  element <= std::numeric_limits<int>::max(),
-                                        "Integer is too large to be saved.");
-
-                        getRawNode() = static_cast<int>(element);
-                    }
+                    #undef ARILES_BASIC_TYPE
             };
         }
     }

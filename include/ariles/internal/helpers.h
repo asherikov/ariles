@@ -48,18 +48,25 @@
     const typename boost::enable_if_c< (boost::is_base_of<parent, child>::value) >::type
 
 
+#define ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST \
+    ARILES_BASIC_TYPE(int) \
+    ARILES_BASIC_TYPE(short) \
+    ARILES_BASIC_TYPE(long) \
+    ARILES_BASIC_TYPE(char)
+
+#define ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST \
+    ARILES_BASIC_TYPE(unsigned int) \
+    ARILES_BASIC_TYPE(unsigned short) \
+    ARILES_BASIC_TYPE(unsigned long) \
+    ARILES_BASIC_TYPE(unsigned char)
+
+
 #define ARILES_BASIC_TYPES_LIST \
+    ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST \
+    ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST \
     ARILES_BASIC_TYPE(std::string) \
     ARILES_BASIC_TYPE(float) \
     ARILES_BASIC_TYPE(double) \
-    ARILES_BASIC_TYPE(int) \
-    ARILES_BASIC_TYPE(unsigned int) \
-    ARILES_BASIC_TYPE(short) \
-    ARILES_BASIC_TYPE(unsigned short) \
-    ARILES_BASIC_TYPE(long) \
-    ARILES_BASIC_TYPE(unsigned long) \
-    ARILES_BASIC_TYPE(char) \
-    ARILES_BASIC_TYPE(unsigned char) \
     ARILES_BASIC_TYPE(bool)
 
 

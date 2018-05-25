@@ -173,30 +173,22 @@ namespace ariles
                     }
 
 
-                    void readElement(long int &element)
-                    {
-                        ARILES_ASSERT(getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt,
-                                    "Integer type expected.");
-                        element = static_cast<int>(getRawNode());
-                    }
+                    #define ARILES_BASIC_TYPE(type) \
+                            void readElement(type &element) \
+                            { \
+                                ARILES_ASSERT(getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt,\
+                                              "Integer type expected."); \
+                                int tmp_value = static_cast<int>(getRawNode()); \
+                                ARILES_ASSERT(tmp_value <= std::numeric_limits<type>::max(), \
+                                              && tmp_value >= std::numeric_limits<type>::min(), \
+                                              "Value is out of range of type '" #type "'."); \
+                                element = static_cast<type>(tmp_value); \
+                            }
 
-                    void readElement(long unsigned int &element)
-                    {
-                        ARILES_ASSERT(getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt,
-                                    "Integer type expected.");
-                        int tmp_value = static_cast<int>(getRawNode());
-                        ARILES_ASSERT(tmp_value >= 0, "Positive integer expected.");
-                        element = tmp_value;
-                    }
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
-                    void readElement(unsigned int &element)
-                    {
-                        ARILES_ASSERT(getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt,
-                                    "Integer type expected.");
-                        int tmp_value = static_cast<int>(getRawNode());
-                        ARILES_ASSERT(tmp_value >= 0, "Positive integer expected.");
-                        element = tmp_value;
-                    }
+                    #undef ARILES_BASIC_TYPE
 
 
                     void readElement(double &element)
@@ -216,7 +208,7 @@ namespace ariles
                                 break;
 
                             default:
-                                ARILES_THROW_MSG("Double type expected.");
+                                ARILES_THROW_MSG("Could not convert value to double.");
                                 break;
                         }
                     }
@@ -238,7 +230,7 @@ namespace ariles
                                 break;
 
                             default:
-                                ARILES_THROW_MSG("Double type expected.");
+                                ARILES_THROW_MSG("Could not convert value to boolean.");
                                 break;
                         }
                     }
