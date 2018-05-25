@@ -179,14 +179,30 @@ namespace ariles
                                 ARILES_ASSERT(getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt,\
                                               "Integer type expected."); \
                                 int tmp_value = static_cast<int>(getRawNode()); \
-                                ARILES_ASSERT(tmp_value <= std::numeric_limits<type>::max(), \
+                                ARILES_ASSERT(tmp_value <= std::numeric_limits<type>::max() \
                                               && tmp_value >= std::numeric_limits<type>::min(), \
-                                              "Value is out of range of type '" #type "'."); \
+                                              "Value is out of range."); \
+                                element = static_cast<type>(tmp_value); \
+                            }
+
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
+
+                    #undef ARILES_BASIC_TYPE
+
+
+                    #define ARILES_BASIC_TYPE(type) \
+                            void readElement(type &element) \
+                            { \
+                                ARILES_ASSERT(getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt,\
+                                              "Integer type expected."); \
+                                int tmp_value = static_cast<int>(getRawNode()); \
+                                ARILES_ASSERT(tmp_value >= 0, "Expected positive value."); \
+                                ARILES_ASSERT(static_cast<unsigned int>(tmp_value) <= std::numeric_limits<type>::max(), \
+                                              "Value is too large."); \
                                 element = static_cast<type>(tmp_value); \
                             }
 
                     ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
 

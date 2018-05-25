@@ -176,14 +176,26 @@ namespace ariles
                     #define ARILES_BASIC_TYPE(type) \
                             void writeElement(const type element) \
                             { \
-                                ARILES_ASSERT(element <= std::numeric_limits<int>::max(), \
+                                ARILES_ASSERT(element <= std::numeric_limits<int>::max() \
                                               && element >= std::numeric_limits<int>::min(), \
-                                              "Value is out of range of type '" #int "'."); \
+                                              "Value is out of range."); \
+                                getRawNode() = static_cast<int>(element); \
+                            }
+
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
+
+                    #undef ARILES_BASIC_TYPE
+
+
+                    #define ARILES_BASIC_TYPE(type) \
+                            void writeElement(const type element) \
+                            { \
+                                ARILES_ASSERT(element <= std::numeric_limits<int>::max(), \
+                                              "Value is too large."); \
                                 getRawNode() = static_cast<int>(element); \
                             }
 
                     ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
             };
