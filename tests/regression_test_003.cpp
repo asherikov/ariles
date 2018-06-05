@@ -53,6 +53,8 @@ class Configurable : public ariles::ConfigurableBase
             finalize();
         }
 
+        virtual ~Configurable() {}
+
 
         virtual void setDefaults()
         {

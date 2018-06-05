@@ -65,7 +65,9 @@ class ConfigurableComplex : public ariles::ConfigurableBase, public Configurable
             setDefaults();
         }
 
-        virtual void setDefaults()
+        virtual ~ConfigurableComplex() {}
+
+        void setDefaults()
         {
             ConfigurableComplexBase<ConfigurableComplex>::setDefaults();
         }

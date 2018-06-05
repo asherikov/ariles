@@ -91,7 +91,9 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase, public Confi
             setDefaults();
         }
 
-        virtual void setDefaults()
+        virtual ~ConfigurableComplexVerbose() {}
+
+        void setDefaults()
         {
             ConfigurableComplexBase<ConfigurableComplexVerbose>::setDefaults();
         }

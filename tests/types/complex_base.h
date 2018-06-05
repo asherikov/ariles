@@ -15,13 +15,13 @@
 template <class t_ConfigurableComplex>
 class ConfigurableComplexBase
 {
+    protected:
+        ConfigurableComplexBase() {}
+        ~ConfigurableComplexBase() {}
+
+
     public:
-        ConfigurableComplexBase()
-        {
-        }
-
-
-        virtual void setDefaults()
+        void setDefaults()
         {
             t_ConfigurableComplex &impl = static_cast<t_ConfigurableComplex &>(*this);
 

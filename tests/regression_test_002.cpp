@@ -51,6 +51,8 @@ class ConfigurableMember : public ariles::ConfigurableBase
             setDefaults();
         }
 
+        virtual ~ConfigurableMember() {}
+
 
         virtual void setDefaults()
         {
@@ -81,6 +83,8 @@ class ConfigurableBase : public ariles::ConfigurableBase
         {
             setDefaults();
         }
+
+        virtual ~ConfigurableBase() {}
 
 
         virtual void setDefaults()
@@ -113,7 +117,7 @@ class ConfigurableDerived : public ConfigurableBase
         }
 
 
-        virtual void setDefaults()
+        void setDefaults()
         {
             another_member_.setDefaults();
             ConfigurableBase::setDefaults();
