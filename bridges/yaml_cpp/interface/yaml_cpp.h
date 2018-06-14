@@ -11,7 +11,7 @@
 #pragma once
 
 #if defined(ARILES_ENABLED) || defined(ARILES_DISABLED)
-    #error "This header must be included before config.h"
+    #error "All desired bridges must be included *before* the first inclusion of ariles.h, this bridge was not!"
 #endif
 
 

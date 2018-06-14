@@ -28,8 +28,18 @@
 
 #define ARILES_IGNORE_UNUSED(parameter)   (void)parameter;
 
-#define ARILES_THROW_MSG(s) \
-    throw std::runtime_error(std::string("In ") + __FILE__ + " // " + (s))
+
+#ifdef ARILES_COMPILER_SUPPORTS_FUNC_
+    #define ARILES_THROW_MSG(s) throw std::runtime_error(std::string("In ") + __func__ + "() // " + (s))
+#else
+    #ifdef ARILES_COMPILER_SUPPORTS_FUNCTION_
+        #define ARILES_THROW_MSG(s) throw std::runtime_error(std::string("In ") + __FUNCTION__ + "() // " + (s))
+    #else
+        #define ARILES_THROW_MSG(s) throw std::runtime_error(s)
+    #endif
+#endif // ARILES_COMPILER_SUPPORTS_FUNC_
+
+
 
 #ifdef DNDEBUG
 #   define ARILES_ASSERT(condition, message)

@@ -16,6 +16,9 @@ include(ariles_add_external_git_project)
 include(ariles_list_filenames)
 include(ariles_dump_variables)
 
+include (ariles_detect_func_macro)
+ariles_detect_func_macro()
+
 
 
 #####################################
@@ -277,7 +280,7 @@ endforeach(ARILES_BRIDGES_DIR)
 
 
 set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -fPIC -pedantic -Wall ${ARILES_CXX_FLAGS}")
-set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wfatal-errors")
 set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -std=${ARILES_CPP_STANDARD}")
 
 
@@ -310,7 +313,12 @@ configure_file("cmake/arilesConfig.cmake.in"    "${PROJECT_BINARY_DIR}/arilesCon
 
 
 #---
-set(ARILES_BUILD_CONFIG "")
+set(ARILES_BUILD_CONFIG
+"#pragma once
+// __func__ ?
+#cmakedefine HUMOTO_COMPILER_SUPPORTS_FUNC_
+// __FUNCTION__ ?
+#cmakedefine HUMOTO_COMPILER_SUPPORTS_FUNCTION_")
 
 foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
     if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
