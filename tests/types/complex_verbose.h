@@ -43,12 +43,21 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase, public Confi
     #define ARILES_ENTRIES_0 ARILES_ENTRIES_STANDARD_TYPES
 #endif
 
+#ifdef ARILES_ADAPTER_BETTER_ENUMS
+    #define ARILES_ENTRIES_1 \
+        ARILES_ENTRIES_0 \
+        ARILES_ENTRY_(better_enum) 
+#else
+    #define ARILES_ENTRIES_1 ARILES_ENTRIES_STANDARD_TYPES
+#endif
 
-    #define ARILES_ENTRIES ARILES_ENTRIES_0
+
+    #define ARILES_ENTRIES ARILES_ENTRIES_1
     #include ARILES_INITIALIZE
 
 #undef ARILES_ENTRIES_STANDARD_TYPES
 #undef ARILES_ENTRIES_0
+#undef ARILES_ENTRIES_1
 
 
     public:
@@ -66,6 +75,7 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase, public Confi
         bool boolean_false_;
 
         SomeEnum enum_;
+        BetterEnum better_enum_;
 
         std::pair<std::string, double> std_pair_;
         std::map<std::string, std::vector<std::string> > std_map_;

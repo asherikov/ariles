@@ -52,6 +52,7 @@ class ConfigurableComplexBase
             impl.boolean_true_ = true;
 
             impl.enum_ = ANOTHER_VALUE;
+            impl.better_enum_ = BetterEnum::DEFINED_1;
 
             impl.std_pair_.first = "test";
             impl.std_pair_.second = 13;
@@ -125,6 +126,7 @@ class ConfigurableComplexBase
             impl.boolean_true_ = true;
 
             impl.enum_ = ANOTHER_VALUE;
+            impl.better_enum_ = BetterEnum::DEFINED_2;
 
             impl.std_pair_.first = "testtt";
             impl.std_pair_.second = GET_RANDOM_REAL;
@@ -191,6 +193,7 @@ void    compare(const t_Configurable_out    &configurable_out,
     BOOST_CHECK_EQUAL(configurable_out.boolean_true_,     configurable_in.boolean_true_);
     BOOST_CHECK_EQUAL(configurable_out.boolean_true_,     true);
     BOOST_CHECK_EQUAL(configurable_out.enum_,             configurable_in.enum_);
+    BOOST_CHECK_EQUAL(configurable_out.better_enum_,      configurable_in.better_enum_);
 
     BOOST_CHECK_EQUAL(configurable_out.std_vector_.size(),                configurable_in.std_vector_.size());
     BOOST_CHECK_EQUAL(configurable_out.std_nested_vector_.size(),         configurable_in.std_nested_vector_.size());

@@ -7,6 +7,7 @@ ariles_copy_file_if_exists( TGT_ariles_copy_headers                     "format_
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/yaml_cpp03.h"  "${ARILES_INCLUDE_DIR}/ariles/formats/")
 ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                     "format_yaml_cpp03_dir"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/yaml_cpp03"    "${ARILES_INCLUDE_DIR}/ariles/formats/yaml_cpp03")
+add_dependencies("TGT_ariles_copy_headers_format_yaml_cpp03_h" "TGT_ariles_copy_headers_format_yaml_cpp03_dir")
 add_dependencies("TGT_ariles_copy_headers_format_yaml_cpp03_h" "TGT_ariles_copy_headers_ariles")
 
 

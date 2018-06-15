@@ -2,6 +2,7 @@ ariles_copy_file_if_exists( TGT_ariles_copy_headers                         "for
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/msgpack.h"   "${ARILES_INCLUDE_DIR}/ariles/formats/")
 ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                         "format_msgpack_dir"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/msgpack"     "${ARILES_INCLUDE_DIR}/ariles/formats/msgpack")
+add_dependencies("TGT_ariles_copy_headers_format_msgpack_h" "TGT_ariles_copy_headers_format_msgpack_dir")
 add_dependencies("TGT_ariles_copy_headers_format_msgpack_h" "TGT_ariles_copy_headers_ariles")
 
 

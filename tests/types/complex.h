@@ -46,12 +46,20 @@ class ConfigurableComplex : public ariles::ConfigurableBase, public Configurable
     #define ARILES_ENTRIES_0 ARILES_ENTRIES_STANDARD_TYPES
 #endif
 
+#ifdef ARILES_ADAPTER_BETTER_ENUMS
+    #define ARILES_ENTRIES_1 \
+        ARILES_ENTRIES_0 \
+        ARILES_TYPED_ENTRY_(better_enum, BetterEnum)
+#else
+    #define ARILES_ENTRIES_1 ARILES_ENTRIES_STANDARD_TYPES
+#endif
 
-    #define ARILES_ENTRIES ARILES_ENTRIES_0
+    #define ARILES_ENTRIES ARILES_ENTRIES_1
     #include ARILES_INITIALIZE
 
 #undef ARILES_ENTRIES_STANDARD_TYPES
 #undef ARILES_ENTRIES_0
+#undef ARILES_ENTRIES_1
 
 
     public:

@@ -16,3 +16,16 @@ enum SomeEnum
     SOME_VALUE = 1,
     ANOTHER_VALUE = 2
 };
+
+
+#ifdef ARILES_ADAPTER_BETTER_ENUMS
+
+#define BETTER_ENUMS_DEFAULT_CONSTRUCTOR(Enum)  \
+    public:                                     \
+        Enum() : _value(0) { }
+
+#include "better_enums.h"
+
+BETTER_ENUM(BetterEnum, int, UNDEFINED = 0, DEFINED_1, DEFINED_2)
+
+#endif

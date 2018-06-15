@@ -35,6 +35,7 @@ option (ARILES_ENABLE_SLOPPY_MAP        "Enable sloppy std::map support" OFF)
 option (ARILES_ADAPTER_EIGEN            "Enable eigen support." ON)
 option (ARILES_ADAPTER_BOOST_POINTER    "Enable boost pointer support." ON)
 option (ARILES_ADAPTER_BOOST_OPTIONAL   "Enable boost optional support." ON)
+option (ARILES_ADAPTER_BETTER_ENUMS     "Enable support for beter enums." ON)
 
 # build parameters
 set    (ARILES_CPP_STANDARD             "c++98" CACHE STRING "C++ standard version")
@@ -94,6 +95,20 @@ foreach (ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
     endforeach(ARILES_BRIDGE)
 endforeach(ARILES_BRIDGES_DIR)
 
+
+set(ARILES_EXTRA_ADAPTERS "")
+if (ARILES_ADAPTER_EIGEN)
+    list(APPEND ARILES_EXTRA_ADAPTERS "eigen")
+endif(ARILES_ADAPTER_EIGEN)
+if (ARILES_ADAPTER_BOOST_POINTER)
+    list(APPEND ARILES_EXTRA_ADAPTERS "boost_pointer")
+endif(ARILES_ADAPTER_BOOST_POINTER)
+if (ARILES_ADAPTER_BOOST_OPTIONAL)
+    list(APPEND ARILES_EXTRA_ADAPTERS "boost_optional")
+endif(ARILES_ADAPTER_BOOST_OPTIONAL)
+if (ARILES_ADAPTER_BETTER_ENUMS)
+    list(APPEND ARILES_EXTRA_ADAPTERS "better_enums")
+endif(ARILES_ADAPTER_BETTER_ENUMS)
 
 
 #####################################
@@ -158,18 +173,12 @@ add_custom_target( TGT_ariles_copy_headers ALL )
 
 ariles_copy_dir_if_exists(TGT_ariles_copy_headers          "ariles"
                           "${PROJECT_SOURCE_DIR}/include"  "${ARILES_INCLUDE_DIR}")
-if (ARILES_ADAPTER_EIGEN)
-    ariles_copy_dir_if_exists(TGT_ariles_copy_headers                       "adapter_eigen"
-                              "${PROJECT_SOURCE_DIR}/extra_adapters/eigen"  "${ARILES_INCLUDE_DIR}/ariles/adapters/")
-endif(ARILES_ADAPTER_EIGEN)
-if (ARILES_ADAPTER_BOOST_POINTER)
-    ariles_copy_dir_if_exists(TGT_ariles_copy_headers                               "adapter_boost_pointer"
-                              "${PROJECT_SOURCE_DIR}/extra_adapters/boost_pointer"  "${ARILES_INCLUDE_DIR}/ariles/adapters/")
-endif(ARILES_ADAPTER_BOOST_POINTER)
-if (ARILES_ADAPTER_BOOST_OPTIONAL)
-    ariles_copy_dir_if_exists(TGT_ariles_copy_headers                               "adapter_boost_optional"
-                              "${PROJECT_SOURCE_DIR}/extra_adapters/boost_optional" "${ARILES_INCLUDE_DIR}/ariles/adapters/")
-endif(ARILES_ADAPTER_BOOST_OPTIONAL)
+
+foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
+    ariles_copy_dir_if_exists(
+        TGT_ariles_copy_headers                                         "adapter_${ARILES_EXTRA_ADAPTER}"
+        "${PROJECT_SOURCE_DIR}/extra_adapters/${ARILES_EXTRA_ADAPTER}"  "${ARILES_INCLUDE_DIR}/ariles/adapters/")
+endforeach()
 
 # All headers are collected in one directory
 include_directories ("${PROJECT_BINARY_DIR}/include/")
@@ -334,17 +343,10 @@ if (ARILES_ENABLE_SLOPPY_MAP)
     set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_ENABLE_SLOPPY_MAP\n")
 endif(ARILES_ENABLE_SLOPPY_MAP)
 
-if (ARILES_ADAPTER_EIGEN)
-    set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_ADAPTER_EIGEN\n")
-endif(ARILES_ADAPTER_EIGEN)
-
-if (ARILES_ADAPTER_BOOST_POINTER)
-    set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_ADAPTER_BOOST_POINTER\n")
-endif(ARILES_ADAPTER_BOOST_POINTER)
-
-if (ARILES_ADAPTER_BOOST_OPTIONAL)
-    set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_ADAPTER_BOOST_OPTIONAL\n")
-endif(ARILES_ADAPTER_BOOST_OPTIONAL)
+foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
+    string(TOUPPER ${ARILES_EXTRA_ADAPTER} ARILES_EXTRA_ADAPTER_CAPITALIZED)
+    set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_ADAPTER_${ARILES_EXTRA_ADAPTER_CAPITALIZED}\n")
+endforeach()
 
 string(CONFIGURE "${ARILES_BUILD_CONFIG}" ARILES_BUILD_CONFIG)
 file(WRITE "${ARILES_INCLUDE_DIR}/ariles/internal/build_config.h" "${ARILES_BUILD_CONFIG}")
@@ -377,17 +379,9 @@ set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/std_pair.h\
 set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/std_map.h\"\n")
 set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/pointer.h\"\n")
 
-if (ARILES_ADAPTER_EIGEN)
-    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/eigen.h\"\n")
-endif(ARILES_ADAPTER_EIGEN)
-
-if (ARILES_ADAPTER_BOOST_POINTER)
-    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/boost_pointer.h\"\n")
-endif(ARILES_ADAPTER_BOOST_POINTER)
-
-if (ARILES_ADAPTER_BOOST_OPTIONAL)
-    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/boost_optional.h\"\n")
-endif(ARILES_ADAPTER_BOOST_OPTIONAL)
+foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
+    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/${ARILES_EXTRA_ADAPTER}.h\"\n")
+endforeach()
 
 file(WRITE "${ARILES_INCLUDE_DIR}/ariles/adapters_all.h" "${ARILES_ADAPTERS_ALL}")
 
@@ -409,26 +403,12 @@ set(ARILES_ADAPTERS_INCLUDED   "#pragma once\n\
 #   include \"std_map_impl.h\"\n\
 #endif\n")
 
-if (ARILES_ADAPTER_EIGEN)
+foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
 set(ARILES_ADAPTERS_INCLUDED "${ARILES_ADAPTERS_INCLUDED}\n\
 #ifdef ARILES_INCLUDED_ADAPTER_EIGEN\n\
-#   include \"eigen_impl.h\"\n\
+#   include \"${ARILES_EXTRA_ADAPTER}_impl.h\"\n\
 #endif\n")
-endif(ARILES_ADAPTER_EIGEN)
-
-if (ARILES_ADAPTER_BOOST_POINTER)
-set(ARILES_ADAPTERS_INCLUDED "${ARILES_ADAPTERS_INCLUDED}\n\
-#ifdef ARILES_INCLUDED_ADAPTER_BOOST_POINTER\n\
-#   include \"boost_pointer_impl.h\"\n\
-#endif\n")
-endif(ARILES_ADAPTER_BOOST_POINTER)
-
-if (ARILES_ADAPTER_BOOST_OPTIONAL)
-set(ARILES_ADAPTERS_INCLUDED "${ARILES_ADAPTERS_INCLUDED}\n\
-#ifdef ARILES_INCLUDED_ADAPTER_BOOST_OPTIONAL\n\
-#   include \"boost_optional_impl.h\"\n\
-#endif\n")
-endif(ARILES_ADAPTER_BOOST_OPTIONAL)
+endforeach()
 
 file(WRITE "${ARILES_INCLUDE_DIR}/ariles/adapters/included.h" "${ARILES_ADAPTERS_INCLUDED}")
 
