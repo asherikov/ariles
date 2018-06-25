@@ -7,3 +7,6 @@
 [submodule "bridges/yaml_cpp/yaml-cpp"]
 	path = bridges/yaml_cpp/yaml-cpp
 	url = https://github.com/jbeder/yaml-cpp.git
+[submodule "bridges/jsonnet/jsonnet"]
+	path = bridges/jsonnet/jsonnet
+	url = https://github.com/asherikov/jsonnet
