@@ -130,6 +130,7 @@ set (CMAKE_RULE_MESSAGES        OFF CACHE BOOL "")
 ## paths
 ##
 set (ARILES_INCLUDE_DIR "${PROJECT_BINARY_DIR}/include/")
+set (ARILES_BRIDGE_INCLUDE_DIR "${ARILES_INCLUDE_DIR}/ariles/bridges/")
 
 
 ##
@@ -359,7 +360,7 @@ set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"internal/build_config.h\
 
 foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
     if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
-        set(ARILES_HEADER_ALL "${ARILES_HEADER_ALL}#include \"formats/${ARILES_BRIDGE}.h\"\n")
+        set(ARILES_HEADER_ALL "${ARILES_HEADER_ALL}#include \"bridges/${ARILES_BRIDGE}.h\"\n")
     endif()
 endforeach(ARILES_BRIDGE)
 

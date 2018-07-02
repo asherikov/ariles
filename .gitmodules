@@ -10,3 +10,6 @@
 [submodule "bridges/jsonnet/jsonnet"]
 	path = bridges/jsonnet/jsonnet
 	url = https://github.com/asherikov/jsonnet
+[submodule "bridges/rapidjson/rapidjson"]
+	path = bridges/rapidjson/rapidjson
+	url = https://github.com/Tencent/rapidjson

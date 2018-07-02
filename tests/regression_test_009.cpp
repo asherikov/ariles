@@ -12,19 +12,23 @@
 #include "utility.h"
 
 #ifdef ARILES_BRIDGE_yaml_cpp03
-#include "ariles/formats/yaml_cpp03.h"
+#include "ariles/bridges/yaml_cpp03.h"
 #endif
 
 #ifdef ARILES_BRIDGE_yaml_cpp
-#include "ariles/formats/yaml_cpp.h"
+#include "ariles/bridges/yaml_cpp.h"
 #endif
 
 #ifdef ARILES_BRIDGE_msgpack
-#include "ariles/formats/msgpack.h"
+#include "ariles/bridges/msgpack.h"
 #endif
 
 #ifdef ARILES_BRIDGE_ros
-#include "ariles/formats/ros.h"
+#include "ariles/bridges/ros.h"
+#endif
+
+#ifdef ARILES_BRIDGE_rapidjson
+#include "ariles/bridges/rapidjson.h"
 #endif
 
 #include "ariles/adapters_all.h"

@@ -11,7 +11,7 @@
 #include "utility.h"
 
 // Enable ROS configuration files (must be first)
-#include "ariles/formats/ros.h"
+#include "ariles/bridges/ros.h"
 
 #include "ariles/adapters_all.h"
 
