@@ -73,7 +73,7 @@ class Configurable : public ariles::ConfigurableBase
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(NAMESPACE, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(ReadWriteFixture, NAMESPACE, Configurable, INITIALIZER)
+#define ARILES_TESTS(BRIDGE_ID, NAMESPACE, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ReadWriteFixture, BRIDGE_ID, NAMESPACE, Configurable, INITIALIZER)
 
 ARILES_TESTS(ros, ROSInitializer)

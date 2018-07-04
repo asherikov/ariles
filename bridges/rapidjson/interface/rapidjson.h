@@ -25,6 +25,12 @@
 #include <rapidjson/stringbuffer.h>
 #include <rapidjson/istreamwrapper.h>
 
+#ifdef ARILES_BRIDGE_jsonnet
+extern "C" {
+#include "libjsonnet.h"
+}
+#endif
+
 #include "./rapidjson/reader.h"
 #include "./rapidjson/writer.h"
 
@@ -77,5 +83,13 @@ namespace ariles
     {
         typedef bridge::rapidjson::Reader Reader;
         typedef bridge::rapidjson::Writer Writer;
+
+#ifdef ARILES_BRIDGE_jsonnet
+        struct ARILES_VISIBILITY_ATTRIBUTE jsonnet : public BridgeSelectorBase
+        {
+            typedef bridge::rapidjson::jsonnet::Reader Reader;
+            typedef bridge::rapidjson::jsonnet::Writer Writer;
+        };
+#endif
     };
 }

@@ -200,6 +200,61 @@ namespace ariles
                         element = getRawNode().GetString();
                     }
             };
+
+
+#ifdef ARILES_BRIDGE_jsonnet
+            namespace jsonnet
+            {
+                class Reader : public rapidjson::Reader
+                {
+                    public:
+                        explicit Reader(const std::string& file_name)
+                        {
+                            struct JsonnetVm* vm = static_cast<struct JsonnetVm*>(::jsonnet_make());
+                            ARILES_ASSERT(NULL != vm, "Could not initialize jsonnet preprocessor.");
+
+                            int error = 0;
+                            const char* jsonnet_output = ::jsonnet_evaluate_file(vm, file_name.c_str(), &error);
+                            ARILES_ASSERT(0 == error, jsonnet_output);
+
+                            document_.Parse(jsonnet_output);
+
+                            ::jsonnet_destroy(vm);
+                        }
+
+                        explicit Reader(std::istream & input_stream)
+                        {
+                            std::string input_string;
+                            char buffer[4096];
+                            while (input_stream.read(buffer, sizeof(buffer)))
+                            {
+                                input_string.append(buffer, sizeof(buffer));
+                            }
+                            input_string.append(buffer, input_stream.gcount());
+
+
+                            struct JsonnetVm* vm = static_cast<struct JsonnetVm*>(::jsonnet_make());
+                            ARILES_ASSERT(NULL != vm, "Could not initialize jsonnet preprocessor.");
+
+
+                            int error = 0;
+                            const char* jsonnet_output =
+                                ::jsonnet_evaluate_snippet(vm, "<input steam>", input_string.c_str(), &error);
+                            ARILES_ASSERT(0 == error, jsonnet_output);
+
+
+                            document_.Parse(jsonnet_output);
+
+                            ::jsonnet_destroy(vm);
+                        }
+
+
+                        ~Reader()
+                        {
+                        }
+                };
+            }
+#endif
         }
     }
 }

@@ -208,6 +208,15 @@ namespace ariles
                         getRawNode().SetString(element.c_str(), document_.GetAllocator());
                     }
             };
+
+
+#ifdef ARILES_BRIDGE_jsonnet
+            namespace jsonnet
+            {
+                // Useless, added for API symmetry
+                typedef rapidjson::Writer Writer;
+            }
+#endif
         }
     }
 }
