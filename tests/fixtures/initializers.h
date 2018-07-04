@@ -31,6 +31,26 @@ namespace initializers
     };
 
 
+    template <class t_Base>
+    class FilenameReaderInitializer : public t_Base
+    {
+        public:
+            FilenameReaderInitializer ()
+            {
+            }
+
+            const std::string getReaderInitializer(const std::string & /*string_id*/)
+            {
+                return (t_Base::string_id_);
+            }
+
+            const std::string getWriterInitializer(const std::string & /*string_id*/)
+            {
+                return (t_Base::string_id_);
+            }
+    };
+
+
     class StreamInitializer
     {
         public:

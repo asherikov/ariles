@@ -1,0 +1,7 @@
+local integer_value = 13;
+{
+    Configurable: 
+    {
+        integer: integer_value
+    }
+}

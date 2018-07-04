@@ -4,6 +4,9 @@ function(ariles_copy_extra_test_files TGT_MAIN TGT_THIS FROM_DIR PREFIX TO_DIR)
     file(GLOB COPY_FILES_TMP "${FROM_DIR}/${PREFIX}*.ref")
     list(APPEND COPY_FILES ${COPY_FILES_TMP})
 
+    file(GLOB COPY_FILES_TMP "${FROM_DIR}/${PREFIX}*.json")
+    list(APPEND COPY_FILES ${COPY_FILES_TMP})
+
     file(GLOB COPY_FILES_TMP "${FROM_DIR}/${PREFIX}*.yaml")
     list(APPEND COPY_FILES ${COPY_FILES_TMP})
 

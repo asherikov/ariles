@@ -10,12 +10,13 @@
 
 #include "utility.h"
 
-// Enable ROS configuration files (must be first)
-#include "ariles/bridges/ros.h"
 
-#include "ariles/adapters_all.h"
+#ifdef ARILES_BRIDGE_rapidjson
+#include "ariles/bridges/rapidjson.h"
+#endif
 
-// definition of ariles::ConfigurableBase
+// If no format header is included, ariles is disabled, and
+// ariles::ConfigurableBase is just a dummy class.
 #include "ariles/ariles.h"
 
 
@@ -31,9 +32,8 @@
 class Configurable : public ariles::ConfigurableBase
 {
     #define ARILES_SECTION_ID "Configurable"
-    #define ARILES_CONSTRUCTOR Configurable
     #define ARILES_ENTRIES \
-        ARILES_TYPED_ENTRY_(real,        double)
+        ARILES_TYPED_ENTRY_(integer,     int)
     #include ARILES_INITIALIZE
 
 
@@ -49,14 +49,7 @@ class Configurable : public ariles::ConfigurableBase
          */
         virtual void setDefaults()
         {
-            real_ = 1.33;
-        }
-
-
-        void randomize()
-        {
-            real_    = GET_RANDOM_REAL;
-            finalize();
+            integer_ = 0;
         }
 };
 
@@ -66,14 +59,32 @@ class Configurable : public ariles::ConfigurableBase
 // ===============================================================
 
 #include "fixtures/initializers.h"
-#include "fixtures/008_read_write.h"
+#include "fixtures/009_read.h"
+
+namespace initializers
+{
+    class FilenameReaderBase
+    {
+        public:
+            std::string string_id_;
+
+        public:
+            FilenameReaderBase()
+            {
+                string_id_ = "regression_test_010.json";
+            }
+    };
+
+    typedef FilenameReaderInitializer<FilenameReaderBase> FilenameReaderInitializer010;
+}
 
 
 // ===============================================================
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(BRIDGE_ID, NAMESPACE, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(ReadWriteFixture, BRIDGE_ID, NAMESPACE, Configurable, INITIALIZER)
 
-ARILES_TESTS(ros, ros, ROSInitializer)
+#define ARILES_TESTS(BRIDGE_ID, NAMESPACE, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ReadFixture, BRIDGE_ID, NAMESPACE, Configurable, INITIALIZER)
+
+ARILES_TESTS(rapidjson_jsonnet, rapidjson::jsonnet, FilenameReaderInitializer010)
