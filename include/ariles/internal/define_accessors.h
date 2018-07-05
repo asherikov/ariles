@@ -65,8 +65,14 @@
 
             template <class t_Reader>
                 void readConfigEntriesTemplate( t_Reader & reader,
-                                                const ariles::ConfigurableParameters & param)
+                                                const ariles::ConfigurableParameters & parameters)
             {
+                ariles::ConfigurableParameters param = parameters;
+                if (false == param.override_crash_on_missing_entry_)
+                {
+                    param.crash_on_missing_entry_ =
+                        this->getArilesConfigurableParameters().crash_on_missing_entry_;
+                }
                 ARILES_IGNORE_UNUSED(reader);
                 ARILES_IGNORE_UNUSED(param);
                 ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)

@@ -63,6 +63,7 @@
                 ~CommonConfigurableBase() {}
                 CommonConfigurableBase() {}
 
+
                 virtual const ConfigurableParameters &getArilesConfigurableParameters() const = 0;
 
 
@@ -127,6 +128,7 @@
                 ~StrictConfigurableBase() {}
                 StrictConfigurableBase() {}
 
+
                 virtual const ConfigurableParameters &getArilesConfigurableParameters() const
                 {
                     static ConfigurableParameters parameters(true);
@@ -144,6 +146,7 @@
                  */
                 ~RelaxedConfigurableBase() {}
                 RelaxedConfigurableBase() {}
+
 
                 virtual const ConfigurableParameters &getArilesConfigurableParameters() const
                 {
