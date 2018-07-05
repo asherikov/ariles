@@ -16,7 +16,6 @@
 
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_enum.hpp>
-#include <boost/type_traits/is_base_of.hpp>
 
 #include "build_config.h"
 
@@ -53,9 +52,6 @@
 
 #define ARILES_IS_ENUM_ENABLER_TYPE(Enum) \
     const typename boost::enable_if_c< (boost::is_enum<Enum>::value) >::type
-
-#define ARILES_IS_CHILD_ENABLER_TYPE(parent, child) \
-    const typename boost::enable_if_c< (boost::is_base_of<parent, child>::value) >::type
 
 
 #define ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST \
@@ -107,6 +103,8 @@ namespace ariles
 {
     struct ARILES_VISIBILITY_ATTRIBUTE BridgeSelectorBase
     {
+        public:
+            typedef int BridgeSelectorIndicatorType;
     };
 
 

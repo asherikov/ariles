@@ -42,6 +42,10 @@ namespace ariles
 
     class ARILES_VISIBILITY_ATTRIBUTE ReaderBase
     {
+        public:
+            typedef int ReaderIndicatorType;
+
+
         protected:
             /**
              * @brief open configuration file
@@ -67,5 +71,7 @@ namespace ariles
 
     class SloppyMapReaderBase
     {
+        public:
+            typedef int SloppyMapReaderIndicatorType;
     };
 }

@@ -36,7 +36,7 @@ namespace ariles
                     t_Reader & reader,
                     std::map<std::string, t_Value, t_Compare, t_Allocator> & entry,
                     const ariles::ConfigurableParameters & param,
-                    ARILES_IS_CHILD_ENABLER_TYPE(ariles::SloppyMapReaderBase, t_Reader) * /*dummy*/ = NULL);
+                    typename t_Reader::SloppyMapReaderIndicatorType * /*dummy*/ = NULL);
     }
 
 
@@ -60,6 +60,6 @@ namespace ariles
                     t_Writer & writer,
                     const std::map<std::string, t_Value, t_Compare, t_Allocator> & entry,
                     const ariles::ConfigurableParameters & param,
-                    ARILES_IS_CHILD_ENABLER_TYPE(ariles::SloppyMapWriterBase, t_Writer) * /*dummy*/ = NULL);
+                    typename t_Writer::SloppyMapWriterIndicatorType * /*dummy*/ = NULL);
     }
 }

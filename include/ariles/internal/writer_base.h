@@ -15,6 +15,10 @@ namespace ariles
 {
     class ARILES_VISIBILITY_ATTRIBUTE WriterBase
     {
+        public:
+            typedef int WriterIndicatorType;
+
+
         protected:
             /**
              * @brief open configuration file
@@ -36,5 +40,7 @@ namespace ariles
 
     class SloppyMapWriterBase
     {
+        public:
+            typedef int SloppyMapWriterIndicatorType;
     };
 }

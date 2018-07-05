@@ -58,7 +58,7 @@ namespace ariles
                     t_Reader & reader,
                     std::map<std::string, t_Value, t_Compare, t_Allocator> & entry,
                     const ariles::ConfigurableParameters & param,
-                    ARILES_IS_CHILD_ENABLER_TYPE(ariles::SloppyMapReaderBase, t_Reader) * /*dummy*/)
+                    typename t_Reader::SloppyMapReaderIndicatorType * /*dummy*/)
         {
             if (true == param.enable_sloppy_maps_if_supported_)
             {
@@ -123,7 +123,7 @@ namespace ariles
                     t_Writer & writer,
                     const std::map<std::string, t_Value, t_Compare, t_Allocator> & entry,
                     const ariles::ConfigurableParameters & param,
-                    ARILES_IS_CHILD_ENABLER_TYPE(ariles::SloppyMapWriterBase, t_Writer) * /*dummy*/)
+                    typename t_Writer::SloppyMapWriterIndicatorType * /*dummy*/)
         {
             if (true == param.enable_sloppy_maps_if_supported_)
             {
