@@ -86,12 +86,12 @@ template <class t_Reader>
  *
  * @param[in] file_name file name
  */
-template <class t_Reader, class t_ReaderInitializer>
+template <class t_Bridge, class t_ReaderInitializer>
     void readConfig(t_ReaderInitializer         &reader_initializer
                     ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
-                    typename t_Reader::ReaderIndicatorType * = NULL)
+                    typename t_Bridge::BridgeSelectorIndicatorType * = NULL)
 {
-    t_Reader reader(reader_initializer);
+    typename t_Bridge::Reader reader(reader_initializer);
     ariles::reader::readEntry(reader, *this, this->getConfigSectionID(), ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
 
@@ -101,39 +101,6 @@ template <class t_Reader, class t_ReaderInitializer>
  * to be in the root).
  *
  * @param[in] file_name file name
- */
-template <class t_Bridge, class t_ReaderInitializer>
-    void readConfig(t_ReaderInitializer         &reader_initializer
-                    ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
-                    typename t_Bridge::BridgeSelectorIndicatorType * = NULL)
-{
-    readConfig<typename t_Bridge::Reader>(reader_initializer, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
-}
-
-
-/**
- * @brief Read configuration (assuming the configuration node
- * to be in the root).
- *
- * @param[in] file_name file name
- * @param[in] node_name   node name, the default is used if empty
- */
-template <class t_Reader, class t_ReaderInitializer>
-    void readConfig(t_ReaderInitializer         &reader_initializer,
-                    const std::string           &node_name
-                    ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
-                    typename t_Reader::ReaderIndicatorType * = NULL)
-{
-    t_Reader reader(reader_initializer);
-    ariles::reader::readEntry(reader, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
-}
-
-
-/**
- * @brief Read configuration (assuming the configuration node
- * to be in the root).
- *
- * @param[in] file_name file name
  * @param[in] node_name   node name, the default is used if empty
  */
 template <class t_Bridge, class t_ReaderInitializer>
@@ -142,26 +109,7 @@ template <class t_Bridge, class t_ReaderInitializer>
                     ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
                     typename t_Bridge::BridgeSelectorIndicatorType * = NULL)
 {
-    readConfig<typename t_Bridge::Reader>(reader_initializer, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
-}
-
-
-/**
- * @brief Read configuration (assuming the configuration node
- * to be in the root).
- *
- * @param[in] file_name file name
- * @param[in] node_name   node name, the default is used if empty
- *
- * @note Intercept implicit conversion of a pointer to bool.
- */
-template <class t_Reader, class t_ReaderInitializer>
-    void readConfig(t_ReaderInitializer         &reader_initializer,
-                    const char                  *node_name
-                    ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
-                    typename t_Reader::ReaderIndicatorType * = NULL)
-{
-    t_Reader reader(reader_initializer);
+    typename t_Bridge::Reader reader(reader_initializer);
     ariles::reader::readEntry(reader, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
 
@@ -181,7 +129,8 @@ template <class t_Bridge, class t_ReaderInitializer>
                     ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
                     typename t_Bridge::BridgeSelectorIndicatorType * = NULL)
 {
-    readConfig<typename t_Bridge::Reader>(reader_initializer, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+    typename t_Bridge::Reader reader(reader_initializer);
+    ariles::reader::readEntry(reader, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
 
 
@@ -240,12 +189,12 @@ template <class t_Writer>
  *
  * @param[in] file_name file name
  */
-template <class t_Writer, class t_WriterInitializer>
+template <class t_Bridge, class t_WriterInitializer>
     void writeConfig(   t_WriterInitializer &writer_initializer
                         ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
-                        typename t_Writer::WriterIndicatorType * = NULL) const
+                        typename t_Bridge::BridgeSelectorIndicatorType * = NULL) const
 {
-    t_Writer writer(writer_initializer);
+    typename t_Bridge::Writer writer(writer_initializer);
     writeConfig(writer, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
 
@@ -254,54 +203,6 @@ template <class t_Writer, class t_WriterInitializer>
  * @brief Write configuration.
  *
  * @param[in] file_name file name
- */
-template <class t_Bridge, class t_WriterInitializer>
-    void writeConfig(   t_WriterInitializer &writer_initializer
-                        ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
-                        typename t_Bridge::BridgeSelectorIndicatorType * = NULL) const
-{
-    writeConfig<typename t_Bridge::Writer>(writer_initializer, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
-}
-
-
-/**
- * @brief Write configuration.
- *
- * @param[in] file_name file name
- * @param[in] node_name node name, the default is used if empty
- */
-template <class t_Writer, class t_WriterInitializer>
-    void writeConfig(   t_WriterInitializer &writer_initializer,
-                        const std::string &node_name
-                        ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
-                        typename t_Writer::WriterIndicatorType * = NULL) const
-{
-    t_Writer writer(writer_initializer);
-    writeConfig(writer, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
-}
-
-
-/**
- * @brief Write configuration.
- *
- * @param[in] file_name file name
- * @param[in] node_name node name, the default is used if empty
- */
-template <class t_Writer, class t_WriterInitializer>
-    void writeConfig(   t_WriterInitializer &writer_initializer,
-                        const char *node_name
-                        ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
-                        typename t_Writer::WriterIndicatorType * = NULL) const
-{
-    t_Writer writer(writer_initializer);
-    writeConfig(writer, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
-}
-
-
-/**
- * @brief Write configuration.
- *
- * @param[in] file_name file name
  * @param[in] node_name node name, the default is used if empty
  */
 template <class t_Bridge, class t_WriterInitializer>
@@ -310,7 +211,8 @@ template <class t_Bridge, class t_WriterInitializer>
                         ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
                         typename t_Bridge::BridgeSelectorIndicatorType * = NULL) const
 {
-    writeConfig<typename t_Bridge::Writer>(writer_initializer, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+    typename t_Bridge::Writer writer(writer_initializer);
+    writeConfig(writer, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
 
 
@@ -326,6 +228,7 @@ template <class t_Bridge, class t_WriterInitializer>
                         ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
                         typename t_Bridge::BridgeSelectorIndicatorType * = NULL) const
 {
-    writeConfig<typename t_Bridge::Writer>(writer_initializer, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+    typename t_Bridge::Writer writer(writer_initializer);
+    writeConfig(writer, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
 
