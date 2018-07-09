@@ -11,9 +11,7 @@
 #include "utility.h"
 
 
-#ifdef ARILES_BRIDGE_rapidjson
 #include "ariles/bridges/rapidjson.h"
-#endif
 
 // If no format header is included, ariles is disabled, and
 // ariles::ConfigurableBase is just a dummy class.
@@ -58,6 +56,7 @@ class Configurable : public ariles::ConfigurableBase
 // FIXTURES
 // ===============================================================
 
+#undef ARILES_BRIDGE_ros
 #include "fixtures/initializers.h"
 #include "fixtures/009_read.h"
 
