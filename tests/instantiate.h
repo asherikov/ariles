@@ -11,6 +11,10 @@
 #ifdef ARILES_BRIDGE_msgpack
 ARILES_TESTS_SHORTCUT(msgpack, FilenameInitializer)
 ARILES_TESTS_SHORTCUT(msgpack, StreamInitializer)
+#   define ComparisonMultiFixture ComparisonSimpleFixture
+ARILES_TESTS(msgpack_compact, msgpack::compact, FilenameInitializer)
+ARILES_TESTS(msgpack_compact, msgpack::compact, StreamInitializer)
+#   undef ComparisonMultiFixture
 #endif
 
 #ifdef ARILES_BRIDGE_yaml_cpp03

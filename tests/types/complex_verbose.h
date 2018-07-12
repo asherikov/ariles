@@ -20,9 +20,9 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase, public Confi
         ARILES_ENTRY_(integer) \
         ARILES_ENTRY_(unsigned_integer) \
         ARILES_ENTRY_(real) \
+        ARILES_ENTRY_(string) \
         ARILES_ENTRY_(std_vector) \
         ARILES_ENTRY_(std_nested_vector) \
-        ARILES_ENTRY_(string) \
         ARILES_ENTRY_(enum) \
         ARILES_ENTRY_(boolean_true) \
         ARILES_ENTRY_(boolean_false) \

@@ -29,7 +29,9 @@ namespace ariles
                                     const ariles::ConfigurableParameters & param)
         {
             entry.setDefaults();
+            ARILES_ASSERT(entry.getNumberOfEntries() <= reader.startMap(), "Wrong number of entries.");
             entry.readConfigEntries(reader, param);
+            reader.endMap();
         }
 
 

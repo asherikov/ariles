@@ -109,6 +109,17 @@ namespace ariles
                     }
 
 
+                    std::size_t startMap()
+                    {
+                        return (getRawNode().size());
+                    }
+
+
+                    void endMap()
+                    {
+                    }
+
+
                     /**
                      * @brief Ascend from the current entry to its parent.
                      */

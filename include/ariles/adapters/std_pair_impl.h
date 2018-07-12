@@ -25,8 +25,10 @@ namespace ariles
         {
             ariles::ConfigurableParameters param_local = param;
             param_local.crash_on_missing_entry_ = true;
+            ARILES_ASSERT(2 == reader.startMap(), "Wrong number of entries.");
             readEntry(reader, entry.first, "first", param_local);
             readEntry(reader, entry.second, "second", param_local);
+            reader.endMap();
         }
     }
 

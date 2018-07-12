@@ -67,12 +67,14 @@ namespace ariles
                 entry.clear();
                 ariles::ConfigurableParameters param_local = param;
                 param_local.crash_on_missing_entry_ = true;
+                reader.startMap();
                 for (std::size_t i = 0; i < entry_names.size(); ++i)
                 {
                     t_Value entry_value;
                     readEntry(reader, entry_value, entry_names[i], param_local);
                     entry[entry_names[i]] = entry_value;
                 }
+                reader.endMap();
             }
             else
             {

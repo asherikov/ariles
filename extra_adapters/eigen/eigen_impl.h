@@ -80,12 +80,14 @@ namespace ariles
             ariles::ConfigurableParameters param_local = param;
             param_local.crash_on_missing_entry_ = true;
 
-            readEntry(reader, num_rows, "rows", param_local);
+            ARILES_ASSERT(3 == reader.startMap(), "Wrong number of entries.");
             readEntry(reader, num_cols, "cols", param_local);
+            readEntry(reader, num_rows, "rows", param_local);
 
 
             Eigen::VectorXd v;
             readEntry(reader, v, "data", param_local);
+            reader.endMap();
 
             ARILES_ASSERT(v.rows() == num_rows*num_cols, "Wrong entry size.");
 
@@ -130,10 +132,12 @@ namespace ariles
             ariles::ConfigurableParameters param_local = param;
             param_local.crash_on_missing_entry_ = true;
 
+            ARILES_ASSERT(4 == reader.startMap(), "Wrong number of entries.");
             readEntry(reader, entry.x(), "x", param_local);
             readEntry(reader, entry.y(), "y", param_local);
             readEntry(reader, entry.z(), "z", param_local);
             readEntry(reader, entry.w(), "w", param_local);
+            reader.endMap();
         }
     }
 
