@@ -37,6 +37,11 @@ namespace ariles
             {
                 return(NULL == node_);
             }
+
+            bool isAllParsed() const
+            {
+                return(index_ == size_);
+            }
     };
 
 
@@ -44,6 +49,15 @@ namespace ariles
     {
         public:
             typedef int ReaderIndicatorType;
+
+            enum SizeLimitEnforcementType
+            {
+                SIZE_LIMIT_UNDEFINED = 0,
+                SIZE_LIMIT_NONE = 1,
+                SIZE_LIMIT_EQUAL = 2,
+                SIZE_LIMIT_RANGE = 3,
+                SIZE_LIMIT_MIN = 4
+            };
 
 
         protected:
@@ -66,7 +80,70 @@ namespace ariles
                     ARILES_THROW_MSG(std::string("Could not open configuration file: ") +  file_name.c_str());
                 }
             }
+
+
+            template<int t_size_limit_type>
+            std::size_t checkSize(
+                    const std::size_t & /*size*/,
+                    const std::size_t & /*min*/ = 0,
+                    const std::size_t & /*max*/ = 0) const
+            {
+                ARILES_THROW_MSG("Internal logic error.");
+            }
+
+            template<int t_size_limit_type>
+            struct RelaxedSizeLimitType
+            {
+                static const int value =
+                    SIZE_LIMIT_EQUAL == t_size_limit_type || SIZE_LIMIT_RANGE == t_size_limit_type
+                    ? SIZE_LIMIT_MIN
+                    : t_size_limit_type;
+            };
     };
+
+
+    template<>
+    std::size_t ReaderBase::checkSize<ReaderBase::SIZE_LIMIT_NONE>(
+            const std::size_t & size,
+            const std::size_t & /*min*/,
+            const std::size_t & /*max*/) const
+    {
+        return (size);
+    }
+
+
+    template<>
+    std::size_t ReaderBase::checkSize<ReaderBase::SIZE_LIMIT_EQUAL>(
+            const std::size_t & size,
+            const std::size_t & expected_size,
+            const std::size_t & /*max*/) const
+    {
+        ARILES_ASSERT(expected_size == size, "Actual number of entries is lower than expected.");
+        return (size);
+    }
+
+
+    template<>
+    std::size_t ReaderBase::checkSize<ReaderBase::SIZE_LIMIT_RANGE>(
+            const std::size_t & size,
+            const std::size_t & min,
+            const std::size_t & max) const
+    {
+        ARILES_ASSERT(min <= size, "Actual number of entries is lower than expected.");
+        ARILES_ASSERT(max >= size, "Actual number of entries is larger than expected.");
+        return (size);
+    }
+
+
+    template<>
+    std::size_t ReaderBase::checkSize<ReaderBase::SIZE_LIMIT_MIN>(
+            const std::size_t & size,
+            const std::size_t & min,
+            const std::size_t & /*max*/) const
+    {
+        ARILES_ASSERT(min <= size, "Actual number of entries is lower than expected.");
+        return (size);
+    }
 
 
     class SloppyMapReaderBase

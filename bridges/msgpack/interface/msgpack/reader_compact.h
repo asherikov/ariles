@@ -134,15 +134,24 @@ namespace ariles
                             return (true);
                         }
 
-                        std::size_t startMap()
+                        template<int t_size_limit_type>
+                        std::size_t startMap(
+                                const std::size_t & min = 0,
+                                const std::size_t & max = 0)
                         {
-                            std::size_t size = getRawNode().via.array.size;
+                            std::size_t size = checkSize<t_size_limit_type>(
+                                    getRawNode().via.map.size,
+                                    min,
+                                    max);
                             node_stack_.push_back(NodeWrapper(0, size));
                             return (size);
                         }
 
                         void endMap()
                         {
+                            ARILES_ASSERT(
+                                    true == node_stack_.back().isAllParsed(),
+                                    "Some entries were not parsed, which is not allowed by this bridge.");
                             node_stack_.pop_back();
                         }
 

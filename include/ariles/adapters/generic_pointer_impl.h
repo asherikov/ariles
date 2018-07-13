@@ -29,8 +29,7 @@ namespace ariles
             ariles::ConfigurableParameters param_local = param;
             param_local.crash_on_missing_entry_ = true;
 
-            const std::size_t num_entries = reader.startMap();
-            ARILES_ASSERT((1 == num_entries) || (2 == num_entries), "Wrong number of entries.");
+            reader.template startMap<t_Reader::SIZE_LIMIT_RANGE>(1, 2);
             readEntry(reader, is_null, "is_null", param_local);
 
             if (true == is_null)
@@ -39,7 +38,6 @@ namespace ariles
             }
             else
             {
-                ARILES_ASSERT(2 == num_entries, "Wrong number of entries.");
                 ARILES_POINTER_ALLOCATE(t_Entry, entry);
                 readEntry(reader, *entry, "value", param_local);
             }

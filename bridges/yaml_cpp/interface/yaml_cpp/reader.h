@@ -139,9 +139,15 @@ namespace ariles
                     }
 
 
-                    std::size_t startMap()
+                    template<int t_size_limit_type>
+                    std::size_t startMap(
+                            const std::size_t & min = 0,
+                            const std::size_t & max = 0)
                     {
-                        return (getRawNode().size());
+                        return (checkSize<RelaxedSizeLimitType<t_size_limit_type>::value>(
+                                    getRawNode().size(), 
+                                    min, 
+                                    max));
                     }
 
 

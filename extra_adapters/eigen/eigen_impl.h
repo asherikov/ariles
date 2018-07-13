@@ -80,7 +80,7 @@ namespace ariles
             ariles::ConfigurableParameters param_local = param;
             param_local.crash_on_missing_entry_ = true;
 
-            ARILES_ASSERT(3 == reader.startMap(), "Wrong number of entries.");
+            reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(3);
             readEntry(reader, num_cols, "cols", param_local);
             readEntry(reader, num_rows, "rows", param_local);
 
@@ -132,7 +132,7 @@ namespace ariles
             ariles::ConfigurableParameters param_local = param;
             param_local.crash_on_missing_entry_ = true;
 
-            ARILES_ASSERT(4 == reader.startMap(), "Wrong number of entries.");
+            reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(4);
             readEntry(reader, entry.x(), "x", param_local);
             readEntry(reader, entry.y(), "y", param_local);
             readEntry(reader, entry.z(), "z", param_local);
