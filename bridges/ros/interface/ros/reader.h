@@ -218,11 +218,11 @@ namespace ariles
                         { \
                             switch(getRawNode().getType()) \
                             { \
-                                case XmlRpc::XmlRpcValue::Typetype: \
-                                    element = static_cast<type>(getRawNode()); \
+                                case XmlRpc::XmlRpcValue::TypeDouble: \
+                                    element = static_cast<double>(getRawNode()); \
                                     break; \
                                 case XmlRpc::XmlRpcValue::TypeString: \
-                                    element = boost::lexical_cast<type>(  static_cast<std::string>( getRawNode() )  ); \
+                                    element = boost::lexical_cast<double>(  static_cast<std::string>( getRawNode() )  ); \
                                     break; \
                                 case XmlRpc::XmlRpcValue::TypeInt: \
                                     element = static_cast<int>(getRawNode()); \

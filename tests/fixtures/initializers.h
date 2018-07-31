@@ -9,7 +9,6 @@
 
 #pragma once
 
-
 namespace initializers
 {
     class FilenameInitializer
@@ -92,7 +91,8 @@ namespace initializers
     };
 
 
-#ifdef ARILES_BRIDGE_ros
+#ifdef ARILES_BRIDGE_INCLUDED_ros
+
     #include <ros/ros.h>
 
     class ROSInitializer

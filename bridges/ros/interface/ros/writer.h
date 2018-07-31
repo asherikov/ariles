@@ -171,7 +171,7 @@ namespace ariles
 
 
                     #define ARILES_BASIC_TYPE(type) \
-                            void writeElement(const type element) \
+                            void writeElement(const type & element) \
                             { \
                                 ARILES_ASSERT(element <= std::numeric_limits<int>::max() \
                                               && element >= std::numeric_limits<int>::min(), \
@@ -185,7 +185,7 @@ namespace ariles
 
 
                     #define ARILES_BASIC_TYPE(type) \
-                            void writeElement(const type element) \
+                            void writeElement(const type & element) \
                             { \
                                 ARILES_ASSERT(element <= std::numeric_limits<int>::max(), \
                                               "Value is too large."); \
