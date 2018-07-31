@@ -23,7 +23,7 @@ namespace ariles
             /**
              * @brief Configuration reader class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase, public ariles::SloppyMapReaderBase
+            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase
             {
                 protected:
                     typedef ariles::Node<const YAML::Node> NodeWrapper;
@@ -62,6 +62,12 @@ namespace ariles
                     const YAML::Node & getRawNode()
                     {
                         return(getRawNode(node_stack_.size()-1));
+                    }
+
+
+                    std::size_t getMapSize()
+                    {
+                        return (getRawNode().size());
                     }
 
 
@@ -127,20 +133,10 @@ namespace ariles
                     }
 
 
-                    template<int t_size_limit_type>
-                    std::size_t startMap(
-                            const std::size_t & min = 0,
-                            const std::size_t & max = 0)
+                    const BridgeParameters &getBridgeParameters() const
                     {
-                        return (checkSize<RelaxedSizeLimitType<t_size_limit_type>::value>(
-                                    getRawNode().size(),
-                                    min,
-                                    max));
-                    }
-
-
-                    void endMap()
-                    {
+                        static BridgeParameters parameters(true);
+                        return (parameters);
                     }
 
 
@@ -153,7 +149,7 @@ namespace ariles
                     }
 
 
-                    bool getEntryNames(std::vector<std::string> &child_names)
+                    bool getMapEntryNames(std::vector<std::string> &child_names)
                     {
                         const YAML::Node *selected_node = &getRawNode();
 
@@ -199,11 +195,15 @@ namespace ariles
                     }
 
 
-                    template<class t_ElementType>
-                        void readElement(t_ElementType &element)
-                    {
-                        getRawNode() >> element;
-                    }
+                    #define ARILES_BASIC_TYPE(type) \
+                        void readElement(type &element) \
+                        { \
+                            getRawNode() >> element; \
+                        }
+
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+
+                    #undef ARILES_BASIC_TYPE
             };
         }
     }

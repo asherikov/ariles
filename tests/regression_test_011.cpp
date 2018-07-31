@@ -10,14 +10,19 @@
 
 #include "utility.h"
 
-#define ARILES_DISABLE
+
+#include "ariles/bridges/rapidjson.h"
+
+// If no format header is included, ariles is disabled, and
+// ariles::ConfigurableBase is just a dummy class.
 #include "ariles/ariles.h"
+
+#include "ariles/bridges/yaml_cpp.h"
 
 
 // ===============================================================
 // TYPES
 // ===============================================================
-
 
 /**
  * @brief Short definition of a configurable class -- types of members are
@@ -27,7 +32,7 @@ class Configurable : public ariles::ConfigurableBase
 {
     #define ARILES_SECTION_ID "Configurable"
     #define ARILES_ENTRIES \
-        ARILES_TYPED_ENTRY_(integer,     int)
+        ARILES_TYPED_ENTRY_(real, double)
     #include ARILES_INITIALIZE
 
 
@@ -43,13 +48,14 @@ class Configurable : public ariles::ConfigurableBase
          */
         virtual void setDefaults()
         {
-            integer_ = 0;
+            real_ = 0.0;
         }
 
 
         void randomize()
         {
-            integer_ = GET_RANDOM_INT;
+            real_ = GET_RANDOM_REAL;
+            finalize();
         }
 };
 
@@ -58,15 +64,16 @@ class Configurable : public ariles::ConfigurableBase
 // FIXTURES
 // ===============================================================
 
-#include "fixtures/006_dummy.h"
+#include "fixtures/initializers.h"
+#include "fixtures/000_basic_interface.h"
+
 
 
 // ===============================================================
 // TESTS
 // ===============================================================
 
+#define ARILES_TESTS(BRIDGE_ID, NAMESPACE, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, BRIDGE_ID, NAMESPACE, Configurable, INITIALIZER)
 
-BOOST_FIXTURE_TEST_CASE( DummyFixture_Configurable, DummyFixture )
-{
-    test<Configurable>();
-}
+#include "instantiate.h"

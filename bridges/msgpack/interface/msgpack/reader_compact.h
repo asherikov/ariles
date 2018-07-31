@@ -89,6 +89,19 @@ namespace ariles
                         }
 
 
+
+                        std::size_t getMapSize()
+                        {
+                            return(getRawNode().via.array.size);
+                        }
+
+                        std::size_t startMapImpl(const std::size_t size)
+                        {
+                            node_stack_.push_back(NodeWrapper(0, size));
+                            return (size);
+                        }
+
+
                     public:
                         /**
                          * @brief Constructor
@@ -122,30 +135,12 @@ namespace ariles
                         }
 
 
-                        /**
-                         * @brief Descend to the entry with the given name
-                         *
-                         * @param[in] child_name child node name
-                         *
-                         * @return true if successful.
-                         */
-                        bool descend(const std::string & /*child_name*/)
+                        const BridgeParameters &getBridgeParameters() const
                         {
-                            return (true);
+                            static BridgeParameters parameters(false);
+                            return (parameters);
                         }
 
-                        template<int t_size_limit_type>
-                        std::size_t startMap(
-                                const std::size_t & min = 0,
-                                const std::size_t & max = 0)
-                        {
-                            std::size_t size = checkSize<t_size_limit_type>(
-                                    getRawNode().via.map.size,
-                                    min,
-                                    max);
-                            node_stack_.push_back(NodeWrapper(0, size));
-                            return (size);
-                        }
 
                         void endMap()
                         {
@@ -188,11 +183,15 @@ namespace ariles
                         }
 
 
-                        template<class t_ElementType>
-                            void readElement(t_ElementType &element)
-                        {
-                            getRawNode() >> element;
-                        }
+                        #define ARILES_BASIC_TYPE(type) \
+                            void readElement(type &element) \
+                            { \
+                                getRawNode() >> element; \
+                            }
+
+                        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+
+                        #undef ARILES_BASIC_TYPE
                 };
             }
         }

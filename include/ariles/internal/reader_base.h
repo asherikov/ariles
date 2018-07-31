@@ -10,6 +10,8 @@
 
 #pragma once
 
+#include "bridge_common.h"
+
 namespace ariles
 {
     template <class t_RawNode>
@@ -99,6 +101,59 @@ namespace ariles
                     ? SIZE_LIMIT_MIN
                     : t_size_limit_type;
             };
+
+
+            virtual std::size_t getMapSize() = 0;
+            virtual std::size_t startMapImpl(const std::size_t size)
+            {
+                return (size);
+            }
+
+
+        public:
+            virtual const BridgeParameters & getBridgeParameters() const = 0;
+
+
+            virtual bool descend(const std::string &)
+            {
+                return (true);
+            }
+
+            virtual void ascend() = 0;
+
+
+            template<int t_size_limit_type>
+            std::size_t startMap(
+                    const std::size_t & min = 0,
+                    const std::size_t & max = 0)
+            {
+                return (startMapImpl( checkSize<RelaxedSizeLimitType<t_size_limit_type>::value>(
+                            getMapSize(),
+                            min,
+                            max)));
+            }
+
+            virtual bool getMapEntryNames(std::vector<std::string> &)
+            {
+                return (false);
+            }
+
+            virtual void endMap()
+            {
+            }
+
+
+            virtual std::size_t startArray() = 0;
+            virtual void shiftArray() = 0;
+            virtual void endArray() = 0;
+
+
+            #define ARILES_BASIC_TYPE(type) \
+                    virtual void readElement(type &entry) = 0;
+
+            ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+
+            #undef ARILES_BASIC_TYPE
     };
 
 
@@ -144,11 +199,4 @@ namespace ariles
         ARILES_ASSERT(min <= size, "Actual number of entries is lower than expected.");
         return (size);
     }
-
-
-    class SloppyMapReaderBase
-    {
-        public:
-            typedef int SloppyMapReaderIndicatorType;
-    };
 }

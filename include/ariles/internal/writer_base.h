@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include "bridge_common.h"
 
 namespace ariles
 {
@@ -35,12 +36,34 @@ namespace ariles
                     ARILES_THROW_MSG(std::string("Could not open configuration file for writing: ") +  file_name.c_str());
                 }
             }
-    };
 
 
-    class SloppyMapWriterBase
-    {
         public:
-            typedef int SloppyMapWriterIndicatorType;
+            virtual const BridgeParameters & getBridgeParameters() const = 0;
+
+            virtual void initRoot() {};
+
+            virtual void flush() = 0;
+
+
+            virtual void descend(const std::string &/*map_name*/) {};
+            virtual void ascend() {}
+
+
+            virtual void startMap(const std::size_t /*num_entries*/) {};
+            virtual void endMap() {}
+
+
+            virtual void startArray(const std::size_t size, const bool compact = false) = 0;
+            virtual void shiftArray() {}
+            virtual void endArray() {}
+
+
+            #define ARILES_BASIC_TYPE(type) \
+                    virtual void writeElement(const type &entry) = 0;
+
+            ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+
+            #undef ARILES_BASIC_TYPE
     };
 }

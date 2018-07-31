@@ -37,7 +37,7 @@
 
     #ifndef ARILES_DOXYGEN_PROCESSING
 
-    protected:
+    public:
         #ifdef ARILES_ENTRIES
 
         // Define write methods
@@ -45,9 +45,8 @@
             #define ARILES_NAMED_ENTRY(entry, name)  ARILES_WRITE_NAMED_ENTRY(entry, name)
             #define ARILES_PARENT(entry)       ARILES_WRITE_PARENT(entry)
 
-            template <class t_Writer>
-                void writeConfigEntriesTemplate(t_Writer & writer,
-                                                const ariles::ConfigurableParameters & param) const
+            void writeConfigEntries(ariles::WriterBase & writer,
+                                    const ariles::ConfigurableParameters & param) const
             {
                 ARILES_IGNORE_UNUSED(writer);
                 ARILES_IGNORE_UNUSED(param);
@@ -57,15 +56,13 @@
             #undef ARILES_NAMED_ENTRY
             #undef ARILES_PARENT
 
-
         // Define read methods
 
             #define ARILES_NAMED_ENTRY(entry, name)  ARILES_READ_NAMED_ENTRY(entry, name)
             #define ARILES_PARENT(entry)       ARILES_READ_PARENT(entry)
 
-            template <class t_Reader>
-                void readConfigEntriesTemplate( t_Reader & reader,
-                                                const ariles::ConfigurableParameters & parameters)
+            void readConfigEntries( ariles::ReaderBase & reader,
+                                    const ariles::ConfigurableParameters & parameters)
             {
                 ariles::ConfigurableParameters param = parameters;
                 if (false == param.override_crash_on_missing_entry_)
@@ -83,6 +80,7 @@
             #undef ARILES_PARENT
 
 
+    protected:
         // Count number of entries and define a function, which returns it.
 
             #define ARILES_NAMED_ENTRY(entry, name)  +1
@@ -113,23 +111,6 @@
             }
         #endif
 
-
-        // Format-specific stuff
-        #define ARILES_NAMESPACE(config_namespace) \
-            virtual void writeConfigEntries(ariles::config_namespace::Writer & writer, \
-                                            const ariles::ConfigurableParameters & param) const \
-            { \
-                writeConfigEntriesTemplate(writer, param); \
-            } \
-            virtual void readConfigEntries( ariles::config_namespace::Reader & reader, \
-                                            const ariles::ConfigurableParameters & param) \
-            {\
-                readConfigEntriesTemplate(reader, param);\
-            }
-
-            ARILES_MACRO_SUBSTITUTE(ARILES_NAMESPACE_LIST)
-
-        #undef ARILES_NAMESPACE
 
 
         // generate methods which accept ConfigurableParameters

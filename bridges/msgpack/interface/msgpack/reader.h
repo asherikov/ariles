@@ -93,6 +93,12 @@ namespace ariles
                     }
 
 
+                    std::size_t getMapSize()
+                    {
+                        return (getRawNode().via.map.size);
+                    }
+
+
                 public:
                     /**
                      * @brief Constructor
@@ -123,6 +129,13 @@ namespace ariles
                      */
                     Reader()
                     {
+                    }
+
+
+                    const BridgeParameters &getBridgeParameters() const
+                    {
+                        static BridgeParameters parameters(false);
+                        return (parameters);
                     }
 
 
@@ -171,22 +184,6 @@ namespace ariles
                     }
 
 
-                    template<int t_size_limit_type>
-                    std::size_t startMap(
-                            const std::size_t & min = 0,
-                            const std::size_t & max = 0)
-                    {
-                        return (checkSize<RelaxedSizeLimitType<t_size_limit_type>::value>(
-                                    getRawNode().via.map.size,
-                                    min,
-                                    max));
-                    }
-
-                    void endMap()
-                    {
-                    }
-
-
                     /**
                      * @brief Ascend from the current entry to its parent.
                      */
@@ -220,11 +217,15 @@ namespace ariles
                     }
 
 
-                    template<class t_ElementType>
-                        void readElement(t_ElementType &element)
-                    {
-                        getRawNode() >> element;
-                    }
+                    #define ARILES_BASIC_TYPE(type) \
+                        void readElement(type &element) \
+                        { \
+                            getRawNode() >> element; \
+                        }
+
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+
+                    #undef ARILES_BASIC_TYPE
             };
         }
     }

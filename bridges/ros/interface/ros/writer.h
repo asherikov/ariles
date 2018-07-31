@@ -19,7 +19,7 @@ namespace ariles
             /**
              * @brief Configuration writer class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::WriterBase, public ariles::SloppyMapWriterBase
+            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::WriterBase
             {
                 protected:
                     typedef ariles::Node<XmlRpc::XmlRpcValue> NodeWrapper;
@@ -72,6 +72,12 @@ namespace ariles
                     }
 
 
+                    const BridgeParameters &getBridgeParameters() const
+                    {
+                        static BridgeParameters parameters(true);
+                        return (parameters);
+                    }
+
 
                     /**
                      * @brief Starts a nested map in the configuration file
@@ -119,25 +125,6 @@ namespace ariles
                     }
 
 
-
-                    /**
-                     * @brief Starts a nested map in the configuration file
-                     *
-                     * @param[in] num_entries number of child entries
-                     */
-                    void startMap(const std::size_t /*num_entries*/)
-                    {
-                    }
-
-
-                    /**
-                     * @brief Ends a nested map in the configuration file
-                     */
-                    void endMap()
-                    {
-                    }
-
-
                     void startArray(const std::size_t size, const bool /*compact*/ = false)
                     {
                         getRawNode().setSize(size);
@@ -158,18 +145,28 @@ namespace ariles
                     }
 
 
-                    /**
-                     * @brief Write a configuration entry (scalar template)
-                     *
-                     * @tparam t_EntryType type of the entry
-                     *
-                     * @param[in] entry      data
-                     */
-                    template<class t_Element>
-                        void writeElement(const t_Element & element)
+
+                    void writeElement(const bool & element)
                     {
                         getRawNode() = element;
                     }
+
+
+                    void writeElement(const std::string & element)
+                    {
+                        getRawNode() = element;
+                    }
+
+
+                    #define ARILES_BASIC_TYPE(type) \
+                        void writeElement(const type & element) \
+                        { \
+                            getRawNode() = element; \
+                        }
+
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+
+                    #undef ARILES_BASIC_TYPE
 
 
 

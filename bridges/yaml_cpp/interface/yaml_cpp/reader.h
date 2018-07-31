@@ -19,7 +19,7 @@ namespace ariles
             /**
              * @brief Configuration reader class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase, public ariles::SloppyMapReaderBase
+            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase
             {
                 protected:
                     class NodeWrapper
@@ -84,6 +84,12 @@ namespace ariles
                     }
 
 
+                    std::size_t getMapSize()
+                    {
+                        return (getRawNode().size());
+                    }
+
+
 
                 public:
                     /**
@@ -139,20 +145,10 @@ namespace ariles
                     }
 
 
-                    template<int t_size_limit_type>
-                    std::size_t startMap(
-                            const std::size_t & min = 0,
-                            const std::size_t & max = 0)
+                    const BridgeParameters &getBridgeParameters() const
                     {
-                        return (checkSize<RelaxedSizeLimitType<t_size_limit_type>::value>(
-                                    getRawNode().size(), 
-                                    min, 
-                                    max));
-                    }
-
-
-                    void endMap()
-                    {
+                        static BridgeParameters parameters(true);
+                        return (parameters);
                     }
 
 
@@ -165,7 +161,7 @@ namespace ariles
                     }
 
 
-                    bool getEntryNames(std::vector<std::string> &child_names)
+                    bool getMapEntryNames(std::vector<std::string> &child_names)
                     {
                         YAML::Node selected_node = getRawNode();
 
@@ -189,6 +185,8 @@ namespace ariles
 
                     std::size_t startArray()
                     {
+                        ARILES_ASSERT(true == getRawNode().IsSequence(), "Entry is not an array.");
+
                         std::size_t size = getRawNode().size();
                         node_stack_.push_back(NodeWrapper(0, size));
 
@@ -211,11 +209,15 @@ namespace ariles
                     }
 
 
-                    template<class t_ElementType>
-                        void readElement(t_ElementType &element)
-                    {
-                        element = getRawNode().as<t_ElementType>();
-                    }
+                    #define ARILES_BASIC_TYPE(type) \
+                        void readElement(type &element) \
+                        { \
+                            element = getRawNode().as<type>(); \
+                        }
+
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+
+                    #undef ARILES_BASIC_TYPE
             };
         }
     }

@@ -326,9 +326,9 @@ configure_file("cmake/arilesConfig.cmake.in"    "${PROJECT_BINARY_DIR}/arilesCon
 set(ARILES_BUILD_CONFIG
 "#pragma once
 // __func__ ?
-#cmakedefine HUMOTO_COMPILER_SUPPORTS_FUNC_
+#cmakedefine ARILES_COMPILER_SUPPORTS_FUNC_
 // __FUNCTION__ ?
-#cmakedefine HUMOTO_COMPILER_SUPPORTS_FUNCTION_\n")
+#cmakedefine ARILES_COMPILER_SUPPORTS_FUNCTION_\n")
 
 foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
     if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")

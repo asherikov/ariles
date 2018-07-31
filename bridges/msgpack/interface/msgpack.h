@@ -13,10 +13,6 @@
 
 #pragma once
 
-#if defined(ARILES_ENABLED) || defined(ARILES_DISABLED)
-    #error "All desired bridges must be included *before* the first inclusion of ariles.h, this bridge was not!"
-#endif
-
 
 #include "../internal/helpers.h"
 #include "../internal/reader_base.h"
@@ -30,82 +26,8 @@
 #include "./msgpack/writer_compact.h"
 
 
-#define ARILES_MSGPACK_NAMESPACE msgpack
+#define ARILES_BRIDGE_INCLUDED_msgpack
 
-
-// If something is stupid but it works, it is not stupid (c)
-#ifndef ARILES_NAMESPACE_0
-#   define ARILES_NAMESPACE_0 ARILES_MSGPACK_NAMESPACE
-#else
-#   ifndef ARILES_NAMESPACE_1
-#       define ARILES_NAMESPACE_1 ARILES_MSGPACK_NAMESPACE
-#   else
-#       ifndef ARILES_NAMESPACE_2
-#           define ARILES_NAMESPACE_2 ARILES_MSGPACK_NAMESPACE
-#       else
-#           ifndef ARILES_NAMESPACE_3
-#               define ARILES_NAMESPACE_3 ARILES_MSGPACK_NAMESPACE
-#           else
-#               ifndef ARILES_NAMESPACE_4
-#                   define ARILES_NAMESPACE_4 ARILES_MSGPACK_NAMESPACE
-#               else
-#                   ifndef ARILES_NAMESPACE_5
-#                       define ARILES_NAMESPACE_5 ARILES_MSGPACK_NAMESPACE
-#                   else
-#                       ifndef ARILES_NAMESPACE_6
-#                           define ARILES_NAMESPACE_6 ARILES_MSGPACK_NAMESPACE
-#                       else
-#                           ifndef ARILES_NAMESPACE_7
-#                               define ARILES_NAMESPACE_7 ARILES_MSGPACK_NAMESPACE
-#                           else
-#                               error "Too many config namespaces."
-#                           endif
-#                       endif
-#                   endif
-#               endif
-#           endif
-#       endif
-#   endif
-#endif
-
-
-#define ARILES_MSGPACK_COMPACT_NAMESPACE msgpack::compact
-
-
-// If something is stupid but it works, it is not stupid (c)
-#ifndef ARILES_NAMESPACE_0
-#   define ARILES_NAMESPACE_0 ARILES_MSGPACK_COMPACT_NAMESPACE
-#else
-#   ifndef ARILES_NAMESPACE_1
-#       define ARILES_NAMESPACE_1 ARILES_MSGPACK_COMPACT_NAMESPACE
-#   else
-#       ifndef ARILES_NAMESPACE_2
-#           define ARILES_NAMESPACE_2 ARILES_MSGPACK_COMPACT_NAMESPACE
-#       else
-#           ifndef ARILES_NAMESPACE_3
-#               define ARILES_NAMESPACE_3 ARILES_MSGPACK_COMPACT_NAMESPACE
-#           else
-#               ifndef ARILES_NAMESPACE_4
-#                   define ARILES_NAMESPACE_4 ARILES_MSGPACK_COMPACT_NAMESPACE
-#               else
-#                   ifndef ARILES_NAMESPACE_5
-#                       define ARILES_NAMESPACE_5 ARILES_MSGPACK_COMPACT_NAMESPACE
-#                   else
-#                       ifndef ARILES_NAMESPACE_6
-#                           define ARILES_NAMESPACE_6 ARILES_MSGPACK_COMPACT_NAMESPACE
-#                       else
-#                           ifndef ARILES_NAMESPACE_7
-#                               define ARILES_NAMESPACE_7 ARILES_MSGPACK_COMPACT_NAMESPACE
-#                           else
-#                               error "Too many config namespaces."
-#                           endif
-#                       endif
-#                   endif
-#               endif
-#           endif
-#       endif
-#   endif
-#endif
 
 namespace ariles
 {

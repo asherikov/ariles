@@ -48,6 +48,13 @@ namespace ariles
                     }
 
 
+                    const BridgeParameters &getBridgeParameters() const
+                    {
+                        static BridgeParameters parameters(false);
+                        return (parameters);
+                    }
+
+
                     /**
                      * @brief Constructor
                      *
@@ -92,9 +99,6 @@ namespace ariles
                         packer_->pack_map(num_entries);
                     }
 
-                    void endMap()
-                    {
-                    }
 
                     /**
                      * @brief Starts a nested map in the configuration file
@@ -102,14 +106,6 @@ namespace ariles
                     void initRoot()
                     {
                         packer_->pack_map(1);
-                    }
-
-
-                    /**
-                     * @brief Ends a nested map in the configuration file
-                     */
-                    void ascend()
-                    {
                     }
 
 
@@ -129,12 +125,6 @@ namespace ariles
                         packer_->pack_array(size);
                     }
 
-                    void shiftArray()
-                    {
-                    }
-
-                    void endArray() const {}
-
 
                     /**
                      * @brief Write a configuration entry (scalar template)
@@ -143,11 +133,16 @@ namespace ariles
                      *
                      * @param[in] entry      data
                      */
-                    template<class t_Element>
-                        void writeElement(const t_Element & element)
-                    {
-                        packer_->pack(element);
-                    }
+
+                    #define ARILES_BASIC_TYPE(type) \
+                        void writeElement(const type & element) \
+                        { \
+                            packer_->pack(element); \
+                        }
+
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+
+                    #undef ARILES_BASIC_TYPE
             };
         }
     }

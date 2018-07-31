@@ -72,13 +72,11 @@ namespace ariles
                         }
 
 
-                        /**
-                         * @brief Starts a nested map in the configuration file
-                         *
-                         * @param[in] map_name name of the map
-                         */
-                        void descend(const std::string &/*map_name*/)
+
+                        const BridgeParameters &getBridgeParameters() const
                         {
+                            static BridgeParameters parameters(false);
+                            return (parameters);
                         }
 
 
@@ -91,26 +89,6 @@ namespace ariles
                         void startMap(const std::size_t num_entries)
                         {
                             packer_->pack_array(num_entries);
-                        }
-
-                        void endMap()
-                        {
-                        }
-
-
-                        /**
-                         * @brief Starts a nested map in the configuration file
-                         */
-                        void initRoot()
-                        {
-                        }
-
-
-                        /**
-                         * @brief Ends a nested map in the configuration file
-                         */
-                        void ascend()
-                        {
                         }
 
 
@@ -129,12 +107,6 @@ namespace ariles
                             packer_->pack_array(size);
                         }
 
-                        void shiftArray()
-                        {
-                        }
-
-                        void endArray() const {}
-
 
                         /**
                          * @brief Write a configuration entry (scalar template)
@@ -143,11 +115,16 @@ namespace ariles
                          *
                          * @param[in] entry      data
                          */
-                        template<class t_Element>
-                            void writeElement(const t_Element & element)
-                        {
-                            packer_->pack(element);
-                        }
+
+                        #define ARILES_BASIC_TYPE(type) \
+                            void writeElement(const type & element) \
+                            { \
+                                packer_->pack(element); \
+                            }
+
+                        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+
+                        #undef ARILES_BASIC_TYPE
                 };
             }
         }

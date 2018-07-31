@@ -19,7 +19,7 @@ namespace ariles
             /**
              * @brief Configuration writer class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::WriterBase, public ariles::SloppyMapWriterBase
+            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::WriterBase
             {
                 protected:
                     typedef ariles::Node< ::rapidjson::Value > NodeWrapper;
@@ -85,12 +85,10 @@ namespace ariles
                     }
 
 
-
-                    /**
-                     * @brief Starts a nested map in the configuration file
-                     */
-                    void initRoot()
+                    const BridgeParameters &getBridgeParameters() const
                     {
+                        static BridgeParameters parameters(true);
+                        return (parameters);
                     }
 
 
@@ -149,13 +147,6 @@ namespace ariles
                     }
 
 
-                    /**
-                     * @brief Ends a nested map in the configuration file
-                     */
-                    void endMap()
-                    {
-                    }
-
 
                     void startArray(const std::size_t size, const bool /*compact*/ = false)
                     {
@@ -183,18 +174,6 @@ namespace ariles
                     }
 
 
-                    /**
-                     * @brief Write a configuration entry (scalar template)
-                     *
-                     * @tparam t_EntryType type of the entry
-                     *
-                     * @param[in] entry      data
-                     */
-                    template<class t_Element>
-                        void writeElement(const t_Element & element)
-                    {
-                        getRawNode() = element;
-                    }
 
                     /**
                      * @brief Write a configuration entry
@@ -207,6 +186,17 @@ namespace ariles
                     {
                         getRawNode().SetString(element.c_str(), document_.GetAllocator());
                     }
+
+
+                    #define ARILES_BASIC_TYPE(type) \
+                        void writeElement(const type & element) \
+                        { \
+                            getRawNode() = element; \
+                        }
+
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
+
+                    #undef ARILES_BASIC_TYPE
             };
 
 

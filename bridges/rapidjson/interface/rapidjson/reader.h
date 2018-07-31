@@ -19,7 +19,7 @@ namespace ariles
             /**
              * @brief Configuration reader class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase, public ariles::SloppyMapReaderBase
+            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase
             {
                 protected:
                     typedef ariles::Node< const ::rapidjson::Value > NodeWrapper;
@@ -73,6 +73,12 @@ namespace ariles
                     }
 
 
+                    std::size_t getMapSize()
+                    {
+                        return (getRawNode().MemberCount());
+                    }
+
+
 
                 public:
                     /**
@@ -107,6 +113,13 @@ namespace ariles
                     }
 
 
+                    const BridgeParameters &getBridgeParameters() const
+                    {
+                        static BridgeParameters parameters(true);
+                        return (parameters);
+                    }
+
+
                     /**
                      * @brief Descend to the entry with the given name
                      *
@@ -131,22 +144,6 @@ namespace ariles
                     }
 
 
-                    template<int t_size_limit_type>
-                    std::size_t startMap(
-                            const std::size_t & min = 0,
-                            const std::size_t & max = 0)
-                    {
-                        return (checkSize<RelaxedSizeLimitType<t_size_limit_type>::value>(
-                                    getRawNode().MemberCount(), 
-                                    min, 
-                                    max));
-                    }
-
-                    void endMap()
-                    {
-                    }
-
-
                     /**
                      * @brief Ascend from the current entry to its parent.
                      */
@@ -156,7 +153,7 @@ namespace ariles
                     }
 
 
-                    bool getEntryNames(std::vector<std::string> &child_names)
+                    bool getMapEntryNames(std::vector<std::string> &child_names)
                     {
                         const ::rapidjson::Value & selected_node = getRawNode();
 
@@ -204,17 +201,48 @@ namespace ariles
                     }
 
 
-                    template<class t_ElementType>
-                        void readElement(t_ElementType &element)
-                    {
-                        element = getRawNode().Get<t_ElementType>();
-                    }
-
-
                     void readElement(std::string &element)
                     {
                         element = getRawNode().GetString();
                     }
+
+                    void readElement(bool &element)
+                    {
+                        element = getRawNode().Get<bool>();
+                    }
+
+
+                    #define ARILES_BASIC_TYPE(type) \
+                        void readElement(type &element) \
+                        { \
+                            element = getRawNode().Get<int>(); \
+                        }
+
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
+
+                    #undef ARILES_BASIC_TYPE
+
+
+                    #define ARILES_BASIC_TYPE(type) \
+                        void readElement(type &element) \
+                        { \
+                            element = getRawNode().Get<unsigned int>(); \
+                        }
+
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+
+                    #undef ARILES_BASIC_TYPE
+
+
+                    #define ARILES_BASIC_TYPE(type) \
+                        void readElement(type &element) \
+                        { \
+                            element = getRawNode().Get<type>(); \
+                        }
+
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+
+                    #undef ARILES_BASIC_TYPE
             };
 
 

@@ -20,11 +20,8 @@
 #define ARILES_TYPED_ENTRY(entry, type)  ARILES_TYPED_NAMED_ENTRY(type, entry, #entry)
 
 
-#ifdef ARILES_NAMESPACE_0
+#ifndef ARILES_DISABLE
 #   define ARILES_ENABLED
-
-
-#   include "internal/process_namespaces.h"
 
 
     #define ARILES_ENTRY_(entry)     ARILES_NAMED_ENTRY(entry##_, #entry)
@@ -107,13 +104,11 @@
                 /**
                  * These functions are always defined automatically.
                  */
-                #define ARILES_NAMESPACE(config_namespace) \
-                    virtual void writeConfigEntries(ariles::config_namespace::Writer &, \
-                                                    const ConfigurableParameters & param) const = 0; \
-                    virtual void readConfigEntries( ariles::config_namespace::Reader & reader, \
-                                                    const ConfigurableParameters & param) = 0;
-                ARILES_MACRO_SUBSTITUTE(ARILES_NAMESPACE_LIST)
-                #undef ARILES_NAMESPACE
+                virtual void writeConfigEntries(ariles::WriterBase & writer,
+                                                const ConfigurableParameters & param) const = 0;
+
+                virtual void readConfigEntries( ariles::ReaderBase & reader,
+                                                const ConfigurableParameters & param) = 0;
                 /// @}
         };
 
@@ -215,4 +210,4 @@
         };
     }
 
-#endif //ARILES_NAMESPACE_0
+#endif

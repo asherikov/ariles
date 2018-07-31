@@ -21,7 +21,7 @@ namespace ariles
             /**
              * @brief Configuration reader class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase, public ariles::SloppyMapReaderBase
+            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase
             {
                 protected:
                     typedef ariles::Node<XmlRpc::XmlRpcValue> NodeWrapper;
@@ -62,6 +62,11 @@ namespace ariles
                     }
 
 
+                    std::size_t getMapSize()
+                    {
+                        return (getRawNode().size());
+                    }
+
 
                 public:
                     /**
@@ -80,6 +85,13 @@ namespace ariles
                      */
                     Reader()
                     {
+                    }
+
+
+                    const BridgeParameters &getBridgeParameters() const
+                    {
+                        static BridgeParameters parameters(true);
+                        return (parameters);
                     }
 
 
@@ -109,21 +121,6 @@ namespace ariles
                     }
 
 
-                    template<int t_size_limit_type>
-                    std::size_t startMap(
-                            const std::size_t & min = 0,
-                            const std::size_t & max = 0)
-                    {
-                        return (checkSize<RelaxedSizeLimitType<t_size_limit_type>::value>(
-                                    getRawNode().size(), 
-                                    min, 
-                                    max));
-                    }
-
-                    void endMap()
-                    {
-                    }
-
 
                     /**
                      * @brief Ascend from the current entry to its parent.
@@ -134,7 +131,7 @@ namespace ariles
                     }
 
 
-                    bool getEntryNames(std::vector<std::string> &child_names)
+                    bool getMapEntryNames(std::vector<std::string> &child_names)
                     {
                         XmlRpc::XmlRpcValue selected_node = getRawNode();
 
@@ -182,13 +179,6 @@ namespace ariles
                     }
 
 
-                    template<class t_ElementType>
-                        void readElement(t_ElementType &element)
-                    {
-                        element = static_cast<t_ElementType>(getRawNode());
-                    }
-
-
                     #define ARILES_BASIC_TYPE(type) \
                             void readElement(type &element) \
                             { \
@@ -223,27 +213,36 @@ namespace ariles
                     #undef ARILES_BASIC_TYPE
 
 
-                    void readElement(double &element)
-                    {
-                        switch(getRawNode().getType())
-                        {
-                            case XmlRpc::XmlRpcValue::TypeDouble:
-                                element = static_cast<double>(getRawNode());
-                                break;
-
-                            case XmlRpc::XmlRpcValue::TypeString:
-                                element = boost::lexical_cast<double>(  static_cast<std::string>( getRawNode() )  );
-                                break;
-
-                            case XmlRpc::XmlRpcValue::TypeInt:
-                                element = static_cast<int>(getRawNode());
-                                break;
-
-                            default:
-                                ARILES_THROW_MSG("Could not convert value to double.");
-                                break;
+                    #define ARILES_BASIC_TYPE(type) \
+                        void readElement(type &element) \
+                        { \
+                            switch(getRawNode().getType()) \
+                            { \
+                                case XmlRpc::XmlRpcValue::Typetype: \
+                                    element = static_cast<type>(getRawNode()); \
+                                    break; \
+                                case XmlRpc::XmlRpcValue::TypeString: \
+                                    element = boost::lexical_cast<type>(  static_cast<std::string>( getRawNode() )  ); \
+                                    break; \
+                                case XmlRpc::XmlRpcValue::TypeInt: \
+                                    element = static_cast<int>(getRawNode()); \
+                                    break; \
+                                default: \
+                                    ARILES_THROW_MSG("Could not convert value to type."); \
+                                    break; \
+                            } \
                         }
+
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+
+                    #undef ARILES_BASIC_TYPE
+
+
+                    void readElement(std::string &element)
+                    {
+                        element = static_cast<std::string>(getRawNode());
                     }
+
 
                     void readElement(bool &element)
                     {

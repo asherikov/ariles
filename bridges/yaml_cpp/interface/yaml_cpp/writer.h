@@ -19,7 +19,7 @@ namespace ariles
             /**
              * @brief Configuration writer class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::WriterBase, public ariles::SloppyMapWriterBase
+            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::WriterBase
             {
                 protected:
                     /// output file stream
@@ -81,6 +81,13 @@ namespace ariles
                     }
 
 
+                    const BridgeParameters &getBridgeParameters() const
+                    {
+                        static BridgeParameters parameters(true);
+                        return (parameters);
+                    }
+
+
                     /**
                      * @brief Starts a nested map in the configuration file
                      *
@@ -105,25 +112,12 @@ namespace ariles
 
 
                     /**
-                     * @brief Starts a nested map in the configuration file
-                     */
-                    void initRoot()
-                    {
-                    }
-
-
-                    /**
                      * @brief Ends a nested map in the configuration file
                      */
                     void endMap()
                     {
                         *emitter_ << YAML::EndMap;
                     }
-
-                    void ascend()
-                    {
-                    }
-
 
 
                     /**
@@ -147,9 +141,6 @@ namespace ariles
                         *emitter_ << YAML::BeginSeq;
                     }
 
-                    void shiftArray()
-                    {
-                    }
 
                     void endArray()
                     {
@@ -157,18 +148,16 @@ namespace ariles
                     }
 
 
-                    /**
-                     * @brief Write a configuration entry (scalar template)
-                     *
-                     * @tparam t_EntryType type of the entry
-                     *
-                     * @param[in] entry      data
-                     */
-                    template<class t_Element>
-                        void writeElement(const t_Element & element)
-                    {
-                        *emitter_ << element;
-                    }
+
+                    #define ARILES_BASIC_TYPE(type) \
+                            void writeElement(const type & element) \
+                            { \
+                                *emitter_ << element; \
+                            }
+
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+
+                    #undef ARILES_BASIC_TYPE
             };
         }
     }
