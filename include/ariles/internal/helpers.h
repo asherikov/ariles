@@ -120,6 +120,7 @@ namespace ariles
             bool enable_sloppy_maps_if_supported_;
             bool compact_arrays_if_supported_;
             bool override_crash_on_missing_entry_;
+            bool force_explicit_matrix_size_;
 
         public:
             ConfigurableParameters(const bool crash_on_missing_entry)
@@ -132,6 +133,8 @@ namespace ariles
 #endif
                 compact_arrays_if_supported_ = false;
                 override_crash_on_missing_entry_ = false;
+
+                force_explicit_matrix_size_ = false;
             }
     };
 }

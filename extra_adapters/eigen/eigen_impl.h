@@ -74,31 +74,51 @@ namespace ariles
                        Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
                        const ariles::ConfigurableParameters & param)
         {
-            EIGEN_DEFAULT_DENSE_INDEX_TYPE num_rows;
-            EIGEN_DEFAULT_DENSE_INDEX_TYPE num_cols;
+            if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols || true == param.force_explicit_matrix_size_)
+            {
+                EIGEN_DEFAULT_DENSE_INDEX_TYPE num_rows;
+                EIGEN_DEFAULT_DENSE_INDEX_TYPE num_cols;
 
-            ariles::ConfigurableParameters param_local = param;
-            param_local.crash_on_missing_entry_ = true;
+                ariles::ConfigurableParameters param_local = param;
+                param_local.crash_on_missing_entry_ = true;
 
-            reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(3);
-            readEntry(reader, num_cols, "cols", param_local);
-            readEntry(reader, num_rows, "rows", param_local);
+                reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(3);
+                readEntry(reader, num_cols, "cols", param_local);
+                ARILES_ASSERT(Eigen::Dynamic == t_cols || t_cols == num_cols, "Wrong number of columns.");
+                readEntry(reader, num_rows, "rows", param_local);
+                ARILES_ASSERT(Eigen::Dynamic == t_rows || t_rows == num_rows, "Wrong number of rows.");
 
 
-            Eigen::VectorXd v;
-            readEntry(reader, v, "data", param_local);
-            reader.endMap();
+                Eigen::Matrix<t_Scalar, Eigen::Dynamic, 1> v;
+                readEntry(reader, v, "data", param_local);
+                reader.endMap();
 
-            ARILES_ASSERT(v.rows() == num_rows*num_cols, "Wrong entry size.");
+                ARILES_ASSERT(v.rows() == num_rows*num_cols, "Wrong entry size.");
 
-            Eigen::Map<
-                Eigen::Matrix<  double,
-                                Eigen::Dynamic,
-                                Eigen::Dynamic,
-                                Eigen::RowMajor> >  map(v.data(),
-                                                    num_rows,
-                                                    num_cols);
-            entry = map;
+                Eigen::Map<
+                    Eigen::Matrix<  t_Scalar,
+                                    t_rows,
+                                    t_cols,
+                                    Eigen::RowMajor> >  map(v.data(),
+                                                        num_rows,
+                                                        num_cols);
+                entry = map;
+            }
+            else
+            {
+                Eigen::Matrix<t_Scalar, t_rows*t_cols, 1> v;
+
+                readBody(reader, v, param);
+
+                Eigen::Map<
+                    Eigen::Matrix<  double,
+                                    t_rows,
+                                    t_cols,
+                                    Eigen::RowMajor> >  map(v.data(),
+                                                        t_rows,
+                                                        t_cols);
+                entry = map;
+            }
         }
 
 
@@ -193,26 +213,42 @@ namespace ariles
                        const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
                        const ariles::ConfigurableParameters & param)
         {
-            writer.startMap(3);
-
-            writeEntry(writer, entry.cols(), "cols", param);
-            writeEntry(writer, entry.rows(), "rows", param);
-
-
-            writer.descend("data");
-            writer.startArray(entry.size(), true);
-            for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < entry.rows(); ++i)
+            if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols || true == param.force_explicit_matrix_size_)
             {
-                for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < entry.cols(); ++j)
-                {
-                    writer.writeElement(entry(i, j));
-                    writer.shiftArray();
-                }
-            }
-            writer.endArray();
-            writer.ascend();
+                writer.startMap(3);
 
-            writer.endMap();
+                writeEntry(writer, entry.cols(), "cols", param);
+                writeEntry(writer, entry.rows(), "rows", param);
+
+
+                writer.descend("data");
+                writer.startArray(entry.size(), true);
+                for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < entry.rows(); ++i)
+                {
+                    for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < entry.cols(); ++j)
+                    {
+                        writer.writeElement(entry(i, j));
+                        writer.shiftArray();
+                    }
+                }
+                writer.endArray();
+                writer.ascend();
+
+                writer.endMap();
+            }
+            else
+            {
+                writer.startArray(entry.size(), true);
+                for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < t_rows; ++i)
+                {
+                    for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < t_cols; ++j)
+                    {
+                        writer.writeElement(entry(i, j));
+                        writer.shiftArray();
+                    }
+                }
+                writer.endArray();
+            }
         }
 
 
