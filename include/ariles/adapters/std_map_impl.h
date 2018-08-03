@@ -130,6 +130,7 @@ namespace ariles
             if ((true == writer.getBridgeParameters().sloppy_maps_supported_)
                     && (true == param.enable_sloppy_maps_if_supported_))
             {
+                std::cout << "--------------------------------" << std::endl;
                 writer.startMap(entry.size());
                 for (
                     typename std::map<std::string, t_Value, t_Compare, t_Allocator>::const_iterator it = entry.begin();

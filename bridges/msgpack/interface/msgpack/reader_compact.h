@@ -29,7 +29,7 @@ namespace ariles
                 class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase
                 {
                     protected:
-                        typedef ariles::Node< const ::msgpack::object > NodeWrapper;
+                        typedef ariles::Node< const ::msgpack::object * > NodeWrapper;
 
 
                     protected:

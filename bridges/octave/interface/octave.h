@@ -13,26 +13,21 @@
 
 #include "../internal/helpers.h"
 #include "../internal/node.h"
-#include "../internal/reader_base.h"
 #include "../internal/writer_base.h"
 
-#include ARILES_BRIDGE_yaml_cpp_INCLUDE_HEADER
-
-#include "./yaml_cpp/reader.h"
-#include "./yaml_cpp/writer.h"
+#include "./octave/writer.h"
 
 
-#define ARILES_BRIDGE_INCLUDED_yaml_cpp
+#define ARILES_BRIDGE_INCLUDED_octave
 
 
 namespace ariles
 {
     /**
-     * @brief YAML C++11 bridge.
+     * @brief Octave bridge.
      */
-    struct ARILES_VISIBILITY_ATTRIBUTE yaml_cpp : public BridgeSelectorBase
+    struct ARILES_VISIBILITY_ATTRIBUTE octave : public BridgeSelectorBase
     {
-        typedef bridge::yaml_cpp::Reader Reader;
-        typedef bridge::yaml_cpp::Writer Writer;
+        typedef bridge::octave::Writer Writer;
     };
 }

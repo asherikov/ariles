@@ -15,6 +15,7 @@
 
 
 #include "../internal/helpers.h"
+#include "../internal/node.h"
 #include "../internal/reader_base.h"
 #include "../internal/writer_base.h"
 

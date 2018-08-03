@@ -103,7 +103,6 @@
 #endif
 
 
-
 namespace ariles
 {
     struct ARILES_VISIBILITY_ATTRIBUTE BridgeSelectorBase
@@ -111,30 +110,6 @@ namespace ariles
         public:
             typedef int BridgeSelectorIndicatorType;
     };
-
-
-    class ConfigurableParameters
-    {
-        public:
-            bool crash_on_missing_entry_;
-            bool enable_sloppy_maps_if_supported_;
-            bool compact_arrays_if_supported_;
-            bool override_crash_on_missing_entry_;
-            bool force_explicit_matrix_size_;
-
-        public:
-            ConfigurableParameters(const bool crash_on_missing_entry)
-            {
-                crash_on_missing_entry_ = crash_on_missing_entry;
-#ifdef ARILES_ENABLE_SLOPPY_MAP
-                enable_sloppy_maps_if_supported_ = true;
-#else
-                enable_sloppy_maps_if_supported_ = false;
-#endif
-                compact_arrays_if_supported_ = false;
-                override_crash_on_missing_entry_ = false;
-
-                force_explicit_matrix_size_ = false;
-            }
-    };
 }
+
+#include "../configurable_parameters.h"

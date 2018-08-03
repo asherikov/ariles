@@ -22,33 +22,7 @@ namespace ariles
             class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase
             {
                 protected:
-                    class NodeWrapper
-                    {
-                        public:
-                            YAML::Node          node_;
-                            std::size_t         index_;
-                            std::size_t         size_;
-                            bool                is_array_;
-
-                        public:
-                            NodeWrapper(YAML::Node node) : node_(node)
-                            {
-                                index_ = 0;
-                                size_ = 0;
-                                is_array_ = false;
-                            }
-
-                            NodeWrapper(const std::size_t index, const std::size_t size) : index_(index)
-                            {
-                                size_ = size;
-                                is_array_ = true;
-                            }
-
-                            bool isArray() const
-                            {
-                                return(is_array_);
-                            }
-                    };
+                    typedef ariles::Node<YAML::Node> NodeWrapper;
 
 
                 protected:

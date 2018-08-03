@@ -42,3 +42,8 @@ ARILES_TESTS_SHORTCUT(yaml_cpp, StreamInitializer)
 #ifdef ARILES_BRIDGE_INCLUDED_ros
 ARILES_TESTS_SHORTCUT(ros, ROSInitializer)
 #endif
+
+#ifdef ARILES_BRIDGE_INCLUDED_octave
+ARILES_TESTS_SHORTCUT(octave, FilenameInitializer)
+#endif
+

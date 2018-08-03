@@ -14,39 +14,6 @@
 
 namespace ariles
 {
-    template <class t_RawNode>
-        class ARILES_VISIBILITY_ATTRIBUTE Node
-    {
-        public:
-            t_RawNode           *node_;
-            std::size_t         index_;
-            std::size_t         size_;
-
-        public:
-            Node(t_RawNode *node) : node_(node)
-            {
-                index_ = 0;
-                size_ = 0;
-            }
-
-            Node(const std::size_t index, const std::size_t size) : index_(index)
-            {
-                node_ = NULL;
-                size_ = size;
-            }
-
-            bool isArray() const
-            {
-                return(NULL == node_);
-            }
-
-            bool isAllParsed() const
-            {
-                return(index_ == size_);
-            }
-    };
-
-
     class ARILES_VISIBILITY_ATTRIBUTE ReaderBase
     {
         public:

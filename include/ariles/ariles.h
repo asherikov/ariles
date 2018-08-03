@@ -14,6 +14,8 @@
 #pragma once
 
 #include "internal/helpers.h"
+#include "internal/reader_base.h"
+#include "internal/writer_base.h"
 
 // These defines are always necessary
 #define ARILES_TYPED_ENTRY_(entry, type) ARILES_TYPED_NAMED_ENTRY(type, entry##_, #entry)

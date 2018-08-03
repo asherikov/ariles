@@ -22,7 +22,7 @@ namespace ariles
             class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::WriterBase
             {
                 protected:
-                    typedef ariles::Node< ::rapidjson::Value > NodeWrapper;
+                    typedef ariles::Node< ::rapidjson::Value * > NodeWrapper;
 
 
                 protected:

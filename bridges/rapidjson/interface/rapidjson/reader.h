@@ -22,7 +22,7 @@ namespace ariles
             class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase
             {
                 protected:
-                    typedef ariles::Node< const ::rapidjson::Value > NodeWrapper;
+                    typedef ariles::Node< const ::rapidjson::Value * > NodeWrapper;
 
 
                 protected:
