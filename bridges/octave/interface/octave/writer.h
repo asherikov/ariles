@@ -164,9 +164,22 @@ namespace ariles
                                 *output_stream_ << ";\n"; \
                             }
 
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
+
+
+                    void writeElement(const std::string & element)
+                    {
+                        *output_stream_ << node_stack_.back().node_;
+                        if (true == node_stack_.back().isArray())
+                        {
+                            *output_stream_ << "{" << node_stack_.back().index_ << "}";
+                        }
+                        *output_stream_ << " = '";
+                        *output_stream_ << element;
+                        *output_stream_ << "';\n";
+                    }
             };
         }
     }
