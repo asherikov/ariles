@@ -16,11 +16,14 @@ namespace ariles
     {
         public:
             bool sloppy_maps_supported_;
+            bool native_matrix_supported_;
 
         public:
-            BridgeParameters(const bool sloppy_maps_supported)
+            BridgeParameters(   const bool sloppy_maps_supported,
+                                const bool native_matrix_supported = false)
             {
                 sloppy_maps_supported_ = sloppy_maps_supported;
+                native_matrix_supported_ = native_matrix_supported;
             }
     };
 }

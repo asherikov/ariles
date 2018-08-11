@@ -32,7 +32,7 @@
 
 
 #include "fixtures/initializers.h"
-#include "fixtures/010_write_only.h"
+#include "fixtures/010_write_octave.h"
 
 
 // ===============================================================

@@ -28,6 +28,12 @@ class WriteOnlyFixture : public t_FixtureBase
 
                 typename t_Bridge::Writer writer(getWriterInitializer("configurable.cfg"));
                 configurable.writeConfig(writer);
+
+                std::string octave_cmd =
+                    std::string("octave --no-gui --no-history --silent --eval 'source ")
+                    + getWriterInitializer("configurable.cfg")
+                    + "'";
+                BOOST_CHECK_EQUAL(0, std::system(octave_cmd.c_str()));
             }
 
 
@@ -43,6 +49,12 @@ class WriteOnlyFixture : public t_FixtureBase
 
                 typename t_Bridge::Writer writer(getWriterInitializer("configurable.cfg"));
                 configurable.writeConfig(writer, strict);
+
+                std::string octave_cmd =
+                    std::string("octave --no-gui --no-history --silent --eval 'source ")
+                    + getWriterInitializer("configurable.cfg")
+                    + "'";
+                BOOST_CHECK_EQUAL(0, std::system(octave_cmd.c_str()));
             }
 
             // --------------------------------
@@ -53,6 +65,12 @@ class WriteOnlyFixture : public t_FixtureBase
                 t_Configurable configurable;
                 configurable.randomize();
                 configurable.template writeConfig<t_Bridge>(getWriterInitializer("configurable2.cfg"), strict);
+
+                std::string octave_cmd =
+                    std::string("octave --no-gui --no-history --silent --eval 'source ")
+                    + getWriterInitializer("configurable2.cfg")
+                    + "'";
+                BOOST_CHECK_EQUAL(0, std::system(octave_cmd.c_str()));
             }
         }
 };

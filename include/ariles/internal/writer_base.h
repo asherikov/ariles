@@ -41,22 +41,27 @@ namespace ariles
         public:
             virtual const BridgeParameters & getBridgeParameters() const = 0;
 
-            virtual void initRoot() {};
+            virtual void initRoot() {}
 
             virtual void flush() = 0;
 
 
-            virtual void descend(const std::string &/*map_name*/) {};
+            virtual void descend(const std::string &/*map_name*/) {}
             virtual void ascend() {}
 
 
-            virtual void startMap(const std::size_t /*num_entries*/) {};
+            virtual void startMap(const std::size_t /*num_entries*/) {}
             virtual void endMap() {}
 
 
             virtual void startArray(const std::size_t size, const bool compact = false) = 0;
             virtual void shiftArray() {}
             virtual void endArray() {}
+
+            virtual void startMatrix(const bool /*compact*/ = false) {}
+            virtual void startMatrixRow() {}
+            virtual void endMatrixRow() {}
+            virtual void endMatrix() {}
 
 
             #define ARILES_BASIC_TYPE(type) \

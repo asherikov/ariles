@@ -181,13 +181,29 @@ namespace ariles
                        const Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
                        const ariles::ConfigurableParameters & /*param*/)
         {
-            writer.startArray(entry.rows(), true);
-            for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < entry.rows(); ++i)
+            if (true == writer.getBridgeParameters().native_matrix_supported_)
             {
-                writer.writeElement(entry[i]);
-                writer.shiftArray();
+                writer.startMatrix(true);
+                for(EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0;
+                    i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows);
+                    ++i)
+                {
+                    writer.startMatrixRow();
+                    writer.writeElement(entry(i));
+                    writer.endMatrixRow();
+                }
+                writer.endMatrix();
             }
-            writer.endArray();
+            else
+            {
+                writer.startArray(entry.rows(), true);
+                for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < entry.rows(); ++i)
+                {
+                    writer.writeElement(entry[i]);
+                    writer.shiftArray();
+                }
+                writer.endArray();
+            }
         }
 
 
@@ -213,41 +229,62 @@ namespace ariles
                        const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
                        const ariles::ConfigurableParameters & param)
         {
-            if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols || true == param.force_explicit_matrix_size_)
+            if (true == writer.getBridgeParameters().native_matrix_supported_)
             {
-                writer.startMap(3);
-
-                writeEntry(writer, entry.cols(), "cols", param);
-                writeEntry(writer, entry.rows(), "rows", param);
-
-
-                writer.descend("data");
-                writer.startArray(entry.size(), true);
-                for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < entry.rows(); ++i)
+                writer.startMatrix();
+                for(EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0;
+                    i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows);
+                    ++i)
                 {
-                    for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < entry.cols(); ++j)
+                    writer.startMatrixRow();
+                    for(EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0;
+                        j < (Eigen::Dynamic == t_cols ? entry.cols() : t_cols);
+                        ++j)
                     {
                         writer.writeElement(entry(i, j));
-                        writer.shiftArray();
                     }
+                    writer.endMatrixRow();
                 }
-                writer.endArray();
-                writer.ascend();
-
-                writer.endMap();
+                writer.endMatrix();
             }
             else
             {
-                writer.startArray(entry.size(), true);
-                for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < t_rows; ++i)
+                if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols || true == param.force_explicit_matrix_size_)
                 {
-                    for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < t_cols; ++j)
+                    writer.startMap(3);
+
+                    writeEntry(writer, entry.cols(), "cols", param);
+                    writeEntry(writer, entry.rows(), "rows", param);
+
+
+                    writer.descend("data");
+                    writer.startArray(entry.size(), true);
+                    for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < entry.rows(); ++i)
                     {
-                        writer.writeElement(entry(i, j));
-                        writer.shiftArray();
+                        for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < entry.cols(); ++j)
+                        {
+                            writer.writeElement(entry(i, j));
+                            writer.shiftArray();
+                        }
                     }
+                    writer.endArray();
+                    writer.ascend();
+
+                    writer.endMap();
                 }
-                writer.endArray();
+                else
+                {
+                    writer.startArray(entry.size(), true);
+                    for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < t_rows; ++i)
+                    {
+                        for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < t_cols; ++j)
+                        {
+                            writer.writeElement(entry(i, j));
+                            writer.shiftArray();
+                        }
+                    }
+                    writer.endArray();
+                }
             }
         }
 

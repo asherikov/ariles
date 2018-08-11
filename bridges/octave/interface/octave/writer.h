@@ -71,7 +71,7 @@ namespace ariles
 
                     const BridgeParameters &getBridgeParameters() const
                     {
-                        static BridgeParameters parameters(true);
+                        static BridgeParameters parameters(true, true);
                         return (parameters);
                     }
 
@@ -100,7 +100,7 @@ namespace ariles
                             {
                                 std::string node = node_stack_.back().node_;
                                 node += "{";
-                                node += boost::lexical_cast<std::string>(node_stack_.back().index_);
+                                node += boost::lexical_cast<std::string>(node_stack_.back().index_ + 1);
                                 node += "}.";
                                 node += map_name;
                                 node_stack_.push_back(NodeWrapper(node));
@@ -122,15 +122,15 @@ namespace ariles
                     virtual void endMap() {}
 
 
-                    virtual void startArray(const std::size_t size, const bool /*compact*/ = false)
+                    virtual void startArray(const std::size_t size, const bool compact = false)
                     {
                         if (true == node_stack_.back().isArray())
                         {
                             std::string node = node_stack_.back().node_;
                             node += "{";
-                            node += boost::lexical_cast<std::string>(node_stack_.back().index_);
+                            node += boost::lexical_cast<std::string>(node_stack_.back().index_ + 1);
                             node += "}";
-                            node_stack_.push_back(NodeWrapper(node, 0, size));
+                            node_stack_.push_back(NodeWrapper(node, 0, size, compact));
                         }
                         else
                         {
@@ -150,18 +150,70 @@ namespace ariles
                     }
 
 
+                    void startMatrix(const bool compact = false)
+                    {
+                        std::string node = node_stack_.back().node_;
+                        if (compact)
+                        {
+                            node += " = [";
+                        }
+                        else
+                        {
+                            node += " = [...\n";
+                        }
+
+                        node_stack_.push_back(NodeWrapper(node, NodeWrapper::MATRIX, compact));
+                        *output_stream_ << node_stack_.back().node_;
+                    }
+
+                    void startMatrixRow()
+                    {
+                        node_stack_.back().index_ = 0;
+                    }
+
+                    void endMatrixRow()
+                    {
+                        if (node_stack_.back().isCompact())
+                        {
+                            *output_stream_ << "; ";
+                        }
+                        else
+                        {
+                            *output_stream_ << "; ...\n";
+                        }
+                    }
+
+                    void endMatrix()
+                    {
+                        *output_stream_ << "];\n";
+                        node_stack_.pop_back();
+                    }
+
+
 
                     #define ARILES_BASIC_TYPE(type) \
                             void writeElement(const type & element) \
                             { \
-                                *output_stream_ << node_stack_.back().node_; \
-                                if (true == node_stack_.back().isArray()) \
+                                if (true == node_stack_.back().isMatrix()) \
                                 { \
-                                    *output_stream_ << "{" << node_stack_.back().index_ << "}"; \
+                                    if (0 != node_stack_.back().index_) \
+                                    { \
+                                        *output_stream_ << ", "; \
+                                    } \
+                                    *output_stream_ << element; \
+                                    ++node_stack_.back().index_; \
                                 } \
-                                *output_stream_ << " = "; \
-                                *output_stream_ << element; \
-                                *output_stream_ << ";\n"; \
+                                else \
+                                { \
+                                    *output_stream_ << node_stack_.back().node_; \
+                                    if (true == node_stack_.back().isArray()) \
+                                    { \
+                                        *output_stream_ << "{" << node_stack_.back().index_ + 1 << "}"; \
+                                    } \
+                                    *output_stream_ << " = "; \
+                                    *output_stream_ << element; \
+                                    *output_stream_ << ";\n"; \
+                                } \
                             }
 
                     ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
@@ -174,7 +226,7 @@ namespace ariles
                         *output_stream_ << node_stack_.back().node_;
                         if (true == node_stack_.back().isArray())
                         {
-                            *output_stream_ << "{" << node_stack_.back().index_ << "}";
+                            *output_stream_ << "{" << node_stack_.back().index_ + 1 << "}";
                         }
                         *output_stream_ << " = '";
                         *output_stream_ << element;
