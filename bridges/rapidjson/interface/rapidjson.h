@@ -16,6 +16,12 @@
 #include "../internal/reader_base.h"
 #include "../internal/writer_base.h"
 
+// In old versions of RapidJSON it is impossible to specify flags
+// as template parameter of PrettyWriter, so this is the only way
+// to change them.
+#define RAPIDJSON_WRITE_DEFAULT_FLAGS ::rapidjson::kWriteNanAndInfFlag
+#define RAPIDJSON_PARSE_DEFAULT_FLAGS ::rapidjson::kParseNanAndInfFlag
+
 #include <rapidjson/document.h>
 #include <rapidjson/writer.h>
 #include <rapidjson/prettywriter.h>

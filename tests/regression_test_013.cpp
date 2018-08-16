@@ -28,7 +28,7 @@
 #endif
 
 #ifdef ARILES_BRIDGE_rapidjson
-//#include "ariles/bridges/rapidjson.h"
+#include "ariles/bridges/rapidjson.h"
 #endif
 
 #include "ariles/adapters_all.h"
