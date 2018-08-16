@@ -155,9 +155,53 @@ namespace ariles
                                 *emitter_ << element; \
                             }
 
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_INTEGER_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
+
+
+                    #define ARILES_BASIC_TYPE(type) \
+                            void writeElement(const type & element) \
+                            { \
+                                if (true == isNaN(element)) \
+                                { \
+                                    *emitter_ << ".nan"; \
+                                } \
+                                else \
+                                { \
+                                    if (true == isInfinity(element)) \
+                                    { \
+                                        if (element < 0.0) \
+                                        { \
+                                            *emitter_ << "-.inf"; \
+                                        } \
+                                        else \
+                                        { \
+                                            *emitter_ << ".inf"; \
+                                        } \
+                                    } \
+                                    else \
+                                    { \
+                                        *emitter_ << element; \
+                                    } \
+                                } \
+                            }
+
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+
+                    #undef ARILES_BASIC_TYPE
+
+
+
+                    void writeElement(const std::string & element)
+                    {
+                        *emitter_ << element;
+                    }
+
+                    void writeElement(const bool & element)
+                    {
+                        *emitter_ << element;
+                    }
             };
         }
     }

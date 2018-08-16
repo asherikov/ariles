@@ -35,6 +35,20 @@ class Configurable : virtual public ariles::ConfigurableBase
 
         virtual void setDefaults()
         {
+            float_quiet_nan_ = 0.0;
+            float_signaling_nan_ = 0.0;
+            float_positive_infinity_ = 0.0;
+            float_negative_infinity_ = 0.0;
+
+            double_quiet_nan_ = 0.0;
+            double_signaling_nan_ = 0.0;
+            double_positive_infinity_ = 0.0;
+            double_negative_infinity_ = 0.0;
+        }
+
+
+        virtual void randomize()
+        {
             float_quiet_nan_ = std::numeric_limits<float>::quiet_NaN();
             float_signaling_nan_ = std::numeric_limits<float>::signaling_NaN();
             float_positive_infinity_ = std::numeric_limits<float>::infinity();
@@ -44,10 +58,6 @@ class Configurable : virtual public ariles::ConfigurableBase
             double_signaling_nan_ = std::numeric_limits<double>::signaling_NaN();
             double_positive_infinity_ = std::numeric_limits<double>::infinity();
             double_negative_infinity_ = - std::numeric_limits<double>::infinity();
-        }
-
-        virtual void randomize()
-        {
         }
 };
 
