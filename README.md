@@ -82,10 +82,16 @@ Octave
 * Matlab might be supported, but has not been tested.
 
 
-
-YAML
-----
+yaml-cpp
+--------
 
 * yaml-cpp does not comply with the specification when it emits NaN's and
   infinities, see https://github.com/jbeder/yaml-cpp/issues/507. Ariles
   includes a workaround for this issue.
+
+
+RapidJSON
+---------
+
+* NaN's and infinities are enabled with corresponding flags, which is not
+  allowed by JSON specification, see https://github.com/Tencent/rapidjson/issues/972.
