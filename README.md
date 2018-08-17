@@ -1,11 +1,36 @@
-Ariles is a C++ serialization/configuration library with some extra automatic
-code generation capabilities. The main features are
+Introduction
+============
 
-* Ariles relies on third-party libraries for support of various data
-  representation formats. Currently supported formats are (all are optional):
-  - yaml (via yaml-cpp, both old C++03 and new API supported);
-  - msgpack (via msgpack-c);
-  - ROS parameter server (via standard ROS libs).
+Ariles is a C++ serialization/configuration library with some extra automatic
+code generation capabilities. It relies on third-party libraries for support of
+various data representation formats. The library also provides some predefined
+serialization wrappers for common types as described below.
+
+
+Supported formats
+=================
+
+Currently supported formats are (all are optional):
+
+* yaml via yaml-cpp, both old C++03 and new API supported;
+* msgpack via msgpack-c;
+* JSON via RapidJSON, with optional Jsonnet (https://jsonnet.org/) preprocessing;
+* Octave script, output only, no dependencies;
+* ROS parameter server, via standard ROS libs.
+
+
+Supported types
+===============
+
+* Some STL containers (WIP).
+* Eigen matrices.
+* Boost pointers.
+* boost::optional.
+* Better enums -> https://github.com/aantron/better-enums.
+
+
+Features
+========
 
 * Ariles, unlike many C++ serialization libraries, primarily relies on
   preprocessor (similar ideas are described at
@@ -40,3 +65,27 @@ class Configurable : public ariles::ConfigurableBase
 Configurable configurable;
 configurable.readConfig<ariles::yaml_cpp>("config_file.yaml");
 ```
+
+
+Notes
+=====
+
+Octave
+------
+
+* Ariles outputs a serialized class to an Octave script file, which can later
+  be `source`d from Octave to create a struct representation of the class.
+
+* Eigen matrices are written in the 'native' format, so they can be used
+  directly, no reshaping is necessary.
+
+* Matlab might be supported, but has not been tested.
+
+
+
+YAML
+----
+
+* yaml-cpp does not comply with the specification when it emits NaN's and
+  infinities, see https://github.com/jbeder/yaml-cpp/issues/507. Ariles
+  includes a workaround for this issue.
