@@ -92,6 +92,11 @@ namespace initializers
 
 
 #ifdef ARILES_BRIDGE_INCLUDED_ros
+    #include <unistd.h>
+    #include <sys/types.h>
+    #include <sys/wait.h>
+    #include <signal.h>
+    #include <stdio.h>
 
     #include <ros/ros.h>
 
@@ -99,21 +104,58 @@ namespace initializers
     {
         public:
             ros::NodeHandle *nh_;
+            pid_t pid_;
 
 
         public:
             ROSInitializer()
             {
-                int argn = 0;
-                ros::init(argn, NULL, "FixtureBase");
+                nh_ = NULL;
+                pid_ = fork();
 
-                nh_ = new ros::NodeHandle();
+                switch (pid_)
+                {
+                    case -1: // fail
+                        ARILES_THROW_MSG("fork() failed");
+                        break;
+
+                    case 0: // child
+                        //close(STDOUT_FILENO);
+                        execlp("roscore", "roscore", (char  *) NULL);
+                        ARILES_THROW_MSG("execve() failed");
+                        break;
+
+                    default: // parent
+                        int argn = 0;
+                        ros::init(argn, NULL, "FixtureBase");
+                        while(false == ros::master::check())
+                        {
+                            usleep(20000);
+                        }
+                        nh_ = new ros::NodeHandle();
+                        break;
+                }
             }
 
 
             ~ROSInitializer()
             {
-                delete nh_;
+                if (NULL != nh_)
+                {
+                    delete nh_;
+                }
+
+                if (pid_ > 0)
+                {
+                    ARILES_ASSERT(0 == kill(pid_, 0), "roscore has died.");
+
+                    sighandler_t sig_handler = signal(SIGCHLD, SIG_IGN);
+                    kill(pid_, SIGINT);
+
+                    int status;
+                    waitpid(pid_, &status, 0);
+                    signal(SIGCHLD, sig_handler);
+                }
             }
 
             ros::NodeHandle & getReaderInitializer(const std::string & /*string_id*/)

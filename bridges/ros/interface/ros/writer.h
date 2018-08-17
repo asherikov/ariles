@@ -94,6 +94,10 @@ namespace ariles
                      */
                     void flush()
                     {
+                        if (XmlRpc::XmlRpcValue::TypeInvalid == root_value_.getType())
+                        {
+                            root_value_ = "";
+                        }
                         nh_.setParam(root_name_, root_value_);
                         root_name_.clear();
                     }

@@ -10,6 +10,7 @@
 
 #pragma once
 
+
 template<class t_FixtureBase>
 class BasicInterfaceFixture : public t_FixtureBase
 {

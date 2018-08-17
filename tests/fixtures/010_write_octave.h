@@ -10,8 +10,9 @@
 
 #pragma once
 
+
 template<class t_FixtureBase>
-class WriteOnlyFixture : public t_FixtureBase
+class OctaveFixture : public t_FixtureBase
 {
     public:
         using t_FixtureBase::getWriterInitializer;

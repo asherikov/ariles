@@ -10,6 +10,7 @@
 
 #pragma once
 
+
 template<class t_FixtureBase>
 class ReadWriteFixture : public t_FixtureBase
 {
