@@ -94,6 +94,14 @@ template <class t_Bridge, class t_ReaderInitializer>
     typename t_Bridge::Reader reader(reader_initializer);
     ariles::reader::readEntry(reader, *this, this->getConfigSectionID(), ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
+template <class t_Bridge, class t_ReaderInitializer>
+    void readConfig(const t_ReaderInitializer         &reader_initializer
+                    ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
+                    typename t_Bridge::BridgeSelectorIndicatorType * = NULL)
+{
+    typename t_Bridge::Reader reader(reader_initializer);
+    ariles::reader::readEntry(reader, *this, this->getConfigSectionID(), ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+}
 
 
 /**
@@ -105,6 +113,15 @@ template <class t_Bridge, class t_ReaderInitializer>
  */
 template <class t_Bridge, class t_ReaderInitializer>
     void readConfig(t_ReaderInitializer         &reader_initializer,
+                    const std::string           &node_name
+                    ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
+                    typename t_Bridge::BridgeSelectorIndicatorType * = NULL)
+{
+    typename t_Bridge::Reader reader(reader_initializer);
+    ariles::reader::readEntry(reader, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+}
+template <class t_Bridge, class t_ReaderInitializer>
+    void readConfig(const t_ReaderInitializer   &reader_initializer,
                     const std::string           &node_name
                     ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
                     typename t_Bridge::BridgeSelectorIndicatorType * = NULL)
@@ -132,6 +149,16 @@ template <class t_Bridge, class t_ReaderInitializer>
     typename t_Bridge::Reader reader(reader_initializer);
     ariles::reader::readEntry(reader, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
+template <class t_Bridge, class t_ReaderInitializer>
+    void readConfig(const t_ReaderInitializer   &reader_initializer,
+                    const char                  *node_name
+                    ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
+                    typename t_Bridge::BridgeSelectorIndicatorType * = NULL)
+{
+    typename t_Bridge::Reader reader(reader_initializer);
+    ariles::reader::readEntry(reader, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+}
+
 
 
 // ============================================
@@ -197,6 +224,14 @@ template <class t_Bridge, class t_WriterInitializer>
     typename t_Bridge::Writer writer(writer_initializer);
     writeConfig(writer, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
+template <class t_Bridge, class t_WriterInitializer>
+    void writeConfig(   const t_WriterInitializer &writer_initializer
+                        ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
+                        typename t_Bridge::BridgeSelectorIndicatorType * = NULL) const
+{
+    typename t_Bridge::Writer writer(writer_initializer);
+    writeConfig(writer, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+}
 
 
 /**
@@ -207,6 +242,15 @@ template <class t_Bridge, class t_WriterInitializer>
  */
 template <class t_Bridge, class t_WriterInitializer>
     void writeConfig(   t_WriterInitializer &writer_initializer,
+                        const std::string &node_name
+                        ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
+                        typename t_Bridge::BridgeSelectorIndicatorType * = NULL) const
+{
+    typename t_Bridge::Writer writer(writer_initializer);
+    writeConfig(writer, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+}
+template <class t_Bridge, class t_WriterInitializer>
+    void writeConfig(   const t_WriterInitializer &writer_initializer,
                         const std::string &node_name
                         ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
                         typename t_Bridge::BridgeSelectorIndicatorType * = NULL) const
@@ -231,4 +275,12 @@ template <class t_Bridge, class t_WriterInitializer>
     typename t_Bridge::Writer writer(writer_initializer);
     writeConfig(writer, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
-
+template <class t_Bridge, class t_WriterInitializer>
+    void writeConfig(   const t_WriterInitializer &writer_initializer,
+                        const char *node_name
+                        ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
+                        typename t_Bridge::BridgeSelectorIndicatorType * = NULL) const
+{
+    typename t_Bridge::Writer writer(writer_initializer);
+    writeConfig(writer, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+}
