@@ -18,40 +18,7 @@
 // TYPES
 // ===============================================================
 
-
-/**
- * @brief Short definition of a configurable class -- types of members are
- * passed to Ariles for automatic declaration.
- */
-class Configurable : public ariles::ConfigurableBase
-{
-    #define ARILES_SECTION_ID "Configurable"
-    #define ARILES_ENTRIES \
-        ARILES_TYPED_ENTRY_(integer,     int)
-    #include ARILES_INITIALIZE
-
-
-    public:
-        Configurable()
-        {
-            setDefaults();
-        }
-
-
-        /**
-         * @brief This method must be defined
-         */
-        virtual void setDefaults()
-        {
-            integer_ = 0;
-        }
-
-
-        void randomize()
-        {
-            integer_ = GET_RANDOM_INT;
-        }
-};
+#include "types/simple_auto_declare.h"
 
 
 // ===============================================================
@@ -68,5 +35,5 @@ class Configurable : public ariles::ConfigurableBase
 
 BOOST_FIXTURE_TEST_CASE( DummyFixture_Configurable, DummyFixture )
 {
-    test<Configurable>();
+    test<ConfigurableAutoDeclare>();
 }

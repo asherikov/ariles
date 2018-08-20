@@ -22,34 +22,7 @@
 // TYPES
 // ===============================================================
 
-
-/**
- * @brief Short definition of a configurable class -- types of members are
- * passed to Ariles for automatic declaration.
- */
-class Configurable : public ariles::ConfigurableBase
-{
-    #define ARILES_SECTION_ID "Configurable"
-    #define ARILES_ENTRIES \
-        ARILES_TYPED_ENTRY_(integer,     int)
-    #include ARILES_INITIALIZE
-
-
-    public:
-        Configurable()
-        {
-            setDefaults();
-        }
-
-
-        /**
-         * @brief This method must be defined
-         */
-        virtual void setDefaults()
-        {
-            integer_ = 0;
-        }
-};
+#include "types/simple_auto_declare.h"
 
 
 // ===============================================================
@@ -84,6 +57,6 @@ namespace initializers
 
 
 #define ARILES_TESTS(BRIDGE_ID, NAMESPACE, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(ReadFixture, BRIDGE_ID, NAMESPACE, Configurable, INITIALIZER)
+    ARILES_FIXTURE_TEST_CASE(ReadFixture, BRIDGE_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
 
 ARILES_TESTS(rapidjson_jsonnet, rapidjson::jsonnet, FilenameReaderInitializer010)

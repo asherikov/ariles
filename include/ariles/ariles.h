@@ -185,6 +185,9 @@
                  * child classes through a base pointer.
                  */
                 ~StrictConfigurableBase() {}
+
+            public:
+                virtual void finalize() {};
         };
 
 
@@ -197,6 +200,9 @@
                  * child classes through a base pointer.
                  */
                 ~RelaxedConfigurableBase() {}
+
+            public:
+                virtual void finalize() {};
         };
 
 
@@ -209,6 +215,9 @@
                  * child classes through a base pointer.
                  */
                 ~ConfigurableBase() {}
+
+            public:
+                virtual void finalize() {};
         };
     }
 

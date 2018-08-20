@@ -1,7 +1,8 @@
 local integer_value = 13;
 {
-    Configurable: 
+    unique_id_on_a_particular_level_in_a_configuration_file:
     {
-        integer: integer_value
+        integer: integer_value,
+        real: 22.33
     }
 }

@@ -12,35 +12,31 @@
 
 
 /**
- * @brief Short definition of a configurable class -- types of members are
- * passed to Ariles for automatic declaration.
+ * @brief Verbose definition of a configurable class (with explicit declaration
+ * of members)
  */
-class ConfigurableAutoDeclare : public ariles::ConfigurableBase
+class ConfigurableVerbose : public ariles::ConfigurableBase
 {
-    // conditionally optional, see ConfigurableNoAutoID
-    // it is recommended to set it to the class name
     #define ARILES_SECTION_ID "unique_id_on_a_particular_level_in_a_configuration_file"
-    // optional
-    #define ARILES_CONSTRUCTOR ConfigurableAutoDeclare
-    // optional, but what is the point in omitting it?
-    // members can be defined manually, see ConfigurableVerbose
+    #define ARILES_CONSTRUCTOR ConfigurableVerbose
     #define ARILES_ENTRIES \
-        ARILES_TYPED_ENTRY_(integer,     int) \
-        ARILES_TYPED_ENTRY_(real,        double)
-    // mandatory
+        ARILES_ENTRY_(integer) \
+        ARILES_ENTRY_(real)
     #include ARILES_INITIALIZE
 
 
     public:
-        ConfigurableAutoDeclare()
+        int                     integer_;
+        double                  real_;
+
+
+    public:
+        ConfigurableVerbose()
         {
             setDefaults();
         }
 
 
-        /**
-         * @brief This method must be defined
-         */
         virtual void setDefaults()
         {
             integer_ = 10;
@@ -55,3 +51,5 @@ class ConfigurableAutoDeclare : public ariles::ConfigurableBase
             finalize();
         }
 };
+
+

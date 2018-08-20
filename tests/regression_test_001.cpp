@@ -39,7 +39,7 @@
 // TYPES
 // ===============================================================
 
-#include "types/complex.h"
+#include "types/complex_auto_declare.h"
 #include "types/complex_verbose.h"
 
 
