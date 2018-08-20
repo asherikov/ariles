@@ -23,6 +23,9 @@ class Configurable : virtual public ariles::ConfigurableBase
         ARILES_TYPED_ENTRY_(double_negative_infinity, double)
     #include ARILES_INITIALIZE
 
+    public:
+        bool finalized_;
+
 
     public:
         Configurable()
@@ -35,6 +38,9 @@ class Configurable : virtual public ariles::ConfigurableBase
 
         virtual void setDefaults()
         {
+            finalized_ = false;
+
+
             float_quiet_nan_ = 0.0;
             float_signaling_nan_ = 0.0;
             float_positive_infinity_ = 0.0;
@@ -49,6 +55,8 @@ class Configurable : virtual public ariles::ConfigurableBase
 
         virtual void randomize()
         {
+            finalized_ = false;
+
             float_quiet_nan_ = std::numeric_limits<float>::quiet_NaN();
             float_signaling_nan_ = std::numeric_limits<float>::signaling_NaN();
             float_positive_infinity_ = std::numeric_limits<float>::infinity();
@@ -59,12 +67,20 @@ class Configurable : virtual public ariles::ConfigurableBase
             double_positive_infinity_ = std::numeric_limits<double>::infinity();
             double_negative_infinity_ = - std::numeric_limits<double>::infinity();
         }
+
+
+        virtual void finalize()
+        {
+            finalized_ = true;
+        }
 };
 
 
 
 void check(class Configurable & configurable)
 {
+    BOOST_CHECK(true == configurable.finalized_);
+
     BOOST_CHECK(true == ariles::isNaN(configurable.double_quiet_nan_));
     BOOST_CHECK(true == ariles::isNaN(configurable.double_signaling_nan_));
     BOOST_CHECK(true == ariles::isInfinity(configurable.double_positive_infinity_));
