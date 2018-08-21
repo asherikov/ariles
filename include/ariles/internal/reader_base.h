@@ -70,7 +70,10 @@ namespace ariles
             };
 
 
-            virtual std::size_t getMapSize() = 0;
+            virtual std::size_t getMapSize()
+            {
+                return (0);
+            }
             virtual std::size_t startMapImpl(const std::size_t size)
             {
                 return (size);

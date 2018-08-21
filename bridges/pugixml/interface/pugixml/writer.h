@@ -14,7 +14,7 @@ namespace ariles
 {
     namespace bridge
     {
-        namespace rapidjson
+        namespace pugixml
         {
             /**
              * @brief Configuration writer class
@@ -22,7 +22,7 @@ namespace ariles
             class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::WriterBase
             {
                 protected:
-                    typedef ariles::Node< ::rapidjson::Value * > NodeWrapper;
+                    typedef ariles::Node< pugi::xml_node > NodeWrapper;
 
 
                 protected:
@@ -34,33 +34,13 @@ namespace ariles
                     /// output stream
                     std::ostream    *output_stream_;
 
-                    ::rapidjson::Document document_;
+                    pugi::xml_document document_;
 
 
                 protected:
-                    ::rapidjson::Value & getRawNode(const std::size_t depth)
+                    pugi::xml_node & getRawNode()
                     {
-                        if (node_stack_[depth].isArray())
-                        {
-                            return(getRawNode(depth-1)[node_stack_[depth].index_]);
-                        }
-                        else
-                        {
-                            return(*node_stack_[depth].node_);
-                        }
-                    }
-
-
-                    ::rapidjson::Value & getRawNode()
-                    {
-                        if (true == node_stack_.empty())
-                        {
-                            return (document_);
-                        }
-                        else
-                        {
-                            return (getRawNode(node_stack_.size()-1));
-                        }
+                        return(node_stack_.back().node_);
                     }
 
 
@@ -69,14 +49,14 @@ namespace ariles
                     {
                         WriterBase::openFile(config_ofs_, file_name);
                         output_stream_ = &config_ofs_;
-                        document_.SetObject();
+                        node_stack_.push_back(document_);
                     }
 
 
                     explicit Writer(std::ostream& output_stream)
                     {
                         output_stream_ = &output_stream;
-                        document_.SetObject();
+                        node_stack_.push_back(document_);
                     }
 
 
@@ -98,13 +78,9 @@ namespace ariles
                      */
                     void flush()
                     {
-                        ::rapidjson::StringBuffer buffer;
-                        ::rapidjson::PrettyWriter< ::rapidjson::StringBuffer > writer(buffer);
-                        document_.Accept(writer);
-                        *output_stream_ << buffer.GetString() << std::endl;
+                        document_.save(*output_stream_, "    ", pugi::format_indent);
                         output_stream_->flush();
                     }
-
 
 
                     /**
@@ -114,18 +90,7 @@ namespace ariles
                      */
                     void descend(const std::string &map_name)
                     {
-                        ::rapidjson::Value key(map_name.c_str(), document_.GetAllocator());
-                        ::rapidjson::Value value;
-                        getRawNode().AddMember(
-                            key,
-                            value,
-                            document_.GetAllocator());
-
-                        // hack, we assume that the last added
-                        // child is the last in the list
-                        const ::rapidjson::Value::MemberIterator child =
-                            --(getRawNode().MemberEnd());
-                        node_stack_.push_back(NodeWrapper(&(child->value)));
+                        node_stack_.push_back( getRawNode().append_child(map_name.c_str()) );
                     }
 
                     void ascend()
@@ -141,23 +106,16 @@ namespace ariles
                      */
                     void startMap(const std::size_t /*num_entries*/)
                     {
-                        getRawNode().SetObject();
-                        // not provided in older versions
-                        //getRawNode().MemberReserve(num_entries, document_.GetAllocator());
                     }
-
 
 
                     void startArray(const std::size_t size, const bool /*compact*/ = false)
                     {
-                        getRawNode().SetArray();
-                        getRawNode().Reserve(size, document_.GetAllocator());
-                        for (std::size_t i = 0; i < size; ++i)
+                        node_stack_.push_back(NodeWrapper(getRawNode(), 0, size));
+                        if (size > 0)
                         {
-                            ::rapidjson::Value value;
-                            getRawNode().PushBack(value, document_.GetAllocator());
+                            node_stack_.push_back( getRawNode().append_child("item") );
                         }
-                        node_stack_.push_back(NodeWrapper(0, size));
                     }
 
                     void shiftArray()
@@ -165,7 +123,9 @@ namespace ariles
                         ARILES_ASSERT(true == node_stack_.back().isArray(),
                                       "Internal error: expected array.");
                         ARILES_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
-                                      "Internal error: array has more elements than expected.");                        
+                                      "Internal error: array has more elements than expected.");
+                        node_stack_.pop_back();
+                        node_stack_.push_back( getRawNode().append_child("item") );
                         ++node_stack_.back().index_;
                     }
 
@@ -185,29 +145,19 @@ namespace ariles
                      */
                     void writeElement(const std::string & element)
                     {
-                        getRawNode().SetString(element.c_str(), document_.GetAllocator());
+                        getRawNode().text() = element.c_str();
                     }
-
 
                     #define ARILES_BASIC_TYPE(type) \
                         void writeElement(const type & element) \
                         { \
-                            getRawNode() = element; \
+                            getRawNode().text() = element; \
                         }
 
                     ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
             };
-
-
-#ifdef ARILES_BRIDGE_jsonnet
-            namespace jsonnet
-            {
-                // Useless, added for API symmetry
-                typedef rapidjson::Writer Writer;
-            }
-#endif
         }
     }
 }

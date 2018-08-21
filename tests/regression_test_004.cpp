@@ -30,6 +30,10 @@
 #include "ariles/bridges/rapidjson.h"
 #endif
 
+#ifdef ARILES_BRIDGE_pugixml
+#include "ariles/bridges/pugixml.h"
+#endif
+
 // all adapters
 // #include "ariles/adapters_all.h"
 // only basic adapters

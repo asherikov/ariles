@@ -155,7 +155,10 @@ namespace ariles
                          */
                         void ascend()
                         {
-                            shiftArray();
+                            if(true == node_stack_.back().isArray())
+                            {
+                                shiftArray();
+                            }
                         }
 
 
@@ -176,10 +179,11 @@ namespace ariles
 
                         void shiftArray()
                         {
-                            if (node_stack_.back().isArray())
-                            {
-                                ++node_stack_.back().index_;
-                            }
+                            ARILES_ASSERT(true == node_stack_.back().isArray(),
+                                          "Internal error: expected array.");
+                            ARILES_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
+                                          "Internal error: array has more elements than expected.");
+                            ++node_stack_.back().index_;
                         }
 
 

@@ -1,4 +1,5 @@
 set(ARILES_BRIDGE_jsonnet       "OFF"   CACHE STRING "")
+set(ARILES_BRIDGE_pugixml       "BUILD" CACHE STRING "")
 set(ARILES_BRIDGE_rapidjson     "BUILD" CACHE STRING "")
 set(ARILES_BRIDGE_msgpack       "BUILD" CACHE STRING "")
 set(ARILES_BRIDGE_yaml_cpp03    "BUILD" CACHE STRING "")

@@ -47,3 +47,7 @@ ARILES_TESTS_SHORTCUT(ros, ROSInitializer)
 ARILES_TESTS_SHORTCUT(octave, FilenameInitializer)
 #endif
 
+#ifdef ARILES_BRIDGE_INCLUDED_pugixml
+ARILES_TESTS_SHORTCUT(pugixml, FilenameInitializer)
+ARILES_TESTS_SHORTCUT(pugixml, StreamInitializer)
+#endif

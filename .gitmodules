@@ -13,3 +13,6 @@
 [submodule "bridges/rapidjson/rapidjson"]
 	path = bridges/rapidjson/rapidjson
 	url = https://github.com/Tencent/rapidjson
+[submodule "bridges/pugixml/pugixml"]
+	path = bridges/pugixml/pugixml
+	url = https://github.com/zeux/pugixml
