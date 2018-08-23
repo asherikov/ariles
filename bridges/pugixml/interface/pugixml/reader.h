@@ -41,7 +41,7 @@ namespace ariles
                      *
                      * @return pointer to the current node
                      */
-                    const pugi::xml_node & getRawNode()
+                    pugi::xml_node & getRawNode()
                     {
                         return(node_stack_.back().node_);
                     }
@@ -53,6 +53,9 @@ namespace ariles
                         for(pugi::xml_node_iterator it = getRawNode().begin();
                             it != getRawNode().end();
                             ++it, ++size);
+                        for(pugi::xml_attribute attribute = getRawNode().first_attribute();
+                            attribute;
+                            attribute = attribute.next_attribute(), ++size);
                         return (size);
                     }
 
@@ -121,7 +124,18 @@ namespace ariles
                         }
                         else
                         {
-                            return(false);
+                            const pugi::xml_attribute attribute = getRawNode().attribute(child_name.c_str());
+                            if (attribute)
+                            {
+                                pugi::xml_node new_child = getRawNode().append_child(child_name.c_str());
+                                new_child.text() = attribute.value();
+                                node_stack_.push_back(new_child);
+                                return(true);
+                            }
+                            else
+                            {
+                                return(false);
+                            }
                         }
                     }
 

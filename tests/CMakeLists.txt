@@ -32,3 +32,4 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "011" "rapidjson;yaml_cpp" "
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "012" "octave" "")
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "013" "" "yaml_cpp03;yaml_cpp;ros;msgpack;rapidjson;jsonnet;pugixml")
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "014" "" "yaml_cpp03;yaml_cpp;msgpack;rapidjson;jsonnet;pugixml")
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "015" "pugixml" "")
