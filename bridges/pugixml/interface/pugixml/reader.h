@@ -10,6 +10,8 @@
 
 #pragma once
 
+#include <boost/lexical_cast.hpp>
+
 namespace ariles
 {
     namespace bridge
@@ -45,6 +47,15 @@ namespace ariles
                     }
 
 
+                    std::size_t getMapSize()
+                    {
+                        std::size_t size = 0;
+                        for(pugi::xml_node_iterator it = getRawNode().begin();
+                            it != getRawNode().end();
+                            ++it, ++size);
+                        return (size);
+                    }
+
 
                 public:
                     /**
@@ -58,6 +69,7 @@ namespace ariles
                                 file_name.c_str(),
                                 pugi::parse_minimal);
                         ARILES_ASSERT(true == result, std::string("Parsing failed: ") + result.description());
+                        node_stack_.push_back(document_);
                     }
 
 
@@ -72,6 +84,7 @@ namespace ariles
                                 input_stream,
                                 pugi::parse_minimal);
                         ARILES_ASSERT(true == result, std::string("Parsing failed: ") + result.description());
+                        node_stack_.push_back(document_);
                     }
 
 
@@ -125,9 +138,9 @@ namespace ariles
                     bool getMapEntryNames(std::vector<std::string> &child_names)
                     {
                         const pugi::xml_node node = getRawNode();
+                        child_names.clear();
                         for (pugi::xml_node_iterator it = node.begin(); it != node.end(); ++it)
                         {
-                            child_names.clear();
                             child_names.push_back(it->name());
                         }
                         return (true);
@@ -199,30 +212,10 @@ namespace ariles
                         { \
                             ARILES_ASSERT(false == getRawNode().text().empty(), \
                                         "Empty integer elements are not allowed."); \
-                            long long tmp = getRawNode().text().as_llong(); \
-                            ARILES_ASSERT(tmp <= std::numeric_limits<type>::max() \
-                                        && tmp >= std::numeric_limits<type>::min(), \
-                                        "Value is out of range."); \
-                            element = static_cast<type>(tmp); \
+                            element = boost::lexical_cast<type>(getRawNode().text().as_string()); \
                         }
 
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
-
-                    #undef ARILES_BASIC_TYPE
-
-
-                    #define ARILES_BASIC_TYPE(type) \
-                        void readElement(type &element) \
-                        { \
-                            ARILES_ASSERT(false == getRawNode().text().empty(), \
-                                        "Empty integer elements are not allowed."); \
-                            unsigned long long tmp = getRawNode().text().as_ullong(); \
-                            ARILES_ASSERT(tmp <= std::numeric_limits<type>::max(), \
-                                        "Value is out of range."); \
-                            element = static_cast<type>(tmp); \
-                        }
-
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_INTEGER_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
             };

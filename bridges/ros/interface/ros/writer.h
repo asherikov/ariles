@@ -140,7 +140,7 @@ namespace ariles
                         ARILES_ASSERT(true == node_stack_.back().isArray(),
                                       "Internal error: expected array.");
                         ARILES_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
-                                      "Internal error: array has more elements than expected.");                        
+                                      "Internal error: array has more elements than expected.");
                         ++node_stack_.back().index_;
                     }
 

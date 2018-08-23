@@ -120,13 +120,16 @@ namespace ariles
 
                     void shiftArray()
                     {
+                        node_stack_.pop_back();
                         ARILES_ASSERT(true == node_stack_.back().isArray(),
                                       "Internal error: expected array.");
                         ARILES_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
                                       "Internal error: array has more elements than expected.");
-                        node_stack_.pop_back();
-                        node_stack_.push_back( getRawNode().append_child("item") );
                         ++node_stack_.back().index_;
+                        if (node_stack_.back().index_ < node_stack_.back().size_)
+                        {
+                            node_stack_.push_back( getRawNode().append_child("item") );
+                        }
                     }
 
                     void endArray()
