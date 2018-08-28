@@ -22,6 +22,7 @@ TARGETS?=all
 
 clean:
 	rm -Rf build;
+	rm -Rf doc/dox;
 
 
 #----------------------------------------------
@@ -107,5 +108,8 @@ test-cmake:
 
 update:
 	git submodule update
+
+dox:
+	cd doc; doxygen
 
 .PHONY: clean cmake build
