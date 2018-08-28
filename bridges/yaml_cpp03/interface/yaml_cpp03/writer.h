@@ -23,7 +23,8 @@ namespace ariles
             /**
              * @brief Configuration writer class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::WriterBase
+            class ARILES_VISIBILITY_ATTRIBUTE Writer :
+                public ariles::bridge::yaml_cpp03::Base<ariles::WriterBase>
             {
                 protected:
                     /// output file stream
@@ -84,12 +85,6 @@ namespace ariles
                         delete emitter_;
                     }
 
-
-                    const BridgeParameters &getBridgeParameters() const
-                    {
-                        static BridgeParameters parameters(true);
-                        return (parameters);
-                    }
 
 
                     /**

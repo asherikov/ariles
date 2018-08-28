@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include "bridge_common.h"
 
 namespace ariles
 {
@@ -39,7 +38,7 @@ namespace ariles
 
 
         public:
-            virtual const BridgeParameters & getBridgeParameters() const = 0;
+            virtual const BridgeFlags & getBridgeFlags() const = 0;
 
             virtual void initRoot() {}
 

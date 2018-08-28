@@ -58,7 +58,6 @@ class BasicInterfaceFixture : public t_FixtureBase
             // --------------------------------
             // strictness control
             // --------------------------------
-            bool strict = true;
 
             // Exlicit instantiation of reader and writer classes
             {
@@ -66,14 +65,14 @@ class BasicInterfaceFixture : public t_FixtureBase
                 configurable.randomize();
 
                 typename t_Bridge::Writer writer(std::string("configurable3") + ".cfg");
-                configurable.writeConfig(writer, strict);
+                configurable.writeConfig(writer);
             }
 
             {
                 t_Configurable configurable;
 
                 typename t_Bridge::Reader reader(std::string("configurable3") + ".cfg");
-                configurable.readConfig(reader, strict);
+                configurable.readConfig(reader, ariles::ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
             }
 
             // --------------------------------
@@ -83,12 +82,13 @@ class BasicInterfaceFixture : public t_FixtureBase
             {
                 t_Configurable configurable;
                 configurable.randomize();
-                configurable.template writeConfig<t_Bridge>(std::string("configurable4") + ".cfg", strict);
+                configurable.template writeConfig<t_Bridge>(std::string("configurable4") + ".cfg");
             }
 
             {
                 t_Configurable configurable;
-                configurable.template readConfig<t_Bridge>(std::string("configurable4") + ".cfg", strict);
+                configurable.template readConfig<t_Bridge>(std::string("configurable4") + ".cfg",
+                        ariles::ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
             }
         }
 };

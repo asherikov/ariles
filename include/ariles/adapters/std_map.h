@@ -26,7 +26,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader & reader,
                     std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry,
-                    const ariles::ConfigurableParameters & param);
+                    const ariles::ConfigurableFlags & param);
 
         template <  class t_Reader,
                     typename t_Value,
@@ -35,7 +35,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader & reader,
                     std::map<std::string, t_Value, t_Compare, t_Allocator> & entry,
-                    const ariles::ConfigurableParameters & param);
+                    const ariles::ConfigurableFlags & param);
     }
 
 
@@ -49,7 +49,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE writeBody(
                     t_Writer & writer,
                     const std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry,
-                    const ariles::ConfigurableParameters & param);
+                    const ariles::ConfigurableFlags & param);
 
         template <  class t_Writer,
                     typename t_Value,
@@ -58,6 +58,6 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE writeBody(
                     t_Writer & writer,
                     const std::map<std::string, t_Value, t_Compare, t_Allocator> & entry,
-                    const ariles::ConfigurableParameters & param);
+                    const ariles::ConfigurableFlags & param);
     }
 }

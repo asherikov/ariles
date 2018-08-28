@@ -21,32 +21,10 @@ namespace ariles
             /**
              * @brief Configuration reader class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase
+            class ARILES_VISIBILITY_ATTRIBUTE Reader :
+                public ariles::bridge::pugixml::Base<ariles::ReaderBase>
             {
                 protected:
-                    typedef ariles::Node< pugi::xml_node > NodeWrapper;
-
-
-                protected:
-                    /// instance of the parser
-                    pugi::xml_document document_;
-
-                    /// Stack of nodes.
-                    std::vector<NodeWrapper>    node_stack_;
-
-
-                protected:
-                    /**
-                     * @brief Get current node
-                     *
-                     * @return pointer to the current node
-                     */
-                    pugi::xml_node & getRawNode()
-                    {
-                        return(node_stack_.back().node_);
-                    }
-
-
                     std::size_t getMapSize()
                     {
                         std::size_t size = 0;
@@ -88,21 +66,6 @@ namespace ariles
                                 pugi::parse_minimal);
                         ARILES_ASSERT(true == result, std::string("Parsing failed: ") + result.description());
                         node_stack_.push_back(document_);
-                    }
-
-
-                    /**
-                     * @brief Default constructor
-                     */
-                    Reader()
-                    {
-                    }
-
-
-                    const BridgeParameters &getBridgeParameters() const
-                    {
-                        static BridgeParameters parameters(true);
-                        return (parameters);
                     }
 
 

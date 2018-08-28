@@ -22,7 +22,8 @@ namespace ariles
             /**
              * @brief Configuration reader class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase
+            class ARILES_VISIBILITY_ATTRIBUTE Reader : 
+                public ariles::bridge::msgpack::Base<ariles::ReaderBase>
             {
                 protected:
                     typedef ariles::Node< const ::msgpack::object * > NodeWrapper;
@@ -121,21 +122,6 @@ namespace ariles
                     explicit Reader(std::istream & input_stream)
                     {
                         initialize(input_stream);
-                    }
-
-
-                    /**
-                     * @brief Default constructor
-                     */
-                    Reader()
-                    {
-                    }
-
-
-                    const BridgeParameters &getBridgeParameters() const
-                    {
-                        static BridgeParameters parameters(false);
-                        return (parameters);
                     }
 
 

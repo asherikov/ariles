@@ -28,7 +28,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader & reader,
                     std::vector<t_VectorEntryType, t_Allocator> & entry,
-                    const ariles::ConfigurableParameters & param)
+                    const ariles::ConfigurableFlags & param)
         {
             entry.resize(reader.startArray());
             for(std::size_t i = 0; i < entry.size(); ++i)
@@ -57,9 +57,9 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE writeBody(
                     t_Writer & writer,
                     const std::vector<t_VectorEntryType, t_Allocator> & entry,
-                    const ariles::ConfigurableParameters & param)
+                    const ariles::ConfigurableFlags & param)
         {
-            writer.startArray(entry.size(), param.compact_arrays_if_supported_);
+            writer.startArray(entry.size(), param.isSet(ConfigurableFlags::COMPACT_ARRAYS_IF_SUPPORTED));
             for (std::size_t i = 0; i < entry.size(); ++i)
             {
                 writeBody(writer, entry[i], param);

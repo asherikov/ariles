@@ -43,7 +43,7 @@
             #define ARILES_PARENT(entry)       ARILES_WRITE_PARENT(entry)
 
             void writeConfigEntries(ariles::WriterBase & writer,
-                                    const ariles::ConfigurableParameters & param) const
+                                    const ariles::ConfigurableFlags & param) const
             {
                 ARILES_IGNORE_UNUSED(writer);
                 ARILES_IGNORE_UNUSED(param);
@@ -59,13 +59,12 @@
             #define ARILES_PARENT(entry)       ARILES_READ_PARENT(entry)
 
             void readConfigEntries( ariles::ReaderBase & reader,
-                                    const ariles::ConfigurableParameters & parameters)
+                                    const ariles::ConfigurableFlags & parameters)
             {
-                ariles::ConfigurableParameters param = parameters;
-                if (false == param.override_crash_on_missing_entry_)
+                ariles::ConfigurableFlags param = parameters;
+                if (false == param.isSet(ariles::ConfigurableFlags::OVERRIDE_CRASH_ON_MISSING_ENTRY))
                 {
-                    param.crash_on_missing_entry_ =
-                        this->getArilesConfigurableParameters().crash_on_missing_entry_;
+                    param.copy(parameters, ariles::ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
                 }
                 ARILES_IGNORE_UNUSED(reader);
                 ARILES_IGNORE_UNUSED(param);
@@ -110,8 +109,8 @@
 
 
 
-        // generate methods which accept ConfigurableParameters
-        #define ARILES_CONFIGURABLE_PARAMETERS_ARG              , const ariles::ConfigurableParameters & param
+        // generate methods which accept ConfigurableFlags
+        #define ARILES_CONFIGURABLE_PARAMETERS_ARG              , const ariles::ConfigurableFlags & param
         #define ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA   ARILES_CONFIGURABLE_PARAMETERS_ARG,
         #define ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE        param
         #include "define_accessors_readwrite.h"
@@ -119,10 +118,10 @@
         #undef ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
         #undef ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE
 
-        // generate methods which use default ConfigurableParameters
+        // generate methods which use default ConfigurableFlags
         #define ARILES_CONFIGURABLE_PARAMETERS_ARG
         #define ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA   ,
-        #define ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE        this->getArilesConfigurableParameters()
+        #define ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE        this->getArilesConfigurableFlags()
         #include "define_accessors_readwrite.h"
         #undef ARILES_CONFIGURABLE_PARAMETERS_ARG
         #undef ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA

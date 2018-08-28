@@ -18,6 +18,27 @@
 
 #include ARILES_BRIDGE_yaml_cpp_INCLUDE_HEADER
 
+namespace ariles
+{
+    namespace bridge
+    {
+        namespace yaml_cpp
+        {
+            template <class t_Base>
+            class Base : public t_Base
+            {
+                public:
+                    const BridgeFlags &getBridgeFlags() const
+                    {
+                        static BridgeFlags parameters(BridgeFlags::SLOPPY_MAPS_SUPPORTED);
+                        return (parameters);
+                    }
+            };
+        }
+    }
+}
+
+
 #include "./yaml_cpp/reader.h"
 #include "./yaml_cpp/writer.h"
 

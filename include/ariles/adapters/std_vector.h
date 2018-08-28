@@ -24,7 +24,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader & reader,
                     std::vector<t_VectorEntryType, t_Allocator> & entry,
-                    const ariles::ConfigurableParameters & param);
+                    const ariles::ConfigurableFlags & param);
     }
 
 
@@ -36,6 +36,6 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE writeBody(
                     t_Writer & writer,
                     const std::vector<t_VectorEntryType, t_Allocator> & entry,
-                    const ariles::ConfigurableParameters & param);
+                    const ariles::ConfigurableFlags & param);
     }
 }

@@ -22,7 +22,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             readBody(   t_Reader &reader,
                         t_BetterEnum &entry,
-                        const ariles::ConfigurableParameters & param,
+                        const ariles::ConfigurableFlags & param,
                         const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
                         const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
                         const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
@@ -46,7 +46,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             writeBody(  t_Writer & writer,
                         const t_BetterEnum &entry,
-                        const ariles::ConfigurableParameters & param,
+                        const ariles::ConfigurableFlags & param,
                         const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
                         const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
                         const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,

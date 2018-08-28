@@ -63,7 +63,7 @@
                 CommonConfigurableBase() {}
 
 
-                virtual const ConfigurableParameters &getArilesConfigurableParameters() const = 0;
+                virtual const ConfigurableFlags &getArilesConfigurableFlags() const = 0;
 
 
             public:
@@ -107,10 +107,10 @@
                  * These functions are always defined automatically.
                  */
                 virtual void writeConfigEntries(ariles::WriterBase & writer,
-                                                const ConfigurableParameters & param) const = 0;
+                                                const ConfigurableFlags & param) const = 0;
 
                 virtual void readConfigEntries( ariles::ReaderBase & reader,
-                                                const ConfigurableParameters & param) = 0;
+                                                const ConfigurableFlags & param) = 0;
                 /// @}
         };
 
@@ -126,9 +126,10 @@
                 StrictConfigurableBase() {}
 
 
-                virtual const ConfigurableParameters &getArilesConfigurableParameters() const
+                virtual const ConfigurableFlags &getArilesConfigurableFlags() const
                 {
-                    static ConfigurableParameters parameters(true);
+                    static ConfigurableFlags parameters(
+                            ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
                     return (parameters);
                 }
         };
@@ -145,9 +146,11 @@
                 RelaxedConfigurableBase() {}
 
 
-                virtual const ConfigurableParameters &getArilesConfigurableParameters() const
+                virtual const ConfigurableFlags &getArilesConfigurableFlags() const
                 {
-                    static ConfigurableParameters parameters(false);
+                    static ConfigurableFlags parameters(
+                            ConfigurableFlags::CRASH_ON_MISSING_ENTRY,
+                            ConfigurableFlags::UNSET);
                     return (parameters);
                 }
         };

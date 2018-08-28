@@ -26,7 +26,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                                     t_Reader  & reader,
                                     ariles::CommonConfigurableBase & entry,
-                                    const ariles::ConfigurableParameters & param)
+                                    const ariles::ConfigurableFlags & param)
         {
             entry.setDefaults();
             reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(entry.getNumberOfEntries());
@@ -48,7 +48,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                             t_Reader & reader,
                             t_Enumeration &entry,
-                            const ariles::ConfigurableParameters & /*param*/,
+                            const ariles::ConfigurableFlags & /*param*/,
                             // ENABLE this function for enums
                             ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
         {
@@ -63,7 +63,7 @@ namespace ariles
                     void ARILES_VISIBILITY_ATTRIBUTE readBody( \
                                     t_Reader & reader, \
                                     type &entry, \
-                                    const ariles::ConfigurableParameters & param) \
+                                    const ariles::ConfigurableFlags & param) \
                 { \
                     ARILES_IGNORE_UNUSED(param);\
                     reader.readElement(entry);\
@@ -89,7 +89,7 @@ namespace ariles
                             t_Reader & reader,
                             t_Entry &entry,
                             const std::string & entry_name,
-                            const ariles::ConfigurableParameters & param)
+                            const ariles::ConfigurableFlags & param)
         {
             if (reader.descend(entry_name))
             {
@@ -109,7 +109,7 @@ namespace ariles
             }
             else
             {
-                if (param.crash_on_missing_entry_)
+                if (param.isSet(ConfigurableFlags::CRASH_ON_MISSING_ENTRY))
                 {
                     ARILES_THROW_MSG(std::string("Configuration file does not contain entry '") + entry_name + "'.");
                 }
@@ -133,7 +133,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE writeBody(
                             t_Writer & writer,
                             const t_Enumeration  entry,
-                            const ariles::ConfigurableParameters & /*param*/,
+                            const ariles::ConfigurableFlags & /*param*/,
                             ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
         {
             int tmp_value = entry;
@@ -145,7 +145,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE writeBody(
                             t_Writer & writer,
                             const ariles::CommonConfigurableBase & entry,
-                            const ariles::ConfigurableParameters & param)
+                            const ariles::ConfigurableFlags & param)
         {
             writer.startMap(entry.getNumberOfEntries());
             entry.writeConfigEntries(writer, param);
@@ -159,7 +159,7 @@ namespace ariles
                     void ARILES_VISIBILITY_ATTRIBUTE writeBody( \
                                     t_Writer &  writer, \
                                     const type & entry, \
-                                    const ariles::ConfigurableParameters & param) \
+                                    const ariles::ConfigurableFlags & param) \
                 {\
                     ARILES_IGNORE_UNUSED(param); \
                     writer.writeElement(entry);\
@@ -177,7 +177,7 @@ namespace ariles
                             t_Writer & writer,
                             const t_Entry & entry,
                             const std::string & entry_name,
-                            const ariles::ConfigurableParameters & param)
+                            const ariles::ConfigurableFlags & param)
         {
             writer.descend(entry_name);
             writeBody(writer, entry, param);

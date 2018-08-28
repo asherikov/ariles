@@ -19,7 +19,8 @@ namespace ariles
             /**
              * @brief Configuration reader class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase
+            class ARILES_VISIBILITY_ATTRIBUTE Reader : 
+                public ariles::bridge::yaml_cpp::Base<ariles::ReaderBase>
             {
                 protected:
                     typedef ariles::Node<YAML::Node> NodeWrapper;
@@ -89,14 +90,6 @@ namespace ariles
 
 
                     /**
-                     * @brief Default constructor
-                     */
-                    Reader()
-                    {
-                    }
-
-
-                    /**
                      * @brief Descend to the entry with the given name
                      *
                      * @param[in] child_name child node name
@@ -118,12 +111,6 @@ namespace ariles
                         }
                     }
 
-
-                    const BridgeParameters &getBridgeParameters() const
-                    {
-                        static BridgeParameters parameters(true);
-                        return (parameters);
-                    }
 
 
                     /**

@@ -30,7 +30,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader &reader,
                     Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
-                    const ariles::ConfigurableParameters & param)
+                    const ariles::ConfigurableFlags & param)
         {
             std::size_t size = reader.startArray();
 
@@ -72,15 +72,15 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             readBody(  t_Reader & reader,
                        Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
-                       const ariles::ConfigurableParameters & param)
+                       const ariles::ConfigurableFlags & param)
         {
-            if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols || true == param.force_explicit_matrix_size_)
+            if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols || param.isSet(ConfigurableFlags::FORCE_EXPLICIT_MATRIX_SIZE))
             {
                 EIGEN_DEFAULT_DENSE_INDEX_TYPE num_rows;
                 EIGEN_DEFAULT_DENSE_INDEX_TYPE num_cols;
 
-                ariles::ConfigurableParameters param_local = param;
-                param_local.crash_on_missing_entry_ = true;
+                ariles::ConfigurableFlags param_local = param;
+                param_local.set(ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
 
                 reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(3);
                 readEntry(reader, num_cols, "cols", param_local);
@@ -130,7 +130,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             readBody(   t_Reader & reader,
                         Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
-                        const ariles::ConfigurableParameters & param)
+                        const ariles::ConfigurableFlags & param)
         {
             Eigen::Matrix<
                 t_Scalar,
@@ -147,10 +147,10 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             readBody(   t_Reader & reader,
                         Eigen::Quaternion< t_Scalar, t_options > &entry,
-                        const ariles::ConfigurableParameters & param)
+                        const ariles::ConfigurableFlags & param)
         {
-            ariles::ConfigurableParameters param_local = param;
-            param_local.crash_on_missing_entry_ = true;
+            ariles::ConfigurableFlags param_local = param;
+            param_local.set(ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
 
             reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(4);
             readEntry(reader, entry.x(), "x", param_local);
@@ -179,9 +179,9 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             writeBody( t_Writer & writer,
                        const Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
-                       const ariles::ConfigurableParameters & /*param*/)
+                       const ariles::ConfigurableFlags & /*param*/)
         {
-            if (true == writer.getBridgeParameters().native_matrix_supported_)
+            if (writer.getBridgeFlags().isSet(BridgeFlags::NATIVE_MATRIX_SUPPORTED))
             {
                 writer.startMatrix(true);
                 for(EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0;
@@ -227,9 +227,9 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             writeBody( t_Writer & writer,
                        const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
-                       const ariles::ConfigurableParameters & param)
+                       const ariles::ConfigurableFlags & param)
         {
-            if (true == writer.getBridgeParameters().native_matrix_supported_)
+            if (writer.getBridgeFlags().isSet(BridgeFlags::NATIVE_MATRIX_SUPPORTED))
             {
                 writer.startMatrix();
                 for(EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0;
@@ -249,7 +249,8 @@ namespace ariles
             }
             else
             {
-                if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols || true == param.force_explicit_matrix_size_)
+                if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols
+                        || param.isSet(ConfigurableFlags::FORCE_EXPLICIT_MATRIX_SIZE))
                 {
                     writer.startMap(3);
 
@@ -297,7 +298,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             writeBody(  t_Writer & writer,
                         const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
-                        const ariles::ConfigurableParameters & param)
+                        const ariles::ConfigurableFlags & param)
         {
             writeBody(writer, entry.matrix(), param);
         }
@@ -309,7 +310,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             writeBody(  t_Writer & writer,
                         const Eigen::Quaternion< t_Scalar, t_options > &entry,
-                        const ariles::ConfigurableParameters & param)
+                        const ariles::ConfigurableFlags & param)
         {
             writer.startMap(4);
 

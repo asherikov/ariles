@@ -21,47 +21,10 @@ namespace ariles
             /**
              * @brief Configuration reader class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase
+            class ARILES_VISIBILITY_ATTRIBUTE Reader : 
+                public ariles::bridge::ros::Base<ariles::ReaderBase>
             {
                 protected:
-                    typedef ariles::Node<XmlRpc::XmlRpcValue *> NodeWrapper;
-
-
-                protected:
-                    /// Stack of nodes.
-                    std::vector<NodeWrapper>    node_stack_;
-
-                    std::string                 root_name_;
-                    XmlRpc::XmlRpcValue         root_value_;
-
-                    ::ros::NodeHandle nh_;
-
-
-                protected:
-                    /**
-                     * @brief Get current node
-                     *
-                     * @return pointer to the current node
-                     */
-                    XmlRpc::XmlRpcValue & getRawNode(const std::size_t depth)
-                    {
-                        if (node_stack_[depth].isArray())
-                        {
-                            return(getRawNode(depth-1)[node_stack_[depth].index_]);
-                        }
-                        else
-                        {
-                            return(*node_stack_[depth].node_);
-                        }
-                    }
-
-
-                    XmlRpc::XmlRpcValue & getRawNode()
-                    {
-                        return(getRawNode(node_stack_.size()-1));
-                    }
-
-
                     std::size_t getMapSize()
                     {
                         return (getRawNode().size());
@@ -77,21 +40,6 @@ namespace ariles
                     explicit Reader(const ::ros::NodeHandle &nh)
                     {
                         nh_ = nh;
-                    }
-
-
-                    /**
-                     * @brief Default constructor
-                     */
-                    Reader()
-                    {
-                    }
-
-
-                    const BridgeParameters &getBridgeParameters() const
-                    {
-                        static BridgeParameters parameters(true);
-                        return (parameters);
                     }
 
 

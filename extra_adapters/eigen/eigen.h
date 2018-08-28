@@ -27,7 +27,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             readBody(   t_Reader &reader,
                         Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
-                        const ariles::ConfigurableParameters & param);
+                        const ariles::ConfigurableFlags & param);
 
 
         template <  class t_Reader,
@@ -38,7 +38,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             readBody(   t_Reader & reader,
                         Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
-                        const ariles::ConfigurableParameters & param);
+                        const ariles::ConfigurableFlags & param);
 
 
         template <  class t_Reader,
@@ -49,7 +49,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             readBody(   t_Reader & reader,
                         Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
-                        const ariles::ConfigurableParameters & param);
+                        const ariles::ConfigurableFlags & param);
 
 
         template <  class t_Reader,
@@ -58,7 +58,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             readBody(   t_Reader & reader,
                         Eigen::Quaternion< t_Scalar, t_options > &entry,
-                        const ariles::ConfigurableParameters & param);
+                        const ariles::ConfigurableFlags & param);
     }
 
 
@@ -79,7 +79,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             writeBody(  t_Writer & writer,
                         const Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
-                        const ariles::ConfigurableParameters & param);
+                        const ariles::ConfigurableFlags & param);
 
 
 
@@ -102,7 +102,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             writeBody(  t_Writer & writer,
                         const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
-                        const ariles::ConfigurableParameters & param);
+                        const ariles::ConfigurableFlags & param);
 
 
         template <  class t_Writer,
@@ -113,7 +113,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             writeBody(  t_Writer & writer,
                         const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
-                        const ariles::ConfigurableParameters & param);
+                        const ariles::ConfigurableFlags & param);
 
 
         template <  class t_Writer,
@@ -122,6 +122,6 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             writeBody(  t_Writer & writer,
                         const Eigen::Quaternion< t_Scalar, t_options > &entry,
-                        const ariles::ConfigurableParameters & param);
+                        const ariles::ConfigurableFlags & param);
     }
 }

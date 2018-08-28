@@ -119,4 +119,77 @@ namespace ariles
     };
 }
 
-#include "../configurable_parameters.h"
+
+namespace ariles
+{
+    template <class t_Derived>
+    class Flags
+    {
+        public:
+            enum Action
+            {
+                DEFAULT = 0,
+                REPLACE = 1,
+                SET = 2,
+                UNSET = 3
+            };
+
+
+        public:
+            uint64_t flags_;
+
+
+        public:
+            void initialize(const uint64_t flags, const Action action_type = SET)
+            {
+                switch(action_type)
+                {
+                    case REPLACE:
+                        replace(flags);
+                        break;
+
+                    case SET:
+                        static_cast<t_Derived *>(this)->setDefaults();
+                        set(flags);
+                        break;
+
+                    case UNSET:
+                        static_cast<t_Derived *>(this)->setDefaults();
+                        unset(flags);
+                        break;
+
+                    default:
+                        ARILES_THROW_MSG("Unknown Flags::Action type.");
+                }
+            }
+
+
+            void copy(const t_Derived & from, const uint64_t flags)
+            {
+                set(from.flags_ & flags);
+            }
+
+            bool isSet(const uint64_t flags) const
+            {
+                return (flags_ & flags);
+            }
+
+            void replace(const uint64_t flags)
+            {
+                flags_ = flags;
+            }
+
+            void set(const uint64_t flags)
+            {
+                flags_ |= flags;
+            }
+
+            void unset(const uint64_t flags)
+            {
+                flags_ &= !flags;
+            }
+    };
+}
+
+#include "../configurable_flags.h"
+#include "../bridge_flags.h"

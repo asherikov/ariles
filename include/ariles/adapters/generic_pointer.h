@@ -19,7 +19,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             readBody(   t_Reader &reader,
                         ARILES_POINTER_TYPE(t_Entry) &entry,
-                        const ariles::ConfigurableParameters & param);
+                        const ariles::ConfigurableFlags & param);
     }
 
 
@@ -30,7 +30,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             writeBody(  t_Writer & writer,
                         const ARILES_POINTER_TYPE(t_Entry) &entry,
-                        const ariles::ConfigurableParameters & param);
+                        const ariles::ConfigurableFlags & param);
     }
 }
 

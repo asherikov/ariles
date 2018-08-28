@@ -21,6 +21,28 @@
 
 #include <msgpack.hpp>
 
+
+namespace ariles
+{
+    namespace bridge
+    {
+        namespace msgpack
+        {
+            template <class t_Base>
+            class Base : public t_Base
+            {
+                public:
+                    const BridgeFlags &getBridgeFlags() const
+                    {
+                        static BridgeFlags parameters; // all disabled
+                        return (parameters);
+                    }
+            };
+        }
+    }
+}
+
+
 #include "./msgpack/reader.h"
 #include "./msgpack/writer.h"
 #include "./msgpack/reader_compact.h"

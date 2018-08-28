@@ -19,20 +19,9 @@ namespace ariles
             /**
              * @brief Configuration reader class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ReaderBase
+            class ARILES_VISIBILITY_ATTRIBUTE Reader :
+                public ariles::bridge::rapidjson::Base<ariles::ReaderBase, const ::rapidjson::Value>
             {
-                protected:
-                    typedef ariles::Node< const ::rapidjson::Value * > NodeWrapper;
-
-
-                protected:
-                    /// instance of the parser
-                    ::rapidjson::Document document_;
-
-                    /// Stack of nodes.
-                    std::vector<NodeWrapper>    node_stack_;
-
-
                 protected:
                     void initialize(std::istream & input_stream)
                     {
@@ -42,42 +31,16 @@ namespace ariles
                     }
 
 
-                    /**
-                     * @brief Get current node
-                     *
-                     * @return pointer to the current node
-                     */
-                    const ::rapidjson::Value & getRawNode(const std::size_t depth)
-                    {
-                        if (node_stack_[depth].isArray())
-                        {
-                            return(getRawNode(depth-1)[node_stack_[depth].index_]);
-                        }
-                        else
-                        {
-                            return(*node_stack_[depth].node_);
-                        }
-                    }
-
-
-                    const ::rapidjson::Value & getRawNode()
-                    {
-                        if (true == node_stack_.empty())
-                        {
-                            return (document_);
-                        }
-                        else
-                        {
-                            return (getRawNode(node_stack_.size()-1));
-                        }
-                    }
-
-
                     std::size_t getMapSize()
                     {
                         return (getRawNode().MemberCount());
                     }
 
+
+                protected:
+                    Reader()
+                    {
+                    }
 
 
                 public:
@@ -102,21 +65,6 @@ namespace ariles
                     explicit Reader(std::istream & input_stream)
                     {
                         initialize(input_stream);
-                    }
-
-
-                    /**
-                     * @brief Default constructor
-                     */
-                    Reader()
-                    {
-                    }
-
-
-                    const BridgeParameters &getBridgeParameters() const
-                    {
-                        static BridgeParameters parameters(true);
-                        return (parameters);
                     }
 
 

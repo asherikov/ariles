@@ -37,35 +37,13 @@ class OctaveFixture : public t_FixtureBase
                 BOOST_CHECK_EQUAL(0, std::system(octave_cmd.c_str()));
             }
 
-
             // --------------------------------
-            // strictness control
-            // --------------------------------
-            bool strict = true;
 
-            // Exlicit instantiation of reader and writer classes
+            // Implicit instantiation of the writer class
             {
                 t_Configurable configurable;
                 configurable.randomize();
-
-                typename t_Bridge::Writer writer(getWriterInitializer("configurable.cfg"));
-                configurable.writeConfig(writer, strict);
-
-                std::string octave_cmd =
-                    std::string("octave --no-gui --no-history --silent --eval 'source ")
-                    + getWriterInitializer("configurable.cfg")
-                    + "'";
-                BOOST_CHECK_EQUAL(0, std::system(octave_cmd.c_str()));
-            }
-
-            // --------------------------------
-
-            // Implicit instantiation of reader and writer classes
-
-            {
-                t_Configurable configurable;
-                configurable.randomize();
-                configurable.template writeConfig<t_Bridge>(getWriterInitializer("configurable2.cfg"), strict);
+                configurable.template writeConfig<t_Bridge>(getWriterInitializer("configurable2.cfg"));
 
                 std::string octave_cmd =
                     std::string("octave --no-gui --no-history --silent --eval 'source ")

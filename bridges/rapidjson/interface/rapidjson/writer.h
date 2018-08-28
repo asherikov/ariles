@@ -19,49 +19,15 @@ namespace ariles
             /**
              * @brief Configuration writer class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::WriterBase
+            class ARILES_VISIBILITY_ATTRIBUTE Writer :
+                public ariles::bridge::rapidjson::Base<ariles::WriterBase, ::rapidjson::Value>
             {
                 protected:
-                    typedef ariles::Node< ::rapidjson::Value * > NodeWrapper;
-
-
-                protected:
-                    std::vector<NodeWrapper>    node_stack_;
-
                     /// output file stream
                     std::ofstream   config_ofs_;
 
                     /// output stream
                     std::ostream    *output_stream_;
-
-                    ::rapidjson::Document document_;
-
-
-                protected:
-                    ::rapidjson::Value & getRawNode(const std::size_t depth)
-                    {
-                        if (node_stack_[depth].isArray())
-                        {
-                            return(getRawNode(depth-1)[node_stack_[depth].index_]);
-                        }
-                        else
-                        {
-                            return(*node_stack_[depth].node_);
-                        }
-                    }
-
-
-                    ::rapidjson::Value & getRawNode()
-                    {
-                        if (true == node_stack_.empty())
-                        {
-                            return (document_);
-                        }
-                        else
-                        {
-                            return (getRawNode(node_stack_.size()-1));
-                        }
-                    }
 
 
                 public:
@@ -77,18 +43,6 @@ namespace ariles
                     {
                         output_stream_ = &output_stream;
                         document_.SetObject();
-                    }
-
-
-                    ~Writer()
-                    {
-                    }
-
-
-                    const BridgeParameters &getBridgeParameters() const
-                    {
-                        static BridgeParameters parameters(true);
-                        return (parameters);
                     }
 
 

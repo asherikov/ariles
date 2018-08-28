@@ -64,14 +64,9 @@ namespace ariles
                     }
 
 
-                    ~Writer()
+                    const BridgeFlags &getBridgeFlags() const
                     {
-                    }
-
-
-                    const BridgeParameters &getBridgeParameters() const
-                    {
-                        static BridgeParameters parameters(true, true);
+                        static BridgeFlags parameters(BridgeFlags::NATIVE_MATRIX_SUPPORTED);
                         return (parameters);
                     }
 

@@ -31,12 +31,12 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader & reader,
                     std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry,
-                    const ariles::ConfigurableParameters & param)
+                    const ariles::ConfigurableFlags & param)
         {
             std::size_t size = reader.startArray();
             entry.clear();
-            ariles::ConfigurableParameters param_local = param;
-            param_local.crash_on_missing_entry_ = true;
+            ariles::ConfigurableFlags param_local = param;
+            param_local.set(ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
             for(std::size_t i = 0; i < size; ++i)
             {
                 std::pair<t_Key, t_Value> map_entry;
@@ -58,16 +58,16 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader & reader,
                     std::map<std::string, t_Value, t_Compare, t_Allocator> & entry,
-                    const ariles::ConfigurableParameters & param)
+                    const ariles::ConfigurableFlags & param)
         {
-            if ((true == reader.getBridgeParameters().sloppy_maps_supported_)
-                    && (true == param.enable_sloppy_maps_if_supported_))
+            if (reader.getBridgeFlags().isSet(BridgeFlags::SLOPPY_MAPS_SUPPORTED)
+                    && param.isSet(ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED))
             {
                 std::vector<std::string> entry_names;
                 ARILES_ASSERT(true == reader.getMapEntryNames(entry_names), "Could not read names of map entries.");
                 entry.clear();
-                ariles::ConfigurableParameters param_local = param;
-                param_local.crash_on_missing_entry_ = true;
+                ariles::ConfigurableFlags param_local = param;
+                param_local.set(ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
                 reader.template startMap<t_Reader::SIZE_LIMIT_NONE>();
                 for (std::size_t i = 0; i < entry_names.size(); ++i)
                 {
@@ -103,9 +103,9 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE writeBody(
                     t_Writer & writer,
                     const std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry,
-                    const ariles::ConfigurableParameters & param)
+                    const ariles::ConfigurableFlags & param)
         {
-            writer.startArray(entry.size(), param.compact_arrays_if_supported_);
+            writer.startArray(entry.size(), param.isSet(ConfigurableFlags::COMPACT_ARRAYS_IF_SUPPORTED));
             for (
                 typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator it = entry.begin();
                 it != entry.end();
@@ -125,10 +125,10 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE writeBody(
                     t_Writer & writer,
                     const std::map<std::string, t_Value, t_Compare, t_Allocator> & entry,
-                    const ariles::ConfigurableParameters & param)
+                    const ariles::ConfigurableFlags & param)
         {
-            if ((true == writer.getBridgeParameters().sloppy_maps_supported_)
-                    && (true == param.enable_sloppy_maps_if_supported_))
+            if (writer.getBridgeFlags().isSet(BridgeFlags::SLOPPY_MAPS_SUPPORTED)
+                    && param.isSet(ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED))
             {
                 writer.startMap(entry.size());
                 for (

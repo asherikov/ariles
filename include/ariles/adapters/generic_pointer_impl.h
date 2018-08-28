@@ -22,12 +22,12 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                     t_Reader &reader,
                     ARILES_POINTER_TYPE(t_Entry) &entry,
-                    const ariles::ConfigurableParameters & param)
+                    const ariles::ConfigurableFlags & param)
         {
             bool is_null = true;
 
-            ariles::ConfigurableParameters param_local = param;
-            param_local.crash_on_missing_entry_ = true;
+            ariles::ConfigurableFlags param_local = param;
+            param_local.set(ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
 
             reader.template startMap<t_Reader::SIZE_LIMIT_RANGE>(1, 2);
             readEntry(reader, is_null, "is_null", param_local);
@@ -53,7 +53,7 @@ namespace ariles
             void ARILES_VISIBILITY_ATTRIBUTE
             writeBody( t_Writer & writer,
                        const ARILES_POINTER_TYPE(t_Entry) &entry,
-                       const ariles::ConfigurableParameters & param)
+                       const ariles::ConfigurableFlags & param)
         {
             bool is_null = true;
 

@@ -19,6 +19,49 @@
 
 #include <pugixml.hpp>
 
+namespace ariles
+{
+    namespace bridge
+    {
+        namespace pugixml
+        {
+            template <class t_Base>
+            class Base : public t_Base
+            {
+                protected:
+                    typedef ariles::Node< pugi::xml_node > NodeWrapper;
+
+
+                protected:
+                    pugi::xml_document document_;
+
+                    std::vector<NodeWrapper>    node_stack_;
+
+
+                protected:
+                    /**
+                     * @brief Get current node
+                     *
+                     * @return pointer to the current node
+                     */
+                    pugi::xml_node & getRawNode()
+                    {
+                        return(node_stack_.back().node_);
+                    }
+
+
+                public:
+                    const BridgeFlags &getBridgeFlags() const
+                    {
+                        static BridgeFlags parameters(BridgeFlags::SLOPPY_MAPS_SUPPORTED);
+                        return (parameters);
+                    }
+            };
+        }
+    }
+}
+
+
 #include "./pugixml/reader.h"
 #include "./pugixml/writer.h"
 

@@ -19,29 +19,16 @@ namespace ariles
             /**
              * @brief Configuration writer class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::WriterBase
+            class ARILES_VISIBILITY_ATTRIBUTE Writer :
+                public ariles::bridge::pugixml::Base<ariles::WriterBase>
             {
                 protected:
-                    typedef ariles::Node< pugi::xml_node > NodeWrapper;
-
-
-                protected:
-                    std::vector<NodeWrapper>    node_stack_;
-
                     /// output file stream
                     std::ofstream   config_ofs_;
 
                     /// output stream
                     std::ostream    *output_stream_;
 
-                    pugi::xml_document document_;
-
-
-                protected:
-                    pugi::xml_node & getRawNode()
-                    {
-                        return(node_stack_.back().node_);
-                    }
 
 
                 public:
@@ -57,18 +44,6 @@ namespace ariles
                     {
                         output_stream_ = &output_stream;
                         node_stack_.push_back(document_);
-                    }
-
-
-                    ~Writer()
-                    {
-                    }
-
-
-                    const BridgeParameters &getBridgeParameters() const
-                    {
-                        static BridgeParameters parameters(true);
-                        return (parameters);
                     }
 
 
@@ -96,16 +71,6 @@ namespace ariles
                     void ascend()
                     {
                         node_stack_.pop_back();
-                    }
-
-
-                    /**
-                     * @brief Starts a nested map in the configuration file
-                     *
-                     * @param[in] num_entries number of child entries
-                     */
-                    void startMap(const std::size_t /*num_entries*/)
-                    {
                     }
 
 
