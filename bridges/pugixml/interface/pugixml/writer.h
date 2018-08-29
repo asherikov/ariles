@@ -48,9 +48,6 @@ namespace ariles
 
 
 
-                    /**
-                     * @brief Flush the configuration to the file
-                     */
                     void flush()
                     {
                         document_.save(*output_stream_, "    ", pugi::format_indent);
@@ -107,14 +104,13 @@ namespace ariles
                     /**
                      * @brief Write a configuration entry
                      *
-                     * @tparam t_EntryType type of the entry
-                     *
-                     * @param[in] entry      data
+                     * @param[in] element data
                      */
                     void writeElement(const std::string & element)
                     {
                         getRawNode().text() = element.c_str();
                     }
+
 
                     #define ARILES_BASIC_TYPE(type) \
                         void writeElement(const type & element) \

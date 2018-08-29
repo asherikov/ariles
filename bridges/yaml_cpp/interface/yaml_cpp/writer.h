@@ -83,11 +83,6 @@ namespace ariles
 
 
 
-                    /**
-                     * @brief Starts a nested map in the configuration file
-                     *
-                     * @param[in] map_name name of the map
-                     */
                     void descend(const std::string &map_name)
                     {
                         *emitter_ << YAML::Key << map_name;
@@ -95,29 +90,18 @@ namespace ariles
                     }
 
 
-                    /**
-                     * @brief Starts a nested map in the configuration file
-                     *
-                     * @param[in] num_entries number of child entries
-                     */
                     void startMap(const std::size_t /*num_entries*/)
                     {
                         *emitter_ << YAML::BeginMap;
                     }
 
 
-                    /**
-                     * @brief Ends a nested map in the configuration file
-                     */
                     void endMap()
                     {
                         *emitter_ << YAML::EndMap;
                     }
 
 
-                    /**
-                     * @brief Flush the configuration to the file
-                     */
                     void flush()
                     {
                         destroyEmitter();

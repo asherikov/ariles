@@ -26,7 +26,7 @@ namespace ariles
                 /**
                  * @brief Configuration reader class
                  */
-                class ARILES_VISIBILITY_ATTRIBUTE Reader : 
+                class ARILES_VISIBILITY_ATTRIBUTE Reader :
                     public ariles::bridge::msgpack::Base<ariles::ReaderBase>
                 {
                     protected:
@@ -46,7 +46,7 @@ namespace ariles
                         /**
                          * @brief open configuration file
                          *
-                         * @param[in] file_name
+                         * @param[in] input_stream
                          */
                         void initialize(std::istream & input_stream)
                         {
@@ -120,7 +120,7 @@ namespace ariles
                         /**
                          * @brief Constructor
                          *
-                         * @param[in] file_name
+                         * @param[in] input_stream
                          */
                         explicit Reader(std::istream & input_stream)
                         {
@@ -136,9 +136,7 @@ namespace ariles
                             node_stack_.pop_back();
                         }
 
-                        /**
-                         * @brief Ascend from the current entry to its parent.
-                         */
+
                         void ascend()
                         {
                             if(true == node_stack_.back().isArray())

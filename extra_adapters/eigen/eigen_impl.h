@@ -14,15 +14,6 @@ namespace ariles
 {
     namespace reader
     {
-        /**
-         * @brief Read configuration entry (vector)
-         *
-         * @tparam t_Scalar Eigen template parameter
-         * @tparam t_rows   Eigen template parameter
-         * @tparam t_flags  Eigen template parameter
-         *
-         * @param[out] entry     configuration parameter
-         */
         template <  class t_Reader,
                     typename t_Scalar,
                     int t_rows,
@@ -54,16 +45,6 @@ namespace ariles
 
 
 
-        /**
-         * @brief Read a configuration entry (matrix)
-         *
-         * @tparam t_Scalar Eigen template parameter
-         * @tparam t_rows   Eigen template parameter
-         * @tparam t_cols   Eigen template parameter
-         * @tparam t_flags  Eigen template parameter
-         *
-         * @param[out] entry      data
-         */
         template <  class t_Reader,
                     typename t_Scalar,
                     int t_rows,
@@ -164,14 +145,6 @@ namespace ariles
 
     namespace writer
     {
-        /**
-         * @brief Write a configuration entry (vector)
-         *
-         * @tparam t_Derived Eigen template parameter
-         *
-         * @param[in] entry      data
-         * @param[in] entry_name name
-         */
         template <  class t_Writer,
                     typename t_Scalar,
                     int t_rows,
@@ -208,17 +181,6 @@ namespace ariles
 
 
 
-        /**
-         * @brief Write a configuration entry (matrix)
-         *
-         * @tparam t_Scalar Eigen template parameter
-         * @tparam t_rows   Eigen template parameter
-         * @tparam t_cols   Eigen template parameter
-         * @tparam t_flags  Eigen template parameter
-         *
-         * @param[in] entry      data
-         * @param[in]  entry_name name
-         */
         template <  class t_Writer,
                     typename t_Scalar,
                     int t_rows,

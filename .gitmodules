@@ -16,3 +16,7 @@
 [submodule "bridges/pugixml/pugixml"]
 	path = bridges/pugixml/pugixml
 	url = https://github.com/zeux/pugixml
+[submodule "doc/dox"]
+	path = doc/dox
+	url = ../ariles.git
+	branch = gh-pages

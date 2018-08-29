@@ -80,11 +80,23 @@ namespace ariles
             virtual const BridgeFlags & getBridgeFlags() const = 0;
 
 
-            virtual bool descend(const std::string &)
+            /**
+             * @brief Descend to the entry with the given name
+             *
+             * @param[in] child_name child node name
+             *
+             * @return true if successful.
+             */
+            virtual bool descend(const std::string & child_name)
             {
+                ARILES_IGNORE_UNUSED(child_name)
                 return (true);
             }
 
+
+            /**
+             * @brief Ascend from the current entry to its parent.
+             */
             virtual void ascend() = 0;
 
 

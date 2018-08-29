@@ -15,13 +15,6 @@ namespace ariles
 {
     namespace reader
     {
-        /**
-         * @brief Read configuration entry
-         *
-         * @tparam t_Entry type of the entry
-         *
-         * @param[out] entry     configuration parameter
-         */
         template <class t_Reader>
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
                                     t_Reader  & reader,
@@ -38,10 +31,6 @@ namespace ariles
         /**
          * @brief Read configuration entry (an enum)
          * This function is necessary since an explicit casting to integer is needed.
-         *
-         * @tparam t_Entry type of the entry
-         *
-         * @param[out] entry     configuration parameter
          */
         template <  class t_Reader,
                     typename t_Enumeration>
@@ -75,14 +64,6 @@ namespace ariles
 
 
 
-        /**
-         * @brief Read configuration entry
-         *
-         * @tparam t_Entry type of the entry
-         *
-         * @param[out] entry      configuration parameter
-         * @param[in]  entry_name name of the configuration parameter
-         */
         template <  class t_Reader,
                     class t_Entry>
             void ARILES_VISIBILITY_ATTRIBUTE readEntry(
@@ -120,27 +101,6 @@ namespace ariles
 
     namespace writer
     {
-        /**
-         * @brief Write a configuration entry (enum)
-         *
-         * @tparam t_EnumType type of the enum
-         *
-         * @param[in] entry      data
-         * @param[in] entry_name name
-         */
-        template <  class t_Writer,
-                    typename t_Enumeration>
-            void ARILES_VISIBILITY_ATTRIBUTE writeBody(
-                            t_Writer & writer,
-                            const t_Enumeration  entry,
-                            const ariles::ConfigurableFlags & /*param*/,
-                            ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
-        {
-            int tmp_value = entry;
-            writer.writeElement(tmp_value);
-        }
-
-
         template <class t_Writer>
             void ARILES_VISIBILITY_ATTRIBUTE writeBody(
                             t_Writer & writer,
@@ -154,6 +114,19 @@ namespace ariles
 
 
 
+        template <  class t_Writer,
+                    typename t_Enumeration>
+            void ARILES_VISIBILITY_ATTRIBUTE writeBody(
+                            t_Writer & writer,
+                            const t_Enumeration  entry,
+                            const ariles::ConfigurableFlags & /*param*/,
+                            ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
+        {
+            int tmp_value = entry;
+            writer.writeElement(tmp_value);
+        }
+
+
         #define ARILES_BASIC_TYPE(type) \
                 template <class t_Writer> \
                     void ARILES_VISIBILITY_ATTRIBUTE writeBody( \
@@ -165,6 +138,9 @@ namespace ariles
                     writer.writeElement(entry);\
                 }
 
+        /**
+         * @brief Generate writeBody methods for basic types.
+         */
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
         #undef ARILES_BASIC_TYPE

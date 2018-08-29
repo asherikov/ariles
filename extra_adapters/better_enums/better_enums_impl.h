@@ -36,14 +36,6 @@ namespace ariles
 
     namespace writer
     {
-        /**
-         * @brief Write a configuration entry (vector)
-         *
-         * @tparam t_Derived Eigen template parameter
-         *
-         * @param[in] entry      data
-         * @param[in] entry_name name
-         */
         template <  class t_Writer,
                     class t_BetterEnum>
             void ARILES_VISIBILITY_ATTRIBUTE

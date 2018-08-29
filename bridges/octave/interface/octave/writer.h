@@ -71,9 +71,6 @@ namespace ariles
                     }
 
 
-                    /**
-                     * @brief Flush the configuration to the file
-                     */
                     void flush()
                     {
                         output_stream_->flush();

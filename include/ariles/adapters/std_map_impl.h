@@ -16,13 +16,6 @@ namespace ariles
 {
     namespace reader
     {
-        /**
-         * @brief Read configuration entry (std::map)
-         *
-         * @tparam t_VectorEntryType type of the entry of std::vector
-         *
-         * @param[out] entry      configuration parameter
-         */
         template <  class t_Reader,
                     typename t_Key,
                     typename t_Value,
@@ -87,14 +80,6 @@ namespace ariles
 
     namespace writer
     {
-        /**
-         * @brief Read configuration entry (std::vector)
-         *
-         * @tparam t_VectorEntryType type of the entry of std::vector
-         *
-         * @param[in] entry      data
-         * @param[in] entry_name name
-         */
         template <  class t_Writer,
                     typename t_Key,
                     typename t_Value,

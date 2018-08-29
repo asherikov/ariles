@@ -64,9 +64,6 @@ namespace ariles
 
 
 
-                        /**
-                         * @brief Destructor
-                         */
                         ~Writer()
                         {
                             delete packer_;
@@ -74,21 +71,12 @@ namespace ariles
 
 
 
-                        /**
-                         * @brief Starts a nested map in the configuration file
-                         *
-                         * @param[in] map_name name of the map
-                         * @param[in] num_entries number of child entries
-                         */
                         void startMap(const std::size_t num_entries)
                         {
                             packer_->pack_array(num_entries);
                         }
 
 
-                        /**
-                         * @brief Flush the configuration to the file
-                         */
                         void flush()
                         {
                             output_stream_->flush();
@@ -101,14 +89,6 @@ namespace ariles
                             packer_->pack_array(size);
                         }
 
-
-                        /**
-                         * @brief Write a configuration entry (scalar template)
-                         *
-                         * @tparam t_EntryType type of the entry
-                         *
-                         * @param[in] entry      data
-                         */
 
                         #define ARILES_BASIC_TYPE(type) \
                             void writeElement(const type & element) \

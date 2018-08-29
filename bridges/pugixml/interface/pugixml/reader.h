@@ -69,13 +69,6 @@ namespace ariles
                     }
 
 
-                    /**
-                     * @brief Descend to the entry with the given name
-                     *
-                     * @param[in] child_name child node name
-                     *
-                     * @return true if successful.
-                     */
                     bool descend(const std::string & child_name)
                     {
                         const pugi::xml_node child = getRawNode().child(child_name.c_str());
@@ -103,9 +96,6 @@ namespace ariles
                     }
 
 
-                    /**
-                     * @brief Ascend from the current entry to its parent.
-                     */
                     void ascend()
                     {
                         node_stack_.pop_back();

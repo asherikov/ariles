@@ -23,7 +23,7 @@ namespace ariles
             /**
              * @brief open configuration file
              *
-             * @param[out] config_ifs
+             * @param[out] config_ofs
              * @param[in] file_name
              */
             void openFile(std::ofstream &config_ofs, const std::string& file_name)
@@ -40,16 +40,36 @@ namespace ariles
         public:
             virtual const BridgeFlags & getBridgeFlags() const = 0;
 
+			/**
+			 * @brief Starts a nested map in the configuration file
+			 */
             virtual void initRoot() {}
 
+            /**
+             * @brief Flush the configuration to the output
+             */
             virtual void flush() = 0;
 
 
-            virtual void descend(const std::string &/*map_name*/) {}
+            /**
+             * @brief Starts a nested map in the configuration file
+             *
+             * @param[in] map_name name of the map
+             */
+            virtual void descend(const std::string &map_name) {ARILES_IGNORE_UNUSED(map_name)}
             virtual void ascend() {}
 
 
-            virtual void startMap(const std::size_t /*num_entries*/) {}
+            /**
+             * @brief Starts a nested map in the configuration file
+             *
+             * @param[in] num_entries number of child entries
+             */
+            virtual void startMap(const std::size_t num_entries) {ARILES_IGNORE_UNUSED(num_entries)}
+
+            /**
+             * @brief Ends a nested map in the configuration file
+             */
             virtual void endMap() {}
 
 
@@ -57,7 +77,7 @@ namespace ariles
             virtual void shiftArray() {}
             virtual void endArray() {}
 
-            virtual void startMatrix(const bool /*compact*/ = false) {}
+            virtual void startMatrix(const bool compact = false) {ARILES_IGNORE_UNUSED(compact)}
             virtual void startMatrixRow() {}
             virtual void endMatrixRow() {}
             virtual void endMatrix() {}

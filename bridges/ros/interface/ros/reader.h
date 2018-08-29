@@ -21,7 +21,7 @@ namespace ariles
             /**
              * @brief Configuration reader class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Reader : 
+            class ARILES_VISIBILITY_ATTRIBUTE Reader :
                 public ariles::bridge::ros::Base<ariles::ReaderBase>
             {
                 protected:
@@ -35,7 +35,7 @@ namespace ariles
                     /**
                      * @brief Constructor
                      *
-                     * @param[in] file_name
+                     * @param[in] nh NodeHandle
                      */
                     explicit Reader(const ::ros::NodeHandle &nh)
                     {
@@ -43,13 +43,6 @@ namespace ariles
                     }
 
 
-                    /**
-                     * @brief Descend to the entry with the given name
-                     *
-                     * @param[in] child_name child node name
-                     *
-                     * @return true if successful.
-                     */
                     bool descend(const std::string & child_name)
                     {
                         if (0 == node_stack_.size())
@@ -69,10 +62,6 @@ namespace ariles
                     }
 
 
-
-                    /**
-                     * @brief Ascend from the current entry to its parent.
-                     */
                     void ascend()
                     {
                         node_stack_.pop_back();

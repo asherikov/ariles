@@ -47,9 +47,6 @@ namespace ariles
 
 
 
-                    /**
-                     * @brief Flush the configuration to the file
-                     */
                     void flush()
                     {
                         ::rapidjson::StringBuffer buffer;
@@ -61,11 +58,6 @@ namespace ariles
 
 
 
-                    /**
-                     * @brief Starts a nested map in the configuration file
-                     *
-                     * @param[in] map_name name of the map
-                     */
                     void descend(const std::string &map_name)
                     {
                         ::rapidjson::Value key(map_name.c_str(), document_.GetAllocator());
@@ -88,11 +80,6 @@ namespace ariles
                     }
 
 
-                    /**
-                     * @brief Starts a nested map in the configuration file
-                     *
-                     * @param[in] num_entries number of child entries
-                     */
                     void startMap(const std::size_t /*num_entries*/)
                     {
                         getRawNode().SetObject();
@@ -133,9 +120,7 @@ namespace ariles
                     /**
                      * @brief Write a configuration entry
                      *
-                     * @tparam t_EntryType type of the entry
-                     *
-                     * @param[in] entry      data
+                     * @param[in] element data
                      */
                     void writeElement(const std::string & element)
                     {

@@ -29,9 +29,6 @@ namespace ariles
                     }
 
 
-                    /**
-                     * @brief Starts a nested map in the configuration file
-                     */
                     void initRoot()
                     {
                         root_name_ = "";
@@ -39,9 +36,6 @@ namespace ariles
                     }
 
 
-                    /**
-                     * @brief Flush the configuration to the file
-                     */
                     void flush()
                     {
                         if (XmlRpc::XmlRpcValue::TypeInvalid == root_value_.getType())
@@ -54,11 +48,6 @@ namespace ariles
 
 
 
-                    /**
-                     * @brief Starts a nested map in the configuration file
-                     *
-                     * @param[in] map_name name of the map
-                     */
                     void descend(const std::string &map_name)
                     {
                         if (0 == node_stack_.size())

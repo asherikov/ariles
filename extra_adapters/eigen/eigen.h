@@ -64,14 +64,6 @@ namespace ariles
 
     namespace writer
     {
-        /**
-         * @brief Write a configuration entry (vector)
-         *
-         * @tparam t_Derived Eigen template parameter
-         *
-         * @param[in] entry      data
-         * @param[in] entry_name name
-         */
         template <  class t_Writer,
                     typename t_Scalar,
                     int t_rows,
@@ -83,17 +75,6 @@ namespace ariles
 
 
 
-        /**
-         * @brief Write a configuration entry (matrix)
-         *
-         * @tparam t_Scalar Eigen template parameter
-         * @tparam t_rows   Eigen template parameter
-         * @tparam t_cols   Eigen template parameter
-         * @tparam t_flags  Eigen template parameter
-         *
-         * @param[in] entry      data
-         * @param[in]  entry_name name
-         */
         template <  class t_Writer,
                     typename t_Scalar,
                     int t_rows,
