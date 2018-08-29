@@ -27,7 +27,7 @@ namespace ariles
             bool is_null = true;
 
             ariles::ConfigurableFlags param_local = param;
-            param_local.set(ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
+            param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
 
             reader.template startMap<t_Reader::SIZE_LIMIT_RANGE>(1, 2);
             readEntry(reader, is_null, "is_null", param_local);

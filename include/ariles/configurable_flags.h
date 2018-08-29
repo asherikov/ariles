@@ -19,10 +19,10 @@ namespace ariles
             enum Flags
             {
                 RESET = 0,
-                CRASH_ON_MISSING_ENTRY = 1,
+                ALLOW_MISSING_ENTRIES = 1,
                 SLOPPY_MAPS_IF_SUPPORTED = 2,
                 COMPACT_ARRAYS_IF_SUPPORTED = 4,
-                OVERRIDE_CRASH_ON_MISSING_ENTRY = 8,
+                PROPAGATE_ALLOW_MISSING_ENTRIES = 8,
                 FORCE_EXPLICIT_MATRIX_SIZE = 16
             };
 
@@ -49,22 +49,6 @@ namespace ariles
                 flags_ = ARILES_DEFAULT_CONFIGURABLE_FLAGS;
 #else
                 flags_ = RESET;
-
-                // on
-                set(CRASH_ON_MISSING_ENTRY);
-
-
-                // conditional
-#   ifdef ARILES_ENABLE_SLOPPY_MAP
-                set(SLOPPY_MAPS_IF_SUPPORTED);
-#   else
-                unset(SLOPPY_MAPS_IF_SUPPORTED);
-#   endif
-
-                // off
-                unset(COMPACT_ARRAYS_IF_SUPPORTED
-                        | OVERRIDE_CRASH_ON_MISSING_ENTRY
-                        | FORCE_EXPLICIT_MATRIX_SIZE);
 #endif
             }
     };

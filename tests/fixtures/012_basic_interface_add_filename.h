@@ -72,7 +72,7 @@ class BasicInterfaceFixture : public t_FixtureBase
                 t_Configurable configurable;
 
                 typename t_Bridge::Reader reader(std::string("configurable3") + ".cfg");
-                configurable.readConfig(reader, ariles::ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
+                configurable.readConfig(reader, ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
             }
 
             // --------------------------------
@@ -88,7 +88,7 @@ class BasicInterfaceFixture : public t_FixtureBase
             {
                 t_Configurable configurable;
                 configurable.template readConfig<t_Bridge>(std::string("configurable4") + ".cfg",
-                        ariles::ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
+                        ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
             }
         }
 };

@@ -29,7 +29,7 @@ namespace ariles
             std::size_t size = reader.startArray();
             entry.clear();
             ariles::ConfigurableFlags param_local = param;
-            param_local.set(ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
+            param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
             for(std::size_t i = 0; i < size; ++i)
             {
                 std::pair<t_Key, t_Value> map_entry;
@@ -60,7 +60,7 @@ namespace ariles
                 ARILES_ASSERT(true == reader.getMapEntryNames(entry_names), "Could not read names of map entries.");
                 entry.clear();
                 ariles::ConfigurableFlags param_local = param;
-                param_local.set(ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
+                param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
                 reader.template startMap<t_Reader::SIZE_LIMIT_NONE>();
                 for (std::size_t i = 0; i < entry_names.size(); ++i)
                 {

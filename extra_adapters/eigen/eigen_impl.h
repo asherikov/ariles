@@ -61,7 +61,7 @@ namespace ariles
                 EIGEN_DEFAULT_DENSE_INDEX_TYPE num_cols;
 
                 ariles::ConfigurableFlags param_local = param;
-                param_local.set(ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
+                param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
 
                 reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(3);
                 readEntry(reader, num_cols, "cols", param_local);
@@ -131,7 +131,7 @@ namespace ariles
                         const ariles::ConfigurableFlags & param)
         {
             ariles::ConfigurableFlags param_local = param;
-            param_local.set(ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
+            param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
 
             reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(4);
             readEntry(reader, entry.x(), "x", param_local);

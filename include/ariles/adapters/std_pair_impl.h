@@ -24,7 +24,7 @@ namespace ariles
                     const ariles::ConfigurableFlags & param)
         {
             ariles::ConfigurableFlags param_local = param;
-            param_local.set(ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
+            param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
             reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(2);
             readEntry(reader, entry.first, "first", param_local);
             readEntry(reader, entry.second, "second", param_local);

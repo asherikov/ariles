@@ -22,7 +22,6 @@ TARGETS?=all
 
 clean:
 	rm -Rf build;
-	rm -Rf doc/dox;
 
 
 #----------------------------------------------

@@ -62,9 +62,9 @@
                                     const ariles::ConfigurableFlags & parameters)
             {
                 ariles::ConfigurableFlags param = parameters;
-                if (false == param.isSet(ariles::ConfigurableFlags::OVERRIDE_CRASH_ON_MISSING_ENTRY))
+                if (false == param.isSet(ariles::ConfigurableFlags::PROPAGATE_ALLOW_MISSING_ENTRIES))
                 {
-                    param.copy(parameters, ariles::ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
+                    param.copy(parameters, ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
                 }
                 ARILES_IGNORE_UNUSED(reader);
                 ARILES_IGNORE_UNUSED(param);

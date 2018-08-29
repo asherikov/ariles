@@ -128,8 +128,7 @@
 
                 virtual const ConfigurableFlags &getArilesConfigurableFlags() const
                 {
-                    static ConfigurableFlags parameters(
-                            ConfigurableFlags::CRASH_ON_MISSING_ENTRY);
+                    static ConfigurableFlags parameters;
                     return (parameters);
                 }
         };
@@ -148,9 +147,7 @@
 
                 virtual const ConfigurableFlags &getArilesConfigurableFlags() const
                 {
-                    static ConfigurableFlags parameters(
-                            ConfigurableFlags::CRASH_ON_MISSING_ENTRY,
-                            ConfigurableFlags::UNSET);
+                    static ConfigurableFlags parameters(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
                     return (parameters);
                 }
         };

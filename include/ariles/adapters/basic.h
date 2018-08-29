@@ -90,7 +90,7 @@ namespace ariles
             }
             else
             {
-                if (param.isSet(ConfigurableFlags::CRASH_ON_MISSING_ENTRY))
+                if (false == param.isSet(ConfigurableFlags::ALLOW_MISSING_ENTRIES))
                 {
                     ARILES_THROW_MSG(std::string("Configuration file does not contain entry '") + entry_name + "'.");
                 }
