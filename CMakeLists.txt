@@ -1,6 +1,10 @@
 # General parameters
 cmake_minimum_required (VERSION 2.8.12)
 project (ariles CXX)
+set(ARILES_HOMEPAGE http://asherikov.github.com/ariles/)
+set(PROJECT_VERSION_MAJOR 1)
+set(PROJECT_VERSION_MINOR 0)
+set(PROJECT_VERSION_PATCH 0)
 
 
 include(FindPkgConfig)
@@ -161,7 +165,7 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
 set (ARILES_OPTIONAL_LIBRARIES "")
 set (ARILES_OPTIONAL_INCLUDES "")
 set (ARILES_MANDATORY_LIBRARIES "")
-set (ARILES_MANDATORY_INCLUDES "")
+set (ARILES_MANDATORY_INCLUDES "${CMAKE_INSTALL_PREFIX}/include")
 set (ARILES_DEFINES   "")
 
 
@@ -319,7 +323,17 @@ if (ARILES_LIBRARIES)
     endforeach(ARILES_LIBRARY)
 endif (ARILES_LIBRARIES)
 
+list(REMOVE_DUPLICATES ARILES_INCLUDES)
+list(REMOVE_ITEM ARILES_INCLUDES "")
+list(REMOVE_ITEM ARILES_LIBRARIES "")
+
 configure_file("cmake/arilesConfig.cmake.in"    "${PROJECT_BINARY_DIR}/arilesConfig.cmake")
+
+string(REPLACE ";" " -I" ARILES_INCLUDES_FLAGS "${ARILES_INCLUDES}")
+set(ARILES_INCLUDES_FLAGS "-I${ARILES_INCLUDES_FLAGS}")
+string(REPLACE ";" " -l" ARILES_LIBRARIES_FLAGS "${ARILES_LIBRARIES}")
+set(ARILES_LIBRARIES_FLAGS "-l${ARILES_LIBRARIES_FLAGS}")
+configure_file("cmake/ariles.pc.in"             "${PROJECT_BINARY_DIR}/ariles.pc" @ONLY)
 
 
 #---
@@ -425,3 +439,12 @@ install (DIRECTORY "${ARILES_INCLUDE_DIR}"
 
 install (FILES "${PROJECT_BINARY_DIR}/arilesConfig.cmake"
          DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles/")
+
+if(CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND NOT CMAKE_CROSSCOMPILING)
+    install (FILES "${PROJECT_BINARY_DIR}/ariles.pc"
+        DESTINATION "${CMAKE_INSTALL_PREFIX}/libdata/pkgconfig")
+else()
+    install (FILES "${PROJECT_BINARY_DIR}/ariles.pc"
+        DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig")
+endif()
+

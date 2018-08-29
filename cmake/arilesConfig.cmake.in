@@ -1,5 +1,5 @@
 set (ariles_LIBRARIES "@ARILES_LIBRARIES@")
-set (ariles_INCLUDE_DIRS "@ARILES_INCLUDES@;@CMAKE_INSTALL_PREFIX@/include/")
+set (ariles_INCLUDE_DIRS "@ARILES_INCLUDES@")
 
 #------------------
 # The following defines can be used to hide Ariles related stuff when compiling
