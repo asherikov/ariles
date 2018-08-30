@@ -20,8 +20,11 @@ class ConfigurableAutoDeclare : public ariles::ConfigurableBase
     // conditionally optional, see ConfigurableNoAutoID
     // it is recommended to set it to the class name
     #define ARILES_SECTION_ID "unique_id_on_a_particular_level_in_a_configuration_file"
-    // optional
+    // optional, create constructors to initialize using readConfig()
     #define ARILES_CONSTRUCTOR ConfigurableAutoDeclare
+    // optional, override default flags
+    #define ARILES_CONFIGURABLE_FLAGS   ariles::ConfigurableFlags::DEFAULT \
+                                        | ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
     // optional, but what is the point in omitting it?
     // members can be defined manually, see ConfigurableVerbose
     #define ARILES_ENTRIES \

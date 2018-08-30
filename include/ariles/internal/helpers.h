@@ -137,11 +137,11 @@ namespace ariles
 
 
         public:
-            uint64_t flags_;
+            int flags_;
 
 
         public:
-            void initialize(const uint64_t flags, const Action action_type = SET)
+            void initialize(const int flags, const Action action_type = REPLACE)
             {
                 switch(action_type)
                 {
@@ -165,27 +165,27 @@ namespace ariles
             }
 
 
-            void copy(const t_Derived & from, const uint64_t flags)
+            void copy(const t_Derived & from, const int flags)
             {
                 set(from.flags_ & flags);
             }
 
-            bool isSet(const uint64_t flags) const
+            bool isSet(const int flags) const
             {
                 return (flags_ & flags);
             }
 
-            void replace(const uint64_t flags)
+            void replace(const int flags)
             {
                 flags_ = flags;
             }
 
-            void set(const uint64_t flags)
+            void set(const int flags)
             {
                 flags_ |= flags;
             }
 
-            void unset(const uint64_t flags)
+            void unset(const int flags)
             {
                 flags_ &= !flags;
             }

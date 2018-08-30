@@ -108,6 +108,14 @@
         #endif
 
 
+        #ifdef ARILES_CONFIGURABLE_FLAGS
+            virtual const ariles::ConfigurableFlags &getArilesConfigurableFlags() const
+            {
+                static ariles::ConfigurableFlags parameters(ARILES_CONFIGURABLE_FLAGS);
+                return (parameters);
+            }
+        #endif
+
 
         // generate methods which accept ConfigurableFlags
         #define ARILES_CONFIGURABLE_PARAMETERS_ARG              , const ariles::ConfigurableFlags & param
@@ -133,3 +141,4 @@
 #undef ARILES_SECTION_ID
 #undef ARILES_CONSTRUCTOR
 #undef ARILES_ENTRIES
+#undef ARILES_CONFIGURABLE_FLAGS

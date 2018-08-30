@@ -19,7 +19,9 @@ namespace ariles
             {
                 RESET = 0,
                 SLOPPY_MAPS_SUPPORTED = 1,
-                NATIVE_MATRIX_SUPPORTED = 2
+                NATIVE_MATRIX_SUPPORTED = 2,
+
+                DEFAULT = RESET
             };
 
 
@@ -29,7 +31,7 @@ namespace ariles
                 setDefaults();
             }
 
-            BridgeFlags(const uint64_t flags, const Action action_type = SET)
+            BridgeFlags(const int flags, const Action action_type = REPLACE)
             {
                 initialize(flags, action_type);
             }
@@ -37,10 +39,7 @@ namespace ariles
 
             void setDefaults()
             {
-                flags_ = RESET;
-
-                // off
-                unset(SLOPPY_MAPS_SUPPORTED | NATIVE_MATRIX_SUPPORTED);
+                flags_ = DEFAULT;
             }
     };
 }

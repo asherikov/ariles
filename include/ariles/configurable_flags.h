@@ -23,7 +23,13 @@ namespace ariles
                 SLOPPY_MAPS_IF_SUPPORTED = 2,
                 COMPACT_ARRAYS_IF_SUPPORTED = 4,
                 PROPAGATE_ALLOW_MISSING_ENTRIES = 8,
-                FORCE_EXPLICIT_MATRIX_SIZE = 16
+                FORCE_EXPLICIT_MATRIX_SIZE = 16,
+
+#ifdef ARILES_DEFAULT_CONFIGURABLE_FLAGS
+                DEFAULT = ARILES_DEFAULT_CONFIGURABLE_FLAGS
+#else
+                DEFAULT = RESET
+#endif
             };
 
 
@@ -34,10 +40,7 @@ namespace ariles
             }
 
 
-            /// @todo delete
-            ConfigurableFlags(const bool strict);
-
-            ConfigurableFlags(const Flags flags, const Action action_type = SET)
+            ConfigurableFlags(const int flags, const Action action_type = REPLACE)
             {
                 initialize(flags, action_type);
             }
@@ -45,11 +48,7 @@ namespace ariles
 
             void setDefaults()
             {
-#ifdef ARILES_DEFAULT_CONFIGURABLE_FLAGS
-                flags_ = ARILES_DEFAULT_CONFIGURABLE_FLAGS;
-#else
-                flags_ = RESET;
-#endif
+                flags_ = DEFAULT;
             }
     };
 }

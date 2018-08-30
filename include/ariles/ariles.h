@@ -115,56 +115,36 @@
         };
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE StrictConfigurableBase : public ariles::CommonConfigurableBase
+        template<int t_flags>
+        class ARILES_VISIBILITY_ATTRIBUTE CommonConfigurableBaseWithFlags : public CommonConfigurableBase
         {
             protected:
-                /**
-                 * @brief Protected destructor: prevent destruction of the child
-                 * classes through a base pointer.
-                 */
-                ~StrictConfigurableBase() {}
-                StrictConfigurableBase() {}
+                CommonConfigurableBaseWithFlags(){}
+                ~CommonConfigurableBaseWithFlags(){}
 
-
+            public:
                 virtual const ConfigurableFlags &getArilesConfigurableFlags() const
                 {
-                    static ConfigurableFlags parameters;
+                    static ConfigurableFlags parameters(t_flags);
                     return (parameters);
                 }
         };
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE RelaxedConfigurableBase : public ariles::CommonConfigurableBase
-        {
-            protected:
-                /**
-                 * @brief Protected destructor: prevent destruction of the child
-                 * classes through a base pointer.
-                 */
-                ~RelaxedConfigurableBase() {}
-                RelaxedConfigurableBase() {}
+        typedef ariles::CommonConfigurableBaseWithFlags<
+            ariles::ConfigurableFlags::DEFAULT & !(ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES)>
+                StrictConfigurableBase;
 
 
-                virtual const ConfigurableFlags &getArilesConfigurableFlags() const
-                {
-                    static ConfigurableFlags parameters(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
-                    return (parameters);
-                }
-        };
+        typedef ariles::CommonConfigurableBaseWithFlags<
+            ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES>
+                RelaxedConfigurableBase;
 
 
-
-        /// Default configurable base is strict
-        class ARILES_VISIBILITY_ATTRIBUTE ConfigurableBase : public ariles::StrictConfigurableBase
-        {
-            protected:
-                /**
-                 * @brief Protected destructor: prevent destruction of the child
-                 * classes through a base pointer.
-                 */
-                ~ConfigurableBase() {}
-                ConfigurableBase() {}
-        };
+        /// Default configurable base
+        typedef ariles::CommonConfigurableBaseWithFlags<
+            ariles::ConfigurableFlags::DEFAULT>
+                ConfigurableBase;
     }
 
 #   include "adapters/basic.h"
@@ -207,7 +187,7 @@
 
 
         // Some classes may inherit from this
-        class ARILES_VISIBILITY_ATTRIBUTE ConfigurableBase : ariles::StrictConfigurableBase
+        class ARILES_VISIBILITY_ATTRIBUTE ConfigurableBase
         {
             protected:
                 /**
