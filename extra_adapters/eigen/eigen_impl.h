@@ -12,7 +12,7 @@
 
 namespace ariles
 {
-    namespace reader
+    namespace adapter
     {
         template <  class t_Reader,
                     typename t_Scalar,
@@ -140,11 +140,11 @@ namespace ariles
             readEntry(reader, entry.w(), "w", param_local);
             reader.endMap();
         }
-    }
 
 
-    namespace writer
-    {
+        // ====================================================
+
+
         template <  class t_Writer,
                     typename t_Scalar,
                     int t_rows,

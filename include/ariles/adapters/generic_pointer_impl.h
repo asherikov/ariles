@@ -15,7 +15,7 @@
 
 namespace ariles
 {
-    namespace reader
+    namespace adapter
     {
         template <  class t_Reader,
                     typename t_Entry>
@@ -43,11 +43,9 @@ namespace ariles
             }
             reader.endMap();
         }
-    }
 
 
-    namespace writer
-    {
+
         template <  class t_Writer,
                     typename t_Entry>
             void ARILES_VISIBILITY_ATTRIBUTE

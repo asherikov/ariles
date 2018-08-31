@@ -13,7 +13,7 @@
 
 namespace ariles
 {
-    namespace reader
+    namespace adapter
     {
         template <  class t_Reader,
                     class t_BetterEnum>
@@ -31,11 +31,8 @@ namespace ariles
             reader.readElement(enum_value);
             entry = t_BetterEnum::_from_string(enum_value.c_str());
         }
-    }
 
 
-    namespace writer
-    {
         template <  class t_Writer,
                     class t_BetterEnum>
             void ARILES_VISIBILITY_ATTRIBUTE

@@ -11,10 +11,9 @@
 #pragma once
 
 
-#include <iostream>
 namespace ariles
 {
-    namespace reader
+    namespace adapter
     {
         template <  class t_Reader,
                     typename t_Key,
@@ -75,11 +74,9 @@ namespace ariles
                 readBody<t_Reader, std::string, t_Value, t_Compare, t_Allocator>(reader, entry, param);
             }
         }
-    }
 
 
-    namespace writer
-    {
+
         template <  class t_Writer,
                     typename t_Key,
                     typename t_Value,

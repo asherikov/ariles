@@ -15,7 +15,7 @@
 
 namespace ariles
 {
-    namespace reader
+    namespace adapter
     {
         template <  class t_Reader,
                     class t_BetterEnum>
@@ -28,11 +28,8 @@ namespace ariles
                         const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
                         const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
                         const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL);
-    }
 
 
-    namespace writer
-    {
         template <  class t_Writer,
                     class t_BetterEnum>
             void ARILES_VISIBILITY_ATTRIBUTE

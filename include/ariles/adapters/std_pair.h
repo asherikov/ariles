@@ -16,7 +16,7 @@
 
 namespace ariles
 {
-    namespace reader
+    namespace adapter
     {
         template <  class t_Reader,
                     typename t_First,
@@ -25,11 +25,9 @@ namespace ariles
                     t_Reader & reader,
                     std::pair<t_First, t_Second> & entry,
                     const ariles::ConfigurableFlags & param);
-    }
 
 
-    namespace writer
-    {
+
         template <  class t_Writer,
                     typename t_First,
                     typename t_Second>

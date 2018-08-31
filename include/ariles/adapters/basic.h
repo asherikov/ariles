@@ -13,7 +13,7 @@
 
 namespace ariles
 {
-    namespace reader
+    namespace adapter
     {
         template <class t_Reader>
             void ARILES_VISIBILITY_ATTRIBUTE readBody(
@@ -96,11 +96,11 @@ namespace ariles
                 }
             }
         }
-    }
 
 
-    namespace writer
-    {
+        // ============================================
+
+
         template <class t_Writer>
             void ARILES_VISIBILITY_ATTRIBUTE writeBody(
                             t_Writer & writer,

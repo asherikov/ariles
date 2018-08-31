@@ -16,7 +16,7 @@
 
 namespace ariles
 {
-    namespace reader
+    namespace adapter
     {
         template <  class t_Reader,
                     typename t_VectorEntryType,
@@ -25,11 +25,9 @@ namespace ariles
                     t_Reader & reader,
                     std::vector<t_VectorEntryType, t_Allocator> & entry,
                     const ariles::ConfigurableFlags & param);
-    }
 
 
-    namespace writer
-    {
+
         template <  class t_Writer,
                     typename t_VectorEntryType,
                     class t_Allocator>

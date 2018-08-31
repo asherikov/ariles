@@ -42,7 +42,7 @@ template <class t_Reader>
     void readConfig(t_Reader            & reader
                     ARILES_CONFIGURABLE_PARAMETERS_ARG)
 {
-    ariles::reader::readEntry(reader, *this, this->getConfigSectionID(), ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+    ariles::adapter::readEntry(reader, *this, this->getConfigSectionID(), ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
 
 
@@ -58,7 +58,7 @@ template <class t_Reader>
                     const std::string   & node_name
                     ARILES_CONFIGURABLE_PARAMETERS_ARG)
 {
-    ariles::reader::readEntry(reader, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+    ariles::adapter::readEntry(reader, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
 
 
@@ -76,7 +76,7 @@ template <class t_Reader>
                     const char          * node_name
                     ARILES_CONFIGURABLE_PARAMETERS_ARG)
 {
-    ariles::reader::readEntry(reader, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+    ariles::adapter::readEntry(reader, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
 
 
@@ -92,7 +92,7 @@ template <class t_Bridge, class t_ReaderInitializer>
                     typename t_Bridge::BridgeSelectorIndicatorType * = NULL)
 {
     typename t_Bridge::Reader reader(reader_initializer);
-    ariles::reader::readEntry(reader, *this, this->getConfigSectionID(), ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+    ariles::adapter::readEntry(reader, *this, this->getConfigSectionID(), ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
 template <class t_Bridge, class t_ReaderInitializer>
     void readConfig(const t_ReaderInitializer         &reader_initializer
@@ -100,7 +100,7 @@ template <class t_Bridge, class t_ReaderInitializer>
                     typename t_Bridge::BridgeSelectorIndicatorType * = NULL)
 {
     typename t_Bridge::Reader reader(reader_initializer);
-    ariles::reader::readEntry(reader, *this, this->getConfigSectionID(), ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+    ariles::adapter::readEntry(reader, *this, this->getConfigSectionID(), ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
 
 
@@ -118,7 +118,7 @@ template <class t_Bridge, class t_ReaderInitializer>
                     typename t_Bridge::BridgeSelectorIndicatorType * = NULL)
 {
     typename t_Bridge::Reader reader(reader_initializer);
-    ariles::reader::readEntry(reader, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+    ariles::adapter::readEntry(reader, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
 template <class t_Bridge, class t_ReaderInitializer>
     void readConfig(const t_ReaderInitializer   &reader_initializer,
@@ -127,7 +127,7 @@ template <class t_Bridge, class t_ReaderInitializer>
                     typename t_Bridge::BridgeSelectorIndicatorType * = NULL)
 {
     typename t_Bridge::Reader reader(reader_initializer);
-    ariles::reader::readEntry(reader, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+    ariles::adapter::readEntry(reader, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
 
 
@@ -147,7 +147,7 @@ template <class t_Bridge, class t_ReaderInitializer>
                     typename t_Bridge::BridgeSelectorIndicatorType * = NULL)
 {
     typename t_Bridge::Reader reader(reader_initializer);
-    ariles::reader::readEntry(reader, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+    ariles::adapter::readEntry(reader, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
 template <class t_Bridge, class t_ReaderInitializer>
     void readConfig(const t_ReaderInitializer   &reader_initializer,
@@ -156,7 +156,7 @@ template <class t_Bridge, class t_ReaderInitializer>
                     typename t_Bridge::BridgeSelectorIndicatorType * = NULL)
 {
     typename t_Bridge::Reader reader(reader_initializer);
-    ariles::reader::readEntry(reader, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+    ariles::adapter::readEntry(reader, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
 }
 
 
@@ -189,7 +189,7 @@ template <class t_Writer>
                      ARILES_CONFIGURABLE_PARAMETERS_ARG) const
 {
     writer.initRoot();
-    ariles::writer::writeEntry(writer, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+    ariles::adapter::writeEntry(writer, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
     writer.flush();
 }
 
@@ -206,7 +206,7 @@ template <class t_Writer>
                      ARILES_CONFIGURABLE_PARAMETERS_ARG) const
 {
     writer.initRoot();
-    ariles::writer::writeEntry(writer, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
+    ariles::adapter::writeEntry(writer, *this, node_name, ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE);
     writer.flush();
 }
 

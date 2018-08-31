@@ -13,7 +13,7 @@
 
 namespace ariles
 {
-    namespace reader
+    namespace adapter
     {
         template <  class t_Reader,
                     typename t_VectorEntryType,
@@ -31,11 +31,9 @@ namespace ariles
             }
             reader.endArray();
         }
-    }
+    
 
 
-    namespace writer
-    {
         template <  class t_Writer,
                     typename t_VectorEntryType,
                     class t_Allocator>

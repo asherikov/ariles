@@ -18,7 +18,7 @@
 
 namespace ariles
 {
-    namespace reader
+    namespace adapter
     {
         template <  class t_Reader,
                     typename t_Scalar,
@@ -59,11 +59,11 @@ namespace ariles
             readBody(   t_Reader & reader,
                         Eigen::Quaternion< t_Scalar, t_options > &entry,
                         const ariles::ConfigurableFlags & param);
-    }
 
 
-    namespace writer
-    {
+        // ====================================================
+
+
         template <  class t_Writer,
                     typename t_Scalar,
                     int t_rows,
