@@ -67,7 +67,7 @@ namespace initializers
                 {
                     input_file_stream_.close();
                 }
-                input_file_stream_.open(string_id);
+                input_file_stream_.open(string_id.c_str());
                 if (false == input_file_stream_.good())
                 {
                     ARILES_THROW_MSG("Could not open file.");
@@ -81,7 +81,7 @@ namespace initializers
                 {
                     output_file_stream_.close();
                 }
-                output_file_stream_.open(string_id);
+                output_file_stream_.open(string_id.c_str());
                 if (false == output_file_stream_.good())
                 {
                     ARILES_THROW_MSG("Could not open file.");
