@@ -104,5 +104,37 @@ namespace ariles
             writeBody(  t_Writer & writer,
                         const Eigen::Quaternion< t_Scalar, t_options > &entry,
                         const ariles::ConfigurableFlags & param);
+
+
+        // ====================================================
+
+
+        template <  typename t_Scalar,
+                    int t_rows,
+                    int t_flags>
+            void ARILES_VISIBILITY_ATTRIBUTE
+            setDefaults(Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry);
+
+
+        template <  typename t_Scalar,
+                    int t_rows,
+                    int t_cols,
+                    int t_flags>
+            void ARILES_VISIBILITY_ATTRIBUTE
+            setDefaults(Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry);
+
+
+        template <  typename t_Scalar,
+                    int t_dim,
+                    int t_mode,
+                    int t_options>
+            void ARILES_VISIBILITY_ATTRIBUTE
+            setDefaults(Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry);
+
+
+        template <  typename t_Scalar,
+                    int t_options>
+            void ARILES_VISIBILITY_ATTRIBUTE
+            setDefaults(Eigen::Quaternion< t_Scalar, t_options > &entry);
     }
 }

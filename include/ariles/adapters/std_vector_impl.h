@@ -31,7 +31,7 @@ namespace ariles
             }
             reader.endArray();
         }
-    
+
 
 
         template <  class t_Writer,
@@ -49,6 +49,16 @@ namespace ariles
                 writer.shiftArray();
             }
             writer.endArray();
+        }
+
+
+
+        template <  typename t_VectorEntryType,
+                    class t_Allocator>
+            void ARILES_VISIBILITY_ATTRIBUTE setDefaults(
+                    std::vector<t_VectorEntryType, t_Allocator> & entry)
+        {
+            entry.clear();
         }
     }
 }

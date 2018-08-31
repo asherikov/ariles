@@ -37,10 +37,10 @@
     public:
         #ifdef ARILES_ENTRIES
 
-        // Define write methods
+        // Define write method
 
-            #define ARILES_NAMED_ENTRY(entry, name)  ARILES_WRITE_NAMED_ENTRY(entry, name)
-            #define ARILES_PARENT(entry)       ARILES_WRITE_PARENT(entry)
+            #define ARILES_NAMED_ENTRY(entry, name)     ARILES_WRITE_NAMED_ENTRY(entry, name)
+            #define ARILES_PARENT(entry)                ARILES_WRITE_PARENT(entry);
 
             void writeConfigEntries(ariles::WriterBase & writer,
                                     const ariles::ConfigurableFlags & param) const
@@ -53,10 +53,10 @@
             #undef ARILES_NAMED_ENTRY
             #undef ARILES_PARENT
 
-        // Define read methods
+        // Define read method
 
-            #define ARILES_NAMED_ENTRY(entry, name)  ARILES_READ_NAMED_ENTRY(entry, name)
-            #define ARILES_PARENT(entry)       ARILES_READ_PARENT(entry)
+            #define ARILES_NAMED_ENTRY(entry, name)     ARILES_READ_NAMED_ENTRY(entry, name)
+            #define ARILES_PARENT(entry)                ARILES_READ_PARENT(entry);
 
             void readConfigEntries( ariles::ReaderBase & reader,
                                     const ariles::ConfigurableFlags & parameters)
@@ -70,6 +70,19 @@
                 ARILES_IGNORE_UNUSED(param);
                 ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
                 finalize();
+            }
+
+            #undef ARILES_NAMED_ENTRY
+            #undef ARILES_PARENT
+
+        // Define initialization method
+
+            #define ARILES_NAMED_ENTRY(entry, name)  ariles::adapter::setDefaults(entry);
+            #define ARILES_PARENT(entry)             entry::setDefaults();
+
+            void setArilesDefaults()
+            {
+                ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
             }
 
             #undef ARILES_NAMED_ENTRY

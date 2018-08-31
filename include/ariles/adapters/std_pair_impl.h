@@ -46,5 +46,16 @@ namespace ariles
             writeEntry(writer, entry.second, "second", param);
             writer.endMap();
         }
+
+
+
+        template <  typename t_First,
+                    typename t_Second>
+            void ARILES_VISIBILITY_ATTRIBUTE setDefaults(
+                    std::pair<t_First, t_Second> & entry)
+        {
+            setDefaults(entry.first);
+            setDefaults(entry.second);
+        }
     }
 }

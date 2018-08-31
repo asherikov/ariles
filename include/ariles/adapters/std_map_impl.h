@@ -26,9 +26,9 @@ namespace ariles
                     const ariles::ConfigurableFlags & param)
         {
             std::size_t size = reader.startArray();
-            entry.clear();
             ariles::ConfigurableFlags param_local = param;
             param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
+            entry.clear();
             for(std::size_t i = 0; i < size; ++i)
             {
                 std::pair<t_Key, t_Value> map_entry;
@@ -57,9 +57,9 @@ namespace ariles
             {
                 std::vector<std::string> entry_names;
                 ARILES_ASSERT(true == reader.getMapEntryNames(entry_names), "Could not read names of map entries.");
-                entry.clear();
                 ariles::ConfigurableFlags param_local = param;
                 param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
+                entry.clear();
                 reader.template startMap<t_Reader::SIZE_LIMIT_NONE>();
                 for (std::size_t i = 0; i < entry_names.size(); ++i)
                 {
@@ -126,6 +126,18 @@ namespace ariles
             {
                 writeBody<t_Writer, std::string, t_Value, t_Compare, t_Allocator>(writer, entry, param);
             }
+        }
+
+
+
+        template <  typename t_Key,
+                    typename t_Value,
+                    class t_Compare,
+                    class t_Allocator>
+            void ARILES_VISIBILITY_ATTRIBUTE setDefaults(
+                    std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry)
+        {
+            entry.clear();
         }
     }
 }

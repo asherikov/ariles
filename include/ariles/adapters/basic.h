@@ -159,5 +159,60 @@ namespace ariles
             writeBody(writer, entry, param);
             writer.ascend();
         }
+
+
+        // ============================================
+
+
+        void ARILES_VISIBILITY_ATTRIBUTE setDefaults(
+                        ariles::CommonConfigurableBase & entry)
+        {
+            entry.setDefaults();
+        }
+
+
+        template <typename t_Enumeration>
+            void ARILES_VISIBILITY_ATTRIBUTE setDefaults(
+                            t_Enumeration  & entry,
+                            ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
+        {
+            entry = static_cast<t_Enumeration>(0);
+        }
+
+
+        void ARILES_VISIBILITY_ATTRIBUTE setDefaults(bool & entry)
+        {
+            entry = false;
+        }
+
+
+        void ARILES_VISIBILITY_ATTRIBUTE setDefaults(std::string & entry)
+        {
+            entry = "";
+        }
+
+
+        #define ARILES_BASIC_TYPE(type) \
+                    void ARILES_VISIBILITY_ATTRIBUTE setDefaults(type & entry) \
+                { entry = 0; }
+
+        /**
+         * @brief Generate setDefaults methods for basic types.
+         */
+        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_INTEGER_TYPES_LIST)
+
+        #undef ARILES_BASIC_TYPE
+
+
+        #define ARILES_BASIC_TYPE(type) \
+                    void ARILES_VISIBILITY_ATTRIBUTE setDefaults(type & entry) \
+                { entry = 0.0; }
+
+        /**
+         * @brief Generate setDefaults methods for basic types.
+         */
+        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+
+        #undef ARILES_BASIC_TYPE
     }
 }

@@ -35,5 +35,11 @@ namespace ariles
                     t_Writer & writer,
                     const std::pair<t_First, t_Second> & entry,
                     const ariles::ConfigurableFlags & param);
+
+
+        template <  typename t_First,
+                    typename t_Second>
+            void ARILES_VISIBILITY_ATTRIBUTE setDefaults(
+                    std::pair<t_First, t_Second> & entry);
     }
 }

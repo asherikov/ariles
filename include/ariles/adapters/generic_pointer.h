@@ -29,6 +29,11 @@ namespace ariles
             writeBody(  t_Writer & writer,
                         const ARILES_POINTER_TYPE(t_Entry) &entry,
                         const ariles::ConfigurableFlags & param);
+
+
+        template <typename t_Entry>
+            void ARILES_VISIBILITY_ATTRIBUTE
+            setDefaults(ARILES_POINTER_TYPE(t_Entry) &entry);
     }
 }
 

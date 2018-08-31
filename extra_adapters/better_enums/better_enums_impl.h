@@ -47,5 +47,18 @@ namespace ariles
         {
             writer.writeElement(std::string(entry._to_string()));
         }
+
+
+        template <class t_BetterEnum>
+            void ARILES_VISIBILITY_ATTRIBUTE
+            setDefaults(t_BetterEnum &entry,
+                        const typename t_BetterEnum::_integral * /*dummy*/,
+                        const typename t_BetterEnum::_value_iterable * /*dummy*/,
+                        const typename t_BetterEnum::_name_iterable * /*dummy*/,
+                        const typename t_BetterEnum::_value_iterator * /*dummy*/,
+                        const typename t_BetterEnum::_name_iterator * /*dummy*/)
+        {
+            entry = t_BetterEnum::_from_integral_unchecked(0);
+        }
     }
 }

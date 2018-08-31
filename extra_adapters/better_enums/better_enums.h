@@ -41,5 +41,15 @@ namespace ariles
                         const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
                         const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
                         const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL);
+
+
+        template <class t_BetterEnum>
+            void ARILES_VISIBILITY_ATTRIBUTE
+            setDefaults(t_BetterEnum &entry,
+                        const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
+                        const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
+                        const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
+                        const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
+                        const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL);
     }
 }

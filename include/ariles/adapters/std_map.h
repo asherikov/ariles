@@ -57,5 +57,13 @@ namespace ariles
                     t_Writer & writer,
                     const std::map<std::string, t_Value, t_Compare, t_Allocator> & entry,
                     const ariles::ConfigurableFlags & param);
+
+
+        template <  typename t_Key,
+                    typename t_Value,
+                    class t_Compare,
+                    class t_Allocator>
+            void ARILES_VISIBILITY_ATTRIBUTE setDefaults(
+                    std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry);
     }
 }

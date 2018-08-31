@@ -71,6 +71,14 @@ namespace ariles
                 writer.endMap();
             }
         }
+
+
+        template <typename t_Entry>
+            void ARILES_VISIBILITY_ATTRIBUTE
+            setDefaults(ARILES_POINTER_TYPE(t_Entry) &entry)
+        {
+            ARILES_POINTER_RESET(entry);
+        }
     }
 }
 

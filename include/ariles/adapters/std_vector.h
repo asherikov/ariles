@@ -35,5 +35,12 @@ namespace ariles
                     t_Writer & writer,
                     const std::vector<t_VectorEntryType, t_Allocator> & entry,
                     const ariles::ConfigurableFlags & param);
+
+
+
+        template <  typename t_VectorEntryType,
+                    class t_Allocator>
+            void ARILES_VISIBILITY_ATTRIBUTE setDefaults(
+                    std::vector<t_VectorEntryType, t_Allocator> & entry);
     }
 }
