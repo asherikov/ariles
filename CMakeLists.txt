@@ -46,6 +46,9 @@ set    (ARILES_CPP_STANDARD             "c++98" CACHE STRING "C++ standard versi
 option (ARILES_VERBOSE                  "Verbose build"                     ON)
 option (ARILES_BUILD_REGRESSION_TESTS   "Build regression tests."           ON)
 
+# install parameters
+set    (ARILES_PKGCONFIG_INSTALL_PATH   "" CACHE STRING "pkg-config pc-file install path, not installed if empty")
+
 
 #####################################
 
@@ -440,11 +443,8 @@ install (DIRECTORY "${ARILES_INCLUDE_DIR}"
 install (FILES "${PROJECT_BINARY_DIR}/arilesConfig.cmake"
          DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles/")
 
-if(CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" AND NOT CMAKE_CROSSCOMPILING)
+if(ARILES_PKGCONFIG_INSTALL_PATH)
     install (FILES "${PROJECT_BINARY_DIR}/ariles.pc"
-        DESTINATION "${CMAKE_INSTALL_PREFIX}/libdata/pkgconfig")
-else()
-    install (FILES "${PROJECT_BINARY_DIR}/ariles.pc"
-        DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig")
+        DESTINATION "${ARILES_PKGCONFIG_INSTALL_PATH}")
 endif()
 
