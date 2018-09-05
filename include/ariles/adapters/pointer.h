@@ -8,18 +8,21 @@
 */
 
 #pragma once
-
-
-#define ARILES_INCLUDED_ADAPTER_POINTER
-
-
 #if __cplusplus >= 201103L
 
 #include <memory>
-#define ARILES_POINTER_TYPE(entry_type) std::shared_ptr<entry_type>
+
+#define ARILES_POINTER_TYPE(entry_type)                 std::shared_ptr<entry_type>
+#define ARILES_POINTER_ALLOCATE(entry_type, pointer)    pointer = std::make_shared<entry_type>()
+#define ARILES_POINTER_RESET(pointer)                   pointer.reset()
+#define ARILES_POINTER_CHECK_DEFINED(pointer)           (NULL == pointer)
 #include <ariles/adapters/generic_pointer.h>
 
-#define ARILES_POINTER_TYPE(entry_type) std::unique_ptr<entry_type>
+
+#define ARILES_POINTER_TYPE(entry_type)                 std::unique_ptr<entry_type>
+#define ARILES_POINTER_ALLOCATE(entry_type, pointer)    pointer.reset(new double())
+#define ARILES_POINTER_RESET(pointer)                   pointer.reset(NULL)
+#define ARILES_POINTER_CHECK_DEFINED(pointer)           (NULL == pointer)
 #include <ariles/adapters/generic_pointer.h>
 
 #endif

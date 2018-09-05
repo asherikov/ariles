@@ -105,6 +105,7 @@ namespace ariles
                     void flush()
                     {
                         destroyEmitter();
+                        *output_stream_ << "\n";
                         output_stream_->flush();
                         initEmitter();
                     }

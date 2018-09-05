@@ -381,8 +381,8 @@ foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
     endif()
 endforeach(ARILES_BRIDGE)
 
-set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"adapters_all.h\"\n")
 set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"ariles.h\"\n")
+set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"adapters_all.h\"\n")
 
 file(WRITE "${ARILES_INCLUDE_DIR}/ariles/ariles_all.h" "${ARILES_HEADER_ALL}")
 #---
@@ -402,33 +402,6 @@ foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
 endforeach()
 
 file(WRITE "${ARILES_INCLUDE_DIR}/ariles/adapters_all.h" "${ARILES_ADAPTERS_ALL}")
-
-#-
-
-set(ARILES_ADAPTERS_INCLUDED   "#pragma once\n\
-#ifdef ARILES_INCLUDED_ADAPTER_POINTER\n\
-#   include \"pointer_impl.h\"\n\
-#endif\n\
-#ifdef ARILES_INCLUDED_ADAPTER_STD_VECTOR\n\
-#   include \"std_vector_impl.h\"\n\
-#endif\n\
-\n\
-#ifdef ARILES_INCLUDED_ADAPTER_STD_PAIR\n\
-#   include \"std_pair_impl.h\"\n\
-#endif\n\
-\n\
-#ifdef ARILES_INCLUDED_ADAPTER_STD_PAIR\n\
-#   include \"std_map_impl.h\"\n\
-#endif\n")
-
-foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
-set(ARILES_ADAPTERS_INCLUDED "${ARILES_ADAPTERS_INCLUDED}\n\
-#ifdef ARILES_INCLUDED_ADAPTER_EIGEN\n\
-#   include \"${ARILES_EXTRA_ADAPTER}_impl.h\"\n\
-#endif\n")
-endforeach()
-
-file(WRITE "${ARILES_INCLUDE_DIR}/ariles/adapters/included.h" "${ARILES_ADAPTERS_INCLUDED}")
 
 #---
 

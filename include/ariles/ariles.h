@@ -30,7 +30,7 @@
     #define ARILES_ENTRY(entry)      ARILES_NAMED_ENTRY(entry, #entry)
 
 
-    #define ARILES_WRITE_NAMED_ENTRY(entry, name)   ariles::adapter::writeEntry(writer, entry, name, param);
+    #define ARILES_WRITE_NAMED_ENTRY(entry, name)   ariles::writeEntry(writer, entry, name, param);
 
     #define ARILES_WRITE_ENTRY_(entry)   ARILES_WRITE_NAMED_ENTRY(entry##_, #entry)
     #define ARILES_WRITE_ENTRY(entry)    ARILES_WRITE_NAMED_ENTRY(entry, #entry)
@@ -38,7 +38,7 @@
     #define ARILES_WRITE_PARENT(parent_class)  parent_class::writeConfigEntries(writer, param);
 
 
-    #define ARILES_READ_NAMED_ENTRY(entry, name)    ariles::adapter::readEntry(reader, entry, name, param);
+    #define ARILES_READ_NAMED_ENTRY(entry, name)    ariles::readEntry(reader, entry, name, param);
 
     #define ARILES_READ_ENTRY_(entry)    ARILES_READ_NAMED_ENTRY(entry##_, #entry);
     #define ARILES_READ_ENTRY(entry)     ARILES_READ_NAMED_ENTRY(entry, #entry);
@@ -154,7 +154,6 @@
     }
 
 #   include "adapters/basic.h"
-#   include "adapters/included.h"
 
 #else
 
