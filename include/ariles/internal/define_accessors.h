@@ -77,7 +77,7 @@
 
         // Define initialization method
 
-            #define ARILES_NAMED_ENTRY(entry, name)  ariles::setDefaults(entry, getArilesConfigurableFlags());
+            #define ARILES_NAMED_ENTRY(entry, name)  ariles::setDefaults(entry, this->getArilesConfigurableFlags());
             #define ARILES_PARENT(entry)             entry::setDefaults();
 
             void setArilesDefaults()
