@@ -12,6 +12,8 @@
 
 #include <limits>
 #include <iomanip>
+#include <vector>
+#include <boost/lexical_cast.hpp>
 
 namespace ariles
 {
