@@ -1,6 +1,6 @@
 set(ARILES_CPP_STANDARD         "c++11" CACHE STRING "")
 
-set(ARILES_ENABLE_SLOPPY_MAP    "ON"    CACHE STRING "")
+set(ARILES_DEFAULT_CONFIGURABLE_FLAGS "ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED")
 
 set(ARILES_BRIDGE_pugixml       "ON"    CACHE STRING "")
 set(ARILES_BRIDGE_rapidjson     "ON"    CACHE STRING "")
