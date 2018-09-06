@@ -20,11 +20,14 @@
 #include <ariles/adapters/generic_pointer.h>
 
 
-#include <boost/move/unique_ptr.hpp>
-#include <boost/move/make_unique.hpp>
+// this version is known to work
+#if BOOST_VERSION >= 105800
+#   include <boost/move/unique_ptr.hpp>
+#   include <boost/move/make_unique.hpp>
 
-#define ARILES_POINTER_TYPE(entry_type)                 boost::movelib::unique_ptr<entry_type>
-#define ARILES_POINTER_ALLOCATE(entry_type, pointer)    pointer = boost::movelib::make_unique<entry_type>()
-#define ARILES_POINTER_RESET(pointer)                   pointer.reset()
-#define ARILES_POINTER_CHECK_DEFINED(pointer)           (NULL == pointer)
-#include <ariles/adapters/generic_pointer.h>
+#   define ARILES_POINTER_TYPE(entry_type)                 boost::movelib::unique_ptr<entry_type>
+#   define ARILES_POINTER_ALLOCATE(entry_type, pointer)    pointer = boost::movelib::make_unique<entry_type>()
+#   define ARILES_POINTER_RESET(pointer)                   pointer.reset()
+#   define ARILES_POINTER_CHECK_DEFINED(pointer)           (NULL == pointer)
+#   include <ariles/adapters/generic_pointer.h>
+#endif

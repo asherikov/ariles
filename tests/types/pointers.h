@@ -28,11 +28,18 @@ class ConfigurablePointers : public ariles::ConfigurableBase
 
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
-    #define ARILES_ENTRIES_2 \
-        ARILES_ENTRIES_1 \
-        ARILES_TYPED_ENTRY_(shared_ptr_real,          boost::shared_ptr<double>) \
-        ARILES_TYPED_ENTRY_(shared_ptr_real_null,     boost::shared_ptr<double>) \
-        ARILES_TYPED_ENTRY_(unique_ptr_real,          boost::movelib::unique_ptr<double>)
+#   if BOOST_VERSION >= 105800
+#       define ARILES_ENTRIES_2 \
+            ARILES_ENTRIES_1 \
+            ARILES_TYPED_ENTRY_(shared_ptr_real,          boost::shared_ptr<double>) \
+            ARILES_TYPED_ENTRY_(shared_ptr_real_null,     boost::shared_ptr<double>) \
+            ARILES_TYPED_ENTRY_(unique_ptr_real,          boost::movelib::unique_ptr<double>)
+#   else
+#       define ARILES_ENTRIES_2 \
+            ARILES_ENTRIES_1 \
+            ARILES_TYPED_ENTRY_(shared_ptr_real,          boost::shared_ptr<double>) \
+            ARILES_TYPED_ENTRY_(shared_ptr_real_null,     boost::shared_ptr<double>)
+#   endif
 #else
     #define ARILES_ENTRIES_2 ARILES_ENTRIES_1
 #endif
@@ -74,7 +81,9 @@ class ConfigurablePointers : public ariles::ConfigurableBase
 #ifdef ARILES_ADAPTER_BOOST_POINTER
             shared_ptr_real_.reset();
             shared_ptr_real_null_.reset();
+#   if BOOST_VERSION >= 105800
             unique_ptr_real_.reset();
+#   endif
 #endif
 
 #ifdef ARILES_ADAPTER_BOOST_OPTIONAL
@@ -96,10 +105,12 @@ class ConfigurablePointers : public ariles::ConfigurableBase
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
             shared_ptr_real_ = boost::make_shared<double>();
-            unique_ptr_real_ = boost::movelib::make_unique<double>();
-
             *shared_ptr_real_ = GET_RANDOM_REAL;
+
+#   if BOOST_VERSION >= 105800
+            unique_ptr_real_ = boost::movelib::make_unique<double>();
             *unique_ptr_real_ = GET_RANDOM_REAL;
+#   endif
 
             shared_ptr_real_null_.reset();
 #endif
@@ -148,6 +159,7 @@ void    compare(const t_Configurable_out    &configurable_out,
         BOOST_CHECK(configurable_out.shared_ptr_real_ != NULL);
         BOOST_CHECK_CLOSE(*configurable_out.shared_ptr_real_, *configurable_in.shared_ptr_real_, g_tolerance);
     }
+#   if BOOST_VERSION >= 105800
     if (configurable_in.unique_ptr_real_ == NULL)
     {
         BOOST_CHECK(configurable_out.unique_ptr_real_ == configurable_in.unique_ptr_real_);
@@ -157,6 +169,7 @@ void    compare(const t_Configurable_out    &configurable_out,
         BOOST_CHECK(configurable_out.unique_ptr_real_ != NULL);
         BOOST_CHECK_CLOSE(*configurable_out.unique_ptr_real_, *configurable_in.unique_ptr_real_, g_tolerance);
     }
+#   endif
 
     BOOST_CHECK(configurable_out.shared_ptr_real_null_ == NULL);
     BOOST_CHECK_EQUAL(configurable_out.shared_ptr_real_null_, configurable_in.shared_ptr_real_null_);
