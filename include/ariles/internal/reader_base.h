@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <vector>
 
 namespace ariles
 {
@@ -136,7 +137,7 @@ namespace ariles
 
 
     template<>
-    std::size_t ReaderBase::checkSize<ReaderBase::SIZE_LIMIT_NONE>(
+    inline std::size_t ReaderBase::checkSize<ReaderBase::SIZE_LIMIT_NONE>(
             const std::size_t & size,
             const std::size_t & /*min*/,
             const std::size_t & /*max*/) const
@@ -146,7 +147,7 @@ namespace ariles
 
 
     template<>
-    std::size_t ReaderBase::checkSize<ReaderBase::SIZE_LIMIT_EQUAL>(
+    inline std::size_t ReaderBase::checkSize<ReaderBase::SIZE_LIMIT_EQUAL>(
             const std::size_t & size,
             const std::size_t & expected_size,
             const std::size_t & /*max*/) const
@@ -157,7 +158,7 @@ namespace ariles
 
 
     template<>
-    std::size_t ReaderBase::checkSize<ReaderBase::SIZE_LIMIT_RANGE>(
+    inline std::size_t ReaderBase::checkSize<ReaderBase::SIZE_LIMIT_RANGE>(
             const std::size_t & size,
             const std::size_t & min,
             const std::size_t & max) const
@@ -169,7 +170,7 @@ namespace ariles
 
 
     template<>
-    std::size_t ReaderBase::checkSize<ReaderBase::SIZE_LIMIT_MIN>(
+    inline std::size_t ReaderBase::checkSize<ReaderBase::SIZE_LIMIT_MIN>(
             const std::size_t & size,
             const std::size_t & min,
             const std::size_t & /*max*/) const
