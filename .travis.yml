@@ -2,9 +2,7 @@ language: cpp
 
 compiler:
     - clang
-    - gcc
-
-os: linux
+#    - gcc
 
 addons:
     apt:
@@ -18,5 +16,51 @@ notifications:
         on_success: always
         on_failure: always
 
+jobs:
+    include:
 
-script: make build-tests TYPE=Debug OPTIONS=cpp03_build_noros TARGETS="all"
+    # C++11
+      - os: linux
+        dist: trusty
+        script:
+          - make build-tests TYPE=Debug OPTIONS=cpp11_build_noros TARGETS="all"
+
+    # C++03
+      - os: linux
+        dist: trusty
+        script:
+          - make build-tests TYPE=Debug OPTIONS=cpp03_build_noros TARGETS="all"
+
+
+    # ROS / C++11
+    # based on https://github.com/felixduvallet/ros-travis-integration/blob/master/.travis.yml
+      - os: linux
+        dist: trusty
+        sudo: required
+        cache:
+          - apt
+
+        env:
+          - ROS_DISTRO=indigo
+          - CI_SOURCE_PATH=$(pwd)
+          - ROS_CI_DESKTOP=trusty
+          - ROSINSTALL_FILE=$CI_SOURCE_PATH/dependencies.rosinstall
+          - CATKIN_OPTIONS=$CI_SOURCE_PATH/catkin.options
+          # Set the python path manually to include /usr/-/python2.7/dist-packages
+          # as this is where apt-get installs python packages.
+          - PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
+
+        # Install system dependencies, namely a very barebones ROS setup.
+        before_install:
+          - sudo sh -c "echo \"deb http://packages.ros.org/ros/ubuntu $ROS_CI_DESKTOP main\" > /etc/apt/sources.list.d/ros-latest.list"
+          - sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
+          - sudo apt-get update -qq
+          - sudo apt-get install dpkg
+          - sudo apt-get install -y ros-$ROS_DISTRO-ros-base
+          - source /opt/ros/$ROS_DISTRO/setup.bash
+          # Prepare rosdep to install dependencies.
+          - sudo rosdep init
+          - rosdep update
+
+        script:
+          - make build-tests TYPE=Debug OPTIONS=ros TARGETS="all"
