@@ -1,5 +1,5 @@
 * Doxygen: https://asherikov.github.io/ariles/
-* Travis CI: [![Build Status](https://travis-ci.org/asherikov/ariles.svg?branch=master)](https://travis-ci.org/asherikov/ariles) https://travis-ci.org/asherikov/ariles
+* Travis CI: https://travis-ci.org/asherikov/ariles [![Build Status](https://travis-ci.org/asherikov/ariles.svg?branch=master)](https://travis-ci.org/asherikov/ariles)
 
 
 Introduction
