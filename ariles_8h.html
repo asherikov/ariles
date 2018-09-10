@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ariles: /mnt/data/_me/git/asherikov/arilesx/include/ariles/ariles.h File Reference</title>
+<title>Ariles: /mnt/data/_me/git/asherikov/ariles/include/ariles/ariles.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,7 +68,8 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
 <div class="title">ariles.h File Reference</div>  </div>
 </div><!--header-->
@@ -86,19 +87,13 @@ $(function() {
 <code>#include &quot;<a class="el" href="reader__base_8h_source.html">internal/reader_base.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="writer__base_8h_source.html">internal/writer_base.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="basic_8h_source.html">adapters/basic.h</a>&quot;</code><br />
-<code>#include &quot;adapters/included.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1CommonConfigurableBase.html">ariles::CommonConfigurableBase</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configurable base class.  <a href="classariles_1_1CommonConfigurableBase.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1StrictConfigurableBase.html">ariles::StrictConfigurableBase</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1RelaxedConfigurableBase.html">ariles::RelaxedConfigurableBase</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1ConfigurableBase.html">ariles::ConfigurableBase</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default configurable base is strict.  <a href="classariles_1_1ConfigurableBase.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1CommonConfigurableBaseWithFlags.html">ariles::CommonConfigurableBaseWithFlags&lt; t_flags &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -118,7 +113,7 @@ Macros</h2></td></tr>
 <tr class="separator:ad19fbd1f5562187d81b2eab46a07de38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6f48a6b452d0874624be1bf197a4966"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ariles_8h.html#ac6f48a6b452d0874624be1bf197a4966">ARILES_ENTRY</a>(entry)&#160;&#160;&#160;ARILES_NAMED_ENTRY(entry, #entry)</td></tr>
 <tr class="separator:ac6f48a6b452d0874624be1bf197a4966"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84da45300fcc3bf375a50dcc065c4c92"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ariles_8h.html#a84da45300fcc3bf375a50dcc065c4c92">ARILES_WRITE_NAMED_ENTRY</a>(entry,  name)&#160;&#160;&#160;<a class="el" href="namespaceariles_1_1writer.html#a8666a7334dea9cb1426dd578c4f2b045">ariles::writer::writeEntry</a>(writer, entry, name, param);</td></tr>
+<tr class="memitem:a84da45300fcc3bf375a50dcc065c4c92"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ariles_8h.html#a84da45300fcc3bf375a50dcc065c4c92">ARILES_WRITE_NAMED_ENTRY</a>(entry,  name)&#160;&#160;&#160;<a class="el" href="namespaceariles.html#a7c8ea1da881c66024836ae499496952b">ariles::writeEntry</a>(writer, entry, name, param);</td></tr>
 <tr class="separator:a84da45300fcc3bf375a50dcc065c4c92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af69545e8271e4539ee9645027178cb08"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ariles_8h.html#af69545e8271e4539ee9645027178cb08">ARILES_WRITE_ENTRY_</a>(entry)&#160;&#160;&#160;<a class="el" href="ariles_8h.html#a84da45300fcc3bf375a50dcc065c4c92">ARILES_WRITE_NAMED_ENTRY</a>(entry##_, #entry)</td></tr>
 <tr class="separator:af69545e8271e4539ee9645027178cb08"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,7 +121,7 @@ Macros</h2></td></tr>
 <tr class="separator:ad8be8c04b58b9a162a179ff3c81d91b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe3a485d4d1bdd00549ea18ca3e448a4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ariles_8h.html#afe3a485d4d1bdd00549ea18ca3e448a4">ARILES_WRITE_PARENT</a>(parent_class)&#160;&#160;&#160;parent_class::writeConfigEntries(writer, param);</td></tr>
 <tr class="separator:afe3a485d4d1bdd00549ea18ca3e448a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbd4d23060921dd24f3500ab1830d6f3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ariles_8h.html#adbd4d23060921dd24f3500ab1830d6f3">ARILES_READ_NAMED_ENTRY</a>(entry,  name)&#160;&#160;&#160;<a class="el" href="namespaceariles_1_1reader.html#a0dcadc002d626332cf49b62a75cbf133">ariles::reader::readEntry</a>(reader, entry, name, param);</td></tr>
+<tr class="memitem:adbd4d23060921dd24f3500ab1830d6f3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ariles_8h.html#adbd4d23060921dd24f3500ab1830d6f3">ARILES_READ_NAMED_ENTRY</a>(entry,  name)&#160;&#160;&#160;<a class="el" href="namespaceariles.html#a67f7dac8faf3203bb2e71684a0579f7c">ariles::readEntry</a>(reader, entry, name, param);</td></tr>
 <tr class="separator:adbd4d23060921dd24f3500ab1830d6f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7e6c8409a8892f3135316e274ac58f7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ariles_8h.html#ad7e6c8409a8892f3135316e274ac58f7">ARILES_READ_ENTRY_</a>(entry)&#160;&#160;&#160;<a class="el" href="ariles_8h.html#adbd4d23060921dd24f3500ab1830d6f3">ARILES_READ_NAMED_ENTRY</a>(entry##_, #entry);</td></tr>
 <tr class="separator:ad7e6c8409a8892f3135316e274ac58f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,6 +129,16 @@ Macros</h2></td></tr>
 <tr class="separator:addb64dd46334b3f4b5c86722d2ef8fd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3ee98201657d5330eb02a197fb979a0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ariles_8h.html#aa3ee98201657d5330eb02a197fb979a0">ARILES_READ_PARENT</a>(parent_class)&#160;&#160;&#160;parent_class::readConfigEntries(reader, param);</td></tr>
 <tr class="separator:aa3ee98201657d5330eb02a197fb979a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a0bec90ffd02e0561fc5809ea1074cdcb"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles_1_1CommonConfigurableBaseWithFlags.html">ariles::CommonConfigurableBaseWithFlags</a>&lt; <a class="el" href="classariles_1_1ConfigurableFlags.html#a524828f45690389b89bb8d4245267804ae686a12d91f1b777d087495fec379674">ariles::ConfigurableFlags::DEFAULT</a> &amp;!(<a class="el" href="classariles_1_1ConfigurableFlags.html#a524828f45690389b89bb8d4245267804ac8407a7e1fbbe130a4f12203515d1cdf">ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES</a>)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceariles.html#a0bec90ffd02e0561fc5809ea1074cdcb">ariles::StrictConfigurableBase</a></td></tr>
+<tr class="separator:a0bec90ffd02e0561fc5809ea1074cdcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2374433103f5a439d4db786d264010e5"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles_1_1CommonConfigurableBaseWithFlags.html">ariles::CommonConfigurableBaseWithFlags</a>&lt; <a class="el" href="classariles_1_1ConfigurableFlags.html#a524828f45690389b89bb8d4245267804ae686a12d91f1b777d087495fec379674">ariles::ConfigurableFlags::DEFAULT</a>|<a class="el" href="classariles_1_1ConfigurableFlags.html#a524828f45690389b89bb8d4245267804ac8407a7e1fbbe130a4f12203515d1cdf">ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceariles.html#a2374433103f5a439d4db786d264010e5">ariles::RelaxedConfigurableBase</a></td></tr>
+<tr class="separator:a2374433103f5a439d4db786d264010e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4b77f599a4f5757ee6fd028128608a2"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles_1_1CommonConfigurableBaseWithFlags.html">ariles::CommonConfigurableBaseWithFlags</a>&lt; <a class="el" href="classariles_1_1ConfigurableFlags.html#a524828f45690389b89bb8d4245267804ae686a12d91f1b777d087495fec379674">ariles::ConfigurableFlags::DEFAULT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceariles.html#ab4b77f599a4f5757ee6fd028128608a2">ariles::ConfigurableBase</a></td></tr>
+<tr class="memdesc:ab4b77f599a4f5757ee6fd028128608a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default configurable base.  <a href="namespaceariles.html#ab4b77f599a4f5757ee6fd028128608a2">More...</a><br /></td></tr>
+<tr class="separator:ab4b77f599a4f5757ee6fd028128608a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a500a6247eca276fd0ba9a317e5f75ce8"></a>
@@ -253,7 +258,7 @@ Macros</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="namespaceariles_1_1reader.html#a0dcadc002d626332cf49b62a75cbf133">ariles::reader::readEntry</a>(reader, entry, name, param);</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="namespaceariles.html#a67f7dac8faf3203bb2e71684a0579f7c">ariles::readEntry</a>(reader, entry, name, param);</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -403,7 +408,7 @@ Macros</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="namespaceariles_1_1writer.html#a8666a7334dea9cb1426dd578c4f2b045">ariles::writer::writeEntry</a>(writer, entry, name, param);</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="namespaceariles.html#a7c8ea1da881c66024836ae499496952b">ariles::writeEntry</a>(writer, entry, name, param);</td>
         </tr>
       </table>
 </div><div class="memdoc">

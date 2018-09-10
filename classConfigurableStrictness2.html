@@ -63,7 +63,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classConfigurableStrictness2-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ConfigurableStrictness2 Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -80,10 +79,9 @@ Inheritance diagram for ConfigurableStrictness2:</div>
  <div class="center">
   <img src="classConfigurableStrictness2.png" usemap="#ConfigurableStrictness2_map" alt=""/>
   <map id="ConfigurableStrictness2_map" name="ConfigurableStrictness2_map">
-<area href="classConfigurableStrictness1.html" alt="ConfigurableStrictness1" shape="rect" coords="0,168,198,192"/>
-<area href="classariles_1_1ConfigurableBase.html" title="Default configurable base is strict. " alt="ariles::ConfigurableBase" shape="rect" coords="0,112,198,136"/>
-<area href="classariles_1_1StrictConfigurableBase.html" alt="ariles::StrictConfigurableBase" shape="rect" coords="0,56,198,80"/>
-<area href="classariles_1_1CommonConfigurableBase.html" title="Configurable base class. " alt="ariles::CommonConfigurableBase" shape="rect" coords="0,0,198,24"/>
+<area href="classConfigurableStrictness1.html" alt="ConfigurableStrictness1" shape="rect" coords="0,112,314,136"/>
+<area href="classariles_1_1CommonConfigurableBaseWithFlags.html" alt="ariles::CommonConfigurableBaseWithFlags&lt; t_flags &gt;" shape="rect" coords="0,56,314,80"/>
+<area href="classariles_1_1CommonConfigurableBase.html" title="Configurable base class. " alt="ariles::CommonConfigurableBase" shape="rect" coords="0,0,314,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -94,6 +92,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7bc9dd8087e54387cf155bdac1d4d183"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConfigurableStrictness2.html#a7bc9dd8087e54387cf155bdac1d4d183">setDefaults</a> ()</td></tr>
 <tr class="memdesc:a7bc9dd8087e54387cf155bdac1d4d183"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method must be defined.  <a href="#a7bc9dd8087e54387cf155bdac1d4d183">More...</a><br /></td></tr>
 <tr class="separator:a7bc9dd8087e54387cf155bdac1d4d183"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad45f3db483a93b93ac8ff131fddb4c0a"><td class="memItemLeft" align="right" valign="top">virtual const ConfigurableFlags &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1CommonConfigurableBaseWithFlags.html#ad45f3db483a93b93ac8ff131fddb4c0a">getArilesConfigurableFlags</a> () const</td></tr>
+<tr class="separator:ad45f3db483a93b93ac8ff131fddb4c0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5216e7088f0688e2e5e625a7e7a1cd45"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1CommonConfigurableBase.html#a5216e7088f0688e2e5e625a7e7a1cd45">getConfigSectionID</a> () const =0</td></tr>
 <tr class="memdesc:a5216e7088f0688e2e5e625a7e7a1cd45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the default name of a configuration node corresponding to this class.  <a href="#a5216e7088f0688e2e5e625a7e7a1cd45">More...</a><br /></td></tr>
 <tr class="separator:a5216e7088f0688e2e5e625a7e7a1cd45"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -108,11 +108,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a40594a9c8b4123fcf1381f63f72e9d9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af79c0914f888e82faaf58fe796ea4dda"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1CommonConfigurableBase.html#af79c0914f888e82faaf58fe796ea4dda">readConfigEntries</a> (<a class="el" href="classariles_1_1ReaderBase.html">ariles::ReaderBase</a> &amp;reader, const ConfigurableFlags &amp;param)=0</td></tr>
 <tr class="separator:af79c0914f888e82faaf58fe796ea4dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a6d6deb22ab1ce1867776d1d5367b8e01"><td class="memItemLeft" align="right" valign="top">virtual const ConfigurableFlags &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1StrictConfigurableBase.html#a6d6deb22ab1ce1867776d1d5367b8e01">getArilesConfigurableFlags</a> () const</td></tr>
-<tr class="separator:a6d6deb22ab1ce1867776d1d5367b8e01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05dbd42d263d4968d95ee0b1271f48ca"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1CommonConfigurableBase.html#a05dbd42d263d4968d95ee0b1271f48ca">setArilesDefaults</a> ()=0</td></tr>
+<tr class="separator:a05dbd42d263d4968d95ee0b1271f48ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8a6e69e13ff939e19dd65c65c9034273"></a>
@@ -170,21 +167,23 @@ Protected Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classConfigurable.html#a418560b4501109be0f0f051180f107dd">Configurable</a>, and <a class="el" href="classConfigurable.html#a418560b4501109be0f0f051180f107dd">Configurable</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ariles_8h_source.html#l00087">87</a> of file <a class="el" href="ariles_8h_source.html">ariles.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ariles_8h_source.html#l00088">88</a> of file <a class="el" href="ariles_8h_source.html">ariles.h</a>.</p>
 
 </div>
 </div>
-<a id="a6d6deb22ab1ce1867776d1d5367b8e01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d6deb22ab1ce1867776d1d5367b8e01">&#9670;&nbsp;</a></span>getArilesConfigurableFlags()</h2>
+<a id="ad45f3db483a93b93ac8ff131fddb4c0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad45f3db483a93b93ac8ff131fddb4c0a">&#9670;&nbsp;</a></span>getArilesConfigurableFlags()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;int t_flags&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual const ConfigurableFlags&amp; ariles::StrictConfigurableBase::getArilesConfigurableFlags </td>
+          <td class="memname">virtual const ConfigurableFlags&amp; <a class="el" href="classariles_1_1CommonConfigurableBaseWithFlags.html">ariles::CommonConfigurableBaseWithFlags</a>&lt; t_flags &gt;::getArilesConfigurableFlags </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -192,14 +191,14 @@ Protected Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Implements <a class="el" href="classariles_1_1CommonConfigurableBase.html#a986c1b3255b7973855a592411b13436c">ariles::CommonConfigurableBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ariles_8h_source.html#l00129">129</a> of file <a class="el" href="ariles_8h_source.html">ariles.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ariles_8h_source.html#l00132">132</a> of file <a class="el" href="ariles_8h_source.html">ariles.h</a>.</p>
 
 </div>
 </div>
@@ -298,6 +297,31 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a05dbd42d263d4968d95ee0b1271f48ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05dbd42d263d4968d95ee0b1271f48ca">&#9670;&nbsp;</a></span>setArilesDefaults()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ariles::CommonConfigurableBase::setArilesDefaults </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a7bc9dd8087e54387cf155bdac1d4d183"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7bc9dd8087e54387cf155bdac1d4d183">&#9670;&nbsp;</a></span>setDefaults()</h2>
 
@@ -367,7 +391,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/mnt/data/_me/git/asherikov/arilesx/tests/types/<a class="el" href="strictness_8h_source.html">strictness.h</a></li>
+<li>/mnt/data/_me/git/asherikov/ariles/tests/types/<a class="el" href="strictness_8h_source.html">strictness.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

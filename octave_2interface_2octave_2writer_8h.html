@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ariles: /mnt/data/_me/git/asherikov/arilesx/bridges/octave/interface/octave/writer.h File Reference</title>
+<title>Ariles: /mnt/data/_me/git/asherikov/ariles/bridges/octave/interface/octave/writer.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -82,6 +82,8 @@ $(function() {
 <p><a href="octave_2interface_2octave_2writer_8h_source.html">Go to the source code of this file.</a></p>
 <div class="textblock"><code>#include &lt;limits&gt;</code><br />
 <code>#include &lt;iomanip&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;boost/lexical_cast.hpp&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -120,7 +122,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><span class="keywordtype">void</span> writeElement(<span class="keyword">const</span> type &amp; element) \</div><div class="line">                            { \</div><div class="line">                                if (<span class="keyword">true</span> == node_stack_.back().isMatrix()) \</div><div class="line">                                { \</div><div class="line">                                    if (0 != node_stack_.back().index_) \</div><div class="line">                                    { \</div><div class="line">                                        *output_stream_ &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>; \</div><div class="line">                                    } \</div><div class="line">                                    *output_stream_ &lt;&lt; element; \</div><div class="line">                                    ++node_stack_.back().index_; \</div><div class="line">                                } \</div><div class="line">                                else \</div><div class="line">                                { \</div><div class="line">                                    *output_stream_ &lt;&lt; node_stack_.back().node_; \</div><div class="line">                                    if (<span class="keyword">true</span> == node_stack_.back().isArray()) \</div><div class="line">                                    { \</div><div class="line">                                        *output_stream_ &lt;&lt; <span class="stringliteral">&quot;{&quot;</span> &lt;&lt; node_stack_.back().index_ + 1 &lt;&lt; <span class="stringliteral">&quot;}&quot;</span>; \</div><div class="line">                                    } \</div><div class="line">                                    *output_stream_ &lt;&lt; <span class="stringliteral">&quot; = &quot;</span>; \</div><div class="line">                                    *output_stream_ &lt;&lt; element; \</div><div class="line">                                    *output_stream_ &lt;&lt; <span class="stringliteral">&quot;;\n&quot;</span>; \</div><div class="line">                                } \</div><div class="line">                            }</div></div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="octave_2interface_2octave_2writer_8h_source.html#l00186">186</a> of file <a class="el" href="octave_2interface_2octave_2writer_8h_source.html">writer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="octave_2interface_2octave_2writer_8h_source.html#l00188">188</a> of file <a class="el" href="octave_2interface_2octave_2writer_8h_source.html">writer.h</a>.</p>
 
 </div>
 </div>

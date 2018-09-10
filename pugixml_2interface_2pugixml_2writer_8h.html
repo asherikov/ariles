@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ariles: /mnt/data/_me/git/asherikov/arilesx/bridges/pugixml/interface/pugixml/writer.h File Reference</title>
+<title>Ariles: /mnt/data/_me/git/asherikov/ariles/bridges/pugixml/interface/pugixml/writer.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -100,10 +100,12 @@ Namespaces</h2></td></tr>
 Macros</h2></td></tr>
 <tr class="memitem:a6e7bb4bc9888ee14944bbe8b8212d5d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pugixml_2interface_2pugixml_2writer_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a>(type)</td></tr>
 <tr class="separator:a6e7bb4bc9888ee14944bbe8b8212d5d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e7bb4bc9888ee14944bbe8b8212d5d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pugixml_2interface_2pugixml_2writer_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a>(type)</td></tr>
+<tr class="separator:a6e7bb4bc9888ee14944bbe8b8212d5d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a6e7bb4bc9888ee14944bbe8b8212d5d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e7bb4bc9888ee14944bbe8b8212d5d3">&#9670;&nbsp;</a></span>ARILES_BASIC_TYPE</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e7bb4bc9888ee14944bbe8b8212d5d3">&#9670;&nbsp;</a></span>ARILES_BASIC_TYPE <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -118,7 +120,27 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><span class="keywordtype">void</span> writeElement(<span class="keyword">const</span> type &amp; element) \</div><div class="line">                        { \</div><div class="line">                            getRawNode().text() = element; \</div><div class="line">                        }</div></div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="pugixml_2interface_2pugixml_2writer_8h_source.html#l00115">115</a> of file <a class="el" href="pugixml_2interface_2pugixml_2writer_8h_source.html">writer.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pugixml_2interface_2pugixml_2writer_8h_source.html#l00121">121</a> of file <a class="el" href="pugixml_2interface_2pugixml_2writer_8h_source.html">writer.h</a>.</p>
+
+</div>
+</div>
+<a id="a6e7bb4bc9888ee14944bbe8b8212d5d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e7bb4bc9888ee14944bbe8b8212d5d3">&#9670;&nbsp;</a></span>ARILES_BASIC_TYPE <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ARILES_BASIC_TYPE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">type</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordtype">void</span> writeElement(<span class="keyword">const</span> type &amp; element) \</div><div class="line">                        { \</div><div class="line">                            getRawNode().text() = (boost::lexical_cast&lt;std::string&gt;(element)).c_str(); \</div><div class="line">                        }</div></div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="pugixml_2interface_2pugixml_2writer_8h_source.html#l00121">121</a> of file <a class="el" href="pugixml_2interface_2pugixml_2writer_8h_source.html">writer.h</a>.</p>
 
 </div>
 </div>

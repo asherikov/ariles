@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ariles: /mnt/data/_me/git/asherikov/arilesx/include/ariles/adapters/generic_pointer.h File Reference</title>
+<title>Ariles: /mnt/data/_me/git/asherikov/ariles/include/ariles/adapters/generic_pointer.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -84,19 +84,18 @@ $(function() {
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceariles"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceariles.html">ariles</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespaceariles_1_1reader"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceariles_1_1reader.html">ariles::reader</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespaceariles_1_1writer"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceariles_1_1writer.html">ariles::writer</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a272c3864c2befec7baaa73fd23043e79"><td class="memTemplParams" colspan="2">template&lt;class t_Reader , typename t_Entry &gt; </td></tr>
-<tr class="memitem:a272c3864c2befec7baaa73fd23043e79"><td class="memTemplItemLeft" align="right" valign="top">void <a class="el" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles_1_1reader.html#a272c3864c2befec7baaa73fd23043e79">ariles::reader::readBody</a> (t_Reader &amp;reader, <a class="el" href="boost__pointer__impl_8h.html#a41a3a32c6eaf4e5c62152282a336f818">ARILES_POINTER_TYPE</a>(t_Entry) &amp;entry, const <a class="el" href="classariles_1_1ConfigurableFlags.html">ariles::ConfigurableFlags</a> &amp;param)</td></tr>
-<tr class="separator:a272c3864c2befec7baaa73fd23043e79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4908d2fe086e1f888becba303013be64"><td class="memTemplParams" colspan="2">template&lt;class t_Writer , typename t_Entry &gt; </td></tr>
-<tr class="memitem:a4908d2fe086e1f888becba303013be64"><td class="memTemplItemLeft" align="right" valign="top">void <a class="el" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles_1_1writer.html#a4908d2fe086e1f888becba303013be64">ariles::writer::writeBody</a> (t_Writer &amp;writer, const <a class="el" href="boost__pointer__impl_8h.html#a41a3a32c6eaf4e5c62152282a336f818">ARILES_POINTER_TYPE</a>(t_Entry) &amp;entry, const <a class="el" href="classariles_1_1ConfigurableFlags.html">ariles::ConfigurableFlags</a> &amp;param)</td></tr>
-<tr class="separator:a4908d2fe086e1f888becba303013be64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7abaf0057d80cc746d099cee3f428a45"><td class="memTemplParams" colspan="2">template&lt;class t_Reader , typename t_Entry , class t_Flags &gt; </td></tr>
+<tr class="memitem:a7abaf0057d80cc746d099cee3f428a45"><td class="memTemplItemLeft" align="right" valign="top">void <a class="el" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles.html#a7abaf0057d80cc746d099cee3f428a45">ariles::readBody</a> (t_Reader &amp;reader, <a class="el" href="boost__pointer_8h.html#a41a3a32c6eaf4e5c62152282a336f818">ARILES_POINTER_TYPE</a>(t_Entry) &amp;entry, const t_Flags &amp;param)</td></tr>
+<tr class="separator:a7abaf0057d80cc746d099cee3f428a45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6785166d843aadef50bd2cbf831e7cab"><td class="memTemplParams" colspan="2">template&lt;class t_Writer , typename t_Entry , class t_Flags &gt; </td></tr>
+<tr class="memitem:a6785166d843aadef50bd2cbf831e7cab"><td class="memTemplItemLeft" align="right" valign="top">void <a class="el" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles.html#a6785166d843aadef50bd2cbf831e7cab">ariles::writeBody</a> (t_Writer &amp;writer, const <a class="el" href="boost__pointer_8h.html#a41a3a32c6eaf4e5c62152282a336f818">ARILES_POINTER_TYPE</a>(t_Entry) &amp;entry, const t_Flags &amp;param)</td></tr>
+<tr class="separator:a6785166d843aadef50bd2cbf831e7cab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac60a98de2301b09bda2bcf40deae56ac"><td class="memTemplParams" colspan="2">template&lt;typename t_Entry , class t_Flags &gt; </td></tr>
+<tr class="memitem:ac60a98de2301b09bda2bcf40deae56ac"><td class="memTemplItemLeft" align="right" valign="top">void <a class="el" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles.html#ac60a98de2301b09bda2bcf40deae56ac">ariles::setDefaults</a> (<a class="el" href="boost__pointer_8h.html#a41a3a32c6eaf4e5c62152282a336f818">ARILES_POINTER_TYPE</a>(t_Entry) &amp;entry, const t_Flags &amp;)</td></tr>
+<tr class="separator:ac60a98de2301b09bda2bcf40deae56ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -6,10 +6,7 @@ var searchData=
   ['simple_5fverbose_2eh',['simple_verbose.h',['../simple__verbose_8h.html',1,'']]],
   ['special_5ffloats_2eh',['special_floats.h',['../special__floats_8h.html',1,'']]],
   ['std_5fmap_2eh',['std_map.h',['../std__map_8h.html',1,'']]],
-  ['std_5fmap_5fimpl_2eh',['std_map_impl.h',['../std__map__impl_8h.html',1,'']]],
   ['std_5fpair_2eh',['std_pair.h',['../std__pair_8h.html',1,'']]],
-  ['std_5fpair_5fimpl_2eh',['std_pair_impl.h',['../std__pair__impl_8h.html',1,'']]],
   ['std_5fvector_2eh',['std_vector.h',['../std__vector_8h.html',1,'']]],
-  ['std_5fvector_5fimpl_2eh',['std_vector_impl.h',['../std__vector__impl_8h.html',1,'']]],
   ['strictness_2eh',['strictness.h',['../strictness_8h.html',1,'']]]
 ];
