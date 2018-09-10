@@ -112,13 +112,30 @@ namespace ariles
                     }
 
 
+                    void writeElement(const bool & element)
+                    {
+                        getRawNode().text() = element;
+                    }
+
+
                     #define ARILES_BASIC_TYPE(type) \
                         void writeElement(const type & element) \
                         { \
                             getRawNode().text() = element; \
                         }
 
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+
+                    #undef ARILES_BASIC_TYPE
+
+
+                    #define ARILES_BASIC_TYPE(type) \
+                        void writeElement(const type & element) \
+                        { \
+                            getRawNode().text() = (boost::lexical_cast<std::string>(element)).c_str(); \
+                        }
+
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_INTEGER_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
             };

@@ -17,6 +17,7 @@
 #include "../internal/writer_base.h"
 
 
+#include <boost/lexical_cast.hpp>
 #include <pugixml.hpp>
 
 namespace ariles

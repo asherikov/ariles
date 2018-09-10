@@ -25,7 +25,7 @@ namespace ariles
                 protected:
                     void initialize(std::istream & input_stream)
                     {
-                        ::rapidjson::IStreamWrapper isw(input_stream);
+                        ariles::bridge::rapidjson::IStreamWrapper isw(input_stream);
                         document_.ParseStream(isw);
                         ARILES_ASSERT(false == document_.HasParseError(), "Parsing failed");
                     }
@@ -145,16 +145,54 @@ namespace ariles
                         element = getRawNode().GetString();
                     }
 
+
                     void readElement(bool &element)
                     {
-                        element = getRawNode().Get<bool>();
+                        element = getRawNode().GetBool();
                     }
 
 
                     #define ARILES_BASIC_TYPE(type) \
                         void readElement(type &element) \
                         { \
-                            element = getRawNode().Get<int>(); \
+                            double tmp_value; \
+                            if (true == getRawNode().IsString()) \
+                            { \
+                                tmp_value = boost::lexical_cast<double>(getRawNode().GetString()); \
+                                if (true == isNaN(tmp_value)) \
+                                { \
+                                    element = std::numeric_limits<type>::signaling_NaN(); \
+                                    return; \
+                                } \
+                                if (true == isInfinity(tmp_value)) \
+                                { \
+                                    element = static_cast<type>(tmp_value); \
+                                    return; \
+                                } \
+                            } \
+                            else \
+                            { \
+                                tmp_value = getRawNode().GetDouble(); \
+                            } \
+                            ARILES_ASSERT(tmp_value <= std::numeric_limits<type>::max() \
+                                          && tmp_value >= -std::numeric_limits<type>::max(), \
+                                          "Value is out of range."); \
+                            element = static_cast<type>(tmp_value); \
+                        }
+
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+
+                    #undef ARILES_BASIC_TYPE
+
+
+                    #define ARILES_BASIC_TYPE(type) \
+                        void readElement(type &element) \
+                        { \
+                            int64_t tmp_value = getRawNode().GetInt64(); \
+                            ARILES_ASSERT(tmp_value <= std::numeric_limits<type>::max() \
+                                          && tmp_value >= std::numeric_limits<type>::min(), \
+                                          "Value is out of range."); \
+                            element = static_cast<type>(tmp_value); \
                         }
 
                     ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
@@ -165,21 +203,13 @@ namespace ariles
                     #define ARILES_BASIC_TYPE(type) \
                         void readElement(type &element) \
                         { \
-                            element = getRawNode().Get<unsigned int>(); \
+                            uint64_t tmp_value = getRawNode().GetUint64(); \
+                            ARILES_ASSERT(tmp_value <= std::numeric_limits<type>::max(), \
+                                          "Value is too large."); \
+                            element = static_cast<type>(tmp_value); \
                         }
 
                     ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
-
-                    #undef ARILES_BASIC_TYPE
-
-
-                    #define ARILES_BASIC_TYPE(type) \
-                        void readElement(type &element) \
-                        { \
-                            element = getRawNode().Get<type>(); \
-                        }
-
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
             };

@@ -22,11 +22,12 @@
 #define RAPIDJSON_WRITE_DEFAULT_FLAGS ::rapidjson::kWriteNanAndInfFlag
 #define RAPIDJSON_PARSE_DEFAULT_FLAGS ::rapidjson::kParseNanAndInfFlag
 
+#include <boost/lexical_cast.hpp>
+
 #include <rapidjson/document.h>
 #include <rapidjson/writer.h>
 #include <rapidjson/prettywriter.h>
 #include <rapidjson/stringbuffer.h>
-#include <rapidjson/istreamwrapper.h>
 
 #ifdef ARILES_BRIDGE_jsonnet
 extern "C" {
@@ -100,6 +101,7 @@ namespace ariles
 }
 
 
+#include "./rapidjson/istreamwrapper.h"
 #include "./rapidjson/reader.h"
 #include "./rapidjson/writer.h"
 

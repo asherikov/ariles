@@ -127,14 +127,41 @@ namespace ariles
                         getRawNode().SetString(element.c_str(), document_.GetAllocator());
                     }
 
+                    void writeElement(const bool & element)
+                    {
+                        getRawNode().SetBool(element);
+                    }
+
 
                     #define ARILES_BASIC_TYPE(type) \
-                        void writeElement(const type & element) \
+                        void writeElement(const type &element) \
                         { \
-                            getRawNode() = element; \
+                            getRawNode().SetString(boost::lexical_cast<std::string>(element).c_str(), document_.GetAllocator()); \
                         }
 
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+
+                    #undef ARILES_BASIC_TYPE
+
+
+                    #define ARILES_BASIC_TYPE(type) \
+                        void writeElement(const type &element) \
+                        { \
+                            getRawNode().SetInt64(element); \
+                        }
+
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
+
+                    #undef ARILES_BASIC_TYPE
+
+
+                    #define ARILES_BASIC_TYPE(type) \
+                        void writeElement(const type &element) \
+                        { \
+                            getRawNode().SetUint64(element); \
+                        }
+
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
             };
