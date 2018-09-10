@@ -46,9 +46,8 @@ Currently supported formats are (all are optional):
 
 * JSON via RapidJSON, with optional Jsonnet (https://jsonnet.org/)
   preprocessing:
-    * NaN's and infinities are enabled with corresponding flags, which is not
-      allowed by JSON specification, see
-      https://github.com/Tencent/rapidjson/issues/972.
+    * NaN's and infinities, which are not allowed by JSON specification, are
+      parsed / saved anyway using `boost::lexical_cast`.
 
 * XML via PugiXML:
     - Attributes are treated as childs while reading and are never used for
