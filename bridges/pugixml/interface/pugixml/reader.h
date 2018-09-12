@@ -149,29 +149,6 @@ namespace ariles
                         element = getRawNode().text().as_string();
                     }
 
-                    void readElement(bool &element)
-                    {
-                        ARILES_ASSERT(false == getRawNode().text().empty(),
-                                    "Empty bool elements are not allowed.");
-                        element = getRawNode().text().as_bool();
-                    }
-
-
-                    void readElement(float &element)
-                    {
-                        ARILES_ASSERT(false == getRawNode().text().empty(),
-                                    "Empty bool elements are not allowed.");
-                        element = getRawNode().text().as_float();
-                    }
-
-
-                    void readElement(double &element)
-                    {
-                        ARILES_ASSERT(false == getRawNode().text().empty(),
-                                    "Empty bool elements are not allowed.");
-                        element = getRawNode().text().as_double();
-                    }
-
 
                     #define ARILES_BASIC_TYPE(type) \
                         void readElement(type &element) \
@@ -181,7 +158,7 @@ namespace ariles
                             element = boost::lexical_cast<type>(getRawNode().text().as_string()); \
                         }
 
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_INTEGER_TYPES_LIST)
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
             };
