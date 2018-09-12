@@ -312,7 +312,43 @@ namespace ariles
         }
         else
         {
-            entry.setConstant(0.0);
+            entry.setConstant(0);
+        }
+    }
+
+    template <  int t_rows,
+                int t_flags,
+                class t_Flags>
+        void ARILES_VISIBILITY_ATTRIBUTE
+        setDefaults(
+                Eigen::Matrix<float, t_rows, 1, t_flags> &entry,
+                const t_Flags & /*param*/)
+    {
+        if (Eigen::Dynamic == t_rows)
+        {
+            entry.resize(0);
+        }
+        else
+        {
+            entry.setConstant(ARILES_DEFAULT_FLOAT_VALUE);
+        }
+    }
+
+    template <  int t_rows,
+                int t_flags,
+                class t_Flags>
+        void ARILES_VISIBILITY_ATTRIBUTE
+        setDefaults(
+                Eigen::Matrix<double , t_rows, 1, t_flags> &entry,
+                const t_Flags & /*param*/)
+    {
+        if (Eigen::Dynamic == t_rows)
+        {
+            entry.resize(0);
+        }
+        else
+        {
+            entry.setConstant(ARILES_DEFAULT_DOUBLE_VALUE);
         }
     }
 
@@ -350,6 +386,73 @@ namespace ariles
             }
         }
     }
+
+    template <  int t_rows,
+                int t_cols,
+                int t_flags,
+                class t_Flags>
+        void ARILES_VISIBILITY_ATTRIBUTE
+        setDefaults(
+                Eigen::Matrix<float, t_rows, t_cols, t_flags> &entry,
+                const t_Flags & /*param*/)
+    {
+        if (Eigen::Dynamic == t_rows)
+        {
+            if (Eigen::Dynamic == t_cols)
+            {
+                entry.resize(0, 0);
+            }
+            else
+            {
+                entry.resize(0, t_cols);
+            }
+        }
+        else
+        {
+            if (Eigen::Dynamic == t_cols)
+            {
+                entry.resize(t_rows, 0);
+            }
+            else
+            {
+                entry.setConstant(ARILES_DEFAULT_FLOAT_VALUE);
+            }
+        }
+    }
+
+    template <  int t_rows,
+                int t_cols,
+                int t_flags,
+                class t_Flags>
+        void ARILES_VISIBILITY_ATTRIBUTE
+        setDefaults(
+                Eigen::Matrix<double, t_rows, t_cols, t_flags> &entry,
+                const t_Flags & /*param*/)
+    {
+        if (Eigen::Dynamic == t_rows)
+        {
+            if (Eigen::Dynamic == t_cols)
+            {
+                entry.resize(0, 0);
+            }
+            else
+            {
+                entry.resize(0, t_cols);
+            }
+        }
+        else
+        {
+            if (Eigen::Dynamic == t_cols)
+            {
+                entry.resize(t_rows, 0);
+            }
+            else
+            {
+                entry.setConstant(ARILES_DEFAULT_DOUBLE_VALUE);
+            }
+        }
+    }
+
 
 
     template <  typename t_Scalar,

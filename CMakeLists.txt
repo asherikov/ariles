@@ -34,7 +34,9 @@ set    (ARILES_BRIDGES_DEFAULT_MODE     "BUILD" CACHE STRING "ON = enable, OFF =
 option (ARILES_INSTALL_BRIDGES          "Install bridges on the system." OFF)
 
 # extra adapters & options
-set    (ARILES_DEFAULT_CONFIGURABLE_FLAGS "" CACHE STRING "Override default flags")
+set (ARILES_DEFAULT_CONFIGURABLE_FLAGS  "" CACHE STRING "Override default flags")
+set (ARILES_DEFAULT_FLOAT_VALUE         "std::numeric_limits<float>::signaling_NaN()" CACHE STRING "Default value for floats")
+set (ARILES_DEFAULT_DOUBLE_VALUE        "std::numeric_limits<double>::signaling_NaN()" CACHE STRING "Default value for doubles")
 
 option (ARILES_ADAPTER_EIGEN            "Enable eigen support." ON)
 option (ARILES_ADAPTER_BOOST_POINTER    "Enable boost pointer support." ON)
@@ -345,7 +347,9 @@ set(ARILES_BUILD_CONFIG
 // __func__ ?
 #cmakedefine ARILES_COMPILER_SUPPORTS_FUNC_
 // __FUNCTION__ ?
-#cmakedefine ARILES_COMPILER_SUPPORTS_FUNCTION_\n")
+#cmakedefine ARILES_COMPILER_SUPPORTS_FUNCTION_\n
+#cmakedefine ARILES_DEFAULT_FLOAT_VALUE @ARILES_DEFAULT_FLOAT_VALUE@\n
+#cmakedefine ARILES_DEFAULT_DOUBLE_VALUE @ARILES_DEFAULT_DOUBLE_VALUE@\n")
 
 foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
     if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")

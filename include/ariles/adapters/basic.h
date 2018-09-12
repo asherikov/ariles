@@ -213,15 +213,15 @@ namespace ariles
     #undef ARILES_BASIC_TYPE
 
 
-    #define ARILES_BASIC_TYPE(type) \
-            template<class t_Flags> \
-                void ARILES_VISIBILITY_ATTRIBUTE setDefaults(type & entry, const t_Flags & /*param*/) \
-            { entry = 0.0; }
+    template<class t_Flags>
+        void ARILES_VISIBILITY_ATTRIBUTE setDefaults(float & entry, const t_Flags & /*param*/)
+    {
+        entry = ARILES_DEFAULT_FLOAT_VALUE;
+    }
 
-    /**
-     * @brief Generate setDefaults methods for basic types.
-     */
-    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
-
-    #undef ARILES_BASIC_TYPE
+    template<class t_Flags>
+        void ARILES_VISIBILITY_ATTRIBUTE setDefaults(double & entry, const t_Flags & /*param*/)
+    {
+        entry = ARILES_DEFAULT_DOUBLE_VALUE;
+    }
 }
