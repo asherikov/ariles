@@ -16,6 +16,9 @@ TYPE?=Debug
 
 TARGETS?=all
 
+ARGS?=
+
+
 #----------------------------------------------
 # Cleaning
 #----------------------------------------------
@@ -40,7 +43,8 @@ build:
 	cd ${BUILD_SUBDIR}; ${MAKE} ${MAKE_FLAGS} ${TARGETS}
 
 build-tests: build
-	cd ${BUILD_SUBDIR}; ${MAKE} ${MAKE_FLAGS} test
+	cd ${BUILD_SUBDIR}; ctest ${ARGS}
+#	cd ${BUILD_SUBDIR}; ${MAKE} ${MAKE_FLAGS} test ${ARGS}
 
 # -------
 
