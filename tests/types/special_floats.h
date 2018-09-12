@@ -9,9 +9,9 @@
 */
 
 
-class Configurable : virtual public ariles::ConfigurableBase
+class ConfigurableSpecialFloats : virtual public ariles::ConfigurableBase
 {
-    #define ARILES_SECTION_ID "ConfigurableMember"
+    #define ARILES_SECTION_ID "ConfigurableSpecialFloats"
     #define ARILES_ENTRIES \
         ARILES_TYPED_ENTRY_(float_quiet_nan, float) \
         ARILES_TYPED_ENTRY_(float_signaling_nan, float) \
@@ -28,12 +28,12 @@ class Configurable : virtual public ariles::ConfigurableBase
 
 
     public:
-        Configurable()
+        ConfigurableSpecialFloats()
         {
             setDefaults();
         }
 
-        virtual ~Configurable() {}
+        virtual ~ConfigurableSpecialFloats() {}
 
 
         virtual void setDefaults()
@@ -53,6 +53,7 @@ class Configurable : virtual public ariles::ConfigurableBase
         }
 
 
+#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
         virtual void randomize()
         {
             finalized_ = false;
@@ -67,7 +68,7 @@ class Configurable : virtual public ariles::ConfigurableBase
             double_positive_infinity_ = std::numeric_limits<double>::infinity();
             double_negative_infinity_ = - std::numeric_limits<double>::infinity();
         }
-
+#endif
 
         virtual void finalize()
         {
@@ -77,7 +78,8 @@ class Configurable : virtual public ariles::ConfigurableBase
 
 
 
-void check(class Configurable & configurable)
+#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+void check(class ConfigurableSpecialFloats & configurable)
 {
     BOOST_CHECK(true == configurable.finalized_);
 
@@ -95,3 +97,4 @@ void check(class Configurable & configurable)
     BOOST_CHECK(configurable.double_positive_infinity_ > 0.0);
     BOOST_CHECK(configurable.double_negative_infinity_ < 0.0);
 }
+#endif

@@ -36,12 +36,14 @@ class ConfigurableMember : virtual public ariles::ConfigurableBase
         }
 
 
+#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
         void randomize()
         {
             integer_ = GET_RANDOM_INT;
             real_    = GET_RANDOM_REAL;
             finalize();
         }
+#endif
 };
 
 
@@ -68,11 +70,13 @@ class ConfigurableBase : virtual public ariles::ConfigurableBase
         }
 
 
+#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
         void randomize()
         {
             member_.randomize();
             finalize();
         }
+#endif
 };
 
 
@@ -101,6 +105,7 @@ class ConfigurableDerived : public ConfigurableBase, public ConfigurableMember
         }
 
 
+#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
         void randomize()
         {
             another_member_.randomize();
@@ -108,4 +113,5 @@ class ConfigurableDerived : public ConfigurableBase, public ConfigurableMember
             ConfigurableMember::randomize();
             finalize();
         }
+#endif
 };

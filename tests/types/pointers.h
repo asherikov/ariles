@@ -93,36 +93,39 @@ class ConfigurablePointers : public ariles::ConfigurableBase
         }
 
 
+#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
         void randomize()
         {
-#if __cplusplus >= 201103L
+#   if __cplusplus >= 201103L
             std_shared_ptr_real_ = std::make_shared<double>();
             *std_shared_ptr_real_ = GET_RANDOM_REAL;
 
             std_unique_ptr_real_.reset(new double());
             *std_unique_ptr_real_ = GET_RANDOM_REAL;
-#endif
+#   endif
 
-#ifdef ARILES_ADAPTER_BOOST_POINTER
+#   ifdef ARILES_ADAPTER_BOOST_POINTER
             shared_ptr_real_ = boost::make_shared<double>();
             *shared_ptr_real_ = GET_RANDOM_REAL;
 
-#   if BOOST_VERSION >= 105800
+#       if BOOST_VERSION >= 105800
             unique_ptr_real_ = boost::movelib::make_unique<double>();
             *unique_ptr_real_ = GET_RANDOM_REAL;
-#   endif
+#       endif
 
             shared_ptr_real_null_.reset();
-#endif
+#   endif
 
-#ifdef ARILES_ADAPTER_BOOST_OPTIONAL
+#   ifdef ARILES_ADAPTER_BOOST_OPTIONAL
             optional_real_ = GET_RANDOM_REAL;
             optional_real_null_ = boost::none;
-#endif
+#   endif
         }
+#endif
 };
 
 
+#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
 template<class t_Configurable_out, class t_Configurable_in>
 void    compare(const t_Configurable_out    &configurable_out,
                 const t_Configurable_in     &configurable_in)
@@ -184,3 +187,4 @@ void    compare(const t_Configurable_out    &configurable_out,
     BOOST_CHECK(configurable_out.optional_real_null_ == configurable_in.optional_real_null_);
 #endif
 }
+#endif

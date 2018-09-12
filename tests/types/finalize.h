@@ -9,9 +9,9 @@
 #pragma once
 
 
-class Configurable : public ariles::ConfigurableBase
+class ConfigurableFinalize : public ariles::ConfigurableBase
 {
-    #define ARILES_SECTION_ID "Configurable"
+    #define ARILES_SECTION_ID "ConfigurableFinalize"
     #define ARILES_ENTRIES \
         ARILES_TYPED_ENTRY_(integer,     int) \
         ARILES_TYPED_ENTRY_(real,        double)
@@ -21,13 +21,13 @@ class Configurable : public ariles::ConfigurableBase
         double another_real_;
 
     public:
-        Configurable()
+        ConfigurableFinalize()
         {
             setDefaults();
             finalize();
         }
 
-        virtual ~Configurable() {}
+        virtual ~ConfigurableFinalize() {}
 
 
         virtual void setDefaults()
@@ -43,10 +43,12 @@ class Configurable : public ariles::ConfigurableBase
         }
 
 
+#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
         void randomize()
         {
             integer_ = GET_RANDOM_INT;
             real_    = GET_RANDOM_REAL;
             finalize();
         }
+#endif
 };

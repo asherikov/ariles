@@ -44,12 +44,12 @@ class ConfigurableVerbose : public ariles::ConfigurableBase
         }
 
 
+#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
         void randomize()
         {
             integer_ = GET_RANDOM_INT;
             real_    = GET_RANDOM_REAL;
             finalize();
         }
+#endif
 };
-
-

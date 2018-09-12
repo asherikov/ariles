@@ -61,7 +61,7 @@
 // ===============================================================
 
 #define ARILES_TESTS(BRIDGE_ID, NAMESPACE, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(CheckFixture, BRIDGE_ID, NAMESPACE, Configurable, INITIALIZER)
+    ARILES_FIXTURE_TEST_CASE(CheckFixture, BRIDGE_ID, NAMESPACE, ConfigurableSpecialFloats, INITIALIZER)
 
 
 #include "instantiate.h"

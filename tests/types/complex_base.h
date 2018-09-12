@@ -96,6 +96,7 @@ class ConfigurableComplexBase
         }
 
 
+#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
         void randomize()
         {
             t_ConfigurableComplex &impl = static_cast<t_ConfigurableComplex &>(*this);
@@ -143,7 +144,7 @@ class ConfigurableComplexBase
             impl.std_map_["four4"] = std_map_test;
 
 
-#ifdef ARILES_ADAPTER_EIGEN
+#   ifdef ARILES_ADAPTER_EIGEN
             impl.vector_.setRandom();
             impl.matrix_.setRandom();
             impl.matrix_x_.resize(2, 3);
@@ -172,14 +173,16 @@ class ConfigurableComplexBase
             impl.quaternion_.y() = GET_RANDOM_REAL;
             impl.quaternion_.z() = GET_RANDOM_REAL;
             impl.quaternion_.w() = GET_RANDOM_REAL;
-#endif
+#   endif
 
             impl.finalize();
         }
+#endif
 };
 
 
 
+#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
 template<class t_Configurable_out, class t_Configurable_in>
 void    compare(const t_Configurable_out    &configurable_out,
                 const t_Configurable_in     &configurable_in)
@@ -239,7 +242,7 @@ void    compare(const t_Configurable_out    &configurable_out,
     }
 
 
-#ifdef ARILES_ADAPTER_EIGEN
+#   ifdef ARILES_ADAPTER_EIGEN
     BOOST_CHECK(configurable_out.vector_.isApprox(configurable_in.vector_, g_tolerance));
     BOOST_CHECK(configurable_out.matrix_.isApprox(configurable_in.matrix_, g_tolerance));
     BOOST_CHECK(configurable_out.matrix_x_.isApprox(configurable_in.matrix_x_, g_tolerance));
@@ -264,5 +267,6 @@ void    compare(const t_Configurable_out    &configurable_out,
 
     BOOST_CHECK(configurable_out.isometry_.isApprox(configurable_in.isometry_, g_tolerance));
     BOOST_CHECK(configurable_out.quaternion_.isApprox(configurable_in.quaternion_, g_tolerance));
-#endif
+#   endif
 }
+#endif
