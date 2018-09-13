@@ -8,6 +8,38 @@ notifications:
 jobs:
     include:
 
+# special cases
+    # no core
+      - os: linux
+        dist: trusty
+        compiler:
+            - clang
+        script:
+          - make build TYPE=Debug OPTIONS=no_core TARGETS="all"
+        addons:
+            apt:
+                update: true
+                packages:
+                  - libboost-all-dev
+                  - libeigen3-dev
+
+    # yaml conflict
+      - os: linux
+        dist: trusty
+        compiler:
+            - clang
+        script:
+          - make test-cmake ; test $? = 1
+        addons:
+            apt:
+                update: true
+                packages:
+                  - libboost-all-dev
+                  - libeigen3-dev
+                  - octave
+
+# clang
+
     # From git submodules / C++11
       - os: linux
         dist: trusty
@@ -102,8 +134,7 @@ jobs:
           - make build-tests TYPE=Debug OPTIONS=ros TARGETS="all" ARGS=-V
 
 
-# Same with GCC
-
+# GCC
 
     # From git submodules / C++11
       - os: linux

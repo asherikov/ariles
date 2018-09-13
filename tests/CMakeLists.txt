@@ -9,7 +9,7 @@ endif(ARILES_ADAPTER_BOOST_POINTER)
 find_package(Boost REQUIRED unit_test_framework timer random system)
 include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 
-list(APPEND ARILES_MANDATORY_LIBRARIES  "${Boost_LIBRARIES}")
+list(APPEND ARILES_TESTING_LIBRARIES  "${Boost_LIBRARIES}")
 
 include(ariles_copy_extra_test_files)
 include(ariles_define_regression_test)

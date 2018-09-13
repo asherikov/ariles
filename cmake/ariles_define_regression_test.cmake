@@ -9,7 +9,7 @@ function(ariles_define_regression_test ARILES_MODULE REGRESSION_TEST_ID DEPENDEN
 
 
     set(OPTIONAL_DEPENDENCIES   "${ARGV3}")
-    set(LINK_TO_LIBRARIES       "${ARILES_MANDATORY_LIBRARIES}")
+    set(LINK_TO_LIBRARIES       "${ARILES_TESTING_LIBRARIES}")
 
 
     ariles_parse_test_dependencies("${DEPENDENCIES}" "${LINK_TO_LIBRARIES}" "${TGT_DEPENDS}")
