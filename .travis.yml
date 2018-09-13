@@ -23,20 +23,6 @@ jobs:
                   - libboost-all-dev
                   - libeigen3-dev
 
-    # yaml conflict
-      - os: linux
-        dist: trusty
-        compiler:
-            - clang
-        script:
-          - make test-cmake ; test $? = 1
-        addons:
-            apt:
-                update: true
-                packages:
-                  - libboost-all-dev
-                  - libeigen3-dev
-                  - octave
 
 # clang
 
