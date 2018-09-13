@@ -478,7 +478,7 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
             configure_file("cmake/arilesConfig.cmake.in"    "${PROJECT_BINARY_DIR}/ariles-${ARILES_BRIDGE}Config.cmake")
 
             install (FILES "${PROJECT_BINARY_DIR}/ariles-${ARILES_BRIDGE}Config.cmake"
-                     DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles/")
+                     DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles-${ARILES_BRIDGE}/")
 
 
             if(ARILES_PKGCONFIG_INSTALL_PATH)
