@@ -27,7 +27,15 @@ namespace ariles
                 protected:
                     std::size_t getMapSize()
                     {
-                        return (getRawNode().size());
+                        if (XmlRpc::XmlRpcValue::TypeStruct == getRawNode().getType())
+                        {
+                            return (getRawNode().size());
+                        }
+                        else
+                        {
+                            // this might still be an empty map.
+                            return (0);
+                        }
                     }
 
 
