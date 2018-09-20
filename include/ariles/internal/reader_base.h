@@ -70,7 +70,7 @@ namespace ariles
             };
 
 
-            virtual std::size_t getMapSize() = 0;
+            virtual std::size_t getMapSize(const bool expect_empty) = 0;
             virtual std::size_t startMapImpl(const std::size_t size)
             {
                 return (size);
@@ -107,7 +107,7 @@ namespace ariles
                     const std::size_t & max = 0)
             {
                 return (startMapImpl( checkSize<RelaxedSizeLimitType<t_size_limit_type>::value>(
-                            getMapSize(),
+                            getMapSize(0 == max),
                             min,
                             max)));
             }

@@ -25,7 +25,7 @@ namespace ariles
                 public ariles::bridge::ros::Base<ariles::ReaderBase>
             {
                 protected:
-                    std::size_t getMapSize()
+                    std::size_t getMapSize(const bool expect_empty)
                     {
                         if (XmlRpc::XmlRpcValue::TypeStruct == getRawNode().getType())
                         {
@@ -33,8 +33,15 @@ namespace ariles
                         }
                         else
                         {
-                            // this might still be an empty map.
-                            return (0);
+                            if (true == expect_empty)
+                            {
+                                return (0);
+                            }
+                            else
+                            {
+                                ARILES_THROW_MSG("Expected struct.");
+                                return (0);
+                            }
                         }
                     }
 

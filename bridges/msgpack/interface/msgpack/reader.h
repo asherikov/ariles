@@ -94,7 +94,7 @@ namespace ariles
                     }
 
 
-                    std::size_t getMapSize()
+                    std::size_t getMapSize(const bool /*expect_empty*/)
                     {
                         return (getRawNode().via.map.size);
                     }

@@ -24,7 +24,7 @@ namespace ariles
                 public ariles::bridge::pugixml::Base<ariles::ReaderBase>
             {
                 protected:
-                    std::size_t getMapSize()
+                    std::size_t getMapSize(const bool /*expect_empty*/)
                     {
                         std::size_t size = 0;
                         for(pugi::xml_node_iterator it = getRawNode().begin();
