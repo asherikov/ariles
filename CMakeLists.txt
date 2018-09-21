@@ -538,3 +538,46 @@ endforeach(ARILES_BRIDGES_DIR)
 
 install (DIRECTORY "${ARILES_INCLUDE_DIR}"
          DESTINATION "${CMAKE_INSTALL_PREFIX}/include/")
+
+
+#####################################
+## CPack
+#####################################
+
+# CPACK_PACKAGE_NAME    If not specified, defaults to the project name.
+
+set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+
+set(CPACK_PACKAGE_CONTACT "asherikov@yandex.com")
+
+set(CPACK_PACKAGE_DESCRIPTION_FILE "${PROJECT_SOURCE_DIR}/README.md")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "C++ serialization library")
+
+set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
+
+#set(CPACK_COMPONENTS_ALL )
+#  cpack_add_component(compname
+#                      [DISPLAY_NAME name]
+#                      [DESCRIPTION description]
+#                      [HIDDEN | REQUIRED | DISABLED ]
+#                      [GROUP group]
+#                      [DEPENDS comp1 comp2 ... ]
+#                      [INSTALL_TYPES type1 type2 ... ]
+#                      [DOWNLOADED]
+#                      [ARCHIVE_FILE filename])
+
+set(CPACK_GENERATOR "DEB")
+
+#set(CPACK_DEBIAN_PACKAGE_DEPENDS "")
+
+set(CPACK_DEBIAN_PACKAGE_HOMEPAGE   "https://asherikov.github.io/ariles/")
+set(CPACK_DEBIAN_PACKAGE_PRIORITY   "optional")
+set(CPACK_DEBIAN_PACKAGE_SECTION    "devel")
+
+include(CPack)
+
+
+#set(CPACK_DEBIAN_RESOURCE_FILE_CHANGELOG "")
+include(UploadPPA)
