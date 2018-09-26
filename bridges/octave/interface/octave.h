@@ -11,9 +11,9 @@
 #pragma once
 
 
-#include "../internal/helpers.h"
-#include "../internal/node.h"
-#include "../internal/writer_base.h"
+#include <ariles/internal/helpers.h>
+#include <ariles/internal/node.h>
+#include <ariles/internal/writer_base.h>
 
 #include "./octave/writer.h"
 

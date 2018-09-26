@@ -11,10 +11,10 @@
 #pragma once
 
 
-#include "../internal/helpers.h"
-#include "../internal/node.h"
-#include "../internal/reader_base.h"
-#include "../internal/writer_base.h"
+#include <ariles/internal/helpers.h>
+#include <ariles/internal/node.h>
+#include <ariles/internal/reader_base.h>
+#include <ariles/internal/writer_base.h>
 
 // In old versions of RapidJSON it is impossible to specify flags
 // as template parameter of PrettyWriter, so this is the only way

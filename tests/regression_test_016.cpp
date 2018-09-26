@@ -11,6 +11,8 @@
 
 #define ARILES_TESTS_BOOST_UTF_DISABLED
 
+#include <tests_config.h>
+
 #ifdef ARILES_BRIDGE_yaml_cpp03
 #include "ariles/bridges/yaml_cpp03.h"
 #endif

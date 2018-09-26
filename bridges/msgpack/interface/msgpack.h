@@ -14,10 +14,10 @@
 #pragma once
 
 
-#include "../internal/helpers.h"
-#include "../internal/node.h"
-#include "../internal/reader_base.h"
-#include "../internal/writer_base.h"
+#include <ariles/internal/helpers.h>
+#include <ariles/internal/node.h>
+#include <ariles/internal/reader_base.h>
+#include <ariles/internal/writer_base.h>
 
 #include <msgpack.hpp>
 
@@ -42,6 +42,7 @@ namespace ariles
     }
 }
 
+#include <boost/smart_ptr/shared_ptr.hpp>
 
 #include "./msgpack/reader.h"
 #include "./msgpack/writer.h"

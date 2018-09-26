@@ -1,4 +1,4 @@
-set(ARILES_INSTALL_CORE         "OFF" CACHE STRING "")
+set(ARILES_ENABLE_CORE          "OFF" CACHE STRING "")
 
 set(ARILES_CPP_STANDARD         "c++11" CACHE STRING "")
 

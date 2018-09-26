@@ -15,10 +15,10 @@
 #pragma once
 
 
-#include "../internal/helpers.h"
-#include "../internal/node.h"
-#include "../internal/reader_base.h"
-#include "../internal/writer_base.h"
+#include <ariles/internal/helpers.h>
+#include <ariles/internal/node.h>
+#include <ariles/internal/reader_base.h>
+#include <ariles/internal/writer_base.h>
 
 #include ARILES_BRIDGE_yaml_cpp03_INCLUDE_HEADER
 

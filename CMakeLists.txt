@@ -10,6 +10,8 @@ set(PROJECT_VERSION_PATCH 0)
 include(FindPkgConfig)
 include(ExternalProject)
 include(CMakeParseArguments)
+include(CPackComponent)
+include(CMakePackageConfigHelpers)
 
 
 set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
@@ -29,7 +31,8 @@ ariles_detect_func_macro()
 ## Options (definitions & defaults)
 #####################################
 
-option (ARILES_INSTALL_CORE             "Install core (if disable only selected bridges are installed)." ON)
+option (ARILES_ENABLE_CORE             "Install core (if disable only selected bridges are installed)." ON)
+option (ARILES_ENABLE_CORE_ALL_HEADER  "Generate ariles_all.h header (not suitable for packages)" ON)
 
 # bridges
 set    (ARILES_BRIDGES_DEFAULT_MODE     "BUILD" CACHE STRING "ON = enable, OFF = disable, BUILD = build from sources")
@@ -56,7 +59,9 @@ set    (ARILES_PKGCONFIG_INSTALL_PATH   "" CACHE STRING "pkg-config pc-file inst
 
 #####################################
 
-if (NOT ${ARILES_INSTALL_CORE})
+if (${ARILES_ENABLE_CORE})
+    cpack_add_component("core")
+else()
     # tests cannot be built if the core is not installed
     set(ARILES_BUILD_REGRESSION_TESTS OFF)
 
@@ -66,6 +71,7 @@ if (NOT ${ARILES_INSTALL_CORE})
     set(ARILES_ADAPTER_BOOST_OPTIONAL   OFF)
     set(ARILES_ADAPTER_BETTER_ENUMS     OFF)
 endif()
+
 
 
 # Gather all cached options controlling compilation of the modules to unset
@@ -153,7 +159,6 @@ set (CMAKE_RULE_MESSAGES        OFF CACHE BOOL "")
 ## paths
 ##
 set (ARILES_INCLUDE_DIR "${PROJECT_BINARY_DIR}/include/")
-set (ARILES_BRIDGE_INCLUDE_DIR "${ARILES_INCLUDE_DIR}/ariles/bridges/")
 
 
 ##
@@ -192,19 +197,18 @@ set (ARILES_CORE_INCLUDES "${CMAKE_INSTALL_PREFIX}/include")
 add_custom_target( TGT_ariles_copy_headers ALL )
 
 # core & adapters headers are installed only in MIX or CORE mode.
-if (${ARILES_INSTALL_CORE})
+if (${ARILES_ENABLE_CORE})
     ariles_copy_dir_if_exists(TGT_ariles_copy_headers          "ariles"
-                              "${PROJECT_SOURCE_DIR}/include"  "${ARILES_INCLUDE_DIR}")
+                              "${PROJECT_SOURCE_DIR}/include"  "${ARILES_INCLUDE_DIR}/core/")
+
+    foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
+        ariles_copy_dir_if_exists(
+            TGT_ariles_copy_headers                                         "adapter_${ARILES_EXTRA_ADAPTER}"
+            "${PROJECT_SOURCE_DIR}/extra_adapters/${ARILES_EXTRA_ADAPTER}"  "${ARILES_INCLUDE_DIR}/core/ariles/adapters/")
+    endforeach()
+
+    include_directories("${ARILES_INCLUDE_DIR}/core/")
 endif()
-
-foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
-    ariles_copy_dir_if_exists(
-        TGT_ariles_copy_headers                                         "adapter_${ARILES_EXTRA_ADAPTER}"
-        "${PROJECT_SOURCE_DIR}/extra_adapters/${ARILES_EXTRA_ADAPTER}"  "${ARILES_INCLUDE_DIR}/ariles/adapters/")
-endforeach()
-
-# All headers are collected in one directory
-include_directories ("${PROJECT_BINARY_DIR}/include/")
 
 
 
@@ -285,7 +289,12 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
 
     foreach(ARILES_BRIDGE ${ARILES_BRIDGES_TMP})
         if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
+            cpack_add_component("${ARILES_BRIDGE}" DEPENDS "core")
+
             set (${ARILES_BRIDGE}_INTERFACE_DIR  "${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/interface")
+            set (ARILES_BRIDGE_INCLUDE_DIR "${ARILES_INCLUDE_DIR}/${ARILES_BRIDGE}/ariles/bridges/")
+            include_directories("${ARILES_INCLUDE_DIR}/${ARILES_BRIDGE}")
+
             add_subdirectory("${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}" "${ARILES_BRIDGES_BINARY_DIR}/${ARILES_BRIDGE}")
 
             if (ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES)
@@ -316,6 +325,25 @@ set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -std=${ARILES_CPP_STANDARD}"
 #####################################
 
 if (ARILES_BUILD_REGRESSION_TESTS)
+    set(ARILES_TESTS_CONFIG "")
+
+    foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
+        string(TOUPPER ${ARILES_EXTRA_ADAPTER} ARILES_EXTRA_ADAPTER_CAPITALIZED)
+        set(ARILES_TESTS_CONFIG   "${ARILES_TESTS_CONFIG}#define ARILES_ADAPTER_${ARILES_EXTRA_ADAPTER_CAPITALIZED}\n")
+    endforeach()
+
+
+    foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
+        if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
+            set(ARILES_TESTS_CONFIG "${ARILES_TESTS_CONFIG}#define ARILES_BRIDGE_${ARILES_BRIDGE}\n")
+        endif()
+    endforeach(ARILES_BRIDGE)
+
+
+    file(WRITE "${ARILES_INCLUDE_DIR}/tests/tests_config.h" "${ARILES_TESTS_CONFIG}")
+    include_directories("${ARILES_INCLUDE_DIR}/tests")
+
+
     enable_testing()
     add_subdirectory ("${PROJECT_SOURCE_DIR}/tests")
 endif()
@@ -326,7 +354,7 @@ endif()
 ## Auto-generated headers
 #####################################
 
-if (${ARILES_INSTALL_CORE})
+if (${ARILES_ENABLE_CORE})
     # build config
     #---
     set(ARILES_BUILD_CONFIG
@@ -338,9 +366,13 @@ if (${ARILES_INSTALL_CORE})
 #cmakedefine ARILES_DEFAULT_FLOAT_VALUE ${ARILES_DEFAULT_FLOAT_VALUE}\n
 #cmakedefine ARILES_DEFAULT_DOUBLE_VALUE ${ARILES_DEFAULT_DOUBLE_VALUE}\n")
 
+    if (ARILES_DEFAULT_CONFIGURABLE_FLAGS)
+        set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_DEFAULT_CONFIGURABLE_FLAGS ${ARILES_DEFAULT_CONFIGURABLE_FLAGS}\n")
+    endif(ARILES_DEFAULT_CONFIGURABLE_FLAGS)
+
+
     foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
         if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
-            set(ARILES_BUILD_CONFIG "${ARILES_BUILD_CONFIG}#define ARILES_BRIDGE_${ARILES_BRIDGE}\n")
             if(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDE_HEADER)
                 set(ARILES_BUILD_CONFIG
                     "${ARILES_BUILD_CONFIG}#define ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDE_HEADER \"${ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDE_HEADER}\"\n")
@@ -348,35 +380,8 @@ if (${ARILES_INSTALL_CORE})
         endif()
     endforeach(ARILES_BRIDGE)
 
-    if (ARILES_DEFAULT_CONFIGURABLE_FLAGS)
-        set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_DEFAULT_CONFIGURABLE_FLAGS ${ARILES_DEFAULT_CONFIGURABLE_FLAGS}\n")
-    endif(ARILES_DEFAULT_CONFIGURABLE_FLAGS)
-
-    foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
-        string(TOUPPER ${ARILES_EXTRA_ADAPTER} ARILES_EXTRA_ADAPTER_CAPITALIZED)
-        set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_ADAPTER_${ARILES_EXTRA_ADAPTER_CAPITALIZED}\n")
-    endforeach()
-
     string(CONFIGURE "${ARILES_BUILD_CONFIG}" ARILES_BUILD_CONFIG)
-    file(WRITE "${ARILES_INCLUDE_DIR}/ariles/internal/build_config.h" "${ARILES_BUILD_CONFIG}")
-    #---
-
-
-    # ariles_all.h
-    #---
-    set(ARILES_HEADER_ALL   "#pragma once\n")
-    set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"internal/build_config.h\"\n")
-
-    foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
-        if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
-            set(ARILES_HEADER_ALL "${ARILES_HEADER_ALL}#include \"bridges/${ARILES_BRIDGE}.h\"\n")
-        endif()
-    endforeach(ARILES_BRIDGE)
-
-    set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"ariles.h\"\n")
-    set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"adapters_all.h\"\n")
-
-    file(WRITE "${ARILES_INCLUDE_DIR}/ariles/ariles_all.h" "${ARILES_HEADER_ALL}")
+    file(WRITE "${ARILES_INCLUDE_DIR}/core/ariles/internal/build_config.h" "${ARILES_BUILD_CONFIG}")
     #---
 
 
@@ -394,21 +399,41 @@ if (${ARILES_INSTALL_CORE})
         set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/${ARILES_EXTRA_ADAPTER}.h\"\n")
     endforeach()
 
-    file(WRITE "${ARILES_INCLUDE_DIR}/ariles/adapters_all.h" "${ARILES_ADAPTERS_ALL}")
+    file(WRITE "${ARILES_INCLUDE_DIR}/core/ariles/adapters_all.h" "${ARILES_ADAPTERS_ALL}")
+    #---
+
+
+    # ariles_all.h
+    #---
+    if (${ARILES_ENABLE_CORE_ALL_HEADER})
+        set(ARILES_HEADER_ALL   "#pragma once\n")
+        set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"internal/build_config.h\"\n")
+
+        foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
+            if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
+                set(ARILES_HEADER_ALL "${ARILES_HEADER_ALL}#include <ariles/bridges/${ARILES_BRIDGE}.h>\n")
+            endif()
+        endforeach(ARILES_BRIDGE)
+
+        set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"ariles.h\"\n")
+        set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"adapters_all.h\"\n")
+
+        file(WRITE "${ARILES_INCLUDE_DIR}/core/ariles/ariles_all.h" "${ARILES_HEADER_ALL}")
+    endif()
     #---
 endif()
 
 
+
 #####################################
-## Package config files
+## Package config files & Installation
 #####################################
 
-include(CMakePackageConfigHelpers)
-
-if (${ARILES_INSTALL_CORE})
+if (${ARILES_ENABLE_CORE})
     set(ariles_LIBRARIES "ariles_LIBRARIES")
     set(ariles_INCLUDE_DIRS "ariles_INCLUDE_DIRS")
     set(ariles_LIBRARY_DIRS "ariles_LIBRARY_DIRS")
+    set(ARILES_COMPONENT_NAME "core")
 
     set(ARILES_LIBRARIES            "")
     set(ARILES_INCLUDES             "${ARILES_CORE_INCLUDES}")
@@ -437,14 +462,16 @@ if (${ARILES_INSTALL_CORE})
                                     NO_SET_AND_CHECK_MACRO
                                     NO_CHECK_REQUIRED_COMPONENTS_MACRO)
     install (FILES "${PROJECT_BINARY_DIR}/arilesConfig.cmake"
-             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles/")
+             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles/"
+             COMPONENT ${ARILES_COMPONENT_NAME})
 
     write_basic_package_version_file(
         ${PROJECT_BINARY_DIR}/arilesConfigVersion.cmake
         VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}
         COMPATIBILITY SameMajorVersion)
     install (FILES "${PROJECT_BINARY_DIR}/arilesConfigVersion.cmake"
-             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles/")
+             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles/"
+             COMPONENT ${ARILES_COMPONENT_NAME})
 
 
     if(ARILES_PKGCONFIG_INSTALL_PATH)
@@ -454,9 +481,15 @@ if (${ARILES_INSTALL_CORE})
         set(ARILES_LIBRARIES_FLAGS "-l${ARILES_LIBRARIES_FLAGS}")
         configure_file("cmake/ariles.pc.in"             "${PROJECT_BINARY_DIR}/ariles.pc" @ONLY)
 
-        install (FILES "${PROJECT_BINARY_DIR}/ariles.pc"
-            DESTINATION "${ARILES_PKGCONFIG_INSTALL_PATH}")
+        install(FILES "${PROJECT_BINARY_DIR}/ariles.pc"
+                DESTINATION "${ARILES_PKGCONFIG_INSTALL_PATH}"
+                COMPONENT ${ARILES_COMPONENT_NAME})
     endif()
+
+
+    install (DIRECTORY "${ARILES_INCLUDE_DIR}/${ARILES_COMPONENT_NAME}/"
+             DESTINATION "${CMAKE_INSTALL_PREFIX}/include/"
+             COMPONENT "${ARILES_COMPONENT_NAME}")
 endif()
 
 
@@ -474,6 +507,7 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
             set(ARILES_INCLUDES             "")
             set(ARILES_DEPENDENCY_INCLUDES  "${ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES}")
             set(ARILES_LIBRARY_DIRS         "${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS}")
+            set(ARILES_COMPONENT_NAME       "${ARILES_BRIDGE}")
 
             if (ARILES_LIBRARIES)
                 set (ARILES_SHARED_GNU_LINKER_FLAGS "-Wl,--exclude-libs")
@@ -505,15 +539,17 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
                                                 NO_CHECK_REQUIRED_COMPONENTS_MACRO)
             endif()
 
-            install (FILES "${PROJECT_BINARY_DIR}/ariles-${ARILES_BRIDGE}Config.cmake"
-                     DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles-${ARILES_BRIDGE}/")
+            install(FILES "${PROJECT_BINARY_DIR}/ariles-${ARILES_BRIDGE}Config.cmake"
+                    DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles-${ARILES_BRIDGE}/"
+                    COMPONENT ${ARILES_COMPONENT_NAME})
 
             write_basic_package_version_file(
                 ${PROJECT_BINARY_DIR}/ariles-${ARILES_BRIDGE}ConfigVersion.cmake
                 VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}
                 COMPATIBILITY SameMajorVersion)
-            install (FILES "${PROJECT_BINARY_DIR}/ariles-${ARILES_BRIDGE}ConfigVersion.cmake"
-                     DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles/")
+            install(FILES "${PROJECT_BINARY_DIR}/ariles-${ARILES_BRIDGE}ConfigVersion.cmake"
+                    DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles/"
+                    COMPONENT ${ARILES_COMPONENT_NAME})
 
             if(ARILES_PKGCONFIG_INSTALL_PATH)
                 string(REPLACE ";" " -I" ARILES_INCLUDES_FLAGS "${ARILES_INCLUDES}")
@@ -523,21 +559,19 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
                 set(ARILES_LIBRARIES_FLAGS "-l${ARILES_LIBRARIES_FLAGS} -L${ARILES_LIBRARIES_FLAGS_DIRS}")
                 configure_file("cmake/ariles.pc.in"             "${PROJECT_BINARY_DIR}/ariles-${ARILES_BRIDGE}.pc" @ONLY)
 
-                install (FILES "${PROJECT_BINARY_DIR}/ariles-${ARILES_BRIDGE}.pc"
-                    DESTINATION "${ARILES_PKGCONFIG_INSTALL_PATH}")
+                install(FILES "${PROJECT_BINARY_DIR}/ariles-${ARILES_BRIDGE}.pc"
+                        DESTINATION "${ARILES_PKGCONFIG_INSTALL_PATH}"
+                        COMPONENT ${ARILES_COMPONENT_NAME})
             endif()
+
+
+            install (DIRECTORY "${ARILES_INCLUDE_DIR}/${ARILES_COMPONENT_NAME}/"
+                     DESTINATION "${CMAKE_INSTALL_PREFIX}/include/"
+                     COMPONENT "${ARILES_COMPONENT_NAME}")
         endif()
     endforeach(ARILES_BRIDGE)
 endforeach(ARILES_BRIDGES_DIR)
 
-
-
-#####################################
-## Installation
-#####################################
-
-install (DIRECTORY "${ARILES_INCLUDE_DIR}"
-         DESTINATION "${CMAKE_INSTALL_PREFIX}/include/")
 
 
 #####################################
@@ -557,16 +591,10 @@ set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "C++ serialization library")
 
 set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
 
-#set(CPACK_COMPONENTS_ALL )
-#  cpack_add_component(compname
-#                      [DISPLAY_NAME name]
-#                      [DESCRIPTION description]
-#                      [HIDDEN | REQUIRED | DISABLED ]
-#                      [GROUP group]
-#                      [DEPENDS comp1 comp2 ... ]
-#                      [INSTALL_TYPES type1 type2 ... ]
-#                      [DOWNLOADED]
-#                      [ARCHIVE_FILE filename])
+set(CPACK_MONOLITHIC_INSTALL OFF)
+set(CPACK_DEB_COMPONENT_INSTALL ON)
+set(CPACK_COMPONENTS_GROUPING ONE_PER_GROUP)
+
 
 set(CPACK_GENERATOR "DEB")
 
@@ -580,4 +608,4 @@ include(CPack)
 
 
 #set(CPACK_DEBIAN_RESOURCE_FILE_CHANGELOG "")
-include(UploadPPA)
+#include(UploadPPA)
