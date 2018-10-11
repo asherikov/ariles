@@ -91,6 +91,10 @@ release: release-all
 # checks
 #----------------------------------------------
 
+packages: clean
+	${MAKE} build TC=${TC} TYPE=Release OPTIONS=deb_packages TARGETS="ppa" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+
+
 test-ros: clean
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=default TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=ros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"

@@ -1,14 +1,15 @@
-ariles_copy_file_if_exists( TGT_ariles_copy_headers                             "format_pugixml_h"
+ariles_copy_file_if_exists( TGT_ariles_copy_headers                             "bridge_pugixml_h"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/pugixml.h"       "${ARILES_BRIDGE_INCLUDE_DIR}/")
-ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                             "format_pugixml_dir"
+ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                             "bridge_pugixml_dir"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/pugixml"         "${ARILES_BRIDGE_INCLUDE_DIR}/pugixml")
-add_dependencies("TGT_ariles_copy_headers_format_pugixml_h" "TGT_ariles_copy_headers_format_pugixml_dir")
-add_dependencies("TGT_ariles_copy_headers_format_pugixml_h" "TGT_ariles_copy_headers_ariles")
+add_dependencies("TGT_ariles_copy_headers_bridge_pugixml_h" "TGT_ariles_copy_headers_bridge_pugixml_dir")
+add_dependencies("TGT_ariles_copy_headers_bridge_pugixml_h" "TGT_ariles_copy_headers_ariles")
 
+set(PUGIXML_SOURCE_DIR     "${CMAKE_CURRENT_LIST_DIR}/pugixml")
+set(CPACK_SOURCE_IGNORE_FILES "${CPACK_SOURCE_IGNORE_FILES};${PUGIXML_SOURCE_DIR}" PARENT_SCOPE)
 
 set (TGT_PUGIXML            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
 if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "BUILD")
-    set (PUGIXML_SOURCE_DIR     "${CMAKE_CURRENT_LIST_DIR}/pugixml")
     set (PUGIXML_CXX_FLAGS      "${ARILES_CXX_FLAGS} -fPIC")
 
 

@@ -1,12 +1,15 @@
-ariles_copy_file_if_exists( TGT_ariles_copy_headers                         "format_jsonnet_h"
+ariles_copy_file_if_exists( TGT_ariles_copy_headers                         "bridge_jsonnet_h"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/jsonnet.h"   "${ARILES_BRIDGE_INCLUDE_DIR}/")
 add_dependencies("TGT_ariles_copy_headers_format_jsonnet_h" "TGT_ariles_copy_headers_ariles")
 
 
 set (TGT_JSONNET            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
 
+set(JSONNET_SOURCE_DIR     "${CMAKE_CURRENT_LIST_DIR}/jsonnet")
+set(CPACK_SOURCE_IGNORE_FILES "${CPACK_SOURCE_IGNORE_FILES};${JSONNET_SOURCE_DIR}" PARENT_SCOPE)
+
+
 if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "BUILD")
-    set (JSONNET_SOURCE_DIR     "${CMAKE_CURRENT_LIST_DIR}/jsonnet")
     set (JSONNET_CXX_FLAGS      "${ARILES_CXX_FLAGS} -fPIC")
 
     set(JSONNET_ARGS

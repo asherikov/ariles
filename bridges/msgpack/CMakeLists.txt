@@ -1,14 +1,15 @@
-ariles_copy_file_if_exists( TGT_ariles_copy_headers                         "format_msgpack_h"
+ariles_copy_file_if_exists( TGT_ariles_copy_headers                         "bridge_msgpack_h"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/msgpack.h"   "${ARILES_BRIDGE_INCLUDE_DIR}/")
-ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                         "format_msgpack_dir"
+ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                         "bridge_msgpack_dir"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/msgpack"     "${ARILES_BRIDGE_INCLUDE_DIR}/msgpack")
-add_dependencies("TGT_ariles_copy_headers_format_msgpack_h" "TGT_ariles_copy_headers_format_msgpack_dir")
-add_dependencies("TGT_ariles_copy_headers_format_msgpack_h" "TGT_ariles_copy_headers_ariles")
+add_dependencies("TGT_ariles_copy_headers_bridge_msgpack_h" "TGT_ariles_copy_headers_bridge_msgpack_dir")
+add_dependencies("TGT_ariles_copy_headers_bridge_msgpack_h" "TGT_ariles_copy_headers_ariles")
 
+set(MESSAGEPACK_SOURCE_DIR   "${CMAKE_CURRENT_LIST_DIR}/msgpack-c")
+set(CPACK_SOURCE_IGNORE_FILES "${CPACK_SOURCE_IGNORE_FILES};${MESSAGEPACK_SOURCE_DIR}" PARENT_SCOPE)
 
 set (TGT_MESSAGEPACK            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
 if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "BUILD")
-    set (MESSAGEPACK_SOURCE_DIR     "${CMAKE_CURRENT_LIST_DIR}/msgpack-c")
     set (MESSAGEPACK_CXX_FLAGS      "${ARILES_CXX_FLAGS} -fPIC")
 
 

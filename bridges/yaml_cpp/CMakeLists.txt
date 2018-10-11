@@ -3,17 +3,18 @@ if (${INDEX} GREATER -1)
     message(FATAL_ERROR "Conflict between the bridges detected (yaml_cpp03 -- yaml_cpp).")
 endif()
 
-ariles_copy_file_if_exists( TGT_ariles_copy_headers                             "format_yaml_cpp_h"
+ariles_copy_file_if_exists( TGT_ariles_copy_headers                             "bridge_yaml_cpp_h"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/yaml_cpp.h"      "${ARILES_BRIDGE_INCLUDE_DIR}/")
-ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                             "format_yaml_cpp_dir"
+ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                             "bridge_yaml_cpp_dir"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/yaml_cpp"        "${ARILES_BRIDGE_INCLUDE_DIR}/yaml_cpp")
-add_dependencies("TGT_ariles_copy_headers_format_yaml_cpp_h" "TGT_ariles_copy_headers_format_yaml_cpp_dir")
-add_dependencies("TGT_ariles_copy_headers_format_yaml_cpp_h" "TGT_ariles_copy_headers_ariles")
+add_dependencies("TGT_ariles_copy_headers_bridge_yaml_cpp_h" "TGT_ariles_copy_headers_bridge_yaml_cpp_dir")
+add_dependencies("TGT_ariles_copy_headers_bridge_yaml_cpp_h" "TGT_ariles_copy_headers_ariles")
 
+set(YAMLCPP_SOURCE_DIR     "${CMAKE_CURRENT_LIST_DIR}/yaml-cpp")
+set(CPACK_SOURCE_IGNORE_FILES "${CPACK_SOURCE_IGNORE_FILES};${YAMLCPP_SOURCE_DIR}" PARENT_SCOPE)
 
 set (TGT_YAMLCPP            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
 if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "BUILD")
-    set (YAMLCPP_SOURCE_DIR     "${CMAKE_CURRENT_LIST_DIR}/yaml-cpp")
     set (YAMLCPP_CXX_FLAGS      "${ARILES_CXX_FLAGS} -fPIC")
 
 

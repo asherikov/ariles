@@ -1,14 +1,15 @@
-ariles_copy_file_if_exists( TGT_ariles_copy_headers                             "format_rapidjson_h"
+ariles_copy_file_if_exists( TGT_ariles_copy_headers                             "bridge_rapidjson_h"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/rapidjson.h"     "${ARILES_BRIDGE_INCLUDE_DIR}/")
-ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                             "format_rapidjson_dir"
+ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                             "bridge_rapidjson_dir"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/rapidjson"       "${ARILES_BRIDGE_INCLUDE_DIR}/rapidjson")
-add_dependencies("TGT_ariles_copy_headers_format_rapidjson_h" "TGT_ariles_copy_headers_format_rapidjson_dir")
-add_dependencies("TGT_ariles_copy_headers_format_rapidjson_h" "TGT_ariles_copy_headers_ariles")
+add_dependencies("TGT_ariles_copy_headers_bridge_rapidjson_h" "TGT_ariles_copy_headers_bridge_rapidjson_dir")
+add_dependencies("TGT_ariles_copy_headers_bridge_rapidjson_h" "TGT_ariles_copy_headers_ariles")
 
+set(RAPIDJSON_SOURCE_DIR     "${CMAKE_CURRENT_LIST_DIR}/rapidjson")
+set(CPACK_SOURCE_IGNORE_FILES "${CPACK_SOURCE_IGNORE_FILES};${RAPIDJSON_SOURCE_DIR}" PARENT_SCOPE)
 
 set (TGT_RAPIDJSON            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
 if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "BUILD")
-    set (RAPIDJSON_SOURCE_DIR     "${CMAKE_CURRENT_LIST_DIR}/rapidjson")
     set (RAPIDJSON_CXX_FLAGS      "${ARILES_CXX_FLAGS} -fPIC")
 
 

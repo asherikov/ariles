@@ -1,9 +1,9 @@
-ariles_copy_file_if_exists( TGT_ariles_copy_headers                     "format_ros_h"
+ariles_copy_file_if_exists( TGT_ariles_copy_headers                     "bridge_ros_h"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/ros.h"   "${ARILES_BRIDGE_INCLUDE_DIR}/")
-ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                      "format_ros_dir"
+ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                     "bridge_ros_dir"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/ros"     "${ARILES_BRIDGE_INCLUDE_DIR}/ros")
-add_dependencies("TGT_ariles_copy_headers_format_ros_h" "TGT_ariles_copy_headers_format_ros_dir")
-add_dependencies("TGT_ariles_copy_headers_format_ros_h" "TGT_ariles_copy_headers_ariles")
+add_dependencies("TGT_ariles_copy_headers_bridge_ros_h" "TGT_ariles_copy_headers_bridge_ros_dir")
+add_dependencies("TGT_ariles_copy_headers_bridge_ros_h" "TGT_ariles_copy_headers_ariles")
 
 
 set (TGT_ROS            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")

@@ -31,12 +31,12 @@ ariles_detect_func_macro()
 ## Options (definitions & defaults)
 #####################################
 
-option (ARILES_ENABLE_CORE             "Install core (if disable only selected bridges are installed)." ON)
-option (ARILES_ENABLE_CORE_ALL_HEADER  "Generate ariles_all.h header (not suitable for packages)" ON)
+option (ARILES_ENABLE_CORE              "Install core (if disable only selected bridges are installed)." ON)
+option (ARILES_ENABLE_CORE_ALL_HEADER   "Generate ariles_all.h header (not suitable for packages)" ON)
 
 # bridges
 set    (ARILES_BRIDGES_DEFAULT_MODE     "BUILD" CACHE STRING "ON = enable, OFF = disable, BUILD = build from sources")
-option (ARILES_INSTALL_BRIDGES          "Install bridges on the system." OFF)
+option (ARILES_INSTALL_BRIDGES          "Install bridges on the system (when mode = BUILD)." OFF)
 
 # extra adapters & options
 set (ARILES_DEFAULT_CONFIGURABLE_FLAGS  "" CACHE STRING "Override default flags")
@@ -52,15 +52,52 @@ option (ARILES_ADAPTER_BETTER_ENUMS     "Enable support for beter enums." ON)
 set    (ARILES_CPP_STANDARD             "c++98" CACHE STRING "C++ standard version")
 option (ARILES_VERBOSE                  "Verbose build"                     ON)
 option (ARILES_BUILD_REGRESSION_TESTS   "Build regression tests."           ON)
+option (ARILES_ENABLE_PPA               "Enable debian package generation." OFF)
 
 # install parameters
 set    (ARILES_PKGCONFIG_INSTALL_PATH   "" CACHE STRING "pkg-config pc-file install path, not installed if empty")
 
 
+
+#####################################
+## CPack configuration
+#####################################
+
+# CPACK_PACKAGE_NAME    If not specified, defaults to the project name.
+
+set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+
+set(CPACK_PACKAGE_CONTACT "Alexander Sherikov <asherikov@yandex.com>")
+set(CPACK_PACKAGE_VENDOR "https://github.com/asherikov/ariles")
+
+#set(CPACK_PACKAGE_DESCRIPTION_FILE "${PROJECT_SOURCE_DIR}/README.md")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "C++ serialization library")
+
+set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
+
+set(CPACK_MONOLITHIC_INSTALL OFF)
+set(CPACK_DEB_COMPONENT_INSTALL ON)
+set(CPACK_COMPONENTS_GROUPING ONE_PER_GROUP)
+
+
+set(CPACK_GENERATOR "DEB")
+
+#set(CPACK_DEBIAN_PACKAGE_DEPENDS "")
+
+set(CPACK_DEBIAN_PACKAGE_HOMEPAGE   "https://asherikov.github.io/ariles/")
+set(CPACK_DEBIAN_PACKAGE_PRIORITY   "optional")
+set(CPACK_DEBIAN_PACKAGE_SECTION    "devel")
+
+
 #####################################
 
 if (${ARILES_ENABLE_CORE})
-    cpack_add_component("core")
+    cpack_add_component("core"
+        DISPLAY_NAME "Ariles core"
+        DESCRIPTION "Core headers and STL adapters"
+        ARCHIVE_FILE "${CPACK_PACKAGE_NAME}-core-${CPACK_PACKAGE_VERSION}")
 else()
     # tests cannot be built if the core is not installed
     set(ARILES_BUILD_REGRESSION_TESTS OFF)
@@ -188,6 +225,13 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
 # This will go to the configuration file for projects, which use ariles.
 set (ARILES_CORE_INCLUDES "${CMAKE_INSTALL_PREFIX}/include")
 
+set(PPA_ARCHIVE_FILES
+    "./AUTHORS.md"
+    "./CMakeLists.txt"
+    "./LICENSE"
+    "./Makefile"
+    "./README.md"
+    "./cmake")
 
 
 #####################################
@@ -208,6 +252,7 @@ if (${ARILES_ENABLE_CORE})
     endforeach()
 
     include_directories("${ARILES_INCLUDE_DIR}/core/")
+    list(APPEND PPA_ARCHIVE_FILES "./include" "./extra_adapters")
 endif()
 
 
@@ -289,11 +334,17 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
 
     foreach(ARILES_BRIDGE ${ARILES_BRIDGES_TMP})
         if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
-            cpack_add_component("${ARILES_BRIDGE}" DEPENDS "core")
+            cpack_add_component(
+                "${ARILES_BRIDGE}"
+                DISPLAY_NAME "'${ARILES_BRIDGE}' support for ariles"
+                DESCRIPTION "Enables support for '${ARILES_BRIDGE}' in ariles"
+                DEPENDS "core"
+                ARCHIVE_FILE "${CPACK_PACKAGE_NAME}-${ARILES_BRIDGE}-${CPACK_PACKAGE_VERSION}")
 
             set (${ARILES_BRIDGE}_INTERFACE_DIR  "${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/interface")
             set (ARILES_BRIDGE_INCLUDE_DIR "${ARILES_INCLUDE_DIR}/${ARILES_BRIDGE}/ariles/bridges/")
             include_directories("${ARILES_INCLUDE_DIR}/${ARILES_BRIDGE}")
+            file(MAKE_DIRECTORY "${ARILES_BRIDGE_INCLUDE_DIR}")
 
             add_subdirectory("${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}" "${ARILES_BRIDGES_BINARY_DIR}/${ARILES_BRIDGE}")
 
@@ -304,6 +355,8 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
             if (ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS)
                 link_directories("${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS}")
             endif()
+
+            list(APPEND PPA_ARCHIVE_FILES "./bridges/${ARILES_BRIDGE}")
         endif()
     endforeach(ARILES_BRIDGE)
 endforeach(ARILES_BRIDGES_DIR)
@@ -578,34 +631,21 @@ endforeach(ARILES_BRIDGES_DIR)
 ## CPack
 #####################################
 
-# CPACK_PACKAGE_NAME    If not specified, defaults to the project name.
-
-set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
-set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
-set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
-
-set(CPACK_PACKAGE_CONTACT "asherikov@yandex.com")
-
-set(CPACK_PACKAGE_DESCRIPTION_FILE "${PROJECT_SOURCE_DIR}/README.md")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "C++ serialization library")
-
-set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
-
-set(CPACK_MONOLITHIC_INSTALL OFF)
-set(CPACK_DEB_COMPONENT_INSTALL ON)
-set(CPACK_COMPONENTS_GROUPING ONE_PER_GROUP)
-
-
-set(CPACK_GENERATOR "DEB")
-
-#set(CPACK_DEBIAN_PACKAGE_DEPENDS "")
-
-set(CPACK_DEBIAN_PACKAGE_HOMEPAGE   "https://asherikov.github.io/ariles/")
-set(CPACK_DEBIAN_PACKAGE_PRIORITY   "optional")
-set(CPACK_DEBIAN_PACKAGE_SECTION    "devel")
-
 include(CPack)
 
+set(CPACK_DEBIAN_RESOURCE_FILE_CHANGELOG "")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Alexander Sherikov <asherikov@yandex.com>")
 
-#set(CPACK_DEBIAN_RESOURCE_FILE_CHANGELOG "")
-#include(UploadPPA)
+if(ARILES_ENABLE_PPA)
+    set(PPA_UBUNTU_CODENAMES precise saucy trusty)
+    set(PPA_DPUT_HOST "asdasda")
+
+    set(PPA_COMMON_CMAKE_ARGS
+        "-DARILES_CPP_STANDARD=${ARILES_CPP_STANDARD} \
+         -DARILES_ENABLE_CORE_ALL_HEADER=${ARILES_ENABLE_CORE_ALL_HEADER} \
+         -DARILES_BUILD_REGRESSION_TESTS=${ARILES_BUILD_REGRESSION_TESTS} \
+         -DARILES_BRIDGES_DEFAULT_MODE=OFF \
+         -DARILES_ENABLE_CORE=OFF")
+
+    include(UploadPPA)
+endif()
