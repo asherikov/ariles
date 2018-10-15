@@ -24,6 +24,13 @@
 
 #include <boost/lexical_cast.hpp>
 
+#ifdef ARILES_BRIDGE_INCLUDED_jsonnet
+extern "C" {
+#include "libjsonnet.h"
+}
+#endif
+
+
 #include <rapidjson/document.h>
 #include <rapidjson/writer.h>
 #include <rapidjson/prettywriter.h>
