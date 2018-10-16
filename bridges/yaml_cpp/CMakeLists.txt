@@ -12,6 +12,7 @@ add_dependencies("TGT_ariles_copy_headers_bridge_yaml_cpp_h" "TGT_ariles_copy_he
 
 set(YAMLCPP_SOURCE_DIR     "${CMAKE_CURRENT_LIST_DIR}/yaml-cpp")
 set(CPACK_SOURCE_IGNORE_FILES "${CPACK_SOURCE_IGNORE_FILES};${YAMLCPP_SOURCE_DIR}" PARENT_SCOPE)
+set(PPA_${ARILES_COMPONENT_NAME}_DEPENDS "libyaml-cpp-dev" PARENT_SCOPE)
 
 set (TGT_YAMLCPP            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
 if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "BUILD")

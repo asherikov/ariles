@@ -26,7 +26,7 @@ if(NOT CPACK_PACKAGE_NAME)
     message(FATAL_ERROR "CPACK_PACKAGE_NAME not set, no PPA upload")
 endif()
 if(NOT PPA_DPUT_HOST)
-    message(FATAL_ERROR "PPA_DPUT_HOST not set, no PPA upload")
+    message("PPA_DPUT_HOST not set, no PPA upload")
 endif()
 
 
@@ -125,8 +125,12 @@ foreach(UBUNTU_NAME ${PPA_UBUNTU_CODENAMES})
     foreach(COMPONENT ${CPACK_COMPONENTS_ALL})
         string(TOUPPER ${COMPONENT} UPPER_COMPONENT)
         set(DEPENDS "${CPACK_DEBIAN_PACKAGE_DEPENDS}")
-        foreach(DEP ${CPACK_COMPONENT_${UPPER_COMPONENT}_DEPENDS})
-            set(DEPENDS "${DEPENDS}, ${CPACK_DEBIAN_PACKAGE_NAME}-${DEP}")
+        foreach(DEP ${PPA_${COMPONENT}_DEPENDS})
+            if (DEPENDS)
+                set(DEPENDS "${DEPENDS}, ${CPACK_DEBIAN_PACKAGE_NAME}-${DEP}")
+            else()
+                set(DEPENDS "${CPACK_DEBIAN_PACKAGE_NAME}-${DEP}")
+            endif()
         endforeach(DEP ${CPACK_COMPONENT_${UPPER_COMPONENT}_DEPENDS})
 
         file(APPEND ${DEBIAN_CONTROL}
@@ -148,25 +152,28 @@ foreach(UBUNTU_NAME ${PPA_UBUNTU_CODENAMES})
     file(WRITE ${DEBIAN_RULES}
         "#!/usr/bin/make -f\n"
         "\n"
-        "BUILDDIR = build_dir\n"
+        #"BUILDDIR = build_dir\n"
         "\n"
         "build:\n"
-        "	mkdir -p $(BUILDDIR)\n"
-        "	cd $(BUILDDIR); cmake ..\n"
-        "	make -C $(BUILDDIR) preinstall\n"
+        #"	mkdir -p $(BUILDDIR)\n"
+        #"	cd $(BUILDDIR); cmake ..\n"
+        #"	make -C $(BUILDDIR) preinstall\n"
         "	touch build\n"
         "\n"
-        "build: build-indep build-arch\n"
+        "binary: binary-indep binary-arch\n"
         "\n"
-        "build-indep: build\n"
+        "binary-indep: build\n"
         "\n"
-        "build-arch: build\n")
+        "binary-arch: build\n")
 
     foreach(COMPONENT ${CPACK_COMPONENTS_ALL})
         set(PATH debian/tmp_${COMPONENT})
+        set(BUILDDIR build_${COMPONENT})
         set(PACKAGE ${CPACK_DEBIAN_PACKAGE_NAME}-${COMPONENT})
         file(APPEND ${DEBIAN_RULES}
-            "	cd $(BUILDDIR); cmake -DCOMPONENT=${COMPONENT} -DCMAKE_INSTALL_PREFIX=../${PATH}/usr ${PPA_COMMON_CMAKE_ARGS}\n"
+            "	mkdir ${BUILDDIR}\n"
+            "	cd ${BUILDDIR}; cmake -DCMAKE_INSTALL_PREFIX=../${PATH}/usr ${PPA_COMMON_CMAKE_ARGS} ${PPA_CMAKE_FLAGS_${COMPONENT}} ..\n"
+            "	cd ${BUILDDIR}; make install\n"
             "	mkdir -p ${PATH}/DEBIAN\n"
             "	dpkg-gencontrol -p${PACKAGE} -P${PATH}\n"
             "	dpkg --build ${PATH} ..\n")
@@ -202,17 +209,19 @@ foreach(UBUNTU_NAME ${PPA_UBUNTU_CODENAMES})
         OUTPUT ${DEBIAN_BASE_DIR}/${DEBIAN_SOURCE_CHANGES}
         COMMAND ${DEBUILD_EXECUTABLE} ${PPA_DEBUILD_FLAGS} -S
         WORKING_DIRECTORY ${DEBIAN_SOURCE_DIR}
-        COMMENT "Generate ${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION} for ${PPA_DPUT_HOST}")
+        COMMENT "Generate ${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}")
     add_custom_target(${PPA_UBUNTU_NAME_TARGET}_changes DEPENDS "${DEBIAN_BASE_DIR}/${DEBIAN_SOURCE_CHANGES}")
     add_dependencies(${PPA_MAIN_TARGET} ${PPA_UBUNTU_NAME_TARGET}_changes)
 
 
     ##############################################################################
     # dput ppa:your-lp-id/ppa <source.changes>
-    add_custom_target(${PROJECT_NAME}_dput_${UBUNTU_NAME}
-        ${DPUT_EXECUTABLE} ${PPA_DPUT_HOST} ${DEBIAN_SOURCE_CHANGES}
-        DEPENDS ${DEBIAN_BASE_DIR}/${DEBIAN_SOURCE_CHANGES}
-        WORKING_DIRECTORY ${DEBIAN_BASE_DIR}
-        COMMENT "Upload ${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION} to ${PPA_DPUT_HOST}"
-        DEPENDS ${PPA_UBUNTU_NAME_TARGET})
+    if(PPA_DPUT_HOST)
+        add_custom_target(${PROJECT_NAME}_dput_${UBUNTU_NAME}
+            ${DPUT_EXECUTABLE} ${PPA_DPUT_HOST} ${DEBIAN_SOURCE_CHANGES}
+            DEPENDS ${DEBIAN_BASE_DIR}/${DEBIAN_SOURCE_CHANGES}
+            WORKING_DIRECTORY ${DEBIAN_BASE_DIR}
+            COMMENT "Upload ${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION} to ${PPA_DPUT_HOST}"
+            DEPENDS ${PPA_UBUNTU_NAME_TARGET})
+    endif()
 endforeach()

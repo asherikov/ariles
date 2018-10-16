@@ -91,8 +91,9 @@ release: release-all
 # checks
 #----------------------------------------------
 
-packages: clean
-	${MAKE} build TC=${TC} TYPE=Release OPTIONS=deb_packages TARGETS="ppa" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+ppa: clean
+	${MAKE} build TC=${TC} TYPE=Release OPTIONS=deb_packages_trusty TARGETS="ppa" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+	cd build/generic-Release-OPTIONS_deb_packages_trusty/Debian/trusty/ariles-1.0.0-source; dpkg-buildpackage -us -uc
 
 
 test-ros: clean

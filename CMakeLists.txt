@@ -52,7 +52,7 @@ option (ARILES_ADAPTER_BETTER_ENUMS     "Enable support for beter enums." ON)
 set    (ARILES_CPP_STANDARD             "c++98" CACHE STRING "C++ standard version")
 option (ARILES_VERBOSE                  "Verbose build"                     ON)
 option (ARILES_BUILD_REGRESSION_TESTS   "Build regression tests."           ON)
-option (ARILES_ENABLE_PPA               "Enable debian package generation." OFF)
+set    (ARILES_PPA_TARGETS              "" CACHE STRING "Enable debian package generation.")
 
 # install parameters
 set    (ARILES_PKGCONFIG_INSTALL_PATH   "" CACHE STRING "pkg-config pc-file install path, not installed if empty")
@@ -84,7 +84,6 @@ set(CPACK_COMPONENTS_GROUPING ONE_PER_GROUP)
 
 set(CPACK_GENERATOR "DEB")
 
-#set(CPACK_DEBIAN_PACKAGE_DEPENDS "")
 
 set(CPACK_DEBIAN_PACKAGE_HOMEPAGE   "https://asherikov.github.io/ariles/")
 set(CPACK_DEBIAN_PACKAGE_PRIORITY   "optional")
@@ -98,6 +97,8 @@ if (${ARILES_ENABLE_CORE})
         DISPLAY_NAME "Ariles core"
         DESCRIPTION "Core headers and STL adapters"
         ARCHIVE_FILE "${CPACK_PACKAGE_NAME}-core-${CPACK_PACKAGE_VERSION}")
+    set(PPA_CMAKE_FLAGS_core "-DARILES_ENABLE_CORE=ON")
+    set(PPA_core_DEPENDS "libboost-all-dev;libeigen3-dev")
 else()
     # tests cannot be built if the core is not installed
     set(ARILES_BUILD_REGRESSION_TESTS OFF)
@@ -334,8 +335,11 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
 
     foreach(ARILES_BRIDGE ${ARILES_BRIDGES_TMP})
         if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
+            string(REGEX REPLACE "_" "-" ARILES_COMPONENT_NAME "${ARILES_BRIDGE}")
+            set("PPA_CMAKE_FLAGS_${ARILES_COMPONENT_NAME}" "-DARILES_BRIDGE_${ARILES_BRIDGE}=ON -DARILES_ENABLE_CORE=OFF")
+
             cpack_add_component(
-                "${ARILES_BRIDGE}"
+                "${ARILES_COMPONENT_NAME}"
                 DISPLAY_NAME "'${ARILES_BRIDGE}' support for ariles"
                 DESCRIPTION "Enables support for '${ARILES_BRIDGE}' in ariles"
                 DEPENDS "core"
@@ -560,7 +564,7 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
             set(ARILES_INCLUDES             "")
             set(ARILES_DEPENDENCY_INCLUDES  "${ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES}")
             set(ARILES_LIBRARY_DIRS         "${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS}")
-            set(ARILES_COMPONENT_NAME       "${ARILES_BRIDGE}")
+            string(REGEX REPLACE "_" "-" ARILES_COMPONENT_NAME "${ARILES_BRIDGE}")
 
             if (ARILES_LIBRARIES)
                 set (ARILES_SHARED_GNU_LINKER_FLAGS "-Wl,--exclude-libs")
@@ -636,16 +640,15 @@ include(CPack)
 set(CPACK_DEBIAN_RESOURCE_FILE_CHANGELOG "")
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Alexander Sherikov <asherikov@yandex.com>")
 
-if(ARILES_ENABLE_PPA)
-    set(PPA_UBUNTU_CODENAMES precise saucy trusty)
-    set(PPA_DPUT_HOST "asdasda")
+if(ARILES_PPA_TARGETS)
+    set(PPA_UBUNTU_CODENAMES ${ARILES_PPA_TARGETS}) # precise sausy trusty
+    #set(PPA_DPUT_HOST "")
 
     set(PPA_COMMON_CMAKE_ARGS
         "-DARILES_CPP_STANDARD=${ARILES_CPP_STANDARD} \
          -DARILES_ENABLE_CORE_ALL_HEADER=${ARILES_ENABLE_CORE_ALL_HEADER} \
          -DARILES_BUILD_REGRESSION_TESTS=${ARILES_BUILD_REGRESSION_TESTS} \
-         -DARILES_BRIDGES_DEFAULT_MODE=OFF \
-         -DARILES_ENABLE_CORE=OFF")
+         -DARILES_BRIDGES_DEFAULT_MODE=OFF")
 
     include(UploadPPA)
 endif()
