@@ -78,14 +78,18 @@ foreach(UBUNTU_NAME ${PPA_UBUNTU_CODENAMES})
 
     execute_process(COMMAND ${CMAKE_COMMAND} -E remove_directory "${DEBIAN_BASE_DIR}")
     execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${DEBIAN_BASE_DIR})
-    execute_process(COMMAND "${GIT_EXECUTABLE}" archive --worktree-attributes
-                        --prefix ${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-source/
-                        -o ${DEBIAN_BASE_DIR}.tar HEAD ${PPA_ARCHIVE_FILES}
+    #    execute_process(COMMAND "${GIT_EXECUTABLE}" archive --worktree-attributes
+    #                        --prefix ${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-source/
+    #                        -o ${DEBIAN_BASE_DIR}.tar HEAD ${PPA_ARCHIVE_FILES}
+    #                    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
+    execute_process(COMMAND ${CMAKE_COMMAND} -E tar cvf ${DEBIAN_BASE_DIR}.tar ${PPA_ARCHIVE_FILES}
                     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 
+    execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory "${DEBIAN_SOURCE_DIR}")
 
     execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${DEBIAN_BASE_DIR}.tar
-                    WORKING_DIRECTORY ${DEBIAN_BASE_DIR})
+                    WORKING_DIRECTORY ${DEBIAN_SOURCE_DIR})
 
 
     execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory "${DEBIAN_SOURCE_DIR}/debian")

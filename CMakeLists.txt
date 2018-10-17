@@ -21,6 +21,7 @@ include(ariles_copy_file_if_exists)
 include(ariles_add_external_git_project)
 include(ariles_list_filenames)
 include(ariles_dump_variables)
+include(ariles_install_component)
 
 include (ariles_detect_func_macro)
 ariles_detect_func_macro()
@@ -335,16 +336,6 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
 
     foreach(ARILES_BRIDGE ${ARILES_BRIDGES_TMP})
         if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
-            string(REGEX REPLACE "_" "-" ARILES_COMPONENT_NAME "${ARILES_BRIDGE}")
-            set("PPA_CMAKE_FLAGS_${ARILES_COMPONENT_NAME}" "-DARILES_BRIDGE_${ARILES_BRIDGE}=ON -DARILES_ENABLE_CORE=OFF")
-
-            cpack_add_component(
-                "${ARILES_COMPONENT_NAME}"
-                DISPLAY_NAME "'${ARILES_BRIDGE}' support for ariles"
-                DESCRIPTION "Enables support for '${ARILES_BRIDGE}' in ariles"
-                DEPENDS "core"
-                ARCHIVE_FILE "${CPACK_PACKAGE_NAME}-${ARILES_BRIDGE}-${CPACK_PACKAGE_VERSION}")
-
             set (${ARILES_BRIDGE}_INTERFACE_DIR  "${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/interface")
             set (ARILES_BRIDGE_INCLUDE_DIR "${ARILES_INCLUDE_DIR}/${ARILES_BRIDGE}/ariles/bridges/")
             include_directories("${ARILES_INCLUDE_DIR}/${ARILES_BRIDGE}")
@@ -360,7 +351,8 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
                 link_directories("${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS}")
             endif()
 
-            list(APPEND PPA_ARCHIVE_FILES "./bridges/${ARILES_BRIDGE}")
+            list(APPEND PPA_ARCHIVE_FILES "./bridges/${ARILES_BRIDGE}/interface")
+            list(APPEND PPA_ARCHIVE_FILES "./bridges/${ARILES_BRIDGE}/CMakeLists.txt")
         endif()
     endforeach(ARILES_BRIDGE)
 endforeach(ARILES_BRIDGES_DIR)
@@ -556,75 +548,7 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
 
     foreach(ARILES_BRIDGE ${ARILES_BRIDGES_TMP})
         if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
-            set(ariles_LIBRARIES "ariles-${ARILES_BRIDGE}_LIBRARIES")
-            set(ariles_INCLUDE_DIRS "ariles-${ARILES_BRIDGE}_INCLUDE_DIRS")
-            set(ariles_LIBRARY_DIRS "ariles-${ARILES_BRIDGE}_LIBRARY_DIRS")
-
-            set(ARILES_LIBRARIES            "${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS}")
-            set(ARILES_INCLUDES             "")
-            set(ARILES_DEPENDENCY_INCLUDES  "${ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES}")
-            set(ARILES_LIBRARY_DIRS         "${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS}")
-            string(REGEX REPLACE "_" "-" ARILES_COMPONENT_NAME "${ARILES_BRIDGE}")
-
-            if (ARILES_LIBRARIES)
-                set (ARILES_SHARED_GNU_LINKER_FLAGS "-Wl,--exclude-libs")
-
-                foreach(ARILES_LIBRARY ${ARILES_LIBRARIES})
-                    set(ARILES_SHARED_GNU_LINKER_FLAGS "${ARILES_SHARED_GNU_LINKER_FLAGS},${ARILES_LIBRARY}")
-                endforeach(ARILES_LIBRARY)
-            endif (ARILES_LIBRARIES)
-
-            list(REMOVE_DUPLICATES ARILES_INCLUDES)
-            list(REMOVE_DUPLICATES ARILES_DEPENDENCY_INCLUDES)
-            list(REMOVE_DUPLICATES ARILES_LIBRARIES)
-            list(REMOVE_ITEM ARILES_INCLUDES "")
-            list(REMOVE_ITEM ARILES_DEPENDENCY_INCLUDES "")
-            list(REMOVE_ITEM ARILES_LIBRARIES "")
-
-            if (ARILES_INCLUDES)
-                configure_package_config_file(  "cmake/arilesConfig.cmake.in"
-                                                "${PROJECT_BINARY_DIR}/ariles-${ARILES_BRIDGE}Config.cmake"
-                                                INSTALL_DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles-${ARILES_BRIDGE}/"
-                                                PATH_VARS ARILES_INCLUDES
-                                                NO_SET_AND_CHECK_MACRO
-                                                NO_CHECK_REQUIRED_COMPONENTS_MACRO)
-            else()
-                configure_package_config_file(  "cmake/arilesConfig.cmake.in"
-                                                "${PROJECT_BINARY_DIR}/ariles-${ARILES_BRIDGE}Config.cmake"
-                                                INSTALL_DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles-${ARILES_BRIDGE}/"
-                                                NO_SET_AND_CHECK_MACRO
-                                                NO_CHECK_REQUIRED_COMPONENTS_MACRO)
-            endif()
-
-            install(FILES "${PROJECT_BINARY_DIR}/ariles-${ARILES_BRIDGE}Config.cmake"
-                    DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles-${ARILES_BRIDGE}/"
-                    COMPONENT ${ARILES_COMPONENT_NAME})
-
-            write_basic_package_version_file(
-                ${PROJECT_BINARY_DIR}/ariles-${ARILES_BRIDGE}ConfigVersion.cmake
-                VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}
-                COMPATIBILITY SameMajorVersion)
-            install(FILES "${PROJECT_BINARY_DIR}/ariles-${ARILES_BRIDGE}ConfigVersion.cmake"
-                    DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles/"
-                    COMPONENT ${ARILES_COMPONENT_NAME})
-
-            if(ARILES_PKGCONFIG_INSTALL_PATH)
-                string(REPLACE ";" " -I" ARILES_INCLUDES_FLAGS "${ARILES_INCLUDES}")
-                set(ARILES_INCLUDES_FLAGS "-I${ARILES_INCLUDES_FLAGS}")
-                string(REPLACE ";" " -l" ARILES_LIBRARIES_FLAGS "${ARILES_LIBRARIES}")
-                string(REPLACE ";" " -L" ARILES_LIBRARIES_FLAGS_DIRS "${ARILES_LIBRARY_DIRS}")
-                set(ARILES_LIBRARIES_FLAGS "-l${ARILES_LIBRARIES_FLAGS} -L${ARILES_LIBRARIES_FLAGS_DIRS}")
-                configure_file("cmake/ariles.pc.in"             "${PROJECT_BINARY_DIR}/ariles-${ARILES_BRIDGE}.pc" @ONLY)
-
-                install(FILES "${PROJECT_BINARY_DIR}/ariles-${ARILES_BRIDGE}.pc"
-                        DESTINATION "${ARILES_PKGCONFIG_INSTALL_PATH}"
-                        COMPONENT ${ARILES_COMPONENT_NAME})
-            endif()
-
-
-            install (DIRECTORY "${ARILES_INCLUDE_DIR}/${ARILES_COMPONENT_NAME}/"
-                     DESTINATION "${CMAKE_INSTALL_PREFIX}/include/"
-                     COMPONENT "${ARILES_COMPONENT_NAME}")
+            ariles_install_component(${ARILES_BRIDGE})
         endif()
     endforeach(ARILES_BRIDGE)
 endforeach(ARILES_BRIDGES_DIR)
