@@ -3,16 +3,6 @@ if (${INDEX} GREATER -1)
     message(FATAL_ERROR "Conflict between the bridges detected (yaml_cpp -- yaml_cpp03).")
 endif()
 
-string(REGEX REPLACE "_" "-" ARILES_COMPONENT_NAME "${ARILES_BRIDGE}")
-set("PPA_CMAKE_FLAGS_${ARILES_COMPONENT_NAME}" "-DARILES_BRIDGE_${ARILES_BRIDGE}=ON -DARILES_ENABLE_CORE=OFF" PARENT_SCOPE)
-
-cpack_add_component(
-    "${ARILES_COMPONENT_NAME}"
-    DISPLAY_NAME "'${ARILES_BRIDGE}' support for ariles"
-    DESCRIPTION "Enables support for '${ARILES_BRIDGE}' in ariles"
-    DEPENDS "core"
-    ARCHIVE_FILE "${CPACK_PACKAGE_NAME}-${ARILES_COMPONENT_NAME}-${CPACK_PACKAGE_VERSION}")
-
 
 ariles_copy_file_if_exists( TGT_ariles_copy_headers                             "bridge_yaml_cpp03_h"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/yaml_cpp03.h"    "${ARILES_BRIDGE_INCLUDE_DIR}/")
@@ -22,7 +12,6 @@ add_dependencies("TGT_ariles_copy_headers_bridge_yaml_cpp03_h" "TGT_ariles_copy_
 add_dependencies("TGT_ariles_copy_headers_bridge_yaml_cpp03_h" "TGT_ariles_copy_headers_ariles")
 
 set(YAMLCPP03_SOURCE_DIR        "${CMAKE_CURRENT_LIST_DIR}/yaml-cpp")
-set(CPACK_SOURCE_IGNORE_FILES   "${CPACK_SOURCE_IGNORE_FILES};${YAMLCPP03_SOURCE_DIR}" PARENT_SCOPE)
 
 set (TGT_YAMLCPP03            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
 if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "BUILD")
@@ -62,3 +51,6 @@ else()
     set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES "${${ARILES_BRIDGE}_INCLUDE_DIRS}" PARENT_SCOPE)
     set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS "${${ARILES_BRIDGE}_LIBRARIES}" PARENT_SCOPE)
 endif()
+
+ariles_install_component(${ARILES_BRIDGE})
+set("PPA_CMAKE_FLAGS_${ARILES_COMPONENT}" "-DARILES_BRIDGE_${ARILES_BRIDGE}=ON -DARILES_ENABLE_CORE=OFF" PARENT_SCOPE)

@@ -93,18 +93,11 @@ set(CPACK_DEBIAN_PACKAGE_SECTION    "devel")
 
 #####################################
 
-if (${ARILES_ENABLE_CORE})
-    cpack_add_component("core"
-        DISPLAY_NAME "Ariles core"
-        DESCRIPTION "Core headers and STL adapters"
-        ARCHIVE_FILE "${CPACK_PACKAGE_NAME}-core-${CPACK_PACKAGE_VERSION}")
-    set(PPA_CMAKE_FLAGS_core "-DARILES_ENABLE_CORE=ON")
-    set(PPA_core_DEPENDS "libboost-all-dev;libeigen3-dev")
-else()
+if (NOT ${ARILES_ENABLE_CORE})
     # tests cannot be built if the core is not installed
-    set(ARILES_BUILD_REGRESSION_TESTS OFF)
+    set(ARILES_BUILD_REGRESSION_TESTS   OFF)
 
-    # adapter are installed only with core
+    # adapters are installed only with core
     set(ARILES_ADAPTER_EIGEN            OFF)
     set(ARILES_ADAPTER_BOOST_POINTER    OFF)
     set(ARILES_ADAPTER_BOOST_OPTIONAL   OFF)
@@ -479,6 +472,12 @@ endif()
 #####################################
 
 if (${ARILES_ENABLE_CORE})
+    cpack_add_component("core"
+        DISPLAY_NAME "Ariles core"
+        DESCRIPTION "Core headers and STL adapters"
+        ARCHIVE_FILE "${CPACK_PACKAGE_NAME}-core-${CPACK_PACKAGE_VERSION}")
+
+
     set(ariles_LIBRARIES "ariles_LIBRARIES")
     set(ariles_INCLUDE_DIRS "ariles_INCLUDE_DIRS")
     set(ariles_LIBRARY_DIRS "ariles_LIBRARY_DIRS")
@@ -539,19 +538,10 @@ if (${ARILES_ENABLE_CORE})
     install (DIRECTORY "${ARILES_INCLUDE_DIR}/${ARILES_COMPONENT_NAME}/"
              DESTINATION "${CMAKE_INSTALL_PREFIX}/include/"
              COMPONENT "${ARILES_COMPONENT_NAME}")
+
+    set(PPA_CMAKE_FLAGS_core "-DARILES_ENABLE_CORE=ON")
+    set(PPA_core_DEPENDS "libboost-all-dev;libeigen3-dev")
 endif()
-
-
-
-foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
-    ariles_list_filenames("${ARILES_BRIDGES_DIR}"   "ARILES_BRIDGES_TMP" DIRS_WITH_CMAKELISTS)
-
-    foreach(ARILES_BRIDGE ${ARILES_BRIDGES_TMP})
-        if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
-            ariles_install_component(${ARILES_BRIDGE})
-        endif()
-    endforeach(ARILES_BRIDGE)
-endforeach(ARILES_BRIDGES_DIR)
 
 
 

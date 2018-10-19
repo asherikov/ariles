@@ -1,14 +1,3 @@
-string(REGEX REPLACE "_" "-" ARILES_COMPONENT_NAME "${ARILES_BRIDGE}")
-set("PPA_CMAKE_FLAGS_${ARILES_COMPONENT_NAME}" "-DARILES_BRIDGE_${ARILES_BRIDGE}=ON -DARILES_ENABLE_CORE=OFF" PARENT_SCOPE)
-
-cpack_add_component(
-    "${ARILES_COMPONENT_NAME}"
-    DISPLAY_NAME "'${ARILES_BRIDGE}' support for ariles"
-    DESCRIPTION "Enables support for '${ARILES_BRIDGE}' in ariles"
-    DEPENDS "core"
-    ARCHIVE_FILE "${CPACK_PACKAGE_NAME}-${ARILES_COMPONENT_NAME}-${CPACK_PACKAGE_VERSION}")
-
-
 ariles_copy_file_if_exists( TGT_ariles_copy_headers                             "bridge_rapidjson_h"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/rapidjson.h"     "${ARILES_BRIDGE_INCLUDE_DIR}/")
 ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                             "bridge_rapidjson_dir"
@@ -17,7 +6,6 @@ add_dependencies("TGT_ariles_copy_headers_bridge_rapidjson_h" "TGT_ariles_copy_h
 add_dependencies("TGT_ariles_copy_headers_bridge_rapidjson_h" "TGT_ariles_copy_headers_ariles")
 
 set(RAPIDJSON_SOURCE_DIR     "${CMAKE_CURRENT_LIST_DIR}/rapidjson")
-set(CPACK_SOURCE_IGNORE_FILES "${CPACK_SOURCE_IGNORE_FILES};${RAPIDJSON_SOURCE_DIR}" PARENT_SCOPE)
 
 set (TGT_RAPIDJSON            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
 if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "BUILD")
@@ -71,3 +59,6 @@ list (FIND ARILES_ENABLED_BRIDGES "jsonnet" INDEX)
 if (${INDEX} GREATER -1)
     add_dependencies(${TGT_RAPIDJSON} "${BRIDGE_TARGET_PREFIX}_jsonnet")
 endif()
+
+ariles_install_component(${ARILES_BRIDGE})
+set("PPA_CMAKE_FLAGS_${ARILES_COMPONENT}" "-DARILES_BRIDGE_${ARILES_BRIDGE}=ON -DARILES_ENABLE_CORE=OFF" PARENT_SCOPE)

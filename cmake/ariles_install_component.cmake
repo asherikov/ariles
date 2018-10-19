@@ -1,5 +1,14 @@
 function(ariles_install_component ARILES_BRIDGE)
     string(REGEX REPLACE "_" "-" ARILES_COMPONENT "${ARILES_BRIDGE}")
+    set(ARILES_COMPONENT "${ARILES_COMPONENT}" PARENT_SCOPE)
+
+    cpack_add_component(
+        "${ARILES_COMPONENT}"
+        DISPLAY_NAME "'${ARILES_BRIDGE}' support for ariles"
+        DESCRIPTION "Enables support for '${ARILES_BRIDGE}' in ariles"
+        DEPENDS "core"
+        ARCHIVE_FILE "${CPACK_PACKAGE_NAME}-${ARILES_COMPONENT_NAME}-${CPACK_PACKAGE_VERSION}")
+
 
     set(ariles_LIBRARIES "ariles-${ARILES_COMPONENT}_LIBRARIES")
     set(ariles_INCLUDE_DIRS "ariles-${ARILES_COMPONENT}_INCLUDE_DIRS")
