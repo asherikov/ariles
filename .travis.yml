@@ -48,6 +48,7 @@ jobs:
         # Install system dependencies, namely a very barebones ROS setup.
         before_install:
           - sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
+          - source /opt/ros/${ROS_DISTRO}/setup.bash
 
         addons:
             apt:
@@ -140,6 +141,7 @@ jobs:
         # Install system dependencies, namely a very barebones ROS setup.
         before_install:
           - sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
+          - source /opt/ros/${ROS_DISTRO}/setup.bash
 
         addons:
             apt:
@@ -228,6 +230,7 @@ jobs:
         # Install system dependencies, namely a very barebones ROS setup.
         before_install:
           - sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
+          - source /opt/ros/${ROS_DISTRO}/setup.bash
 
         addons:
             apt:

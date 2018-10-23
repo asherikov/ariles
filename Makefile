@@ -93,7 +93,7 @@ release: release-all
 
 ppa: clean
 	${MAKE} build TC=${TC} TYPE=Release OPTIONS=deb_packages_trusty TARGETS="ppa" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
-	cd build/generic-Release-OPTIONS_deb_packages_trusty/Debian/trusty/ariles-1.0.0-source; dpkg-buildpackage -us -uc
+	cd build/generic-Release-OPTIONS_deb_packages_trusty/Debian/trusty/ariles-1.0.0-source; dpkg-buildpackage -us -uc -F
 
 
 test-ros: clean
@@ -128,10 +128,7 @@ install-ros:
 	apt-get update -qq
 	apt-get install dpkg
 	apt-get install -y ros-${ROS_DISTRO}-ros-base
-	source /opt/ros/${ROS_DISTRO}/setup.bash
-	# Prepare rosdep to install dependencies.
-	rosdep init
-	rosdep update
-
+	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; rosdep init'
+	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; rosdep update'
 
 .PHONY: clean cmake build

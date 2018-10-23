@@ -78,10 +78,6 @@ foreach(UBUNTU_NAME ${PPA_UBUNTU_CODENAMES})
 
     execute_process(COMMAND ${CMAKE_COMMAND} -E remove_directory "${DEBIAN_BASE_DIR}")
     execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${DEBIAN_BASE_DIR})
-    #    execute_process(COMMAND "${GIT_EXECUTABLE}" archive --worktree-attributes
-    #                        --prefix ${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-source/
-    #                        -o ${DEBIAN_BASE_DIR}.tar HEAD ${PPA_ARCHIVE_FILES}
-    #                    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 
     execute_process(COMMAND ${CMAKE_COMMAND} -E tar cvf ${DEBIAN_BASE_DIR}.tar ${PPA_ARCHIVE_FILES}
                     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
@@ -129,13 +125,22 @@ foreach(UBUNTU_NAME ${PPA_UBUNTU_CODENAMES})
     foreach(COMPONENT ${CPACK_COMPONENTS_ALL})
         string(TOUPPER ${COMPONENT} UPPER_COMPONENT)
         set(DEPENDS "${CPACK_DEBIAN_PACKAGE_DEPENDS}")
-        foreach(DEP ${PPA_${COMPONENT}_DEPENDS})
+
+        foreach(DEP ${CPACK_COMPONENT_${UPPER_COMPONENT}_DEPENDS})
             if (DEPENDS)
                 set(DEPENDS "${DEPENDS}, ${CPACK_DEBIAN_PACKAGE_NAME}-${DEP}")
             else()
                 set(DEPENDS "${CPACK_DEBIAN_PACKAGE_NAME}-${DEP}")
             endif()
-        endforeach(DEP ${CPACK_COMPONENT_${UPPER_COMPONENT}_DEPENDS})
+        endforeach()
+
+        foreach(DEP ${PPA_${COMPONENT}_DEPENDS})
+            if (DEPENDS)
+                set(DEPENDS "${DEPENDS}, ${DEP}")
+            else()
+                set(DEPENDS "${DEP}")
+            endif()
+        endforeach()
 
         file(APPEND ${DEBIAN_CONTROL}
             "\n"

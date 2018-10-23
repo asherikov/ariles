@@ -21,7 +21,6 @@ include(ariles_copy_file_if_exists)
 include(ariles_add_external_git_project)
 include(ariles_list_filenames)
 include(ariles_dump_variables)
-include(ariles_install_component)
 
 include (ariles_detect_func_macro)
 ariles_detect_func_macro()
@@ -334,7 +333,8 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
             include_directories("${ARILES_INCLUDE_DIR}/${ARILES_BRIDGE}")
             file(MAKE_DIRECTORY "${ARILES_BRIDGE_INCLUDE_DIR}")
 
-            add_subdirectory("${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}" "${ARILES_BRIDGES_BINARY_DIR}/${ARILES_BRIDGE}")
+            #add_subdirectory("${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}" "${ARILES_BRIDGES_BINARY_DIR}/${ARILES_BRIDGE}")
+            include("${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/CMakeLists.txt")
 
             if (ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES)
                 include_directories("${ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES}")

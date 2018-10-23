@@ -9,5 +9,4 @@ add_dependencies("TGT_ariles_copy_headers_bridge_octave_h" "TGT_ariles_copy_head
 set (TGT_OCTAVE            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
 add_custom_target(${TGT_OCTAVE})
 
-ariles_install_component(${ARILES_BRIDGE})
-set("PPA_CMAKE_FLAGS_${ARILES_COMPONENT}" "-DARILES_BRIDGE_${ARILES_BRIDGE}=ON -DARILES_ENABLE_CORE=OFF" PARENT_SCOPE)
+include(ariles_install_component)
