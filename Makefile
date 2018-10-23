@@ -129,6 +129,5 @@ install-ros:
 	apt-get install dpkg
 	apt-get install -y ros-${ROS_DISTRO}-ros-base
 	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; rosdep init'
-	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; rosdep update'
 
 .PHONY: clean cmake build
