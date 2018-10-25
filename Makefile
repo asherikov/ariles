@@ -18,6 +18,8 @@ TARGETS?=all
 
 ARGS?=
 
+PPA_TARGET?=trusty
+
 
 #----------------------------------------------
 # Cleaning
@@ -92,8 +94,13 @@ release: release-all
 #----------------------------------------------
 
 ppa: clean
-	${MAKE} build TC=${TC} TYPE=Release OPTIONS=deb_packages_trusty TARGETS="ppa" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
-	cd build/generic-Release-OPTIONS_deb_packages_trusty/Debian/trusty/ariles-1.0.0-source; dpkg-buildpackage -us -uc -F
+	${MAKE} build TC=${TC} TYPE=Release OPTIONS=deb_packages_${PPA_TARGET} TARGETS="ppa" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+
+test-ppa: clean
+	${MAKE} build TC=${TC} TYPE=Release OPTIONS=deb_packages_${PPA_TARGET} TARGETS="ppa" \
+		EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM} -DPPA_BUILDPACKAGE_FLAGS='-us;-uc'"
+	cd build/generic-Release-OPTIONS_deb_packages_${PPA_TARGET}/Debian/${PPA_TARGET}/ariles-1.0.0-source; \
+		dpkg-buildpackage -us -uc -F
 
 
 test-ros: clean

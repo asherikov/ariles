@@ -8,49 +8,51 @@ add_dependencies("TGT_ariles_copy_headers_bridge_rapidjson_h" "TGT_ariles_copy_h
 set(RAPIDJSON_SOURCE_DIR     "${CMAKE_CURRENT_LIST_DIR}/rapidjson")
 
 set (TGT_RAPIDJSON            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
-if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "BUILD")
-    set (RAPIDJSON_CXX_FLAGS      "${ARILES_CXX_FLAGS} -fPIC")
+if(NOT ARILES_PPA_TARGETS)
+    if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "BUILD")
+        set (RAPIDJSON_CXX_FLAGS      "${ARILES_CXX_FLAGS} -fPIC")
 
 
-    set(RAPIDJSON_ARGS
-        ${BRIDGES_ARGS}
-        -DRAPIDJSON_BUILD_DOC=OFF
-        -DRAPIDJSON_BUILD_EXAMPLES=OFF
-        -DRAPIDJSON_BUILD_TESTS=OFF
-        -DRAPIDJSON_BUILD_CXX11=OFF
-        -DRAPIDJSON_ENABLE_INSTRUMENTATION_OPT=OFF
-        -DRAPIDJSON_HAS_STDSTRING=ON
-        "-DCMAKE_CXX_FLAGS=${RAPIDJSON_CXX_FLAGS}")
-
-    if(ARILES_COPY_CXX_FLAGS_TO_C_FLAGS)
         set(RAPIDJSON_ARGS
-            ${RAPIDJSON_ARGS}
-            "-DCMAKE_C_FLAGS=${RAPIDJSON_CXX_FLAGS}")
-    endif(ARILES_COPY_CXX_FLAGS_TO_C_FLAGS)
+            ${BRIDGES_ARGS}
+            -DRAPIDJSON_BUILD_DOC=OFF
+            -DRAPIDJSON_BUILD_EXAMPLES=OFF
+            -DRAPIDJSON_BUILD_TESTS=OFF
+            -DRAPIDJSON_BUILD_CXX11=OFF
+            -DRAPIDJSON_ENABLE_INSTRUMENTATION_OPT=OFF
+            -DRAPIDJSON_HAS_STDSTRING=ON
+            "-DCMAKE_CXX_FLAGS=${RAPIDJSON_CXX_FLAGS}")
 
-    ariles_add_external_git_project(TARGET_NAME "${TGT_RAPIDJSON}"
-                                    PROJECT_DIR "${RAPIDJSON_SOURCE_DIR}"
-                                    CMAKE_ARGS   ${RAPIDJSON_ARGS})
+        if(ARILES_COPY_CXX_FLAGS_TO_C_FLAGS)
+            set(RAPIDJSON_ARGS
+                ${RAPIDJSON_ARGS}
+                "-DCMAKE_C_FLAGS=${RAPIDJSON_CXX_FLAGS}")
+        endif(ARILES_COPY_CXX_FLAGS_TO_C_FLAGS)
 
-    set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES "")
-    set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS "")
-else()
-    pkg_search_module(${ARILES_BRIDGE} RapidJSON)
+        ariles_add_external_git_project(TARGET_NAME "${TGT_RAPIDJSON}"
+                                        PROJECT_DIR "${RAPIDJSON_SOURCE_DIR}"
+                                        CMAKE_ARGS   ${RAPIDJSON_ARGS})
 
-    if (${ARILES_BRIDGE}_FOUND)
-        add_custom_target(${TGT_RAPIDJSON})
-        set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS "${${ARILES_BRIDGE}_LIBRARY_DIRS}")
-        set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES "${${ARILES_BRIDGE}_INCLUDE_DIRS}")
-        set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS "${${ARILES_BRIDGE}_LIBRARIES}")
-    else()
-        add_custom_target(${TGT_RAPIDJSON})
-
-        set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS "")
+        set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES "")
         set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS "")
+    else()
+        pkg_search_module(${ARILES_BRIDGE} RapidJSON)
 
-        find_path("ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES" NAMES rapidjson/rapidjson.hpp)
-        if (${ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES}-NOTFOUND)
-            message(FATAL_ERROR "${ARILES_BRIDGE} is not found.")
+        if (${ARILES_BRIDGE}_FOUND)
+            add_custom_target(${TGT_RAPIDJSON})
+            set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS "${${ARILES_BRIDGE}_LIBRARY_DIRS}")
+            set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES "${${ARILES_BRIDGE}_INCLUDE_DIRS}")
+            set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS "${${ARILES_BRIDGE}_LIBRARIES}")
+        else()
+            add_custom_target(${TGT_RAPIDJSON})
+
+            set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS "")
+            set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS "")
+
+            find_path("ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES" NAMES rapidjson/rapidjson.hpp)
+            if (${ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES}-NOTFOUND)
+                message(FATAL_ERROR "${ARILES_BRIDGE} is not found.")
+            endif()
         endif()
     endif()
 endif()

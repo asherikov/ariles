@@ -5,16 +5,17 @@
 #               2018 Alexander Sherikov
 #
 #  sudo apt-get install devscripts
+#
+# set(PPA_BUILDPACKAGE_FLAGS "-us;-uc") disables signature
 ##
 
 
-find_program(DEBUILD_EXECUTABLE debuild)
+find_program(BUILDPACKAGE_EXECUTABLE dpkg-buildpackage)
 find_program(DPUT_EXECUTABLE dput)
 find_program(GIT_EXECUTABLE git)
-set(PPA_DEBUILD_FLAGS "-us;-uc")
 
-if(NOT DEBUILD_EXECUTABLE)
-    message(FATAL_ERROR "debuild not found, no PPA upload")
+if(NOT BUILDPACKAGE_EXECUTABLE)
+    message(FATAL_ERROR "dpkg-buildpackage not found, no PPA upload")
 endif()
 if(NOT GIT_EXECUTABLE)
     message(FATAL_ERROR "git not found, no PPA upload")
@@ -213,11 +214,11 @@ foreach(UBUNTU_NAME ${PPA_UBUNTU_CODENAMES})
 
 
     ##############################################################################
-    # debuild -S
+    # build source package
 
     add_custom_command(
         OUTPUT ${DEBIAN_BASE_DIR}/${DEBIAN_SOURCE_CHANGES}
-        COMMAND ${DEBUILD_EXECUTABLE} ${PPA_DEBUILD_FLAGS} -S
+        COMMAND ${BUILDPACKAGE_EXECUTABLE} ${PPA_BUILDPACKAGE_FLAGS} -S
         WORKING_DIRECTORY ${DEBIAN_SOURCE_DIR}
         COMMENT "Generate ${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}")
     add_custom_target(${PPA_UBUNTU_NAME_TARGET}_changes DEPENDS "${DEBIAN_BASE_DIR}/${DEBIAN_SOURCE_CHANGES}")

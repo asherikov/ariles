@@ -8,7 +8,9 @@ add_dependencies("TGT_ariles_copy_headers_bridge_ros_h" "TGT_ariles_copy_headers
 
 set (TGT_ROS            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
 
-find_package(roscpp  REQUIRED)
+if(NOT ARILES_PPA_TARGETS)
+    find_package(roscpp  REQUIRED)
+endif()
 
 add_custom_target(${TGT_ROS})
 

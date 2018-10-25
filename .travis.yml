@@ -65,7 +65,7 @@ jobs:
                   - fakeroot
 
         script:
-          - make ppa
+          - make test-ppa
 
 
 # clang

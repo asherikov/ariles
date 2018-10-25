@@ -8,55 +8,57 @@ add_dependencies("TGT_ariles_copy_headers_bridge_msgpack_h" "TGT_ariles_copy_hea
 set(MESSAGEPACK_SOURCE_DIR   "${CMAKE_CURRENT_LIST_DIR}/msgpack-c")
 
 set (TGT_MESSAGEPACK            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
-if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "BUILD")
-    set (MESSAGEPACK_CXX_FLAGS      "${ARILES_CXX_FLAGS} -fPIC")
+if(NOT ARILES_PPA_TARGETS)
+    if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "BUILD")
+        set (MESSAGEPACK_CXX_FLAGS      "${ARILES_CXX_FLAGS} -fPIC")
 
 
-    set(MESSAGEPACK_ARGS
-        ${BRIDGES_ARGS}
-        -DMSGPACK_USE_X3_PARSE=OFF
-        -DMSGPACK_CXX17=OFF
-        -DMSGPACK_CXX11=OFF
-        -DMSGPACK_32BIT=OFF
-        -DMSGPACK_BOOST=OFF
-        -DMSGPACK_BUILD_EXAMPLES=OFF
-        -DMSGPACK_BUILD_TESTS=OFF
-        -DMSGPACK_ENABLE_CXX=ON
-        -DMSGPACK_ENABLE_SHARED=OFF
-        "-DCMAKE_CXX_FLAGS=${MESSAGEPACK_CXX_FLAGS}")
-
-    if(ARILES_COPY_CXX_FLAGS_TO_C_FLAGS)
         set(MESSAGEPACK_ARGS
-            ${MESSAGEPACK_ARGS}
-            "-DCMAKE_C_FLAGS=${MESSAGEPACK_CXX_FLAGS}")
-    endif(ARILES_COPY_CXX_FLAGS_TO_C_FLAGS)
+            ${BRIDGES_ARGS}
+            -DMSGPACK_USE_X3_PARSE=OFF
+            -DMSGPACK_CXX17=OFF
+            -DMSGPACK_CXX11=OFF
+            -DMSGPACK_32BIT=OFF
+            -DMSGPACK_BOOST=OFF
+            -DMSGPACK_BUILD_EXAMPLES=OFF
+            -DMSGPACK_BUILD_TESTS=OFF
+            -DMSGPACK_ENABLE_CXX=ON
+            -DMSGPACK_ENABLE_SHARED=OFF
+            "-DCMAKE_CXX_FLAGS=${MESSAGEPACK_CXX_FLAGS}")
 
-    ariles_add_external_git_project(TARGET_NAME "${TGT_MESSAGEPACK}"
-                                    PROJECT_DIR "${MESSAGEPACK_SOURCE_DIR}"
-                                    CMAKE_ARGS   ${MESSAGEPACK_ARGS})
+        if(ARILES_COPY_CXX_FLAGS_TO_C_FLAGS)
+            set(MESSAGEPACK_ARGS
+                ${MESSAGEPACK_ARGS}
+                "-DCMAKE_C_FLAGS=${MESSAGEPACK_CXX_FLAGS}")
+        endif(ARILES_COPY_CXX_FLAGS_TO_C_FLAGS)
 
-    set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES "")
-    set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS
-        "${ARILES_BRIDGES_LIBDIR}/${CMAKE_STATIC_LIBRARY_PREFIX}msgpackc${CMAKE_STATIC_LIBRARY_SUFFIX}")
-else()
-    pkg_search_module(${ARILES_BRIDGE} msgpack)
+        ariles_add_external_git_project(TARGET_NAME "${TGT_MESSAGEPACK}"
+                                        PROJECT_DIR "${MESSAGEPACK_SOURCE_DIR}"
+                                        CMAKE_ARGS   ${MESSAGEPACK_ARGS})
 
-    if (${ARILES_BRIDGE}_FOUND)
-        add_custom_target(${TGT_MESSAGEPACK})
-        set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS "${${ARILES_BRIDGE}_LIBRARY_DIRS}")
-        set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES "${${ARILES_BRIDGE}_INCLUDE_DIRS}")
-        set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS "${${ARILES_BRIDGE}_LIBRARIES}")
+        set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES "")
+        set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS
+            "${ARILES_BRIDGES_LIBDIR}/${CMAKE_STATIC_LIBRARY_PREFIX}msgpackc${CMAKE_STATIC_LIBRARY_SUFFIX}")
     else()
-        add_custom_target(${TGT_MESSAGEPACK})
+        pkg_search_module(${ARILES_BRIDGE} msgpack)
 
-        find_library("ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS" NAMES ${ARILES_BRIDGE})
-        if (${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS}-NOTFOUND)
-            message(FATAL_ERROR "${ARILES_BRIDGE} is not found.")
-        endif()
+        if (${ARILES_BRIDGE}_FOUND)
+            add_custom_target(${TGT_MESSAGEPACK})
+            set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS "${${ARILES_BRIDGE}_LIBRARY_DIRS}")
+            set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES "${${ARILES_BRIDGE}_INCLUDE_DIRS}")
+            set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS "${${ARILES_BRIDGE}_LIBRARIES}")
+        else()
+            add_custom_target(${TGT_MESSAGEPACK})
 
-        find_path("ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES" NAMES msgpack.hpp)
-        if (${ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES}-NOTFOUND)
-            message(FATAL_ERROR "${ARILES_BRIDGE} is not found.")
+            find_library("ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS" NAMES ${ARILES_BRIDGE})
+            if (${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS}-NOTFOUND)
+                message(FATAL_ERROR "${ARILES_BRIDGE} is not found.")
+            endif()
+
+            find_path("ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES" NAMES msgpack.hpp)
+            if (${ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES}-NOTFOUND)
+                message(FATAL_ERROR "${ARILES_BRIDGE} is not found.")
+            endif()
         endif()
     endif()
 endif()
