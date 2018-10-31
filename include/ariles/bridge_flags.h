@@ -20,6 +20,7 @@ namespace ariles
                 RESET = 0,
                 SLOPPY_MAPS_SUPPORTED = 1,
                 NATIVE_MATRIX_SUPPORTED = 2,
+                SLOPPY_PAIRS_SUPPORTED = 4,
 
                 DEFAULT = RESET
             };

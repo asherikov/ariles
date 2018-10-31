@@ -72,7 +72,9 @@ namespace ariles
                 public:
                     const BridgeFlags &getBridgeFlags() const
                     {
-                        static BridgeFlags parameters(BridgeFlags::SLOPPY_MAPS_SUPPORTED);
+                        static BridgeFlags parameters(
+                                BridgeFlags::SLOPPY_MAPS_SUPPORTED
+                                | BridgeFlags::SLOPPY_PAIRS_SUPPORTED);
                         return (parameters);
                     }
             };
