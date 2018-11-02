@@ -94,12 +94,21 @@ release: release-all
 #----------------------------------------------
 
 ppa: clean
-	${MAKE} build TC=${TC} TYPE=Release OPTIONS=deb_packages_${PPA_TARGET} TARGETS="ppa" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+	${MAKE} build TC=${TC} TYPE=Release OPTIONS=deb_packages_${PPA_TARGET} TARGETS="ppa" \
+		EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM} -DPPA_BUILDPACKAGE_FLAGS='-d'"
+
+ppa-upload:
+	cd build/generic-Release-OPTIONS_deb_packages_trusty/Debian/trusty/ariles-*-source; \
+		ftp -au ppa.launchpad.net:~asherikov/ubuntu/ppa/ \
+			ariles_*~${PPA_TARGET}.dsc \
+			ariles_*~${PPA_TARGET}.tar.xz \
+			ariles_*~${PPA_TARGET}_source.buildinfo \
+			ariles_*~${PPA_TARGET}_source.changes
 
 test-ppa: clean
 	${MAKE} build TC=${TC} TYPE=Release OPTIONS=deb_packages_${PPA_TARGET} TARGETS="ppa" \
 		EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM} -DPPA_BUILDPACKAGE_FLAGS='-us;-uc'"
-	cd build/generic-Release-OPTIONS_deb_packages_${PPA_TARGET}/Debian/${PPA_TARGET}/ariles-1.0.0-source; \
+	cd build/generic-Release-OPTIONS_deb_packages_${PPA_TARGET}/Debian/${PPA_TARGET}/ariles-*-source; \
 		dpkg-buildpackage -us -uc -F
 
 

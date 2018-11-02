@@ -117,7 +117,7 @@ foreach(UBUNTU_NAME ${PPA_UBUNTU_CODENAMES})
         "Section: ${CPACK_DEBIAN_PACKAGE_SECTION}\n"
         "Priority: ${CPACK_DEBIAN_PACKAGE_PRIORITY}\n"
         "Maintainer: ${CPACK_PACKAGE_CONTACT}\n"
-        "Build-Depends: ${CPACK_DEBIAN_BUILD_DEPENDS}\n"
+        "Build-Depends: ${PPA_UBUNTU_NAME_BUILD_DEPENDS}\n"
         "Standards-Version: 3.9.7\n"
         "Homepage: ${CPACK_PACKAGE_VENDOR}\n")
 
