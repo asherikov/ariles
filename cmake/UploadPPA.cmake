@@ -12,22 +12,19 @@
 
 find_program(BUILDPACKAGE_EXECUTABLE dpkg-buildpackage)
 find_program(DPUT_EXECUTABLE dput)
-find_program(GIT_EXECUTABLE git)
+find_program(LINTIAN_EXECUTABLE lintian)
 
 if(NOT BUILDPACKAGE_EXECUTABLE)
-    message(FATAL_ERROR "dpkg-buildpackage not found, no PPA upload")
-endif()
-if(NOT GIT_EXECUTABLE)
-    message(FATAL_ERROR "git not found, no PPA upload")
+    message(FATAL_ERROR "dpkg-buildpackage not found")
 endif()
 if(NOT CPACK_PACKAGE_NAME)
-    message(FATAL_ERROR "CPACK_PACKAGE_NAME not set, no PPA upload")
+    message(FATAL_ERROR "CPACK_PACKAGE_NAME not set")
 endif()
 if(NOT PPA_DPUT_HOST)
-    message("PPA_DPUT_HOST not set, no PPA upload")
+    message("PPA_DPUT_HOST not set")
 else()
     if(NOT DPUT_EXECUTABLE)
-        message(FATAL_ERROR "dput not found, no PPA upload")
+        message(FATAL_ERROR "dput not found")
     endif()
 endif()
 
@@ -223,6 +220,16 @@ foreach(UBUNTU_NAME ${PPA_UBUNTU_CODENAMES})
         COMMENT "Generate ${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}")
     add_custom_target(${PPA_UBUNTU_NAME_TARGET}_changes DEPENDS "${DEBIAN_BASE_DIR}/${DEBIAN_SOURCE_CHANGES}")
     add_dependencies(${PPA_MAIN_TARGET} ${PPA_UBUNTU_NAME_TARGET}_changes)
+
+
+    if(LINTIAN_EXECUTABLE)
+        add_custom_command(
+            TARGET ${PPA_UBUNTU_NAME_TARGET}_changes
+            POST_BUILD
+            COMMAND ${LINTIAN_EXECUTABLE} -cv
+            WORKING_DIRECTORY ${DEBIAN_SOURCE_DIR}
+            COMMENT "Checking package with lintian")
+    endif()
 
 
     ##############################################################################
