@@ -65,7 +65,7 @@ jobs:
                   - fakeroot
 
         script:
-          - make test-ppa
+          - make build-ppa PPA_TARGET=trusty
 
 
 # clang
@@ -106,7 +106,7 @@ jobs:
         compiler:
             - clang
         script:
-          - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros TARGETS="all" ARGS=-V
+          - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_trusty TARGETS="all" ARGS=-V
         addons:
             apt:
                 update: true
@@ -196,7 +196,7 @@ jobs:
         compiler:
             - gcc
         script:
-          - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros TARGETS="all" ARGS=-V
+          - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_trusty TARGETS="all" ARGS=-V
         addons:
             apt:
                 update: true

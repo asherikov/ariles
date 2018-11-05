@@ -18,7 +18,7 @@ TARGETS?=all
 
 ARGS?=
 
-PPA_TARGET?=trusty
+PPA_TARGET?=xenial
 
 
 #----------------------------------------------
@@ -105,7 +105,7 @@ ppa-upload:
 			ariles_*~${PPA_TARGET}_source.buildinfo \
 			ariles_*~${PPA_TARGET}_source.changes
 
-test-ppa: clean
+build-ppa: clean
 	${MAKE} build TC=${TC} TYPE=Release OPTIONS=deb_packages_${PPA_TARGET} TARGETS="ppa" \
 		EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM} -DPPA_BUILDPACKAGE_FLAGS='-us;-uc'"
 	cd build/generic-Release-OPTIONS_deb_packages_${PPA_TARGET}/Debian/${PPA_TARGET}/ariles-*-source; \
