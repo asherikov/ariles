@@ -98,7 +98,7 @@ ppa: clean
 		EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM} -DPPA_BUILDPACKAGE_FLAGS='-d'"
 
 ppa-upload:
-	cd build/generic-Release-OPTIONS_deb_packages_trusty/Debian/trusty/ariles-*-source; \
+	cd build/generic-Release-OPTIONS_deb_packages_trusty/Debian/trusty/; \
 		ftp -au ppa.launchpad.net:~asherikov/ubuntu/ppa/ \
 			ariles_*~${PPA_TARGET}.dsc \
 			ariles_*~${PPA_TARGET}.tar.xz \
