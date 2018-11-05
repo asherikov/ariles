@@ -19,7 +19,6 @@ namespace ariles
                                 ariles::CommonConfigurableBase & entry,
                                 const t_Flags & param)
     {
-        entry.setDefaults();
         reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(entry.getNumberOfEntries());
         entry.readConfigEntries(reader, param);
         reader.endMap();

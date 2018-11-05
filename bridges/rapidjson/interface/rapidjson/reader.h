@@ -215,7 +215,7 @@ namespace ariles
             };
 
 
-#ifdef ARILES_BRIDGE_jsonnet
+#ifdef ARILES_BRIDGE_INCLUDED_jsonnet
             namespace jsonnet
             {
                 class Reader : public rapidjson::Reader

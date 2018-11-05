@@ -802,7 +802,8 @@ INPUT                  =    ../README.md \
                             ../bridges/rapidjson/interface \
                             ../bridges/yaml_cpp/interface \
                             ../bridges/octave/interface \
-                            ../bridges/pugixml/interface
+                            ../bridges/pugixml/interface \
+                            ./doxygen_pages.dox
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -918,7 +919,8 @@ EXCLUDE_SYMBOLS        =
 # that contain example code fragments that are included (see the \include
 # command).
 
-EXAMPLE_PATH           = ../LICENSE
+EXAMPLE_PATH           = ../LICENSE \
+                         ../tests/demo.cpp
 
 # If the value of the EXAMPLE_PATH tag contains directories, you can use the
 # EXAMPLE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp and

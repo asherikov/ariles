@@ -79,11 +79,12 @@ Supported types
 
 Minimal example
 ===============
-Class:
+Class [`./tests/types/minimal.h`]:
 ```
 class Configurable : public ariles::ConfigurableBase
 {
     #define ARILES_SECTION_ID "ConfigurableEntryName"
+    #define ARILES_AUTO_DEFAULTS
     #define ARILES_ENTRIES \
         ARILES_TYPED_ENTRY(integer_member, int)
     #include ARILES_INITIALIZE
@@ -107,3 +108,11 @@ Deserialization:
 Configurable configurable;
 configurable.readConfig<ariles::yaml_cpp>("config_file.yaml");
 ```
+
+
+Documentation and examples
+==========================
+
+* Precompiled Doxygen documentation: https://asherikov.github.io/ariles/
+* Introductory demo: https://asherikov.github.io/ariles/DEMO.html [`./tests/demo.cpp`]
+* Various types defined for tests: [`./tests/types/`]

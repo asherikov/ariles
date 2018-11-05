@@ -25,6 +25,7 @@ ARGS?=
 
 clean:
 	rm -Rf build;
+	cd doc/dox/; git clean -f; git reset --hard
 
 
 #----------------------------------------------

@@ -77,16 +77,18 @@
 
         // Define initialization method
 
-            #define ARILES_NAMED_ENTRY(entry, name)  ariles::setDefaults(entry, this->getArilesConfigurableFlags());
-            #define ARILES_PARENT(entry)             entry::setDefaults();
+            #ifdef ARILES_AUTO_DEFAULTS
+                #define ARILES_NAMED_ENTRY(entry, name)  ariles::setDefaults(entry, this->getArilesConfigurableFlags());
+                #define ARILES_PARENT(entry)             entry::setDefaults();
 
-            void setArilesDefaults()
-            {
-                ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
-            }
+                void setDefaults()
+                {
+                    ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
+                }
 
-            #undef ARILES_NAMED_ENTRY
-            #undef ARILES_PARENT
+                #undef ARILES_NAMED_ENTRY
+                #undef ARILES_PARENT
+            #endif
 
 
     protected:
@@ -153,5 +155,6 @@
 
 #undef ARILES_SECTION_ID
 #undef ARILES_CONSTRUCTOR
+#undef ARILES_AUTO_DEFAULTS
 #undef ARILES_ENTRIES
 #undef ARILES_CONFIGURABLE_FLAGS

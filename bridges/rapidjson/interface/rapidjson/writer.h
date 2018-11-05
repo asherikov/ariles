@@ -167,7 +167,7 @@ namespace ariles
             };
 
 
-#ifdef ARILES_BRIDGE_jsonnet
+#ifdef ARILES_BRIDGE_INCLUDED_jsonnet
             namespace jsonnet
             {
                 // Useless, added for API symmetry

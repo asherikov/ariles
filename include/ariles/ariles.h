@@ -91,10 +91,7 @@
                 /**
                  * @brief Set members to their default values.
                  */
-                virtual void setDefaults()
-                {
-                    setArilesDefaults();
-                }
+                virtual void setDefaults() = 0;
 
 
                 /**
@@ -115,8 +112,6 @@
 
                 virtual void readConfigEntries( ariles::ReaderBase & reader,
                                                 const ConfigurableFlags & param) = 0;
-
-                virtual void setArilesDefaults() = 0;
                 /// @}
         };
 

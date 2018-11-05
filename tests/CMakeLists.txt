@@ -13,6 +13,7 @@ list(APPEND ARILES_TESTING_LIBRARIES  "${Boost_LIBRARIES}")
 
 include(ariles_copy_extra_test_files)
 include(ariles_define_regression_test)
+include(ariles_define_test)
 include(ariles_parse_test_dependencies)
 
 
@@ -34,3 +35,6 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "013" "" "yaml_cpp03;yaml_cp
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "014" "" "yaml_cpp03;yaml_cpp;msgpack;rapidjson;jsonnet;pugixml")
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "015" "pugixml" "")
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "016" "" "")
+
+
+ariles_define_test(${CMAKE_PROJECT_NAME} "demo" "yaml_cpp;ros;octave" "")

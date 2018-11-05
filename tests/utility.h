@@ -77,5 +77,4 @@ boost::random::uniform_real_distribution<>  g_real_uniform_distribution(-1e-5, 1
 
 const double g_tolerance = 1e-12;
 
-
 #include <ariles/internal/build_config.h>

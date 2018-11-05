@@ -11,6 +11,7 @@
 #include "utility.h"
 
 
+#include "ariles/bridges/jsonnet.h"
 #include "ariles/bridges/rapidjson.h"
 
 // If no format header is included, ariles is disabled, and
