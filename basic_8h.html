@@ -95,8 +95,6 @@ Macros</h2></td></tr>
 <tr class="separator:a6e7bb4bc9888ee14944bbe8b8212d5d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e7bb4bc9888ee14944bbe8b8212d5d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a>(type)</td></tr>
 <tr class="separator:a6e7bb4bc9888ee14944bbe8b8212d5d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e7bb4bc9888ee14944bbe8b8212d5d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a>(type)</td></tr>
-<tr class="separator:a6e7bb4bc9888ee14944bbe8b8212d5d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -132,6 +130,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a04dd73656b93c0082a45ef170dae50ed"><td class="memTemplParams" colspan="2">template&lt;class t_Flags &gt; </td></tr>
 <tr class="memitem:a04dd73656b93c0082a45ef170dae50ed"><td class="memTemplItemLeft" align="right" valign="top">void <a class="el" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles.html#a04dd73656b93c0082a45ef170dae50ed">ariles::setDefaults</a> (std::string &amp;entry, const t_Flags &amp;)</td></tr>
 <tr class="separator:a04dd73656b93c0082a45ef170dae50ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a994d8a583fcc14088f43a304018d3b91"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceariles.html#a994d8a583fcc14088f43a304018d3b91">ariles::ARILES_MACRO_SUBSTITUTE</a> (<a class="el" href="helpers_8h.html#a1b20446e8ff170479c12dbbbb5b9cf5d">ARILES_BASIC_INTEGER_TYPES_LIST</a>) template&lt; class t_Flags &gt; void <a class="el" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a> setDefaults(float &amp;entry</td></tr>
+<tr class="memdesc:a994d8a583fcc14088f43a304018d3b91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate setDefaults methods for basic types.  <a href="namespaceariles.html#a994d8a583fcc14088f43a304018d3b91">More...</a><br /></td></tr>
+<tr class="separator:a994d8a583fcc14088f43a304018d3b91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a63e069e8586a69dde2a5ee1c4818d9"><td class="memTemplParams" colspan="2">template&lt;class t_Flags &gt; </td></tr>
+<tr class="memitem:a9a63e069e8586a69dde2a5ee1c4818d9"><td class="memTemplItemLeft" align="right" valign="top">const t_Flags &amp;void <a class="el" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles.html#a9a63e069e8586a69dde2a5ee1c4818d9">ariles::setDefaults</a> (double &amp;entry, const t_Flags &amp;)</td></tr>
+<tr class="separator:a9a63e069e8586a69dde2a5ee1c4818d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -140,7 +144,7 @@ Variables</h2></td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a6e7bb4bc9888ee14944bbe8b8212d5d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e7bb4bc9888ee14944bbe8b8212d5d3">&#9670;&nbsp;</a></span>ARILES_BASIC_TYPE <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e7bb4bc9888ee14944bbe8b8212d5d3">&#9670;&nbsp;</a></span>ARILES_BASIC_TYPE <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -154,15 +158,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> t_Reader, <span class="keyword">class</span> t_Flags&gt; \</div><div class="line">                void <a class="code" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a> <a class="code" href="namespaceariles.html#a5bca5ca4f5cc88167a7bc25caa7a5559">readBody</a>( \</div><div class="line">                                t_Reader &amp; reader, \</div><div class="line">                                type &amp;entry, \</div><div class="line">                                <span class="keyword">const</span> t_Flags &amp; param) \</div><div class="line">            { \</div><div class="line">                ARILES_IGNORE_UNUSED(param);\</div><div class="line">                reader.readElement(entry);\</div><div class="line">            }</div><div class="ttc" id="namespaceariles_html_a5bca5ca4f5cc88167a7bc25caa7a5559"><div class="ttname"><a href="namespaceariles.html#a5bca5ca4f5cc88167a7bc25caa7a5559">ariles::readBody</a></div><div class="ttdeci">void ARILES_VISIBILITY_ATTRIBUTE readBody(t_Reader &amp;reader, t_Enumeration &amp;entry, const t_Flags &amp;, ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) *=NULL)</div><div class="ttdoc">Read configuration entry (an enum) This function is necessary since an explicit casting to integer is...</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00036">basic.h:36</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> t_Reader, <span class="keyword">class</span> t_Flags&gt; \</div><div class="line">                void <a class="code" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a> <a class="code" href="namespaceariles.html#a5bca5ca4f5cc88167a7bc25caa7a5559">readBody</a>( \</div><div class="line">                                t_Reader &amp; reader, \</div><div class="line">                                type &amp;entry, \</div><div class="line">                                <span class="keyword">const</span> t_Flags &amp; param) \</div><div class="line">            { \</div><div class="line">                ARILES_IGNORE_UNUSED(param);\</div><div class="line">                reader.readElement(entry);\</div><div class="line">            }</div><div class="ttc" id="namespaceariles_html_a5bca5ca4f5cc88167a7bc25caa7a5559"><div class="ttname"><a href="namespaceariles.html#a5bca5ca4f5cc88167a7bc25caa7a5559">ariles::readBody</a></div><div class="ttdeci">void ARILES_VISIBILITY_ATTRIBUTE readBody(t_Reader &amp;reader, t_Enumeration &amp;entry, const t_Flags &amp;, ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) *=NULL)</div><div class="ttdoc">Read configuration entry (an enum) This function is necessary since an explicit casting to integer is...</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00035">basic.h:35</a></div></div>
 <div class="ttc" id="helpers_8h_html_ad0ff9c31b0413994fc91d82e251e98f0"><div class="ttname"><a href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a></div><div class="ttdeci">#define ARILES_VISIBILITY_ATTRIBUTE</div><div class="ttdef"><b>Definition:</b> <a href="helpers_8h_source.html#l00109">helpers.h:109</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="basic_8h_source.html#l00203">203</a> of file <a class="el" href="basic_8h_source.html">basic.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic_8h_source.html#l00202">202</a> of file <a class="el" href="basic_8h_source.html">basic.h</a>.</p>
 
 </div>
 </div>
 <a id="a6e7bb4bc9888ee14944bbe8b8212d5d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e7bb4bc9888ee14944bbe8b8212d5d3">&#9670;&nbsp;</a></span>ARILES_BASIC_TYPE <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e7bb4bc9888ee14944bbe8b8212d5d3">&#9670;&nbsp;</a></span>ARILES_BASIC_TYPE <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,15 +180,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">template</span> &lt;  <span class="keyword">class </span>t_Writer, \</div><div class="line">                        class t_Flags&gt; \</div><div class="line">                void <a class="code" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a> <a class="code" href="namespaceariles.html#a9ebb9bc02e2ca80e853cb9ee39dfdf6c">writeBody</a>( \</div><div class="line">                                t_Writer &amp;  writer, \</div><div class="line">                                <span class="keyword">const</span> type &amp; entry, \</div><div class="line">                                <span class="keyword">const</span> t_Flags &amp; param) \</div><div class="line">            {\</div><div class="line">                ARILES_IGNORE_UNUSED(param); \</div><div class="line">                writer.writeElement(entry);\</div><div class="line">            }</div><div class="ttc" id="namespaceariles_html_a9ebb9bc02e2ca80e853cb9ee39dfdf6c"><div class="ttname"><a href="namespaceariles.html#a9ebb9bc02e2ca80e853cb9ee39dfdf6c">ariles::writeBody</a></div><div class="ttdeci">void ARILES_VISIBILITY_ATTRIBUTE writeBody(t_Writer &amp;writer, const t_Enumeration entry, const t_Flags &amp;, ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) *=NULL)</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00120">basic.h:120</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">template</span> &lt;  <span class="keyword">class </span>t_Writer, \</div><div class="line">                        class t_Flags&gt; \</div><div class="line">                void <a class="code" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a> <a class="code" href="namespaceariles.html#a9ebb9bc02e2ca80e853cb9ee39dfdf6c">writeBody</a>( \</div><div class="line">                                t_Writer &amp;  writer, \</div><div class="line">                                <span class="keyword">const</span> type &amp; entry, \</div><div class="line">                                <span class="keyword">const</span> t_Flags &amp; param) \</div><div class="line">            {\</div><div class="line">                ARILES_IGNORE_UNUSED(param); \</div><div class="line">                writer.writeElement(entry);\</div><div class="line">            }</div><div class="ttc" id="namespaceariles_html_a9ebb9bc02e2ca80e853cb9ee39dfdf6c"><div class="ttname"><a href="namespaceariles.html#a9ebb9bc02e2ca80e853cb9ee39dfdf6c">ariles::writeBody</a></div><div class="ttdeci">void ARILES_VISIBILITY_ATTRIBUTE writeBody(t_Writer &amp;writer, const t_Enumeration entry, const t_Flags &amp;, ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) *=NULL)</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00119">basic.h:119</a></div></div>
 <div class="ttc" id="helpers_8h_html_ad0ff9c31b0413994fc91d82e251e98f0"><div class="ttname"><a href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a></div><div class="ttdeci">#define ARILES_VISIBILITY_ATTRIBUTE</div><div class="ttdef"><b>Definition:</b> <a href="helpers_8h_source.html#l00109">helpers.h:109</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="basic_8h_source.html#l00203">203</a> of file <a class="el" href="basic_8h_source.html">basic.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic_8h_source.html#l00202">202</a> of file <a class="el" href="basic_8h_source.html">basic.h</a>.</p>
 
 </div>
 </div>
 <a id="a6e7bb4bc9888ee14944bbe8b8212d5d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e7bb4bc9888ee14944bbe8b8212d5d3">&#9670;&nbsp;</a></span>ARILES_BASIC_TYPE <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e7bb4bc9888ee14944bbe8b8212d5d3">&#9670;&nbsp;</a></span>ARILES_BASIC_TYPE <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,32 +202,10 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> t_Flags&gt; \</div><div class="line">                void <a class="code" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a> <a class="code" href="namespaceariles.html#a04dd73656b93c0082a45ef170dae50ed">setDefaults</a>(type &amp; entry, <span class="keyword">const</span> t_Flags &amp; <span class="comment">/*param*/</span>) \</div><div class="line">            { entry = 0; }</div><div class="ttc" id="namespaceariles_html_a04dd73656b93c0082a45ef170dae50ed"><div class="ttname"><a href="namespaceariles.html#a04dd73656b93c0082a45ef170dae50ed">ariles::setDefaults</a></div><div class="ttdeci">void ARILES_VISIBILITY_ATTRIBUTE setDefaults(std::string &amp;entry, const t_Flags &amp;)</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00197">basic.h:197</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> t_Flags&gt; \</div><div class="line">                void <a class="code" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a> <a class="code" href="namespaceariles.html#a9a63e069e8586a69dde2a5ee1c4818d9">setDefaults</a>(type &amp; entry, <span class="keyword">const</span> t_Flags &amp; <span class="comment">/*param*/</span>) \</div><div class="line">            { entry = 0; }</div><div class="ttc" id="namespaceariles_html_a9a63e069e8586a69dde2a5ee1c4818d9"><div class="ttname"><a href="namespaceariles.html#a9a63e069e8586a69dde2a5ee1c4818d9">ariles::setDefaults</a></div><div class="ttdeci">const t_Flags &amp;void ARILES_VISIBILITY_ATTRIBUTE setDefaults(double &amp;entry, const t_Flags &amp;)</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00222">basic.h:222</a></div></div>
 <div class="ttc" id="helpers_8h_html_ad0ff9c31b0413994fc91d82e251e98f0"><div class="ttname"><a href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a></div><div class="ttdeci">#define ARILES_VISIBILITY_ATTRIBUTE</div><div class="ttdef"><b>Definition:</b> <a href="helpers_8h_source.html#l00109">helpers.h:109</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="basic_8h_source.html#l00203">203</a> of file <a class="el" href="basic_8h_source.html">basic.h</a>.</p>
-
-</div>
-</div>
-<a id="a6e7bb4bc9888ee14944bbe8b8212d5d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e7bb4bc9888ee14944bbe8b8212d5d3">&#9670;&nbsp;</a></span>ARILES_BASIC_TYPE <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define ARILES_BASIC_TYPE</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">type</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> t_Flags&gt; \</div><div class="line">                void <a class="code" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a> <a class="code" href="namespaceariles.html#a04dd73656b93c0082a45ef170dae50ed">setDefaults</a>(type &amp; entry, <span class="keyword">const</span> t_Flags &amp; <span class="comment">/*param*/</span>) \</div><div class="line">            { entry = 0.0; }</div><div class="ttc" id="namespaceariles_html_a04dd73656b93c0082a45ef170dae50ed"><div class="ttname"><a href="namespaceariles.html#a04dd73656b93c0082a45ef170dae50ed">ariles::setDefaults</a></div><div class="ttdeci">void ARILES_VISIBILITY_ATTRIBUTE setDefaults(std::string &amp;entry, const t_Flags &amp;)</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00197">basic.h:197</a></div></div>
-<div class="ttc" id="helpers_8h_html_ad0ff9c31b0413994fc91d82e251e98f0"><div class="ttname"><a href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a></div><div class="ttdeci">#define ARILES_VISIBILITY_ATTRIBUTE</div><div class="ttdef"><b>Definition:</b> <a href="helpers_8h_source.html#l00109">helpers.h:109</a></div></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="basic_8h_source.html#l00203">203</a> of file <a class="el" href="basic_8h_source.html">basic.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic_8h_source.html#l00202">202</a> of file <a class="el" href="basic_8h_source.html">basic.h</a>.</p>
 
 </div>
 </div>

@@ -132,12 +132,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a45dc50e54a32edd8b7007c40df97528a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af14d7d6b1df2f3e04766fb7b07a8b96f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1pugixml_1_1Reader.html#af14d7d6b1df2f3e04766fb7b07a8b96f">readElement</a> (std::string &amp;element)</td></tr>
 <tr class="separator:af14d7d6b1df2f3e04766fb7b07a8b96f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f053bbad9c37e3f760e4a392639a4dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1pugixml_1_1Reader.html#a1f053bbad9c37e3f760e4a392639a4dd">readElement</a> (bool &amp;element)</td></tr>
-<tr class="separator:a1f053bbad9c37e3f760e4a392639a4dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e96ab8faa87f57af05679053216f5e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1pugixml_1_1Reader.html#a6e96ab8faa87f57af05679053216f5e8">readElement</a> (float &amp;element)</td></tr>
-<tr class="separator:a6e96ab8faa87f57af05679053216f5e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4994be60a1730501e616bbda6dd17cae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1pugixml_1_1Reader.html#a4994be60a1730501e616bbda6dd17cae">readElement</a> (double &amp;element)</td></tr>
-<tr class="separator:a4994be60a1730501e616bbda6dd17cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83dcde02f1b555b3f2b62f2c7a2c71c4"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classariles_1_1BridgeFlags.html">BridgeFlags</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1pugixml_1_1Base.html#a83dcde02f1b555b3f2b62f2c7a2c71c4">getBridgeFlags</a> () const</td></tr>
 <tr class="separator:a83dcde02f1b555b3f2b62f2c7a2c71c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa598af47e72a438beef46ca43d53cb35"><td class="memTemplParams" colspan="2">template&lt;int t_size_limit_type&gt; </td></tr>
@@ -153,8 +147,8 @@ Protected Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ab2204263ab206b0c2555870d5a535faa"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1pugixml_1_1Reader.html#ab2204263ab206b0c2555870d5a535faa">getMapSize</a> ()</td></tr>
-<tr class="separator:ab2204263ab206b0c2555870d5a535faa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea7230c3e94ca456ddab5fa54b0a9105"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1pugixml_1_1Reader.html#aea7230c3e94ca456ddab5fa54b0a9105">getMapSize</a> (const bool)</td></tr>
+<tr class="separator:aea7230c3e94ca456ddab5fa54b0a9105"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6108b6762824328c874d9f7c8e7cfca"><td class="memItemLeft" align="right" valign="top">pugi::xml_node &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1pugixml_1_1Base.html#ad6108b6762824328c874d9f7c8e7cfca">getRawNode</a> ()</td></tr>
 <tr class="memdesc:ad6108b6762824328c874d9f7c8e7cfca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get current node.  <a href="#ad6108b6762824328c874d9f7c8e7cfca">More...</a><br /></td></tr>
 <tr class="separator:ad6108b6762824328c874d9f7c8e7cfca"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -560,8 +554,8 @@ template&lt;int t_size_limit_type&gt; </div>
 
 </div>
 </div>
-<a id="ab2204263ab206b0c2555870d5a535faa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2204263ab206b0c2555870d5a535faa">&#9670;&nbsp;</a></span>getMapSize()</h2>
+<a id="aea7230c3e94ca456ddab5fa54b0a9105"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea7230c3e94ca456ddab5fa54b0a9105">&#9670;&nbsp;</a></span>getMapSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -572,6 +566,7 @@ template&lt;int t_size_limit_type&gt; </div>
         <tr>
           <td class="memname">std::size_t ariles::bridge::pugixml::Reader::getMapSize </td>
           <td>(</td>
+          <td class="paramtype">const bool&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -583,7 +578,7 @@ template&lt;int t_size_limit_type&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classariles_1_1ReaderBase.html#a05bd90bf8c752f74b1ed1d472f62c463">ariles::ReaderBase</a>.</p>
+<p>Implements <a class="el" href="classariles_1_1ReaderBase.html#a603b05003cda0855c86f220ea138eef7">ariles::ReaderBase</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="pugixml_2interface_2pugixml_2reader_8h_source.html#l00027">27</a> of file <a class="el" href="pugixml_2interface_2pugixml_2reader_8h_source.html">reader.h</a>.</p>
 
@@ -667,7 +662,7 @@ template&lt;int t_size_limit_type&gt; </div>
 </div>
 </div>
 <a id="af14d7d6b1df2f3e04766fb7b07a8b96f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af14d7d6b1df2f3e04766fb7b07a8b96f">&#9670;&nbsp;</a></span>readElement() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af14d7d6b1df2f3e04766fb7b07a8b96f">&#9670;&nbsp;</a></span>readElement()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -691,90 +686,6 @@ template&lt;int t_size_limit_type&gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="pugixml_2interface_2pugixml_2reader_8h_source.html#l00147">147</a> of file <a class="el" href="pugixml_2interface_2pugixml_2reader_8h_source.html">reader.h</a>.</p>
-
-</div>
-</div>
-<a id="a1f053bbad9c37e3f760e4a392639a4dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f053bbad9c37e3f760e4a392639a4dd">&#9670;&nbsp;</a></span>readElement() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ariles::bridge::pugixml::Reader::readElement </td>
-          <td>(</td>
-          <td class="paramtype">bool &amp;&#160;</td>
-          <td class="paramname"><em>element</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pugixml_2interface_2pugixml_2reader_8h_source.html#l00152">152</a> of file <a class="el" href="pugixml_2interface_2pugixml_2reader_8h_source.html">reader.h</a>.</p>
-
-</div>
-</div>
-<a id="a6e96ab8faa87f57af05679053216f5e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e96ab8faa87f57af05679053216f5e8">&#9670;&nbsp;</a></span>readElement() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ariles::bridge::pugixml::Reader::readElement </td>
-          <td>(</td>
-          <td class="paramtype">float &amp;&#160;</td>
-          <td class="paramname"><em>element</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pugixml_2interface_2pugixml_2reader_8h_source.html#l00160">160</a> of file <a class="el" href="pugixml_2interface_2pugixml_2reader_8h_source.html">reader.h</a>.</p>
-
-</div>
-</div>
-<a id="a4994be60a1730501e616bbda6dd17cae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4994be60a1730501e616bbda6dd17cae">&#9670;&nbsp;</a></span>readElement() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ariles::bridge::pugixml::Reader::readElement </td>
-          <td>(</td>
-          <td class="paramtype">double &amp;&#160;</td>
-          <td class="paramname"><em>element</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="pugixml_2interface_2pugixml_2reader_8h_source.html#l00168">168</a> of file <a class="el" href="pugixml_2interface_2pugixml_2reader_8h_source.html">reader.h</a>.</p>
 
 </div>
 </div>

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['octave',['octave',['../structariles_1_1octave.html',1,'ariles']]],
-  ['octavefixture',['OctaveFixture',['../classOctaveFixture.html',1,'']]],
-  ['optional',['optional',['../structbetter__enums_1_1optional.html',1,'better_enums']]]
+  ['node',['Node',['../classariles_1_1Node.html',1,'ariles']]],
+  ['nonarilesbaseclass',['NonArilesBaseClass',['../classNonArilesBaseClass.html',1,'']]]
 ];

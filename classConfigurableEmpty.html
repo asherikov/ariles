@@ -110,8 +110,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a40594a9c8b4123fcf1381f63f72e9d9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af79c0914f888e82faaf58fe796ea4dda"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1CommonConfigurableBase.html#af79c0914f888e82faaf58fe796ea4dda">readConfigEntries</a> (<a class="el" href="classariles_1_1ReaderBase.html">ariles::ReaderBase</a> &amp;reader, const ConfigurableFlags &amp;param)=0</td></tr>
 <tr class="separator:af79c0914f888e82faaf58fe796ea4dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05dbd42d263d4968d95ee0b1271f48ca"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1CommonConfigurableBase.html#a05dbd42d263d4968d95ee0b1271f48ca">setArilesDefaults</a> ()=0</td></tr>
-<tr class="separator:a05dbd42d263d4968d95ee0b1271f48ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0b0e1d00009035b3d626105171b2d30d"></a>
@@ -167,7 +165,7 @@ Public Member Functions</h2></td></tr>
 
 <p>This function is called automaticaly after reading a configuration file. Does nothing by default. </p>
 
-<p>Reimplemented in <a class="el" href="classConfigurable.html#a418560b4501109be0f0f051180f107dd">Configurable</a>, and <a class="el" href="classConfigurable.html#a418560b4501109be0f0f051180f107dd">Configurable</a>.</p>
+<p>Reimplemented in <a class="el" href="classConfigurableSpecialFloats.html#aaefffa309fce5aeef8c0262400333df6">ConfigurableSpecialFloats</a>, and <a class="el" href="classConfigurableFinalize.html#aabffe32f5cc0092155937d7d5e733b13">ConfigurableFinalize</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="ariles_8h_source.html#l00088">88</a> of file <a class="el" href="ariles_8h_source.html">ariles.h</a>.</p>
 
@@ -200,7 +198,7 @@ template&lt;int t_flags&gt; </div>
 
 <p>Implements <a class="el" href="classariles_1_1CommonConfigurableBase.html#a986c1b3255b7973855a592411b13436c">ariles::CommonConfigurableBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ariles_8h_source.html#l00132">132</a> of file <a class="el" href="ariles_8h_source.html">ariles.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ariles_8h_source.html#l00127">127</a> of file <a class="el" href="ariles_8h_source.html">ariles.h</a>.</p>
 
 </div>
 </div>
@@ -326,31 +324,6 @@ template&lt;int t_flags&gt; </div>
 
 </div>
 </div>
-<a id="a05dbd42d263d4968d95ee0b1271f48ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05dbd42d263d4968d95ee0b1271f48ca">&#9670;&nbsp;</a></span>setArilesDefaults()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void ariles::CommonConfigurableBase::setArilesDefaults </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="af005dac5a85b26c52e18ce5752f40455"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af005dac5a85b26c52e18ce5752f40455">&#9670;&nbsp;</a></span>setDefaults()</h2>
 
@@ -376,7 +349,7 @@ template&lt;int t_flags&gt; </div>
 
 <p>This method must be defined. </p>
 
-<p>Reimplemented from <a class="el" href="classariles_1_1CommonConfigurableBase.html#af40a3ff4aa5d4ed4dd7f49c6a4796285">ariles::CommonConfigurableBase</a>.</p>
+<p>Implements <a class="el" href="classariles_1_1CommonConfigurableBase.html#a648726bdda5d152cc185e0912871d795">ariles::CommonConfigurableBase</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="empty_8h_source.html#l00035">35</a> of file <a class="el" href="empty_8h_source.html">empty.h</a>.</p>
 

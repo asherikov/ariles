@@ -150,8 +150,8 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:af1d8a9109be496a353718c42e8b8c036"><td class="memTemplParams" colspan="2">template&lt;int t_size_limit_type&gt; </td></tr>
 <tr class="memitem:af1d8a9109be496a353718c42e8b8c036"><td class="memTemplItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classariles_1_1ReaderBase.html#af1d8a9109be496a353718c42e8b8c036">checkSize</a> (const std::size_t &amp;, const std::size_t &amp;=0, const std::size_t &amp;=0) const</td></tr>
 <tr class="separator:af1d8a9109be496a353718c42e8b8c036"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05bd90bf8c752f74b1ed1d472f62c463"><td class="memItemLeft" align="right" valign="top">virtual std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1ReaderBase.html#a05bd90bf8c752f74b1ed1d472f62c463">getMapSize</a> ()=0</td></tr>
-<tr class="separator:a05bd90bf8c752f74b1ed1d472f62c463"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a603b05003cda0855c86f220ea138eef7"><td class="memItemLeft" align="right" valign="top">virtual std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1ReaderBase.html#a603b05003cda0855c86f220ea138eef7">getMapSize</a> (const bool expect_empty)=0</td></tr>
+<tr class="separator:a603b05003cda0855c86f220ea138eef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33e4f0f2fb902507f91c69b83aaa76a3"><td class="memItemLeft" align="right" valign="top">virtual std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1ReaderBase.html#a33e4f0f2fb902507f91c69b83aaa76a3">startMapImpl</a> (const std::size_t size)</td></tr>
 <tr class="separator:a33e4f0f2fb902507f91c69b83aaa76a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -422,8 +422,8 @@ template&lt;int t_size_limit_type&gt; </div>
 
 </div>
 </div>
-<a id="a05bd90bf8c752f74b1ed1d472f62c463"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05bd90bf8c752f74b1ed1d472f62c463">&#9670;&nbsp;</a></span>getMapSize()</h2>
+<a id="a603b05003cda0855c86f220ea138eef7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a603b05003cda0855c86f220ea138eef7">&#9670;&nbsp;</a></span>getMapSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -434,7 +434,8 @@ template&lt;int t_size_limit_type&gt; </div>
         <tr>
           <td class="memname">virtual std::size_t ariles::ReaderBase::getMapSize </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>expect_empty</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -445,7 +446,7 @@ template&lt;int t_size_limit_type&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classariles_1_1bridge_1_1msgpack_1_1Reader.html#a94a9c7f6c6bb67e3dbcdcef038949ce7">ariles::bridge::msgpack::Reader</a>, <a class="el" href="classariles_1_1bridge_1_1rapidjson_1_1Reader.html#ac1144ad9a2c7938887c923aac1b9677c">ariles::bridge::rapidjson::Reader</a>, and <a class="el" href="classariles_1_1bridge_1_1pugixml_1_1Reader.html#ab2204263ab206b0c2555870d5a535faa">ariles::bridge::pugixml::Reader</a>.</p>
+<p>Implemented in <a class="el" href="classariles_1_1bridge_1_1msgpack_1_1Reader.html#ab5a2c7779ab6a56095c7371a6478be7d">ariles::bridge::msgpack::Reader</a>, <a class="el" href="classariles_1_1bridge_1_1rapidjson_1_1Reader.html#a196c7d1f1cced977796e5723dc8682cc">ariles::bridge::rapidjson::Reader</a>, and <a class="el" href="classariles_1_1bridge_1_1pugixml_1_1Reader.html#aea7230c3e94ca456ddab5fa54b0a9105">ariles::bridge::pugixml::Reader</a>.</p>
 
 </div>
 </div>

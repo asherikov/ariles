@@ -151,8 +151,8 @@ Protected Types</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a18e3d1d5909bcd27f13113cd2a01751f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1rapidjson_1_1Reader.html#a18e3d1d5909bcd27f13113cd2a01751f">initialize</a> (std::istream &amp;input_stream)</td></tr>
 <tr class="separator:a18e3d1d5909bcd27f13113cd2a01751f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1144ad9a2c7938887c923aac1b9677c"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1rapidjson_1_1Reader.html#ac1144ad9a2c7938887c923aac1b9677c">getMapSize</a> ()</td></tr>
-<tr class="separator:ac1144ad9a2c7938887c923aac1b9677c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a196c7d1f1cced977796e5723dc8682cc"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1rapidjson_1_1Reader.html#a196c7d1f1cced977796e5723dc8682cc">getMapSize</a> (const bool)</td></tr>
+<tr class="separator:a196c7d1f1cced977796e5723dc8682cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac486bd379f151cb7df67055a4a0e1fc7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1rapidjson_1_1Reader.html#ac486bd379f151cb7df67055a4a0e1fc7">Reader</a> ()</td></tr>
 <tr class="separator:ac486bd379f151cb7df67055a4a0e1fc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2cd1a8e90cfce89f555a8c90aa0bd023"><td class="memItemLeft" align="right" valign="top">const ::rapidjson::Value &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1rapidjson_1_1Base.html#a2cd1a8e90cfce89f555a8c90aa0bd023">getRawNode</a> (const std::size_t depth)</td></tr>
@@ -199,7 +199,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rapidjson_8h_source.html#l00049">49</a> of file <a class="el" href="rapidjson_8h_source.html">rapidjson.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rapidjson_8h_source.html#l00043">43</a> of file <a class="el" href="rapidjson_8h_source.html">rapidjson.h</a>.</p>
 
 </div>
 </div>
@@ -557,7 +557,7 @@ template&lt;int t_size_limit_type&gt; </div>
 
 <p>Implements <a class="el" href="classariles_1_1ReaderBase.html#a5430ee3faecc5182d9a343116aa893ed">ariles::ReaderBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="rapidjson_8h_source.html#l00093">93</a> of file <a class="el" href="rapidjson_8h_source.html">rapidjson.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rapidjson_8h_source.html#l00087">87</a> of file <a class="el" href="rapidjson_8h_source.html">rapidjson.h</a>.</p>
 
 </div>
 </div>
@@ -591,8 +591,8 @@ template&lt;int t_size_limit_type&gt; </div>
 
 </div>
 </div>
-<a id="ac1144ad9a2c7938887c923aac1b9677c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1144ad9a2c7938887c923aac1b9677c">&#9670;&nbsp;</a></span>getMapSize()</h2>
+<a id="a196c7d1f1cced977796e5723dc8682cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a196c7d1f1cced977796e5723dc8682cc">&#9670;&nbsp;</a></span>getMapSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -603,6 +603,7 @@ template&lt;int t_size_limit_type&gt; </div>
         <tr>
           <td class="memname">std::size_t ariles::bridge::rapidjson::Reader::getMapSize </td>
           <td>(</td>
+          <td class="paramtype">const bool&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -614,7 +615,7 @@ template&lt;int t_size_limit_type&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classariles_1_1ReaderBase.html#a05bd90bf8c752f74b1ed1d472f62c463">ariles::ReaderBase</a>.</p>
+<p>Implements <a class="el" href="classariles_1_1ReaderBase.html#a603b05003cda0855c86f220ea138eef7">ariles::ReaderBase</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="rapidjson_2interface_2rapidjson_2reader_8h_source.html#l00034">34</a> of file <a class="el" href="rapidjson_2interface_2rapidjson_2reader_8h_source.html">reader.h</a>.</p>
 
@@ -647,7 +648,7 @@ template&lt;int t_size_limit_type&gt; </div>
 <p>Get current node. </p>
 <dl class="section return"><dt>Returns</dt><dd>pointer to the current node </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="rapidjson_8h_source.html#l00066">66</a> of file <a class="el" href="rapidjson_8h_source.html">rapidjson.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rapidjson_8h_source.html#l00060">60</a> of file <a class="el" href="rapidjson_8h_source.html">rapidjson.h</a>.</p>
 
 </div>
 </div>
@@ -674,7 +675,7 @@ template&lt;int t_size_limit_type&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rapidjson_8h_source.html#l00079">79</a> of file <a class="el" href="rapidjson_8h_source.html">rapidjson.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rapidjson_8h_source.html#l00073">73</a> of file <a class="el" href="rapidjson_8h_source.html">rapidjson.h</a>.</p>
 
 </div>
 </div>
@@ -958,7 +959,7 @@ template&lt;int t_size_limit_type&gt; </div>
 
 <p>instance of the parser </p>
 
-<p class="definition">Definition at line <a class="el" href="rapidjson_8h_source.html#l00054">54</a> of file <a class="el" href="rapidjson_8h_source.html">rapidjson.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rapidjson_8h_source.html#l00048">48</a> of file <a class="el" href="rapidjson_8h_source.html">rapidjson.h</a>.</p>
 
 </div>
 </div>
@@ -984,7 +985,7 @@ template&lt;int t_size_limit_type&gt; </div>
 
 <p>Stack of nodes. </p>
 
-<p class="definition">Definition at line <a class="el" href="rapidjson_8h_source.html#l00057">57</a> of file <a class="el" href="rapidjson_8h_source.html">rapidjson.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rapidjson_8h_source.html#l00051">51</a> of file <a class="el" href="rapidjson_8h_source.html">rapidjson.h</a>.</p>
 
 </div>
 </div>
