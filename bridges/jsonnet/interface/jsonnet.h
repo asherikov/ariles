@@ -11,7 +11,7 @@
 #pragma once
 
 
-#include "../internal/helpers.h"
+#include <ariles/internal/helpers.h>
 
 extern "C" {
 #include "libjsonnet.h"
