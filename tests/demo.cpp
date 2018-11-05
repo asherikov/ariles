@@ -200,10 +200,10 @@ int main()
         my_container_class.readConfig<ariles::ros>(nh, "/some_namespace/");
 
         // Reader / Wrter classes
-        ariles::yaml_cpp::Writer writer(nh);
+        ariles::ros::Writer writer(nh);
         my_container_class.writeConfig(writer);
 
-        ariles::yaml_cpp::Reader reader(nh);
+        ariles::ros::Reader reader(nh);
         my_container_class.readConfig(reader);
     }
 
