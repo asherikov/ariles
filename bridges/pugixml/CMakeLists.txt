@@ -8,7 +8,7 @@ add_dependencies("TGT_ariles_copy_headers_bridge_pugixml_h" "TGT_ariles_copy_hea
 set(PUGIXML_SOURCE_DIR     "${CMAKE_CURRENT_LIST_DIR}/pugixml")
 
 set (TGT_PUGIXML            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
-if(NOT ARILES_PPA_TARGETS)
+if(NOT ARILES_DEB_TARGETS)
     if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "BUILD")
         set (PUGIXML_CXX_FLAGS      "${ARILES_CXX_FLAGS} -fPIC")
 
@@ -58,4 +58,4 @@ if(NOT ARILES_PPA_TARGETS)
 endif()
 
 include(ariles_install_component)
-set(PPA_${ARILES_COMPONENT}_DEPENDS "libpugixml-dev")
+set(DEB_${ARILES_COMPONENT}_DEPENDS "libpugixml-dev")

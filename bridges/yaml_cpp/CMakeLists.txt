@@ -14,7 +14,7 @@ add_dependencies("TGT_ariles_copy_headers_bridge_yaml_cpp_h" "TGT_ariles_copy_he
 set(YAMLCPP_SOURCE_DIR     "${CMAKE_CURRENT_LIST_DIR}/yaml-cpp")
 
 set (TGT_YAMLCPP            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
-if(NOT ARILES_PPA_TARGETS)
+if(NOT ARILES_DEB_TARGETS)
     if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "BUILD")
         set (YAMLCPP_CXX_FLAGS      "${ARILES_CXX_FLAGS} -fPIC")
 
@@ -39,17 +39,15 @@ if(NOT ARILES_PPA_TARGETS)
         set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES "")
         set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS
             "${ARILES_BRIDGES_LIBDIR}/${CMAKE_STATIC_LIBRARY_PREFIX}yaml-cpp${CMAKE_STATIC_LIBRARY_SUFFIX}")
-        set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDE_HEADER "yaml-cpp/yaml.h")
     else()
         pkg_search_module(${ARILES_BRIDGE} REQUIRED yaml-cpp>=0.5.1)
 
         add_custom_target(${TGT_YAMLCPP})
         set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS "${${ARILES_BRIDGE}_LIBRARY_DIRS}")
-        set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDE_HEADER "yaml-cpp/yaml.h")
         set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES "${${ARILES_BRIDGE}_INCLUDE_DIRS}")
         set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS "${${ARILES_BRIDGE}_LIBRARIES}")
     endif()
 endif()
 
 include(ariles_install_component)
-set(PPA_${ARILES_COMPONENT}_DEPENDS "libyaml-cpp-dev")
+set(DEB_${ARILES_COMPONENT}_DEPENDS "libyaml-cpp-dev")

@@ -1,4 +1,4 @@
-set(ARILES_PPA_TARGETS              "trusty"    CACHE STRING "")
+set(ARILES_DEB_TARGETS              "trusty"    CACHE STRING "")
 
 set(ARILES_CPP_STANDARD             "c++11"     CACHE STRING "")
 

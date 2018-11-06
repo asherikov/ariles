@@ -16,7 +16,7 @@
 #include <ariles/internal/reader_base.h>
 #include <ariles/internal/writer_base.h>
 
-#include ARILES_BRIDGE_yaml_cpp_INCLUDE_HEADER
+#include <yaml-cpp/yaml.h>
 
 namespace ariles
 {

@@ -8,7 +8,7 @@ add_dependencies("TGT_ariles_copy_headers_bridge_rapidjson_h" "TGT_ariles_copy_h
 set(RAPIDJSON_SOURCE_DIR     "${CMAKE_CURRENT_LIST_DIR}/rapidjson")
 
 set (TGT_RAPIDJSON            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
-if(NOT ARILES_PPA_TARGETS)
+if(NOT ARILES_DEB_TARGETS)
     if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "BUILD")
         set (RAPIDJSON_CXX_FLAGS      "${ARILES_CXX_FLAGS} -fPIC")
 
@@ -63,3 +63,4 @@ if (${INDEX} GREATER -1)
 endif()
 
 include(ariles_install_component)
+set(DEB_${ARILES_COMPONENT}_DEPENDS "rapidjson-dev")

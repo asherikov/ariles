@@ -8,7 +8,7 @@ add_dependencies("TGT_ariles_copy_headers_bridge_msgpack_h" "TGT_ariles_copy_hea
 set(MESSAGEPACK_SOURCE_DIR   "${CMAKE_CURRENT_LIST_DIR}/msgpack-c")
 
 set (TGT_MESSAGEPACK            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
-if(NOT ARILES_PPA_TARGETS)
+if(NOT ARILES_DEB_TARGETS)
     if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "BUILD")
         set (MESSAGEPACK_CXX_FLAGS      "${ARILES_CXX_FLAGS} -fPIC")
 

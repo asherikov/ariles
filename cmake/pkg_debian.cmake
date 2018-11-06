@@ -6,9 +6,11 @@
 #
 #  sudo apt-get install devscripts
 #
-# set(PPA_BUILDPACKAGE_FLAGS "-us;-uc") disables signature
+# set(DEB_BUILDPACKAGE_FLAGS "-us;-uc") disables signature
 ##
 
+set(DEB_BUILD_DEPENDS "cmake")
+set(DEB_DEPENDS "")
 
 find_program(BUILDPACKAGE_EXECUTABLE dpkg-buildpackage)
 find_program(DPUT_EXECUTABLE dput)
@@ -19,13 +21,6 @@ if(NOT BUILDPACKAGE_EXECUTABLE)
 endif()
 if(NOT CPACK_PACKAGE_NAME)
     message(FATAL_ERROR "CPACK_PACKAGE_NAME not set")
-endif()
-if(NOT PPA_DPUT_HOST)
-    message("PPA_DPUT_HOST not set")
-else()
-    if(NOT DPUT_EXECUTABLE)
-        message(FATAL_ERROR "dput not found")
-    endif()
 endif()
 
 
@@ -52,13 +47,13 @@ foreach(LINE ${DESC_LINES})
 endforeach(LINE ${DESC_LINES})
 
 
-set(PPA_MAIN_TARGET "ppa")
-add_custom_target(${PPA_MAIN_TARGET})
-foreach(UBUNTU_NAME ${PPA_UBUNTU_CODENAMES})
-    set(PPA_UBUNTU_NAME_TARGET "ppa_${UBUNTU_NAME}")
+set(DEB_MAIN_TARGET "pkg_deb")
+add_custom_target(${DEB_MAIN_TARGET})
+foreach(UBUNTU_NAME ${DEB_UBUNTU_CODENAMES})
+    set(DEB_UBUNTU_NAME_TARGET "${DEB_MAIN_TARGET}_${UBUNTU_NAME}")
 
-    add_custom_target(${PPA_UBUNTU_NAME_TARGET})
-    add_dependencies(${PPA_MAIN_TARGET}   "${PPA_UBUNTU_NAME_TARGET}")
+    add_custom_target(${DEB_UBUNTU_NAME_TARGET})
+    add_dependencies(${DEB_MAIN_TARGET}   "${DEB_UBUNTU_NAME_TARGET}")
 
 
     set(DEBIAN_BASE_DIR ${PROJECT_BINARY_DIR}/Debian/${UBUNTU_NAME})
@@ -70,15 +65,12 @@ foreach(UBUNTU_NAME ${PPA_UBUNTU_CODENAMES})
     set(DEBIAN_CHANGELOG ${DEBIAN_SOURCE_DIR}/debian/changelog)
     set(DEBIAN_SOURCE_CHANGES
         ${CPACK_DEBIAN_PACKAGE_NAME}_${CPACK_PACKAGE_VERSION}~${UBUNTU_NAME}_source.changes)
-    set(PPA_UBUNTU_NAME_BUILD_DEPENDS "cmake")
-    set(PPA_UBUNTU_NAME_DEPENDS "")
-
 
 
     execute_process(COMMAND ${CMAKE_COMMAND} -E remove_directory "${DEBIAN_BASE_DIR}")
     execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${DEBIAN_BASE_DIR})
 
-    execute_process(COMMAND ${CMAKE_COMMAND} -E tar cvf ${DEBIAN_BASE_DIR}.tar ${PPA_ARCHIVE_FILES}
+    execute_process(COMMAND ${CMAKE_COMMAND} -E tar cvf ${DEBIAN_BASE_DIR}.tar ${DEB_ARCHIVE_FILES}
                     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 
     execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory "${DEBIAN_SOURCE_DIR}")
@@ -99,16 +91,19 @@ foreach(UBUNTU_NAME ${PPA_UBUNTU_CODENAMES})
 
     ##############################################################################
     # debian/control
+    set(DEB_UBUNTU_NAME_BUILD_DEPENDS "${DEB_BUILD_DEPENDS}")
+    set(DEB_UBUNTU_NAME_DEPENDS "${DEB_DEPENDS}")
+
     foreach(DEP ${CPACK_DEBIAN_BUILD_DEPENDS})
-        set(${PPA_UBUNTU_NAME_BUILD_DEPENDS} "${PPA_UBUNTU_NAME_BUILD_DEPENDS}, ${DEP}")
+        set(${DEB_UBUNTU_NAME_BUILD_DEPENDS} "${DEB_UBUNTU_NAME_BUILD_DEPENDS}, ${DEP}")
     endforeach(DEP ${CPACK_DEBIAN_BUILD_DEPENDS})
 
     foreach(COMPONENT ${CPACK_COMPONENTS_ALL})
         set(PACKAGE ${CPACK_DEBIAN_PACKAGE_NAME}-${COMPONENT})
-        if (PPA_UBUNTU_NAME_DEPENDS)
-            set(${PPA_UBUNTU_NAME_DEPENDS} "${PACKAGE}")
+        if (DEB_UBUNTU_NAME_DEPENDS)
+            set(${DEB_UBUNTU_NAME_DEPENDS} "${PACKAGE}")
         else()
-            set(${PPA_UBUNTU_NAME_DEPENDS} ", ${PACKAGE}")
+            set(${DEB_UBUNTU_NAME_DEPENDS} ", ${PACKAGE}")
         endif()
     endforeach()
 
@@ -117,7 +112,7 @@ foreach(UBUNTU_NAME ${PPA_UBUNTU_CODENAMES})
         "Section: ${CPACK_DEBIAN_PACKAGE_SECTION}\n"
         "Priority: ${CPACK_DEBIAN_PACKAGE_PRIORITY}\n"
         "Maintainer: ${CPACK_PACKAGE_CONTACT}\n"
-        "Build-Depends: ${PPA_UBUNTU_NAME_BUILD_DEPENDS}\n"
+        "Build-Depends: ${DEB_UBUNTU_NAME_BUILD_DEPENDS}\n"
         "Standards-Version: 3.9.7\n"
         "Homepage: ${CPACK_PACKAGE_VENDOR}\n")
 
@@ -133,7 +128,7 @@ foreach(UBUNTU_NAME ${PPA_UBUNTU_CODENAMES})
             endif()
         endforeach()
 
-        foreach(DEP ${PPA_${COMPONENT}_DEPENDS})
+        foreach(DEP ${DEB_${COMPONENT}_DEPENDS})
             if (DEPENDS)
                 set(DEPENDS "${DEPENDS}, ${DEP}")
             else()
@@ -180,7 +175,7 @@ foreach(UBUNTU_NAME ${PPA_UBUNTU_CODENAMES})
         set(PACKAGE ${CPACK_DEBIAN_PACKAGE_NAME}-${COMPONENT})
         file(APPEND ${DEBIAN_RULES}
             "	mkdir ${BUILDDIR}\n"
-            "	cd ${BUILDDIR}; cmake -DCMAKE_INSTALL_PREFIX=../${PATH}/usr ${PPA_COMMON_CMAKE_ARGS} ${PPA_CMAKE_FLAGS_${COMPONENT}} ..\n"
+            "	cd ${BUILDDIR}; cmake -DCMAKE_INSTALL_PREFIX=../${PATH}/usr ${DEB_COMMON_CMAKE_ARGS} ${DEB_CMAKE_FLAGS_${COMPONENT}} ..\n"
             "	cd ${BUILDDIR}; make install\n"
             "	mkdir -p ${PATH}/DEBIAN\n"
             "	dpkg-gencontrol -p${PACKAGE} -P${PATH}\n"
@@ -215,31 +210,19 @@ foreach(UBUNTU_NAME ${PPA_UBUNTU_CODENAMES})
 
     add_custom_command(
         OUTPUT ${DEBIAN_BASE_DIR}/${DEBIAN_SOURCE_CHANGES}
-        COMMAND ${BUILDPACKAGE_EXECUTABLE} ${PPA_BUILDPACKAGE_FLAGS} -S
+        COMMAND ${BUILDPACKAGE_EXECUTABLE} ${DEB_BUILDPACKAGE_FLAGS} -S
         WORKING_DIRECTORY ${DEBIAN_SOURCE_DIR}
         COMMENT "Generate ${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}")
-    add_custom_target(${PPA_UBUNTU_NAME_TARGET}_changes DEPENDS "${DEBIAN_BASE_DIR}/${DEBIAN_SOURCE_CHANGES}")
-    add_dependencies(${PPA_MAIN_TARGET} ${PPA_UBUNTU_NAME_TARGET}_changes)
+    add_custom_target(${DEB_UBUNTU_NAME_TARGET}_changes DEPENDS "${DEBIAN_BASE_DIR}/${DEBIAN_SOURCE_CHANGES}")
+    add_dependencies(${DEB_MAIN_TARGET} ${DEB_UBUNTU_NAME_TARGET}_changes)
 
 
     if(LINTIAN_EXECUTABLE)
         add_custom_command(
-            TARGET ${PPA_UBUNTU_NAME_TARGET}_changes
+            TARGET ${DEB_UBUNTU_NAME_TARGET}_changes
             POST_BUILD
             COMMAND ${LINTIAN_EXECUTABLE} -cv
             WORKING_DIRECTORY ${DEBIAN_SOURCE_DIR}
             COMMENT "Checking package with lintian")
-    endif()
-
-
-    ##############################################################################
-    # dput ppa:your-lp-id/ppa <source.changes>
-    if(PPA_DPUT_HOST)
-        add_custom_target(${PROJECT_NAME}_dput_${UBUNTU_NAME}
-            ${DPUT_EXECUTABLE} ${PPA_DPUT_HOST} ${DEBIAN_SOURCE_CHANGES}
-            DEPENDS ${DEBIAN_BASE_DIR}/${DEBIAN_SOURCE_CHANGES}
-            WORKING_DIRECTORY ${DEBIAN_BASE_DIR}
-            COMMENT "Upload ${CPACK_DEBIAN_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION} to ${PPA_DPUT_HOST}"
-            DEPENDS ${PPA_UBUNTU_NAME_TARGET})
     endif()
 endforeach()

@@ -20,7 +20,7 @@
 #include <ariles/internal/reader_base.h>
 #include <ariles/internal/writer_base.h>
 
-#include ARILES_BRIDGE_yaml_cpp03_INCLUDE_HEADER
+#include <@ARILES_BRIDGE_yaml_cpp03_INCLUDE_HEADER@>
 
 namespace ariles
 {

@@ -26,7 +26,7 @@ jobs:
                   - libeigen3-dev
 
 
-    # ppa packages
+    # deb packages
       - os: linux
         compiler:
             - clang
@@ -65,7 +65,9 @@ jobs:
                   - fakeroot
 
         script:
-          - make build-ppa PPA_TARGET=trusty
+          - make deb-build DEB_TARGET=trusty
+          - make deb-install DEB_TARGET=trusty
+          - make cmake_dependency
 
 
 # clang

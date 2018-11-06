@@ -18,7 +18,7 @@ TARGETS?=all
 
 ARGS?=
 
-PPA_TARGET?=xenial
+DEB_TARGET?=xenial
 
 
 #----------------------------------------------
@@ -93,23 +93,35 @@ release: release-all
 # checks
 #----------------------------------------------
 
-ppa: clean
-	${MAKE} build TC=${TC} TYPE=Release OPTIONS=deb_packages_${PPA_TARGET} TARGETS="ppa" \
-		EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM} -DPPA_BUILDPACKAGE_FLAGS='-d'"
+deb: clean
+	${MAKE} build TC=${TC} TYPE=Release OPTIONS=deb_packages_${DEB_TARGET} TARGETS="pkg_deb" \
+		EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM} -DDEB_BUILDPACKAGE_FLAGS='-d'"
+
+deb-build: clean
+	${MAKE} build TC=${TC} TYPE=Release OPTIONS=deb_packages_${DEB_TARGET} TARGETS="pkg_deb" \
+		EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM} -DDEB_BUILDPACKAGE_FLAGS='-us;-uc'"
+	cd build/generic-Release-OPTIONS_deb_packages_${DEB_TARGET}/Debian/${DEB_TARGET}/ariles-*-source; \
+		dpkg-buildpackage -us -uc -F
+
+deb-install:
+	sudo dpkg -i build/generic-Release-OPTIONS_deb_packages_${DEB_TARGET}/Debian/${DEB_TARGET}/ariles-*.deb
+
+deb-uninstall:
+	dpkg --get-selections ariles* | awk '{print $1}' | xargs sudo dpkg -P
+
+cmake_dependency: clean
+	mkdir -p build/cmake_dependency_test
+	cd build/cmake_dependency_test; cmake ../../tests/cmake_dependency/ -DARILES_COMPONENTS="core;ros;yaml-cpp"
+	cd build/cmake_dependency_test; ${MAKE} ${MAKE_FLAGS}
+
 
 ppa-upload:
 	cd build/generic-Release-OPTIONS_deb_packages_trusty/Debian/trusty/; \
 		ftp -au ppa.launchpad.net:~asherikov/ubuntu/ppa/ \
-			ariles_*~${PPA_TARGET}.dsc \
-			ariles_*~${PPA_TARGET}.tar.xz \
-			ariles_*~${PPA_TARGET}_source.buildinfo \
-			ariles_*~${PPA_TARGET}_source.changes
-
-build-ppa: clean
-	${MAKE} build TC=${TC} TYPE=Release OPTIONS=deb_packages_${PPA_TARGET} TARGETS="ppa" \
-		EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM} -DPPA_BUILDPACKAGE_FLAGS='-us;-uc'"
-	cd build/generic-Release-OPTIONS_deb_packages_${PPA_TARGET}/Debian/${PPA_TARGET}/ariles-*-source; \
-		dpkg-buildpackage -us -uc -F
+			ariles_*~${DEB_TARGET}.dsc \
+			ariles_*~${DEB_TARGET}.tar.xz \
+			ariles_*~${DEB_TARGET}_source.buildinfo \
+			ariles_*~${DEB_TARGET}_source.changes
 
 
 test-ros: clean

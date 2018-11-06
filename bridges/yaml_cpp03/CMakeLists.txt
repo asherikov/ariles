@@ -4,17 +4,18 @@ if (${INDEX} GREATER -1)
 endif()
 
 
-ariles_copy_file_if_exists( TGT_ariles_copy_headers                             "bridge_yaml_cpp03_h"
-                            "${${ARILES_BRIDGE}_INTERFACE_DIR}/yaml_cpp03.h"    "${ARILES_BRIDGE_INCLUDE_DIR}/")
+#ariles_copy_file_if_exists( TGT_ariles_copy_headers                             "bridge_yaml_cpp03_h"
+#                            "${${ARILES_BRIDGE}_INTERFACE_DIR}/yaml_cpp03.h"    "${ARILES_BRIDGE_INCLUDE_DIR}/")
 ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                             "bridge_yaml_cpp03_dir"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/yaml_cpp03"      "${ARILES_BRIDGE_INCLUDE_DIR}/yaml_cpp03")
-add_dependencies("TGT_ariles_copy_headers_bridge_yaml_cpp03_h" "TGT_ariles_copy_headers_bridge_yaml_cpp03_dir")
-add_dependencies("TGT_ariles_copy_headers_bridge_yaml_cpp03_h" "TGT_ariles_copy_headers_ariles")
+#add_dependencies("TGT_ariles_copy_headers_bridge_yaml_cpp03_h" "TGT_ariles_copy_headers_bridge_yaml_cpp03_dir")
+#add_dependencies("TGT_ariles_copy_headers_bridge_yaml_cpp03_h" "TGT_ariles_copy_headers_ariles")
+add_dependencies("TGT_ariles_copy_headers_bridge_yaml_cpp03_dir" "TGT_ariles_copy_headers_ariles")
 
 set(YAMLCPP03_SOURCE_DIR        "${CMAKE_CURRENT_LIST_DIR}/yaml-cpp")
 
 set (TGT_YAMLCPP03            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
-if(NOT ARILES_PPA_TARGETS)
+if(NOT ARILES_DEB_TARGETS)
     if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "BUILD")
         set (YAMLCPP03_CXX_FLAGS      "${ARILES_CXX_FLAGS} -fPIC")
 
@@ -38,16 +39,16 @@ if(NOT ARILES_PPA_TARGETS)
         set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES "")
         set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS
             "${ARILES_BRIDGES_LIBDIR}/${CMAKE_STATIC_LIBRARY_PREFIX}yaml-cpp${CMAKE_STATIC_LIBRARY_SUFFIX}")
-        set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDE_HEADER "yaml-cpp/yaml.h")
+        set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDE_HEADER "yaml-cpp/yaml.h" PARENT_SCOPE)
     else()
         pkg_search_module(${ARILES_BRIDGE} REQUIRED yaml-cpp03)
 
         add_custom_target(${TGT_YAMLCPP03})
         set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS "${${ARILES_BRIDGE}_LIBRARY_DIRS}")
         if (EXISTS "${${ARILES_BRIDGE}_INCLUDE_DIRS}/yaml-cpp03")
-            set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDE_HEADER "yaml-cpp03/yaml.h")
+            set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDE_HEADER "yaml-cpp03/yaml.h" PARENT_SCOPE)
         else()
-            set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDE_HEADER "yaml-cpp/yaml.h")
+            set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDE_HEADER "yaml-cpp/yaml.h" PARENT_SCOPE)
         endif()
         set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES "${${ARILES_BRIDGE}_INCLUDE_DIRS}")
         set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS "${${ARILES_BRIDGE}_LIBRARIES}")
@@ -55,3 +56,5 @@ if(NOT ARILES_PPA_TARGETS)
 endif()
 
 include(ariles_install_component)
+
+configure_file("${${ARILES_BRIDGE}_INTERFACE_DIR}/yaml_cpp.h" "${ARILES_BRIDGE_INCLUDE_DIR}/yaml_cpp.h")

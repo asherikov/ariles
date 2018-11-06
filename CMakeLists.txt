@@ -52,7 +52,7 @@ option (ARILES_ADAPTER_BETTER_ENUMS     "Enable support for beter enums." ON)
 set    (ARILES_CPP_STANDARD             "c++98" CACHE STRING "C++ standard version")
 option (ARILES_VERBOSE                  "Verbose build"                     ON)
 option (ARILES_BUILD_REGRESSION_TESTS   "Build regression tests."           ON)
-set    (ARILES_PPA_TARGETS              "" CACHE STRING "Enable debian package generation.")
+set    (ARILES_DEB_TARGETS              "" CACHE STRING "Enable debian package generation.")
 
 # install parameters
 set    (ARILES_PKGCONFIG_INSTALL_PATH   "" CACHE STRING "pkg-config pc-file install path, not installed if empty")
@@ -219,7 +219,7 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
 # This will go to the configuration file for projects, which use ariles.
 set (ARILES_CORE_INCLUDES "${CMAKE_INSTALL_PREFIX}/include")
 
-set(PPA_ARCHIVE_FILES
+set(DEB_ARCHIVE_FILES
     "./AUTHORS.md"
     "./CMakeLists.txt"
     "./LICENSE"
@@ -246,7 +246,7 @@ if (${ARILES_ENABLE_CORE})
     endforeach()
 
     include_directories("${ARILES_INCLUDE_DIR}/core/")
-    list(APPEND PPA_ARCHIVE_FILES "./include" "./extra_adapters")
+    list(APPEND DEB_ARCHIVE_FILES "./include" "./extra_adapters")
 endif()
 
 
@@ -344,8 +344,8 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
                 link_directories("${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS}")
             endif()
 
-            list(APPEND PPA_ARCHIVE_FILES "./bridges/${ARILES_BRIDGE}/interface")
-            list(APPEND PPA_ARCHIVE_FILES "./bridges/${ARILES_BRIDGE}/CMakeLists.txt")
+            list(APPEND DEB_ARCHIVE_FILES "./bridges/${ARILES_BRIDGE}/interface")
+            list(APPEND DEB_ARCHIVE_FILES "./bridges/${ARILES_BRIDGE}/CMakeLists.txt")
         endif()
     endforeach(ARILES_BRIDGE)
 endforeach(ARILES_BRIDGES_DIR)
@@ -412,16 +412,6 @@ if (${ARILES_ENABLE_CORE})
         set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_DEFAULT_CONFIGURABLE_FLAGS ${ARILES_DEFAULT_CONFIGURABLE_FLAGS}\n")
     endif(ARILES_DEFAULT_CONFIGURABLE_FLAGS)
 
-
-    foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
-        if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
-            if(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDE_HEADER)
-                set(ARILES_BUILD_CONFIG
-                    "${ARILES_BUILD_CONFIG}#define ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDE_HEADER \"${ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDE_HEADER}\"\n")
-            endif()
-        endif()
-    endforeach(ARILES_BRIDGE)
-
     string(CONFIGURE "${ARILES_BUILD_CONFIG}" ARILES_BUILD_CONFIG)
     file(WRITE "${ARILES_INCLUDE_DIR}/core/ariles/internal/build_config.h" "${ARILES_BUILD_CONFIG}")
     #---
@@ -478,10 +468,10 @@ if (${ARILES_ENABLE_CORE})
         ARCHIVE_FILE "${CPACK_PACKAGE_NAME}-core-${CPACK_PACKAGE_VERSION}")
 
 
-    set(ariles_LIBRARIES "ariles_LIBRARIES")
-    set(ariles_INCLUDE_DIRS "ariles_INCLUDE_DIRS")
-    set(ariles_LIBRARY_DIRS "ariles_LIBRARY_DIRS")
     set(ARILES_COMPONENT_NAME "core")
+    set(ariles_LIBRARIES "ariles-${ARILES_COMPONENT_NAME}_LIBRARIES")
+    set(ariles_INCLUDE_DIRS "ariles-${ARILES_COMPONENT_NAME}_INCLUDE_DIRS")
+    set(ariles_LIBRARY_DIRS "ariles-${ARILES_COMPONENT_NAME}_LIBRARY_DIRS")
 
     set(ARILES_LIBRARIES            "")
     set(ARILES_INCLUDES             "${ARILES_CORE_INCLUDES}")
@@ -504,21 +494,21 @@ if (${ARILES_ENABLE_CORE})
     list(REMOVE_ITEM ARILES_LIBRARIES "")
 
     configure_package_config_file(  "cmake/arilesConfig.cmake.in"
-                                    "${PROJECT_BINARY_DIR}/arilesConfig.cmake"
-                                    INSTALL_DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles/"
+                                    "${PROJECT_BINARY_DIR}/ariles-${ARILES_COMPONENT_NAME}Config.cmake"
+                                    INSTALL_DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles-${ARILES_COMPONENT_NAME}/"
                                     PATH_VARS ARILES_INCLUDES
                                     NO_SET_AND_CHECK_MACRO
                                     NO_CHECK_REQUIRED_COMPONENTS_MACRO)
-    install (FILES "${PROJECT_BINARY_DIR}/arilesConfig.cmake"
-             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles/"
+    install (FILES "${PROJECT_BINARY_DIR}/ariles-${ARILES_COMPONENT_NAME}Config.cmake"
+             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles-${ARILES_COMPONENT_NAME}/"
              COMPONENT ${ARILES_COMPONENT_NAME})
 
     write_basic_package_version_file(
-        ${PROJECT_BINARY_DIR}/arilesConfigVersion.cmake
+        ${PROJECT_BINARY_DIR}/ariles-${ARILES_COMPONENT_NAME}ConfigVersion.cmake
         VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}
         COMPATIBILITY SameMajorVersion)
-    install (FILES "${PROJECT_BINARY_DIR}/arilesConfigVersion.cmake"
-             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles/"
+    install (FILES "${PROJECT_BINARY_DIR}/ariles-${ARILES_COMPONENT_NAME}ConfigVersion.cmake"
+             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles-${ARILES_COMPONENT_NAME}/"
              COMPONENT ${ARILES_COMPONENT_NAME})
 
 
@@ -539,8 +529,8 @@ if (${ARILES_ENABLE_CORE})
              DESTINATION "${CMAKE_INSTALL_PREFIX}/include/"
              COMPONENT "${ARILES_COMPONENT_NAME}")
 
-    set(PPA_CMAKE_FLAGS_core "-DARILES_ENABLE_CORE=ON")
-    set(PPA_core_DEPENDS "libboost-all-dev;libeigen3-dev")
+    set(DEB_CMAKE_FLAGS_core "-DARILES_ENABLE_CORE=ON")
+    set(DEB_core_DEPENDS "libboost-all-dev;libeigen3-dev")
 endif()
 
 
@@ -554,15 +544,14 @@ include(CPack)
 set(CPACK_DEBIAN_RESOURCE_FILE_CHANGELOG "")
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Alexander Sherikov <asherikov@yandex.com>")
 
-if(ARILES_PPA_TARGETS)
-    set(PPA_UBUNTU_CODENAMES ${ARILES_PPA_TARGETS}) # precise sausy trusty
-    #set(PPA_DPUT_HOST "")
+if(ARILES_DEB_TARGETS)
+    set(DEB_UBUNTU_CODENAMES ${ARILES_DEB_TARGETS}) # precise sausy trusty
 
-    set(PPA_COMMON_CMAKE_ARGS
+    set(DEB_COMMON_CMAKE_ARGS
         "-DARILES_CPP_STANDARD=${ARILES_CPP_STANDARD} \
          -DARILES_ENABLE_CORE_ALL_HEADER=${ARILES_ENABLE_CORE_ALL_HEADER} \
          -DARILES_BUILD_REGRESSION_TESTS=${ARILES_BUILD_REGRESSION_TESTS} \
          -DARILES_BRIDGES_DEFAULT_MODE=OFF")
 
-    include(UploadPPA)
+    include(pkg_debian)
 endif()
