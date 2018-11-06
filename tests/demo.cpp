@@ -52,9 +52,9 @@ class ArilesBaseClass
     // Unique entry name, to be safe use only alphanumeric characters and underscores
     #define ARILES_SECTION_ID "ArilesBaseClass"
 
-    // Declare entries, in this case two integers
+    // Declare entries, in this case two numbers
     #define ARILES_ENTRIES \
-        ARILES_TYPED_ENTRY(real_member, int) \
+        ARILES_TYPED_ENTRY(real_member, double) \
         ARILES_TYPED_ENTRY_(integer_member, int)
     //         underscore ^ indicates that the name of the entry must be
     // 'integer_member_' instead of 'integer_member', this is useful if your
@@ -64,7 +64,7 @@ class ArilesBaseClass
     #include ARILES_INITIALIZE
 
     public:
-        ~ArilesBaseClass(){}; // added to suppress compiler warnings
+        virtual ~ArilesBaseClass(){}; // added to suppress compiler warnings
 
         // setDefaults() is a method which is called every time you deserialize
         // a class. You can implement it manually as here, or request its
