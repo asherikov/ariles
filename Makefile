@@ -90,7 +90,7 @@ release: release-all
 
 
 #----------------------------------------------
-# checks
+# Debian packages
 #----------------------------------------------
 
 deb: clean
@@ -114,7 +114,6 @@ cmake_dependency: clean
 	cd build/cmake_dependency_test; cmake ../../tests/cmake_dependency/ -DARILES_COMPONENTS="core;ros;yaml-cpp"
 	cd build/cmake_dependency_test; ${MAKE} ${MAKE_FLAGS}
 
-
 ppa-upload:
 	cd build/generic-Release-OPTIONS_deb_packages_trusty/Debian/trusty/; \
 		ftp -au ppa.launchpad.net:~asherikov/ubuntu/ppa/ \
@@ -122,6 +121,32 @@ ppa-upload:
 			ariles_*~${DEB_TARGET}.tar.xz \
 			ariles_*~${DEB_TARGET}_source.buildinfo \
 			ariles_*~${DEB_TARGET}_source.changes
+
+
+#----------------------------------------------
+# catkin
+#----------------------------------------------
+
+CATKIN_WORKING_DIR?=./build/catkin_workspace
+
+catkin-build-old: clean
+	mkdir -p ${CATKIN_WORKING_DIR}
+	mkdir -p ${CATKIN_WORKING_DIR}/src/catkin_ariles/
+	cd ${CATKIN_WORKING_DIR}/src; catkin_init_workspace # old
+	ls -1 | grep -v build | xargs cp -R -t ${CATKIN_WORKING_DIR}/src/catkin_ariles
+	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated # old
+
+catkin-build-new: clean
+	mkdir -p ${CATKIN_WORKING_DIR}
+	mkdir -p ${CATKIN_WORKING_DIR}/src/catkin_ariles/
+	cd ${CATKIN_WORKING_DIR}; catkin init # new
+	ls -1 | grep -v build | xargs cp -R -t ${CATKIN_WORKING_DIR}/src/catkin_ariles
+	cd ${CATKIN_WORKING_DIR}; catkin build --verbose --summary # new
+
+
+#----------------------------------------------
+# checks
+#----------------------------------------------
 
 
 test-ros: clean
