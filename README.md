@@ -77,7 +77,6 @@ Supported types
 * Better enums -> https://github.com/aantron/better-enums.
 
 
-
 Minimal example
 ===============
 Class [`./tests/types/minimal.h`]:
@@ -117,3 +116,11 @@ Documentation and examples
 * Precompiled Doxygen documentation: https://asherikov.github.io/ariles/
 * Introductory demo: https://asherikov.github.io/ariles/DEMO.html [`./tests/demo.cpp`]
 * Various types defined for tests: [`./tests/types/`]
+
+
+Compilation using catkin
+========================
+
+`catkin` (ROS build utility) is not flexible enough to build Ariles directly,
+it is, however, possible to create a proxy catkin package to build Ariles with
+predefined configuration. You can find an example in `./tests/catkin_package`.
