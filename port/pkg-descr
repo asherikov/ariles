@@ -1,0 +1,14 @@
+Ariles is a C++ serialization/configuration library with some extra automatic
+code generation capabilities. It relies on third-party libraries for support of
+various data representation formats. The library also provides some predefined
+serialization wrappers for common types.
+
+Supported formats:
+
+* YAML via yaml-cpp, both old C++03 and new API supported.
+* msgpack via msgpack-c.
+* JSON via RapidJSON, with optional Jsonnet preprocessing.
+* XML via PugiXML.
+* Octave script, output only, no dependencies.
+
+WWW: http://github.com/asherikov/ariles

@@ -1,0 +1,12 @@
+make makesum
+
+
+test
+make stage
+make check-orphans
+make package
+make install
+make deinstall
+make package (as user)
+
+portlint
