@@ -6,3 +6,6 @@ Version 2.0
 
 * Investigate possibility of generalization of functionality to enable addition
   of custom operations over Ariles classes, e.g., register/unregister.
+
+* Rename `finalize()` and `setDefaults()` to something like `arilesPreRead()`,
+  `arilesPostRead()`. Add the same functionality for writing configuration files.
