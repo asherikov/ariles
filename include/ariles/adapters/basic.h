@@ -19,7 +19,14 @@ namespace ariles
                                 ariles::CommonConfigurableBase & entry,
                                 const t_Flags & param)
     {
-        reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(entry.getNumberOfEntries());
+        if (true == param.isSet(ConfigurableFlags::ALLOW_MISSING_ENTRIES))
+        {
+            reader.template startMap<t_Reader::SIZE_LIMIT_NONE>(entry.getNumberOfEntries());
+        }
+        else
+        {
+            reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(entry.getNumberOfEntries());
+        }
         entry.readConfigEntries(reader, param);
         reader.endMap();
     }
