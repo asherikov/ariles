@@ -1,3 +1,5 @@
+* Travis CI: https://travis-ci.org/asherikov/cmakeut [![Build Status](https://travis-ci.org/asherikov/cmakeut.svg?branch=master)](https://travis-ci.org/asherikov/cmakeut)
+
 cmake modules:
     - cmakeut_add_external_git_project
       wrappers for ExternalProject_Add(), allow compilation without

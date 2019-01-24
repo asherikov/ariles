@@ -1,0 +1,20 @@
+language: cpp
+
+notifications:
+    email:
+        recipients:
+            - asherikov@yandex.com
+        on_success: always
+        on_failure: always
+
+jobs:
+    include:
+
+      - os: linux
+        dist: trusty
+        sudo: required
+
+        script:
+          - make build
+          - sudo make install
+          - make test
