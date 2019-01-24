@@ -1,0 +1,11 @@
+set (cmakeut_VERSION @PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@)
+
+@PACKAGE_INIT@
+
+set (cmakeut_LIBRARIES "")
+set (cmakeut_INCLUDE_DIRS "")
+set (cmakeut_LIBRARY_DIRS "")
+set (cmakeut_PATH "@CMAKEUT_INSTALL_PATH@/cmake")
+
+include(ExternalProject)
+include(CMakeParseArguments)
