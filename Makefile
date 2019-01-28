@@ -1,23 +1,23 @@
-BUILDDIR?=build
+BUILD_DIR?=build
 MAKE_FLAGS?=-j1
 
 default:
 	@grep -v "^	" Makefile | grep -v "^$$"
 
 build: clean
-	mkdir -p ${BUILDDIR}
-	cd ${BUILDDIR}; cmake ..
-	cd ${BUILDDIR}; ${MAKE} ${MAKE_FLAGS}
+	mkdir -p ${BUILD_DIR}
+	cd ${BUILD_DIR}; cmake ..
+	cd ${BUILD_DIR}; ${MAKE} ${MAKE_FLAGS}
 
 install:
-	cd ${BUILDDIR}; ${MAKE} ${MAKE_FLAGS} install
+	cd ${BUILD_DIR}; ${MAKE} ${MAKE_FLAGS} install
 
 test: clean
-	mkdir -p ${BUILDDIR}/cmake_dependency_test
-	cd ${BUILDDIR}/cmake_dependency_test; cmake ../../test/cmake_dependency/
-	cd ${BUILDDIR}/cmake_dependency_test; ${MAKE} ${MAKE_FLAGS}
+	mkdir -p ${BUILD_DIR}/cmake_dependency_test
+	cd ${BUILD_DIR}/cmake_dependency_test; cmake ../../test/cmake_dependency/
+	cd ${BUILD_DIR}/cmake_dependency_test; ${MAKE} ${MAKE_FLAGS}
 
 clean:
-	rm -Rf ${BUILDDIR}
+	rm -Rf ${BUILD_DIR}
 
 .PHONY: build
