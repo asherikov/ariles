@@ -4,9 +4,9 @@ if (${INDEX} GREATER -1)
 endif()
 
 
-#ariles_copy_file_if_exists( TGT_ariles_copy_headers                             "bridge_yaml_cpp03_h"
+#cmakeut_copy_file_if_exists( TGT_ariles_copy_headers                             "bridge_yaml_cpp03_h"
 #                            "${${ARILES_BRIDGE}_INTERFACE_DIR}/yaml_cpp03.h"    "${ARILES_BRIDGE_INCLUDE_DIR}/")
-ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                             "bridge_yaml_cpp03_dir"
+cmakeut_copy_dir_if_exists(  TGT_ariles_copy_headers                             "bridge_yaml_cpp03_dir"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/yaml_cpp03"      "${ARILES_BRIDGE_INCLUDE_DIR}/yaml_cpp03")
 #add_dependencies("TGT_ariles_copy_headers_bridge_yaml_cpp03_h" "TGT_ariles_copy_headers_bridge_yaml_cpp03_dir")
 #add_dependencies("TGT_ariles_copy_headers_bridge_yaml_cpp03_h" "TGT_ariles_copy_headers_ariles")
@@ -32,7 +32,7 @@ if(NOT ARILES_DEB_TARGETS)
                 "-DCMAKE_C_FLAGS=${YAMLCPP03_CXX_FLAGS}")
         endif(ARILES_COPY_CXX_FLAGS_TO_C_FLAGS)
 
-        ariles_add_external_git_project(TARGET_NAME "${TGT_YAMLCPP03}"
+        cmakeut_add_external_git_project(TARGET_NAME "${TGT_YAMLCPP03}"
                                         PROJECT_DIR "${YAMLCPP03_SOURCE_DIR}"
                                         CMAKE_ARGS   ${YAMLCPP03_ARGS})
 

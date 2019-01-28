@@ -1,4 +1,4 @@
-function(ariles_dump_variables)
+function(cmakeut_dump_variables)
 
     get_cmake_property(VARNAMES VARIABLES)
 
@@ -6,4 +6,4 @@ function(ariles_dump_variables)
         message(STATUS "${VARNAME}=${${VARNAME}}")
     endforeach()
 
-endfunction(ariles_dump_variables)
+endfunction(cmakeut_dump_variables)

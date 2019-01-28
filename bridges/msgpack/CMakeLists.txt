@@ -1,6 +1,6 @@
-ariles_copy_file_if_exists( TGT_ariles_copy_headers                         "bridge_msgpack_h"
+cmakeut_copy_file_if_exists( TGT_ariles_copy_headers                         "bridge_msgpack_h"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/msgpack.h"   "${ARILES_BRIDGE_INCLUDE_DIR}/")
-ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                         "bridge_msgpack_dir"
+cmakeut_copy_dir_if_exists(  TGT_ariles_copy_headers                         "bridge_msgpack_dir"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/msgpack"     "${ARILES_BRIDGE_INCLUDE_DIR}/msgpack")
 add_dependencies("TGT_ariles_copy_headers_bridge_msgpack_h" "TGT_ariles_copy_headers_bridge_msgpack_dir")
 add_dependencies("TGT_ariles_copy_headers_bridge_msgpack_h" "TGT_ariles_copy_headers_ariles")
@@ -32,7 +32,7 @@ if(NOT ARILES_DEB_TARGETS)
                 "-DCMAKE_C_FLAGS=${MESSAGEPACK_CXX_FLAGS}")
         endif(ARILES_COPY_CXX_FLAGS_TO_C_FLAGS)
 
-        ariles_add_external_git_project(TARGET_NAME "${TGT_MESSAGEPACK}"
+        cmakeut_add_external_git_project(TARGET_NAME "${TGT_MESSAGEPACK}"
                                         PROJECT_DIR "${MESSAGEPACK_SOURCE_DIR}"
                                         CMAKE_ARGS   ${MESSAGEPACK_ARGS})
 

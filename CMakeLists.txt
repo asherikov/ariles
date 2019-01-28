@@ -16,14 +16,15 @@ include(CMakePackageConfigHelpers)
 
 set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
-include(ariles_copy_dir_if_exists)
-include(ariles_copy_file_if_exists)
-include(ariles_add_external_git_project)
-include(ariles_list_filenames)
-include(ariles_dump_variables)
+include(cmakeut_copy_dir_if_exists)
+include(cmakeut_copy_file_if_exists)
+include(cmakeut_add_external_git_project)
+include(cmakeut_list_filenames)
+include(cmakeut_dump_variables)
+include(cmakeut_compiler_flags)
 
-include (ariles_detect_func_macro)
-ariles_detect_func_macro()
+include (cmakeut_detect_func_macro)
+cmakeut_detect_func_macro()
 
 
 
@@ -120,7 +121,7 @@ set(ARILES_BRIDGES_DIRS "${PROJECT_SOURCE_DIR}/bridges/")
 set(ARILES_BRIDGES "")
 set(ARILES_ENABLED_BRIDGES "")
 foreach (ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
-    ariles_list_filenames("${ARILES_BRIDGES_DIR}"  "ARILES_BRIDGES_TMP" DIRS_WITH_CMAKELISTS)
+    cmakeut_list_filenames("${ARILES_BRIDGES_DIR}"  "ARILES_BRIDGES_TMP" DIRS_WITH_CMAKELISTS)
     list(APPEND ARILES_BRIDGES ${ARILES_BRIDGES_TMP})
 
     foreach(ARILES_BRIDGE ${ARILES_BRIDGES_TMP})
@@ -236,11 +237,11 @@ add_custom_target( TGT_ariles_copy_headers ALL )
 
 # core & adapters headers are installed only in MIX or CORE mode.
 if (${ARILES_ENABLE_CORE})
-    ariles_copy_dir_if_exists(TGT_ariles_copy_headers          "ariles"
+    cmakeut_copy_dir_if_exists(TGT_ariles_copy_headers          "ariles"
                               "${PROJECT_SOURCE_DIR}/include"  "${ARILES_INCLUDE_DIR}/core/")
 
     foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
-        ariles_copy_dir_if_exists(
+        cmakeut_copy_dir_if_exists(
             TGT_ariles_copy_headers                                         "adapter_${ARILES_EXTRA_ADAPTER}"
             "${PROJECT_SOURCE_DIR}/extra_adapters/${ARILES_EXTRA_ADAPTER}"  "${ARILES_INCLUDE_DIR}/core/ariles/adapters/")
     endforeach()
@@ -324,7 +325,7 @@ endif(CMAKE_TOOLCHAIN_FILE)
 
 # bridges
 foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
-    ariles_list_filenames("${ARILES_BRIDGES_DIR}"   "ARILES_BRIDGES_TMP" DIRS_WITH_CMAKELISTS)
+    cmakeut_list_filenames("${ARILES_BRIDGES_DIR}"   "ARILES_BRIDGES_TMP" DIRS_WITH_CMAKELISTS)
 
     foreach(ARILES_BRIDGE ${ARILES_BRIDGES_TMP})
         if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
@@ -356,10 +357,8 @@ endforeach(ARILES_BRIDGES_DIR)
 ## Variables / options for ariles
 #####################################
 
-
-set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -fPIC -pedantic -Wall ${ARILES_CXX_FLAGS}")
-set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -Wall -Wextra")
-set (CMAKE_CXX_FLAGS            "${CMAKE_CXX_FLAGS} -std=${ARILES_CPP_STANDARD}")
+cmakeut_compiler_flags("${ARILES_CPP_STANDARD}")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKEUT_CXX_FLAGS}")
 
 
 #####################################
@@ -402,9 +401,9 @@ if (${ARILES_ENABLE_CORE})
     set(ARILES_BUILD_CONFIG
 "#pragma once
 // __func__ ?
-#cmakedefine ARILES_COMPILER_SUPPORTS_FUNC_
+#cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNC_
 // __FUNCTION__ ?
-#cmakedefine ARILES_COMPILER_SUPPORTS_FUNCTION_\n
+#cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNCTION_\n
 #cmakedefine ARILES_DEFAULT_FLOAT_VALUE ${ARILES_DEFAULT_FLOAT_VALUE}\n
 #cmakedefine ARILES_DEFAULT_DOUBLE_VALUE ${ARILES_DEFAULT_DOUBLE_VALUE}\n")
 

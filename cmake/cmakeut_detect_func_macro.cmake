@@ -1,4 +1,4 @@
-function(ariles_detect_func_macro)
+function(cmakeut_detect_func_macro)
     include (CheckCXXSourceCompiles)
 
     CHECK_CXX_SOURCE_COMPILES("
@@ -8,7 +8,7 @@ function(ariles_detect_func_macro)
             std::cout << __func__ << std::endl;
             return 0;
         }"
-        ARILES_COMPILER_SUPPORTS_FUNC_)
+        CMAKEUT_COMPILER_SUPPORTS_FUNC_)
 
     CHECK_CXX_SOURCE_COMPILES("
         #include <iostream>
@@ -17,5 +17,5 @@ function(ariles_detect_func_macro)
             std::cout << __FUNCTION__ << std::endl;
             return 0;
         }"
-        ARILES_COMPILER_SUPPORTS_FUNCTION_)
-endfunction(ariles_detect_func_macro)
+        CMAKEUT_COMPILER_SUPPORTS_FUNCTION_)
+endfunction()

@@ -1,4 +1,4 @@
-ariles_copy_file_if_exists( TGT_ariles_copy_headers                         "bridge_jsonnet_h"
+cmakeut_copy_file_if_exists( TGT_ariles_copy_headers                         "bridge_jsonnet_h"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/jsonnet.h"   "${ARILES_BRIDGE_INCLUDE_DIR}/")
 add_dependencies("TGT_ariles_copy_headers_bridge_jsonnet_h" "TGT_ariles_copy_headers_ariles")
 
@@ -23,7 +23,7 @@ if(NOT ARILES_DEB_TARGETS)
                 "-DCMAKE_C_FLAGS=${JSONNET_CXX_FLAGS}")
         endif(ARILES_COPY_CXX_FLAGS_TO_C_FLAGS)
 
-        ariles_add_external_git_project(TARGET_NAME "${TGT_JSONNET}"
+        cmakeut_add_external_git_project(TARGET_NAME "${TGT_JSONNET}"
                                         PROJECT_DIR "${JSONNET_SOURCE_DIR}"
                                         CMAKE_ARGS   ${JSONNET_ARGS})
 

@@ -3,15 +3,15 @@
 # This is equivalent to 'file(GLOB ... RELATIVE ... ...)', but behaves more
 # consistently with different versions of cmake.
 #
-function(ariles_list_filenames  DIR     LISTNAME)
+function(cmakeut_list_filenames  DIR     LISTNAME)
     set(options DIRS_WITH_CMAKELISTS)
-    cmake_parse_arguments("ARILES" "${options}" "" "" ${ARGN})
+    cmake_parse_arguments("CMAKEUT" "${options}" "" "" ${ARGN})
 
     file(GLOB FILENAMES_TMP "${DIR}/*")
 
     set (FILENAMES "")
     foreach(FILENAME_TMP ${FILENAMES_TMP})
-        if(ARILES_DIRS_WITH_CMAKELISTS)
+        if(CMAKEUT_DIRS_WITH_CMAKELISTS)
             if (NOT EXISTS "${FILENAME_TMP}/CMakeLists.txt")
                 continue()
             endif()

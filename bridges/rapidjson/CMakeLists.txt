@@ -1,6 +1,6 @@
-ariles_copy_file_if_exists( TGT_ariles_copy_headers                             "bridge_rapidjson_h"
+cmakeut_copy_file_if_exists( TGT_ariles_copy_headers                             "bridge_rapidjson_h"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/rapidjson.h"     "${ARILES_BRIDGE_INCLUDE_DIR}/")
-ariles_copy_dir_if_exists(  TGT_ariles_copy_headers                             "bridge_rapidjson_dir"
+cmakeut_copy_dir_if_exists(  TGT_ariles_copy_headers                             "bridge_rapidjson_dir"
                             "${${ARILES_BRIDGE}_INTERFACE_DIR}/rapidjson"       "${ARILES_BRIDGE_INCLUDE_DIR}/rapidjson")
 add_dependencies("TGT_ariles_copy_headers_bridge_rapidjson_h" "TGT_ariles_copy_headers_bridge_rapidjson_dir")
 add_dependencies("TGT_ariles_copy_headers_bridge_rapidjson_h" "TGT_ariles_copy_headers_ariles")
@@ -29,7 +29,7 @@ if(NOT ARILES_DEB_TARGETS)
                 "-DCMAKE_C_FLAGS=${RAPIDJSON_CXX_FLAGS}")
         endif(ARILES_COPY_CXX_FLAGS_TO_C_FLAGS)
 
-        ariles_add_external_git_project(TARGET_NAME "${TGT_RAPIDJSON}"
+        cmakeut_add_external_git_project(TARGET_NAME "${TGT_RAPIDJSON}"
                                         PROJECT_DIR "${RAPIDJSON_SOURCE_DIR}"
                                         CMAKE_ARGS   ${RAPIDJSON_ARGS})
 
