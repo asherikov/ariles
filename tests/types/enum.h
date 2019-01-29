@@ -24,7 +24,7 @@ enum SomeEnum
     public:                                     \
         Enum() : _value(0) { }
 
-#include "better_enums.h"
+#include "better_enum.h"
 
 BETTER_ENUM(BetterEnum, int, UNDEFINED = 0, DEFINED_1, DEFINED_2)
 

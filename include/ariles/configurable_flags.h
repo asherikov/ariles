@@ -13,7 +13,7 @@
 
 namespace ariles
 {
-    class ConfigurableFlags : public Flags<ConfigurableFlags>
+    class ConfigurableFlags : public cpput::Flags<ConfigurableFlags>
     {
         public:
             enum Flags
@@ -41,7 +41,7 @@ namespace ariles
             }
 
 
-            ConfigurableFlags(const int flags, const Action action_type = REPLACE)
+            ConfigurableFlags(const unsigned int flags, const Action action_type = REPLACE)
             {
                 initialize(flags, action_type);
             }

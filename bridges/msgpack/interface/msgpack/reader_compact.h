@@ -61,7 +61,7 @@ namespace ariles
                             }
                             catch(const std::exception &e)
                             {
-                                ARILES_THROW_MSG(std::string("Failed to parse the configuration file: ") + e.what());
+                                CPPUT_THROW(std::string("Failed to parse the configuration file: ") + e.what());
                             }
                         }
 
@@ -130,7 +130,7 @@ namespace ariles
 
                         void endMap()
                         {
-                            ARILES_ASSERT(
+                            CPPUT_ASSERT(
                                     true == node_stack_.back().isAllParsed(),
                                     "Some entries were not parsed, which is not allowed by this bridge.");
                             node_stack_.pop_back();
@@ -163,9 +163,9 @@ namespace ariles
 
                         void shiftArray()
                         {
-                            ARILES_ASSERT(true == node_stack_.back().isArray(),
+                            CPPUT_ASSERT(true == node_stack_.back().isArray(),
                                           "Internal error: expected array.");
-                            ARILES_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
+                            CPPUT_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
                                           "Internal error: array has more elements than expected.");
                             ++node_stack_.back().index_;
                         }
@@ -177,7 +177,7 @@ namespace ariles
                                 getRawNode() >> element; \
                             }
 
-                        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+                        CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
                         #undef ARILES_BASIC_TYPE
                 };

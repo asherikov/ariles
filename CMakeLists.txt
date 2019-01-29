@@ -338,7 +338,7 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
             include("${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/CMakeLists.txt")
 
             if (ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES)
-                include_directories("${ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES}")
+                include_directories(SYSTEM "${ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES}")
             endif()
 
             if (ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS)

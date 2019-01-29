@@ -76,9 +76,9 @@ namespace ariles
 
                     void shiftArray()
                     {
-                        ARILES_ASSERT(true == node_stack_.back().isArray(),
+                        CPPUT_ASSERT(true == node_stack_.back().isArray(),
                                       "Internal error: expected array.");
-                        ARILES_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
+                        CPPUT_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
                                       "Internal error: array has more elements than expected.");
                         ++node_stack_.back().index_;
                     }
@@ -108,7 +108,7 @@ namespace ariles
                             getRawNode() = element; \
                         }
 
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+                    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
 
@@ -117,13 +117,13 @@ namespace ariles
                     #define ARILES_BASIC_TYPE(type) \
                             void writeElement(const type & element) \
                             { \
-                                ARILES_ASSERT(element <= std::numeric_limits<int>::max() \
+                                CPPUT_ASSERT(element <= std::numeric_limits<int>::max() \
                                               && element >= std::numeric_limits<int>::min(), \
                                               "Value is out of range."); \
                                 getRawNode() = static_cast<int>(element); \
                             }
 
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
+                    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
 
@@ -131,12 +131,12 @@ namespace ariles
                     #define ARILES_BASIC_TYPE(type) \
                             void writeElement(const type & element) \
                             { \
-                                ARILES_ASSERT(element <= std::numeric_limits<int>::max(), \
+                                CPPUT_ASSERT(element <= std::numeric_limits<int>::max(), \
                                               "Value is too large."); \
                                 getRawNode() = static_cast<int>(element); \
                             }
 
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+                    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
             };

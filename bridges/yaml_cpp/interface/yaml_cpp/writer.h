@@ -135,7 +135,7 @@ namespace ariles
                                 *emitter_ << element; \
                             }
 
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_INTEGER_TYPES_LIST)
+                    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_INTEGER_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
 
@@ -143,13 +143,13 @@ namespace ariles
                     #define ARILES_BASIC_TYPE(type) \
                             void writeElement(const type & element) \
                             { \
-                                if (true == isNaN(element)) \
+                                if (true == cpput::isNaN(element)) \
                                 { \
                                     *emitter_ << ".nan"; \
                                 } \
                                 else \
                                 { \
-                                    if (true == isInfinity(element)) \
+                                    if (true == cpput::isInfinity(element)) \
                                     { \
                                         if (element < 0.0) \
                                         { \
@@ -167,7 +167,7 @@ namespace ariles
                                 } \
                             }
 
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+                    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
 

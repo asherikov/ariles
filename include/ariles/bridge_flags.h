@@ -12,7 +12,7 @@
 
 namespace ariles
 {
-    class BridgeFlags : public Flags<BridgeFlags>
+    class BridgeFlags : public cpput::Flags<BridgeFlags>
     {
         public:
             enum Flags
@@ -32,7 +32,7 @@ namespace ariles
                 setDefaults();
             }
 
-            BridgeFlags(const int flags, const Action action_type = REPLACE)
+            BridgeFlags(const unsigned int flags, const Action action_type = REPLACE)
             {
                 initialize(flags, action_type);
             }

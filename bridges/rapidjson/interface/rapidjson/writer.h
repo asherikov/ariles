@@ -103,9 +103,9 @@ namespace ariles
 
                     void shiftArray()
                     {
-                        ARILES_ASSERT(true == node_stack_.back().isArray(),
+                        CPPUT_ASSERT(true == node_stack_.back().isArray(),
                                       "Internal error: expected array.");
-                        ARILES_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
+                        CPPUT_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
                                       "Internal error: array has more elements than expected.");
                         ++node_stack_.back().index_;
                     }
@@ -139,7 +139,7 @@ namespace ariles
                             getRawNode().SetString(boost::lexical_cast<std::string>(element).c_str(), document_.GetAllocator()); \
                         }
 
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+                    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
 
@@ -150,7 +150,7 @@ namespace ariles
                             getRawNode().SetInt64(element); \
                         }
 
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
+                    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
 
@@ -161,7 +161,7 @@ namespace ariles
                             getRawNode().SetUint64(element); \
                         }
 
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+                    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
             };

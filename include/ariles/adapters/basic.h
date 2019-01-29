@@ -59,11 +59,11 @@ namespace ariles
                                 type &entry, \
                                 const t_Flags & param) \
             { \
-                ARILES_IGNORE_UNUSED(param);\
+                CPPUT_UNUSED_ARG(param);\
                 reader.readElement(entry);\
             }
 
-    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
     #undef ARILES_BASIC_TYPE
 
@@ -86,20 +86,18 @@ namespace ariles
             }
             catch(const std::exception &e)
             {
-                ARILES_THROW_MSG(   std::string("Failed to parse entry <")
-                                    + entry_name
-                                    + "> ||  "
-                                    + e.what());
+                CPPUT_THROW(std::string("Failed to parse entry <")
+                            + entry_name
+                            + "> ||  "
+                            + e.what());
             }
 
             reader.ascend();
         }
         else
         {
-            if (false == param.isSet(ConfigurableFlags::ALLOW_MISSING_ENTRIES))
-            {
-                ARILES_THROW_MSG(std::string("Configuration file does not contain entry '") + entry_name + "'.");
-            }
+            CPPUT_PERSISTENT_ASSERT(true == param.isSet(ConfigurableFlags::ALLOW_MISSING_ENTRIES),
+                                 std::string("Configuration file does not contain entry '") + entry_name + "'.");
         }
     }
 
@@ -142,14 +140,14 @@ namespace ariles
                                 const type & entry, \
                                 const t_Flags & param) \
             {\
-                ARILES_IGNORE_UNUSED(param); \
+                CPPUT_UNUSED_ARG(param); \
                 writer.writeElement(entry);\
             }
 
     /**
      * @brief Generate writeBody methods for basic types.
      */
-    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
     #undef ARILES_BASIC_TYPE
 
@@ -214,7 +212,7 @@ namespace ariles
     /**
      * @brief Generate setDefaults methods for basic types.
      */
-    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_INTEGER_TYPES_LIST)
+    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_INTEGER_TYPES_LIST)
 
     #undef ARILES_BASIC_TYPE
 

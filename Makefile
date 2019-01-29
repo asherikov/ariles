@@ -183,6 +183,12 @@ updateutils:
 	git show remotes/cmakeut/master:cmake/cmakeut_detect_func_macro.cmake           > cmake/cmakeut_detect_func_macro.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_dump_variables.cmake              > cmake/cmakeut_dump_variables.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_list_filenames.cmake              > cmake/cmakeut_list_filenames.cmake
+	git show remotes/cpput/master:include/cpput/better_enum.h           > tests/types/better_enum.h
+	git show remotes/cpput/master:include/cpput/exception.h             > include/ariles/internal/cpput/exception.h
+	git show remotes/cpput/master:include/cpput/floating_point_utils.h  > include/ariles/internal/cpput/floating_point_utils.h
+	git show remotes/cpput/master:include/cpput/visibility.h            > include/ariles/internal/cpput/visibility.h
+	git show remotes/cpput/master:include/cpput/misc.h                  > include/ariles/internal/cpput/misc.h
+	git show remotes/cpput/master:include/cpput/flags.h                 > include/ariles/internal/cpput/flags.h
 
 
 update:

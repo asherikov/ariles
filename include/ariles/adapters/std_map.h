@@ -57,7 +57,7 @@ namespace ariles
                 && param.isSet(ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED))
         {
             std::vector<std::string> entry_names;
-            ARILES_ASSERT(true == reader.getMapEntryNames(entry_names), "Could not read names of map entries.");
+            CPPUT_ASSERT(true == reader.getMapEntryNames(entry_names), "Could not read names of map entries.");
             ariles::ConfigurableFlags param_local = param;
             param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
             entry.clear();

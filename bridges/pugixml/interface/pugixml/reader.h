@@ -48,7 +48,7 @@ namespace ariles
                         pugi::xml_parse_result result = document_.load_file(
                                 file_name.c_str(),
                                 pugi::parse_minimal);
-                        ARILES_ASSERT(true == result, std::string("Parsing failed: ") + result.description());
+                        CPPUT_ASSERT(true == result, std::string("Parsing failed: ") + result.description());
                         node_stack_.push_back(document_);
                     }
 
@@ -63,7 +63,7 @@ namespace ariles
                         pugi::xml_parse_result result = document_.load(
                                 input_stream,
                                 pugi::parse_minimal);
-                        ARILES_ASSERT(true == result, std::string("Parsing failed: ") + result.description());
+                        CPPUT_ASSERT(true == result, std::string("Parsing failed: ") + result.description());
                         node_stack_.push_back(document_);
                     }
 
@@ -129,9 +129,9 @@ namespace ariles
 
                     void shiftArray()
                     {
-                        ARILES_ASSERT(true == node_stack_.back().isArray(),
+                        CPPUT_ASSERT(true == node_stack_.back().isArray(),
                                       "Internal error: expected array.");
-                        ARILES_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
+                        CPPUT_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
                                       "Internal error: array has more elements than expected.");
                         node_stack_.back().node_ = getRawNode().next_sibling("item");
                         ++node_stack_.back().index_;
@@ -153,12 +153,12 @@ namespace ariles
                     #define ARILES_BASIC_TYPE(type) \
                         void readElement(type &element) \
                         { \
-                            ARILES_ASSERT(false == getRawNode().text().empty(), \
+                            CPPUT_ASSERT(false == getRawNode().text().empty(), \
                                         "Empty integer elements are not allowed."); \
                             element = boost::lexical_cast<type>(getRawNode().text().as_string()); \
                         }
 
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
+                    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
             };

@@ -30,10 +30,8 @@ namespace ariles
             {
                 config_ofs.open(file_name.c_str());
 
-                if (!config_ofs.good())
-                {
-                    ARILES_THROW_MSG(std::string("Could not open configuration file for writing: ") +  file_name.c_str());
-                }
+                CPPUT_PERSISTENT_ASSERT(   true == config_ofs.good(), 
+                                        std::string("Could not open configuration file for writing: ") + file_name.c_str());
             }
 
 
@@ -56,7 +54,7 @@ namespace ariles
              *
              * @param[in] map_name name of the map
              */
-            virtual void descend(const std::string &map_name) {ARILES_IGNORE_UNUSED(map_name)}
+            virtual void descend(const std::string &map_name) {CPPUT_UNUSED_ARG(map_name)}
             virtual void ascend() {}
 
 
@@ -65,7 +63,7 @@ namespace ariles
              *
              * @param[in] num_entries number of child entries
              */
-            virtual void startMap(const std::size_t num_entries) {ARILES_IGNORE_UNUSED(num_entries)}
+            virtual void startMap(const std::size_t num_entries) {CPPUT_UNUSED_ARG(num_entries)}
 
             /**
              * @brief Ends a nested map in the configuration file
@@ -77,7 +75,7 @@ namespace ariles
             virtual void shiftArray() {}
             virtual void endArray() {}
 
-            virtual void startMatrix(const bool compact = false) {ARILES_IGNORE_UNUSED(compact)}
+            virtual void startMatrix(const bool compact = false) {CPPUT_UNUSED_ARG(compact)}
             virtual void startMatrixRow() {}
             virtual void endMatrixRow() {}
             virtual void endMatrix() {}
@@ -86,7 +84,7 @@ namespace ariles
             #define ARILES_BASIC_TYPE(type) \
                     virtual void writeElement(const type &entry) = 0;
 
-            ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+            CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
             #undef ARILES_BASIC_TYPE
     };
