@@ -19,6 +19,9 @@ cmake modules:
     - cmakeut_detect_func_macro
       detect __func__ and __FUNCTION__
 
+    - cmakeut_add_cpp_test
+      cmake test wrapper
+
     - third party
         - FindEigen3.cmake
           find Eigen headers, copied from Eigen distribution

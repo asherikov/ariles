@@ -7,7 +7,9 @@ set(PROJECT_VERSION_PATCH 0)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 include(CMakePackageConfigHelpers)
+include(${PROJECT_SOURCE_DIR}/all.cmake)
 
 set(CMAKEUT_INSTALL_PATH "${CMAKE_INSTALL_PREFIX}/share/cmakeut/")
 

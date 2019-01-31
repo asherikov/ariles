@@ -17,6 +17,11 @@ test: clean
 	cd ${BUILD_DIR}/cmake_dependency_test; cmake ../../test/cmake_dependency/
 	cd ${BUILD_DIR}/cmake_dependency_test; ${MAKE} ${MAKE_FLAGS}
 
+allscript:
+	@ls cmake/*.cmake | sed "s=cmake/=include(=" | sed "s=\.cmake=)=" > all.cmake
+	@cat all.cmake
+
+
 clean:
 	rm -Rf ${BUILD_DIR}
 
