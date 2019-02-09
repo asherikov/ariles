@@ -2,8 +2,10 @@ cmake_minimum_required (VERSION 2.8.12)
 project (cmakeut)
 
 
-if (DEFINED ENV{ROS_ROOT})
-    message(STATUS "ROS found: $ENV{ROS_ROOT}")
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
+if (CATKIN_DEVEL_PREFIX)
+    message(STATUS "Building with catkin.")
     find_package(catkin REQUIRED)
     catkin_package()
     set(CMAKEUT_INSTALL_PATH "${CATKIN_PACKAGE_SHARE_DESTINATION}")
@@ -11,8 +13,6 @@ else ()
     set(PROJECT_VERSION_MAJOR 1)
     set(PROJECT_VERSION_MINOR 0)
     set(PROJECT_VERSION_PATCH 0)
-
-    set(CMAKE_VERBOSE_MAKEFILE ON)
 
     list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
     include(CMakePackageConfigHelpers)
