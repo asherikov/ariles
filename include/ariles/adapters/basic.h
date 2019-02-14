@@ -59,11 +59,11 @@ namespace ariles
                                 type &entry, \
                                 const t_Flags & param) \
             { \
-                CPPUT_UNUSED_ARG(param);\
+                ARILES_UNUSED_ARG(param);\
                 reader.readElement(entry);\
             }
 
-    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
     #undef ARILES_BASIC_TYPE
 
@@ -86,7 +86,7 @@ namespace ariles
             }
             catch(const std::exception &e)
             {
-                CPPUT_THROW(std::string("Failed to parse entry <")
+                ARILES_THROW(std::string("Failed to parse entry <")
                             + entry_name
                             + "> ||  "
                             + e.what());
@@ -96,7 +96,7 @@ namespace ariles
         }
         else
         {
-            CPPUT_PERSISTENT_ASSERT(true == param.isSet(ConfigurableFlags::ALLOW_MISSING_ENTRIES),
+            ARILES_PERSISTENT_ASSERT(true == param.isSet(ConfigurableFlags::ALLOW_MISSING_ENTRIES),
                                  std::string("Configuration file does not contain entry '") + entry_name + "'.");
         }
     }
@@ -140,14 +140,14 @@ namespace ariles
                                 const type & entry, \
                                 const t_Flags & param) \
             {\
-                CPPUT_UNUSED_ARG(param); \
+                ARILES_UNUSED_ARG(param); \
                 writer.writeElement(entry);\
             }
 
     /**
      * @brief Generate writeBody methods for basic types.
      */
-    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
     #undef ARILES_BASIC_TYPE
 
@@ -212,7 +212,7 @@ namespace ariles
     /**
      * @brief Generate setDefaults methods for basic types.
      */
-    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_INTEGER_TYPES_LIST)
+    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_INTEGER_TYPES_LIST)
 
     #undef ARILES_BASIC_TYPE
 

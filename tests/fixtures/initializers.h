@@ -68,7 +68,7 @@ namespace initializers
                     input_file_stream_.close();
                 }
                 input_file_stream_.open(string_id.c_str());
-                CPPUT_PERSISTENT_ASSERT(   true == input_file_stream_.good(), 
+                ARILES_PERSISTENT_ASSERT(   true == input_file_stream_.good(),
                                         "Could not open file.");
                 return (input_file_stream_);
             }
@@ -80,7 +80,7 @@ namespace initializers
                     output_file_stream_.close();
                 }
                 output_file_stream_.open(string_id.c_str());
-                CPPUT_PERSISTENT_ASSERT(   true == output_file_stream_.good(), 
+                ARILES_PERSISTENT_ASSERT(   true == output_file_stream_.good(),
                                         "Could not open file.");
                 return (output_file_stream_);
             }
@@ -112,13 +112,13 @@ namespace initializers
                 switch (pid_)
                 {
                     case -1: // fail
-                        CPPUT_THROW("fork() failed");
+                        ARILES_THROW("fork() failed");
                         break;
 
                     case 0: // child
                         //close(STDOUT_FILENO);
                         execlp("roscore", "roscore", (char  *) NULL);
-                        CPPUT_THROW("execve() failed");
+                        ARILES_THROW("execve() failed");
                         break;
 
                     default: // parent
@@ -143,7 +143,7 @@ namespace initializers
 
                 if (pid_ > 0)
                 {
-                    CPPUT_ASSERT(0 == kill(pid_, 0), "roscore has died.");
+                    ARILES_ASSERT(0 == kill(pid_, 0), "roscore has died.");
 
                     sighandler_t sig_handler = signal(SIGCHLD, SIG_IGN);
                     kill(pid_, SIGINT);

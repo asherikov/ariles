@@ -134,7 +134,7 @@ namespace ariles
 
                     virtual void shiftArray()
                     {
-                        CPPUT_ASSERT(true == node_stack_.back().isArray(), "Internal error: array expected.");
+                        ARILES_ASSERT(true == node_stack_.back().isArray(), "Internal error: array expected.");
                         ++node_stack_.back().index_;
                     }
 
@@ -210,7 +210,7 @@ namespace ariles
                                 } \
                             }
 
-                    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
 

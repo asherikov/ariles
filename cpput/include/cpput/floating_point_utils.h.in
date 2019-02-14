@@ -10,13 +10,13 @@
 */
 
 
-#ifndef H_CPPUT_FP_UTILS
-#define H_CPPUT_FP_UTILS
+#ifndef H_@CPPUT_ID@_FP_UTILS
+#define H_@CPPUT_ID@_FP_UTILS
 
 #include <stdint.h>
 #include <string.h>
 
-namespace cpput
+namespace @CPPUT_ID_LOWER_CASE@
 {
     inline int isNaN(double value)
     {
@@ -48,6 +48,6 @@ namespace cpput
         memcpy(&raw, &value, sizeof(float));
         return ((raw & 0x7fffffff) == 0x7f800000);
     }
-}  // namespace cpput
+}  // namespace @CPPUT_ID_LOWER_CASE@
 
 #endif

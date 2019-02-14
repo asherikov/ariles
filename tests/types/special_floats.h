@@ -83,17 +83,17 @@ void check(class ConfigurableSpecialFloats & configurable)
 {
     BOOST_CHECK(true == configurable.finalized_);
 
-    BOOST_CHECK(true == cpput::isNaN(configurable.double_quiet_nan_));
-    BOOST_CHECK(true == cpput::isNaN(configurable.double_signaling_nan_));
-    BOOST_CHECK(true == cpput::isInfinity(configurable.double_positive_infinity_));
-    BOOST_CHECK(true == cpput::isInfinity(configurable.double_negative_infinity_));
+    BOOST_CHECK(true == ariles::isNaN(configurable.double_quiet_nan_));
+    BOOST_CHECK(true == ariles::isNaN(configurable.double_signaling_nan_));
+    BOOST_CHECK(true == ariles::isInfinity(configurable.double_positive_infinity_));
+    BOOST_CHECK(true == ariles::isInfinity(configurable.double_negative_infinity_));
     BOOST_CHECK(configurable.double_positive_infinity_ > 0.0);
     BOOST_CHECK(configurable.double_negative_infinity_ < 0.0);
 
-    BOOST_CHECK(true == cpput::isNaN(configurable.double_quiet_nan_));
-    BOOST_CHECK(true == cpput::isNaN(configurable.double_signaling_nan_));
-    BOOST_CHECK(true == cpput::isInfinity(configurable.double_positive_infinity_));
-    BOOST_CHECK(true == cpput::isInfinity(configurable.double_negative_infinity_));
+    BOOST_CHECK(true == ariles::isNaN(configurable.double_quiet_nan_));
+    BOOST_CHECK(true == ariles::isNaN(configurable.double_signaling_nan_));
+    BOOST_CHECK(true == ariles::isInfinity(configurable.double_positive_infinity_));
+    BOOST_CHECK(true == ariles::isInfinity(configurable.double_negative_infinity_));
     BOOST_CHECK(configurable.double_positive_infinity_ > 0.0);
     BOOST_CHECK(configurable.double_negative_infinity_ < 0.0);
 }

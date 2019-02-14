@@ -97,7 +97,7 @@ namespace ariles
 
                     void startArray(const std::size_t size, const bool /*compact*/ = false)
                     {
-                        CPPUT_ASSERT(size <= std::numeric_limits<uint32_t>::max(), "Vector is too long.");
+                        ARILES_ASSERT(size <= std::numeric_limits<uint32_t>::max(), "Vector is too long.");
 
                         packer_->pack_array(size);
                     }
@@ -109,7 +109,7 @@ namespace ariles
                             packer_->pack(element); \
                         }
 
-                    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
             };

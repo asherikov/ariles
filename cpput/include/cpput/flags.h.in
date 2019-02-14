@@ -9,12 +9,10 @@
 
 #pragma once
 
-#ifndef H_CPPUT_FLAGS
-#define H_CPPUT_FLAGS
+#ifndef H_@CPPUT_ID@_FLAGS
+#define H_@CPPUT_ID@_FLAGS
 
-#include "exception.h"
-
-namespace cpput
+namespace @CPPUT_ID_LOWER_CASE@
 {
     template <class t_Derived>
     class Flags
@@ -53,7 +51,7 @@ namespace cpput
                     break;
 
                 default:
-                    CPPUT_THROW("Unknown Flags::Action type.");
+                    @CPPUT_ID@_THROW("Unknown Flags::Action type.");
             }
         }
 
@@ -83,6 +81,6 @@ namespace cpput
             flags_ &= !flags;
         }
     };
-}  // namespace cpput
+}  // namespace @CPPUT_ID_LOWER_CASE@
 
 #endif

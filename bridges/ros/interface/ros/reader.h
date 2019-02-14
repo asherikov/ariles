@@ -33,7 +33,7 @@ namespace ariles
                         }
                         else
                         {
-                            CPPUT_PERSISTENT_ASSERT(true == expect_empty, "Expected struct.");
+                            ARILES_PERSISTENT_ASSERT(true == expect_empty, "Expected struct.");
                             return (0);
                         }
                     }
@@ -106,7 +106,7 @@ namespace ariles
 
                     std::size_t startArray()
                     {
-                        CPPUT_ASSERT(XmlRpc::XmlRpcValue::TypeArray == getRawNode().getType(), "Expected array.");
+                        ARILES_ASSERT(XmlRpc::XmlRpcValue::TypeArray == getRawNode().getType(), "Expected array.");
 
                         std::size_t size = getRawNode().size();
                         node_stack_.push_back(NodeWrapper(0, size));
@@ -117,9 +117,9 @@ namespace ariles
 
                     void shiftArray()
                     {
-                        CPPUT_ASSERT(true == node_stack_.back().isArray(),
+                        ARILES_ASSERT(true == node_stack_.back().isArray(),
                                       "Internal error: expected array.");
-                        CPPUT_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
+                        ARILES_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
                                       "Internal error: array has more elements than expected.");
                         ++node_stack_.back().index_;
                     }
@@ -134,16 +134,16 @@ namespace ariles
                     #define ARILES_BASIC_TYPE(type) \
                             void readElement(type &element) \
                             { \
-                                CPPUT_ASSERT(getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt,\
+                                ARILES_ASSERT(getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt,\
                                               "Integer type expected."); \
                                 int tmp_value = static_cast<int>(getRawNode()); \
-                                CPPUT_ASSERT(tmp_value <= std::numeric_limits<type>::max() \
+                                ARILES_ASSERT(tmp_value <= std::numeric_limits<type>::max() \
                                               && tmp_value >= std::numeric_limits<type>::min(), \
                                               "Value is out of range."); \
                                 element = static_cast<type>(tmp_value); \
                             }
 
-                    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
 
@@ -151,16 +151,16 @@ namespace ariles
                     #define ARILES_BASIC_TYPE(type) \
                             void readElement(type &element) \
                             { \
-                                CPPUT_ASSERT(getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt,\
+                                ARILES_ASSERT(getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt,\
                                               "Integer type expected."); \
                                 int tmp_value = static_cast<int>(getRawNode()); \
-                                CPPUT_ASSERT(tmp_value >= 0, "Expected positive value."); \
-                                CPPUT_ASSERT(static_cast<unsigned int>(tmp_value) <= std::numeric_limits<type>::max(), \
+                                ARILES_ASSERT(tmp_value >= 0, "Expected positive value."); \
+                                ARILES_ASSERT(static_cast<unsigned int>(tmp_value) <= std::numeric_limits<type>::max(), \
                                               "Value is too large."); \
                                 element = static_cast<type>(tmp_value); \
                             }
 
-                    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
 
@@ -180,12 +180,12 @@ namespace ariles
                                     element = static_cast<int>(getRawNode()); \
                                     break; \
                                 default: \
-                                    CPPUT_THROW("Could not convert value to type."); \
+                                    ARILES_THROW("Could not convert value to type."); \
                                     break; \
                             } \
                         }
 
-                    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
 
@@ -213,7 +213,7 @@ namespace ariles
                                 break;
 
                             default:
-                                CPPUT_THROW("Could not convert value to boolean.");
+                                ARILES_THROW("Could not convert value to boolean.");
                                 break;
                         }
                     }

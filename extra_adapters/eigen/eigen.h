@@ -33,7 +33,7 @@ namespace ariles
         }
         else
         {
-            CPPUT_ASSERT(  (static_cast<int>(size) == t_rows),
+            ARILES_ASSERT(  (static_cast<int>(size) == t_rows),
                             "Wrong entry size.");
         }
 
@@ -68,16 +68,16 @@ namespace ariles
 
             reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(3);
             readEntry(reader, num_cols, "cols", param_local);
-            CPPUT_ASSERT(Eigen::Dynamic == t_cols || t_cols == num_cols, "Wrong number of columns.");
+            ARILES_ASSERT(Eigen::Dynamic == t_cols || t_cols == num_cols, "Wrong number of columns.");
             readEntry(reader, num_rows, "rows", param_local);
-            CPPUT_ASSERT(Eigen::Dynamic == t_rows || t_rows == num_rows, "Wrong number of rows.");
+            ARILES_ASSERT(Eigen::Dynamic == t_rows || t_rows == num_rows, "Wrong number of rows.");
 
 
             Eigen::Matrix<t_Scalar, Eigen::Dynamic, 1> v;
             readEntry(reader, v, "data", param_local);
             reader.endMap();
 
-            CPPUT_ASSERT(v.rows() == num_rows*num_cols, "Wrong entry size.");
+            ARILES_ASSERT(v.rows() == num_rows*num_cols, "Wrong entry size.");
 
             Eigen::Map<
                 Eigen::Matrix<  t_Scalar,

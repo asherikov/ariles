@@ -13,7 +13,7 @@
 
 namespace ariles
 {
-    class ConfigurableFlags : public cpput::Flags<ConfigurableFlags>
+    class ConfigurableFlags : public ariles::Flags<ConfigurableFlags>
     {
         public:
             enum Flags

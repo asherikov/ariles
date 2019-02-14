@@ -27,7 +27,7 @@ namespace ariles
                     {
                         ariles::bridge::rapidjson::IStreamWrapper isw(input_stream);
                         document_.ParseStream(isw);
-                        CPPUT_ASSERT(false == document_.HasParseError(), "Parsing failed");
+                        ARILES_ASSERT(false == document_.HasParseError(), "Parsing failed");
                     }
 
 
@@ -126,9 +126,9 @@ namespace ariles
 
                     void shiftArray()
                     {
-                        CPPUT_ASSERT(true == node_stack_.back().isArray(),
+                        ARILES_ASSERT(true == node_stack_.back().isArray(),
                                       "Internal error: expected array.");
-                        CPPUT_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
+                        ARILES_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
                                       "Internal error: array has more elements than expected.");
                         ++node_stack_.back().index_;
                     }
@@ -159,12 +159,12 @@ namespace ariles
                             if (true == getRawNode().IsString()) \
                             { \
                                 tmp_value = boost::lexical_cast<double>(getRawNode().GetString()); \
-                                if (true == cpput::isNaN(tmp_value)) \
+                                if (true == ariles::isNaN(tmp_value)) \
                                 { \
                                     element = std::numeric_limits<type>::signaling_NaN(); \
                                     return; \
                                 } \
-                                if (true == cpput::isInfinity(tmp_value)) \
+                                if (true == ariles::isInfinity(tmp_value)) \
                                 { \
                                     element = static_cast<type>(tmp_value); \
                                     return; \
@@ -174,13 +174,13 @@ namespace ariles
                             { \
                                 tmp_value = getRawNode().GetDouble(); \
                             } \
-                            CPPUT_ASSERT(tmp_value <= std::numeric_limits<type>::max() \
+                            ARILES_ASSERT(tmp_value <= std::numeric_limits<type>::max() \
                                           && tmp_value >= -std::numeric_limits<type>::max(), \
                                           "Value is out of range."); \
                             element = static_cast<type>(tmp_value); \
                         }
 
-                    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
 
@@ -189,13 +189,13 @@ namespace ariles
                         void readElement(type &element) \
                         { \
                             int64_t tmp_value = getRawNode().GetInt64(); \
-                            CPPUT_ASSERT(tmp_value <= std::numeric_limits<type>::max() \
+                            ARILES_ASSERT(tmp_value <= std::numeric_limits<type>::max() \
                                           && tmp_value >= std::numeric_limits<type>::min(), \
                                           "Value is out of range."); \
                             element = static_cast<type>(tmp_value); \
                         }
 
-                    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
 
@@ -204,12 +204,12 @@ namespace ariles
                         void readElement(type &element) \
                         { \
                             uint64_t tmp_value = getRawNode().GetUint64(); \
-                            CPPUT_ASSERT(tmp_value <= std::numeric_limits<type>::max(), \
+                            ARILES_ASSERT(tmp_value <= std::numeric_limits<type>::max(), \
                                           "Value is too large."); \
                             element = static_cast<type>(tmp_value); \
                         }
 
-                    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
             };
@@ -224,11 +224,11 @@ namespace ariles
                         explicit Reader(const std::string& file_name)
                         {
                             struct JsonnetVm* vm = static_cast<struct JsonnetVm*>(::jsonnet_make());
-                            CPPUT_ASSERT(NULL != vm, "Could not initialize jsonnet preprocessor.");
+                            ARILES_ASSERT(NULL != vm, "Could not initialize jsonnet preprocessor.");
 
                             int error = 0;
                             const char* jsonnet_output = ::jsonnet_evaluate_file(vm, file_name.c_str(), &error);
-                            CPPUT_ASSERT(0 == error, jsonnet_output);
+                            ARILES_ASSERT(0 == error, jsonnet_output);
 
                             document_.Parse(jsonnet_output);
 
@@ -247,13 +247,13 @@ namespace ariles
 
 
                             struct JsonnetVm* vm = static_cast<struct JsonnetVm*>(::jsonnet_make());
-                            CPPUT_ASSERT(NULL != vm, "Could not initialize jsonnet preprocessor.");
+                            ARILES_ASSERT(NULL != vm, "Could not initialize jsonnet preprocessor.");
 
 
                             int error = 0;
                             const char* jsonnet_output =
                                 ::jsonnet_evaluate_snippet(vm, "<input steam>", input_string.c_str(), &error);
-                            CPPUT_ASSERT(0 == error, jsonnet_output);
+                            ARILES_ASSERT(0 == error, jsonnet_output);
 
 
                             document_.Parse(jsonnet_output);

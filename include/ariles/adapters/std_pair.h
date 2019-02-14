@@ -44,8 +44,8 @@ namespace ariles
                 && param.isSet(ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED))
         {
             std::vector<std::string> entry_names;
-            CPPUT_ASSERT(true == reader.getMapEntryNames(entry_names), "Could not read names of map entries.");
-            CPPUT_ASSERT(1 == entry_names.size(), "Wrong number of map entries for a sloppy pair.");
+            ARILES_ASSERT(true == reader.getMapEntryNames(entry_names), "Could not read names of map entries.");
+            ARILES_ASSERT(1 == entry_names.size(), "Wrong number of map entries for a sloppy pair.");
             entry.first = entry_names[0];
 
             ariles::ConfigurableFlags param_local = param;

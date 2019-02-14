@@ -12,7 +12,7 @@
 
 namespace ariles
 {
-    class BridgeFlags : public cpput::Flags<BridgeFlags>
+    class BridgeFlags : public ariles::Flags<BridgeFlags>
     {
         public:
             enum Flags

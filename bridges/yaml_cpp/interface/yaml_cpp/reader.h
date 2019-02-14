@@ -136,7 +136,7 @@ namespace ariles
 
                     std::size_t startArray()
                     {
-                        CPPUT_ASSERT(true == getRawNode().IsSequence(), "Entry is not an array.");
+                        ARILES_ASSERT(true == getRawNode().IsSequence(), "Entry is not an array.");
 
                         std::size_t size = getRawNode().size();
                         node_stack_.push_back(NodeWrapper(0, size));
@@ -147,9 +147,9 @@ namespace ariles
 
                     void shiftArray()
                     {
-                        CPPUT_ASSERT(true == node_stack_.back().isArray(),
+                        ARILES_ASSERT(true == node_stack_.back().isArray(),
                                       "Internal error: expected array.");
-                        CPPUT_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
+                        ARILES_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
                                       "Internal error: array has more elements than expected.");
                         ++node_stack_.back().index_;
                     }
@@ -167,7 +167,7 @@ namespace ariles
                             element = getRawNode().as<type>(); \
                         }
 
-                    CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
                     #undef ARILES_BASIC_TYPE
             };

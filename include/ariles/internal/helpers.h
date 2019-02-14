@@ -20,10 +20,11 @@
 
 
 #include "build_config.h"
-#include "cpput/floating_point_utils.h"
-#include "cpput/exception.h"
-#include "cpput/misc.h"
-#include "cpput/flags.h"
+#include "cpput_config.h"
+#include "cpput_exception.h"
+#include "cpput_floating_point_utils.h"
+#include "cpput_misc.h"
+#include "cpput_flags.h"
 
 
 #ifndef ARILES_DEFAULT_CONFIG_PREFIX
@@ -69,8 +70,8 @@
 
 
 #ifndef ARILES_VISIBILITY_ATTRIBUTE
-#   include "cpput/visibility.h"
-#   define ARILES_VISIBILITY_ATTRIBUTE CPPUT_LIB_EXPORT
+#   include "cpput_visibility.h"
+#   define ARILES_VISIBILITY_ATTRIBUTE ARILES_LIB_EXPORT
 #endif
 
 

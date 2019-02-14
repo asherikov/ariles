@@ -18,7 +18,7 @@
             #define ARILES_PARENT(entry)
             #define ARILES_TYPED_NAMED_ENTRY(type, entry, name)  type    entry;
 
-            CPPUT_MACRO_SUBSTITUTE(ARILES_ENTRIES)
+            ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
 
             #undef ARILES_NAMED_ENTRY
             #undef ARILES_PARENT
@@ -45,9 +45,9 @@
             void writeConfigEntries(ariles::WriterBase & writer,
                                     const ariles::ConfigurableFlags & param) const
             {
-                CPPUT_UNUSED_ARG(writer);
-                CPPUT_UNUSED_ARG(param);
-                CPPUT_MACRO_SUBSTITUTE(ARILES_ENTRIES)
+                ARILES_UNUSED_ARG(writer);
+                ARILES_UNUSED_ARG(param);
+                ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
             }
 
             #undef ARILES_NAMED_ENTRY
@@ -66,9 +66,9 @@
                 {
                     param.copy(parameters, ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
                 }
-                CPPUT_UNUSED_ARG(reader);
-                CPPUT_UNUSED_ARG(param);
-                CPPUT_MACRO_SUBSTITUTE(ARILES_ENTRIES)
+                ARILES_UNUSED_ARG(reader);
+                ARILES_UNUSED_ARG(param);
+                ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
                 finalize();
             }
 
@@ -83,7 +83,7 @@
 
                 void setDefaults()
                 {
-                    CPPUT_MACRO_SUBSTITUTE(ARILES_ENTRIES)
+                    ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
                 }
 
                 #undef ARILES_NAMED_ENTRY
@@ -99,7 +99,7 @@
 
             std::size_t getNumberOfEntries() const
             {
-                static const std::size_t    num_entries = (0 CPPUT_MACRO_SUBSTITUTE(ARILES_ENTRIES) );
+                static const std::size_t    num_entries = (0 ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES) );
                 return(num_entries);
             }
 

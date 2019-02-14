@@ -44,7 +44,7 @@ namespace ariles
                     std::string file_name_default = std::string(ARILES_DEFAULT_CONFIG_PREFIX) + file_name;
                     config_ifs.open(file_name_default.c_str());
                 }
-                CPPUT_PERSISTENT_ASSERT(   true == config_ifs.good(),
+                ARILES_PERSISTENT_ASSERT(   true == config_ifs.good(),
                                         std::string("Could not open configuration file: ") + file_name.c_str());
             }
 
@@ -55,7 +55,7 @@ namespace ariles
                     const std::size_t & /*min*/ = 0,
                     const std::size_t & /*max*/ = 0) const
             {
-                CPPUT_THROW("Internal logic error.");
+                ARILES_THROW("Internal logic error.");
             }
 
             template<int t_size_limit_type>
@@ -88,7 +88,7 @@ namespace ariles
              */
             virtual bool descend(const std::string & child_name)
             {
-                CPPUT_UNUSED_ARG(child_name)
+                ARILES_UNUSED_ARG(child_name)
                 return (true);
             }
 
@@ -128,7 +128,7 @@ namespace ariles
             #define ARILES_BASIC_TYPE(type) \
                     virtual void readElement(type &entry) = 0;
 
-            CPPUT_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+            ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
             #undef ARILES_BASIC_TYPE
     };
@@ -150,7 +150,7 @@ namespace ariles
             const std::size_t & expected_size,
             const std::size_t & /*max*/) const
     {
-        CPPUT_ASSERT(expected_size == size, "Actual number of entries is lower than expected.");
+        ARILES_ASSERT(expected_size == size, "Actual number of entries is lower than expected.");
         return (size);
     }
 
@@ -161,8 +161,8 @@ namespace ariles
             const std::size_t & min,
             const std::size_t & max) const
     {
-        CPPUT_ASSERT(min <= size, "Actual number of entries is lower than expected.");
-        CPPUT_ASSERT(max >= size, "Actual number of entries is larger than expected.");
+        ARILES_ASSERT(min <= size, "Actual number of entries is lower than expected.");
+        ARILES_ASSERT(max >= size, "Actual number of entries is larger than expected.");
         return (size);
     }
 
@@ -173,7 +173,7 @@ namespace ariles
             const std::size_t & min,
             const std::size_t & /*max*/) const
     {
-        CPPUT_ASSERT(min <= size, "Actual number of entries is lower than expected.");
+        ARILES_ASSERT(min <= size, "Actual number of entries is lower than expected.");
         return (size);
     }
 }
