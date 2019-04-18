@@ -9,30 +9,7 @@
 */
 
 #include "utility.h"
-
-#ifdef ARILES_BRIDGE_yaml_cpp03
-#include "ariles/bridges/yaml_cpp03.h"
-#endif
-
-#ifdef ARILES_BRIDGE_yaml_cpp
-#include "ariles/bridges/yaml_cpp.h"
-#endif
-
-#ifdef ARILES_BRIDGE_msgpack
-#include "ariles/bridges/msgpack.h"
-#endif
-
-#ifdef ARILES_BRIDGE_ros
-#include "ariles/bridges/ros.h"
-#endif
-
-#ifdef ARILES_BRIDGE_rapidjson
-#include "ariles/bridges/rapidjson.h"
-#endif
-
-#ifdef ARILES_BRIDGE_pugixml
-#include "ariles/bridges/pugixml.h"
-#endif
+#include "all_enabled_bridges.h"
 
 #include "ariles/adapters_all.h"
 #include "ariles/ariles.h"

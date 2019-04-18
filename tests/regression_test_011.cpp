@@ -13,7 +13,7 @@
 
 #include "ariles/bridges/rapidjson.h"
 
-// If no format header is included, ariles is disabled, and
+// If no bridge header is included, ariles is disabled, and
 // ariles::ConfigurableBase is just a dummy class.
 #include "ariles/ariles.h"
 

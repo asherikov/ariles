@@ -1,21 +1,38 @@
-* Doxygen: https://asherikov.github.io/ariles/
-* GitHub: https://github.com/asherikov/ariles
+Ariles
+======
 * Travis CI: https://travis-ci.org/asherikov/ariles [![Build Status](https://travis-ci.org/asherikov/ariles.svg?branch=master)](https://travis-ci.org/asherikov/ariles)
 
 
+Contents
+========
+* [Links](#links)
+* [Introduction](#intro)
+* [Supported formats](#formats)
+* [Supported types](#types)
+* [Minimal example](#example)
+* [Advanced features](#features)
+* [Documentation and examples](#docs)
+* [Compilation using catkin](#catkin)
+
+
+<a name="links"></a>
+Links
+=====
+* Doxygen: https://asherikov.github.io/ariles/
+* GitHub: https://github.com/asherikov/ariles
+
+
+<a name="intro"></a>
 Introduction
 ============
 
-Ariles is a C++ serialization/configuration library with some extra automatic
-code generation capabilities. It relies on third-party libraries for support of
-various data representation formats. The library also provides some predefined
-serialization wrappers for common types as described below.
+Ariles is a C++ serialization/configuration library with some useful
+metaprogramming features. It relies on other open-source libraries for parsing
+of various data representation formats. The library also provides some
+predefined serialization wrappers for common types, e.g., some standard
+containers and smart pointers.
 
-Ariles was not designed with an intention to address certain limitations of
-other serialization libraries such as https://uscilab.github.io/cereal/ or
-https://www.boost.org/doc/libs/1_67_0/libs/serialization/doc/, but rather
-accidentally evolved from a bunch YAML serialization macro. Ariles, however,
-differs from the common C++ serialization libs in several aspects:
+Ariles differs from the common C++ serialization libs in several aspects:
 
 * It is intended to be used for both serialization and configuration,
   therefore, it assumes that the input files could be written by a human or
@@ -24,15 +41,16 @@ differs from the common C++ serialization libs in several aspects:
   ignores ordering of entries, does not discriminate attributes from childs in
   XML, can optionally ignore missing entries, etc.
 
-* Ariles is meant to be used primarily for 'invasive' serialization, so it
-  generates class methods for serialization, initialization to default values,
-  and postprocessing after reading data from a file. Also, Ariles relies on
-  virtual methods for serialization via base classes (unlike boost and cereal).
+* Ariles is meant to be used primarily for 'invasive' serialization and
+  provides a set of macro to generate class methods for serialization,
+  initialization to default values, etc. This allows Ariles to use virtual
+  methods for serialization via base classes, unlike boost and cereal.
 
-* Ariles supports some 'exotic' serialization formats, such as ROS parameter
-  server and Octave script.
+* Ariles supports some uncommon formats, such as ROS parameter server and
+  Octave script.
 
 
+<a name="formats"></a>
 Supported formats
 =================
 
@@ -67,16 +85,17 @@ Currently supported formats are (all are optional):
 * ROS parameter server, via standard ROS libs.
 
 
+<a name="types"></a>
 Supported types
 ===============
 
-* Some STL containers (WIP).
+* Some STL classes (WIP): `std::map`, `std::pair`, `std::shared_ptr`, `std::unique_ptr`, `std::vector`.
 * Eigen matrices.
-* Boost pointers.
-* boost::optional.
+* Boost classes: `boost::optional`, `boost::movelib::unique_ptr`.
 * Better enums -> https://github.com/aantron/better-enums.
 
 
+<a name="example"></a>
 Minimal example
 ===============
 Class [`./tests/types/minimal.h`]:
@@ -110,6 +129,35 @@ configurable.readConfig<ariles::yaml_cpp>("config_file.yaml");
 ```
 
 
+<a name="features"></a>
+Advanced features
+=================
+
+* Class members can be declared automatically with `ARILES_TYPED_ENTRY` as in
+  the minimal example above, or manually, in which case `ARILES_ENTRY` must be
+  used.
+
+* Configurable classes may implement `finalize()` method, which would be called
+  automatically after parsing a configuration. This method can be used to
+  perform data consistency checks or initialize parameters which are not stored
+  in the configuration.
+
+* All configurable classes must implement `setDefaults()` method, which is
+  called before parsing a configuration. However, Ariles may generated this
+  method automatically if `ARILES_AUTO_DEFAULTS` is defined as in the example
+  above; in this case floats would be set to NaNs, integers to zeros, etc.
+
+* Depending on the configuration format streams can be used instead of
+  filenames, e.g, `configurable.writeConfig<ariles::yaml_cpp>(std::cout);`.
+
+* `ariles::Any` class defined in `ariles/types.h` provides functionality
+  similar to `protobuf::Any`: this class automatically instantiates and reads
+  configuration of some user-defined class based on its string id and stores a
+  pointer to its base class. See `tests/types/any.h` for an example. This
+  should play well with `ros/pluginlib`.
+
+
+<a name="docs"></a>
 Documentation and examples
 ==========================
 
@@ -118,9 +166,10 @@ Documentation and examples
 * Various types defined for tests: [`./tests/types/`]
 
 
+<a name="catkin"></a>
 Compilation using catkin
 ========================
 
-`catkin` (ROS build utility) is not flexible enough to build Ariles directly,
-it is, however, possible to create a proxy catkin package to build Ariles with
+`catkin` (ROS build utility) is not flexible enough to build Ariles, it is,
+however, possible to create a proxy catkin package to build Ariles with a
 predefined configuration. You can find an example in `./tests/catkin_package`.

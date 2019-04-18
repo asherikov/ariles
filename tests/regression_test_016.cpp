@@ -21,6 +21,7 @@
 // TYPES
 // ===============================================================
 
+#include "types/any.h"
 #include "types/complex_auto_declare.h"
 #include "types/complex_base.h"
 #include "types/complex_verbose.h"
@@ -57,6 +58,7 @@ int main()
     ConfigurableSpecialFloats       q;
     ConfigurableStrictness1         r;
     ConfigurableStrictness2         s;
+    ConfigurableAny                 t;
 
     return (0);
 }

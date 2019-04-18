@@ -3,7 +3,7 @@
     @author  Alexander Sherikov
     @copyright 2014-2017 INRIA. Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
-    @copyright 2017-2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
+    @copyright 2017-2019 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
 
     @brief Inclusion of this file results in generation of functions which
@@ -64,10 +64,9 @@
                 ariles::ConfigurableFlags param = parameters;
                 if (false == param.isSet(ariles::ConfigurableFlags::PROPAGATE_ALLOW_MISSING_ENTRIES))
                 {
-                    param.copy(parameters, ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
+                    param.set(ariles::ConfigurableFlags::DEFAULT & ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
                 }
                 ARILES_UNUSED_ARG(reader);
-                ARILES_UNUSED_ARG(param);
                 ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
                 finalize();
             }
