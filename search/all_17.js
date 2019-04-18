@@ -1,6 +1,7 @@
 var searchData=
 [
   ['_7earilesbaseclass',['~ArilesBaseClass',['../classArilesBaseClass.html#afa20a5f307919d65c40d278ba0368166',1,'ArilesBaseClass']]],
+  ['_7ebase',['~Base',['../classBase.html#a9c3e236ef414e648e48e250a3e43a880',1,'Base']]],
   ['_7ecommonconfigurablebase',['~CommonConfigurableBase',['../classariles_1_1CommonConfigurableBase.html#a598f0e3c3e8938a924b6362048bed544',1,'ariles::CommonConfigurableBase']]],
   ['_7ecommonconfigurablebasewithflags',['~CommonConfigurableBaseWithFlags',['../classariles_1_1CommonConfigurableBaseWithFlags.html#a600991541389f162560230a490a38d49',1,'ariles::CommonConfigurableBaseWithFlags']]],
   ['_7econfigurablebase',['~ConfigurableBase',['../classConfigurableBase.html#ad955e00411ca95cf493f1351429b6553',1,'ConfigurableBase']]],

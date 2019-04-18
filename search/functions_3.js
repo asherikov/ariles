@@ -1,10 +1,12 @@
 var searchData=
 [
+  ['cast',['cast',['../classariles_1_1Any.html#a99010e0dcc4429edd8bd8e2fa7b95a1a',1,'ariles::Any::cast()'],['../classariles_1_1Any.html#acb7f769e1f8c93a8aa79eff44d76077c',1,'ariles::Any::cast() const']]],
   ['check',['check',['../special__floats_8h.html#a4d63aae2453019c751527c735d931896',1,'special_floats.h']]],
   ['checksize',['checkSize',['../classariles_1_1ReaderBase.html#af1d8a9109be496a353718c42e8b8c036',1,'ariles::ReaderBase']]],
   ['commonconfigurablebase',['CommonConfigurableBase',['../classariles_1_1CommonConfigurableBase.html#a1706fa7436f23f58b13d149106e9b0fc',1,'ariles::CommonConfigurableBase']]],
   ['commonconfigurablebasewithflags',['CommonConfigurableBaseWithFlags',['../classariles_1_1CommonConfigurableBaseWithFlags.html#ad6a6d10f27fd1e7e7d21817fbc4b1a22',1,'ariles::CommonConfigurableBaseWithFlags']]],
-  ['compare',['compare',['../regression__test__002_8cpp.html#af22bb91994803c4eb0b0c871d75d7642',1,'compare(const t_Configurable_out &amp;configurable_out, const t_Configurable_in &amp;configurable_in):&#160;regression_test_002.cpp'],['../regression__test__003_8cpp.html#af22bb91994803c4eb0b0c871d75d7642',1,'compare(const t_Configurable_out &amp;configurable_out, const t_Configurable_in &amp;configurable_in):&#160;regression_test_003.cpp'],['../complex__base_8h.html#af22bb91994803c4eb0b0c871d75d7642',1,'compare(const t_Configurable_out &amp;configurable_out, const t_Configurable_in &amp;configurable_in):&#160;complex_base.h'],['../pointers_8h.html#af22bb91994803c4eb0b0c871d75d7642',1,'compare(const t_Configurable_out &amp;configurable_out, const t_Configurable_in &amp;configurable_in):&#160;pointers.h']]],
+  ['compare',['compare',['../regression__test__002_8cpp.html#af22bb91994803c4eb0b0c871d75d7642',1,'compare(const t_Configurable_out &amp;configurable_out, const t_Configurable_in &amp;configurable_in):&#160;regression_test_002.cpp'],['../regression__test__003_8cpp.html#af22bb91994803c4eb0b0c871d75d7642',1,'compare(const t_Configurable_out &amp;configurable_out, const t_Configurable_in &amp;configurable_in):&#160;regression_test_003.cpp'],['../any_8h.html#af22bb91994803c4eb0b0c871d75d7642',1,'compare(const t_Configurable_out &amp;configurable_out, const t_Configurable_in &amp;configurable_in):&#160;any.h'],['../complex__base_8h.html#af22bb91994803c4eb0b0c871d75d7642',1,'compare(const t_Configurable_out &amp;configurable_out, const t_Configurable_in &amp;configurable_in):&#160;complex_base.h'],['../pointers_8h.html#af22bb91994803c4eb0b0c871d75d7642',1,'compare(const t_Configurable_out &amp;configurable_out, const t_Configurable_in &amp;configurable_in):&#160;pointers.h']]],
+  ['configurableany',['ConfigurableAny',['../classConfigurableAny.html#a0819b709a63dc9346ab81342d2c49e49',1,'ConfigurableAny']]],
   ['configurableautodeclare',['ConfigurableAutoDeclare',['../classConfigurableAutoDeclare.html#a3694a9014b4274a0cc7c8543a8f8e618',1,'ConfigurableAutoDeclare']]],
   ['configurablebase',['ConfigurableBase',['../classConfigurableBase.html#a635c981195b39df38925d7adda55379d',1,'ConfigurableBase']]],
   ['configurablecomplex',['ConfigurableComplex',['../classConfigurableComplex.html#a6d1d7a9a5d0a3eb3eabe7308bf8ae694',1,'ConfigurableComplex']]],
@@ -13,7 +15,7 @@ var searchData=
   ['configurablederived',['ConfigurableDerived',['../classConfigurableDerived.html#ab0ed93b0cc7384c562c2b03616084194',1,'ConfigurableDerived']]],
   ['configurableempty',['ConfigurableEmpty',['../classConfigurableEmpty.html#a0b0e1d00009035b3d626105171b2d30d',1,'ConfigurableEmpty']]],
   ['configurablefinalize',['ConfigurableFinalize',['../classConfigurableFinalize.html#a3e354c8d5d7b7e9bef8abb9567df2dbc',1,'ConfigurableFinalize']]],
-  ['configurableflags',['ConfigurableFlags',['../classariles_1_1ConfigurableFlags.html#ad678bb353f60ac00eeec8ddeab7068ac',1,'ariles::ConfigurableFlags::ConfigurableFlags()'],['../classariles_1_1ConfigurableFlags.html#acff559feb7fbc7b444efd26e849031e2',1,'ariles::ConfigurableFlags::ConfigurableFlags(const int flags, const Action action_type=REPLACE)']]],
+  ['configurableflags',['ConfigurableFlags',['../classariles_1_1ConfigurableFlags.html#ad678bb353f60ac00eeec8ddeab7068ac',1,'ariles::ConfigurableFlags::ConfigurableFlags()'],['../classariles_1_1ConfigurableFlags.html#ad7ba80f6dc8edf66cb74add09430aef0',1,'ariles::ConfigurableFlags::ConfigurableFlags(const unsigned int flags, const Action action_type=REPLACE)']]],
   ['configurablemember',['ConfigurableMember',['../classConfigurableMember.html#ad320644a75c7205c19df8b3a978a46c7',1,'ConfigurableMember']]],
   ['configurablenoautoid',['ConfigurableNoAutoID',['../classConfigurableNoAutoID.html#ac0aba6dfa21832837ee6e47242d20f0c',1,'ConfigurableNoAutoID']]],
   ['configurablenoconstructors',['ConfigurableNoConstructors',['../classConfigurableNoConstructors.html#a8b195b7b4b76d937378037bd2fcaf75a',1,'ConfigurableNoConstructors']]],
@@ -25,5 +27,5 @@ var searchData=
   ['configurablevector',['ConfigurableVector',['../classConfigurableVector.html#a3c24ab4f3f891e5d5f5c3c4aa7eadb57',1,'ConfigurableVector']]],
   ['configurableverbose',['ConfigurableVerbose',['../classConfigurableVerbose.html#a517f1cd6e288ee1b9d175930913b4700',1,'ConfigurableVerbose']]],
   ['continue_5fwith',['continue_with',['../namespacebetter__enums.html#ad74f794da6b22ed22b021fffe1a46b6d',1,'better_enums']]],
-  ['copy',['copy',['../classariles_1_1Flags.html#a7cb6480c351a07440cdb0563207e1252',1,'ariles::Flags']]]
+  ['copy',['copy',['../classariles_1_1Flags.html#aeceda0e917078970d4b7e64f97474e24',1,'ariles::Flags']]]
 ];
