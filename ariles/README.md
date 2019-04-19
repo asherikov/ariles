@@ -173,4 +173,6 @@ Compilation using catkin
 
 `catkin` (ROS build utility) is not flexible enough to build Ariles, it is,
 however, possible to create a proxy catkin package to build Ariles with a
-predefined configuration. You can find an example in `./tests/catkin_package`.
+predefined configuration. You can find an example in `./tests/catkin_package`,
+or use `pkg_ros` branch of this repository
+(https://github.com/asherikov/ariles/tree/pkg_ros).
