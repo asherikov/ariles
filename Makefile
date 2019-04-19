@@ -1,3 +1,5 @@
+VERSION?="XXX__version_not_set__XXX"
+
 update:
 	git fetch --all
 	git rm --ignore-unmatch -rf ariles
@@ -14,3 +16,6 @@ cleanup:
 	git rm -rf --ignore-unmatch ariles/.gitmodules
 	git rm -rf --ignore-unmatch ariles/tests/catkin_package/
 	git rm -rf --ignore-unmatch ariles/doc/dox
+
+release:
+	catkin_prepare_release -t 'ros-' --version "${VERSION}" -y
