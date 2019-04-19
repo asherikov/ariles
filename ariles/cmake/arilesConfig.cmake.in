@@ -1,0 +1,19 @@
+set (ariles_VERSION @PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@)
+
+@PACKAGE_INIT@
+
+set (@ariles_LIBRARIES@ "@ARILES_LIBRARIES@")
+set (@ariles_INCLUDE_DIRS@ "@PACKAGE_ARILES_INCLUDES@" "@ARILES_DEPENDENCY_INCLUDES@")
+set (@ariles_LIBRARY_DIRS@ "@ARILES_LIBRARY_DIRS@")
+
+#------------------
+# The following defines can be used to hide Ariles related stuff when compiling
+# shared libraries.
+# This is highly recommended to avoid conflicts with other libs.
+
+# Specifies version script
+set (ariles_SHARED_GNU_LINKER_FLAGS "@ARILES_SHARED_GNU_LINKER_FLAGS@")
+
+#  -fvisibility-inlines-hidden
+# set CMAKE_VISIBILITY_INLINES_HIDDEN or VISIBILITY_INLINES_HIDDEN target property
+#------------------

@@ -1,0 +1,15 @@
+cmake modules:
+    - ariles_add_regression_test.cmake
+      adds a regression test for the core or a submodule
+
+    - ariles_add_test.cmake
+      adds a simple test for the core or a submodule
+
+    - ariles_copy_extra_test_files
+      add custom target to copy extra files for a particular test.
+
+    - ariles_define_regression_test.cmake
+      define regression test.
+
+    - ariles_parse_test_dependencies.cmake
+      parse test dependencies -- should be called from ariles_define_regression_test

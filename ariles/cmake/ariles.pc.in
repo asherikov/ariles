@@ -1,0 +1,7 @@
+Name: ariles
+Description: C++ serialization / configuration library.
+Version: @PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@
+URL: @ARILES_HOMEPAGE@
+
+Libs: -L@CMAKE_INSTALL_PREFIX@/lib @ARILES_LIBRARIES_FLAGS@
+Cflags: @ARILES_INCLUDES_FLAGS@
