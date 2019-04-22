@@ -1,6 +1,10 @@
 Ariles
 ======
-* Travis CI: https://travis-ci.org/asherikov/ariles [![Build Status](https://travis-ci.org/asherikov/ariles.svg?branch=master)](https://travis-ci.org/asherikov/ariles)
+
+CI
+--
+* Master: [![Build Status](https://travis-ci.org/asherikov/ariles.svg?branch=master)](https://travis-ci.org/asherikov/ariles)
+* ROS package (`pkg_ros`): [![Build Status](https://travis-ci.org/asherikov/ariles.svg?branch=pkg_ros)](https://travis-ci.org/asherikov/ariles)
 
 
 Contents
@@ -20,6 +24,7 @@ Links
 =====
 * Doxygen: https://asherikov.github.io/ariles/
 * GitHub: https://github.com/asherikov/ariles
+* CI: https://travis-ci.org/asherikov/ariles
 
 
 <a name="intro"></a>
@@ -173,6 +178,5 @@ Compilation using catkin
 
 `catkin` (ROS build utility) is not flexible enough to build Ariles, it is,
 however, possible to create a proxy catkin package to build Ariles with a
-predefined configuration. You can find an example in `./tests/catkin_package`,
-or use `pkg_ros` branch of this repository
-(https://github.com/asherikov/ariles/tree/pkg_ros).
+predefined configuration. You can find an example in `pkg_ros` branch of this
+repository (https://github.com/asherikov/ariles/tree/pkg_ros).

@@ -125,27 +125,6 @@ ppa-upload:
 
 
 #----------------------------------------------
-# catkin
-#----------------------------------------------
-
-CATKIN_WORKING_DIR?=./build/catkin_workspace
-
-catkin-build-old: clean
-	mkdir -p ${CATKIN_WORKING_DIR}
-	mkdir -p ${CATKIN_WORKING_DIR}/src/catkin_ariles/
-	cd ${CATKIN_WORKING_DIR}/src; catkin_init_workspace # old
-	ls -1 | grep -v build | xargs cp -R -t ${CATKIN_WORKING_DIR}/src/catkin_ariles
-	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated # old
-
-catkin-build-new: clean
-	mkdir -p ${CATKIN_WORKING_DIR}
-	mkdir -p ${CATKIN_WORKING_DIR}/src/catkin_ariles/
-	cd ${CATKIN_WORKING_DIR}; catkin init # new
-	ls -1 | grep -v build | xargs cp -R -t ${CATKIN_WORKING_DIR}/src/catkin_ariles
-	cd ${CATKIN_WORKING_DIR}; catkin build --verbose --summary # new
-
-
-#----------------------------------------------
 # checks
 #----------------------------------------------
 
