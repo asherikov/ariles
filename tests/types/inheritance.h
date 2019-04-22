@@ -11,6 +11,8 @@
 #pragma once
 
 
+namespace ariles_tests
+{
 class ConfigurableMember : virtual public ariles::ConfigurableBase
 {
     #define ARILES_SECTION_ID "ConfigurableMember"
@@ -115,3 +117,4 @@ class ConfigurableDerived : public ConfigurableBase, public ConfigurableMember
         }
 #endif
 };
+}

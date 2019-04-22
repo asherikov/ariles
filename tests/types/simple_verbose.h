@@ -11,6 +11,8 @@
 #pragma once
 
 
+namespace ariles_tests
+{
 /**
  * @brief Verbose definition of a configurable class (with explicit declaration
  * of members)
@@ -53,3 +55,4 @@ class ConfigurableVerbose : public ariles::ConfigurableBase
         }
 #endif
 };
+}

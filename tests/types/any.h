@@ -8,7 +8,8 @@
 
 #pragma once
 
-
+namespace ariles_tests
+{
 class Base : public ariles::ConfigurableBase
 {
     #define ARILES_SECTION_ID "Base"
@@ -280,3 +281,4 @@ void    compare(const t_Configurable_out    &configurable_out,
 #endif
 }
 #endif
+}

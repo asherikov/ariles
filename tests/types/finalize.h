@@ -9,6 +9,8 @@
 #pragma once
 
 
+namespace ariles_tests
+{
 class ConfigurableFinalize : public ariles::ConfigurableBase
 {
     #define ARILES_SECTION_ID "ConfigurableFinalize"
@@ -52,3 +54,4 @@ class ConfigurableFinalize : public ariles::ConfigurableBase
         }
 #endif
 };
+}

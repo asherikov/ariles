@@ -63,9 +63,10 @@ void    compare(const t_Configurable_out    &configurable_out,
     ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, BRIDGE_ID, NAMESPACE, ConfigurableDerived, INITIALIZER) \
     ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, BRIDGE_ID, NAMESPACE, ConfigurableDerived, INITIALIZER) \
     ARILES_FIXTURE_TEST_CASE_2CLASSES(StrictnessFixture, BRIDGE_ID, NAMESPACE, ConfigurableStrictness1, ConfigurableStrictness2, INITIALIZER) \
-    BOOST_FIXTURE_TEST_CASE(ComparisonViaBaseFixture##_##BRIDGE_ID##_##INITIALIZER, ComparisonViaBaseFixture<initializers::INITIALIZER>) \
+    BOOST_FIXTURE_TEST_CASE(ComparisonViaBaseFixture##_##BRIDGE_ID##_##INITIALIZER, \
+                            ariles_tests::ComparisonViaBaseFixture<ariles_tests::initializers::INITIALIZER>) \
     { \
-        test<ConfigurableBase, ConfigurableDerived, ariles::NAMESPACE>(); \
+        test<ariles_tests::ConfigurableBase, ariles_tests::ConfigurableDerived, ariles::NAMESPACE>(); \
     }
 
 

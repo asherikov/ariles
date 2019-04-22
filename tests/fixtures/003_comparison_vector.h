@@ -11,6 +11,8 @@
 #pragma once
 
 
+namespace ariles_tests
+{
 template<class t_Configurable>
     class ConfigurableVector : public ariles::ConfigurableBase
 {
@@ -81,3 +83,4 @@ class ComparisonVectorFixture : public t_FixtureBase
             }
         }
 };
+}

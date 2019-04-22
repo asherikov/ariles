@@ -11,6 +11,8 @@
 #pragma once
 
 
+namespace ariles_tests
+{
 /**
  * @brief Short definition of a configurable class -- types of members are
  * passed to Ariles for automatic declaration.
@@ -61,3 +63,4 @@ class ConfigurableAutoDeclare : public ariles::ConfigurableBase
         }
 #endif
 };
+}

@@ -12,6 +12,8 @@
 
 #include "complex_base.h"
 
+namespace ariles_tests
+{
 class ConfigurableComplexVerbose : public ariles::ConfigurableBase, public ConfigurableComplexBase<ConfigurableComplexVerbose>
 {
     #define ARILES_SECTION_ID "ConfigurableComplexVerbose"
@@ -108,3 +110,4 @@ class ConfigurableComplexVerbose : public ariles::ConfigurableBase, public Confi
             ConfigurableComplexBase<ConfigurableComplexVerbose>::setDefaults();
         }
 };
+}

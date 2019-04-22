@@ -9,6 +9,8 @@
 
 #pragma once
 
+namespace ariles_tests
+{
 namespace initializers
 {
     class FilenameInitializer
@@ -165,4 +167,5 @@ namespace initializers
             }
     };
 #endif
+}
 }

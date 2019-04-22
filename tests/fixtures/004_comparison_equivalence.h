@@ -11,6 +11,8 @@
 #pragma once
 
 
+namespace ariles_tests
+{
 template<class t_FixtureBase>
 class ComparisonEquivalenceFixture : public t_FixtureBase
 {
@@ -66,3 +68,4 @@ class ComparisonEquivalenceFixture : public t_FixtureBase
             }
         }
 };
+}

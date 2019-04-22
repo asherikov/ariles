@@ -12,6 +12,8 @@
 
 #include "complex_base.h"
 
+namespace ariles_tests
+{
 class ConfigurableComplex : public ariles::ConfigurableBase, public ConfigurableComplexBase<ConfigurableComplex>
 {
     #define ARILES_SECTION_ID "ConfigurableComplex"
@@ -80,3 +82,4 @@ class ConfigurableComplex : public ariles::ConfigurableBase, public Configurable
             ConfigurableComplexBase<ConfigurableComplex>::setDefaults();
         }
 };
+}

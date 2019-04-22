@@ -11,6 +11,8 @@
 #pragma once
 
 
+namespace ariles_tests
+{
 template<class t_FixtureBase>
 class OctaveFixture : public t_FixtureBase
 {
@@ -53,3 +55,4 @@ class OctaveFixture : public t_FixtureBase
             }
         }
 };
+}

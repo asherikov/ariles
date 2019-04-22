@@ -10,6 +10,8 @@
 #pragma once
 
 
+namespace ariles_tests
+{
 class ConfigurableMinimal : public ariles::ConfigurableBase
 {
     #define ARILES_SECTION_ID "ConfigurableEntryName"
@@ -18,3 +20,4 @@ class ConfigurableMinimal : public ariles::ConfigurableBase
         ARILES_TYPED_ENTRY(integer_member, int)
     #include ARILES_INITIALIZE
 };
+}

@@ -11,6 +11,8 @@
 #pragma once
 
 
+namespace ariles_tests
+{
 class ConfigurableStrictness1 : public ariles::ConfigurableBase
 {
     #define ARILES_SECTION_ID "unique_id_on_a_particular_level_in_a_configuration_file"
@@ -63,3 +65,4 @@ class ConfigurableStrictness2 : public ConfigurableStrictness1
             ConfigurableStrictness1::setDefaults();
         }
 };
+}

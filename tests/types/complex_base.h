@@ -12,6 +12,8 @@
 
 #include "enum.h"
 
+namespace ariles_tests
+{
 template <class t_ConfigurableComplex>
 class ConfigurableComplexBase
 {
@@ -270,3 +272,4 @@ void    compare(const t_Configurable_out    &configurable_out,
 #   endif
 }
 #endif
+}

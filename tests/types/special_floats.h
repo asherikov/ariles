@@ -9,6 +9,8 @@
 */
 
 
+namespace ariles_tests
+{
 class ConfigurableSpecialFloats : virtual public ariles::ConfigurableBase
 {
     #define ARILES_SECTION_ID "ConfigurableSpecialFloats"
@@ -98,3 +100,4 @@ void check(class ConfigurableSpecialFloats & configurable)
     BOOST_CHECK(configurable.double_negative_infinity_ < 0.0);
 }
 #endif
+}

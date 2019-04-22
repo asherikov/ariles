@@ -11,6 +11,8 @@
 #pragma once
 
 
+namespace ariles_tests
+{
 /**
  * @brief Configurable class without extra constructors.
  */
@@ -49,3 +51,4 @@ class ConfigurableNoConstructors : public ariles::ConfigurableBase
         }
 #endif
 };
+}

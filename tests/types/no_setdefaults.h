@@ -9,6 +9,8 @@
 #pragma once
 
 
+namespace ariles_tests
+{
 class ConfigurableNoSetDefaults : public ariles::ConfigurableBase
 {
     #define ARILES_SECTION_ID "Configurable"
@@ -38,3 +40,4 @@ class ConfigurableNoSetDefaults : public ariles::ConfigurableBase
         }
 #endif
 };
+}

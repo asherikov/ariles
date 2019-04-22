@@ -11,6 +11,8 @@
 #pragma once
 
 
+namespace ariles_tests
+{
 template<class t_FixtureBase>
 class ReadWriteFixture : public t_FixtureBase
 {
@@ -30,3 +32,4 @@ class ReadWriteFixture : public t_FixtureBase
             );
         }
 };
+}

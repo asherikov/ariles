@@ -44,7 +44,8 @@
 // ===============================================================
 // DEFINING TYPES
 // ===============================================================
-
+namespace demo
+{
 class ArilesBaseClass
     // must inherit from ariles::ConfigurableBase
     : public ariles::ConfigurableBase
@@ -134,7 +135,7 @@ class MyContainerClass
 
     #include ARILES_INITIALIZE
 };
-
+}
 
 
 // ===============================================================
@@ -145,11 +146,11 @@ class MyContainerClass
 
 int main()
 {
-    MyContainerClass my_container_class;
+    demo::MyContainerClass my_container_class;
 
     // access members as usual
     my_container_class.myclass_vector_.size();
-    my_container_class.myclass_vector_.push_back(MyClass());
+    my_container_class.myclass_vector_.push_back(demo::MyClass());
     my_container_class.myclass_vector_[0].setDefaults();
 
 

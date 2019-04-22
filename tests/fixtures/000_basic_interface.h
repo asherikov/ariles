@@ -11,6 +11,8 @@
 #pragma once
 
 
+namespace ariles_tests
+{
 template<class t_FixtureBase>
 class BasicInterfaceFixture : public t_FixtureBase
 {
@@ -71,7 +73,7 @@ class BasicInterfaceFixture : public t_FixtureBase
                 t_Configurable configurable;
 
                 typename t_Bridge::Reader reader(getReaderInitializer("configurable.cfg"));
-                configurable.readConfig(reader, 
+                configurable.readConfig(reader,
                         ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
             }
 
@@ -92,3 +94,4 @@ class BasicInterfaceFixture : public t_FixtureBase
             }
         }
 };
+}

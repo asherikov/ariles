@@ -9,6 +9,8 @@
 #pragma once
 
 #include <iostream>
+namespace ariles_tests
+{
 class ConfigurablePointers : public ariles::ConfigurableBase
 {
     #define ARILES_SECTION_ID "ConfigurablePointers"
@@ -188,3 +190,4 @@ void    compare(const t_Configurable_out    &configurable_out,
 #endif
 }
 #endif
+}

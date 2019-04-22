@@ -11,6 +11,8 @@
 #pragma once
 
 
+namespace ariles_tests
+{
 template<class t_FixtureBase>
 class ComparisonSimpleFixture : public t_FixtureBase
 {
@@ -84,3 +86,4 @@ class ComparisonMultiFixture : public t_FixtureBase
             compare(configurable_out2, configurable_in2);
         }
 };
+}

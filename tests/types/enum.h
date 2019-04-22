@@ -10,12 +10,15 @@
 
 #pragma once
 
+namespace ariles_tests
+{
 enum SomeEnum
 {
     UNDEFINED = 0,
     SOME_VALUE = 1,
     ANOTHER_VALUE = 2
 };
+}
 
 
 #ifdef ARILES_ADAPTER_BETTER_ENUMS
@@ -26,6 +29,9 @@ enum SomeEnum
 
 #include "better_enum.h"
 
+namespace ariles_tests
+{
 BETTER_ENUM(BetterEnum, int, UNDEFINED = 0, DEFINED_1, DEFINED_2)
+}
 
 #endif

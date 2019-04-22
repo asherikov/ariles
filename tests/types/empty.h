@@ -12,6 +12,8 @@
 
 
 
+namespace ariles_tests
+{
 /**
  * @brief Configurable class without extra constructors.
  */
@@ -42,3 +44,4 @@ class ConfigurableEmpty : public ariles::ConfigurableBase
             finalize();
         }
 };
+}

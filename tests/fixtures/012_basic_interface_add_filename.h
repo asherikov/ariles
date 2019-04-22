@@ -11,6 +11,8 @@
 #pragma once
 
 
+namespace ariles_tests
+{
 template<class t_FixtureBase>
 class BasicInterfaceFixture : public t_FixtureBase
 {
@@ -93,3 +95,4 @@ class BasicInterfaceFixture : public t_FixtureBase
             }
         }
 };
+}

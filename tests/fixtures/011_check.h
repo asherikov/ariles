@@ -11,6 +11,8 @@
 #pragma once
 
 
+namespace ariles_tests
+{
 template<class t_FixtureBase>
 class CheckFixture : public t_FixtureBase
 {
@@ -41,3 +43,4 @@ class CheckFixture : public t_FixtureBase
             check(configurable_in);
         }
 };
+}

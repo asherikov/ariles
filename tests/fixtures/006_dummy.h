@@ -11,6 +11,8 @@
 #pragma once
 
 
+namespace ariles_tests
+{
 class DummyFixture
 {
     protected:
@@ -23,3 +25,4 @@ class DummyFixture
             );
         }
 };
+}

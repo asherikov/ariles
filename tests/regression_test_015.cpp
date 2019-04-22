@@ -33,6 +33,8 @@
 #include "fixtures/initializers.h"
 #include "fixtures/009_read.h"
 
+namespace ariles_tests
+{
 namespace initializers
 {
     class FilenameReaderBase
@@ -48,6 +50,7 @@ namespace initializers
     };
 
     typedef FilenameReaderInitializer<FilenameReaderBase> FilenameReaderInitializer015;
+}
 }
 
 
