@@ -4,4 +4,4 @@ see https://github.com/asherikov/ariles for more information.
 Enabled configuration formats:
 - yaml
 - ROS parameter server
-
+- Octave script (output)
