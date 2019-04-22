@@ -7,45 +7,14 @@ notifications:
         on_success: always
         on_failure: always
 
+services:
+  - docker
+os: linux
+dist: trusty
+
 jobs:
     include:
 
-    # catkin package
-      - os: linux
-        compiler: clang
-        dist: trusty
-        sudo: required
-        cache:
-          - apt
-
-        env:
-          - ROS_DISTRO=indigo
-          - CI_SOURCE_PATH=$(pwd)
-          - ROS_CI_DESKTOP=trusty
-          - ROSINSTALL_FILE=$CI_SOURCE_PATH/dependencies.rosinstall
-          - CATKIN_OPTIONS=$CI_SOURCE_PATH/catkin.options
-          # Set the python path manually to include /usr/-/python2.7/dist-packages
-          # as this is where apt-get installs python packages.
-          - PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
-
-        # Install system dependencies, namely a very barebones ROS setup.
-        before_install:
-          - sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
-          - source /opt/ros/${ROS_DISTRO}/setup.bash
-          - rosdep update
-
-        addons:
-            apt:
-                update: true
-                packages:
-                  - devscripts
-                  - build-essential
-                  - libboost-all-dev
-                  - libeigen3-dev
-                  - octave
-                  - libpugixml-dev
-                  - libyaml-cpp-dev
-                  - fakeroot
-
-        script:
-          - make catkin-build-old
+    # melodic / 18.04
+      - script:
+          - make make-docker ROS_DISTRO=melodic DOCKER_IMAGE=ros:melodic-ros-base-bionic BRANCH=${TRAVIS_BRANCH} TARGET=catkin-build-old

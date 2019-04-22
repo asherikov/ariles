@@ -38,22 +38,47 @@ install-ros:
 	apt-get install -y ros-${ROS_DISTRO}-ros-base
 	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; rosdep init'
 
+# Dependencies
+install-deps:
+	apt update
+#	apt upgrade -y
+	apt install -y \
+        devscripts \
+        build-essential \
+        libboost-all-dev \
+        libeigen3-dev \
+        octave \
+        libpugixml-dev \
+        libyaml-cpp-dev \
+        fakeroot
+
 
 # catkin
 #----------------------------------------------
 
 CATKIN_WORKING_DIR?=./build/catkin_workspace
 
-catkin-build-old:
+catkin-build-old: install-deps
 	mkdir -p ${CATKIN_WORKING_DIR}
 	mkdir -p ${CATKIN_WORKING_DIR}/src/catkin_ariles/
 	cd ${CATKIN_WORKING_DIR}/src; catkin_init_workspace # old
 	ls -1 | grep -v build | xargs cp -R -t ${CATKIN_WORKING_DIR}/src/catkin_ariles
-	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated # old
+	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated --pkg ariles_ros --cmake-args -DARILES_ROS_ENABLE_TESTS=ON --make-args all test # old
 
-catkin-build-new:
+catkin-build-new: install-deps
 	mkdir -p ${CATKIN_WORKING_DIR}
 	mkdir -p ${CATKIN_WORKING_DIR}/src/catkin_ariles/
 	cd ${CATKIN_WORKING_DIR}; catkin init # new
 	ls -1 | grep -v build | xargs cp -R -t ${CATKIN_WORKING_DIR}/src/catkin_ariles
 	cd ${CATKIN_WORKING_DIR}; catkin build --verbose --summary # new
+
+
+# docker
+#----------------------------------------------
+make-docker:
+	docker pull ${DOCKER_IMAGE}
+	docker run -ti ${DOCKER_IMAGE} \
+		/bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
+		&& git clone -b ${BRANCH} https://github.com/asherikov/ariles.git \
+		&& cd ariles \
+		&& make ${TARGET}"

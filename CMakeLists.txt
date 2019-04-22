@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.12)
 project(ariles_ros)
 
+option(ARILES_ROS_ENABLE_TESTS "Enable tests." OFF)
+
 set(ARILES_DIR             "${CMAKE_CURRENT_SOURCE_DIR}/ariles")
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
@@ -18,7 +20,7 @@ set(ARILES_ADAPTER_EIGEN            "ON"    CACHE STRING "")
 set(ARILES_ADAPTER_BOOST_POINTER    "ON"    CACHE STRING "")
 set(ARILES_ADAPTER_BOOST_OPTIONAL   "ON"    CACHE STRING "")
 
-set(ARILES_BUILD_REGRESSION_TESTS   "OFF"   CACHE STRING "")
+set(ARILES_BUILD_REGRESSION_TESTS   "${ARILES_ROS_ENABLE_TESTS}"   CACHE STRING "")
 #-----
 
 add_subdirectory("${ARILES_DIR}" "./ariles")
