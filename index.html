@@ -65,10 +65,16 @@ $(function() {
 <div class="title">Ariles </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><ul>
-<li>Travis CI: <a href="https://travis-ci.org/asherikov/ariles">https://travis-ci.org/asherikov/ariles</a> <a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=master" alt="Build Status" class="inline"/>
-</a></li>
-</ul>
+<div class="textblock"><table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">branch  </th><th class="markdownTableHeadNone">CI status   </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>master</code>  </td><td class="markdownTableBodyNone"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=master" alt="Build Status" class="inline"/>
+</a>   </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><code>pkg_ros</code> (ROS package)  </td><td class="markdownTableBodyNone"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=pkg_ros" alt="Build Status" class="inline"/>
+</a>   </td></tr>
+</table>
 <h1>Contents </h1>
 <ul>
 <li><a href="#links">Links</a></li>
@@ -84,6 +90,7 @@ $(function() {
 <ul>
 <li>Doxygen: <a href="https://asherikov.github.io/ariles/">https://asherikov.github.io/ariles/</a></li>
 <li>GitHub: <a href="https://github.com/asherikov/ariles">https://github.com/asherikov/ariles</a></li>
+<li>CI: <a href="https://travis-ci.org/asherikov/ariles">https://travis-ci.org/asherikov/ariles</a></li>
 </ul>
 <p><a class="anchor" id="intro"></a> </p><h1>Introduction </h1>
 <p>Ariles is a C++ serialization/configuration library with some useful metaprogramming features. It relies on other open-source libraries for parsing of various data representation formats. The library also provides some predefined serialization wrappers for common types, e.g., some standard containers and smart pointers.</p>
@@ -121,7 +128,7 @@ $(function() {
 <ul>
 <li>Fundametal types: signed/unsigned integers, floats, booleans.</li>
 <li>Some STL classes (WIP): <code>std::string</code>, <code>std::vector</code>, <code>std::map</code>, <code>std::pair</code>, <code>std::shared_ptr</code>, <code>std::unique_ptr</code>.</li>
-<li>Eigen matrices.</li>
+<li>Eigen types: matrices, transforms, quaternions.</li>
 <li>Boost classes: <code>boost::optional</code>, <code>boost::movelib::unique_ptr</code>. <code>boost::shared_ptr</code>.</li>
 <li>Better enums -&gt; <a href="https://github.com/aantron/better-enums">https://github.com/aantron/better-enums</a>.</li>
 </ul>
@@ -141,7 +148,7 @@ $(function() {
 <li>Various types defined for tests: [<code>./tests/types/</code>]</li>
 </ul>
 <p><a class="anchor" id="catkin"></a> </p><h1>Compilation using catkin </h1>
-<p><code>catkin</code> (ROS build utility) is not flexible enough to build Ariles, it is, however, possible to create a proxy catkin package to build Ariles with a predefined configuration. You can find an example in <code>./tests/catkin_package</code>. </p>
+<p><code>catkin</code> (ROS build utility) is not flexible enough to build Ariles, it is, however, possible to create a proxy catkin package to build Ariles with a predefined configuration. You can find an example in <code>pkg_ros</code> branch of this repository (<a href="https://github.com/asherikov/ariles/tree/pkg_ros">https://github.com/asherikov/ariles/tree/pkg_ros</a>). </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->

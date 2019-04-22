@@ -66,6 +66,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-types">Protected Types</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
@@ -87,11 +88,26 @@ Inheritance diagram for ariles::bridge::yaml_cpp::Reader:</div>
  <div class="center">
   <img src="classariles_1_1bridge_1_1yaml__cpp_1_1Reader.png" usemap="#ariles::bridge::yaml_5Fcpp::Reader_map" alt=""/>
   <map id="ariles::bridge::yaml_5Fcpp::Reader_map" name="ariles::bridge::yaml_5Fcpp::Reader_map">
-<area href="classariles_1_1bridge_1_1yaml__cpp_1_1Base.html" alt="ariles::bridge::yaml_cpp::Base&lt; t_Base &gt;" shape="rect" coords="0,56,309,80"/>
-<area href="classariles_1_1bridge_1_1pugixml_1_1t__Base.html" alt="t_Base" shape="rect" coords="0,0,309,24"/>
+<area href="classariles_1_1bridge_1_1yaml__cpp_1_1Base.html" alt="ariles::bridge::yaml_cpp::Base&lt; ariles::ReaderBase &gt;" shape="rect" coords="0,56,309,80"/>
+<area href="classariles_1_1ReaderBase.html" alt="ariles::ReaderBase" shape="rect" coords="0,0,309,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a730549b1122314b397bfdb43a46a6c90"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1ReaderBase.html#a730549b1122314b397bfdb43a46a6c90">SizeLimitEnforcementType</a> { <br />
+&#160;&#160;<a class="el" href="classariles_1_1ReaderBase.html#a730549b1122314b397bfdb43a46a6c90a2813982614820bbff56d68b00259b7aa">SIZE_LIMIT_UNDEFINED</a> = 0, 
+<a class="el" href="classariles_1_1ReaderBase.html#a730549b1122314b397bfdb43a46a6c90ab4cbd96b8622ef4932184093cbe2cfa6">SIZE_LIMIT_NONE</a> = 1, 
+<a class="el" href="classariles_1_1ReaderBase.html#a730549b1122314b397bfdb43a46a6c90aa50ea48314e9fc85bf9ec230efc78dfd">SIZE_LIMIT_EQUAL</a> = 2, 
+<a class="el" href="classariles_1_1ReaderBase.html#a730549b1122314b397bfdb43a46a6c90ad5b67b07de9878251556cfed5f08d865">SIZE_LIMIT_RANGE</a> = 3, 
+<br />
+&#160;&#160;<a class="el" href="classariles_1_1ReaderBase.html#a730549b1122314b397bfdb43a46a6c90ae91a1710b7b87db837f5190f70aca42c">SIZE_LIMIT_MIN</a> = 4
+<br />
+ }</td></tr>
+<tr class="separator:a730549b1122314b397bfdb43a46a6c90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a844b62838701dd2c5e1a5d5f29ce08b6"><td class="memItemLeft" align="right" valign="top">typedef int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1ReaderBase.html#a844b62838701dd2c5e1a5d5f29ce08b6">ReaderIndicatorType</a></td></tr>
+<tr class="separator:a844b62838701dd2c5e1a5d5f29ce08b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae245f35212b0bce69f604efacd5f54b7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1yaml__cpp_1_1Reader.html#ae245f35212b0bce69f604efacd5f54b7">Reader</a> (const std::string &amp;file_name)</td></tr>
@@ -101,8 +117,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a86ddfaa4e12500e6ee84aec16ceac2d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a86ddfaa4e12500e6ee84aec16ceac2d7">More...</a><br /></td></tr>
 <tr class="separator:a86ddfaa4e12500e6ee84aec16ceac2d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a041724dcd924f6ca11faf56a0c767262"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1yaml__cpp_1_1Reader.html#a041724dcd924f6ca11faf56a0c767262">descend</a> (const std::string &amp;child_name)</td></tr>
+<tr class="memdesc:a041724dcd924f6ca11faf56a0c767262"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descend to the entry with the given name.  <a href="#a041724dcd924f6ca11faf56a0c767262">More...</a><br /></td></tr>
 <tr class="separator:a041724dcd924f6ca11faf56a0c767262"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d9ed2b57540fcd602ddbb326064f867"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1yaml__cpp_1_1Reader.html#a8d9ed2b57540fcd602ddbb326064f867">ascend</a> ()</td></tr>
+<tr class="memdesc:a8d9ed2b57540fcd602ddbb326064f867"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ascend from the current entry to its parent.  <a href="#a8d9ed2b57540fcd602ddbb326064f867">More...</a><br /></td></tr>
 <tr class="separator:a8d9ed2b57540fcd602ddbb326064f867"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a376ae252692ab64912893a0054a0265f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1yaml__cpp_1_1Reader.html#a376ae252692ab64912893a0054a0265f">getMapEntryNames</a> (std::vector&lt; std::string &gt; &amp;child_names)</td></tr>
 <tr class="separator:a376ae252692ab64912893a0054a0265f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,6 +132,11 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af308f0e9d7ca9b2af8e50b9a27eddbf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21dbd360bd6022f83de19bf8f04aeb0c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classariles_1_1BridgeFlags.html">BridgeFlags</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1yaml__cpp_1_1Base.html#a21dbd360bd6022f83de19bf8f04aeb0c">getBridgeFlags</a> () const</td></tr>
 <tr class="separator:a21dbd360bd6022f83de19bf8f04aeb0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa598af47e72a438beef46ca43d53cb35"><td class="memTemplParams" colspan="2">template&lt;int t_size_limit_type&gt; </td></tr>
+<tr class="memitem:aa598af47e72a438beef46ca43d53cb35"><td class="memTemplItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classariles_1_1ReaderBase.html#aa598af47e72a438beef46ca43d53cb35">startMap</a> (const std::size_t &amp;min=0, const std::size_t &amp;max=0)</td></tr>
+<tr class="separator:aa598af47e72a438beef46ca43d53cb35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad354aa918740aab8ba7c5739de8441b4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1ReaderBase.html#ad354aa918740aab8ba7c5739de8441b4">endMap</a> ()</td></tr>
+<tr class="separator:ad354aa918740aab8ba7c5739de8441b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
 Protected Types</h2></td></tr>
@@ -129,6 +152,14 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a747f8fed04d090877e4e5c42c061673a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31cc00e84613b30a5a628e6af766aa52"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1yaml__cpp_1_1Reader.html#a31cc00e84613b30a5a628e6af766aa52">getMapSize</a> (const bool)</td></tr>
 <tr class="separator:a31cc00e84613b30a5a628e6af766aa52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa4345859117b778c095760013a83add"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1ReaderBase.html#afa4345859117b778c095760013a83add">openFile</a> (std::ifstream &amp;config_ifs, const std::string &amp;file_name)</td></tr>
+<tr class="memdesc:afa4345859117b778c095760013a83add"><td class="mdescLeft">&#160;</td><td class="mdescRight">open configuration file  <a href="#afa4345859117b778c095760013a83add">More...</a><br /></td></tr>
+<tr class="separator:afa4345859117b778c095760013a83add"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1d8a9109be496a353718c42e8b8c036"><td class="memTemplParams" colspan="2">template&lt;int t_size_limit_type&gt; </td></tr>
+<tr class="memitem:af1d8a9109be496a353718c42e8b8c036"><td class="memTemplItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classariles_1_1ReaderBase.html#af1d8a9109be496a353718c42e8b8c036">checkSize</a> (const std::size_t &amp;, const std::size_t &amp;=0, const std::size_t &amp;=0) const</td></tr>
+<tr class="separator:af1d8a9109be496a353718c42e8b8c036"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33e4f0f2fb902507f91c69b83aaa76a3"><td class="memItemLeft" align="right" valign="top">virtual std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1ReaderBase.html#a33e4f0f2fb902507f91c69b83aaa76a3">startMapImpl</a> (const std::size_t size)</td></tr>
+<tr class="separator:a33e4f0f2fb902507f91c69b83aaa76a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -161,6 +192,62 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="yaml__cpp_2interface_2yaml__cpp_2reader_8h_source.html#l00026">26</a> of file <a class="el" href="yaml__cpp_2interface_2yaml__cpp_2reader_8h_source.html">reader.h</a>.</p>
+
+</div>
+</div>
+<a id="a844b62838701dd2c5e1a5d5f29ce08b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a844b62838701dd2c5e1a5d5f29ce08b6">&#9670;&nbsp;</a></span>ReaderIndicatorType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef int <a class="el" href="classariles_1_1ReaderBase.html#a844b62838701dd2c5e1a5d5f29ce08b6">ariles::ReaderBase::ReaderIndicatorType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="reader__base_8h_source.html#l00020">20</a> of file <a class="el" href="reader__base_8h_source.html">reader_base.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a730549b1122314b397bfdb43a46a6c90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a730549b1122314b397bfdb43a46a6c90">&#9670;&nbsp;</a></span>SizeLimitEnforcementType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classariles_1_1ReaderBase.html#a730549b1122314b397bfdb43a46a6c90">ariles::ReaderBase::SizeLimitEnforcementType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a730549b1122314b397bfdb43a46a6c90a2813982614820bbff56d68b00259b7aa"></a>SIZE_LIMIT_UNDEFINED&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a730549b1122314b397bfdb43a46a6c90ab4cbd96b8622ef4932184093cbe2cfa6"></a>SIZE_LIMIT_NONE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a730549b1122314b397bfdb43a46a6c90aa50ea48314e9fc85bf9ec230efc78dfd"></a>SIZE_LIMIT_EQUAL&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a730549b1122314b397bfdb43a46a6c90ad5b67b07de9878251556cfed5f08d865"></a>SIZE_LIMIT_RANGE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a730549b1122314b397bfdb43a46a6c90ae91a1710b7b87db837f5190f70aca42c"></a>SIZE_LIMIT_MIN&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="reader__base_8h_source.html#l00022">22</a> of file <a class="el" href="reader__base_8h_source.html">reader_base.h</a>.</p>
 
 </div>
 </div>
@@ -256,12 +343,62 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p>Ascend from the current entry to its parent. </p>
+
+<p>Implements <a class="el" href="classariles_1_1ReaderBase.html#a85012a805f7b8c857858f5a6e2b4a708">ariles::ReaderBase</a>.</p>
+
 <p class="definition">Definition at line <a class="el" href="yaml__cpp_2interface_2yaml__cpp_2reader_8h_source.html#l00109">109</a> of file <a class="el" href="yaml__cpp_2interface_2yaml__cpp_2reader_8h_source.html">reader.h</a>.</p>
+
+</div>
+</div>
+<a id="af1d8a9109be496a353718c42e8b8c036"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1d8a9109be496a353718c42e8b8c036">&#9670;&nbsp;</a></span>checkSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int t_size_limit_type&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t ariles::ReaderBase::checkSize </td>
+          <td>(</td>
+          <td class="paramtype">const std::size_t &amp;&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::size_t &amp;&#160;</td>
+          <td class="paramname"> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::size_t &amp;&#160;</td>
+          <td class="paramname"> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="reader__base_8h_source.html#l00053">53</a> of file <a class="el" href="reader__base_8h_source.html">reader_base.h</a>.</p>
 
 </div>
 </div>
@@ -284,10 +421,21 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Descend to the entry with the given name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">child_name</td><td>child node name</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if successful. </dd></dl>
+
+<p>Reimplemented from <a class="el" href="classariles_1_1ReaderBase.html#a17cf19dd481b51da3d9295c40b13a9d2">ariles::ReaderBase</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="yaml__cpp_2interface_2yaml__cpp_2reader_8h_source.html#l00092">92</a> of file <a class="el" href="yaml__cpp_2interface_2yaml__cpp_2reader_8h_source.html">reader.h</a>.</p>
 
@@ -311,12 +459,43 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p>Implements <a class="el" href="classariles_1_1ReaderBase.html#a83bf1950457e6c73d926b96c13668fd2">ariles::ReaderBase</a>.</p>
+
 <p class="definition">Definition at line <a class="el" href="yaml__cpp_2interface_2yaml__cpp_2reader_8h_source.html#l00158">158</a> of file <a class="el" href="yaml__cpp_2interface_2yaml__cpp_2reader_8h_source.html">reader.h</a>.</p>
+
+</div>
+</div>
+<a id="ad354aa918740aab8ba7c5739de8441b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad354aa918740aab8ba7c5739de8441b4">&#9670;&nbsp;</a></span>endMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ariles::ReaderBase::endMap </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classariles_1_1bridge_1_1msgpack_1_1compact_1_1Reader.html#aaf84ac57a30193a068f19bfb4436c2a6">ariles::bridge::msgpack::compact::Reader</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="reader__base_8h_source.html#l00118">118</a> of file <a class="el" href="reader__base_8h_source.html">reader_base.h</a>.</p>
 
 </div>
 </div>
@@ -325,14 +504,12 @@ Protected Attributes</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class t_Base&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classariles_1_1BridgeFlags.html">BridgeFlags</a>&amp; <a class="el" href="classariles_1_1bridge_1_1yaml__cpp_1_1Base.html">ariles::bridge::yaml_cpp::Base</a>&lt; <a class="el" href="classariles_1_1bridge_1_1pugixml_1_1t__Base.html">t_Base</a> &gt;::getBridgeFlags </td>
+          <td class="memname">const <a class="el" href="classariles_1_1BridgeFlags.html">BridgeFlags</a>&amp; <a class="el" href="classariles_1_1bridge_1_1yaml__cpp_1_1Base.html">ariles::bridge::yaml_cpp::Base</a>&lt; <a class="el" href="classariles_1_1ReaderBase.html">ariles::ReaderBase</a>  &gt;::getBridgeFlags </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -340,10 +517,12 @@ template&lt;class t_Base&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implements <a class="el" href="classariles_1_1ReaderBase.html#a5430ee3faecc5182d9a343116aa893ed">ariles::ReaderBase</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="yaml__cpp_8h_source.html#l00031">31</a> of file <a class="el" href="yaml__cpp_8h_source.html">yaml_cpp.h</a>.</p>
 
@@ -368,10 +547,12 @@ template&lt;class t_Base&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classariles_1_1ReaderBase.html#a4f66711bf2190a7b07cb0edc076d1598">ariles::ReaderBase</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="yaml__cpp_2interface_2yaml__cpp_2reader_8h_source.html#l00115">115</a> of file <a class="el" href="yaml__cpp_2interface_2yaml__cpp_2reader_8h_source.html">reader.h</a>.</p>
 
@@ -396,10 +577,12 @@ template&lt;class t_Base&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implements <a class="el" href="classariles_1_1ReaderBase.html#a603b05003cda0855c86f220ea138eef7">ariles::ReaderBase</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="yaml__cpp_2interface_2yaml__cpp_2reader_8h_source.html#l00062">62</a> of file <a class="el" href="yaml__cpp_2interface_2yaml__cpp_2reader_8h_source.html">reader.h</a>.</p>
 
@@ -463,6 +646,53 @@ template&lt;class t_Base&gt; </div>
 
 </div>
 </div>
+<a id="afa4345859117b778c095760013a83add"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa4345859117b778c095760013a83add">&#9670;&nbsp;</a></span>openFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ariles::ReaderBase::openFile </td>
+          <td>(</td>
+          <td class="paramtype">std::ifstream &amp;&#160;</td>
+          <td class="paramname"><em>config_ifs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file_name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>open configuration file </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">config_ifs</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">file_name</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="reader__base_8h_source.html#l00039">39</a> of file <a class="el" href="reader__base_8h_source.html">reader_base.h</a>.</p>
+
+</div>
+</div>
 <a id="ad1580d78de3c51b47edd7080370abb10"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad1580d78de3c51b47edd7080370abb10">&#9670;&nbsp;</a></span>shiftArray()</h2>
 
@@ -481,10 +711,12 @@ template&lt;class t_Base&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implements <a class="el" href="classariles_1_1ReaderBase.html#a82a4769bdc059be0ff4c69c502d594b3">ariles::ReaderBase</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="yaml__cpp_2interface_2yaml__cpp_2reader_8h_source.html#l00148">148</a> of file <a class="el" href="yaml__cpp_2interface_2yaml__cpp_2reader_8h_source.html">reader.h</a>.</p>
 
@@ -508,12 +740,84 @@ template&lt;class t_Base&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p>Implements <a class="el" href="classariles_1_1ReaderBase.html#ad82a455d685cc3b79aa8c5e67756e822">ariles::ReaderBase</a>.</p>
+
 <p class="definition">Definition at line <a class="el" href="yaml__cpp_2interface_2yaml__cpp_2reader_8h_source.html#l00137">137</a> of file <a class="el" href="yaml__cpp_2interface_2yaml__cpp_2reader_8h_source.html">reader.h</a>.</p>
+
+</div>
+</div>
+<a id="aa598af47e72a438beef46ca43d53cb35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa598af47e72a438beef46ca43d53cb35">&#9670;&nbsp;</a></span>startMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int t_size_limit_type&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t ariles::ReaderBase::startMap </td>
+          <td>(</td>
+          <td class="paramtype">const std::size_t &amp;&#160;</td>
+          <td class="paramname"><em>min</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::size_t &amp;&#160;</td>
+          <td class="paramname"><em>max</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="reader__base_8h_source.html#l00103">103</a> of file <a class="el" href="reader__base_8h_source.html">reader_base.h</a>.</p>
+
+</div>
+</div>
+<a id="a33e4f0f2fb902507f91c69b83aaa76a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33e4f0f2fb902507f91c69b83aaa76a3">&#9670;&nbsp;</a></span>startMapImpl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::size_t ariles::ReaderBase::startMapImpl </td>
+          <td>(</td>
+          <td class="paramtype">const std::size_t&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classariles_1_1bridge_1_1msgpack_1_1compact_1_1Reader.html#a1b7a42f3cfe653e735368a8ec602cf70">ariles::bridge::msgpack::compact::Reader</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="reader__base_8h_source.html#l00072">72</a> of file <a class="el" href="reader__base_8h_source.html">reader_base.h</a>.</p>
 
 </div>
 </div>

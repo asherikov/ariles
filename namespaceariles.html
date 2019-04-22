@@ -92,8 +92,6 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1ConfigurableFlags.html">ConfigurableFlags</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1Flags.html">Flags</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structariles_1_1msgpack.html">msgpack</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">MessagePack bridge.  <a href="structariles_1_1msgpack.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -220,14 +218,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a530ca84beb8b7fba73aef243e3d59594"><td class="memTemplParams" colspan="2">template&lt;typename t_VectorEntryType , class t_Allocator , class t_Flags &gt; </td></tr>
 <tr class="memitem:a530ca84beb8b7fba73aef243e3d59594"><td class="memTemplItemLeft" align="right" valign="top">void <a class="el" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles.html#a530ca84beb8b7fba73aef243e3d59594">setDefaults</a> (std::vector&lt; t_VectorEntryType, t_Allocator &gt; &amp;entry, const t_Flags &amp;)</td></tr>
 <tr class="separator:a530ca84beb8b7fba73aef243e3d59594"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1d686b01276fea949091179c4afff89"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceariles.html#af1d686b01276fea949091179c4afff89">isNaN</a> (double value)</td></tr>
-<tr class="separator:af1d686b01276fea949091179c4afff89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3ef8d127c05e839e98e61ddb7d2947d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceariles.html#ad3ef8d127c05e839e98e61ddb7d2947d">isInfinity</a> (double value)</td></tr>
-<tr class="separator:ad3ef8d127c05e839e98e61ddb7d2947d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a696a019ba0d19137e1b3e10d61657a00"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceariles.html#a696a019ba0d19137e1b3e10d61657a00">isNaN</a> (float value)</td></tr>
-<tr class="separator:a696a019ba0d19137e1b3e10d61657a00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f9c8f71cc49f5e47d83c89d8fea5ca4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceariles.html#a5f9c8f71cc49f5e47d83c89d8fea5ca4">isInfinity</a> (float value)</td></tr>
-<tr class="separator:a5f9c8f71cc49f5e47d83c89d8fea5ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9fc94eb00ea44ec96aaea6992bd51e3"><td class="memTemplParams" colspan="2">template&lt;&gt; </td></tr>
 <tr class="memitem:af9fc94eb00ea44ec96aaea6992bd51e3"><td class="memTemplItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles.html#af9fc94eb00ea44ec96aaea6992bd51e3">ReaderBase::checkSize&lt; ReaderBase::SIZE_LIMIT_NONE &gt;</a> (const std::size_t &amp;size, const std::size_t &amp;, const std::size_t &amp;) const</td></tr>
 <tr class="separator:af9fc94eb00ea44ec96aaea6992bd51e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -392,118 +382,6 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Generate setDefaults methods for basic types. </p>
-
-</div>
-</div>
-<a id="ad3ef8d127c05e839e98e61ddb7d2947d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3ef8d127c05e839e98e61ddb7d2947d">&#9670;&nbsp;</a></span>isInfinity() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int ariles::isInfinity </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="cpput__floating__point__utils_8h_source.html#l00029">29</a> of file <a class="el" href="cpput__floating__point__utils_8h_source.html">cpput_floating_point_utils.h</a>.</p>
-
-</div>
-</div>
-<a id="a5f9c8f71cc49f5e47d83c89d8fea5ca4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f9c8f71cc49f5e47d83c89d8fea5ca4">&#9670;&nbsp;</a></span>isInfinity() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int ariles::isInfinity </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="cpput__floating__point__utils_8h_source.html#l00045">45</a> of file <a class="el" href="cpput__floating__point__utils_8h_source.html">cpput_floating_point_utils.h</a>.</p>
-
-</div>
-</div>
-<a id="af1d686b01276fea949091179c4afff89"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1d686b01276fea949091179c4afff89">&#9670;&nbsp;</a></span>isNaN() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int ariles::isNaN </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="cpput__floating__point__utils_8h_source.html#l00021">21</a> of file <a class="el" href="cpput__floating__point__utils_8h_source.html">cpput_floating_point_utils.h</a>.</p>
-
-</div>
-</div>
-<a id="a696a019ba0d19137e1b3e10d61657a00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a696a019ba0d19137e1b3e10d61657a00">&#9670;&nbsp;</a></span>isNaN() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int ariles::isNaN </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="cpput__floating__point__utils_8h_source.html#l00037">37</a> of file <a class="el" href="cpput__floating__point__utils_8h_source.html">cpput_floating_point_utils.h</a>.</p>
 
 </div>
 </div>
@@ -727,46 +605,8 @@ template&lt;class t_Reader , typename t_Entry , class t_Flags &gt; </div>
 
 </div>
 </div>
-<a id="a1aaf60851a35a8052e6ed52027d8c37e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1aaf60851a35a8052e6ed52027d8c37e">&#9670;&nbsp;</a></span>readBody() <span class="overload">[6/13]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class t_Reader , typename t_Key , typename t_Value , class t_Compare , class t_Allocator , class t_Flags &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a> ariles::readBody </td>
-          <td>(</td>
-          <td class="paramtype">t_Reader &amp;&#160;</td>
-          <td class="paramname"><em>reader</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::map&lt; t_Key, t_Value, t_Compare, t_Allocator &gt; &amp;&#160;</td>
-          <td class="paramname"><em>entry</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const t_Flags &amp;&#160;</td>
-          <td class="paramname"><em>param</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="std__map_8h_source.html#l00023">23</a> of file <a class="el" href="std__map_8h_source.html">std_map.h</a>.</p>
-
-</div>
-</div>
 <a id="aa13a4db1216229ac856da34c461ab990"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa13a4db1216229ac856da34c461ab990">&#9670;&nbsp;</a></span>readBody() <span class="overload">[7/13]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa13a4db1216229ac856da34c461ab990">&#9670;&nbsp;</a></span>readBody() <span class="overload">[6/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -800,6 +640,44 @@ template&lt;class t_Reader , typename t_Scalar , int t_rows, int t_flags, class 
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="eigen_8h_source.html#l00023">23</a> of file <a class="el" href="eigen_8h_source.html">eigen.h</a>.</p>
+
+</div>
+</div>
+<a id="a1aaf60851a35a8052e6ed52027d8c37e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1aaf60851a35a8052e6ed52027d8c37e">&#9670;&nbsp;</a></span>readBody() <span class="overload">[7/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class t_Reader , typename t_Key , typename t_Value , class t_Compare , class t_Allocator , class t_Flags &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a> ariles::readBody </td>
+          <td>(</td>
+          <td class="paramtype">t_Reader &amp;&#160;</td>
+          <td class="paramname"><em>reader</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::map&lt; t_Key, t_Value, t_Compare, t_Allocator &gt; &amp;&#160;</td>
+          <td class="paramname"><em>entry</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const t_Flags &amp;&#160;</td>
+          <td class="paramname"><em>param</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="std__map_8h_source.html#l00023">23</a> of file <a class="el" href="std__map_8h_source.html">std_map.h</a>.</p>
 
 </div>
 </div>
