@@ -36,22 +36,22 @@
 
 namespace ariles_tests
 {
-namespace initializers
-{
-    class FilenameReaderBase
+    namespace initializers
     {
-        public:
-            std::string string_id_;
+        class FilenameReaderBase
+        {
+            public:
+                std::string string_id_;
 
-        public:
-            FilenameReaderBase()
-            {
-                string_id_ = "regression_test_010.json";
-            }
-    };
+            public:
+                FilenameReaderBase()
+                {
+                    string_id_ = "regression_test_010.json";
+                }
+        };
 
-    typedef FilenameReaderInitializer<FilenameReaderBase> FilenameReaderInitializer010;
-}
+        typedef FilenameReaderInitializer<FilenameReaderBase> FilenameReaderInitializer010;
+    }
 }
 
 // ===============================================================

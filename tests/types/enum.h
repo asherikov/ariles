@@ -12,12 +12,12 @@
 
 namespace ariles_tests
 {
-enum SomeEnum
-{
-    UNDEFINED = 0,
-    SOME_VALUE = 1,
-    ANOTHER_VALUE = 2
-};
+    enum SomeEnum
+    {
+        UNDEFINED = 0,
+        SOME_VALUE = 1,
+        ANOTHER_VALUE = 2
+    };
 }
 
 
@@ -27,11 +27,12 @@ enum SomeEnum
     public:                                     \
         Enum() : _value(0) { }
 
-#include "better_enum.h"
+
+#include "ariles/internal/cpput_better_enum.h"
 
 namespace ariles_tests
 {
-BETTER_ENUM(BetterEnum, int, UNDEFINED = 0, DEFINED_1, DEFINED_2)
+    BETTER_ENUM(BetterEnum, int, UNDEFINED = 0, DEFINED_1, DEFINED_2)
 }
 
 #endif

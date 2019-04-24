@@ -13,16 +13,16 @@
 
 namespace ariles_tests
 {
-class DummyFixture
-{
-    protected:
-        template<class t_Configurable>
-            void test()
-        {
-            BOOST_CHECK_NO_THROW(
-                t_Configurable configurable;
-                configurable.setDefaults();
-            );
-        }
-};
+    class DummyFixture
+    {
+        protected:
+            template<class t_Configurable>
+                void test()
+            {
+                BOOST_CHECK_NO_THROW(
+                    t_Configurable configurable;
+                    configurable.setDefaults();
+                );
+            }
+    };
 }

@@ -29,21 +29,6 @@
 // FIXTURES
 // ===============================================================
 
-// comparison
-template<class t_Configurable_out, class t_Configurable_in>
-void    compare(const t_Configurable_out    &configurable_out,
-                const t_Configurable_in     &configurable_in)
-{
-    BOOST_CHECK_EQUAL(configurable_out.integer_,                 configurable_in.integer_);
-    BOOST_CHECK_CLOSE(configurable_out.real_,                    configurable_in.real_, g_tolerance);
-
-    BOOST_CHECK_EQUAL(configurable_out.another_member_.integer_, configurable_in.another_member_.integer_);
-    BOOST_CHECK_CLOSE(configurable_out.another_member_.real_,    configurable_in.another_member_.real_, g_tolerance);
-
-    BOOST_CHECK_EQUAL(configurable_out.member_.integer_,         configurable_in.member_.integer_);
-    BOOST_CHECK_CLOSE(configurable_out.member_.real_,            configurable_in.member_.real_, g_tolerance);
-}
-
 
 #include "fixtures/initializers.h"
 #include "fixtures/000_basic_interface.h"

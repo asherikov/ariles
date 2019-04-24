@@ -35,22 +35,22 @@
 
 namespace ariles_tests
 {
-namespace initializers
-{
-    class FilenameReaderBase
+    namespace initializers
     {
-        public:
-            std::string string_id_;
+        class FilenameReaderBase
+        {
+            public:
+                std::string string_id_;
 
-        public:
-            FilenameReaderBase()
-            {
-                string_id_ = "regression_test_015.xml";
-            }
-    };
+            public:
+                FilenameReaderBase()
+                {
+                    string_id_ = "regression_test_015.xml";
+                }
+        };
 
-    typedef FilenameReaderInitializer<FilenameReaderBase> FilenameReaderInitializer015;
-}
+        typedef FilenameReaderInitializer<FilenameReaderBase> FilenameReaderInitializer015;
+    }
 }
 
 
