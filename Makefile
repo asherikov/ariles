@@ -43,14 +43,9 @@ install-deps:
 	apt update
 #	apt upgrade -y
 	apt install -y \
-        devscripts \
-        build-essential \
-        libboost-all-dev \
         libeigen3-dev \
         octave \
-        libpugixml-dev \
-        libyaml-cpp-dev \
-        fakeroot
+        libyaml-cpp-dev
 
 
 # catkin
