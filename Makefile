@@ -28,13 +28,15 @@ release:
 # ROS
 #----------------------------------------------
 
-install-ros:
+add-ros-repos:
 	sh -c "echo \"deb http://packages.ros.org/ros/ubuntu ${UBUNTU_DISTRO} main\" > /etc/apt/sources.list.d/ros-latest.list"
 	sh -c "apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116 \
 		|| apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116 \
 		|| apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116"
 	apt-get update -qq
 	apt-get install dpkg
+
+install-ros:
 	apt-get install -y ros-${ROS_DISTRO}-ros-base
 	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; rosdep init'
 
@@ -46,6 +48,20 @@ install-deps:
         libeigen3-dev \
         octave \
         libyaml-cpp-dev
+
+ros-prerelease:
+	sudo ${MAKE} add-ros-repos UBUNTU_DISTRO=${TRAVIS_UBUNTU_DISTRO}
+	sudo apt update -y
+	sudo apt install -y python3-ros-buildfarm
+	mkdir -p /tmp/prerelease_job
+	cd /tmp/prerelease_job && generate_prerelease_script.py \
+		https://raw.githubusercontent.com/ros-infrastructure/ros_buildfarm_config/production/index.yaml \
+		${ROS_DISTRO} default ubuntu ${UBUNTU_DISTRO} amd64 \
+		ariles_ros \
+		--custom-branch ariles_ros:${BRANCH} \
+		--level 0 \
+		--output-dir ./
+	cd /tmp/prerelease_job && ./prerelease.sh
 
 
 # catkin
@@ -71,9 +87,9 @@ catkin-build-new: install-deps
 # docker
 #----------------------------------------------
 make-docker:
-	docker pull ${DOCKER_IMAGE}
-	docker run -ti ${DOCKER_IMAGE} \
+	docker pull ros:${ROS_DISTRO}-ros-base-${UBUNTU_DISTRO}
+	docker run -ti ros:${ROS_DISTRO}-ros-base-${UBUNTU_DISTRO} \
 		/bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
 		&& git clone -b ${BRANCH} https://github.com/asherikov/ariles.git \
 		&& cd ariles \
-		&& make ${TARGET}"
+		&& make ${TARGET} ROS_DISTRO=${ROS_DISTRO} UBUNTU_DISTRO=${UBUNTU_DISTRO}"

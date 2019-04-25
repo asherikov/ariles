@@ -17,8 +17,13 @@ jobs:
 
     # melodic / 18.04
       - script:
-          - make make-docker ROS_DISTRO=melodic DOCKER_IMAGE=ros:melodic-ros-base-bionic BRANCH=${TRAVIS_BRANCH} TARGET=catkin-build-old
+          - make make-docker ROS_DISTRO=melodic UBUNTU_DISTRO=bionic BRANCH=${TRAVIS_BRANCH} TARGET=catkin-build-old
 
     # kinetic / 16.04
       - script:
-          - make make-docker ROS_DISTRO=kinetic DOCKER_IMAGE=ros:kinetic-ros-base-xenial BRANCH=${TRAVIS_BRANCH} TARGET=catkin-build-old
+          - make make-docker ROS_DISTRO=kinetic UBUNTU_DISTRO=xenial BRANCH=${TRAVIS_BRANCH} TARGET=catkin-build-old
+
+    # prerelease
+    #  - sudo: required
+    #    script:
+    #      - make ros-prerelease TRAVIS_UBUNTU_DISTRO=trusty ROS_DISTRO=melodic UBUNTU_DISTRO=bionic BRANCH=${TRAVIS_BRANCH}
