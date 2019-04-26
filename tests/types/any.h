@@ -104,7 +104,9 @@ namespace ariles_tests
                 BOOST_CHECK_NO_THROW(this->build("Derived1"));
                 BOOST_CHECK(true == this->isInitialized());
 
-                BOOST_CHECK_NO_THROW(this->template cast<Derived1>());
+                BOOST_CHECK(NULL != this->template cast<Derived1>());
+                BOOST_CHECK(NULL != this->template cast<Derived1>("Derived1"));
+                BOOST_CHECK(NULL == this->template cast<Derived1>("Derived2"));
 
                 double test = 0.0;
 
@@ -250,12 +252,20 @@ namespace ariles_tests
                     configurable_out.std_any_.template cast<Derived1>()->real1_,
                     configurable_in.std_any_.template cast<Derived1>()->real1_,
                     g_tolerance);
+            BOOST_CHECK_CLOSE(
+                    configurable_out.std_any_.template cast<Derived1>("Derived1")->real1_,
+                    configurable_in.std_any_.template cast<Derived1>("Derived1")->real1_,
+                    g_tolerance);
         }
         if ("Derived2" == configurable_out.std_any_.id_)
         {
             BOOST_CHECK_CLOSE(
                     configurable_out.std_any_.template cast<Derived2>()->real2_,
                     configurable_in.std_any_.template cast<Derived2>()->real2_,
+                    g_tolerance);
+            BOOST_CHECK_CLOSE(
+                    configurable_out.std_any_.template cast<Derived2>("Derived2")->real2_,
+                    configurable_in.std_any_.template cast<Derived2>("Derived2")->real2_,
                     g_tolerance);
         }
 #endif
@@ -270,12 +280,20 @@ namespace ariles_tests
                     configurable_out.boost_any_.template cast<Derived1>()->real1_,
                     configurable_in.boost_any_.template cast<Derived1>()->real1_,
                     g_tolerance);
+            BOOST_CHECK_CLOSE(
+                    configurable_out.boost_any_.template cast<Derived1>("Derived1")->real1_,
+                    configurable_in.boost_any_.template cast<Derived1>("Derived1")->real1_,
+                    g_tolerance);
         }
         if ("Derived2" == configurable_out.boost_any_.id_)
         {
             BOOST_CHECK_CLOSE(
                     configurable_out.boost_any_.template cast<Derived2>()->real2_,
                     configurable_in.boost_any_.template cast<Derived2>()->real2_,
+                    g_tolerance);
+            BOOST_CHECK_CLOSE(
+                    configurable_out.boost_any_.template cast<Derived2>("Derived2")->real2_,
+                    configurable_in.boost_any_.template cast<Derived2>("Derived2")->real2_,
                     g_tolerance);
         }
 #endif
