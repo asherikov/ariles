@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.15"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ariles: /mnt/data/_me/git/asherikov/ariles/tests/utility.h File Reference</title>
+<title>Ariles: /mnt/data/_me/git/asherikov/ariles_master/tests/utility.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -67,6 +67,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
@@ -92,7 +93,12 @@ $(function() {
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structGlobalFixtureConfig.html">GlobalFixtureConfig</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structariles__tests_1_1GlobalFixtureConfig.html">ariles_tests::GlobalFixtureConfig</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespaceariles__tests"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceariles__tests.html">ariles_tests</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -114,8 +120,8 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ade2046aee63cc421c6e7546b382ca4ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utility_8h.html#ade2046aee63cc421c6e7546b382ca4ab">BOOST_GLOBAL_FIXTURE</a> (<a class="el" href="structGlobalFixtureConfig.html">GlobalFixtureConfig</a>)</td></tr>
-<tr class="separator:ade2046aee63cc421c6e7546b382ca4ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af06c4e19af2945b5113e74d5ee8d0915"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceariles__tests.html#af06c4e19af2945b5113e74d5ee8d0915">ariles_tests::BOOST_GLOBAL_FIXTURE</a> (GlobalFixtureConfig)</td></tr>
+<tr class="separator:af06c4e19af2945b5113e74d5ee8d0915"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af648f93beff45878eda3defa532057ba"><td class="memItemLeft" align="right" valign="top">boost::random::uniform_int_distribution&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utility_8h.html#af648f93beff45878eda3defa532057ba">g_int_uniform_distribution</a> (std::numeric_limits&lt; int &gt;::min(), std::numeric_limits&lt; int &gt;::max())</td></tr>
 <tr class="separator:af648f93beff45878eda3defa532057ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad415e50b8fc4319b2c03653a85f78bf8"><td class="memItemLeft" align="right" valign="top">boost::random::uniform_int_distribution&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utility_8h.html#ad415e50b8fc4319b2c03653a85f78bf8">g_uint_uniform_distribution</a> (std::numeric_limits&lt; unsigned int &gt;::min(), std::numeric_limits&lt; int &gt;::max())</td></tr>
@@ -176,7 +182,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code" href="regression__test__005_8cpp.html#a05ec01a85a8c36078d83f7bb5d90d57a">BOOST_FIXTURE_TEST_CASE</a>( FIXTURE_NAME##_##BRIDGE_ID##_##CONFIGURABLE_TYPE##_##INITIALIZER_TYPE, \</div><div class="line">                             ariles_tests::FIXTURE_NAME&lt;ariles_tests::initializers::INITIALIZER_TYPE&gt; ) \</div><div class="line">    { \</div><div class="line">        test&lt;ariles_tests::CONFIGURABLE_TYPE, ariles::FORMAT_NAMESPACE&gt;(); \</div><div class="line">    }</div><div class="ttc" id="regression__test__005_8cpp_html_a05ec01a85a8c36078d83f7bb5d90d57a"><div class="ttname"><a href="regression__test__005_8cpp.html#a05ec01a85a8c36078d83f7bb5d90d57a">BOOST_FIXTURE_TEST_CASE</a></div><div class="ttdeci">BOOST_FIXTURE_TEST_CASE(DummyFixture_Configurable, ariles_tests::DummyFixture)</div><div class="ttdef"><b>Definition:</b> <a href="regression__test__005_8cpp_source.html#l00036">regression_test_005.cpp:36</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="utility_8h_source.html#l00046">46</a> of file <a class="el" href="utility_8h_source.html">utility.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utility_8h_source.html#l00051">51</a> of file <a class="el" href="utility_8h_source.html">utility.h</a>.</p>
 
 </div>
 </div>
@@ -231,7 +237,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code" href="regression__test__005_8cpp.html#a05ec01a85a8c36078d83f7bb5d90d57a">BOOST_FIXTURE_TEST_CASE</a>( FIXTURE_NAME##_##BRIDGE_ID##_##CONFIGURABLE_TYPE1##_##CONFIGURABLE_TYPE2##_##INITIALIZER_TYPE, \</div><div class="line">                             ariles_tests::FIXTURE_NAME&lt;ariles_tests::initializers::INITIALIZER_TYPE&gt; ) \</div><div class="line">    { \</div><div class="line">        test&lt;ariles_tests::CONFIGURABLE_TYPE1, ariles_tests::CONFIGURABLE_TYPE2, ariles::FORMAT_NAMESPACE&gt;(); \</div><div class="line">    }</div><div class="ttc" id="regression__test__005_8cpp_html_a05ec01a85a8c36078d83f7bb5d90d57a"><div class="ttname"><a href="regression__test__005_8cpp.html#a05ec01a85a8c36078d83f7bb5d90d57a">BOOST_FIXTURE_TEST_CASE</a></div><div class="ttdeci">BOOST_FIXTURE_TEST_CASE(DummyFixture_Configurable, ariles_tests::DummyFixture)</div><div class="ttdef"><b>Definition:</b> <a href="regression__test__005_8cpp_source.html#l00036">regression_test_005.cpp:36</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="utility_8h_source.html#l00053">53</a> of file <a class="el" href="utility_8h_source.html">utility.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utility_8h_source.html#l00058">58</a> of file <a class="el" href="utility_8h_source.html">utility.h</a>.</p>
 
 </div>
 </div>
@@ -279,7 +285,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utility_8h_source.html#l00075">75</a> of file <a class="el" href="utility_8h_source.html">utility.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utility_8h_source.html#l00080">80</a> of file <a class="el" href="utility_8h_source.html">utility.h</a>.</p>
 
 </div>
 </div>
@@ -295,7 +301,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utility_8h_source.html#l00076">76</a> of file <a class="el" href="utility_8h_source.html">utility.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utility_8h_source.html#l00081">81</a> of file <a class="el" href="utility_8h_source.html">utility.h</a>.</p>
 
 </div>
 </div>
@@ -311,29 +317,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utility_8h_source.html#l00074">74</a> of file <a class="el" href="utility_8h_source.html">utility.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utility_8h_source.html#l00079">79</a> of file <a class="el" href="utility_8h_source.html">utility.h</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ade2046aee63cc421c6e7546b382ca4ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade2046aee63cc421c6e7546b382ca4ab">&#9670;&nbsp;</a></span>BOOST_GLOBAL_FIXTURE()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">BOOST_GLOBAL_FIXTURE </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structGlobalFixtureConfig.html">GlobalFixtureConfig</a>&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="af648f93beff45878eda3defa532057ba"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af648f93beff45878eda3defa532057ba">&#9670;&nbsp;</a></span>g_int_uniform_distribution()</h2>
 
@@ -431,7 +419,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utility_8h_source.html#l00062">62</a> of file <a class="el" href="utility_8h_source.html">utility.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utility_8h_source.html#l00067">67</a> of file <a class="el" href="utility_8h_source.html">utility.h</a>.</p>
 
 </div>
 </div>
@@ -447,7 +435,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utility_8h_source.html#l00080">80</a> of file <a class="el" href="utility_8h_source.html">utility.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utility_8h_source.html#l00085">85</a> of file <a class="el" href="utility_8h_source.html">utility.h</a>.</p>
 
 </div>
 </div>

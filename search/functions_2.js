@@ -5,7 +5,7 @@ var searchData=
   ['checksize',['checkSize',['../classariles_1_1ReaderBase.html#af1d8a9109be496a353718c42e8b8c036',1,'ariles::ReaderBase']]],
   ['commonconfigurablebase',['CommonConfigurableBase',['../classariles_1_1CommonConfigurableBase.html#a1706fa7436f23f58b13d149106e9b0fc',1,'ariles::CommonConfigurableBase']]],
   ['commonconfigurablebasewithflags',['CommonConfigurableBaseWithFlags',['../classariles_1_1CommonConfigurableBaseWithFlags.html#ad6a6d10f27fd1e7e7d21817fbc4b1a22',1,'ariles::CommonConfigurableBaseWithFlags']]],
-  ['compare',['compare',['../regression__test__002_8cpp.html#af22bb91994803c4eb0b0c871d75d7642',1,'compare(const t_Configurable_out &amp;configurable_out, const t_Configurable_in &amp;configurable_in):&#160;regression_test_002.cpp'],['../regression__test__003_8cpp.html#af22bb91994803c4eb0b0c871d75d7642',1,'compare(const t_Configurable_out &amp;configurable_out, const t_Configurable_in &amp;configurable_in):&#160;regression_test_003.cpp'],['../namespaceariles__tests.html#ab62a86fce9855eeb2ec9c0dc9f0333fd',1,'ariles_tests::compare()']]],
+  ['compare',['compare',['../namespaceariles__tests.html#ab62a86fce9855eeb2ec9c0dc9f0333fd',1,'ariles_tests']]],
   ['configurableany',['ConfigurableAny',['../classariles__tests_1_1ConfigurableAny.html#ae6050e45a37d6fb1ec9503e6e7a73f51',1,'ariles_tests::ConfigurableAny']]],
   ['configurableautodeclare',['ConfigurableAutoDeclare',['../classariles__tests_1_1ConfigurableAutoDeclare.html#a5fe43b68dd011599833f8a0cc2abc3ad',1,'ariles_tests::ConfigurableAutoDeclare']]],
   ['configurablebase',['ConfigurableBase',['../classariles__tests_1_1ConfigurableBase.html#a35fcd55ab5895808af8c1b4d977e1ae1',1,'ariles_tests::ConfigurableBase']]],
@@ -25,5 +25,6 @@ var searchData=
   ['configurablestrictness1',['ConfigurableStrictness1',['../classariles__tests_1_1ConfigurableStrictness1.html#a515a0dfda3b06e1639fba0b2b630a277',1,'ariles_tests::ConfigurableStrictness1']]],
   ['configurablestrictness2',['ConfigurableStrictness2',['../classariles__tests_1_1ConfigurableStrictness2.html#a4e3ce3e0f0e03d24618f4d362e3b255f',1,'ariles_tests::ConfigurableStrictness2']]],
   ['configurablevector',['ConfigurableVector',['../classariles__tests_1_1ConfigurableVector.html#aa67a4ce91d4a6761a37e84acc590a07e',1,'ariles_tests::ConfigurableVector']]],
-  ['configurableverbose',['ConfigurableVerbose',['../classariles__tests_1_1ConfigurableVerbose.html#ab902615dc79b88a67a7c040260c075c4',1,'ariles_tests::ConfigurableVerbose']]]
+  ['configurableverbose',['ConfigurableVerbose',['../classariles__tests_1_1ConfigurableVerbose.html#ab902615dc79b88a67a7c040260c075c4',1,'ariles_tests::ConfigurableVerbose']]],
+  ['copy',['copy',['../classariles_1_1Flags.html#aeceda0e917078970d4b7e64f97474e24',1,'ariles::Flags']]]
 ];

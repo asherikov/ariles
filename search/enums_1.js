@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['sizelimitenforcementtype',['SizeLimitEnforcementType',['../classariles_1_1ReaderBase.html#a730549b1122314b397bfdb43a46a6c90',1,'ariles::ReaderBase']]],
-  ['someenum',['SomeEnum',['../namespaceariles__tests.html#ab2e5a1bf5531167756365d80ba6afdde',1,'ariles_tests']]]
+  ['flags',['Flags',['../classariles_1_1BridgeFlags.html#a332c570fa7ccfd38009420a69cff5c75',1,'ariles::BridgeFlags::Flags()'],['../classariles_1_1ConfigurableFlags.html#a524828f45690389b89bb8d4245267804',1,'ariles::ConfigurableFlags::Flags()']]]
 ];

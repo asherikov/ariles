@@ -11,7 +11,7 @@ var searchData=
   ['_7econfigurablefinalize',['~ConfigurableFinalize',['../classariles__tests_1_1ConfigurableFinalize.html#a2d6c2435d51cec985e99d28632bd637f',1,'ariles_tests::ConfigurableFinalize']]],
   ['_7econfigurablemember',['~ConfigurableMember',['../classariles__tests_1_1ConfigurableMember.html#ac75cb6999f9e9760f19e4265c7709c65',1,'ariles_tests::ConfigurableMember']]],
   ['_7econfigurablespecialfloats',['~ConfigurableSpecialFloats',['../classariles__tests_1_1ConfigurableSpecialFloats.html#a56d0e21736dc1f3d7b43e95c9531dcaa',1,'ariles_tests::ConfigurableSpecialFloats']]],
-  ['_7eglobalfixtureconfig',['~GlobalFixtureConfig',['../structGlobalFixtureConfig.html#a1c27d58ce5f0fffed665e3ed45420857',1,'GlobalFixtureConfig']]],
+  ['_7eglobalfixtureconfig',['~GlobalFixtureConfig',['../structariles__tests_1_1GlobalFixtureConfig.html#ab815f25d1a7e731440d0b5c43fd5e9d6',1,'ariles_tests::GlobalFixtureConfig']]],
   ['_7emyclass',['~MyClass',['../classdemo_1_1MyClass.html#af36724fde188221a03fe24c3b3e9a95f',1,'demo::MyClass']]],
   ['_7ewriter',['~Writer',['../classariles_1_1bridge_1_1msgpack_1_1Writer.html#ace11fcc561b203c289235001049a2255',1,'ariles::bridge::msgpack::Writer::~Writer()'],['../classariles_1_1bridge_1_1msgpack_1_1compact_1_1Writer.html#a0abc90abe5b8c07cf63171011c1a5dff',1,'ariles::bridge::msgpack::compact::Writer::~Writer()'],['../classariles_1_1bridge_1_1yaml__cpp03_1_1Writer.html#a093ad0c4630ece75efbf79397f9f0972',1,'ariles::bridge::yaml_cpp03::Writer::~Writer()'],['../classariles_1_1bridge_1_1yaml__cpp_1_1Writer.html#a338414b9189b722796fb77aed0ac7892',1,'ariles::bridge::yaml_cpp::Writer::~Writer()']]]
 ];
