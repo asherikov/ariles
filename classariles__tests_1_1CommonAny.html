@@ -130,10 +130,16 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:add2231a929b8f3d797d3b60b6e97d3dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
 <tr class="memitem:a99010e0dcc4429edd8bd8e2fa7b95a1a"><td class="memItemLeft" align="right" valign="top">t_Derived *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1Any.html#a99010e0dcc4429edd8bd8e2fa7b95a1a">cast</a> ()</td></tr>
-<tr class="memdesc:a99010e0dcc4429edd8bd8e2fa7b95a1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cast methods are potentially dangerous, no id checks are performed.  <a href="#a99010e0dcc4429edd8bd8e2fa7b95a1a">More...</a><br /></td></tr>
+<tr class="memdesc:a99010e0dcc4429edd8bd8e2fa7b95a1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cast methods are potentially dangerous, no id checks are performed. If value is not initialized the returned pointer may be NULL.  <a href="#a99010e0dcc4429edd8bd8e2fa7b95a1a">More...</a><br /></td></tr>
 <tr class="separator:a99010e0dcc4429edd8bd8e2fa7b95a1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb7f769e1f8c93a8aa79eff44d76077c"><td class="memItemLeft" align="right" valign="top">const t_Derived *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1Any.html#acb7f769e1f8c93a8aa79eff44d76077c">cast</a> () const</td></tr>
 <tr class="separator:acb7f769e1f8c93a8aa79eff44d76077c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:a3c8845c4222dfa0f914e6f99e3f3a908"><td class="memItemLeft" align="right" valign="top">t_Derived *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1Any.html#a3c8845c4222dfa0f914e6f99e3f3a908">cast</a> (const std::string &amp;config_section_id)</td></tr>
+<tr class="memdesc:a3c8845c4222dfa0f914e6f99e3f3a908"><td class="mdescLeft">&#160;</td><td class="mdescRight">These casts succeed if the Ariles config section id matches the given string.  <a href="#a3c8845c4222dfa0f914e6f99e3f3a908">More...</a><br /></td></tr>
+<tr class="separator:a3c8845c4222dfa0f914e6f99e3f3a908"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fc7ce1c1b9b6e8ca0a1100239bd522f"><td class="memItemLeft" align="right" valign="top">const t_Derived *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1Any.html#a7fc7ce1c1b9b6e8ca0a1100239bd522f">cast</a> (const std::string &amp;config_section_id) const</td></tr>
+<tr class="separator:a7fc7ce1c1b9b6e8ca0a1100239bd522f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -177,7 +183,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a99010e0dcc4429edd8bd8e2fa7b95a1a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99010e0dcc4429edd8bd8e2fa7b95a1a">&#9670;&nbsp;</a></span>cast() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a99010e0dcc4429edd8bd8e2fa7b95a1a">&#9670;&nbsp;</a></span>cast() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,14 +205,14 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Cast methods are potentially dangerous, no id checks are performed. </p>
+<p>Cast methods are potentially dangerous, no id checks are performed. If value is not initialized the returned pointer may be NULL. </p>
 
-<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00076">76</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00077">77</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 
 </div>
 </div>
 <a id="acb7f769e1f8c93a8aa79eff44d76077c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb7f769e1f8c93a8aa79eff44d76077c">&#9670;&nbsp;</a></span>cast() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acb7f769e1f8c93a8aa79eff44d76077c">&#9670;&nbsp;</a></span>cast() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -228,7 +234,65 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00083">83</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00084">84</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
+
+</div>
+</div>
+<a id="a3c8845c4222dfa0f914e6f99e3f3a908"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c8845c4222dfa0f914e6f99e3f3a908">&#9670;&nbsp;</a></span>cast() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">t_Derived* <a class="el" href="classariles_1_1Any.html">ariles::Any</a>&lt; t_Pointer, <a class="el" href="classariles__tests_1_1Base.html">Base</a> , t_Instantiator &gt;::cast </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>config_section_id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>These casts succeed if the Ariles config section id matches the given string. </p>
+
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00097">97</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
+
+</div>
+</div>
+<a id="a7fc7ce1c1b9b6e8ca0a1100239bd522f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fc7ce1c1b9b6e8ca0a1100239bd522f">&#9670;&nbsp;</a></span>cast() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const t_Derived* <a class="el" href="classariles_1_1Any.html">ariles::Any</a>&lt; t_Pointer, <a class="el" href="classariles__tests_1_1Base.html">Base</a> , t_Instantiator &gt;::cast </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>config_section_id</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00111">111</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 
 </div>
 </div>
@@ -353,7 +417,7 @@ template&lt;int t_flags&gt; </div>
 
 <p>Implements <a class="el" href="classariles_1_1CommonConfigurableBase.html#a9d20fafd7a37c5227c420be3b3a962bb">ariles::CommonConfigurableBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00164">164</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00199">199</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 
 </div>
 </div>
@@ -434,7 +498,7 @@ template&lt;int t_flags&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00104">104</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00139">139</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 
 </div>
 </div>
@@ -461,7 +525,7 @@ template&lt;int t_flags&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00111">111</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00146">146</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 
 </div>
 </div>
@@ -488,7 +552,7 @@ template&lt;int t_flags&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00090">90</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00125">125</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 
 </div>
 </div>
@@ -515,7 +579,7 @@ template&lt;int t_flags&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00097">97</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00132">132</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 
 </div>
 </div>
@@ -584,7 +648,7 @@ template&lt;template&lt; class &gt; class t_Pointer, class t_Instantiator &gt; <
 
 <p>Implements <a class="el" href="classariles_1_1CommonConfigurableBase.html#af79c0914f888e82faaf58fe796ea4dda">ariles::CommonConfigurableBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00135">135</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00170">170</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 
 </div>
 </div>
@@ -615,7 +679,7 @@ template&lt;template&lt; class &gt; class t_Pointer, class t_Instantiator &gt; <
 
 <p>Implements <a class="el" href="classariles_1_1CommonConfigurableBase.html#a648726bdda5d152cc185e0912871d795">ariles::CommonConfigurableBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00157">157</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00192">192</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 
 </div>
 </div>
@@ -656,7 +720,7 @@ template&lt;template&lt; class &gt; class t_Pointer, class t_Instantiator &gt; <
 
 <p>Implements <a class="el" href="classariles_1_1CommonConfigurableBase.html#a40594a9c8b4123fcf1381f63f72e9d9b">ariles::CommonConfigurableBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00120">120</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00155">155</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 
 </div>
 </div>
