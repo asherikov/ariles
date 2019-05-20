@@ -17,6 +17,11 @@ cleanup:
 	git rm -rf --ignore-unmatch ariles/tests/catkin_package/
 	git rm -rf --ignore-unmatch ariles/doc/dox
 
+clean:
+	rm -Rf build
+	rm -Rf debian
+	rm -Rf obj
+
 release:
 	catkin_prepare_release -t 'ros-' --version "${VERSION}" -y
 
@@ -84,11 +89,11 @@ catkin-build-old:
 catkin-build-deb:
 	cd ${PKG_PATH}; bloom-generate rosdebian --os-name ubuntu --ros-distro ${ROS_DISTRO} ./
 	# disable installation of catkin stuff: setup scripts, etc.
-	cd ${PKG_PATH}; sed "s/dh_auto_configure --/dh_auto_configure -- -DCATKIN_BUILD_BINARY_PACKAGE=ON/" -i debian/rules
+	#cd ${PKG_PATH}; sed "s/dh_auto_configure --/dh_auto_configure -- -DCATKIN_BUILD_BINARY_PACKAGE=ON/" -i debian/rules
 	cd ${PKG_PATH}; fakeroot debian/rules binary
-	dpkg -i ${CATKIN_WORKING_DIR}/src/ros*ariles*.deb
 
 catkin-test-deb:
+	dpkg -i ${CATKIN_WORKING_DIR}/src/ros*ariles*.deb
 	cd ${PKG_PATH}
 	git checkout master
 	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; ${MAKE} cmake_dependency'

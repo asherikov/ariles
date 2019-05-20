@@ -25,8 +25,11 @@ set(ARILES_BUILD_REGRESSION_TESTS   "${ARILES_ROS_ENABLE_TESTS}"   CACHE STRING 
 
 add_subdirectory("${ARILES_DIR}" "./ariles")
 
+set(CATKIN_BUILD_BINARY_PACKAGE "ON") # otherwise setup scripts are added to binary package.
 find_package(catkin REQUIRED)
 
 catkin_package(
     CFG_EXTRAS find_ariles.cmake
 )
+
+install(FILES package.xml DESTINATION share/${CMAKE_PROJECT_NAME})
