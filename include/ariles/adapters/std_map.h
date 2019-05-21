@@ -142,6 +142,27 @@ namespace ariles
                 std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry,
                 const t_Flags & /*param*/)
     {
+        ARILES_TRACE_FUNCTION;
         entry.clear();
+    }
+
+
+    template <  typename t_Key,
+                typename t_Value,
+                class t_Compare,
+                class t_Allocator>
+        void ARILES_VISIBILITY_ATTRIBUTE
+        finalize(   std::map<t_Key, t_Value, t_Compare, t_Allocator> &entry,
+                    const ArilesNamespaceLookupTrigger &trigger)
+    {
+        ARILES_TRACE_FUNCTION;
+        for (
+            typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::iterator it = entry.begin();
+            it != entry.end();
+            ++it)
+        {
+            finalize(it->first, trigger);
+            finalize(it->second, trigger);
+        }
     }
 }

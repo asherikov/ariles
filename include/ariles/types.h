@@ -184,10 +184,17 @@ namespace ariles
                 {
                     build(id_);
                     ARILES_READ_NAMED_ENTRY(*value_, "value");
-                    value_->finalize();
                 }
             }
 
+
+            void arilesFinalize()
+            {
+                if (true == isInitialized())
+                {
+                    value_->finalize();
+                }
+            }
 
             void setDefaults()
             {

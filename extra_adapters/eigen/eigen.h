@@ -479,4 +479,38 @@ namespace ariles
     {
         entry.setIdentity();
     }
+
+
+    // ====================================================
+
+
+    template <  typename t_Scalar,
+                int t_dim,
+                int t_mode,
+                int t_options>
+        void ARILES_VISIBILITY_ATTRIBUTE
+        finalize(   const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & /*entry*/,
+                    const ArilesNamespaceLookupTrigger &)
+    {
+        ARILES_TRACE_FUNCTION;
+    }
+
+
+    template <  typename t_Scalar,
+                int t_options>
+        void ARILES_VISIBILITY_ATTRIBUTE
+        finalize(   const Eigen::Quaternion< t_Scalar, t_options > &/*entry*/,
+                    const ArilesNamespaceLookupTrigger &)
+    {
+        ARILES_TRACE_FUNCTION;
+    }
+
+
+    template <class t_Derived>
+        void ARILES_VISIBILITY_ATTRIBUTE
+        finalize(   const Eigen::EigenBase<t_Derived> & /*entry*/,
+                    const ArilesNamespaceLookupTrigger &)
+    {
+        ARILES_TRACE_FUNCTION;
+    }
 }

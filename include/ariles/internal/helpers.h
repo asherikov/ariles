@@ -77,6 +77,11 @@
 
 namespace ariles
 {
+    struct ArilesNamespaceLookupTrigger
+    {
+    };
+
+
     struct ARILES_VISIBILITY_ATTRIBUTE BridgeSelectorBase
     {
         public:
@@ -86,3 +91,18 @@ namespace ariles
 
 #include "../configurable_flags.h"
 #include "../bridge_flags.h"
+
+
+//#define ARILES_TRACE_ENABLE
+
+#ifdef ARILES_TRACE_ENABLE
+    #include <iostream>
+
+    #define ARILES_TRACE_FUNCTION \
+        std::cout << "Entering function: " << __func__ << std::endl
+    #define ARILES_TRACE_ENTRY(entry_name) \
+        std::cout << "Processing entry: " << #entry_name << std::endl
+#else
+    #define ARILES_TRACE_FUNCTION
+    #define ARILES_TRACE_ENTRY(entry_name)
+#endif

@@ -228,4 +228,27 @@ namespace ariles
     {
         entry = ARILES_DEFAULT_DOUBLE_VALUE;
     }
+
+
+    // ============================================
+
+
+    void ARILES_VISIBILITY_ATTRIBUTE finalize(
+                    ariles::CommonConfigurableBase & entry,
+                    const ArilesNamespaceLookupTrigger &)
+    {
+        ARILES_TRACE_FUNCTION;
+        entry.arilesFinalize();
+    }
+
+
+    #define ARILES_BASIC_TYPE(type) \
+            void ARILES_VISIBILITY_ATTRIBUTE finalize(const type &, const ArilesNamespaceLookupTrigger &) \
+            { \
+                ARILES_TRACE_FUNCTION; \
+            }
+
+    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+
+    #undef ARILES_BASIC_TYPE
 }

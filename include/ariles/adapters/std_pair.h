@@ -116,7 +116,20 @@ namespace ariles
                 std::pair<t_First, t_Second> & entry,
                 const t_Flags & param)
     {
+        ARILES_TRACE_FUNCTION;
         setDefaults(entry.first, param);
         setDefaults(entry.second, param);
+    }
+
+
+    template <  typename t_First,
+                typename t_Second>
+        void ARILES_VISIBILITY_ATTRIBUTE 
+        finalize(   std::pair<t_First, t_Second> &entry,
+                    const ArilesNamespaceLookupTrigger &trigger)
+    {
+        ARILES_TRACE_FUNCTION;
+        finalize(entry.first, trigger);
+        finalize(entry.second, trigger);
     }
 }

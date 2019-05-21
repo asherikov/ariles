@@ -90,6 +90,22 @@
             #endif
 
 
+            #ifndef ARILES_NO_AUTO_FINALIZE
+                #define ARILES_NAMED_ENTRY(entry, name)  ARILES_TRACE_ENTRY(entry); ariles::finalize(entry, ariles::ArilesNamespaceLookupTrigger());
+                #define ARILES_PARENT(entry)             ARILES_TRACE_ENTRY(entry); entry::arilesFinalize();
+
+                void arilesFinalize()
+                {
+                    ARILES_TRACE_FUNCTION;
+                    ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
+                    this->finalize();
+                }
+
+                #undef ARILES_NAMED_ENTRY
+                #undef ARILES_PARENT
+            #endif
+
+
     protected:
         // Count number of entries and define a function, which returns it.
 
@@ -155,5 +171,6 @@
 #undef ARILES_SECTION_ID
 #undef ARILES_CONSTRUCTOR
 #undef ARILES_AUTO_DEFAULTS
+#undef ARILES_NO_AUTO_FINALIZE
 #undef ARILES_ENTRIES
 #undef ARILES_CONFIGURABLE_FLAGS

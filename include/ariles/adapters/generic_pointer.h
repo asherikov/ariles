@@ -11,7 +11,7 @@
 // ARILES_POINTER_TYPE(entry_type)
 // ARILES_POINTER_ALLOCATE(entry_type, pointer)
 // ARILES_POINTER_RESET(pointer)
-// ARILES_POINTER_CHECK_DEFINED(pointer)
+// ARILES_POINTER_CHECK_NULL(pointer)
 
 namespace ariles
 {
@@ -55,7 +55,7 @@ namespace ariles
     {
         bool is_null = true;
 
-        if (ARILES_POINTER_CHECK_DEFINED(entry))
+        if (ARILES_POINTER_CHECK_NULL(entry))
         {
             is_null = true;
             writer.startMap(1);
@@ -77,11 +77,25 @@ namespace ariles
         void ARILES_VISIBILITY_ATTRIBUTE
         setDefaults(ARILES_POINTER_TYPE(t_Entry) &entry, const t_Flags & /*param*/)
     {
+        ARILES_TRACE_FUNCTION;
         ARILES_POINTER_RESET(entry);
+    }
+
+
+    template <typename t_Entry>
+        void ARILES_VISIBILITY_ATTRIBUTE 
+        finalize(   ARILES_POINTER_TYPE(t_Entry) &entry,
+                    const ArilesNamespaceLookupTrigger &trigger)
+    {
+        ARILES_TRACE_FUNCTION;
+        if (false == (ARILES_POINTER_CHECK_NULL(entry)))
+        {
+            finalize(*entry, trigger);
+        }
     }
 }
 
 #undef ARILES_POINTER_TYPE
 #undef ARILES_POINTER_ALLOCATE
 #undef ARILES_POINTER_RESET
-#undef ARILES_POINTER_CHECK_DEFINED
+#undef ARILES_POINTER_CHECK_NULL

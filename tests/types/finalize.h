@@ -8,12 +8,11 @@
 
 #pragma once
 
-
 namespace ariles_tests
 {
-    class ConfigurableFinalize : public ariles::ConfigurableBase
+    class ConfigurableFinalizeBase : public ariles::ConfigurableBase
     {
-        #define ARILES_SECTION_ID "ConfigurableFinalize"
+        #define ARILES_SECTION_ID "ConfigurableFinalizeBase"
         #define ARILES_ENTRIES \
             ARILES_TYPED_ENTRY_(integer,     int) \
             ARILES_TYPED_ENTRY_(real,        double)
@@ -23,13 +22,13 @@ namespace ariles_tests
             double another_real_;
 
         public:
-            ConfigurableFinalize()
+            ConfigurableFinalizeBase()
             {
                 setDefaults();
                 finalize();
             }
 
-            virtual ~ConfigurableFinalize() {}
+            virtual ~ConfigurableFinalizeBase() {}
 
 
             virtual void setDefaults()
@@ -56,6 +55,38 @@ namespace ariles_tests
     };
 
 
+    class ConfigurableFinalize : public ConfigurableFinalizeBase
+    {
+        #define ARILES_SECTION_ID "ConfigurableFinalize"
+        #define ARILES_ENTRIES \
+            ARILES_PARENT(ConfigurableFinalizeBase) \
+            ARILES_TYPED_ENTRY_(member, ConfigurableFinalizeBase)
+        #define ARILES_AUTO_DEFAULTS
+        #include ARILES_INITIALIZE
+
+        public:
+            ConfigurableFinalize()
+            {
+                setDefaults();
+                arilesFinalize();
+            }
+
+            virtual ~ConfigurableFinalize() {}
+
+
+
+
+#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+            void randomize()
+            {
+                ConfigurableFinalizeBase::randomize();
+                member_.randomize();
+                arilesFinalize();
+            }
+#endif
+    };
+
+
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
     // comparison
     template<class t_Configurable_out, class t_Configurable_in>
@@ -65,6 +96,37 @@ namespace ariles_tests
         BOOST_CHECK_EQUAL(configurable_out.integer_,          configurable_in.integer_);
         BOOST_CHECK_CLOSE(configurable_out.real_,             configurable_in.real_, g_tolerance);
         BOOST_CHECK_CLOSE(configurable_out.another_real_,     configurable_in.another_real_, g_tolerance);
+
+        BOOST_CHECK_EQUAL(configurable_out.member_.integer_,          configurable_in.member_.integer_);
+        BOOST_CHECK_CLOSE(configurable_out.member_.real_,             configurable_in.member_.real_, g_tolerance);
+        BOOST_CHECK_CLOSE(configurable_out.member_.another_real_,     configurable_in.member_.another_real_, g_tolerance);
+
+        t_Configurable_in manual_finalize = configurable_in;
+        manual_finalize.another_real_ = 0.0;
+        manual_finalize.member_.another_real_ = 0.0;
+        manual_finalize.arilesFinalize();
+
+        BOOST_CHECK_EQUAL(manual_finalize.integer_,          configurable_in.integer_);
+        BOOST_CHECK_CLOSE(manual_finalize.real_,             configurable_in.real_, g_tolerance);
+        BOOST_CHECK_CLOSE(manual_finalize.another_real_,     configurable_in.another_real_, g_tolerance);
+
+        BOOST_CHECK_EQUAL(manual_finalize.member_.integer_,          configurable_in.member_.integer_);
+        BOOST_CHECK_CLOSE(manual_finalize.member_.real_,             configurable_in.member_.real_, g_tolerance);
+        BOOST_CHECK_CLOSE(manual_finalize.member_.another_real_,     configurable_in.member_.another_real_, g_tolerance);
+
+
+        // Known issue.
+        manual_finalize.another_real_ = 0.0;
+        manual_finalize.member_.another_real_ = 0.0;
+        manual_finalize.finalize();
+
+        BOOST_CHECK_EQUAL(manual_finalize.integer_,          configurable_in.integer_);
+        BOOST_CHECK_CLOSE(manual_finalize.real_,             configurable_in.real_, g_tolerance);
+        BOOST_CHECK_CLOSE(manual_finalize.another_real_,     configurable_in.another_real_, g_tolerance);
+
+        BOOST_CHECK_EQUAL(manual_finalize.member_.integer_,          configurable_in.member_.integer_);
+        BOOST_CHECK_CLOSE(manual_finalize.member_.real_,             configurable_in.member_.real_, g_tolerance);
+        BOOST_CHECK_EQUAL(manual_finalize.member_.another_real_,     0.0); // <--
     }
 #endif
 }
