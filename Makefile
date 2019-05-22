@@ -20,7 +20,7 @@ cleanup:
 clean:
 	rm -Rf build
 	rm -Rf debian
-	rm -Rf obj
+	rm -Rf obj*
 
 release:
 	catkin_prepare_release -t 'ros-' --version "${VERSION}" -y
