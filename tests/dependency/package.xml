@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ariles_catkin_dependency_test</name>
+  <version>0.0.0</version>
+  <description>The ariles_test package</description>
+
+  <maintainer email="asherikov@yandex.com">Alexander Sherikov</maintainer>
+
+  <license>Apache 2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>ariles_ros</depend>
+
+  <export>
+  </export>
+</package>

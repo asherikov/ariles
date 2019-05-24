@@ -57,6 +57,8 @@ install-deps:
 		python-bloom \
 		devscripts \
 		debhelper
+	apt install -y python-catkin-tools
+
 
 ros-prerelease:
 	sudo ${MAKE} add-ros-repos UBUNTU_DISTRO=${TRAVIS_UBUNTU_DISTRO}
@@ -78,38 +80,74 @@ ros-prerelease:
 
 CATKIN_WORKING_DIR?=./build/catkin_workspace
 PKG_PATH?=${CATKIN_WORKING_DIR}/src/catkin_ariles
+DEPENDENT_PKG_PATH?=${CATKIN_WORKING_DIR}/src/ariles_catkin_dependency_test
 
 
-catkin-build-old:
-	mkdir -p ${PKG_PATH}
-	cd ${CATKIN_WORKING_DIR}/src; catkin_init_workspace # old
-	ls -1 | grep -v build | xargs cp -R -t ${PKG_PATH}
-	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated --pkg ariles_ros --cmake-args -DARILES_ROS_ENABLE_TESTS=ON --make-args all test # old
-
-catkin-build-deb:
+catkin-build-deb: clean
 	cd ${PKG_PATH}; bloom-generate rosdebian --os-name ubuntu --ros-distro ${ROS_DISTRO} ./
 	# disable installation of catkin stuff: setup scripts, etc.
 	#cd ${PKG_PATH}; sed "s/dh_auto_configure --/dh_auto_configure -- -DCATKIN_BUILD_BINARY_PACKAGE=ON/" -i debian/rules
 	cd ${PKG_PATH}; fakeroot debian/rules binary
 
-catkin-test-deb:
-	dpkg -i ${CATKIN_WORKING_DIR}/src/ros*ariles*.deb
-	cd ${PKG_PATH}
-	git checkout master
-	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; ${MAKE} cmake_dependency'
+
+catkin-test-deb: catkin-build-deb
+	dpkg -i ../ros*ariles*.deb
+	mkdir -p build/cmake_dependency_test
+	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; \
+             cd build/cmake_dependency_test; \
+             cmake ../../tests/dependency/; \
+             ${MAKE} ${MAKE_FLAGS}'
+
+
+catkin-prepare-workspace: clean
+	mkdir -p ${PKG_PATH}
+	mkdir -p ${DEPENDENT_PKG_PATH}
+	ls -1 | grep -v build | xargs cp -R -t ${PKG_PATH}
+	cp -R tests/dependency/* ${DEPENDENT_PKG_PATH}/
+
+
+catkin-old-build: catkin-prepare-workspace
+	cd ${CATKIN_WORKING_DIR}/src; catkin_init_workspace
+	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated --pkg ariles_ros --cmake-args -DARILES_ROS_ENABLE_TESTS=ON --make-args all test # old
+
+catkin-old-build-with-dependent: catkin-prepare-workspace
+	cd ${CATKIN_WORKING_DIR}/src; catkin_init_workspace
+	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated
+
+catkin-old-deb: catkin-prepare-workspace
+	${MAKE} catkin-test-deb
+	${MAKE} catkin-prepare-workspace
+	rm -Rf ${PKG_PATH}
+	cd ${CATKIN_WORKING_DIR}/src; catkin_init_workspace
+	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated --pkg ariles_catkin_dependency_test
+
+
+catkin-new-build: catkin-prepare-workspace
+	cd ${CATKIN_WORKING_DIR}; catkin init
+	cd ${CATKIN_WORKING_DIR}; catkin build -i --verbose --summary ariles_ros --make-args all test --cmake-args -DARILES_ROS_ENABLE_TESTS=ON
+
+catkin-new-build-with-dependent: catkin-prepare-workspace
+	cd ${CATKIN_WORKING_DIR}; catkin init
+	cd ${CATKIN_WORKING_DIR}; catkin build -i --verbose --summary ariles_catkin_dependency_test
+
+catkin-new-deb:
+	${MAKE} catkin-test-deb
+	${MAKE} catkin-prepare-workspace
+	rm -Rf ${PKG_PATH}
+	cd ${CATKIN_WORKING_DIR}; catkin init
+	cd ${CATKIN_WORKING_DIR}; catkin build -i --verbose --summary ariles_catkin_dependency_test
+
 
 catkin-test-old: install-deps
-	${MAKE} catkin-build-old
-	${MAKE} catkin-build-deb ROS_DISTRO=${ROS_DISTRO}
-	${MAKE} catkin-test-deb ROS_DISTRO=${ROS_DISTRO}
+	${MAKE} catkin-old-build
+	${MAKE} catkin-old-build-with-dependent
+	${MAKE} catkin-old-deb
 
+catkin-test-new: install-deps
+	${MAKE} catkin-new-build
+	${MAKE} catkin-new-build-with-dependent
+	${MAKE} catkin-new-deb
 
-#catkin-build-new: install-deps
-#	mkdir -p ${CATKIN_WORKING_DIR}
-#	mkdir -p ${CATKIN_WORKING_DIR}/src/catkin_ariles/
-#	cd ${CATKIN_WORKING_DIR}; catkin init # new
-#	ls -1 | grep -v build | xargs cp -R -t ${CATKIN_WORKING_DIR}/src/catkin_ariles
-#	cd ${CATKIN_WORKING_DIR}; catkin build --verbose --summary # new
 
 
 # docker

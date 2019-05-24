@@ -18,10 +18,14 @@ jobs:
     # melodic / 18.04
       - script:
           - make make-docker ROS_DISTRO=melodic UBUNTU_DISTRO=bionic BRANCH=${TRAVIS_BRANCH} TARGET=catkin-test-old
+      - script:
+          - make make-docker ROS_DISTRO=melodic UBUNTU_DISTRO=bionic BRANCH=${TRAVIS_BRANCH} TARGET=catkin-test-new
 
     # kinetic / 16.04
       - script:
           - make make-docker ROS_DISTRO=kinetic UBUNTU_DISTRO=xenial BRANCH=${TRAVIS_BRANCH} TARGET=catkin-test-old
+      - script:
+          - make make-docker ROS_DISTRO=kinetic UBUNTU_DISTRO=xenial BRANCH=${TRAVIS_BRANCH} TARGET=catkin-test-new
 
     # prerelease
     #  - sudo: required
