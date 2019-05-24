@@ -1,6 +1,10 @@
 Ariles
 ======
-* Travis CI: https://travis-ci.org/asherikov/ariles [![Build Status](https://travis-ci.org/asherikov/ariles.svg?branch=master)](https://travis-ci.org/asherikov/ariles)
+
+| branch | CI status |
+|--------|-----------|
+| `master`                  | [![Build Status](https://travis-ci.org/asherikov/ariles.svg?branch=master)](https://travis-ci.org/asherikov/ariles)  |
+| `pkg_ros` (ROS package)   | [![Build Status](https://travis-ci.org/asherikov/ariles.svg?branch=pkg_ros)](https://travis-ci.org/asherikov/ariles) |
 
 
 Contents
@@ -20,6 +24,7 @@ Links
 =====
 * Doxygen: https://asherikov.github.io/ariles/
 * GitHub: https://github.com/asherikov/ariles
+* CI: https://travis-ci.org/asherikov/ariles
 
 
 <a name="intro"></a>
@@ -138,11 +143,6 @@ Advanced features
   the minimal example above, or manually, in which case `ARILES_ENTRY` must be
   used.
 
-* Configurable classes may implement `finalize()` method, which would be called
-  automatically after parsing a configuration. This method can be used to
-  perform data consistency checks or initialize parameters which are not stored
-  in the configuration.
-
 * All configurable classes must implement `setDefaults()` method, which is
   called before parsing a configuration. However, Ariles may generated this
   method automatically if `ARILES_AUTO_DEFAULTS` is defined as in the example
@@ -156,6 +156,27 @@ Advanced features
   configuration of some user-defined class based on its string id and stores a
   pointer to its base class. See `tests/types/any.h` for an example. This
   should play well with `ros/pluginlib`.
+
+* 'Sloppy' `std::map` and `std::pair`: optionally maps and pairs, where the key
+  or the first element is an `std::string`, can be saved / loaded as maps if
+  supported by the chosen format. For example:
+`
+    std_map:
+        key: value
+`
+  instead of
+`
+    std_map:
+        first: key
+        second: value
+`
+
+* Configurable classes may implement `finalize()` method, which would be called
+  automatically after parsing a configuration. This method can be used to
+  perform data consistency checks or initialize parameters which are not stored
+  in the configuration. Bug: all ariles classes are `finalize()`d after reading
+  a configuration, but manual call to `finalize()` does not guarantee that, see
+  TODO for more info.
 
 
 <a name="docs"></a>
@@ -173,6 +194,5 @@ Compilation using catkin
 
 `catkin` (ROS build utility) is not flexible enough to build Ariles, it is,
 however, possible to create a proxy catkin package to build Ariles with a
-predefined configuration. You can find an example in `./tests/catkin_package`,
-or use `pkg_ros` branch of this repository
-(https://github.com/asherikov/ariles/tree/pkg_ros).
+predefined configuration. You can find an example in `pkg_ros` branch of this
+repository (https://github.com/asherikov/ariles/tree/pkg_ros).

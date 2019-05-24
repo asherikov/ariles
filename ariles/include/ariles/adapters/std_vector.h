@@ -61,6 +61,21 @@ namespace ariles
                 std::vector<t_VectorEntryType, t_Allocator> & entry,
                 const t_Flags & /*param*/)
     {
+        ARILES_TRACE_FUNCTION;
         entry.clear();
+    }
+
+
+    template <  typename t_VectorEntryType,
+                class t_Allocator>
+        void ARILES_VISIBILITY_ATTRIBUTE 
+        finalize(   std::vector<t_VectorEntryType, t_Allocator> & entry,
+                    const ArilesNamespaceLookupTrigger &trigger)
+    {
+        ARILES_TRACE_FUNCTION;
+        for (std::size_t i = 0; i < entry.size(); ++i)
+        {
+            finalize(entry, trigger);
+        }
     }
 }

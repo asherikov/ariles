@@ -33,7 +33,7 @@
 // ===============================================================
 
 
-BOOST_FIXTURE_TEST_CASE( DummyFixture_Configurable, DummyFixture )
+BOOST_FIXTURE_TEST_CASE( DummyFixture_Configurable, ariles_tests::DummyFixture )
 {
-    test<ConfigurableAutoDeclare>();
+    test<ariles_tests::ConfigurableAutoDeclare>();
 }

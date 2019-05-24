@@ -29,21 +29,6 @@
 // FIXTURES
 // ===============================================================
 
-// comparison
-template<class t_Configurable_out, class t_Configurable_in>
-void    compare(const t_Configurable_out    &configurable_out,
-                const t_Configurable_in     &configurable_in)
-{
-    BOOST_CHECK_EQUAL(configurable_out.integer_,                 configurable_in.integer_);
-    BOOST_CHECK_CLOSE(configurable_out.real_,                    configurable_in.real_, g_tolerance);
-
-    BOOST_CHECK_EQUAL(configurable_out.another_member_.integer_, configurable_in.another_member_.integer_);
-    BOOST_CHECK_CLOSE(configurable_out.another_member_.real_,    configurable_in.another_member_.real_, g_tolerance);
-
-    BOOST_CHECK_EQUAL(configurable_out.member_.integer_,         configurable_in.member_.integer_);
-    BOOST_CHECK_CLOSE(configurable_out.member_.real_,            configurable_in.member_.real_, g_tolerance);
-}
-
 
 #include "fixtures/initializers.h"
 #include "fixtures/000_basic_interface.h"
@@ -63,9 +48,10 @@ void    compare(const t_Configurable_out    &configurable_out,
     ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, BRIDGE_ID, NAMESPACE, ConfigurableDerived, INITIALIZER) \
     ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, BRIDGE_ID, NAMESPACE, ConfigurableDerived, INITIALIZER) \
     ARILES_FIXTURE_TEST_CASE_2CLASSES(StrictnessFixture, BRIDGE_ID, NAMESPACE, ConfigurableStrictness1, ConfigurableStrictness2, INITIALIZER) \
-    BOOST_FIXTURE_TEST_CASE(ComparisonViaBaseFixture##_##BRIDGE_ID##_##INITIALIZER, ComparisonViaBaseFixture<initializers::INITIALIZER>) \
+    BOOST_FIXTURE_TEST_CASE(ComparisonViaBaseFixture##_##BRIDGE_ID##_##INITIALIZER, \
+                            ariles_tests::ComparisonViaBaseFixture<ariles_tests::initializers::INITIALIZER>) \
     { \
-        test<ConfigurableBase, ConfigurableDerived, ariles::NAMESPACE>(); \
+        test<ariles_tests::ConfigurableBase, ariles_tests::ConfigurableDerived, ariles::NAMESPACE>(); \
     }
 
 

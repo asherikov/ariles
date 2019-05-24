@@ -23,36 +23,43 @@
 #include <boost/random/uniform_real_distribution.hpp>
 
 
-
-struct GlobalFixtureConfig
+namespace ariles_tests
 {
-    GlobalFixtureConfig()
+    struct GlobalFixtureConfig
     {
-        //boost::unit_test::unit_test_log.set_threshold_level( boost::unit_test::log_successful_tests );
-        boost::unit_test::results_reporter::set_level( boost::unit_test::DETAILED_REPORT );
-    }
-    ~GlobalFixtureConfig() {}
-};
+        GlobalFixtureConfig()
+        {
+            //boost::unit_test::unit_test_log.set_threshold_level( boost::unit_test::log_successful_tests );
+            boost::unit_test::results_reporter::set_level( boost::unit_test::DETAILED_REPORT );
+        }
+        ~GlobalFixtureConfig() {}
+    };
+}
 
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wpedantic"
 // Depending on Boost version a compiler may issue a warning about extra ';',
 // at the same time, compilation may fail on some systems if ';' is omitted.
-BOOST_GLOBAL_FIXTURE( GlobalFixtureConfig ) ;
+namespace ariles_tests
+{
+    BOOST_GLOBAL_FIXTURE( GlobalFixtureConfig ) ;
+}
 #pragma GCC diagnostic pop
 
 
 #define ARILES_FIXTURE_TEST_CASE(FIXTURE_NAME, BRIDGE_ID, FORMAT_NAMESPACE, CONFIGURABLE_TYPE, INITIALIZER_TYPE) \
-    BOOST_FIXTURE_TEST_CASE( FIXTURE_NAME##_##BRIDGE_ID##_##CONFIGURABLE_TYPE##_##INITIALIZER_TYPE, FIXTURE_NAME<initializers::INITIALIZER_TYPE> ) \
+    BOOST_FIXTURE_TEST_CASE( FIXTURE_NAME##_##BRIDGE_ID##_##CONFIGURABLE_TYPE##_##INITIALIZER_TYPE, \
+                             ariles_tests::FIXTURE_NAME<ariles_tests::initializers::INITIALIZER_TYPE> ) \
     { \
-        test<CONFIGURABLE_TYPE, ariles::FORMAT_NAMESPACE>(); \
+        test<ariles_tests::CONFIGURABLE_TYPE, ariles::FORMAT_NAMESPACE>(); \
     }
 
 #define ARILES_FIXTURE_TEST_CASE_2CLASSES(FIXTURE_NAME, BRIDGE_ID, FORMAT_NAMESPACE, CONFIGURABLE_TYPE1, CONFIGURABLE_TYPE2, INITIALIZER_TYPE) \
-    BOOST_FIXTURE_TEST_CASE( FIXTURE_NAME##_##BRIDGE_ID##_##CONFIGURABLE_TYPE1##_##CONFIGURABLE_TYPE2##_##INITIALIZER_TYPE, FIXTURE_NAME<initializers::INITIALIZER_TYPE> ) \
+    BOOST_FIXTURE_TEST_CASE( FIXTURE_NAME##_##BRIDGE_ID##_##CONFIGURABLE_TYPE1##_##CONFIGURABLE_TYPE2##_##INITIALIZER_TYPE, \
+                             ariles_tests::FIXTURE_NAME<ariles_tests::initializers::INITIALIZER_TYPE> ) \
     { \
-        test<CONFIGURABLE_TYPE1, CONFIGURABLE_TYPE2, ariles::FORMAT_NAMESPACE>(); \
+        test<ariles_tests::CONFIGURABLE_TYPE1, ariles_tests::CONFIGURABLE_TYPE2, ariles::FORMAT_NAMESPACE>(); \
     }
 
 // -----

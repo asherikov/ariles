@@ -83,9 +83,17 @@
 
                 /**
                  * @brief This function is called automaticaly after reading
-                 * a configuration file. Does nothing by default.
+                 * a configuration file.
                  */
-                virtual void finalize() {};
+                virtual void finalize()
+                {
+                }
+
+                /**
+                 * @brief Automatically generated, finalize()'s Configarable
+                 * members and parents.
+                 */
+                virtual void arilesFinalize() = 0;
 
 
                 /**

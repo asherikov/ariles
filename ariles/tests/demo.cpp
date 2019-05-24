@@ -44,97 +44,98 @@
 // ===============================================================
 // DEFINING TYPES
 // ===============================================================
-
-class ArilesBaseClass
-    // must inherit from ariles::ConfigurableBase
-    : public ariles::ConfigurableBase
+namespace demo
 {
-    // Unique entry name, to be safe use only alphanumeric characters and underscores
-    #define ARILES_SECTION_ID "ArilesBaseClass"
+    class ArilesBaseClass
+        // must inherit from ariles::ConfigurableBase
+        : public ariles::ConfigurableBase
+    {
+        // Unique entry name, to be safe use only alphanumeric characters and underscores
+        #define ARILES_SECTION_ID "ArilesBaseClass"
 
-    // Declare entries, in this case two numbers
-    #define ARILES_ENTRIES \
-        ARILES_TYPED_ENTRY(real_member, double) \
-        ARILES_TYPED_ENTRY_(integer_member, int)
-    //         underscore ^ indicates that the name of the entry must be
-    // 'integer_member_' instead of 'integer_member', this is useful if your
-    // naming convention requires trailining underscores for member variables.
+        // Declare entries, in this case two numbers
+        #define ARILES_ENTRIES \
+            ARILES_TYPED_ENTRY(real_member, double) \
+            ARILES_TYPED_ENTRY_(integer_member, int)
+        //         underscore ^ indicates that the name of the entry must be
+        // 'integer_member_' instead of 'integer_member', this is useful if your
+        // naming convention requires trailining underscores for member variables.
 
-    // Initialize ariles
-    #include ARILES_INITIALIZE
+        // Initialize ariles
+        #include ARILES_INITIALIZE
 
-    public:
-        virtual ~ArilesBaseClass(){}; // added to suppress compiler warnings
+        public:
+            virtual ~ArilesBaseClass(){}; // added to suppress compiler warnings
 
-        // setDefaults() is a method which is called every time you deserialize
-        // a class. You can implement it manually as here, or request its
-        // automatic generation using ARILES_AUTO_DEFAULTS as demonstrated for
-        // other classes below.
-        virtual void setDefaults()
-        {
-            real_member = 0.0;
-            integer_member_ = 12;
-        }
-};
-
-
-class NonArilesBaseClass
-{
-    public:
-        // Eigen types are supported too, see below
-        Eigen::Vector3d eigen_vector_;
-};
+            // setDefaults() is a method which is called every time you deserialize
+            // a class. You can implement it manually as here, or request its
+            // automatic generation using ARILES_AUTO_DEFAULTS as demonstrated for
+            // other classes below.
+            virtual void setDefaults()
+            {
+                real_member = 0.0;
+                integer_member_ = 12;
+            }
+    };
 
 
-class MyClass
-    :   public ArilesBaseClass, // no need to inherit from ConfigurableBase directly.
-        public NonArilesBaseClass
-{
-    #define ARILES_SECTION_ID "MyClass"
-
-    // Declare entries, in this case we indicate inheritance from another
-    // Ariles class (ArilesBaseClass) and a member from a non-Ariles class
-    // (NonArilesBaseClass)
-    #define ARILES_ENTRIES \
-        ARILES_PARENT(ArilesBaseClass) \
-        ARILES_ENTRY_(eigen_vector)
-    //              In this case ^ Ariles should not declare the inherited
-    // member, therefore we use 'ARILES_ENTRY_' instead of 'ARILES_TYPED_ENTRY_'.
-
-    #include ARILES_INITIALIZE
+    class NonArilesBaseClass
+    {
+        public:
+            // Eigen types are supported too, see below
+            Eigen::Vector3d eigen_vector_;
+    };
 
 
-    public:
-        virtual ~MyClass(){}; // added to suppress compiler warnings
+    class MyClass
+        :   public ArilesBaseClass, // no need to inherit from ConfigurableBase directly.
+            public NonArilesBaseClass
+    {
+        #define ARILES_SECTION_ID "MyClass"
 
-        virtual void setDefaults()
-        {
-            // If you implement setDefaults() manually, it is up to you to
-            // properly initialize all entries and parent classes.
-            ArilesBaseClass::setDefaults();
+        // Declare entries, in this case we indicate inheritance from another
+        // Ariles class (ArilesBaseClass) and a member from a non-Ariles class
+        // (NonArilesBaseClass)
+        #define ARILES_ENTRIES \
+            ARILES_PARENT(ArilesBaseClass) \
+            ARILES_ENTRY_(eigen_vector)
+        //              In this case ^ Ariles should not declare the inherited
+        // member, therefore we use 'ARILES_ENTRY_' instead of 'ARILES_TYPED_ENTRY_'.
 
-            // custom default values for some members
-            real_member = 100.0;
-            eigen_vector_.setZero();
-        }
-};
+        #include ARILES_INITIALIZE
 
 
-class MyContainerClass
-    :   public ariles::ConfigurableBase
-{
-    #define ARILES_SECTION_ID "MyContainerClass"
+        public:
+            virtual ~MyClass(){}; // added to suppress compiler warnings
 
-    #define ARILES_AUTO_DEFAULTS // Generate setDefaults() automatically
+            virtual void setDefaults()
+            {
+                // If you implement setDefaults() manually, it is up to you to
+                // properly initialize all entries and parent classes.
+                ArilesBaseClass::setDefaults();
 
-    #define ARILES_ENTRIES \
-        ARILES_TYPED_ENTRY_(myclass_vector, std::vector<MyClass>)
-    //      Some of the standard containers ^^^^^^^^^^^^^^^^^^^^ can be used
-    // with Ariles types.
+                // custom default values for some members
+                real_member = 100.0;
+                eigen_vector_.setZero();
+            }
+    };
 
-    #include ARILES_INITIALIZE
-};
 
+    class MyContainerClass
+        :   public ariles::ConfigurableBase
+    {
+        #define ARILES_SECTION_ID "MyContainerClass"
+
+        #define ARILES_AUTO_DEFAULTS // Generate setDefaults() automatically
+
+        #define ARILES_ENTRIES \
+            ARILES_TYPED_ENTRY_(myclass_vector, std::vector<MyClass>)
+        //      Some of the standard containers ^^^^^^^^^^^^^^^^^^^^ can be used
+        // with Ariles types.
+
+        #include ARILES_INITIALIZE
+    };
+}
 
 
 // ===============================================================
@@ -145,11 +146,11 @@ class MyContainerClass
 
 int main()
 {
-    MyContainerClass my_container_class;
+    demo::MyContainerClass my_container_class;
 
     // access members as usual
     my_container_class.myclass_vector_.size();
-    my_container_class.myclass_vector_.push_back(MyClass());
+    my_container_class.myclass_vector_.push_back(demo::MyClass());
     my_container_class.myclass_vector_[0].setDefaults();
 
 

@@ -70,7 +70,8 @@ namespace ariles
             /// @{
             /**
              * @brief Cast methods are potentially dangerous, no id checks are
-             * performed.
+             * performed. If value is not initialized the returned pointer may
+             * be NULL.
              */
             template <class t_Derived>
             t_Derived *cast()
@@ -83,6 +84,40 @@ namespace ariles
             const t_Derived *cast() const
             {
                 return (dynamic_cast<const t_Derived *>(value_.get()));
+            }
+            /// @}
+
+
+            /// @{
+            /**
+             * @brief These casts succeed if the Ariles config section id
+             * matches the given string.
+             */
+            template <class t_Derived>
+            t_Derived *cast(const std::string &config_section_id)
+            {
+                if (true == isInitialized())
+                {
+                    if (config_section_id == value_->getConfigSectionID())
+                    {
+                        return (dynamic_cast<t_Derived *>(value_.get()));
+                    }
+                }
+                return (NULL);
+            }
+
+
+            template <class t_Derived>
+            const t_Derived *cast(const std::string &config_section_id) const
+            {
+                if (true == isInitialized())
+                {
+                    if (config_section_id == value_->getConfigSectionID())
+                    {
+                        return (dynamic_cast<t_Derived *>(value_.get()));
+                    }
+                }
+                return (NULL);
             }
             /// @}
 
@@ -149,10 +184,17 @@ namespace ariles
                 {
                     build(id_);
                     ARILES_READ_NAMED_ENTRY(*value_, "value");
-                    value_->finalize();
                 }
             }
 
+
+            void arilesFinalize()
+            {
+                if (true == isInitialized())
+                {
+                    value_->finalize();
+                }
+            }
 
             void setDefaults()
             {

@@ -11,22 +11,25 @@
 #pragma once
 
 
-template<class t_FixtureBase>
-class ReadWriteFixture : public t_FixtureBase
+namespace ariles_tests
 {
-    public:
-        using t_FixtureBase::getWriterInitializer;
-        using t_FixtureBase::getReaderInitializer;
+    template<class t_FixtureBase>
+    class ReadWriteFixture : public t_FixtureBase
+    {
+        public:
+            using t_FixtureBase::getWriterInitializer;
+            using t_FixtureBase::getReaderInitializer;
 
 
-    protected:
-        template<class t_Configurable, class t_Bridge>
-            void test()
-        {
-            BOOST_CHECK_NO_THROW(
-                t_Configurable configurable;
-                configurable.template readConfig<t_Bridge>(getReaderInitializer("configurable2.cfg"));
-                configurable.template writeConfig<t_Bridge>(getWriterInitializer("configurable2.cfg"));
-            );
-        }
-};
+        protected:
+            template<class t_Configurable, class t_Bridge>
+                void test()
+            {
+                BOOST_CHECK_NO_THROW(
+                    t_Configurable configurable;
+                    configurable.template readConfig<t_Bridge>(getReaderInitializer("configurable2.cfg"));
+                    configurable.template writeConfig<t_Bridge>(getWriterInitializer("configurable2.cfg"));
+                );
+            }
+    };
+}

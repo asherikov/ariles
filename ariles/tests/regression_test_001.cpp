@@ -53,9 +53,10 @@
     ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, BRIDGE_ID, NAMESPACE, ConfigurableComplex, INITIALIZER) \
     ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, BRIDGE_ID, NAMESPACE, ConfigurableComplexVerbose, INITIALIZER) \
     ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, BRIDGE_ID, NAMESPACE, ConfigurableComplex, INITIALIZER) \
-    BOOST_FIXTURE_TEST_CASE(ComparisonEquivalenceFixture##_##BRIDGE_ID##_##Equivalence##_##INITIALIZER, ComparisonEquivalenceFixture<initializers::INITIALIZER>) \
+    BOOST_FIXTURE_TEST_CASE(ComparisonEquivalenceFixture##_##BRIDGE_ID##_##Equivalence##_##INITIALIZER, \
+                            ariles_tests::ComparisonEquivalenceFixture<ariles_tests::initializers::INITIALIZER>) \
     { \
-        test<ConfigurableComplexVerbose, ConfigurableComplex, ariles::NAMESPACE>(); \
+        test<ariles_tests::ConfigurableComplexVerbose, ariles_tests::ConfigurableComplex, ariles::NAMESPACE>(); \
     }
 
 
