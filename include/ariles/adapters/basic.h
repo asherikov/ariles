@@ -233,7 +233,7 @@ namespace ariles
     // ============================================
 
 
-    void ARILES_VISIBILITY_ATTRIBUTE finalize(
+    inline void ARILES_VISIBILITY_ATTRIBUTE finalize(
                     ariles::CommonConfigurableBase & entry,
                     const ArilesNamespaceLookupTrigger &)
     {
@@ -243,7 +243,7 @@ namespace ariles
 
 
     #define ARILES_BASIC_TYPE(type) \
-            void ARILES_VISIBILITY_ATTRIBUTE finalize(const type &, const ArilesNamespaceLookupTrigger &) \
+            inline void ARILES_VISIBILITY_ATTRIBUTE finalize(const type &, const ArilesNamespaceLookupTrigger &) \
             { \
                 ARILES_TRACE_FUNCTION; \
             }

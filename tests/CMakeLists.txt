@@ -9,7 +9,10 @@ endif(ARILES_ADAPTER_BOOST_POINTER)
 find_package(Boost REQUIRED unit_test_framework timer random system)
 include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 
-list(APPEND ARILES_TESTING_LIBRARIES  "${Boost_LIBRARIES}")
+# basic test for missing inlines
+add_library(testlib SHARED testlib1.cpp testlib2.cpp)
+
+list(APPEND ARILES_TESTING_LIBRARIES  "${Boost_LIBRARIES};testlib")
 
 include(ariles_copy_extra_test_files)
 include(ariles_define_regression_test)
