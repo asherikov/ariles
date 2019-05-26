@@ -8,7 +8,7 @@ if (DEFINED CATKIN_DEVEL_PREFIX)
 
     find_package(catkin REQUIRED ariles_ros)
 
-    catkin_package()
+    catkin_package(DEPENDS ariles_ros)
 
     include_directories(
         include

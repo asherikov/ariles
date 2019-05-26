@@ -34,3 +34,7 @@
 #include "ariles/bridges/pugixml.h"
 #endif
 
+// Does not have Reader and there fore is excluded from most of the tests
+//#ifdef ARILES_BRIDGE_octave
+//#include "ariles/bridges/octave.h"
+//#endif
