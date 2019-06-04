@@ -23,6 +23,8 @@ clean:
 	rm -Rf obj*
 
 release:
+	# 1. Add Forthcoming section to the changelog
+	# 2. Commit changelog
 	catkin_prepare_release -t 'ros-' --version "${VERSION}" -y
 
 
