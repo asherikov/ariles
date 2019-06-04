@@ -2,8 +2,8 @@
 Changelog for package ariles_ros
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.1.5 (2019-06-04)
+------------------
 * Sync to 1.1.5.
 * Remove setup.sh and other helpers from the package.
 * More thorough testing.
