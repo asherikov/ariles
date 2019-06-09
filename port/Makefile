@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=		ariles
-DISTVERSION=	1.0.0
+DISTVERSION=	1.1.5
 CATEGORIES=		devel
 
 MAINTAINER=		asherikov@yandex.com
@@ -9,24 +9,25 @@ COMMENT=		C++ serialization / configuration library
 
 LICENSE=		APACHE20
 
-USE_GITHUB=		yes
-GH_ACCOUNT=		asherikov
-GH_PROJECT=		ariles
-GH_TAGNAME=		79a692ec12ec3adc9b699d8b742f55c06629d2f2
-
-ARILES_DEPENDS=	${LOCALBASE}/include/eigen3/Eigen/Core:math/eigen3 \
-				${LOCALBASE}/include/boost/lexical_cast.hpp:devel/boost-libs
-
 BUILD_DEPENDS=cmake:devel/cmake ${ARILES_DEPENDS}
 BUILD_DEPENDS=${ARILES_DEPENDS}
 RUN_DEPENDS=${ARILES_DEPENDS}
 
-USES=			cmake:outsource
+USES=			cmake
+
+USE_GITHUB=		yes
+GH_ACCOUNT=		asherikov
+GH_PROJECT=		ariles
+GH_TAGNAME=		1.1.5
+
+ARILES_DEPENDS=	${LOCALBASE}/include/eigen3/Eigen/Core:math/eigen3 \
+				${LOCALBASE}/include/boost/lexical_cast.hpp:devel/boost-libs
+
+NO_ARCH=yes
+
 CMAKE_ARGS+=	-DARILES_BRIDGES_DEFAULT_MODE=OFF \
 				-DARILES_BUILD_REGRESSION_TESTS=OFF \
 				-DARILES_DEFAULT_CONFIGURABLE_FLAGS="ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED|ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED"
-
-NO_ARCH=yes
 
 OPTIONS_SUB=	yes
 OPTIONS_DEFINE=	MSGPACK RAPIDJSON PUGIXML OCTAVE JSONNET
@@ -44,8 +45,8 @@ JSONNET_IMPLIES=RAPIDJSON
 CPP11_DESC=		Use C++11
 CPP03_DESC=		Use C++03
 
-CPP11_CMAKE_ARGS=		-DARILES_CPP_STANDARD=c++11
-CPP03_CMAKE_ARGS=		-DARILES_CPP_STANDARD=c++03
+CPP11_CMAKE_ON=		-DARILES_CPP_STANDARD=c++11
+CPP03_CMAKE_ON=		-DARILES_CPP_STANDARD=c++03
 
 MSGPACK_DESC=	msgpack support
 YAMLCPP03_DESC=	yaml-cpp03 support

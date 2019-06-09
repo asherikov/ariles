@@ -4,7 +4,7 @@ clean:
 build:
 	cd port; ${MAKE} build
 
-checksum:
+checksum: # update
 	cd port; ${MAKE} fetch
 	cd port; ${MAKE} makesum
 
@@ -39,10 +39,20 @@ plist:
 	cd port; sed "s/^/%%YAMLCPP03%%/"	pkg-plist.yamlcpp03	>> 	pkg-plist
 	cd port; rm	 pkg-plist\.*
 
-test:
+test: #user
+	cd port; ${MAKE} stage
+	cd port; ${MAKE} check-orphans
+	cd port; ${MAKE} package
 	cd port; ${MAKE} describe
 	cd port; ${MAKE} clean
+	${MAKE} portlint
+
+portlint:
 	# ports-mgmt/portlint
 	cd port; portlint -A
 	# ports-mgmt/porttools
 	# port test
+
+testroot:
+	cd port; ${MAKE} install
+	cd port; ${MAKE} deinstall
