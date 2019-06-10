@@ -105,8 +105,6 @@
                 #undef ARILES_PARENT
             #endif
 
-
-    protected:
         // Count number of entries and define a function, which returns it.
 
             #define ARILES_NAMED_ENTRY(entry, name)  +1
