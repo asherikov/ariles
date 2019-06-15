@@ -58,6 +58,7 @@ namespace ariles_tests
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
             virtual void randomize()
             {
+                boost::random::random_device random_generator;
                 finalized_ = false;
 
                 float_quiet_nan_ = std::numeric_limits<float>::quiet_NaN();

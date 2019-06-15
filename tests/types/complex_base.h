@@ -101,6 +101,7 @@ namespace ariles_tests
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
             void randomize()
             {
+                boost::random::random_device random_generator;
                 t_ConfigurableComplex &impl = static_cast<t_ConfigurableComplex &>(*this);
 
                 impl.integer_ = GET_RANDOM_INT;

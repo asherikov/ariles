@@ -98,6 +98,7 @@ namespace ariles_tests
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
             void randomize()
             {
+                boost::random::random_device random_generator;
 #   if __cplusplus >= 201103L
                 std_shared_ptr_real_ = std::make_shared<double>();
                 *std_shared_ptr_real_ = GET_RANDOM_REAL;
