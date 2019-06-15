@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=		ariles
-DISTVERSION=	1.1.5
+DISTVERSION=	1.1.6
 CATEGORIES=		devel
 
 MAINTAINER=		asherikov@yandex.com
@@ -18,7 +18,7 @@ USES=			cmake
 USE_GITHUB=		yes
 GH_ACCOUNT=		asherikov
 GH_PROJECT=		ariles
-GH_TAGNAME=		1.1.5
+GH_TAGNAME=		1.1.6
 
 ARILES_DEPENDS=	${LOCALBASE}/include/eigen3/Eigen/Core:math/eigen3 \
 				${LOCALBASE}/include/boost/lexical_cast.hpp:devel/boost-libs

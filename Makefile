@@ -5,7 +5,6 @@ build:
 	cd port; ${MAKE} build
 
 checksum: # update
-	cd port; ${MAKE} fetch
 	cd port; ${MAKE} makesum
 
 plist:
