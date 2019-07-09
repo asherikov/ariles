@@ -68,7 +68,7 @@
                 }
                 ARILES_UNUSED_ARG(reader);
                 ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
-                finalize();
+                this->finalize();
             }
 
             #undef ARILES_NAMED_ENTRY
