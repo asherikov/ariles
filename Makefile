@@ -1,4 +1,4 @@
-MAKE_FLAGS?=-j5
+MAKE_FLAGS?=-j7
 
 
 CMAKE_DIR=./cmake/

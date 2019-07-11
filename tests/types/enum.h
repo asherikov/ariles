@@ -32,7 +32,7 @@ namespace ariles_tests
 
 namespace ariles_tests
 {
-    BETTER_ENUM(BetterEnum, int, UNDEFINED = 0, DEFINED_1, DEFINED_2)
+    BETTER_ENUM(BetterEnum, int, DEFAULT = 0, DEFINED_1, DEFINED_2)
 }
 
 #endif
