@@ -12,17 +12,65 @@
 
 #include <memory>
 
-#define ARILES_POINTER_TYPE(entry_type)                 std::shared_ptr<entry_type>
-#define ARILES_POINTER_ALLOCATE(entry_type, pointer)    pointer = std::make_shared<entry_type>()
-#define ARILES_POINTER_RESET(pointer)                   pointer.reset()
-#define ARILES_POINTER_CHECK_NULL(pointer)              (NULL == pointer)
+namespace ariles
+{
+    template <class t_Value>
+    class StdSharedPtrHandler
+    {
+    public:
+        typedef std::shared_ptr<t_Value> PointerType;
+
+
+    public:
+        static void allocate(PointerType &ptr)
+        {
+            ptr = std::make_shared<t_Value>();
+        }
+
+        static void reset(PointerType &ptr)
+        {
+            ptr.reset();
+        }
+
+        static bool isNull(const PointerType &ptr)
+        {
+            return (NULL == ptr);
+        }
+    };
+
+
+    template <class t_Value>
+    class StdUniquePtrHandler
+    {
+    public:
+        typedef std::unique_ptr<t_Value> PointerType;
+
+
+    public:
+        static void allocate(PointerType &ptr)
+        {
+            ptr.reset(new t_Value);
+        }
+
+        static void reset(PointerType &ptr)
+        {
+            ptr.reset();
+        }
+
+        static bool isNull(const PointerType &ptr)
+        {
+            return (NULL == ptr);
+        }
+    };
+}
+
+#define ARILES_POINTER_TYPE                             std::shared_ptr
+#define ARILES_POINTER_HANDLER                          StdSharedPtrHandler
 #include <ariles/adapters/generic_pointer.h>
 
 
-#define ARILES_POINTER_TYPE(entry_type)                 std::unique_ptr<entry_type>
-#define ARILES_POINTER_ALLOCATE(entry_type, pointer)    pointer.reset(new double())
-#define ARILES_POINTER_RESET(pointer)                   pointer.reset(NULL)
-#define ARILES_POINTER_CHECK_NULL(pointer)              (NULL == pointer)
+#define ARILES_POINTER_TYPE                             std::unique_ptr
+#define ARILES_POINTER_HANDLER                          StdUniquePtrHandler
 #include <ariles/adapters/generic_pointer.h>
 
 #endif

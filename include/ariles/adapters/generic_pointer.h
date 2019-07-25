@@ -8,11 +8,6 @@
     @brief
 */
 
-// ARILES_POINTER_TYPE(entry_type)
-// ARILES_POINTER_ALLOCATE(entry_type, pointer)
-// ARILES_POINTER_RESET(pointer)
-// ARILES_POINTER_CHECK_NULL(pointer)
-
 namespace ariles
 {
     template <  class t_Reader,
@@ -20,7 +15,7 @@ namespace ariles
                 class t_Flags>
         void ARILES_VISIBILITY_ATTRIBUTE readBody(
                 t_Reader &reader,
-                ARILES_POINTER_TYPE(t_Entry) &entry,
+                ARILES_POINTER_TYPE<t_Entry> &entry,
                 const t_Flags & param)
     {
         bool is_null = true;
@@ -33,11 +28,11 @@ namespace ariles
 
         if (true == is_null)
         {
-            ARILES_POINTER_RESET(entry);
+            ARILES_POINTER_HANDLER<t_Entry>::reset(entry);
         }
         else
         {
-            ARILES_POINTER_ALLOCATE(t_Entry, entry);
+            ARILES_POINTER_HANDLER<t_Entry>::allocate(entry);
             readEntry(reader, *entry, "value", param_local);
         }
         reader.endMap();
@@ -50,12 +45,12 @@ namespace ariles
                 class t_Flags>
         void ARILES_VISIBILITY_ATTRIBUTE
         writeBody( t_Writer & writer,
-                   const ARILES_POINTER_TYPE(t_Entry) &entry,
+                   const ARILES_POINTER_TYPE<t_Entry> &entry,
                    const t_Flags & param)
     {
         bool is_null = true;
 
-        if (ARILES_POINTER_CHECK_NULL(entry))
+        if (ARILES_POINTER_HANDLER<t_Entry>::isNull(entry))
         {
             is_null = true;
             writer.startMap(1);
@@ -75,27 +70,26 @@ namespace ariles
 
     template <typename t_Entry, class t_Flags>
         void ARILES_VISIBILITY_ATTRIBUTE
-        setDefaults(ARILES_POINTER_TYPE(t_Entry) &entry, const t_Flags & /*param*/)
+        setDefaults(    ARILES_POINTER_TYPE<t_Entry> &entry,
+                        const t_Flags & /*param*/)
     {
         ARILES_TRACE_FUNCTION;
-        ARILES_POINTER_RESET(entry);
+        ARILES_POINTER_HANDLER<t_Entry>::reset(entry);
     }
 
 
     template <typename t_Entry>
-        void ARILES_VISIBILITY_ATTRIBUTE 
-        finalize(   ARILES_POINTER_TYPE(t_Entry) &entry,
+        void ARILES_VISIBILITY_ATTRIBUTE
+        finalize(   ARILES_POINTER_TYPE<t_Entry> &entry,
                     const ArilesNamespaceLookupTrigger &trigger)
     {
         ARILES_TRACE_FUNCTION;
-        if (false == (ARILES_POINTER_CHECK_NULL(entry)))
+        if (false == (ARILES_POINTER_HANDLER<t_Entry>::isNull(entry)))
         {
             finalize(*entry, trigger);
         }
     }
 }
 
+#undef ARILES_POINTER_HANDLER
 #undef ARILES_POINTER_TYPE
-#undef ARILES_POINTER_ALLOCATE
-#undef ARILES_POINTER_RESET
-#undef ARILES_POINTER_CHECK_NULL

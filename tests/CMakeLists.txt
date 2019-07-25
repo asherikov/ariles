@@ -32,7 +32,7 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "002" "" "${ARILES_TEST_ALL_
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "003" "" "${ARILES_TEST_ALL_BRIDGES}")  # finalize
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "004" "" "${ARILES_TEST_ALL_BRIDGES}")  # no adapters_all.h
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "005" "" "${ARILES_TEST_ALL_BRIDGES}")  # disabled ariles
-ariles_define_regression_test(${CMAKE_PROJECT_NAME} "009" "" "${ARILES_TEST_ALL_BRIDGES}")  # pointers
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "009" "" "${ARILES_TEST_ALL_BRIDGES}")  # pointers (scalar)
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "010" "rapidjson;jsonnet" "")           # jsonnet
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "011" "rapidjson;yaml_cpp" "")          # bridge inclusion order
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "012" "octave" "")                      # octave
@@ -41,6 +41,7 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "014" "" "${ARILES_TEST_FILE
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "015" "pugixml" "")                     # XML childs vs attributes
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "016" "" "")                            # inclusion
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "017" "" "${ARILES_TEST_ALL_BRIDGES}")  # any
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "018" "" "${ARILES_TEST_ALL_BRIDGES}")  # pointers (configurable)
 
 
 ariles_define_test(${CMAKE_PROJECT_NAME} "demo" "yaml_cpp;ros;octave" "")
