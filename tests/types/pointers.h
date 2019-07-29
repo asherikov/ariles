@@ -27,6 +27,11 @@ namespace ariles_tests
                     virtual ~Minimal()
                     {
                     }
+
+                    bool operator==(const Minimal &other) const
+                    {
+                        return (this->integer_member_ == other.integer_member_);
+                    }
             };
 
 
