@@ -12,27 +12,28 @@
 
 #include <boost/optional.hpp>
 
-namespace
+namespace ariles
 {
     template <class t_Value>
-    class BoostOptionalHandler
+    class PointerHandler<boost::optional<t_Value> >
     {
     public:
-        typedef boost::optional<t_Value> PointerType;
+        typedef boost::optional<t_Value> Pointer;
+        typedef t_Value Value;
 
 
     public:
-        static void allocate(PointerType &ptr)
+        static void allocate(Pointer &ptr)
         {
             ptr = t_Value();
         }
 
-        static void reset(PointerType &ptr)
+        static void reset(Pointer &ptr)
         {
             ptr = boost::none;
         }
 
-        static bool isNull(const PointerType &ptr)
+        static bool isNull(const Pointer &ptr)
         {
             return (boost::none == ptr);
         }
@@ -40,5 +41,4 @@ namespace
 }
 
 #define ARILES_POINTER_TYPE                     boost::optional
-#define ARILES_POINTER_HANDLER                  BoostOptionalHandler
 #include <ariles/adapters/generic_pointer.h>

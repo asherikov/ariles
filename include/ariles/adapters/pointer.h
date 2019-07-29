@@ -15,24 +15,25 @@
 namespace ariles
 {
     template <class t_Value>
-    class StdSharedPtrHandler
+    class PointerHandler<std::shared_ptr<t_Value> >
     {
     public:
-        typedef std::shared_ptr<t_Value> PointerType;
+        typedef std::shared_ptr<t_Value> Pointer;
+        typedef t_Value Value;
 
 
     public:
-        static void allocate(PointerType &ptr)
+        static void allocate(Pointer &ptr)
         {
             ptr = std::make_shared<t_Value>();
         }
 
-        static void reset(PointerType &ptr)
+        static void reset(Pointer &ptr)
         {
             ptr.reset();
         }
 
-        static bool isNull(const PointerType &ptr)
+        static bool isNull(const Pointer &ptr)
         {
             return (NULL == ptr);
         }
@@ -40,24 +41,25 @@ namespace ariles
 
 
     template <class t_Value>
-    class StdUniquePtrHandler
+    class PointerHandler<std::unique_ptr<t_Value> >
     {
     public:
-        typedef std::unique_ptr<t_Value> PointerType;
+        typedef std::unique_ptr<t_Value> Pointer;
+        typedef t_Value Value;
 
 
     public:
-        static void allocate(PointerType &ptr)
+        static void allocate(Pointer &ptr)
         {
             ptr.reset(new t_Value);
         }
 
-        static void reset(PointerType &ptr)
+        static void reset(Pointer &ptr)
         {
             ptr.reset();
         }
 
-        static bool isNull(const PointerType &ptr)
+        static bool isNull(const Pointer &ptr)
         {
             return (NULL == ptr);
         }
@@ -65,12 +67,10 @@ namespace ariles
 }
 
 #define ARILES_POINTER_TYPE                             std::shared_ptr
-#define ARILES_POINTER_HANDLER                          StdSharedPtrHandler
 #include <ariles/adapters/generic_pointer.h>
 
 
 #define ARILES_POINTER_TYPE                             std::unique_ptr
-#define ARILES_POINTER_HANDLER                          StdUniquePtrHandler
 #include <ariles/adapters/generic_pointer.h>
 
 #endif

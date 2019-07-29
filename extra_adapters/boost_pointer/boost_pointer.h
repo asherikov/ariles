@@ -16,24 +16,25 @@
 namespace ariles
 {
     template <class t_Value>
-    class BoostSharedPtrHandler
+    class PointerHandler<boost::shared_ptr<t_Value> >
     {
     public:
-        typedef boost::shared_ptr<t_Value> PointerType;
+        typedef boost::shared_ptr<t_Value> Pointer;
+        typedef t_Value Value;
 
 
     public:
-        static void allocate(PointerType &ptr)
+        static void allocate(Pointer &ptr)
         {
             ptr = boost::make_shared<t_Value>();
         }
 
-        static void reset(PointerType &ptr)
+        static void reset(Pointer &ptr)
         {
             ptr.reset();
         }
 
-        static bool isNull(const PointerType &ptr)
+        static bool isNull(const Pointer &ptr)
         {
             return (NULL == ptr);
         }
@@ -52,24 +53,25 @@ namespace ariles
 namespace ariles
 {
     template <class t_Value>
-    class BoostUniquePtrHandler
+    class PointerHandler<boost::movelib::unique_ptr<t_Value> >
     {
     public:
-        typedef boost::movelib::unique_ptr<t_Value> PointerType;
+        typedef boost::movelib::unique_ptr<t_Value> Pointer;
+        typedef t_Value Value;
 
 
     public:
-        static void allocate(PointerType &ptr)
+        static void allocate(Pointer &ptr)
         {
             ptr = boost::movelib::make_unique<t_Value>();
         }
 
-        static void reset(PointerType &ptr)
+        static void reset(Pointer &ptr)
         {
             ptr.reset();
         }
 
-        static bool isNull(const PointerType &ptr)
+        static bool isNull(const Pointer &ptr)
         {
             return (NULL == ptr);
         }
@@ -77,6 +79,5 @@ namespace ariles
 }
 
 #   define ARILES_POINTER_TYPE      boost::movelib::unique_ptr
-#   define ARILES_POINTER_HANDLER   BoostUniquePtrHandler
 #   include <ariles/adapters/generic_pointer.h>
 #endif

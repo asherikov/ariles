@@ -28,11 +28,11 @@ namespace ariles
 
         if (true == is_null)
         {
-            ARILES_POINTER_HANDLER<t_Entry>::reset(entry);
+            PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::reset(entry);
         }
         else
         {
-            ARILES_POINTER_HANDLER<t_Entry>::allocate(entry);
+            PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::allocate(entry);
             readEntry(reader, *entry, "value", param_local);
         }
         reader.endMap();
@@ -50,7 +50,7 @@ namespace ariles
     {
         bool is_null = true;
 
-        if (ARILES_POINTER_HANDLER<t_Entry>::isNull(entry))
+        if (PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(entry))
         {
             is_null = true;
             writer.startMap(1);
@@ -74,7 +74,7 @@ namespace ariles
                         const t_Flags & /*param*/)
     {
         ARILES_TRACE_FUNCTION;
-        ARILES_POINTER_HANDLER<t_Entry>::reset(entry);
+        PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::reset(entry);
     }
 
 
@@ -84,7 +84,7 @@ namespace ariles
                     const ArilesNamespaceLookupTrigger &trigger)
     {
         ARILES_TRACE_FUNCTION;
-        if (false == (ARILES_POINTER_HANDLER<t_Entry>::isNull(entry)))
+        if (false == (PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(entry)))
         {
             finalize(*entry, trigger);
         }

@@ -87,6 +87,12 @@ namespace ariles
         public:
             typedef int BridgeSelectorIndicatorType;
     };
+
+
+    template <class t_Pointer>
+    class PointerHandler
+    {
+    };
 }
 
 #include "../configurable_flags.h"
