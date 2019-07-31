@@ -124,12 +124,35 @@ namespace ariles
 
     template <  typename t_First,
                 typename t_Second>
-        void ARILES_VISIBILITY_ATTRIBUTE 
+        void ARILES_VISIBILITY_ATTRIBUTE
         finalize(   std::pair<t_First, t_Second> &entry,
                     const ArilesNamespaceLookupTrigger &trigger)
     {
         ARILES_TRACE_FUNCTION;
         finalize(entry.first, trigger);
         finalize(entry.second, trigger);
+    }
+
+
+    template <  typename t_First,
+                typename t_Second>
+        bool ARILES_VISIBILITY_ATTRIBUTE
+        compare(const std::pair<t_First, t_Second> & left,
+                const std::pair<t_First, t_Second> & right,
+                const ariles::ComparisonParameters & param)
+    {
+        ARILES_TRACE_FUNCTION;
+
+        if (false == compare(left.first, right.first, param))
+        {
+            return (false);
+        }
+
+        if (false == compare(left.second, right.second, param))
+        {
+            return (false);
+        }
+
+        return (true);
     }
 }

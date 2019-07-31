@@ -89,6 +89,38 @@ namespace ariles
             finalize(*entry, trigger);
         }
     }
+
+
+    template <typename t_Entry>
+        bool ARILES_VISIBILITY_ATTRIBUTE
+        compare(const ARILES_POINTER_TYPE<t_Entry> &left,
+                const ARILES_POINTER_TYPE<t_Entry> &right,
+                const ariles::ComparisonParameters & param)
+    {
+        ARILES_TRACE_FUNCTION;
+        if (true == PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(left))
+        {
+            if (true == PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(right))
+            {
+                return (true);
+            }
+            else
+            {
+                return (false);
+            }
+        }
+        else
+        {
+            if (true == PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(right))
+            {
+                return (false);
+            }
+            else
+            {
+                return (compare(*left, *right, param));
+            }
+        }
+    }
 }
 
 #undef ARILES_POINTER_HANDLER

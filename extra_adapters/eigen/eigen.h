@@ -513,4 +513,47 @@ namespace ariles
     {
         ARILES_TRACE_FUNCTION;
     }
+
+
+    // ====================================================
+
+
+    template <  typename t_Scalar,
+                int t_dim,
+                int t_mode,
+                int t_options>
+        bool ARILES_VISIBILITY_ATTRIBUTE
+        compare(const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & left,
+                const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & right,
+                const ariles::ComparisonParameters & param)
+    {
+        ARILES_TRACE_FUNCTION;
+        return (left.isApprox(right, param.getTolerance<t_Scalar>()));
+    }
+
+
+    template <  typename t_Scalar,
+                int t_options>
+        bool ARILES_VISIBILITY_ATTRIBUTE
+        compare(const Eigen::Quaternion< t_Scalar, t_options > &left,
+                const Eigen::Quaternion< t_Scalar, t_options > &right,
+                const ariles::ComparisonParameters & param)
+    {
+        ARILES_TRACE_FUNCTION;
+        return (left.isApprox(right, param.getTolerance<t_Scalar>()));
+    }
+
+
+    template <  typename t_Scalar,
+                int t_rows,
+                int t_cols,
+                int t_flags>
+        bool ARILES_VISIBILITY_ATTRIBUTE
+        compare(const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> & left,
+                const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> & right,
+                const ariles::ComparisonParameters & param)
+    {
+        ARILES_TRACE_FUNCTION;
+        return (left.isApprox(right, param.getTolerance<t_Scalar>()));
+    }
 }

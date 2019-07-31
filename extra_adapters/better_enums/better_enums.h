@@ -77,4 +77,20 @@ namespace ariles
     {
         ARILES_TRACE_FUNCTION;
     }
+
+
+    template <class t_BetterEnum>
+        bool ARILES_VISIBILITY_ATTRIBUTE
+        compare(const t_BetterEnum &left,
+                const t_BetterEnum &right,
+                const ariles::ComparisonParameters & /*param*/,
+                const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
+                const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
+                const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
+                const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
+                const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
+    {
+        ARILES_TRACE_FUNCTION;
+        return (left == right);
+    }
 }
