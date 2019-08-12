@@ -12,6 +12,7 @@ include/ariles/adapters_all.h
 include/ariles/ariles.h
 include/ariles/ariles_all.h
 include/ariles/bridge_flags.h
+include/ariles/comparison_parameters.h
 include/ariles/configurable_flags.h
 include/ariles/internal/build_config.h
 include/ariles/internal/cpput_better_enum.h
