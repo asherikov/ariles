@@ -13,6 +13,8 @@
 #include <string>
 #include <fstream>
 #include <stdexcept>
+#include <cmath>
+#include <cstdlib>
 
 
 #include <boost/utility/enable_if.hpp>
