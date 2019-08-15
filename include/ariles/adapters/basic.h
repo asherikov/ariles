@@ -297,18 +297,49 @@ namespace ariles
     #undef ARILES_BASIC_TYPE
 
 
+	template <typename t_Scalar>
+    inline bool ARILES_VISIBILITY_ATTRIBUTE compareFloats(
+            const t_Scalar left, const t_Scalar right, const ariles::ComparisonParameters & param)
+    {
+        if (isNaN(left))
+        {
+            if (isNaN(right))
+            {
+				return (param.nan_equal_);
+            }
+            else
+            {
+                return (false);
+            }
+        }
+
+        if (isInfinity(left))
+        {
+            if (isInfinity(right))
+            {
+                if (((left > 0) && (right > 0)) || ((left < 0) && (right < 0)))
+                {
+					return (param.inf_equal_);
+                }
+            }
+            return (false);
+        }
+
+        return (std::abs(left - right) <=
+                ( (std::abs(left) < std::abs(right) ? std::abs(right) : std::abs(left)) * param.double_tolerance_));
+    }
+
+
     inline bool ARILES_VISIBILITY_ATTRIBUTE compare(
             const float left, const float right, const ariles::ComparisonParameters & param)
     {
-        return (std::abs(left - right) <=
-                ( (std::abs(left) < std::abs(right) ? std::abs(right) : std::abs(left)) * param.float_tolerance_));
+        return (compareFloats(left, right, param));
     }
 
 
     inline bool ARILES_VISIBILITY_ATTRIBUTE compare(
             const double left, const double right, const ariles::ComparisonParameters & param)
     {
-        return (std::abs(left - right) <=
-                ( (std::abs(left) < std::abs(right) ? std::abs(right) : std::abs(left)) * param.double_tolerance_));
+        return (compareFloats(left, right, param));
     }
 }

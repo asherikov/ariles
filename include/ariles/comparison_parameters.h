@@ -19,6 +19,8 @@ namespace ariles
             double double_tolerance_;
             bool compare_number_of_entries_;
             bool throw_on_error_;
+            bool nan_equal_;
+            bool inf_equal_;
 
 
         public:
@@ -34,6 +36,9 @@ namespace ariles
                 float_tolerance_ = 1e-8;
                 compare_number_of_entries_ = false;
                 throw_on_error_ = false;
+
+                nan_equal_ = true;
+                inf_equal_ = true;
             }
 
 
