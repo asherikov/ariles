@@ -207,5 +207,33 @@ namespace ariles
             {
                 return(2);
             }
+
+
+            template<class t_Other>
+            bool arilesCompare(const t_Other &other, const ariles::ComparisonParameters &param) const
+            {
+                ARILES_TRACE_FUNCTION;
+                if (true == param.compare_number_of_entries_)
+                {
+                    if (getNumberOfEntries() != other.getNumberOfEntries())
+                    {
+                        return (false);
+                    }
+                }
+
+                if (this->id_ != other.id_)
+                {
+                    return (false);
+                }
+
+                if (NULL != value_.get() && NULL != other.value_.get())
+                {
+                    return (ariles::compare(*value_, *(other.value_), param));
+                }
+                else
+                {
+                    return (false);
+                }
+            }
     };
 }

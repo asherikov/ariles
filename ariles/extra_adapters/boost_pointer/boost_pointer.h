@@ -13,10 +13,35 @@
 #include <boost/smart_ptr/shared_ptr.hpp>
 #include <boost/smart_ptr/make_shared.hpp>
 
-#define ARILES_POINTER_TYPE(entry_type)                 boost::shared_ptr<entry_type>
-#define ARILES_POINTER_ALLOCATE(entry_type, pointer)    pointer = boost::make_shared<entry_type>()
-#define ARILES_POINTER_RESET(pointer)                   pointer.reset()
-#define ARILES_POINTER_CHECK_NULL(pointer)              (NULL == pointer)
+namespace ariles
+{
+    template <class t_Value>
+    class PointerHandler<boost::shared_ptr<t_Value> >
+    {
+    public:
+        typedef boost::shared_ptr<t_Value> Pointer;
+        typedef t_Value Value;
+
+
+    public:
+        static void allocate(Pointer &ptr)
+        {
+            ptr = boost::make_shared<t_Value>();
+        }
+
+        static void reset(Pointer &ptr)
+        {
+            ptr.reset();
+        }
+
+        static bool isNull(const Pointer &ptr)
+        {
+            return (NULL == ptr);
+        }
+    };
+}
+#define ARILES_POINTER_TYPE                     boost::shared_ptr
+#define ARILES_POINTER_HANDLER                  BoostSharedPtrHandler
 #include <ariles/adapters/generic_pointer.h>
 
 
@@ -25,9 +50,34 @@
 #   include <boost/move/unique_ptr.hpp>
 #   include <boost/move/make_unique.hpp>
 
-#   define ARILES_POINTER_TYPE(entry_type)                 boost::movelib::unique_ptr<entry_type>
-#   define ARILES_POINTER_ALLOCATE(entry_type, pointer)    pointer = boost::movelib::make_unique<entry_type>()
-#   define ARILES_POINTER_RESET(pointer)                   pointer.reset()
-#   define ARILES_POINTER_CHECK_NULL(pointer)              (NULL == pointer)
+namespace ariles
+{
+    template <class t_Value>
+    class PointerHandler<boost::movelib::unique_ptr<t_Value> >
+    {
+    public:
+        typedef boost::movelib::unique_ptr<t_Value> Pointer;
+        typedef t_Value Value;
+
+
+    public:
+        static void allocate(Pointer &ptr)
+        {
+            ptr = boost::movelib::make_unique<t_Value>();
+        }
+
+        static void reset(Pointer &ptr)
+        {
+            ptr.reset();
+        }
+
+        static bool isNull(const Pointer &ptr)
+        {
+            return (NULL == ptr);
+        }
+    };
+}
+
+#   define ARILES_POINTER_TYPE      boost::movelib::unique_ptr
 #   include <ariles/adapters/generic_pointer.h>
 #endif

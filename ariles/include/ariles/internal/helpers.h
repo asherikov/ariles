@@ -13,10 +13,13 @@
 #include <string>
 #include <fstream>
 #include <stdexcept>
+#include <cmath>
+#include <cstdlib>
 
 
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_enum.hpp>
+#include <boost/type_traits/is_base_of.hpp>
 
 
 #include "build_config.h"
@@ -37,6 +40,9 @@
 
 #define ARILES_IS_ENUM_ENABLER_TYPE(Enum) \
     const typename boost::enable_if_c< (boost::is_enum<Enum>::value) >::type
+
+#define ARILES_IS_CONFIGURABLE_ENABLER_TYPE(Derived) \
+    const typename boost::enable_if_c< (boost::is_base_of<ariles::ConfigurableBase, Derived>::value) >::type
 
 
 #define ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST \
@@ -87,19 +93,26 @@ namespace ariles
         public:
             typedef int BridgeSelectorIndicatorType;
     };
+
+
+    template <class t_Pointer>
+    class PointerHandler
+    {
+    };
 }
 
 #include "../configurable_flags.h"
 #include "../bridge_flags.h"
+#include "../comparison_parameters.h"
 
 
-//#define ARILES_TRACE_ENABLE
+// #define ARILES_TRACE_ENABLE
 
 #ifdef ARILES_TRACE_ENABLE
     #include <iostream>
 
     #define ARILES_TRACE_FUNCTION \
-        std::cout << "Entering function: " << __func__ << std::endl
+        std::cout << "Entering function: " << __func__ << " File: " << __FILE__  << " Line: " << __LINE__ << std::endl
     #define ARILES_TRACE_ENTRY(entry_name) \
         std::cout << "Processing entry: " << #entry_name << std::endl
 #else

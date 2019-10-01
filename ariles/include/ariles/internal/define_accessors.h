@@ -68,7 +68,7 @@
                 }
                 ARILES_UNUSED_ARG(reader);
                 ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
-                finalize();
+                this->finalize();
             }
 
             #undef ARILES_NAMED_ENTRY
@@ -106,7 +106,69 @@
             #endif
 
 
-    protected:
+        // define coparison method.
+
+            #define ARILES_NAMED_ENTRY(entry, name)     ARILES_TRACE_ENTRY(entry); \
+                                                        try \
+                                                        { \
+                                                            result = ariles::compare(entry, other.entry, param); \
+                                                        } \
+                                                        catch (const std::exception & e) \
+                                                        { \
+                                                            ARILES_THROW("Comparison failed for entry: " #entry " // " + std::string(e.what())); \
+                                                        } \
+                                                        if (false == result) \
+                                                        { \
+                                                            if (true == param.throw_on_error_)\
+                                                            { \
+                                                                ARILES_THROW("Comparison failed for entry: " #entry); \
+                                                            } \
+                                                            return (false); \
+                                                        };
+
+            #define ARILES_PARENT(entry)                ARILES_TRACE_ENTRY(entry); \
+                                                        try \
+                                                        { \
+                                                            result = entry::arilesCompare(other, param); \
+                                                        } \
+                                                        catch (const std::exception & e) \
+                                                        { \
+                                                            ARILES_THROW("Comparison failed for entry: " #entry " // " + std::string(e.what())); \
+                                                        } \
+                                                        if (false == result) \
+                                                        { \
+                                                            if (true == param.throw_on_error_)\
+                                                            { \
+                                                                ARILES_THROW("Comparison failed for entry: " #entry); \
+                                                            } \
+                                                            return (false); \
+                                                        }
+
+            template<class t_Other>
+            bool arilesCompare(const t_Other &other, const ariles::ComparisonParameters &param) const
+            {
+                ARILES_TRACE_FUNCTION;
+                bool result = true;
+                if (true == param.compare_number_of_entries_)
+                {
+                    if (getNumberOfEntries() != other.getNumberOfEntries())
+                    {
+                        if (true == param.throw_on_error_)
+                        {
+                            ARILES_THROW("Comparison failed: dfferent number of entries.");
+                        }
+                        return (false);
+                    }
+                }
+                ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
+
+                return (result);
+            }
+
+            #undef ARILES_NAMED_ENTRY
+            #undef ARILES_PARENT
+
+
         // Count number of entries and define a function, which returns it.
 
             #define ARILES_NAMED_ENTRY(entry, name)  +1

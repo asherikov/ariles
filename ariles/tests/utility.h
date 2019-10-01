@@ -64,7 +64,9 @@ namespace ariles_tests
 
 // -----
 // random
-boost::random::random_device                g_random_generator;
+
+// crashes on destruction in FreeBSD
+//boost::random::random_device                g_random_generator;
 
 boost::random::uniform_int_distribution<int>   g_int_uniform_distribution(
         std::numeric_limits<int>::min(),
@@ -76,9 +78,9 @@ boost::random::uniform_int_distribution<unsigned int>   g_uint_uniform_distribut
 
 boost::random::uniform_real_distribution<>  g_real_uniform_distribution(-1e5, 1e5);
 
-#define GET_RANDOM_UINT     g_uint_uniform_distribution(g_random_generator);
-#define GET_RANDOM_INT      g_int_uniform_distribution(g_random_generator);
-#define GET_RANDOM_REAL     g_real_uniform_distribution(g_random_generator);
+#define GET_RANDOM_UINT     g_uint_uniform_distribution(random_generator);
+#define GET_RANDOM_INT      g_int_uniform_distribution(random_generator);
+#define GET_RANDOM_REAL     g_real_uniform_distribution(random_generator);
 // -----
 
 

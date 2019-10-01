@@ -121,7 +121,18 @@ namespace ariles
                             child;
                             child = child.next_sibling("item"), ++size);
 
-                        node_stack_.push_back(NodeWrapper(node.child("item"), 0, size));
+                        if (size > 0)
+                        {
+                            node_stack_.push_back(NodeWrapper(node.child("item"), 0, size));
+                        }
+                        else
+                        {
+                            // if there are no 'item' childs try to iterate
+                            // over childs with the same name in the parent
+                            // node
+                            for (pugi::xml_node child = getRawNode(); child; child = child.next_sibling(child.name()), ++size);
+                            node_stack_.push_back(NodeWrapper(getRawNode(), 0, size));
+                        }
 
                         return(size);
                     }
@@ -133,7 +144,7 @@ namespace ariles
                                       "Internal error: expected array.");
                         ARILES_ASSERT(node_stack_.back().index_ < node_stack_.back().size_,
                                       "Internal error: array has more elements than expected.");
-                        node_stack_.back().node_ = getRawNode().next_sibling("item");
+                        node_stack_.back().node_ = getRawNode().next_sibling(getRawNode().name());
                         ++node_stack_.back().index_;
                     }
 

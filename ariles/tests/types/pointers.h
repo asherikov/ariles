@@ -9,10 +9,32 @@
 #pragma once
 
 #include <iostream>
+
 namespace ariles_tests
 {
     class ConfigurablePointers : public ariles::ConfigurableBase
     {
+        public:
+            class Minimal : public ariles::ConfigurableBase
+            {
+                #define ARILES_SECTION_ID "ConfigurableEntryName"
+                #define ARILES_AUTO_DEFAULTS
+                #define ARILES_ENTRIES \
+                    ARILES_TYPED_ENTRY_(integer_member, int)
+                #include ARILES_INITIALIZE
+
+                public:
+                    virtual ~Minimal()
+                    {
+                    }
+
+                    bool operator==(const Minimal &other) const
+                    {
+                        return (this->integer_member_ == other.integer_member_);
+                    }
+            };
+
+
         #define ARILES_SECTION_ID "ConfigurablePointers"
         #define ARILES_CONSTRUCTOR ConfigurablePointers
 
@@ -22,8 +44,8 @@ namespace ariles_tests
 #if __cplusplus >= 201103L
         #define ARILES_ENTRIES_1 \
             ARILES_ENTRIES_0 \
-            ARILES_TYPED_ENTRY_(std_shared_ptr_real,          std::shared_ptr<double>) \
-            ARILES_TYPED_ENTRY_(std_unique_ptr_real,          std::unique_ptr<double>)
+            ARILES_TYPED_ENTRY_(std_shared_ptr_test,          std::shared_ptr<Minimal>) \
+            ARILES_TYPED_ENTRY_(std_unique_ptr_test,          std::unique_ptr<Minimal>)
 #else
         #define ARILES_ENTRIES_1 ARILES_ENTRIES_0
 #endif
@@ -33,14 +55,14 @@ namespace ariles_tests
 #   if BOOST_VERSION >= 105800
 #       define ARILES_ENTRIES_2 \
                 ARILES_ENTRIES_1 \
-                ARILES_TYPED_ENTRY_(shared_ptr_real,          boost::shared_ptr<double>) \
-                ARILES_TYPED_ENTRY_(shared_ptr_real_null,     boost::shared_ptr<double>) \
-                ARILES_TYPED_ENTRY_(unique_ptr_real,          boost::movelib::unique_ptr<double>)
+                ARILES_TYPED_ENTRY_(shared_ptr_test,          boost::shared_ptr<Minimal>) \
+                ARILES_TYPED_ENTRY_(shared_ptr_test_null,     boost::shared_ptr<Minimal>) \
+                ARILES_TYPED_ENTRY_(unique_ptr_test,          boost::movelib::unique_ptr<Minimal>)
 #   else
 #       define ARILES_ENTRIES_2 \
                 ARILES_ENTRIES_1 \
-                ARILES_TYPED_ENTRY_(shared_ptr_real,          boost::shared_ptr<double>) \
-                ARILES_TYPED_ENTRY_(shared_ptr_real_null,     boost::shared_ptr<double>)
+                ARILES_TYPED_ENTRY_(shared_ptr_test,          boost::shared_ptr<Minimal>) \
+                ARILES_TYPED_ENTRY_(shared_ptr_test_null,     boost::shared_ptr<Minimal>)
 #   endif
 #else
         #define ARILES_ENTRIES_2 ARILES_ENTRIES_1
@@ -50,8 +72,8 @@ namespace ariles_tests
 #ifdef ARILES_ADAPTER_BOOST_OPTIONAL
         #define ARILES_ENTRIES_3 \
             ARILES_ENTRIES_2 \
-            ARILES_TYPED_ENTRY_(optional_real,          boost::optional<double>) \
-            ARILES_TYPED_ENTRY_(optional_real_null,     boost::optional<double>)
+            ARILES_TYPED_ENTRY_(optional_test,          boost::optional<Minimal>) \
+            ARILES_TYPED_ENTRY_(optional_test_null,     boost::optional<Minimal>)
 #else
         #define ARILES_ENTRIES_3 ARILES_ENTRIES_2
 #endif
@@ -76,21 +98,21 @@ namespace ariles_tests
             {
 
 #if __cplusplus >= 201103L
-                std_shared_ptr_real_.reset();
-                std_unique_ptr_real_.reset();
+                std_shared_ptr_test_.reset();
+                std_unique_ptr_test_.reset();
 #endif
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
-                shared_ptr_real_.reset();
-                shared_ptr_real_null_.reset();
+                shared_ptr_test_.reset();
+                shared_ptr_test_null_.reset();
 #   if BOOST_VERSION >= 105800
-                unique_ptr_real_.reset();
+                unique_ptr_test_.reset();
 #   endif
 #endif
 
 #ifdef ARILES_ADAPTER_BOOST_OPTIONAL
-                optional_real_ = boost::none;
-                optional_real_null_ = boost::none;
+                optional_test_ = boost::none;
+                optional_test_null_ = boost::none;
 #endif
             }
 
@@ -98,29 +120,34 @@ namespace ariles_tests
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
             void randomize()
             {
+                boost::random::random_device random_generator;
 #   if __cplusplus >= 201103L
-                std_shared_ptr_real_ = std::make_shared<double>();
-                *std_shared_ptr_real_ = GET_RANDOM_REAL;
+                std_shared_ptr_test_ = std::make_shared<Minimal>();
+                std_shared_ptr_test_->integer_member_ = GET_RANDOM_INT;
 
-                std_unique_ptr_real_.reset(new double());
-                *std_unique_ptr_real_ = GET_RANDOM_REAL;
+                std_unique_ptr_test_.reset(new Minimal());
+                std_unique_ptr_test_->integer_member_ = GET_RANDOM_INT;
 #   endif
 
 #   ifdef ARILES_ADAPTER_BOOST_POINTER
-                shared_ptr_real_ = boost::make_shared<double>();
-                *shared_ptr_real_ = GET_RANDOM_REAL;
+                shared_ptr_test_ = boost::make_shared<Minimal>();
+                shared_ptr_test_->integer_member_ = GET_RANDOM_INT;
 
 #       if BOOST_VERSION >= 105800
-                unique_ptr_real_ = boost::movelib::make_unique<double>();
-                *unique_ptr_real_ = GET_RANDOM_REAL;
+                unique_ptr_test_ = boost::movelib::make_unique<Minimal>();
+                unique_ptr_test_->integer_member_ = GET_RANDOM_INT;
 #       endif
 
-                shared_ptr_real_null_.reset();
+                shared_ptr_test_null_.reset();
 #   endif
 
 #   ifdef ARILES_ADAPTER_BOOST_OPTIONAL
-                optional_real_ = GET_RANDOM_REAL;
-                optional_real_null_ = boost::none;
+                {
+                    Minimal minimal;
+                    minimal.integer_member_ = GET_RANDOM_INT;
+                    optional_test_ = minimal;
+                    optional_test_null_ = boost::none;
+                }
 #   endif
             }
 #endif
@@ -133,60 +160,65 @@ namespace ariles_tests
                     const t_Configurable_in     &configurable_in)
     {
 #if __cplusplus >= 201103L
-        if (configurable_in.std_shared_ptr_real_ == NULL)
+        if (configurable_in.std_shared_ptr_test_ == NULL)
         {
-            BOOST_CHECK_EQUAL(configurable_out.std_shared_ptr_real_, configurable_in.std_shared_ptr_real_);
+            BOOST_CHECK_EQUAL(configurable_out.std_shared_ptr_test_, configurable_in.std_shared_ptr_test_);
         }
         else
         {
-            BOOST_CHECK(configurable_out.std_shared_ptr_real_ != NULL);
-            BOOST_CHECK_CLOSE(*configurable_out.std_shared_ptr_real_, *configurable_in.std_shared_ptr_real_, g_tolerance);
+            BOOST_CHECK(configurable_out.std_shared_ptr_test_ != NULL);
+            BOOST_CHECK_EQUAL(  configurable_out.std_shared_ptr_test_->integer_member_,
+                                configurable_in.std_shared_ptr_test_->integer_member_);
         }
-        if (configurable_in.std_unique_ptr_real_ == NULL)
+        if (configurable_in.std_unique_ptr_test_ == NULL)
         {
-            BOOST_CHECK(configurable_out.std_unique_ptr_real_ == configurable_in.std_unique_ptr_real_);
+            BOOST_CHECK(configurable_out.std_unique_ptr_test_ == configurable_in.std_unique_ptr_test_);
         }
         else
         {
-            BOOST_CHECK(configurable_out.std_unique_ptr_real_ != NULL);
-            BOOST_CHECK_CLOSE(*configurable_out.std_unique_ptr_real_, *configurable_in.std_unique_ptr_real_, g_tolerance);
+            BOOST_CHECK(configurable_out.std_unique_ptr_test_ != NULL);
+            BOOST_CHECK_EQUAL(  configurable_out.std_unique_ptr_test_->integer_member_,
+                                configurable_in.std_unique_ptr_test_->integer_member_);
         }
 #endif
 
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
-        if (configurable_in.shared_ptr_real_ == NULL)
+        if (configurable_in.shared_ptr_test_ == NULL)
         {
-            BOOST_CHECK_EQUAL(configurable_out.shared_ptr_real_, configurable_in.shared_ptr_real_);
+            BOOST_CHECK_EQUAL(configurable_out.shared_ptr_test_, configurable_in.shared_ptr_test_);
         }
         else
         {
-            BOOST_CHECK(configurable_out.shared_ptr_real_ != NULL);
-            BOOST_CHECK_CLOSE(*configurable_out.shared_ptr_real_, *configurable_in.shared_ptr_real_, g_tolerance);
+            BOOST_CHECK(configurable_out.shared_ptr_test_ != NULL);
+            BOOST_CHECK_EQUAL(  configurable_out.shared_ptr_test_->integer_member_,
+                                configurable_in.shared_ptr_test_->integer_member_);
         }
 #   if BOOST_VERSION >= 105800
-        if (configurable_in.unique_ptr_real_ == NULL)
+        if (configurable_in.unique_ptr_test_ == NULL)
         {
-            BOOST_CHECK(configurable_out.unique_ptr_real_ == configurable_in.unique_ptr_real_);
+            BOOST_CHECK(configurable_out.unique_ptr_test_ == configurable_in.unique_ptr_test_);
         }
         else
         {
-            BOOST_CHECK(configurable_out.unique_ptr_real_ != NULL);
-            BOOST_CHECK_CLOSE(*configurable_out.unique_ptr_real_, *configurable_in.unique_ptr_real_, g_tolerance);
+            BOOST_CHECK(configurable_out.unique_ptr_test_ != NULL);
+            BOOST_CHECK_EQUAL(  configurable_out.unique_ptr_test_->integer_member_,
+                                configurable_in.unique_ptr_test_->integer_member_);
         }
 #   endif
 
-        BOOST_CHECK(configurable_out.shared_ptr_real_null_ == NULL);
-        BOOST_CHECK_EQUAL(configurable_out.shared_ptr_real_null_, configurable_in.shared_ptr_real_null_);
+        BOOST_CHECK(configurable_out.shared_ptr_test_null_ == NULL);
+        BOOST_CHECK_EQUAL(configurable_out.shared_ptr_test_null_, configurable_in.shared_ptr_test_null_);
 #endif
 
 
 #ifdef ARILES_ADAPTER_BOOST_OPTIONAL
-        BOOST_CHECK(configurable_out.optional_real_ != boost::none);
-        BOOST_CHECK(configurable_in.optional_real_ != boost::none);
-        BOOST_CHECK_CLOSE(*configurable_out.optional_real_ , *configurable_in.optional_real_, g_tolerance);
-        BOOST_CHECK(configurable_out.optional_real_null_ == boost::none);
-        BOOST_CHECK(configurable_out.optional_real_null_ == configurable_in.optional_real_null_);
+        BOOST_CHECK(configurable_out.optional_test_ != boost::none);
+        BOOST_CHECK(configurable_in.optional_test_ != boost::none);
+        BOOST_CHECK_EQUAL(  configurable_out.optional_test_->integer_member_,
+                            configurable_in.optional_test_->integer_member_);
+        BOOST_CHECK(configurable_out.optional_test_null_ == boost::none);
+        BOOST_CHECK(configurable_in.optional_test_null_ == boost::none);
 #endif
     }
 #endif

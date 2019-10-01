@@ -165,4 +165,40 @@ namespace ariles
             finalize(it->second, trigger);
         }
     }
+
+
+    template <  typename t_Key,
+                typename t_Value,
+                class t_Compare,
+                class t_Allocator>
+        bool ARILES_VISIBILITY_ATTRIBUTE
+        compare(const std::map<t_Key, t_Value, t_Compare, t_Allocator> &left,
+                const std::map<t_Key, t_Value, t_Compare, t_Allocator> &right,
+                const ariles::ComparisonParameters & param)
+    {
+        ARILES_TRACE_FUNCTION;
+
+        if (left.size() != right.size())
+        {
+            return (false);
+        }
+
+        typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator left_it = left.begin();
+        typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator right_it = right.begin();
+
+        for (; (left_it != left.end()) && (right_it != right.end()); ++left_it, ++right_it)
+        {
+            if (false == compare(left_it->first, right_it->first, param))
+            {
+                return (false);
+            }
+
+            if (false == compare(left_it->second, right_it->second, param))
+            {
+                return (false);
+            }
+        }
+
+        return (true);
+    }
 }

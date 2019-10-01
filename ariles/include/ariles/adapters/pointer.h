@@ -12,17 +12,65 @@
 
 #include <memory>
 
-#define ARILES_POINTER_TYPE(entry_type)                 std::shared_ptr<entry_type>
-#define ARILES_POINTER_ALLOCATE(entry_type, pointer)    pointer = std::make_shared<entry_type>()
-#define ARILES_POINTER_RESET(pointer)                   pointer.reset()
-#define ARILES_POINTER_CHECK_NULL(pointer)              (NULL == pointer)
+namespace ariles
+{
+    template <class t_Value>
+    class PointerHandler<std::shared_ptr<t_Value> >
+    {
+    public:
+        typedef std::shared_ptr<t_Value> Pointer;
+        typedef t_Value Value;
+
+
+    public:
+        static void allocate(Pointer &ptr)
+        {
+            ptr = std::make_shared<t_Value>();
+        }
+
+        static void reset(Pointer &ptr)
+        {
+            ptr.reset();
+        }
+
+        static bool isNull(const Pointer &ptr)
+        {
+            return (NULL == ptr);
+        }
+    };
+
+
+    template <class t_Value>
+    class PointerHandler<std::unique_ptr<t_Value> >
+    {
+    public:
+        typedef std::unique_ptr<t_Value> Pointer;
+        typedef t_Value Value;
+
+
+    public:
+        static void allocate(Pointer &ptr)
+        {
+            ptr.reset(new t_Value);
+        }
+
+        static void reset(Pointer &ptr)
+        {
+            ptr.reset();
+        }
+
+        static bool isNull(const Pointer &ptr)
+        {
+            return (NULL == ptr);
+        }
+    };
+}
+
+#define ARILES_POINTER_TYPE                             std::shared_ptr
 #include <ariles/adapters/generic_pointer.h>
 
 
-#define ARILES_POINTER_TYPE(entry_type)                 std::unique_ptr<entry_type>
-#define ARILES_POINTER_ALLOCATE(entry_type, pointer)    pointer.reset(new double())
-#define ARILES_POINTER_RESET(pointer)                   pointer.reset(NULL)
-#define ARILES_POINTER_CHECK_NULL(pointer)              (NULL == pointer)
+#define ARILES_POINTER_TYPE                             std::unique_ptr
 #include <ariles/adapters/generic_pointer.h>
 
 #endif

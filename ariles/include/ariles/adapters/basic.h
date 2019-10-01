@@ -10,12 +10,11 @@
 
 #pragma once
 
-
 namespace ariles
 {
     template <class t_Reader, class t_Flags>
         void ARILES_VISIBILITY_ATTRIBUTE readBody(
-                                t_Reader  & reader,
+                                t_Reader & reader,
                                 ariles::CommonConfigurableBase & entry,
                                 const t_Flags & param)
     {
@@ -141,7 +140,7 @@ namespace ariles
                                 const t_Flags & param) \
             {\
                 ARILES_UNUSED_ARG(param); \
-                writer.writeElement(entry);\
+                writer.writeElement(entry); \
             }
 
     /**
@@ -251,4 +250,96 @@ namespace ariles
     ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
     #undef ARILES_BASIC_TYPE
+
+
+    // ============================================
+
+
+    template<class t_Left, class t_Right>
+        bool ARILES_VISIBILITY_ATTRIBUTE compare(
+                        const t_Left & left,
+                        const t_Right & right,
+                        const ariles::ComparisonParameters & param,
+                        ARILES_IS_CONFIGURABLE_ENABLER_TYPE(t_Left) * = NULL)
+    {
+        return (left.arilesCompare(right, param));
+    }
+
+
+    template <typename t_Enumeration>
+        bool ARILES_VISIBILITY_ATTRIBUTE compare(
+                        const t_Enumeration & left,
+                        const t_Enumeration & right,
+                        const ariles::ComparisonParameters & /*param*/,
+                        ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
+    {
+        return (left == right);
+    }
+
+
+    #define ARILES_BASIC_TYPE(type) \
+            inline bool ARILES_VISIBILITY_ATTRIBUTE compare( \
+                    const type & left,\
+                    const type & right, \
+                    const ariles::ComparisonParameters &) \
+            { return (left == right); }
+
+    /**
+     * @brief Generate setDefaults methods for basic types.
+     */
+    #define ARILES_COMPARE_TYPES_LIST \
+            ARILES_BASIC_INTEGER_TYPES_LIST \
+            ARILES_BASIC_TYPE(bool) \
+            ARILES_BASIC_TYPE(std::string)
+
+    ARILES_MACRO_SUBSTITUTE(ARILES_COMPARE_TYPES_LIST)
+
+    #undef ARILES_BASIC_TYPE
+
+
+	template <typename t_Scalar>
+    inline bool ARILES_VISIBILITY_ATTRIBUTE compareFloats(
+            const t_Scalar left, const t_Scalar right, const ariles::ComparisonParameters & param)
+    {
+        if (isNaN(left))
+        {
+            if (isNaN(right))
+            {
+				return (param.nan_equal_);
+            }
+            else
+            {
+                return (false);
+            }
+        }
+
+        if (isInfinity(left))
+        {
+            if (isInfinity(right))
+            {
+                if (((left > 0) && (right > 0)) || ((left < 0) && (right < 0)))
+                {
+					return (param.inf_equal_);
+                }
+            }
+            return (false);
+        }
+
+        return (std::abs(left - right) <=
+                ( (std::abs(left) < std::abs(right) ? std::abs(right) : std::abs(left)) * param.double_tolerance_));
+    }
+
+
+    inline bool ARILES_VISIBILITY_ATTRIBUTE compare(
+            const float left, const float right, const ariles::ComparisonParameters & param)
+    {
+        return (compareFloats(left, right, param));
+    }
+
+
+    inline bool ARILES_VISIBILITY_ATTRIBUTE compare(
+            const double left, const double right, const ariles::ComparisonParameters & param)
+    {
+        return (compareFloats(left, right, param));
+    }
 }

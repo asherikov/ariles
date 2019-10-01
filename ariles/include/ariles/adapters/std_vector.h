@@ -68,7 +68,7 @@ namespace ariles
 
     template <  typename t_VectorEntryType,
                 class t_Allocator>
-        void ARILES_VISIBILITY_ATTRIBUTE 
+        void ARILES_VISIBILITY_ATTRIBUTE
         finalize(   std::vector<t_VectorEntryType, t_Allocator> & entry,
                     const ArilesNamespaceLookupTrigger &trigger)
     {
@@ -77,5 +77,31 @@ namespace ariles
         {
             finalize(entry, trigger);
         }
+    }
+
+
+    template <  typename t_VectorEntryType,
+                class t_Allocator>
+        bool ARILES_VISIBILITY_ATTRIBUTE
+        compare(const std::vector<t_VectorEntryType, t_Allocator> &left,
+                const std::vector<t_VectorEntryType, t_Allocator> &right,
+                const ariles::ComparisonParameters & param)
+    {
+        ARILES_TRACE_FUNCTION;
+
+        if (left.size() != right.size())
+        {
+            return (false);
+        }
+
+        for (std::size_t i = 0; i < left.size(); ++i)
+        {
+            if (false == compare(left[i], right[i], param))
+            {
+                return (false);
+            }
+        }
+
+        return (true);
     }
 }

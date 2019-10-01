@@ -43,6 +43,12 @@ namespace ariles_tests
                 // -------
 
                 compare(configurable_out, configurable_in);
+
+                ariles::ComparisonParameters param;
+                param.double_tolerance_ = g_tolerance;
+                param.compare_number_of_entries_ = true;
+                param.throw_on_error_ = true;
+                BOOST_CHECK(configurable_out.arilesCompare(configurable_in, param));
             }
     };
 }

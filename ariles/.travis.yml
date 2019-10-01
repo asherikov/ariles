@@ -14,8 +14,7 @@ jobs:
     # no core
       - os: linux
         dist: trusty
-        compiler:
-            - clang
+        compiler: clang
         script:
           - make build TYPE=Debug OPTIONS=no_core TARGETS="all"
         addons:
@@ -28,8 +27,7 @@ jobs:
 
     # deb packages
       - os: linux
-        compiler:
-            - clang
+        compiler: clang
         dist: trusty
         sudo: required
         cache:
@@ -74,8 +72,7 @@ jobs:
     # From git submodules / C++11
       - os: linux
         dist: trusty
-        compiler:
-            - clang
+        compiler: clang
         script:
           - make build-tests TYPE=Debug OPTIONS=cpp11_build_noros TARGETS="all" ARGS=-V
         addons:
@@ -89,8 +86,7 @@ jobs:
     # From gitsubmodules / C++03
       - os: linux
         dist: trusty
-        compiler:
-            - clang
+        compiler: clang
         script:
           - make build-tests TYPE=Debug OPTIONS=cpp03_build_noros TARGETS="all" ARGS=-V
         addons:
@@ -104,8 +100,7 @@ jobs:
     # From packages / C++11
       - os: linux
         dist: trusty
-        compiler:
-            - clang
+        compiler: clang
         script:
           - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_trusty TARGETS="all" ARGS=-V
         addons:
@@ -124,8 +119,7 @@ jobs:
     # ROS / C++11
     # based on https://github.com/felixduvallet/ros-travis-integration/blob/master/.travis.yml
       - os: linux
-        compiler:
-            - clang
+        compiler: clang
         dist: trusty
         sudo: required
         cache:
@@ -164,8 +158,7 @@ jobs:
     # From git submodules / C++11
       - os: linux
         dist: trusty
-        compiler:
-            - gcc
+        compiler: gcc
         script:
           - make build-tests TYPE=Debug OPTIONS=cpp11_build_noros TARGETS="all" ARGS=-V
         addons:
@@ -179,8 +172,7 @@ jobs:
     # From gitsubmodules / C++03
       - os: linux
         dist: trusty
-        compiler:
-            - gcc
+        compiler: gcc
         script:
           - make build-tests TYPE=Debug OPTIONS=cpp03_build_noros TARGETS="all" ARGS=-V
         addons:
@@ -194,8 +186,7 @@ jobs:
     # From packages / C++11
       - os: linux
         dist: trusty
-        compiler:
-            - gcc
+        compiler: gcc
         script:
           - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_trusty TARGETS="all" ARGS=-V
         addons:
@@ -214,8 +205,7 @@ jobs:
     # ROS / C++11
     # based on https://github.com/felixduvallet/ros-travis-integration/blob/master/.travis.yml
       - os: linux
-        compiler:
-            - gcc
+        compiler: gcc
         dist: trusty
         sudo: required
         cache:

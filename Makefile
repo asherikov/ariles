@@ -6,6 +6,14 @@ update:
 	git read-tree --prefix=ariles -u origin/master
 	${MAKE} cleanup
 
+update_version:
+	git fetch --all
+	git rm --ignore-unmatch -rf ariles
+	git read-tree --prefix=ariles -u ${VERSION}
+	sed -i -e "s=<version>[0-9]*\.[0-9]*\.[0-9]*</version>=<version>${VERSION}</version>=" package.xml
+	sed -i -e "s=\(project([a-zA-Z0-9_-]* VERSION\) [0-9]*\.[0-9]*\.[0-9]*)=\1 ${VERSION})=" CMakeLists.txt
+	${MAKE} cleanup
+
 cleanup:
 	git rm -rf --ignore-unmatch ariles/bridges/jsonnet/jsonnet
 	git rm -rf --ignore-unmatch ariles/bridges/msgpack/msgpack-c
@@ -23,9 +31,11 @@ clean:
 	rm -Rf obj*
 
 release:
+	# 0. update_version
 	# 1. Add Forthcoming section to the changelog
 	# 2. Commit changelog
 	catkin_prepare_release -t 'ros-' --version "${VERSION}" -y
+	# 4. bloom-release --rosdistro melodic --track melodic ariles_ros
 
 
 #==============================================

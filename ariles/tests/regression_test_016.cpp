@@ -32,6 +32,7 @@
 #include "types/minimal.h"
 #include "types/no_setdefaults.h"
 #include "types/pointers.h"
+#include "types/pointers_scalar.h"
 #include "types/simple_auto_declare.h"
 #include "types/simple_no_auto_id.h"
 #include "types/simple_no_constructors.h"
@@ -45,7 +46,7 @@ int main()
     ariles_tests::ConfigurableComplexVerbose      b;
     ariles_tests::ConfigurableEmpty               c;
     ariles_tests::ConfigurableFinalize            d;
-    ariles_tests::ConfigurableMember              e;
+    ariles_tests::ConfigurableMember<int>         e;
     ariles_tests::ConfigurableBase                f;
     ariles_tests::ConfigurableDerived             g;
     ariles_tests::ConfigurableMinimal             h;
@@ -59,6 +60,7 @@ int main()
     ariles_tests::ConfigurableStrictness1         r;
     ariles_tests::ConfigurableStrictness2         s;
     ariles_tests::ConfigurableAny                 t;
+    ariles_tests::ConfigurablePointersScalar      u;
 
     return (0);
 }

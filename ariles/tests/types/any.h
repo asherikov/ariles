@@ -22,6 +22,7 @@ namespace ariles_tests
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
             virtual void randomize()
             {
+                boost::random::random_device random_generator;
                 real_ = GET_RANDOM_REAL;
             }
 #endif
@@ -51,6 +52,7 @@ namespace ariles_tests
             void randomize()
             {
                 Base::randomize();
+                boost::random::random_device random_generator;
                 real1_ = GET_RANDOM_REAL;
             }
 #endif
@@ -76,6 +78,7 @@ namespace ariles_tests
             void randomize()
             {
                 Base::randomize();
+                boost::random::random_device random_generator;
                 real2_ = GET_RANDOM_REAL;
             }
 #endif
@@ -94,6 +97,7 @@ namespace ariles_tests
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
             void randomize()
             {
+                boost::random::random_device random_generator;
                 BOOST_CHECK(false == this->isInitialized());
 
                 this->id_ = "test";
@@ -226,6 +230,7 @@ namespace ariles_tests
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
             void randomize()
             {
+                boost::random::random_device random_generator;
 #if __cplusplus >= 201103L
                 std_any_.randomize();
 #endif

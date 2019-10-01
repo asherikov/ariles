@@ -81,6 +81,12 @@ namespace ariles_tests
                 {
                     compare(configurable_vector_out.vector_[i], configurable_vector_in.vector_[i]);
                 }
+
+                ariles::ComparisonParameters param;
+                param.double_tolerance_ = g_tolerance;
+                param.compare_number_of_entries_ = true;
+                param.throw_on_error_ = true;
+                BOOST_CHECK(configurable_vector_out.arilesCompare(configurable_vector_in, param));
             }
     };
 }

@@ -2,6 +2,12 @@
 Changelog for package ariles_ros
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Sync to 1.2.2
+* Fix bugs in cmake scripts.
+
+
 1.1.5 (2019-06-04)
 ------------------
 * Sync to 1.1.5.

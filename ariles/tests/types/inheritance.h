@@ -13,11 +13,12 @@
 
 namespace ariles_tests
 {
+    template<class t_Scalar>
     class ConfigurableMember : virtual public ariles::ConfigurableBase
     {
         #define ARILES_SECTION_ID "ConfigurableMember"
         #define ARILES_ENTRIES \
-            ARILES_TYPED_ENTRY_(integer, int) \
+            ARILES_TYPED_ENTRY_(integer, t_Scalar) \
             ARILES_TYPED_ENTRY_(real   , double)
         #include ARILES_INITIALIZE
 
@@ -41,9 +42,45 @@ namespace ariles_tests
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
             void randomize()
             {
+                boost::random::random_device random_generator;
                 integer_ = GET_RANDOM_INT;
                 real_    = GET_RANDOM_REAL;
                 finalize();
+            }
+#endif
+    };
+
+
+    template<class t_Scalar>
+    class ConfigurableMember1 : public ConfigurableMember<t_Scalar>
+    {
+        #define ARILES_SECTION_ID "ConfigurableMember1"
+        #define ARILES_ENTRIES \
+            ARILES_TYPED_ENTRY_(member,         ConfigurableMember<t_Scalar>)
+        #include ARILES_INITIALIZE
+
+
+        public:
+            ConfigurableMember1()
+            {
+                setDefaults();
+            }
+
+            virtual ~ConfigurableMember1() {}
+
+
+            virtual void setDefaults()
+            {
+                member_.setDefaults();
+            }
+
+
+#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+            void randomize()
+            {
+                boost::random::random_device random_generator;
+                member_.randomize();
+                this->finalize();
             }
 #endif
     };
@@ -53,7 +90,7 @@ namespace ariles_tests
     {
         #define ARILES_SECTION_ID "ConfigurableBase"
         #define ARILES_ENTRIES \
-            ARILES_TYPED_ENTRY_(member,         ConfigurableMember)
+            ARILES_TYPED_ENTRY_(member,         ConfigurableMember<int>)
         #include ARILES_INITIALIZE
 
 
@@ -75,6 +112,7 @@ namespace ariles_tests
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
             void randomize()
             {
+                boost::random::random_device random_generator;
                 member_.randomize();
                 finalize();
             }
@@ -82,13 +120,14 @@ namespace ariles_tests
     };
 
 
-    class ConfigurableDerived : public ConfigurableBase, public ConfigurableMember
+    class ConfigurableDerived : public ConfigurableBase, public ConfigurableMember<int>
     {
         #define ARILES_SECTION_ID "ConfigurableDerived"
         #define ARILES_ENTRIES \
             ARILES_PARENT(ConfigurableBase) \
-            ARILES_PARENT(ConfigurableMember) \
-            ARILES_TYPED_ENTRY_(another_member,         ConfigurableMember)
+            ARILES_PARENT(ConfigurableMember<int>) \
+            ARILES_TYPED_ENTRY_(another_member,         ConfigurableMember<int>) \
+            ARILES_TYPED_ENTRY_(another_member1,        ConfigurableMember1<int>)
         #include ARILES_INITIALIZE
 
 
@@ -102,17 +141,20 @@ namespace ariles_tests
             void setDefaults()
             {
                 another_member_.setDefaults();
+                another_member1_.setDefaults();
                 ConfigurableBase::setDefaults();
-                ConfigurableMember::setDefaults();
+                ConfigurableMember<int>::setDefaults();
             }
 
 
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
             void randomize()
             {
+                boost::random::random_device random_generator;
                 another_member_.randomize();
+                another_member1_.randomize();
                 ConfigurableBase::randomize();
-                ConfigurableMember::randomize();
+                ConfigurableMember<int>::randomize();
                 finalize();
             }
 #endif
