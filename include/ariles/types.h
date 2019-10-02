@@ -237,3 +237,120 @@ namespace ariles
             }
     };
 }
+
+
+namespace ariles
+{
+    template <class t_Pointer>
+    class NonNullPointer : public ariles::ConfigurableBase
+    {
+        #define ARILES_SECTION_ID "NonNullPointer"
+        #include ARILES_INITIALIZE
+
+        public:
+            typedef t_Pointer BasePointer;
+            typedef PointerHandler<t_Pointer> Handler;
+
+
+        public:
+            t_Pointer value_;
+
+
+        public:
+            NonNullPointer()
+            {
+                setDefaults();
+            }
+
+
+            NonNullPointer(const t_Pointer &value)
+            {
+                value_ = value;
+            }
+
+
+            operator BasePointer &()
+            {
+                return (value_);
+            }
+
+            operator const BasePointer &() const
+            {
+                return (value_);
+            }
+
+
+            NonNullPointer(const typename Handler::Value &value)
+            {
+                Handler::allocate(value_);
+                *value_ = value;
+            }
+
+
+            virtual ~NonNullPointer()
+            {
+            }
+
+
+            typename Handler::Value *operator->() const
+            {
+                ARILES_ASSERT(false == isNull(), "Not initialized");
+                return (value_.get());
+            }
+
+
+            typename Handler::Value &operator*() const
+            {
+                ARILES_ASSERT(false == isNull(), "Not initialized");
+                return (*value_);
+            }
+
+
+            void writeConfigEntries(ariles::WriterBase &writer, const ariles::ConfigurableFlags &parameters) const
+            {
+                ARILES_ASSERT(false == isNull(), "Could not write config: entry is not initialized");
+                value_->writeConfigEntries(writer, parameters);
+            }
+
+
+            void readConfigEntries(ariles::ReaderBase &reader, const ariles::ConfigurableFlags &parameters)
+            {
+                Handler::allocate(value_);
+                value_->readConfigEntries(reader, parameters);
+            }
+
+
+            void arilesFinalize()
+            {
+                ARILES_ASSERT(false == isNull(), "Not initialized");
+            }
+
+
+            void setDefaults()
+            {
+                Handler::allocate(value_);
+                value_->setDefaults();
+            }
+
+
+            std::size_t getNumberOfEntries() const
+            {
+                ARILES_ASSERT(false == isNull(), "Not initialized");
+                return (value_->getNumberOfEntries());
+            }
+
+
+            bool isNull() const
+            {
+                return (Handler::isNull(value_));
+            }
+
+
+            template<class t_Other>
+            bool arilesCompare(const t_Other &other, const ariles::ComparisonParameters &param) const
+            {
+                ARILES_TRACE_FUNCTION;
+                return (value_->arilesCompare(*other.value_, param));
+            }
+    };
+}
