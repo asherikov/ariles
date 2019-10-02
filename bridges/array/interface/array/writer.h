@@ -22,40 +22,61 @@ namespace ariles
     {
         namespace array
         {
+            typedef std::pair<std::string, double>  NameValuePair;
+
+
+            template<class t_NameValuePair>
+            class ARILES_VISIBILITY_ATTRIBUTE NameValuePairHandler
+            {
+            };
+
+
+            template<>
+            class ARILES_VISIBILITY_ATTRIBUTE NameValuePairHandler< NameValuePair >
+            {
+                public:
+                    static inline std::string & name(NameValuePair & pair)
+                    {
+                        return (pair.first);
+                    }
+
+                    static inline double & value(NameValuePair & pair)
+                    {
+                        return (pair.second);
+                    }
+            };
+
+
             /**
              * @brief Configuration writer class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::WriterBase
+            template<class t_NameValuePair>
+            class ARILES_VISIBILITY_ATTRIBUTE GenericWriter : public ariles::WriterBase
             {
                 protected:
                     typedef ariles::Node< std::string > NodeWrapper;
 
 
                 protected:
-                    std::vector<NodeWrapper>    node_stack_;
-                    std::size_t                 reserve_;
+                    std::vector<NodeWrapper>        node_stack_;
+                    std::size_t                     reserve_;
 
-                    std::vector<std::string>    buffer_names_;
-                    std::vector<double>         buffer_values_;
+                    std::vector<t_NameValuePair>    buffer_name_value_pairs_;
 
-                    std::string                 prefix_;
-
-                    bool                        preserve_structure_;
+                    bool                            preserve_structure_;
 
 
                 public:
-                    std::vector<std::string>    *names_;
-                    std::vector<double>         *values_;
-                    std::size_t                 index_;
+                    std::vector<t_NameValuePair>    *name_value_pairs_;
+                    std::size_t                     index_;
 
 
                 protected:
                     void expand()
                     {
-                        if (index_ == names_->size())
+                        if (index_ == name_value_pairs_->size())
                         {
-                            names_->resize(names_->size() + 1);
-                            values_->resize(values_->size() + 1);
+                            name_value_pairs_->resize(name_value_pairs_->size() + 1);
                         }
                     }
 
@@ -64,24 +85,20 @@ namespace ariles
                         if (false == preserve_structure_)
                         {
                             reserve_ += size;
-                            names_->reserve(reserve_);
-                            values_->reserve(reserve_);
+                            name_value_pairs_->reserve(reserve_);
                         }
                     }
 
                     void clear()
                     {
-                        names_->clear();
-                        values_->clear();
+                        name_value_pairs_->clear();
                     }
 
 
                 public:
-                    explicit Writer(const std::size_t reserve = 0, const std::string &prefix = "")
+                    explicit GenericWriter(const std::size_t reserve = 0)
                     {
-                        names_ = &buffer_names_;
-                        values_ = &buffer_values_;
-                        prefix_ = prefix;
+                        name_value_pairs_ = &buffer_name_value_pairs_;
 
                         if (reserve > 0)
                         {
@@ -91,11 +108,9 @@ namespace ariles
                     }
 
 
-                    explicit Writer(std::vector<std::string> *names, std::vector<double> *values, const std::size_t reserve, const std::string &prefix = "")
+                    explicit GenericWriter(std::vector<t_NameValuePair> *name_value_pairs, const std::size_t reserve = 0)
                     {
-                        names_ = names;
-                        values_ = values;
-                        prefix_ = prefix;
+                        name_value_pairs_ = name_value_pairs;
 
                         if (reserve > 0)
                         {
@@ -133,7 +148,7 @@ namespace ariles
                     {
                         if (0 == node_stack_.size())
                         {
-                            node_stack_.push_back(prefix_ + map_name);
+                            node_stack_.push_back(map_name);
                         }
                         else
                         {
@@ -208,14 +223,14 @@ namespace ariles
                                 expand(); \
                                 if (false == preserve_structure_) \
                                 { \
-                                    (*names_)[index_] = node_stack_.back().node_; \
+                                    NameValuePairHandler<t_NameValuePair>::name((*name_value_pairs_)[index_]) = node_stack_.back().node_; \
                                     if (true == node_stack_.back().isArray()) \
                                     { \
-                                        (*names_)[index_] += "_"; \
-                                        (*names_)[index_] += boost::lexical_cast<std::string>(node_stack_.back().index_); \
+                                        NameValuePairHandler<t_NameValuePair>::name((*name_value_pairs_)[index_]) += "_"; \
+                                        NameValuePairHandler<t_NameValuePair>::name((*name_value_pairs_)[index_]) += boost::lexical_cast<std::string>(node_stack_.back().index_); \
                                     } \
                                 } \
-                                (*values_)[index_] = element; \
+                                NameValuePairHandler<t_NameValuePair>::value((*name_value_pairs_)[index_]) = element; \
                                 ++index_; \
                             }
 
@@ -228,6 +243,9 @@ namespace ariles
                     {
                     }
             };
+
+
+            typedef GenericWriter<NameValuePair> Writer;
         }
     }
 }

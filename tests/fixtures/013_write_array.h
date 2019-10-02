@@ -33,36 +33,26 @@ namespace ariles_tests
                     typename t_Bridge::Writer writer(getWriterInitializer("configurable.cfg"));
                     configurable.writeConfig(writer);
 
-                    BOOST_CHECK_EQUAL(writer.index_, writer.names_->size());
-                    BOOST_CHECK_EQUAL(writer.index_, writer.values_->size());
+                    BOOST_CHECK_EQUAL(writer.index_, writer.name_value_pairs_->size());
 
-                    for (std::size_t i = 0; i < writer.names_->size(); ++i)
+                    for (std::size_t i = 0; i < writer.name_value_pairs_->size(); ++i)
                     {
-                        std::cout << (*writer.names_)[i] << " = " << (*writer.values_)[i] << std::endl;
+                        std::cout << (*writer.name_value_pairs_)[i].first << " = " << (*writer.name_value_pairs_)[i].second << std::endl;
                     }
                 }
 
 
-                // External buffers + prefix
+                // External buffers
                 {
                     t_Configurable configurable;
                     configurable.randomize();
 
-                    const std::string prefix = "blahprefix.";
-                    std::vector<std::string> names;
-                    std::vector<double> values;
+                    std::vector<ariles::bridge::array::NameValuePair> name_value_pairs;
 
-
-                    typename t_Bridge::Writer writer(&names, &values, getWriterInitializer("configurable.cfg"), prefix);
+                    typename t_Bridge::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
                     configurable.writeConfig(writer);
 
-                    BOOST_CHECK_EQUAL(writer.index_, names.size());
-                    BOOST_CHECK_EQUAL(writer.index_, values.size());
-
-                    for (std::size_t i = 0; i < names.size(); ++i)
-                    {
-                        BOOST_CHECK_EQUAL(names[i].substr(0, prefix.size()), prefix);
-                    }
+                    BOOST_CHECK_EQUAL(writer.index_, name_value_pairs.size());
                 }
 
 
@@ -71,30 +61,26 @@ namespace ariles_tests
                     t_Configurable configurable;
                     configurable.randomize();
 
-                    std::vector<std::string> names;
-                    std::vector<double> values;
+                    std::vector<ariles::bridge::array::NameValuePair> name_value_pairs;
 
-                    typename t_Bridge::Writer writer(&names, &values, getWriterInitializer("configurable.cfg"));
+                    typename t_Bridge::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
                     configurable.writeConfig(writer);
 
-                    BOOST_CHECK_EQUAL(writer.index_, names.size());
-                    BOOST_CHECK_EQUAL(writer.index_, values.size());
+                    BOOST_CHECK_EQUAL(writer.index_, name_value_pairs.size());
 
-                    std::vector<std::string> names_back = names;
-                    std::vector<double> values_back = values;
+                    std::vector<ariles::bridge::array::NameValuePair> name_value_pairs_back = name_value_pairs;
                     writer.reset();
 
                     configurable.writeConfig(writer);
 
-                    BOOST_CHECK_EQUAL(writer.index_, names.size());
-                    BOOST_CHECK_EQUAL(writer.index_, values.size());
+                    BOOST_CHECK_EQUAL(writer.index_, name_value_pairs.size());
 
-                    BOOST_CHECK_EQUAL(names_back.size(), names.size());
+                    BOOST_CHECK_EQUAL(name_value_pairs_back.size(), name_value_pairs.size());
 
-                    for (std::size_t i = 0; i < names.size(); ++i)
+                    for (std::size_t i = 0; i < name_value_pairs.size(); ++i)
                     {
-                        BOOST_CHECK_EQUAL(names_back[i], names[i]);
-                        BOOST_CHECK_EQUAL(values_back[i], values[i]);
+                        BOOST_CHECK_EQUAL(name_value_pairs_back[i].first, name_value_pairs[i].first);
+                        BOOST_CHECK_EQUAL(name_value_pairs_back[i].second, name_value_pairs[i].second);
                     }
                 }
 
@@ -104,51 +90,43 @@ namespace ariles_tests
                     configurable.randomize();
 
                     const bool preserve_structure = true;
-                    std::vector<std::string> names;
-                    std::vector<double> values;
+                    std::vector<ariles::bridge::array::NameValuePair> name_value_pairs;
 
-                    typename t_Bridge::Writer writer(&names, &values, getWriterInitializer("configurable.cfg"));
+                    typename t_Bridge::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
                     configurable.writeConfig(writer);
 
-                    BOOST_CHECK_EQUAL(writer.index_, names.size());
-                    BOOST_CHECK_EQUAL(writer.index_, values.size());
+                    BOOST_CHECK_EQUAL(writer.index_, name_value_pairs.size());
 
                     // ---
 
-                    std::vector<std::string> names_back = names;
-                    std::vector<double> values_back = values;
+                    std::vector<ariles::bridge::array::NameValuePair> name_value_pairs_back = name_value_pairs;
                     writer.reset(preserve_structure);
 
                     configurable.writeConfig(writer);
 
-                    BOOST_CHECK_EQUAL(writer.index_, names.size());
-                    BOOST_CHECK_EQUAL(writer.index_, values.size());
+                    BOOST_CHECK_EQUAL(writer.index_, name_value_pairs.size());
+                    BOOST_CHECK_EQUAL(name_value_pairs_back.size(), name_value_pairs.size());
 
-                    BOOST_CHECK_EQUAL(names_back.size(), names.size());
-
-                    for (std::size_t i = 0; i < names.size(); ++i)
+                    for (std::size_t i = 0; i < name_value_pairs.size(); ++i)
                     {
-                        BOOST_CHECK_EQUAL(names_back[i], names[i]);
-                        BOOST_CHECK_EQUAL(values_back[i], values[i]);
+                        BOOST_CHECK_EQUAL(name_value_pairs_back[i].first, name_value_pairs[i].first);
+                        BOOST_CHECK_EQUAL(name_value_pairs_back[i].second, name_value_pairs[i].second);
                     }
 
                     // ---
 
                     writer.reset(preserve_structure);
-                    names.clear();
-                    values.clear();
+                    name_value_pairs.clear();
 
                     configurable.writeConfig(writer);
 
-                    BOOST_CHECK_EQUAL(writer.index_, names.size());
-                    BOOST_CHECK_EQUAL(writer.index_, values.size());
+                    BOOST_CHECK_EQUAL(writer.index_, name_value_pairs.size());
+                    BOOST_CHECK_EQUAL(name_value_pairs_back.size(), name_value_pairs.size());
 
-                    BOOST_CHECK_EQUAL(names_back.size(), names.size());
-
-                    for (std::size_t i = 0; i < names.size(); ++i)
+                    for (std::size_t i = 0; i < name_value_pairs.size(); ++i)
                     {
-                        BOOST_CHECK_EQUAL(names[i], ""); // names are not reinitialized
-                        BOOST_CHECK_EQUAL(values_back[i], values[i]);
+                        BOOST_CHECK_EQUAL(name_value_pairs[i].first, "");
+                        BOOST_CHECK_EQUAL(name_value_pairs_back[i].second, name_value_pairs[i].second);
                     }
                 }
             }
