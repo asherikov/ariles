@@ -32,6 +32,25 @@ namespace ariles_tests
         };
 
 
+        class SizeInitializer
+        {
+            public:
+                SizeInitializer()
+                {
+                }
+
+                std::size_t getReaderInitializer(const std::string & /*string_id*/)
+                {
+                    return (0);
+                }
+
+                std::size_t getWriterInitializer(const std::string & /*string_id*/)
+                {
+                    return (0);
+                }
+        };
+
+
         template <class t_Base>
         class FilenameReaderInitializer : public t_Base
         {
@@ -145,14 +164,15 @@ namespace ariles_tests
 
                     if (pid_ > 0)
                     {
-                        ARILES_ASSERT(0 == kill(pid_, 0), "roscore has died.");
+                        if (0 == kill(pid_, 0))
+                        {
+                            sighandler_t sig_handler = signal(SIGCHLD, SIG_IGN);
+                            kill(pid_, SIGINT);
 
-                        sighandler_t sig_handler = signal(SIGCHLD, SIG_IGN);
-                        kill(pid_, SIGINT);
-
-                        int status;
-                        waitpid(pid_, &status, 0);
-                        signal(SIGCHLD, sig_handler);
+                            int status;
+                            waitpid(pid_, &status, 0);
+                            signal(SIGCHLD, sig_handler);
+                        }
                     }
                 }
 

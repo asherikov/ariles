@@ -44,6 +44,7 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "017" "" "${ARILES_TEST_ALL_
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "018" "" "${ARILES_TEST_ALL_BRIDGES}")  # pointers (configurable)
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "019" "" "")                            # comparison (complex)
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "020" "" "")                            # comparison (inheritance)
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "021" "array" "")                       # array
 
 
 ariles_define_test(${CMAKE_PROJECT_NAME} "demo" "yaml_cpp;ros;octave" "")

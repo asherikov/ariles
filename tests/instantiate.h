@@ -47,6 +47,10 @@ ARILES_TESTS_SHORTCUT(ros, ROSInitializer)
 ARILES_TESTS_SHORTCUT(octave, FilenameInitializer)
 #endif
 
+#ifdef ARILES_BRIDGE_INCLUDED_array
+ARILES_TESTS_SHORTCUT(array, SizeInitializer)
+#endif
+
 #ifdef ARILES_BRIDGE_INCLUDED_pugixml
 // A dirty hack to avoid fixture, which is known to fail for XML.
 #   define ComparisonMultiFixture ComparisonSimpleFixture
