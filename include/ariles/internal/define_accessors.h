@@ -209,6 +209,46 @@
         #endif
 
 
+        using ariles::CommonConfigurableBase::readConfig;
+
+        void readConfig(ariles::ReaderBase  & reader,
+                        const std::string   & node_name,
+                        const ariles::ConfigurableFlags & param)
+        {
+            this->setDefaults();
+            ariles::readEntry(reader, *this, node_name, param);
+        }
+
+        void readConfig(ariles::ReaderBase  & reader,
+                        const char          * node_name,
+                        const ariles::ConfigurableFlags & param)
+        {
+            this->setDefaults();
+            ariles::readEntry(reader, *this, node_name, param);
+        }
+
+
+        using ariles::CommonConfigurableBase::writeConfig;
+
+        void writeConfig(   ariles::WriterBase & writer,
+                            const std::string &node_name,
+                            const ariles::ConfigurableFlags & param) const
+        {
+            writer.initRoot();
+            ariles::writeEntry(writer, *this, node_name, param);
+            writer.flush();
+        }
+
+        void writeConfig(   ariles::WriterBase & writer,
+                            const char *node_name,
+                            const ariles::ConfigurableFlags & param) const
+        {
+            writer.initRoot();
+            ariles::writeEntry(writer, *this, node_name, param);
+            writer.flush();
+        }
+
+
         // generate methods which accept ConfigurableFlags
         #define ARILES_CONFIGURABLE_PARAMETERS_ARG              , const ariles::ConfigurableFlags & param
         #define ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA   ARILES_CONFIGURABLE_PARAMETERS_ARG,
