@@ -63,7 +63,7 @@ namespace ariles
 
                     std::vector<t_NameValuePair>    buffer_name_value_pairs_;
 
-                    bool                            preserve_structure_;
+                    bool                            initialize_structure_;
 
 
                 public:
@@ -82,11 +82,8 @@ namespace ariles
 
                     void expandReserve(const std::size_t size)
                     {
-                        if (false == preserve_structure_)
-                        {
-                            reserve_ += size;
-                            name_value_pairs_->reserve(reserve_);
-                        }
+                        reserve_ += size;
+                        name_value_pairs_->reserve(reserve_);
                     }
 
                     void clear()
@@ -132,13 +129,13 @@ namespace ariles
                     }
 
 
-                    void reset(const bool preserve_structure = false)
+                    void reset(const bool initialize_structure = true)
                     {
-                        if (false == preserve_structure)
+                        if (true == initialize_structure)
                         {
                             clear();
                         }
-                        preserve_structure_ = preserve_structure;
+                        initialize_structure_ = initialize_structure;
                         index_ = 0;
                         reserve_ = 0;
                     }
@@ -146,15 +143,11 @@ namespace ariles
 
                     virtual void descend(const std::string & map_name)
                     {
-                        if (0 == node_stack_.size())
+                        if (true == initialize_structure_)
                         {
-                            node_stack_.push_back(map_name);
-                        }
-                        else
-                        {
-                            if (true == preserve_structure_)
+                            if (0 == node_stack_.size())
                             {
-                                node_stack_.push_back(NodeWrapper(""));
+                                node_stack_.push_back(map_name);
                             }
                             else
                             {
@@ -177,13 +170,19 @@ namespace ariles
 
                     virtual void ascend()
                     {
-                        node_stack_.pop_back();
+                        if (true == initialize_structure_)
+                        {
+                            node_stack_.pop_back();
+                        }
                     }
 
 
                     virtual void startMap(const std::size_t num_entries)
                     {
-                        expandReserve(num_entries);
+                        if (true == initialize_structure_)
+                        {
+                            expandReserve(num_entries);
+                        }
                     }
 
                     virtual void endMap() {}
@@ -191,29 +190,38 @@ namespace ariles
 
                     virtual void startArray(const std::size_t size, const bool compact = false)
                     {
-                        expandReserve(size);
-                        if (true == node_stack_.back().isArray())
+                        if (true == initialize_structure_)
                         {
-                            std::string node = node_stack_.back().node_;
-                            node += "_";
-                            node += boost::lexical_cast<std::string>(node_stack_.back().index_);
-                            node_stack_.push_back(NodeWrapper(node, 0, size, compact));
-                        }
-                        else
-                        {
-                            node_stack_.push_back(NodeWrapper(node_stack_.back().node_, 0, size));
+                            expandReserve(size);
+                            if (true == node_stack_.back().isArray())
+                            {
+                                std::string node = node_stack_.back().node_;
+                                node += "_";
+                                node += boost::lexical_cast<std::string>(node_stack_.back().index_);
+                                node_stack_.push_back(NodeWrapper(node, 0, size, compact));
+                            }
+                            else
+                            {
+                                node_stack_.push_back(NodeWrapper(node_stack_.back().node_, 0, size));
+                            }
                         }
                     }
 
                     virtual void shiftArray()
                     {
-                        ARILES_ASSERT(true == node_stack_.back().isArray(), "Internal error: array expected.");
-                        ++node_stack_.back().index_;
+                        if (true == initialize_structure_)
+                        {
+                            ARILES_ASSERT(true == node_stack_.back().isArray(), "Internal error: array expected.");
+                            ++node_stack_.back().index_;
+                        }
                     }
 
                     virtual void endArray()
                     {
-                        node_stack_.pop_back();
+                        if (true == initialize_structure_)
+                        {
+                            node_stack_.pop_back();
+                        }
                     }
 
 
@@ -221,7 +229,7 @@ namespace ariles
                             void writeElement(const type & element) \
                             { \
                                 expand(); \
-                                if (false == preserve_structure_) \
+                                if (true == initialize_structure_) \
                                 { \
                                     NameValuePairHandler<t_NameValuePair>::name((*name_value_pairs_)[index_]) = node_stack_.back().node_; \
                                     if (true == node_stack_.back().isArray()) \

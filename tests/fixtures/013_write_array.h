@@ -84,12 +84,12 @@ namespace ariles_tests
                     }
                 }
 
-                // External buffers + reset (preserve_structure = true)
+                // External buffers + reset (initialize_structure = false)
                 {
                     t_Configurable configurable;
                     configurable.randomize();
 
-                    const bool preserve_structure = true;
+                    const bool initialize_structure = false;
                     std::vector<ariles::bridge::array::NameValuePair> name_value_pairs;
 
                     typename t_Bridge::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
@@ -100,7 +100,7 @@ namespace ariles_tests
                     // ---
 
                     std::vector<ariles::bridge::array::NameValuePair> name_value_pairs_back = name_value_pairs;
-                    writer.reset(preserve_structure);
+                    writer.reset(initialize_structure);
 
                     configurable.writeConfig(writer);
 
@@ -115,7 +115,7 @@ namespace ariles_tests
 
                     // ---
 
-                    writer.reset(preserve_structure);
+                    writer.reset(initialize_structure);
                     name_value_pairs.clear();
 
                     configurable.writeConfig(writer);
