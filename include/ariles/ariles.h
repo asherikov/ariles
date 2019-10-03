@@ -198,34 +198,24 @@
                  *
                  * @param[in] reader configuration reader
                  * @param[in] node_name   node name, the default is used if empty
-                 */
-                virtual void readConfig(ariles::ReaderBase  & reader,
-                                        const std::string   & node_name,
-                                        const ariles::ConfigurableFlags & param) = 0;
-                void readConfig(ariles::ReaderBase  & reader,
-                                const std::string   & node_name)
-                {
-                    this->readConfig(reader, node_name, this->getArilesConfigurableFlags());
-                }
-
-
-                /**
-                 * @brief Read configuration (assuming the configuration node
-                 * to be in the root).
-                 *
-                 * @param[in] reader configuration reader
-                 * @param[in] node_name   node name, the default is used if empty
                  *
                  * @note Intercept implicit conversion of a pointer to bool.
                  */
-                virtual void readConfig(ariles::ReaderBase  & reader,
-                                        const char          * node_name,
-                                        const ariles::ConfigurableFlags & param) = 0;
-                void readConfig(ariles::ReaderBase  & reader,
-                                const char          * node_name)
-                {
-                    this->readConfig(reader, node_name, this->getArilesConfigurableFlags());
-                }
+                #define ARILES_READ_CONFIG(NameType) \
+                        virtual void readConfig(ariles::ReaderBase  & reader, \
+                                                NameType            node_name, \
+                                                const ariles::ConfigurableFlags & param) = 0; \
+                        void readConfig(ariles::ReaderBase  & reader, \
+                                        NameType            node_name) \
+                        { \
+                            this->readConfig(reader, node_name, this->getArilesConfigurableFlags()); \
+                        }
+
+                ARILES_READ_CONFIG(const std::string &)
+                ARILES_READ_CONFIG(const char *)
+
+                #undef ARILES_READ_CONFIG
+
 
 
                 #define ARILES_WRITE_CONFIG(InitializerType) \
@@ -308,30 +298,21 @@
                  * @param[in,out] writer configuration writer
                  * @param[in] node_name   node name, the default is used if empty
                  */
-                virtual void writeConfig(   ariles::WriterBase & writer,
-                                            const std::string &node_name,
-                                            const ariles::ConfigurableFlags & param) const = 0;
-                void writeConfig(   ariles::WriterBase & writer,
-                                    const std::string &node_name) const
-                {
-                    this->writeConfig(writer, node_name, this->getArilesConfigurableFlags());
-                }
+                #define ARILES_WRITE_CONFIG(NameType) \
+                        virtual void writeConfig(   ariles::WriterBase & writer, \
+                                                    NameType node_name, \
+                                                    const ariles::ConfigurableFlags & param) const = 0; \
+                        void writeConfig(   ariles::WriterBase & writer, \
+                                            NameType node_name) const \
+                        { \
+                            this->writeConfig(writer, node_name, this->getArilesConfigurableFlags()); \
+                        }
 
+                ARILES_WRITE_CONFIG(const std::string &)
+                ARILES_WRITE_CONFIG(const char *)
 
-                /**
-                 * @brief Write configuration
-                 *
-                 * @param[in,out] writer configuration writer
-                 * @param[in] node_name   node name, the default is used if empty
-                 */
-                virtual void writeConfig(   ariles::WriterBase & writer,
-                                            const char *node_name,
-                                            const ariles::ConfigurableFlags & param) const = 0;
-                void writeConfig(ariles::WriterBase & writer,
-                                 const char *node_name) const
-                {
-                    this->writeConfig(writer, node_name, this->getArilesConfigurableFlags());
-                }
+                #undef ARILES_WRITE_CONFIG
+
 
 
                 virtual void writeConfigEntries(ariles::WriterBase & writer,
