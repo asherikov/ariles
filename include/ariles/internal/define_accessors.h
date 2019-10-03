@@ -208,6 +208,38 @@
             }
         #endif
 
+        #ifdef ARILES_CONSTRUCTOR
+            /**
+             * Define constructors for the given class.
+             */
+            ARILES_CONSTRUCTOR(
+                    ariles::ReaderBase &reader,
+                    const std::string &node_name)
+            {
+                readConfig(reader, node_name, this->getArilesConfigurableFlags());
+            }
+            ARILES_CONSTRUCTOR(
+                    ariles::ReaderBase &reader,
+                    const std::string &node_name,
+                    const ariles::ConfigurableFlags & param)
+            {
+                readConfig(reader, node_name, param);
+            }
+
+
+            explicit ARILES_CONSTRUCTOR(
+                    ariles::ReaderBase &reader)
+            {
+                readConfig(reader, this->getArilesConfigurableFlags());
+            }
+            explicit ARILES_CONSTRUCTOR(
+                    ariles::ReaderBase &reader,
+                    const ariles::ConfigurableFlags & param)
+            {
+                readConfig(reader, param);
+            }
+        #endif
+
 
         using ariles::CommonConfigurableBase::readConfig;
 
@@ -247,25 +279,6 @@
             ariles::writeEntry(writer, *this, node_name, param);
             writer.flush();
         }
-
-
-        // generate methods which accept ConfigurableFlags
-        #define ARILES_CONFIGURABLE_PARAMETERS_ARG              , const ariles::ConfigurableFlags & param
-        #define ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA   ARILES_CONFIGURABLE_PARAMETERS_ARG,
-        #define ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE        param
-        #include "define_accessors_readwrite.h"
-        #undef ARILES_CONFIGURABLE_PARAMETERS_ARG
-        #undef ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
-        #undef ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE
-
-        // generate methods which use default ConfigurableFlags
-        #define ARILES_CONFIGURABLE_PARAMETERS_ARG
-        #define ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA   ,
-        #define ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE        this->getArilesConfigurableFlags()
-        #include "define_accessors_readwrite.h"
-        #undef ARILES_CONFIGURABLE_PARAMETERS_ARG
-        #undef ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
-        #undef ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE
 
 
 #endif //ARILES_ENABLED

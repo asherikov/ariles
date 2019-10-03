@@ -111,11 +111,70 @@
                 virtual const ConfigurableFlags &getArilesConfigurableFlags() const = 0;
 
 
-
-                /// @{
                 /**
-                 * These functions are always defined automatically.
+                 * @brief Read configuration (assuming the configuration node
+                 * to be in the root).
+                 *
+                 * @param[in] file_name file name
                  */
+                #define ARILES_READ_CONFIG(InitializerType) \
+                        template <class t_Bridge, class t_ReaderInitializer> \
+                            void readConfig(InitializerType &reader_initializer, \
+                                            typename t_Bridge::BridgeSelectorIndicatorType * = NULL) \
+                        { \
+                            typename t_Bridge::Reader reader(reader_initializer); \
+                            this->readConfig(reader, this->getConfigSectionID(), this->getArilesConfigurableFlags()); \
+                        } \
+                        template <class t_Bridge, class t_ReaderInitializer> \
+                            void readConfig(InitializerType & reader_initializer, \
+                                            const ariles::ConfigurableFlags & param, \
+                                            typename t_Bridge::BridgeSelectorIndicatorType * = NULL) \
+                        { \
+                            typename t_Bridge::Reader reader(reader_initializer); \
+                            this->readConfig(reader, this->getConfigSectionID(), param); \
+                        }
+
+                ARILES_READ_CONFIG(t_ReaderInitializer)
+                ARILES_READ_CONFIG(const t_ReaderInitializer)
+
+                #undef ARILES_READ_CONFIG
+
+
+                /**
+                 * @brief Read configuration (assuming the configuration node
+                 * to be in the root).
+                 *
+                 * @param[in] file_name file name
+                 * @param[in] node_name node name, the default is used if empty
+                 *
+                 * @note Intercept implicit conversion of a pointer to bool.
+                 */
+                #define ARILES_READ_CONFIG(InitializerType, NameType) \
+                        template <class t_Bridge, class t_ReaderInitializer> \
+                            void readConfig(InitializerType     &reader_initializer, \
+                                            NameType            node_name, \
+                                            typename t_Bridge::BridgeSelectorIndicatorType * = NULL) \
+                        { \
+                            typename t_Bridge::Reader reader(reader_initializer); \
+                            this->readConfig(reader, node_name, this->getArilesConfigurableFlags()); \
+                        } \
+                        template <class t_Bridge, class t_ReaderInitializer> \
+                            void readConfig(InitializerType     &reader_initializer, \
+                                            NameType            node_name, \
+                                            const ariles::ConfigurableFlags & param, \
+                                            typename t_Bridge::BridgeSelectorIndicatorType * = NULL) \
+                        { \
+                            typename t_Bridge::Reader reader(reader_initializer); \
+                            this->readConfig(reader, node_name, param); \
+                        }
+
+                ARILES_READ_CONFIG(t_ReaderInitializer, const std::string &)
+                ARILES_READ_CONFIG(const t_ReaderInitializer, const std::string &)
+                ARILES_READ_CONFIG(t_ReaderInitializer, const char *)
+                ARILES_READ_CONFIG(const t_ReaderInitializer, const char *)
+
+                #undef ARILES_READ_CONFIG
+
 
                 /**
                  * @brief Read configuration (assuming the configuration node
@@ -167,6 +226,64 @@
                 {
                     this->readConfig(reader, node_name, this->getArilesConfigurableFlags());
                 }
+
+
+                #define ARILES_WRITE_CONFIG(InitializerType) \
+                        template <class t_Bridge, class t_WriterInitializer> \
+                            void writeConfig(   InitializerType &writer_initializer, \
+                                                typename t_Bridge::BridgeSelectorIndicatorType * = NULL) const \
+                        { \
+                            typename t_Bridge::Writer writer(writer_initializer); \
+                            this->writeConfig(writer, this->getArilesConfigurableFlags()); \
+                        } \
+                        template <class t_Bridge, class t_WriterInitializer> \
+                            void writeConfig(   InitializerType &writer_initializer, \
+                                                const ariles::ConfigurableFlags & param, \
+                                                typename t_Bridge::BridgeSelectorIndicatorType * = NULL) const \
+                        { \
+                            typename t_Bridge::Writer writer(writer_initializer); \
+                            this->writeConfig(writer, param); \
+                        }
+
+                ARILES_WRITE_CONFIG(t_WriterInitializer)
+                ARILES_WRITE_CONFIG(const t_WriterInitializer)
+
+                #undef ARILES_WRITE_CONFIG
+
+
+
+                /**
+                 * @brief Write configuration.
+                 *
+                 * @param[in] file_name file name
+                 * @param[in] node_name node name, the default is used if empty
+                 */
+                #define ARILES_WRITE_CONFIG(InitializerType, NameType) \
+                        template <class t_Bridge, class t_WriterInitializer> \
+                            void writeConfig(   InitializerType &writer_initializer, \
+                                                NameType node_name, \
+                                                typename t_Bridge::BridgeSelectorIndicatorType * = NULL) const \
+                        { \
+                            typename t_Bridge::Writer writer(writer_initializer); \
+                            this->writeConfig(writer, node_name, this->getArilesConfigurableFlags()); \
+                        } \
+                        template <class t_Bridge, class t_WriterInitializer> \
+                            void writeConfig(   InitializerType &writer_initializer, \
+                                                NameType node_name, \
+                                                const ariles::ConfigurableFlags & param, \
+                                                typename t_Bridge::BridgeSelectorIndicatorType * = NULL) const \
+                        { \
+                            typename t_Bridge::Writer writer(writer_initializer); \
+                            this->writeConfig(writer, node_name, param); \
+                        }
+
+                ARILES_WRITE_CONFIG(t_WriterInitializer, const std::string &)
+                ARILES_WRITE_CONFIG(const t_WriterInitializer, const std::string &)
+                ARILES_WRITE_CONFIG(t_WriterInitializer, const char *)
+                ARILES_WRITE_CONFIG(const t_WriterInitializer, const char *)
+
+                #undef ARILES_WRITE_CONFIG
+
 
 
                 /**
@@ -222,7 +339,6 @@
 
                 virtual void readConfigEntries( ariles::ReaderBase & reader,
                                                 const ConfigurableFlags & param) = 0;
-                /// @}
         };
 
 
