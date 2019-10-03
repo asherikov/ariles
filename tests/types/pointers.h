@@ -45,6 +45,7 @@ namespace ariles_tests
         #define ARILES_ENTRIES_1 \
             ARILES_ENTRIES_0 \
             ARILES_TYPED_ENTRY_(std_shared_ptr_test,          std::shared_ptr<Minimal>) \
+            ARILES_TYPED_ENTRY_(std_shared_ptr_test_non_null, ariles::NonNullPointer<std::shared_ptr<Minimal> >) \
             ARILES_TYPED_ENTRY_(std_unique_ptr_test,          std::unique_ptr<Minimal>)
 #else
         #define ARILES_ENTRIES_1 ARILES_ENTRIES_0
@@ -57,11 +58,13 @@ namespace ariles_tests
                 ARILES_ENTRIES_1 \
                 ARILES_TYPED_ENTRY_(shared_ptr_test,          boost::shared_ptr<Minimal>) \
                 ARILES_TYPED_ENTRY_(shared_ptr_test_null,     boost::shared_ptr<Minimal>) \
+                ARILES_TYPED_ENTRY_(shared_ptr_test_non_null, ariles::NonNullPointer<boost::shared_ptr<Minimal> >) \
                 ARILES_TYPED_ENTRY_(unique_ptr_test,          boost::movelib::unique_ptr<Minimal>)
 #   else
 #       define ARILES_ENTRIES_2 \
                 ARILES_ENTRIES_1 \
                 ARILES_TYPED_ENTRY_(shared_ptr_test,          boost::shared_ptr<Minimal>) \
+                ARILES_TYPED_ENTRY_(shared_ptr_test_non_null, ariles::NonNullPointer<boost::shared_ptr<Minimal> >) \
                 ARILES_TYPED_ENTRY_(shared_ptr_test_null,     boost::shared_ptr<Minimal>)
 #   endif
 #else
@@ -125,6 +128,9 @@ namespace ariles_tests
                 std_shared_ptr_test_ = std::make_shared<Minimal>();
                 std_shared_ptr_test_->integer_member_ = GET_RANDOM_INT;
 
+                BOOST_CHECK(false == std_shared_ptr_test_non_null_.isNull());
+                std_shared_ptr_test_non_null_->integer_member_ = GET_RANDOM_INT;
+
                 std_unique_ptr_test_.reset(new Minimal());
                 std_unique_ptr_test_->integer_member_ = GET_RANDOM_INT;
 #   endif
@@ -132,6 +138,9 @@ namespace ariles_tests
 #   ifdef ARILES_ADAPTER_BOOST_POINTER
                 shared_ptr_test_ = boost::make_shared<Minimal>();
                 shared_ptr_test_->integer_member_ = GET_RANDOM_INT;
+
+                BOOST_CHECK(false == shared_ptr_test_non_null_.isNull());
+                shared_ptr_test_non_null_->integer_member_ = GET_RANDOM_INT;
 
 #       if BOOST_VERSION >= 105800
                 unique_ptr_test_ = boost::movelib::make_unique<Minimal>();
@@ -180,6 +189,11 @@ namespace ariles_tests
             BOOST_CHECK_EQUAL(  configurable_out.std_unique_ptr_test_->integer_member_,
                                 configurable_in.std_unique_ptr_test_->integer_member_);
         }
+
+        BOOST_CHECK(false == configurable_in.std_shared_ptr_test_non_null_.isNull());
+        BOOST_CHECK(false == configurable_out.std_shared_ptr_test_non_null_.isNull());
+        BOOST_CHECK_EQUAL(  configurable_out.std_shared_ptr_test_non_null_->integer_member_,
+                            configurable_in.std_shared_ptr_test_non_null_->integer_member_);
 #endif
 
 
@@ -209,6 +223,11 @@ namespace ariles_tests
 
         BOOST_CHECK(configurable_out.shared_ptr_test_null_ == NULL);
         BOOST_CHECK_EQUAL(configurable_out.shared_ptr_test_null_, configurable_in.shared_ptr_test_null_);
+
+        BOOST_CHECK(false == configurable_in.shared_ptr_test_non_null_.isNull());
+        BOOST_CHECK(false == configurable_out.shared_ptr_test_non_null_.isNull());
+        BOOST_CHECK_EQUAL(  configurable_out.shared_ptr_test_non_null_->integer_member_,
+                            configurable_in.shared_ptr_test_non_null_->integer_member_);
 #endif
 
 
