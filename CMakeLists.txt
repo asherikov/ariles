@@ -3,8 +3,8 @@ cmake_minimum_required (VERSION 2.8.12)
 project (ariles CXX)
 set(ARILES_HOMEPAGE http://asherikov.github.com/ariles/)
 set(PROJECT_VERSION_MAJOR 1)
-set(PROJECT_VERSION_MINOR 2)
-set(PROJECT_VERSION_PATCH 2)
+set(PROJECT_VERSION_MINOR 3)
+set(PROJECT_VERSION_PATCH 0)
 
 
 include(FindPkgConfig)
