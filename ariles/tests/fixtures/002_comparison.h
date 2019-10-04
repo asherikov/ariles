@@ -71,8 +71,8 @@ namespace ariles_tests
 
                 BOOST_CHECK_NO_THROW(
                     typename t_Bridge::Writer writer(getWriterInitializer("configurable_match_multi.cfg"));
-                    configurable_out1.template writeConfig(writer, "node1");
-                    configurable_out2.template writeConfig(writer, "node2");
+                    configurable_out1.writeConfig(writer, "node1");
+                    configurable_out2.writeConfig(writer, "node2");
                 );
 
                 // -------
@@ -82,8 +82,8 @@ namespace ariles_tests
 
                 BOOST_CHECK_NO_THROW(
                     typename t_Bridge::Reader reader(getReaderInitializer("configurable_match_multi.cfg"));
-                    configurable_in1.template readConfig(reader, "node1");
-                    configurable_in2.template readConfig(reader, "node2");
+                    configurable_in1.readConfig(reader, "node1");
+                    configurable_in2.readConfig(reader, "node2");
                 );
 
                 // -------

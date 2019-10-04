@@ -106,43 +106,45 @@
             #endif
 
 
-        // define coparison method.
+        // define comparison method.
 
-            #define ARILES_NAMED_ENTRY(entry, name)     ARILES_TRACE_ENTRY(entry); \
-                                                        try \
-                                                        { \
-                                                            result = ariles::compare(entry, other.entry, param); \
-                                                        } \
-                                                        catch (const std::exception & e) \
-                                                        { \
-                                                            ARILES_THROW("Comparison failed for entry: " #entry " // " + std::string(e.what())); \
-                                                        } \
-                                                        if (false == result) \
-                                                        { \
-                                                            if (true == param.throw_on_error_)\
-                                                            { \
-                                                                ARILES_THROW("Comparison failed for entry: " #entry); \
-                                                            } \
-                                                            return (false); \
-                                                        };
+            #define ARILES_NAMED_ENTRY(entry, name) \
+                    ARILES_TRACE_ENTRY(entry); \
+                    try \
+                    { \
+                        result = ariles::compare(entry, other.entry, param); \
+                    } \
+                    catch (const std::exception & e) \
+                    { \
+                        ARILES_THROW("Comparison failed for entry: " #entry " // " + std::string(e.what())); \
+                    } \
+                    if (false == result) \
+                    { \
+                        if (true == param.throw_on_error_)\
+                        { \
+                            ARILES_THROW("Comparison failed for entry: " #entry); \
+                        } \
+                        return (false); \
+                    };
 
-            #define ARILES_PARENT(entry)                ARILES_TRACE_ENTRY(entry); \
-                                                        try \
-                                                        { \
-                                                            result = entry::arilesCompare(other, param); \
-                                                        } \
-                                                        catch (const std::exception & e) \
-                                                        { \
-                                                            ARILES_THROW("Comparison failed for entry: " #entry " // " + std::string(e.what())); \
-                                                        } \
-                                                        if (false == result) \
-                                                        { \
-                                                            if (true == param.throw_on_error_)\
-                                                            { \
-                                                                ARILES_THROW("Comparison failed for entry: " #entry); \
-                                                            } \
-                                                            return (false); \
-                                                        }
+            #define ARILES_PARENT(entry) \
+                    ARILES_TRACE_ENTRY(entry); \
+                    try \
+                    { \
+                        result = entry::arilesCompare(other, param); \
+                    } \
+                    catch (const std::exception & e) \
+                    { \
+                        ARILES_THROW("Comparison failed for entry: " #entry " // " + std::string(e.what())); \
+                    } \
+                    if (false == result) \
+                    { \
+                        if (true == param.throw_on_error_)\
+                        { \
+                            ARILES_THROW("Comparison failed for entry: " #entry); \
+                        } \
+                        return (false); \
+                    }
 
             template<class t_Other>
             bool arilesCompare(const t_Other &other, const ariles::ComparisonParameters &param) const
@@ -208,24 +210,77 @@
             }
         #endif
 
+        #ifdef ARILES_CONSTRUCTOR
+            /**
+             * Define constructors for the given class.
+             */
+            ARILES_CONSTRUCTOR(
+                    ariles::ReaderBase &reader,
+                    const std::string &node_name)
+            {
+                readConfig(reader, node_name, this->getArilesConfigurableFlags());
+            }
+            ARILES_CONSTRUCTOR(
+                    ariles::ReaderBase &reader,
+                    const std::string &node_name,
+                    const ariles::ConfigurableFlags & param)
+            {
+                readConfig(reader, node_name, param);
+            }
 
-        // generate methods which accept ConfigurableFlags
-        #define ARILES_CONFIGURABLE_PARAMETERS_ARG              , const ariles::ConfigurableFlags & param
-        #define ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA   ARILES_CONFIGURABLE_PARAMETERS_ARG,
-        #define ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE        param
-        #include "define_accessors_readwrite.h"
-        #undef ARILES_CONFIGURABLE_PARAMETERS_ARG
-        #undef ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
-        #undef ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE
 
-        // generate methods which use default ConfigurableFlags
-        #define ARILES_CONFIGURABLE_PARAMETERS_ARG
-        #define ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA   ,
-        #define ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE        this->getArilesConfigurableFlags()
-        #include "define_accessors_readwrite.h"
-        #undef ARILES_CONFIGURABLE_PARAMETERS_ARG
-        #undef ARILES_CONFIGURABLE_PARAMETERS_ARG_WITH_COMMA
-        #undef ARILES_CONFIGURABLE_PARAMETERS_ARG_VALUE
+            explicit ARILES_CONSTRUCTOR(
+                    ariles::ReaderBase &reader)
+            {
+                readConfig(reader, this->getArilesConfigurableFlags());
+            }
+            explicit ARILES_CONSTRUCTOR(
+                    ariles::ReaderBase &reader,
+                    const ariles::ConfigurableFlags & param)
+            {
+                readConfig(reader, param);
+            }
+        #endif
+
+
+        using ariles::CommonConfigurableBase::readConfig;
+
+        void readConfig(ariles::ReaderBase  & reader,
+                        const std::string   & node_name,
+                        const ariles::ConfigurableFlags & param)
+        {
+            this->setDefaults();
+            ariles::readEntry(reader, *this, node_name, param);
+        }
+
+        void readConfig(ariles::ReaderBase  & reader,
+                        const char          * node_name,
+                        const ariles::ConfigurableFlags & param)
+        {
+            this->setDefaults();
+            ariles::readEntry(reader, *this, node_name, param);
+        }
+
+
+        using ariles::CommonConfigurableBase::writeConfig;
+
+        void writeConfig(   ariles::WriterBase & writer,
+                            const std::string &node_name,
+                            const ariles::ConfigurableFlags & param) const
+        {
+            writer.initRoot();
+            ariles::writeEntry(writer, *this, node_name, param);
+            writer.flush();
+        }
+
+        void writeConfig(   ariles::WriterBase & writer,
+                            const char *node_name,
+                            const ariles::ConfigurableFlags & param) const
+        {
+            writer.initRoot();
+            ariles::writeEntry(writer, *this, node_name, param);
+            writer.flush();
+        }
 
 
 #endif //ARILES_ENABLED
