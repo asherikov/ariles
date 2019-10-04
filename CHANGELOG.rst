@@ -6,6 +6,7 @@ Forthcoming
 -----------
 * Sync to 1.3.0
 * Fix bugs in cmake scripts.
+* Enable 'array' bridge.
 
 
 1.1.5 (2019-06-04)

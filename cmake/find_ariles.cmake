@@ -1,4 +1,4 @@
-foreach(ARILES_COMPONENT  core yaml-cpp octave ros)
+foreach(ARILES_COMPONENT  core yaml-cpp octave ros array)
     find_package(ariles-${ARILES_COMPONENT} REQUIRED)
 
     list(APPEND ariles_ros_LIBRARIES     "${ariles-${ARILES_COMPONENT}_LIBRARIES}")

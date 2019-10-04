@@ -16,6 +16,7 @@ set(ARILES_BRIDGES_DEFAULT_MODE "OFF"   CACHE STRING "")
 set(ARILES_BRIDGE_yaml_cpp      "ON"    CACHE STRING "")
 set(ARILES_BRIDGE_ros           "ON"    CACHE STRING "")
 set(ARILES_BRIDGE_octave        "ON"    CACHE STRING "")
+set(ARILES_BRIDGE_array         "ON"    CACHE STRING "")
 
 set(ARILES_ADAPTER_EIGEN            "ON"    CACHE STRING "")
 set(ARILES_ADAPTER_BOOST_POINTER    "ON"    CACHE STRING "")
