@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pugixml',['pugixml',['../structariles_1_1pugixml.html',1,'ariles']]]
+  ['strictconfigurablebase',['StrictConfigurableBase',['../classariles_1_1StrictConfigurableBase.html',1,'ariles']]]
 ];

@@ -66,7 +66,9 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classariles_1_1bridge_1_1msgpack_1_1Writer-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -85,11 +87,16 @@ Inheritance diagram for ariles::bridge::msgpack::Writer:</div>
  <div class="center">
   <img src="classariles_1_1bridge_1_1msgpack_1_1Writer.png" usemap="#ariles::bridge::msgpack::Writer_map" alt=""/>
   <map id="ariles::bridge::msgpack::Writer_map" name="ariles::bridge::msgpack::Writer_map">
-<area href="classariles_1_1bridge_1_1msgpack_1_1Base.html" alt="ariles::bridge::msgpack::Base&lt; t_Base &gt;" shape="rect" coords="0,56,297,80"/>
-<area href="classariles_1_1bridge_1_1pugixml_1_1t__Base.html" alt="t_Base" shape="rect" coords="0,0,297,24"/>
+<area href="classariles_1_1bridge_1_1msgpack_1_1Base.html" alt="ariles::bridge::msgpack::Base&lt; ariles::WriterBase &gt;" shape="rect" coords="0,56,297,80"/>
+<area href="classariles_1_1WriterBase.html" alt="ariles::WriterBase" shape="rect" coords="0,0,297,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:aa97667d458aae0e160c03e6da142c0a8"><td class="memItemLeft" align="right" valign="top">typedef int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1WriterBase.html#aa97667d458aae0e160c03e6da142c0a8">WriterIndicatorType</a></td></tr>
+<tr class="separator:aa97667d458aae0e160c03e6da142c0a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab9993f1b01ce32fe43903aea07efedd1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1msgpack_1_1Writer.html#ab9993f1b01ce32fe43903aea07efedd1">Writer</a> (const std::string &amp;file_name)</td></tr>
@@ -102,17 +109,44 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ace11fcc561b203c289235001049a2255"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#ace11fcc561b203c289235001049a2255">More...</a><br /></td></tr>
 <tr class="separator:ace11fcc561b203c289235001049a2255"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1883ef00c37f99bd7bafc1628d7395b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1msgpack_1_1Writer.html#ab1883ef00c37f99bd7bafc1628d7395b">descend</a> (const std::string &amp;map_name)</td></tr>
+<tr class="memdesc:ab1883ef00c37f99bd7bafc1628d7395b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts a nested map in the configuration file.  <a href="#ab1883ef00c37f99bd7bafc1628d7395b">More...</a><br /></td></tr>
 <tr class="separator:ab1883ef00c37f99bd7bafc1628d7395b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06adf6a8f8b2f676202daccdc5516ec7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1msgpack_1_1Writer.html#a06adf6a8f8b2f676202daccdc5516ec7">startMap</a> (const std::size_t num_entries)</td></tr>
+<tr class="memdesc:a06adf6a8f8b2f676202daccdc5516ec7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts a nested map in the configuration file.  <a href="#a06adf6a8f8b2f676202daccdc5516ec7">More...</a><br /></td></tr>
 <tr class="separator:a06adf6a8f8b2f676202daccdc5516ec7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa45ed391a6d16f476bd64c7f77fc8954"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1msgpack_1_1Writer.html#aa45ed391a6d16f476bd64c7f77fc8954">initRoot</a> ()</td></tr>
+<tr class="memdesc:aa45ed391a6d16f476bd64c7f77fc8954"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts a nested map in the configuration file.  <a href="#aa45ed391a6d16f476bd64c7f77fc8954">More...</a><br /></td></tr>
 <tr class="separator:aa45ed391a6d16f476bd64c7f77fc8954"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64dedc075f2286ec0d65777b44321817"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1msgpack_1_1Writer.html#a64dedc075f2286ec0d65777b44321817">flush</a> ()</td></tr>
+<tr class="memdesc:a64dedc075f2286ec0d65777b44321817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flush the configuration to the output.  <a href="#a64dedc075f2286ec0d65777b44321817">More...</a><br /></td></tr>
 <tr class="separator:a64dedc075f2286ec0d65777b44321817"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a759506a11473e5145dad7cd708adc63f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1msgpack_1_1Writer.html#a759506a11473e5145dad7cd708adc63f">startArray</a> (const std::size_t size, const bool=false)</td></tr>
 <tr class="separator:a759506a11473e5145dad7cd708adc63f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12a25eacd9ded75d9726471370cfda63"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classariles_1_1BridgeFlags.html">BridgeFlags</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1msgpack_1_1Base.html#a12a25eacd9ded75d9726471370cfda63">getBridgeFlags</a> () const</td></tr>
 <tr class="separator:a12a25eacd9ded75d9726471370cfda63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a826588d24c97fc92107b6298bbc3c5ae"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1WriterBase.html#a826588d24c97fc92107b6298bbc3c5ae">ascend</a> ()</td></tr>
+<tr class="separator:a826588d24c97fc92107b6298bbc3c5ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d551a53ba9bcfb920b737b8b37d2ab1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1WriterBase.html#a4d551a53ba9bcfb920b737b8b37d2ab1">endMap</a> ()</td></tr>
+<tr class="memdesc:a4d551a53ba9bcfb920b737b8b37d2ab1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ends a nested map in the configuration file.  <a href="#a4d551a53ba9bcfb920b737b8b37d2ab1">More...</a><br /></td></tr>
+<tr class="separator:a4d551a53ba9bcfb920b737b8b37d2ab1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6259df775eaf1b9aa68d28085cad66f8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1WriterBase.html#a6259df775eaf1b9aa68d28085cad66f8">shiftArray</a> ()</td></tr>
+<tr class="separator:a6259df775eaf1b9aa68d28085cad66f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10a73209dfdea30af222ec15d99e8f7c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1WriterBase.html#a10a73209dfdea30af222ec15d99e8f7c">endArray</a> ()</td></tr>
+<tr class="separator:a10a73209dfdea30af222ec15d99e8f7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e565192f7206bb1d89946761be2a84d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1WriterBase.html#a5e565192f7206bb1d89946761be2a84d">startMatrix</a> (const bool compact=false)</td></tr>
+<tr class="separator:a5e565192f7206bb1d89946761be2a84d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5f1aa07f49a1b1b7545cc172e7b1079"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1WriterBase.html#ae5f1aa07f49a1b1b7545cc172e7b1079">startMatrixRow</a> ()</td></tr>
+<tr class="separator:ae5f1aa07f49a1b1b7545cc172e7b1079"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a045d2b9ab1bfb30c6fb6c76dd3c5396c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1WriterBase.html#a045d2b9ab1bfb30c6fb6c76dd3c5396c">endMatrixRow</a> ()</td></tr>
+<tr class="separator:a045d2b9ab1bfb30c6fb6c76dd3c5396c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfb197343b96f6a53b560a91fa4facd3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1WriterBase.html#abfb197343b96f6a53b560a91fa4facd3">endMatrix</a> ()</td></tr>
+<tr class="separator:abfb197343b96f6a53b560a91fa4facd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a05c6335386b5bc5e4724f7909d29e8c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1WriterBase.html#a05c6335386b5bc5e4724f7909d29e8c3">openFile</a> (std::ofstream &amp;config_ofs, const std::string &amp;file_name)</td></tr>
+<tr class="memdesc:a05c6335386b5bc5e4724f7909d29e8c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">open configuration file  <a href="#a05c6335386b5bc5e4724f7909d29e8c3">More...</a><br /></td></tr>
+<tr class="separator:a05c6335386b5bc5e4724f7909d29e8c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -125,6 +159,31 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a3c57af254468b430acecfe6ee34f8799"><td class="memItemLeft" align="right" valign="top">::msgpack::packer&lt; std::ostream &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1bridge_1_1msgpack_1_1Writer.html#a3c57af254468b430acecfe6ee34f8799">packer_</a></td></tr>
 <tr class="separator:a3c57af254468b430acecfe6ee34f8799"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="aa97667d458aae0e160c03e6da142c0a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa97667d458aae0e160c03e6da142c0a8">&#9670;&nbsp;</a></span>WriterIndicatorType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef int <a class="el" href="classariles_1_1WriterBase.html#aa97667d458aae0e160c03e6da142c0a8">ariles::WriterBase::WriterIndicatorType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="writer__base_8h_source.html#l00019">19</a> of file <a class="el" href="writer__base_8h_source.html">writer_base.h</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab9993f1b01ce32fe43903aea07efedd1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab9993f1b01ce32fe43903aea07efedd1">&#9670;&nbsp;</a></span>Writer() <span class="overload">[1/2]</span></h2>
@@ -228,6 +287,35 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a826588d24c97fc92107b6298bbc3c5ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a826588d24c97fc92107b6298bbc3c5ae">&#9670;&nbsp;</a></span>ascend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ariles::WriterBase::ascend </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classariles_1_1bridge_1_1array_1_1GenericWriter.html#a017aaf1e67958dba5680e12e47bf621a">ariles::bridge::array::GenericWriter&lt; t_NameValuePair &gt;</a>, <a class="el" href="classariles_1_1bridge_1_1octave_1_1Writer.html#a16729b9fed4ae8b8c2e1192785cfdab9">ariles::bridge::octave::Writer</a>, <a class="el" href="classariles_1_1bridge_1_1rapidjson_1_1Writer.html#af0f3e9e625f0bc8b120b30dd70df0e64">ariles::bridge::rapidjson::Writer</a>, <a class="el" href="classariles_1_1bridge_1_1pugixml_1_1Writer.html#a38f7cc2675d76b4d6b6023c8e0a2360b">ariles::bridge::pugixml::Writer</a>, and <a class="el" href="classariles_1_1bridge_1_1ros_1_1Writer.html#ab57afd76d3a73f3d4f2eccbd849de782">ariles::bridge::ros::Writer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="writer__base_8h_source.html#l00058">58</a> of file <a class="el" href="writer__base_8h_source.html">writer_base.h</a>.</p>
+
+</div>
+</div>
 <a id="ab1883ef00c37f99bd7bafc1628d7395b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab1883ef00c37f99bd7bafc1628d7395b">&#9670;&nbsp;</a></span>descend()</h2>
 
@@ -247,12 +335,140 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p>Starts a nested map in the configuration file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">map_name</td><td>name of the map </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="classariles_1_1WriterBase.html#ab0e1e287d0caef0586ea5c0a15fd4a8d">ariles::WriterBase</a>.</p>
+
 <p class="definition">Definition at line <a class="el" href="msgpack_2interface_2msgpack_2writer_8h_source.html#l00074">74</a> of file <a class="el" href="msgpack_2interface_2msgpack_2writer_8h_source.html">writer.h</a>.</p>
+
+</div>
+</div>
+<a id="a10a73209dfdea30af222ec15d99e8f7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10a73209dfdea30af222ec15d99e8f7c">&#9670;&nbsp;</a></span>endArray()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ariles::WriterBase::endArray </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classariles_1_1bridge_1_1array_1_1GenericWriter.html#a50e15fa3d5eab216919ece99708a56d9">ariles::bridge::array::GenericWriter&lt; t_NameValuePair &gt;</a>, <a class="el" href="classariles_1_1bridge_1_1octave_1_1Writer.html#a1ffecf33813c92abd6b9159f3d3c7d21">ariles::bridge::octave::Writer</a>, <a class="el" href="classariles_1_1bridge_1_1rapidjson_1_1Writer.html#a175d3a0d99a68401ec6fc4e8042d6ad1">ariles::bridge::rapidjson::Writer</a>, <a class="el" href="classariles_1_1bridge_1_1pugixml_1_1Writer.html#ab5e3954099f02c98cb6b70f933c396ac">ariles::bridge::pugixml::Writer</a>, and <a class="el" href="classariles_1_1bridge_1_1ros_1_1Writer.html#a6ee8279dbd4de3ffabe5c743dff5eeb0">ariles::bridge::ros::Writer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="writer__base_8h_source.html#l00076">76</a> of file <a class="el" href="writer__base_8h_source.html">writer_base.h</a>.</p>
+
+</div>
+</div>
+<a id="a4d551a53ba9bcfb920b737b8b37d2ab1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d551a53ba9bcfb920b737b8b37d2ab1">&#9670;&nbsp;</a></span>endMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ariles::WriterBase::endMap </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ends a nested map in the configuration file. </p>
+
+<p>Reimplemented in <a class="el" href="classariles_1_1bridge_1_1array_1_1GenericWriter.html#ae919945c8cdb081f99e385c6a0cbda3c">ariles::bridge::array::GenericWriter&lt; t_NameValuePair &gt;</a>, and <a class="el" href="classariles_1_1bridge_1_1octave_1_1Writer.html#ae6c78878192f044b6439ac84f1d41c0a">ariles::bridge::octave::Writer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="writer__base_8h_source.html#l00071">71</a> of file <a class="el" href="writer__base_8h_source.html">writer_base.h</a>.</p>
+
+</div>
+</div>
+<a id="abfb197343b96f6a53b560a91fa4facd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfb197343b96f6a53b560a91fa4facd3">&#9670;&nbsp;</a></span>endMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ariles::WriterBase::endMatrix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classariles_1_1bridge_1_1octave_1_1Writer.html#a2c302e204fffc9fbfe09ae6e5d2a9608">ariles::bridge::octave::Writer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="writer__base_8h_source.html#l00081">81</a> of file <a class="el" href="writer__base_8h_source.html">writer_base.h</a>.</p>
+
+</div>
+</div>
+<a id="a045d2b9ab1bfb30c6fb6c76dd3c5396c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a045d2b9ab1bfb30c6fb6c76dd3c5396c">&#9670;&nbsp;</a></span>endMatrixRow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ariles::WriterBase::endMatrixRow </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classariles_1_1bridge_1_1octave_1_1Writer.html#a94fe0f9e17c32465102e3cb90b61c4c6">ariles::bridge::octave::Writer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="writer__base_8h_source.html#l00080">80</a> of file <a class="el" href="writer__base_8h_source.html">writer_base.h</a>.</p>
 
 </div>
 </div>
@@ -274,10 +490,14 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Flush the configuration to the output. </p>
+
+<p>Implements <a class="el" href="classariles_1_1WriterBase.html#a724fe2469cb052eee910ca03f4732c03">ariles::WriterBase</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="msgpack_2interface_2msgpack_2writer_8h_source.html#l00092">92</a> of file <a class="el" href="msgpack_2interface_2msgpack_2writer_8h_source.html">writer.h</a>.</p>
 
@@ -288,14 +508,12 @@ Protected Attributes</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;class t_Base&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classariles_1_1BridgeFlags.html">BridgeFlags</a>&amp; <a class="el" href="classariles_1_1bridge_1_1msgpack_1_1Base.html">ariles::bridge::msgpack::Base</a>&lt; <a class="el" href="classariles_1_1bridge_1_1pugixml_1_1t__Base.html">t_Base</a> &gt;::getBridgeFlags </td>
+          <td class="memname">const <a class="el" href="classariles_1_1BridgeFlags.html">BridgeFlags</a>&amp; <a class="el" href="classariles_1_1bridge_1_1msgpack_1_1Base.html">ariles::bridge::msgpack::Base</a>&lt; <a class="el" href="classariles_1_1WriterBase.html">ariles::WriterBase</a>  &gt;::getBridgeFlags </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -303,10 +521,12 @@ template&lt;class t_Base&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implements <a class="el" href="classariles_1_1WriterBase.html#a8f3c0d01b8eaf773d23116063550a59c">ariles::WriterBase</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="msgpack_8h_source.html#l00035">35</a> of file <a class="el" href="msgpack_8h_source.html">msgpack.h</a>.</p>
 
@@ -330,12 +550,92 @@ template&lt;class t_Base&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p>Starts a nested map in the configuration file. </p>
+
+<p>Reimplemented from <a class="el" href="classariles_1_1WriterBase.html#adee1506476fdb22daeae495deeb3df0f">ariles::WriterBase</a>.</p>
+
 <p class="definition">Definition at line <a class="el" href="msgpack_2interface_2msgpack_2writer_8h_source.html#l00086">86</a> of file <a class="el" href="msgpack_2interface_2msgpack_2writer_8h_source.html">writer.h</a>.</p>
+
+</div>
+</div>
+<a id="a05c6335386b5bc5e4724f7909d29e8c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05c6335386b5bc5e4724f7909d29e8c3">&#9670;&nbsp;</a></span>openFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ariles::WriterBase::openFile </td>
+          <td>(</td>
+          <td class="paramtype">std::ofstream &amp;&#160;</td>
+          <td class="paramname"><em>config_ofs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file_name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>open configuration file </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">config_ofs</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">file_name</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="writer__base_8h_source.html#l00029">29</a> of file <a class="el" href="writer__base_8h_source.html">writer_base.h</a>.</p>
+
+</div>
+</div>
+<a id="a6259df775eaf1b9aa68d28085cad66f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6259df775eaf1b9aa68d28085cad66f8">&#9670;&nbsp;</a></span>shiftArray()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ariles::WriterBase::shiftArray </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classariles_1_1bridge_1_1array_1_1GenericWriter.html#a10b2e03ae76114760ea8cd247c749b35">ariles::bridge::array::GenericWriter&lt; t_NameValuePair &gt;</a>, <a class="el" href="classariles_1_1bridge_1_1octave_1_1Writer.html#aec51aca23954ae232ba88a4977bf9496">ariles::bridge::octave::Writer</a>, <a class="el" href="classariles_1_1bridge_1_1rapidjson_1_1Writer.html#ad8b012615603fd4484096064a5e2a3dd">ariles::bridge::rapidjson::Writer</a>, <a class="el" href="classariles_1_1bridge_1_1pugixml_1_1Writer.html#a5f42abfb668f323beda26a3b93206210">ariles::bridge::pugixml::Writer</a>, and <a class="el" href="classariles_1_1bridge_1_1ros_1_1Writer.html#a8ab72f0db551112581d872b86b4cb6cd">ariles::bridge::ros::Writer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="writer__base_8h_source.html#l00075">75</a> of file <a class="el" href="writer__base_8h_source.html">writer_base.h</a>.</p>
 
 </div>
 </div>
@@ -368,10 +668,12 @@ template&lt;class t_Base&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Implements <a class="el" href="classariles_1_1WriterBase.html#a2df43d2aeabbd70b1126afc3381e145e">ariles::WriterBase</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="msgpack_2interface_2msgpack_2writer_8h_source.html#l00098">98</a> of file <a class="el" href="msgpack_2interface_2msgpack_2writer_8h_source.html">writer.h</a>.</p>
 
@@ -396,12 +698,81 @@ template&lt;class t_Base&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p>Starts a nested map in the configuration file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">num_entries</td><td>number of child entries </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="classariles_1_1WriterBase.html#a884eea4aa8bce192d0ac666c0e9d109d">ariles::WriterBase</a>.</p>
+
 <p class="definition">Definition at line <a class="el" href="msgpack_2interface_2msgpack_2writer_8h_source.html#l00080">80</a> of file <a class="el" href="msgpack_2interface_2msgpack_2writer_8h_source.html">writer.h</a>.</p>
+
+</div>
+</div>
+<a id="a5e565192f7206bb1d89946761be2a84d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e565192f7206bb1d89946761be2a84d">&#9670;&nbsp;</a></span>startMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ariles::WriterBase::startMatrix </td>
+          <td>(</td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>compact</em> = <code>false</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classariles_1_1bridge_1_1octave_1_1Writer.html#aaf2caaea2833b96d64d7e2916c3c15fc">ariles::bridge::octave::Writer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="writer__base_8h_source.html#l00078">78</a> of file <a class="el" href="writer__base_8h_source.html">writer_base.h</a>.</p>
+
+</div>
+</div>
+<a id="ae5f1aa07f49a1b1b7545cc172e7b1079"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5f1aa07f49a1b1b7545cc172e7b1079">&#9670;&nbsp;</a></span>startMatrixRow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ariles::WriterBase::startMatrixRow </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classariles_1_1bridge_1_1octave_1_1Writer.html#ad2da43bb1c6e6662138b0f8429cb7242">ariles::bridge::octave::Writer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="writer__base_8h_source.html#l00079">79</a> of file <a class="el" href="writer__base_8h_source.html">writer_base.h</a>.</p>
 
 </div>
 </div>
@@ -483,7 +854,7 @@ template&lt;class t_Base&gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/mnt/data/_me/git/asherikov/ariles_master/bridges/msgpack/interface/msgpack/<a class="el" href="msgpack_2interface_2msgpack_2writer_8h_source.html">writer.h</a></li>
+<li>/usr/home/aleks/git/asherikov/ariles_master/bridges/msgpack/interface/msgpack/<a class="el" href="msgpack_2interface_2msgpack_2writer_8h_source.html">writer.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

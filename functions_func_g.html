@@ -64,12 +64,18 @@ $(function() {
 &#160;
 
 <h3><a id="index_g"></a>- g -</h3><ul>
+<li>GenericWriter()
+: <a class="el" href="classariles_1_1bridge_1_1array_1_1GenericWriter.html#a59305414745f738963d95b6f7723fce0">ariles::bridge::array::GenericWriter&lt; t_NameValuePair &gt;</a>
+</li>
 <li>getArilesConfigurableFlags()
 : <a class="el" href="classariles_1_1CommonConfigurableBase.html#a986c1b3255b7973855a592411b13436c">ariles::CommonConfigurableBase</a>
-, <a class="el" href="classariles_1_1CommonConfigurableBaseWithFlags.html#ad45f3db483a93b93ac8ff131fddb4c0a">ariles::CommonConfigurableBaseWithFlags&lt; t_flags &gt;</a>
+, <a class="el" href="classariles_1_1ConfigurableBase.html#a8204f73436ca9fed703bd5ef53d21fc4">ariles::ConfigurableBase</a>
+, <a class="el" href="classariles_1_1RelaxedConfigurableBase.html#a8afe4905a4fba7fd7e824f6bb31eaef7">ariles::RelaxedConfigurableBase</a>
+, <a class="el" href="classariles_1_1StrictConfigurableBase.html#a6d6deb22ab1ce1867776d1d5367b8e01">ariles::StrictConfigurableBase</a>
 </li>
 <li>getBridgeFlags()
-: <a class="el" href="classariles_1_1bridge_1_1msgpack_1_1Base.html#a12a25eacd9ded75d9726471370cfda63">ariles::bridge::msgpack::Base&lt; t_Base &gt;</a>
+: <a class="el" href="classariles_1_1bridge_1_1array_1_1GenericWriter.html#a1f28ab943944319c1272b0e0eac0cbd6">ariles::bridge::array::GenericWriter&lt; t_NameValuePair &gt;</a>
+, <a class="el" href="classariles_1_1bridge_1_1msgpack_1_1Base.html#a12a25eacd9ded75d9726471370cfda63">ariles::bridge::msgpack::Base&lt; t_Base &gt;</a>
 , <a class="el" href="classariles_1_1bridge_1_1octave_1_1Writer.html#a9a9c0e7b20911c6a05b6207872392d6e">ariles::bridge::octave::Writer</a>
 , <a class="el" href="classariles_1_1bridge_1_1pugixml_1_1Base.html#a83dcde02f1b555b3f2b62f2c7a2c71c4">ariles::bridge::pugixml::Base&lt; t_Base &gt;</a>
 , <a class="el" href="classariles_1_1bridge_1_1rapidjson_1_1Base.html#a25e4c603d5aad85923c33c3baa9f8cfe">ariles::bridge::rapidjson::Base&lt; t_Base, t_Node &gt;</a>
@@ -81,7 +87,6 @@ $(function() {
 </li>
 <li>getConfigSectionID()
 : <a class="el" href="classariles_1_1CommonConfigurableBase.html#a5216e7088f0688e2e5e625a7e7a1cd45">ariles::CommonConfigurableBase</a>
-, <a class="el" href="classariles__tests_1_1ConfigurableNoAutoID.html#a700a41218713aab5c0d38f2652350386">ariles_tests::ConfigurableNoAutoID</a>
 </li>
 <li>getMapEntryNames()
 : <a class="el" href="classariles_1_1bridge_1_1pugixml_1_1Reader.html#af2854c09548cd96673354376519c3aeb">ariles::bridge::pugixml::Reader</a>
@@ -104,28 +109,19 @@ $(function() {
 <li>getNumberOfEntries()
 : <a class="el" href="classariles_1_1Any.html#ab7448f8c840da9555b7a8b7c7aca5d22">ariles::Any&lt; t_Pointer, t_Base, t_Instantiator &gt;</a>
 , <a class="el" href="classariles_1_1CommonConfigurableBase.html#a9d20fafd7a37c5227c420be3b3a962bb">ariles::CommonConfigurableBase</a>
+, <a class="el" href="classariles_1_1NonNullPointer.html#adb424d733add0444ca942259a526a56c">ariles::NonNullPointer&lt; t_Pointer &gt;</a>
 </li>
 <li>getRawNode()
-: <a class="el" href="classariles_1_1bridge_1_1msgpack_1_1compact_1_1Reader.html#ab048943c9aba1b563dc13f9d24f8f1ea">ariles::bridge::msgpack::compact::Reader</a>
+: <a class="el" href="classariles_1_1bridge_1_1msgpack_1_1compact_1_1Reader.html#a13b8781d41b41128823951040c3753f7">ariles::bridge::msgpack::compact::Reader</a>
 , <a class="el" href="classariles_1_1bridge_1_1msgpack_1_1Reader.html#a5a5d45fd23cce6caa476293c26d54242">ariles::bridge::msgpack::Reader</a>
 , <a class="el" href="classariles_1_1bridge_1_1pugixml_1_1Base.html#ad6108b6762824328c874d9f7c8e7cfca">ariles::bridge::pugixml::Base&lt; t_Base &gt;</a>
 , <a class="el" href="classariles_1_1bridge_1_1rapidjson_1_1Base.html#a2cd1a8e90cfce89f555a8c90aa0bd023">ariles::bridge::rapidjson::Base&lt; t_Base, t_Node &gt;</a>
-, <a class="el" href="classariles_1_1bridge_1_1ros_1_1Base.html#ad67c7ab97cb6aed61e04b73ed2c0a10c">ariles::bridge::ros::Base&lt; t_Base &gt;</a>
-, <a class="el" href="classariles_1_1bridge_1_1yaml__cpp03_1_1Reader.html#aa60af20d224bf4f390250f4982a688be">ariles::bridge::yaml_cpp03::Reader</a>
-, <a class="el" href="classariles_1_1bridge_1_1yaml__cpp_1_1Reader.html#a747f8fed04d090877e4e5c42c061673a">ariles::bridge::yaml_cpp::Reader</a>
+, <a class="el" href="classariles_1_1bridge_1_1ros_1_1Base.html#a915d938c13bf8bb52a33475569349268">ariles::bridge::ros::Base&lt; t_Base &gt;</a>
+, <a class="el" href="classariles_1_1bridge_1_1yaml__cpp03_1_1Reader.html#a23a9e2baa77856c2971d5a3d44a08c04">ariles::bridge::yaml_cpp03::Reader</a>
+, <a class="el" href="classariles_1_1bridge_1_1yaml__cpp_1_1Reader.html#a7da72d6f753753984f14030bcaa7afa4">ariles::bridge::yaml_cpp::Reader</a>
 </li>
-<li>getReaderInitializer()
-: <a class="el" href="classariles__tests_1_1initializers_1_1FilenameInitializer.html#a51cd2380087ca844f9c5741bb92b3a62">ariles_tests::initializers::FilenameInitializer</a>
-, <a class="el" href="classariles__tests_1_1initializers_1_1FilenameReaderInitializer.html#af22de62db7fdb6c04a67470da4b60719">ariles_tests::initializers::FilenameReaderInitializer&lt; t_Base &gt;</a>
-, <a class="el" href="classariles__tests_1_1initializers_1_1StreamInitializer.html#a1d235df686bf2c069ac56f2862eb2cc1">ariles_tests::initializers::StreamInitializer</a>
-</li>
-<li>getWriterInitializer()
-: <a class="el" href="classariles__tests_1_1initializers_1_1FilenameInitializer.html#aaf0fa84ebb72b75f69e4c7dafa5ca47a">ariles_tests::initializers::FilenameInitializer</a>
-, <a class="el" href="classariles__tests_1_1initializers_1_1FilenameReaderInitializer.html#a32754cc9893e6e70105fe4dac1caf0f8">ariles_tests::initializers::FilenameReaderInitializer&lt; t_Base &gt;</a>
-, <a class="el" href="classariles__tests_1_1initializers_1_1StreamInitializer.html#a37412c50dc60cddd9e233e9eabdc2921">ariles_tests::initializers::StreamInitializer</a>
-</li>
-<li>GlobalFixtureConfig()
-: <a class="el" href="structariles__tests_1_1GlobalFixtureConfig.html#a6684e179f3beb81a52796157f1c93f0a">ariles_tests::GlobalFixtureConfig</a>
+<li>getTolerance()
+: <a class="el" href="classariles_1_1ComparisonParameters.html#ab1a820a979c2e39b727af1566423cc1e">ariles::ComparisonParameters</a>
 </li>
 </ul>
 </div><!-- contents -->

@@ -1,12 +1,6 @@
 var searchData=
 [
-  ['simple_5fauto_5fdeclare_2eh',['simple_auto_declare.h',['../simple__auto__declare_8h.html',1,'']]],
-  ['simple_5fno_5fauto_5fid_2eh',['simple_no_auto_id.h',['../simple__no__auto__id_8h.html',1,'']]],
-  ['simple_5fno_5fconstructors_2eh',['simple_no_constructors.h',['../simple__no__constructors_8h.html',1,'']]],
-  ['simple_5fverbose_2eh',['simple_verbose.h',['../simple__verbose_8h.html',1,'']]],
-  ['special_5ffloats_2eh',['special_floats.h',['../special__floats_8h.html',1,'']]],
-  ['std_5fmap_2eh',['std_map.h',['../std__map_8h.html',1,'']]],
-  ['std_5fpair_2eh',['std_pair.h',['../std__pair_8h.html',1,'']]],
-  ['std_5fvector_2eh',['std_vector.h',['../std__vector_8h.html',1,'']]],
-  ['strictness_2eh',['strictness.h',['../strictness_8h.html',1,'']]]
+  ['writer_2eh',['writer.h',['../msgpack_2interface_2msgpack_2writer_8h.html',1,'(Global Namespace)'],['../ros_2interface_2ros_2writer_8h.html',1,'(Global Namespace)'],['../yaml__cpp03_2interface_2yaml__cpp03_2writer_8h.html',1,'(Global Namespace)'],['../rapidjson_2interface_2rapidjson_2writer_8h.html',1,'(Global Namespace)'],['../yaml__cpp_2interface_2yaml__cpp_2writer_8h.html',1,'(Global Namespace)'],['../octave_2interface_2octave_2writer_8h.html',1,'(Global Namespace)'],['../pugixml_2interface_2pugixml_2writer_8h.html',1,'(Global Namespace)'],['../array_2interface_2array_2writer_8h.html',1,'(Global Namespace)']]],
+  ['writer_5fbase_2eh',['writer_base.h',['../writer__base_8h.html',1,'']]],
+  ['writer_5fcompact_2eh',['writer_compact.h',['../writer__compact_8h.html',1,'']]]
 ];

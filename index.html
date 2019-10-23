@@ -100,7 +100,7 @@ $(function() {
 <li>Ariles is meant to be used primarily for 'invasive' serialization and provides a set of macro to generate class methods for serialization, initialization to default values, etc. This allows Ariles to use virtual methods for serialization via base classes, unlike boost and cereal.</li>
 <li>Ariles supports some uncommon formats, such as ROS parameter server and Octave script.</li>
 </ul>
-<p><a class="anchor" id="formats"></a> </p><h1>Supported formats </h1>
+<p><a class="anchor" id="formats"></a> </p><h1>Supported data formats </h1>
 <p>Currently supported formats are (all are optional):</p>
 <ul>
 <li>YAML via yaml-cpp, both old C++03 and new API supported.<ul>
@@ -123,6 +123,11 @@ $(function() {
 </ul>
 </li>
 <li>ROS parameter server, via standard ROS libs.</li>
+<li>A set of key-value pairs, output only, no dependencies:<ul>
+<li>A vector of string-double pairs with flattened member names, e.g., <code>&lt;class.member_class.member, value&gt;</code>.</li>
+<li>Useful for exporting data to time series databases.</li>
+</ul>
+</li>
 </ul>
 <p><a class="anchor" id="types"></a> </p><h1>Supported types </h1>
 <ul>
@@ -136,10 +141,11 @@ $(function() {
 <p>Class [<code>./tests/types/minimal.h</code>]: </p><div class="fragment"><div class="line">class Configurable : public ariles::ConfigurableBase</div><div class="line">{</div><div class="line">    #define ARILES_SECTION_ID &quot;ConfigurableEntryName&quot;</div><div class="line">    #define ARILES_AUTO_DEFAULTS</div><div class="line">    #define ARILES_ENTRIES \</div><div class="line">        ARILES_TYPED_ENTRY(integer_member, int)</div><div class="line">    #include ARILES_INITIALIZE</div><div class="line">};</div></div><!-- fragment --><p>Serialization: </p><div class="fragment"><div class="line">Configurable configurable;</div><div class="line">configurable.writeConfig&lt;ariles::yaml_cpp&gt;(&quot;config_file.yaml&quot;);</div></div><!-- fragment --><p>Result: </p><div class="fragment"><div class="line">ConfigurableEntryName:</div><div class="line">    integer_member: 0</div></div><!-- fragment --><p>Deserialization: </p><div class="fragment"><div class="line">Configurable configurable;</div><div class="line">configurable.readConfig&lt;ariles::yaml_cpp&gt;(&quot;config_file.yaml&quot;);</div></div><!-- fragment --><p><a class="anchor" id="features"></a> </p><h1>Advanced features </h1>
 <ul>
 <li>Class members can be declared automatically with <code>ARILES_TYPED_ENTRY</code> as in the minimal example above, or manually, in which case <code>ARILES_ENTRY</code> must be used.</li>
-<li>Configurable classes may implement <code>finalize()</code> method, which would be called automatically after parsing a configuration. This method can be used to perform data consistency checks or initialize parameters which are not stored in the configuration.</li>
 <li>All configurable classes must implement <code>setDefaults()</code> method, which is called before parsing a configuration. However, Ariles may generated this method automatically if <code>ARILES_AUTO_DEFAULTS</code> is defined as in the example above; in this case floats would be set to NaNs, integers to zeros, etc.</li>
 <li>Depending on the configuration format streams can be used instead of filenames, e.g, <code>configurable.writeConfig&lt;ariles::yaml_cpp&gt;(std::cout);</code>.</li>
 <li><code>ariles::Any</code> class defined in <code>ariles/types.h</code> provides functionality similar to <code>protobuf::Any</code>: this class automatically instantiates and reads configuration of some user-defined class based on its string id and stores a pointer to its base class. See <code>tests/types/any.h</code> for an example. This should play well with <code>ros/pluginlib</code>.</li>
+<li>'Sloppy' <code>std::map</code> and <code>std::pair</code>: optionally maps and pairs, where the key or the first element is an <code>std::string</code>, can be saved / loaded as maps if supported by the chosen format. For example: ` std_map: key: value ` instead of ` std_map: first: key second: value `</li>
+<li>Configurable classes may implement <code>finalize()</code> method, which would be called automatically after parsing a configuration. This method can be used to perform data consistency checks or initialize parameters which are not stored in the configuration. Bug: all ariles classes are <code>finalize()</code>d after reading a configuration, but manual call to <code>finalize()</code> does not guarantee that, see TODO for more info.</li>
 </ul>
 <p><a class="anchor" id="docs"></a> </p><h1>Documentation and examples </h1>
 <ul>

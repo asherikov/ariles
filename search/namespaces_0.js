@@ -1,10 +1,9 @@
 var searchData=
 [
   ['ariles',['ariles',['../namespaceariles.html',1,'']]],
-  ['ariles_5ftests',['ariles_tests',['../namespaceariles__tests.html',1,'']]],
+  ['array',['array',['../namespaceariles_1_1bridge_1_1array.html',1,'ariles::bridge']]],
   ['bridge',['bridge',['../namespaceariles_1_1bridge.html',1,'ariles']]],
   ['compact',['compact',['../namespaceariles_1_1bridge_1_1msgpack_1_1compact.html',1,'ariles::bridge::msgpack']]],
-  ['initializers',['initializers',['../namespaceariles__tests_1_1initializers.html',1,'ariles_tests']]],
   ['msgpack',['msgpack',['../namespaceariles_1_1bridge_1_1msgpack.html',1,'ariles::bridge']]],
   ['octave',['octave',['../namespaceariles_1_1bridge_1_1octave.html',1,'ariles::bridge']]],
   ['pugixml',['pugixml',['../namespaceariles_1_1bridge_1_1pugixml.html',1,'ariles::bridge']]],

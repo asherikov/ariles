@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.15"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ariles: /mnt/data/_me/git/asherikov/ariles_master/include/ariles/ariles.h File Reference</title>
+<title>Ariles: /usr/home/aleks/git/asherikov/ariles_master/include/ariles/ariles.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,8 +68,7 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#define-members">Macros</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
 <div class="title">ariles.h File Reference</div>  </div>
 </div><!--header-->
@@ -94,7 +93,12 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1CommonConfigurableBase.html">ariles::CommonConfigurableBase</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configurable base class.  <a href="classariles_1_1CommonConfigurableBase.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1CommonConfigurableBaseWithFlags.html">ariles::CommonConfigurableBaseWithFlags&lt; t_flags &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1StrictConfigurableBase.html">ariles::StrictConfigurableBase</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1RelaxedConfigurableBase.html">ariles::RelaxedConfigurableBase</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1ConfigurableBase.html">ariles::ConfigurableBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default configurable base.  <a href="classariles_1_1ConfigurableBase.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -130,16 +134,24 @@ Macros</h2></td></tr>
 <tr class="separator:addb64dd46334b3f4b5c86722d2ef8fd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3ee98201657d5330eb02a197fb979a0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ariles_8h.html#aa3ee98201657d5330eb02a197fb979a0">ARILES_READ_PARENT</a>(parent_class)&#160;&#160;&#160;parent_class::readConfigEntries(reader, param);</td></tr>
 <tr class="separator:aa3ee98201657d5330eb02a197fb979a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a0bec90ffd02e0561fc5809ea1074cdcb"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles_1_1CommonConfigurableBaseWithFlags.html">ariles::CommonConfigurableBaseWithFlags</a>&lt; <a class="el" href="classariles_1_1ConfigurableFlags.html#a524828f45690389b89bb8d4245267804ae686a12d91f1b777d087495fec379674">ariles::ConfigurableFlags::DEFAULT</a> &amp;!(<a class="el" href="classariles_1_1ConfigurableFlags.html#a524828f45690389b89bb8d4245267804ac8407a7e1fbbe130a4f12203515d1cdf">ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES</a>)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceariles.html#a0bec90ffd02e0561fc5809ea1074cdcb">ariles::StrictConfigurableBase</a></td></tr>
-<tr class="separator:a0bec90ffd02e0561fc5809ea1074cdcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2374433103f5a439d4db786d264010e5"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles_1_1CommonConfigurableBaseWithFlags.html">ariles::CommonConfigurableBaseWithFlags</a>&lt; <a class="el" href="classariles_1_1ConfigurableFlags.html#a524828f45690389b89bb8d4245267804ae686a12d91f1b777d087495fec379674">ariles::ConfigurableFlags::DEFAULT</a>|<a class="el" href="classariles_1_1ConfigurableFlags.html#a524828f45690389b89bb8d4245267804ac8407a7e1fbbe130a4f12203515d1cdf">ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceariles.html#a2374433103f5a439d4db786d264010e5">ariles::RelaxedConfigurableBase</a></td></tr>
-<tr class="separator:a2374433103f5a439d4db786d264010e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4b77f599a4f5757ee6fd028128608a2"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles_1_1CommonConfigurableBaseWithFlags.html">ariles::CommonConfigurableBaseWithFlags</a>&lt; <a class="el" href="classariles_1_1ConfigurableFlags.html#a524828f45690389b89bb8d4245267804ae686a12d91f1b777d087495fec379674">ariles::ConfigurableFlags::DEFAULT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceariles.html#ab4b77f599a4f5757ee6fd028128608a2">ariles::ConfigurableBase</a></td></tr>
-<tr class="memdesc:ab4b77f599a4f5757ee6fd028128608a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default configurable base.  <a href="namespaceariles.html#ab4b77f599a4f5757ee6fd028128608a2">More...</a><br /></td></tr>
-<tr class="separator:ab4b77f599a4f5757ee6fd028128608a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3017a065074ea01fb397301e86ba0e96"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ariles_8h.html#a3017a065074ea01fb397301e86ba0e96">ARILES_READ_CONFIG</a>(InitializerType)</td></tr>
+<tr class="memdesc:a3017a065074ea01fb397301e86ba0e96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read configuration (assuming the configuration node to be in the root).  <a href="#a3017a065074ea01fb397301e86ba0e96">More...</a><br /></td></tr>
+<tr class="separator:a3017a065074ea01fb397301e86ba0e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a467ee1bf0ed525b51fb2908bb2a1f045"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ariles_8h.html#a467ee1bf0ed525b51fb2908bb2a1f045">ARILES_READ_CONFIG</a>(InitializerType,  NameType)</td></tr>
+<tr class="memdesc:a467ee1bf0ed525b51fb2908bb2a1f045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read configuration (assuming the configuration node to be in the root).  <a href="#a467ee1bf0ed525b51fb2908bb2a1f045">More...</a><br /></td></tr>
+<tr class="separator:a467ee1bf0ed525b51fb2908bb2a1f045"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80df7a3f8ae01003dc573776c1c62152"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ariles_8h.html#a80df7a3f8ae01003dc573776c1c62152">ARILES_READ_CONFIG</a>(NameType)</td></tr>
+<tr class="memdesc:a80df7a3f8ae01003dc573776c1c62152"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read configuration (assuming the configuration node to be in the root).  <a href="#a80df7a3f8ae01003dc573776c1c62152">More...</a><br /></td></tr>
+<tr class="separator:a80df7a3f8ae01003dc573776c1c62152"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33af3fbd014b5c015f1d24d57dcddca9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ariles_8h.html#a33af3fbd014b5c015f1d24d57dcddca9">ARILES_WRITE_CONFIG</a>(InitializerType)</td></tr>
+<tr class="memdesc:a33af3fbd014b5c015f1d24d57dcddca9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write configuration.  <a href="#a33af3fbd014b5c015f1d24d57dcddca9">More...</a><br /></td></tr>
+<tr class="separator:a33af3fbd014b5c015f1d24d57dcddca9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8165c6c4cfcb0cff115a0c4ca7d85ee5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ariles_8h.html#a8165c6c4cfcb0cff115a0c4ca7d85ee5">ARILES_WRITE_CONFIG</a>(InitializerType,  NameType)</td></tr>
+<tr class="memdesc:a8165c6c4cfcb0cff115a0c4ca7d85ee5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write configuration.  <a href="#a8165c6c4cfcb0cff115a0c4ca7d85ee5">More...</a><br /></td></tr>
+<tr class="separator:a8165c6c4cfcb0cff115a0c4ca7d85ee5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e3110e6a7407a69875c652ef291dff5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ariles_8h.html#a4e3110e6a7407a69875c652ef291dff5">ARILES_WRITE_CONFIG</a>(NameType)</td></tr>
+<tr class="memdesc:a4e3110e6a7407a69875c652ef291dff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write configuration.  <a href="#a4e3110e6a7407a69875c652ef291dff5">More...</a><br /></td></tr>
+<tr class="separator:a4e3110e6a7407a69875c652ef291dff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a500a6247eca276fd0ba9a317e5f75ce8"></a>
@@ -195,6 +207,140 @@ Typedefs</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="ariles_8h_source.html#l00029">29</a> of file <a class="el" href="ariles_8h_source.html">ariles.h</a>.</p>
+
+</div>
+</div>
+<a id="a3017a065074ea01fb397301e86ba0e96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3017a065074ea01fb397301e86ba0e96">&#9670;&nbsp;</a></span>ARILES_READ_CONFIG <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ARILES_READ_CONFIG</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InitializerType</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> t_Br<span class="keywordtype">id</span>ge, <span class="keyword">class</span> t_ReaderInitializer&gt; \</div><div class="line">                            void readConfig(InitializerType &amp;reader_initializer, \</div><div class="line">                                            <span class="keyword">typename</span> t_Bridge::BridgeSelectorIndicatorType * = NULL) \</div><div class="line">                        { \</div><div class="line">                            typename t_Bridge::Reader reader(reader_initializer); \</div><div class="line">                            this-&gt;readConfig(reader, this-&gt;getConfigSectionID(), this-&gt;getArilesConfigurableFlags()); \</div><div class="line">                        } \</div><div class="line">                        template &lt;class t_Bridge, class t_ReaderInitializer&gt; \</div><div class="line">                            void readConfig(InitializerType &amp; reader_initializer, \</div><div class="line">                                            <span class="keyword">const</span> <a class="code" href="classariles_1_1ConfigurableFlags.html">ariles::ConfigurableFlags</a> &amp; <a class="code" href="namespaceariles.html#ac311db5bfae180e1629946a3a1437fc8">param</a>, \</div><div class="line">                                            <span class="keyword">typename</span> t_Bridge::BridgeSelectorIndicatorType * = NULL) \</div><div class="line">                        { \</div><div class="line">                            typename t_Bridge::Reader reader(reader_initializer); \</div><div class="line">                            this-&gt;readConfig(reader, this-&gt;getConfigSectionID(), <a class="code" href="namespaceariles.html#ac311db5bfae180e1629946a3a1437fc8">param</a>); \</div><div class="line">                        }</div><div class="ttc" id="classariles_1_1ConfigurableFlags_html"><div class="ttname"><a href="classariles_1_1ConfigurableFlags.html">ariles::ConfigurableFlags</a></div><div class="ttdef"><b>Definition:</b> <a href="configurable__flags_8h_source.html#l00016">configurable_flags.h:16</a></div></div>
+<div class="ttc" id="namespaceariles_html_ac311db5bfae180e1629946a3a1437fc8"><div class="ttname"><a href="namespaceariles.html#ac311db5bfae180e1629946a3a1437fc8">ariles::param</a></div><div class="ttdeci">const t_Scalar const ariles::ComparisonParameters &amp; param</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00303">basic.h:303</a></div></div>
+</div><!-- fragment -->
+<p>Read configuration (assuming the configuration node to be in the root). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">file_name</td><td>file name</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">file_name</td><td>file name </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">node_name</td><td>node name, the default is used if empty</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Intercept implicit conversion of a pointer to bool.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">reader</td><td>configuration reader </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">node_name</td><td>node name, the default is used if empty</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Intercept implicit conversion of a pointer to bool. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ariles_8h_source.html#l00204">204</a> of file <a class="el" href="ariles_8h_source.html">ariles.h</a>.</p>
+
+</div>
+</div>
+<a id="a467ee1bf0ed525b51fb2908bb2a1f045"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a467ee1bf0ed525b51fb2908bb2a1f045">&#9670;&nbsp;</a></span>ARILES_READ_CONFIG <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ARILES_READ_CONFIG</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InitializerType, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">NameType&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> t_Br<span class="keywordtype">id</span>ge, <span class="keyword">class</span> t_ReaderInitializer&gt; \</div><div class="line">                            void readConfig(InitializerType     &amp;reader_initializer, \</div><div class="line">                                            NameType            node_name, \</div><div class="line">                                            <span class="keyword">typename</span> t_Bridge::BridgeSelectorIndicatorType * = NULL) \</div><div class="line">                        { \</div><div class="line">                            typename t_Bridge::Reader reader(reader_initializer); \</div><div class="line">                            this-&gt;readConfig(reader, node_name, this-&gt;getArilesConfigurableFlags()); \</div><div class="line">                        } \</div><div class="line">                        template &lt;class t_Bridge, class t_ReaderInitializer&gt; \</div><div class="line">                            void readConfig(InitializerType     &amp;reader_initializer, \</div><div class="line">                                            NameType            node_name, \</div><div class="line">                                            <span class="keyword">const</span> <a class="code" href="classariles_1_1ConfigurableFlags.html">ariles::ConfigurableFlags</a> &amp; <a class="code" href="namespaceariles.html#ac311db5bfae180e1629946a3a1437fc8">param</a>, \</div><div class="line">                                            <span class="keyword">typename</span> t_Bridge::BridgeSelectorIndicatorType * = NULL) \</div><div class="line">                        { \</div><div class="line">                            typename t_Bridge::Reader reader(reader_initializer); \</div><div class="line">                            this-&gt;readConfig(reader, node_name, <a class="code" href="namespaceariles.html#ac311db5bfae180e1629946a3a1437fc8">param</a>); \</div><div class="line">                        }</div><div class="ttc" id="classariles_1_1ConfigurableFlags_html"><div class="ttname"><a href="classariles_1_1ConfigurableFlags.html">ariles::ConfigurableFlags</a></div><div class="ttdef"><b>Definition:</b> <a href="configurable__flags_8h_source.html#l00016">configurable_flags.h:16</a></div></div>
+<div class="ttc" id="namespaceariles_html_ac311db5bfae180e1629946a3a1437fc8"><div class="ttname"><a href="namespaceariles.html#ac311db5bfae180e1629946a3a1437fc8">ariles::param</a></div><div class="ttdeci">const t_Scalar const ariles::ComparisonParameters &amp; param</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00303">basic.h:303</a></div></div>
+</div><!-- fragment -->
+<p>Read configuration (assuming the configuration node to be in the root). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">file_name</td><td>file name</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">file_name</td><td>file name </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">node_name</td><td>node name, the default is used if empty</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Intercept implicit conversion of a pointer to bool.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">reader</td><td>configuration reader </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">node_name</td><td>node name, the default is used if empty</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Intercept implicit conversion of a pointer to bool. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ariles_8h_source.html#l00204">204</a> of file <a class="el" href="ariles_8h_source.html">ariles.h</a>.</p>
+
+</div>
+</div>
+<a id="a80df7a3f8ae01003dc573776c1c62152"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80df7a3f8ae01003dc573776c1c62152">&#9670;&nbsp;</a></span>ARILES_READ_CONFIG <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ARILES_READ_CONFIG</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">NameType</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">virtual</span> <span class="keywordtype">void</span> readConfig(<a class="code" href="classariles_1_1ReaderBase.html">ariles::ReaderBase</a>  &amp; reader, \</div><div class="line">                                                NameType            node_name, \</div><div class="line">                                                <span class="keyword">const</span> <a class="code" href="classariles_1_1ConfigurableFlags.html">ariles::ConfigurableFlags</a> &amp; <a class="code" href="namespaceariles.html#ac311db5bfae180e1629946a3a1437fc8">param</a>) = 0; \</div><div class="line">                        void readConfig(<a class="code" href="classariles_1_1ReaderBase.html">ariles::ReaderBase</a>  &amp; reader, \</div><div class="line">                                        NameType            node_name) \</div><div class="line">                        { \</div><div class="line">                            this-&gt;readConfig(reader, node_name, this-&gt;getArilesConfigurableFlags()); \</div><div class="line">                        }</div><div class="ttc" id="classariles_1_1ConfigurableFlags_html"><div class="ttname"><a href="classariles_1_1ConfigurableFlags.html">ariles::ConfigurableFlags</a></div><div class="ttdef"><b>Definition:</b> <a href="configurable__flags_8h_source.html#l00016">configurable_flags.h:16</a></div></div>
+<div class="ttc" id="classariles_1_1ReaderBase_html"><div class="ttname"><a href="classariles_1_1ReaderBase.html">ariles::ReaderBase</a></div><div class="ttdef"><b>Definition:</b> <a href="reader__base_8h_source.html#l00017">reader_base.h:17</a></div></div>
+<div class="ttc" id="namespaceariles_html_ac311db5bfae180e1629946a3a1437fc8"><div class="ttname"><a href="namespaceariles.html#ac311db5bfae180e1629946a3a1437fc8">ariles::param</a></div><div class="ttdeci">const t_Scalar const ariles::ComparisonParameters &amp; param</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00303">basic.h:303</a></div></div>
+</div><!-- fragment -->
+<p>Read configuration (assuming the configuration node to be in the root). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">file_name</td><td>file name</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">file_name</td><td>file name </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">node_name</td><td>node name, the default is used if empty</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Intercept implicit conversion of a pointer to bool.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">reader</td><td>configuration reader </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">node_name</td><td>node name, the default is used if empty</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Intercept implicit conversion of a pointer to bool. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ariles_8h_source.html#l00204">204</a> of file <a class="el" href="ariles_8h_source.html">ariles.h</a>.</p>
 
 </div>
 </div>
@@ -345,6 +491,118 @@ Typedefs</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="ariles_8h_source.html#l00021">21</a> of file <a class="el" href="ariles_8h_source.html">ariles.h</a>.</p>
+
+</div>
+</div>
+<a id="a33af3fbd014b5c015f1d24d57dcddca9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33af3fbd014b5c015f1d24d57dcddca9">&#9670;&nbsp;</a></span>ARILES_WRITE_CONFIG <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ARILES_WRITE_CONFIG</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InitializerType</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> t_Br<span class="keywordtype">id</span>ge, <span class="keyword">class</span> t_WriterInitializer&gt; \</div><div class="line">                            void writeConfig(   InitializerType &amp;writer_initializer, \</div><div class="line">                                                <span class="keyword">typename</span> t_Bridge::BridgeSelectorIndicatorType * = NULL) <span class="keyword">const</span> \</div><div class="line">                        { \</div><div class="line">                            typename <a class="code" href="namespaceariles_1_1bridge_1_1array.html#a2be41e3b6a28960fd726b34508c55255">t_Bridge::Writer</a> writer(writer_initializer); \</div><div class="line">                            this-&gt;writeConfig(writer, this-&gt;getArilesConfigurableFlags()); \</div><div class="line">                        } \</div><div class="line">                        template &lt;class t_Bridge, class t_WriterInitializer&gt; \</div><div class="line">                            void writeConfig(   InitializerType &amp;writer_initializer, \</div><div class="line">                                                <span class="keyword">const</span> <a class="code" href="classariles_1_1ConfigurableFlags.html">ariles::ConfigurableFlags</a> &amp; <a class="code" href="namespaceariles.html#ac311db5bfae180e1629946a3a1437fc8">param</a>, \</div><div class="line">                                                <span class="keyword">typename</span> t_Bridge::BridgeSelectorIndicatorType * = NULL) <span class="keyword">const</span> \</div><div class="line">                        { \</div><div class="line">                            typename <a class="code" href="namespaceariles_1_1bridge_1_1array.html#a2be41e3b6a28960fd726b34508c55255">t_Bridge::Writer</a> writer(writer_initializer); \</div><div class="line">                            this-&gt;writeConfig(writer, <a class="code" href="namespaceariles.html#ac311db5bfae180e1629946a3a1437fc8">param</a>); \</div><div class="line">                        }</div><div class="ttc" id="namespaceariles_1_1bridge_1_1array_html_a2be41e3b6a28960fd726b34508c55255"><div class="ttname"><a href="namespaceariles_1_1bridge_1_1array.html#a2be41e3b6a28960fd726b34508c55255">ariles::bridge::array::Writer</a></div><div class="ttdeci">GenericWriter&lt; NameValuePair &gt; Writer</div><div class="ttdef"><b>Definition:</b> <a href="array_2interface_2array_2writer_8h_source.html#l00256">writer.h:256</a></div></div>
+<div class="ttc" id="classariles_1_1ConfigurableFlags_html"><div class="ttname"><a href="classariles_1_1ConfigurableFlags.html">ariles::ConfigurableFlags</a></div><div class="ttdef"><b>Definition:</b> <a href="configurable__flags_8h_source.html#l00016">configurable_flags.h:16</a></div></div>
+<div class="ttc" id="namespaceariles_html_ac311db5bfae180e1629946a3a1437fc8"><div class="ttname"><a href="namespaceariles.html#ac311db5bfae180e1629946a3a1437fc8">ariles::param</a></div><div class="ttdeci">const t_Scalar const ariles::ComparisonParameters &amp; param</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00303">basic.h:303</a></div></div>
+</div><!-- fragment -->
+<p>Write configuration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">file_name</td><td>file name </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">node_name</td><td>node name, the default is used if empty</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">writer</td><td>configuration writer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">node_name</td><td>node name, the default is used if empty </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="ariles_8h_source.html#l00301">301</a> of file <a class="el" href="ariles_8h_source.html">ariles.h</a>.</p>
+
+</div>
+</div>
+<a id="a8165c6c4cfcb0cff115a0c4ca7d85ee5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8165c6c4cfcb0cff115a0c4ca7d85ee5">&#9670;&nbsp;</a></span>ARILES_WRITE_CONFIG <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ARILES_WRITE_CONFIG</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InitializerType, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">NameType&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> t_Br<span class="keywordtype">id</span>ge, <span class="keyword">class</span> t_WriterInitializer&gt; \</div><div class="line">                            void writeConfig(   InitializerType &amp;writer_initializer, \</div><div class="line">                                                NameType node_name, \</div><div class="line">                                                <span class="keyword">typename</span> t_Bridge::BridgeSelectorIndicatorType * = NULL) <span class="keyword">const</span> \</div><div class="line">                        { \</div><div class="line">                            typename <a class="code" href="namespaceariles_1_1bridge_1_1array.html#a2be41e3b6a28960fd726b34508c55255">t_Bridge::Writer</a> writer(writer_initializer); \</div><div class="line">                            this-&gt;writeConfig(writer, node_name, this-&gt;getArilesConfigurableFlags()); \</div><div class="line">                        } \</div><div class="line">                        template &lt;class t_Bridge, class t_WriterInitializer&gt; \</div><div class="line">                            void writeConfig(   InitializerType &amp;writer_initializer, \</div><div class="line">                                                NameType node_name, \</div><div class="line">                                                <span class="keyword">const</span> <a class="code" href="classariles_1_1ConfigurableFlags.html">ariles::ConfigurableFlags</a> &amp; <a class="code" href="namespaceariles.html#ac311db5bfae180e1629946a3a1437fc8">param</a>, \</div><div class="line">                                                <span class="keyword">typename</span> t_Bridge::BridgeSelectorIndicatorType * = NULL) <span class="keyword">const</span> \</div><div class="line">                        { \</div><div class="line">                            typename <a class="code" href="namespaceariles_1_1bridge_1_1array.html#a2be41e3b6a28960fd726b34508c55255">t_Bridge::Writer</a> writer(writer_initializer); \</div><div class="line">                            this-&gt;writeConfig(writer, node_name, <a class="code" href="namespaceariles.html#ac311db5bfae180e1629946a3a1437fc8">param</a>); \</div><div class="line">                        }</div><div class="ttc" id="namespaceariles_1_1bridge_1_1array_html_a2be41e3b6a28960fd726b34508c55255"><div class="ttname"><a href="namespaceariles_1_1bridge_1_1array.html#a2be41e3b6a28960fd726b34508c55255">ariles::bridge::array::Writer</a></div><div class="ttdeci">GenericWriter&lt; NameValuePair &gt; Writer</div><div class="ttdef"><b>Definition:</b> <a href="array_2interface_2array_2writer_8h_source.html#l00256">writer.h:256</a></div></div>
+<div class="ttc" id="classariles_1_1ConfigurableFlags_html"><div class="ttname"><a href="classariles_1_1ConfigurableFlags.html">ariles::ConfigurableFlags</a></div><div class="ttdef"><b>Definition:</b> <a href="configurable__flags_8h_source.html#l00016">configurable_flags.h:16</a></div></div>
+<div class="ttc" id="namespaceariles_html_ac311db5bfae180e1629946a3a1437fc8"><div class="ttname"><a href="namespaceariles.html#ac311db5bfae180e1629946a3a1437fc8">ariles::param</a></div><div class="ttdeci">const t_Scalar const ariles::ComparisonParameters &amp; param</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00303">basic.h:303</a></div></div>
+</div><!-- fragment -->
+<p>Write configuration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">file_name</td><td>file name </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">node_name</td><td>node name, the default is used if empty</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">writer</td><td>configuration writer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">node_name</td><td>node name, the default is used if empty </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="ariles_8h_source.html#l00301">301</a> of file <a class="el" href="ariles_8h_source.html">ariles.h</a>.</p>
+
+</div>
+</div>
+<a id="a4e3110e6a7407a69875c652ef291dff5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e3110e6a7407a69875c652ef291dff5">&#9670;&nbsp;</a></span>ARILES_WRITE_CONFIG <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ARILES_WRITE_CONFIG</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">NameType</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">virtual</span> <span class="keywordtype">void</span> writeConfig(   <a class="code" href="classariles_1_1WriterBase.html">ariles::WriterBase</a> &amp; writer, \</div><div class="line">                                                    NameType node_name, \</div><div class="line">                                                    <span class="keyword">const</span> <a class="code" href="classariles_1_1ConfigurableFlags.html">ariles::ConfigurableFlags</a> &amp; <a class="code" href="namespaceariles.html#ac311db5bfae180e1629946a3a1437fc8">param</a>) <span class="keyword">const</span> = 0; \</div><div class="line">                        void writeConfig(   <a class="code" href="classariles_1_1WriterBase.html">ariles::WriterBase</a> &amp; writer, \</div><div class="line">                                            NameType node_name) <span class="keyword">const</span> \</div><div class="line">                        { \</div><div class="line">                            this-&gt;writeConfig(writer, node_name, this-&gt;getArilesConfigurableFlags()); \</div><div class="line">                        }</div><div class="ttc" id="classariles_1_1WriterBase_html"><div class="ttname"><a href="classariles_1_1WriterBase.html">ariles::WriterBase</a></div><div class="ttdef"><b>Definition:</b> <a href="writer__base_8h_source.html#l00016">writer_base.h:16</a></div></div>
+<div class="ttc" id="classariles_1_1ConfigurableFlags_html"><div class="ttname"><a href="classariles_1_1ConfigurableFlags.html">ariles::ConfigurableFlags</a></div><div class="ttdef"><b>Definition:</b> <a href="configurable__flags_8h_source.html#l00016">configurable_flags.h:16</a></div></div>
+<div class="ttc" id="namespaceariles_html_ac311db5bfae180e1629946a3a1437fc8"><div class="ttname"><a href="namespaceariles.html#ac311db5bfae180e1629946a3a1437fc8">ariles::param</a></div><div class="ttdeci">const t_Scalar const ariles::ComparisonParameters &amp; param</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00303">basic.h:303</a></div></div>
+</div><!-- fragment -->
+<p>Write configuration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">file_name</td><td>file name </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">node_name</td><td>node name, the default is used if empty</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">writer</td><td>configuration writer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">node_name</td><td>node name, the default is used if empty </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="ariles_8h_source.html#l00301">301</a> of file <a class="el" href="ariles_8h_source.html">ariles.h</a>.</p>
 
 </div>
 </div>

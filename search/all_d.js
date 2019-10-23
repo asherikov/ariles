@@ -1,12 +1,20 @@
 var searchData=
 [
-  ['octave',['octave',['../structariles_1_1octave.html',1,'ariles']]],
-  ['octave_2eh',['octave.h',['../octave_8h.html',1,'']]],
-  ['octavefixture',['OctaveFixture',['../classariles__tests_1_1OctaveFixture.html',1,'ariles_tests']]],
-  ['openfile',['openFile',['../classariles_1_1ReaderBase.html#afa4345859117b778c095760013a83add',1,'ariles::ReaderBase::openFile()'],['../classariles_1_1WriterBase.html#a05c6335386b5bc5e4724f7909d29e8c3',1,'ariles::WriterBase::openFile()']]],
-  ['operator_20_2a',['operator *',['../classariles_1_1Any.html#ac72d3cb02f8f34d4eb39bebe60d4782f',1,'ariles::Any::operator *()'],['../classariles_1_1Any.html#ab03837807e000da52ad6d5928462d7ad',1,'ariles::Any::operator *() const']]],
-  ['operator_2d_3e',['operator-&gt;',['../classariles_1_1Any.html#afd710f01a020a86a2a92994395028b73',1,'ariles::Any::operator-&gt;()'],['../classariles_1_1Any.html#a4601cbbbdc21ffbff656bd84d9418ff8',1,'ariles::Any::operator-&gt;() const']]],
-  ['operator_3d',['operator=',['../classariles_1_1bridge_1_1rapidjson_1_1BasicIStreamWrapper.html#a1ef366e900854057cb0abaafb0b9ecfd',1,'ariles::bridge::rapidjson::BasicIStreamWrapper']]],
-  ['output_5ffile_5fstream_5f',['output_file_stream_',['../classariles__tests_1_1initializers_1_1StreamInitializer.html#ad6d7aa9d9c656b66ccabe77727bfb046',1,'ariles_tests::initializers::StreamInitializer']]],
-  ['output_5fstream_5f',['output_stream_',['../classariles_1_1bridge_1_1msgpack_1_1Writer.html#a026639455288f7b1f5248de1e62ee4b5',1,'ariles::bridge::msgpack::Writer::output_stream_()'],['../classariles_1_1bridge_1_1msgpack_1_1compact_1_1Writer.html#adbd5f59a6263a15a2e457fe4de1d1843',1,'ariles::bridge::msgpack::compact::Writer::output_stream_()'],['../classariles_1_1bridge_1_1yaml__cpp03_1_1Writer.html#acbc2c5f4f46ca0ca05083cda6252176c',1,'ariles::bridge::yaml_cpp03::Writer::output_stream_()'],['../classariles_1_1bridge_1_1rapidjson_1_1Writer.html#a510b59fe0142189a074e8fdf656bafba',1,'ariles::bridge::rapidjson::Writer::output_stream_()'],['../classariles_1_1bridge_1_1yaml__cpp_1_1Writer.html#a5e0a373f849b0b4d15d27136b9ec5725',1,'ariles::bridge::yaml_cpp::Writer::output_stream_()'],['../classariles_1_1bridge_1_1octave_1_1Writer.html#a1f614a3facdaf0532b870d50490edcef',1,'ariles::bridge::octave::Writer::output_stream_()'],['../classariles_1_1bridge_1_1pugixml_1_1Writer.html#af86cfa5ff3acd1fb6cfb02dcd5823b2d',1,'ariles::bridge::pugixml::Writer::output_stream_()']]]
+  ['packer_5f',['packer_',['../classariles_1_1bridge_1_1msgpack_1_1Writer.html#a3c57af254468b430acecfe6ee34f8799',1,'ariles::bridge::msgpack::Writer::packer_()'],['../classariles_1_1bridge_1_1msgpack_1_1compact_1_1Writer.html#a4765b2a38f4a41323f4a5218e4a6d80b',1,'ariles::bridge::msgpack::compact::Writer::packer_()']]],
+  ['param',['param',['../namespaceariles.html#ac311db5bfae180e1629946a3a1437fc8',1,'ariles']]],
+  ['parser_5f',['parser_',['../classariles_1_1bridge_1_1yaml__cpp03_1_1Reader.html#aed7dbf1430c3859df0b05a9604d0c57c',1,'ariles::bridge::yaml_cpp03::Reader::parser_()'],['../classariles_1_1bridge_1_1yaml__cpp_1_1Reader.html#a90cf96b1dd16dfacd4fe0da15313ab78',1,'ariles::bridge::yaml_cpp::Reader::parser_()']]],
+  ['peek',['Peek',['../classariles_1_1bridge_1_1rapidjson_1_1BasicIStreamWrapper.html#ab56b98971729d6043ee28d250a1669f5',1,'ariles::bridge::rapidjson::BasicIStreamWrapper']]],
+  ['peek4',['Peek4',['../classariles_1_1bridge_1_1rapidjson_1_1BasicIStreamWrapper.html#a5d04f3c142ea6acfaf165f64b04704cc',1,'ariles::bridge::rapidjson::BasicIStreamWrapper']]],
+  ['peekbuffer_5f',['peekBuffer_',['../classariles_1_1bridge_1_1rapidjson_1_1BasicIStreamWrapper.html#aef78717b103d9f6ca77d269523e2e62f',1,'ariles::bridge::rapidjson::BasicIStreamWrapper']]],
+  ['pointer',['Pointer',['../classariles_1_1PointerHandler_3_01boost_1_1optional_3_01t__Value_01_4_01_4.html#a46c07906a0e5a7ab1fc62af639a586ff',1,'ariles::PointerHandler&lt; boost::optional&lt; t_Value &gt; &gt;::Pointer()'],['../classariles_1_1PointerHandler_3_01boost_1_1shared__ptr_3_01t__Value_01_4_01_4.html#a1b87d136903c4009a4a93d384980ca33',1,'ariles::PointerHandler&lt; boost::shared_ptr&lt; t_Value &gt; &gt;::Pointer()']]],
+  ['pointer_2eh',['pointer.h',['../pointer_8h.html',1,'']]],
+  ['pointerhandler',['PointerHandler',['../classariles_1_1PointerHandler.html',1,'ariles']]],
+  ['pointerhandler_3c_20boost_3a_3aoptional_3c_20t_5fvalue_20_3e_20_3e',['PointerHandler&lt; boost::optional&lt; t_Value &gt; &gt;',['../classariles_1_1PointerHandler_3_01boost_1_1optional_3_01t__Value_01_4_01_4.html',1,'ariles']]],
+  ['pointerhandler_3c_20boost_3a_3ashared_5fptr_3c_20t_5fvalue_20_3e_20_3e',['PointerHandler&lt; boost::shared_ptr&lt; t_Value &gt; &gt;',['../classariles_1_1PointerHandler_3_01boost_1_1shared__ptr_3_01t__Value_01_4_01_4.html',1,'ariles']]],
+  ['propagate_5fallow_5fmissing_5fentries',['PROPAGATE_ALLOW_MISSING_ENTRIES',['../classariles_1_1ConfigurableFlags.html#a524828f45690389b89bb8d4245267804a793f1ab63ccf8e525b561e61d4cc1c55',1,'ariles::ConfigurableFlags']]],
+  ['pugixml',['pugixml',['../structariles_1_1pugixml.html',1,'ariles']]],
+  ['pugixml_2eh',['pugixml.h',['../pugixml_8h.html',1,'']]],
+  ['put',['Put',['../classariles_1_1bridge_1_1rapidjson_1_1BasicIStreamWrapper.html#ac515a989b227785794642bc970e5f59f',1,'ariles::bridge::rapidjson::BasicIStreamWrapper']]],
+  ['putbegin',['PutBegin',['../classariles_1_1bridge_1_1rapidjson_1_1BasicIStreamWrapper.html#aeaa681296bdbe6fe3794328fac1f5f35',1,'ariles::bridge::rapidjson::BasicIStreamWrapper']]],
+  ['putend',['PutEnd',['../classariles_1_1bridge_1_1rapidjson_1_1BasicIStreamWrapper.html#a79ea92f9a230315cce7a5bd3af7e3be3',1,'ariles::bridge::rapidjson::BasicIStreamWrapper']]]
 ];

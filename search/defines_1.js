@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['boost_5ftest_5fdyn_5flink',['BOOST_TEST_DYN_LINK',['../utility_8h.html#a139f00d2466d591f60b8d6a73c8273f1',1,'utility.h']]],
-  ['boost_5ftest_5fmodule',['BOOST_TEST_MODULE',['../utility_8h.html#a6b2a3852db8bb19ab6909bac01859985',1,'utility.h']]]
+  ['rapidjson_5fparse_5fdefault_5fflags',['RAPIDJSON_PARSE_DEFAULT_FLAGS',['../rapidjson_8h.html#a77005e892e6601599beaf421b0395c31',1,'rapidjson.h']]],
+  ['rapidjson_5fwrite_5fdefault_5fflags',['RAPIDJSON_WRITE_DEFAULT_FLAGS',['../rapidjson_8h.html#a1975595e2f1dc20a2d4859f340ac88c6',1,'rapidjson.h']]]
 ];
