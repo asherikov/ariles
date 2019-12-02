@@ -75,7 +75,7 @@ namespace ariles
         ARILES_TRACE_FUNCTION;
         for (std::size_t i = 0; i < entry.size(); ++i)
         {
-            finalize(entry, trigger);
+            finalize(entry[i], trigger);
         }
     }
 
