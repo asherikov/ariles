@@ -56,8 +56,8 @@ Ariles differs from the common C++ serialization libs in several aspects:
 
 
 <a name="formats"></a>
-Supported formats
-=================
+Supported data formats
+======================
 
 Currently supported formats are (all are optional):
 
@@ -88,6 +88,12 @@ Currently supported formats are (all are optional):
     - Matlab might be supported, but has not been tested.
 
 * ROS parameter server, via standard ROS libs.
+
+* A set of key-value pairs, output only, no dependencies:
+    - A vector of string-double pairs with flattened member names, e.g.,
+      `<class.member_class.member, value>`.
+
+    - Useful for exporting data to time series databases.
 
 
 <a name="types"></a>

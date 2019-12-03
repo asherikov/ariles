@@ -795,7 +795,7 @@ INPUT                  =    ../README.md \
                             ../LICENSE \
                             ../include \
                             ../extra_adapters \
-                            ../tests \
+                            ../tests/demo.cpp \
                             ../bridges/msgpack/interface \
                             ../bridges/ros/interface \
                             ../bridges/yaml_cpp03/interface \
@@ -803,6 +803,7 @@ INPUT                  =    ../README.md \
                             ../bridges/yaml_cpp/interface \
                             ../bridges/octave/interface \
                             ../bridges/pugixml/interface \
+                            ../bridges/array/interface \
                             ./doxygen_pages.dox
 
 # This tag can be used to specify the character encoding of the source files
@@ -1597,7 +1598,7 @@ ENABLE_PREPROCESSING   = YES
 # The default value is: NO.
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
-MACRO_EXPANSION        = NO
+MACRO_EXPANSION        = YES
 
 # If the EXPAND_ONLY_PREDEF and MACRO_EXPANSION tags are both set to YES then
 # the macro expansion is limited to the macros specified with the PREDEFINED and
@@ -1605,7 +1606,7 @@ MACRO_EXPANSION        = NO
 # The default value is: NO.
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
-EXPAND_ONLY_PREDEF     = NO
+EXPAND_ONLY_PREDEF     = YES
 
 # If the SEARCH_INCLUDES tag is set to YES, the include files in the
 # INCLUDE_PATH will be searched if a #include is found.
@@ -1646,7 +1647,8 @@ PREDEFINED             =
 # definition found in the source code.
 # This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
 
-EXPAND_AS_DEFINED      =
+EXPAND_AS_DEFINED      =    ARILES_READ_CONFIG \
+                            ARILES_WRITE_CONFIG
 
 # If the SKIP_FUNCTION_MACROS tag is set to YES then doxygen's preprocessor will
 # remove all references to function-like macros that are alone on a line, have

@@ -78,7 +78,7 @@ namespace @CPPUT_ID_LOWER_CASE@
 
         void unset(const unsigned int flags)
         {
-            flags_ &= !flags;
+            flags_ &= ~flags;
         }
     };
 }  // namespace @CPPUT_ID_LOWER_CASE@
