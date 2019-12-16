@@ -12,7 +12,7 @@
 
 namespace ariles
 {
-    class BridgeFlags : public ariles::Flags<BridgeFlags>
+    class BridgeFlags : public ariles::Flags<unsigned int, BridgeFlags>
     {
         public:
             enum Flags
