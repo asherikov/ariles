@@ -5,7 +5,7 @@ Changelog for package ariles_ros
 Forthcoming
 -----------
 
-* Sync to bugfixed master.
+* Sync to 1.3.2 (bugfixes).
 
 
 1.3.1 (2019-10-23)
