@@ -2,8 +2,8 @@
 Changelog for package ariles_ros
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.3.2 (2019-12-16)
+------------------
 
 * Sync to 1.3.2 (bugfixes).
 
