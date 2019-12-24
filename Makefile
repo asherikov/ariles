@@ -170,8 +170,14 @@ updateutils:
 update:
 	git submodule update
 
-dox:
+
+doxclean:
+	cd doc/dox; git fetch --all; git checkout gh-pages; git pull
+	find ./doc/dox/ -mindepth 1 -not -name "\.git" | xargs rm -Rf
+
+dox: doxclean clean
 	cd doc; doxygen
+
 
 install-ros:
 	sh -c "echo \"deb http://packages.ros.org/ros/ubuntu ${UBUNTU_DISTRO} main\" > /etc/apt/sources.list.d/ros-latest.list"
