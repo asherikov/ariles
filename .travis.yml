@@ -17,17 +17,17 @@ jobs:
 
     # melodic / 18.04
       - script:
-          - make make-docker ROS_DISTRO=melodic UBUNTU_DISTRO=bionic BRANCH=${TRAVIS_BRANCH} TARGET=catkin-test-old
+          - make ros_make_docker ROS_DISTRO=melodic UBUNTU_DISTRO=bionic BRANCH=${TRAVIS_BRANCH} TARGET=catkin_test_old
       - script:
-          - make make-docker ROS_DISTRO=melodic UBUNTU_DISTRO=bionic BRANCH=${TRAVIS_BRANCH} TARGET=catkin-test-new
+          - make ros_make_docker ROS_DISTRO=melodic UBUNTU_DISTRO=bionic BRANCH=${TRAVIS_BRANCH} TARGET=catkin_test_new
 
     # kinetic / 16.04
       - script:
-          - make make-docker ROS_DISTRO=kinetic UBUNTU_DISTRO=xenial BRANCH=${TRAVIS_BRANCH} TARGET=catkin-test-old
+          - make ros_make_docker ROS_DISTRO=kinetic UBUNTU_DISTRO=xenial BRANCH=${TRAVIS_BRANCH} TARGET=catkin_test_old
       - script:
-          - make make-docker ROS_DISTRO=kinetic UBUNTU_DISTRO=xenial BRANCH=${TRAVIS_BRANCH} TARGET=catkin-test-new
+          - make ros_make_docker ROS_DISTRO=kinetic UBUNTU_DISTRO=xenial BRANCH=${TRAVIS_BRANCH} TARGET=catkin_test_new
 
     # prerelease
-    #  - sudo: required
-    #    script:
-    #      - make ros-prerelease TRAVIS_UBUNTU_DISTRO=trusty ROS_DISTRO=melodic UBUNTU_DISTRO=bionic BRANCH=${TRAVIS_BRANCH}
+      - sudo: required
+        script:
+          - make ros_prerelease ROS_DISTRO=melodic UBUNTU_DISTRO=bionic BRANCH=${TRAVIS_BRANCH}
