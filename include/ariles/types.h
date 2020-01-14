@@ -43,7 +43,7 @@ namespace ariles
         public:
             Any()
             {
-                setDefaults();
+                arilesSetDefaults();
             }
 
 
@@ -153,7 +153,7 @@ namespace ariles
         // Ariles methods
 
             void writeConfigEntries(ariles::WriterBase & writer,
-                                    const ariles::ConfigurableFlags & param) const
+                                    const ariles::WriterBase::Parameters & param) const
             {
                 ARILES_ASSERT(
                         true == isConsitent(),
@@ -168,16 +168,16 @@ namespace ariles
 
 
             void readConfigEntries( ariles::ReaderBase & reader,
-                                    const ariles::ConfigurableFlags & parameters)
+                                    const ariles::ReaderBase::Parameters & parameters)
             {
-                ariles::ConfigurableFlags param = parameters;
-                param.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
+                ariles::ReaderBase::Parameters param = parameters;
+                param.unset(ariles::ReaderBase::Parameters::ALLOW_MISSING_ENTRIES);
 
                 ARILES_READ_ENTRY_(id);
                 if ("" == id_)
                 {
                     ARILES_ASSERT(
-                            true == parameters.isSet(ConfigurableFlags::ALLOW_MISSING_ENTRIES),
+                            true == parameters.isSet(ariles::ReaderBase::Parameters::ALLOW_MISSING_ENTRIES),
                             "Id is empty, value cannot be read.");
                 }
                 else
@@ -196,11 +196,12 @@ namespace ariles
                 }
             }
 
-            void setDefaults()
+            void arilesSetDefaults(ariles::defaults::Iterator & /*iterator*/, const ariles::defaults::Iterator::Parameters & /*param*/)
             {
                 id_ = "";
                 value_.reset();
             }
+            using ariles::CommonConfigurableBase::arilesSetDefaults;
 
 
             std::size_t getNumberOfEntries() const
@@ -259,7 +260,7 @@ namespace ariles
         public:
             NonNullPointer()
             {
-                setDefaults();
+                arilesSetDefaults();
             }
 
 
@@ -306,14 +307,14 @@ namespace ariles
             }
 
 
-            void writeConfigEntries(ariles::WriterBase &writer, const ariles::ConfigurableFlags &parameters) const
+            void writeConfigEntries(ariles::WriterBase &writer, const ariles::WriterBase::Parameters &parameters) const
             {
                 ARILES_ASSERT(false == isNull(), "Could not write config: entry is not initialized");
                 value_->writeConfigEntries(writer, parameters);
             }
 
 
-            void readConfigEntries(ariles::ReaderBase &reader, const ariles::ConfigurableFlags &parameters)
+            void readConfigEntries(ariles::ReaderBase &reader, const ariles::ReaderBase::Parameters &parameters)
             {
                 Handler::allocate(value_);
                 value_->readConfigEntries(reader, parameters);
@@ -326,11 +327,12 @@ namespace ariles
             }
 
 
-            void setDefaults()
+            void arilesSetDefaults(ariles::defaults::Iterator & iterator, const ariles::defaults::Iterator::Parameters & param)
             {
                 Handler::allocate(value_);
-                value_->setDefaults();
+                value_->arilesSetDefaults(iterator, param);
             }
+            using ariles::CommonConfigurableBase::arilesSetDefaults;
 
 
             std::size_t getNumberOfEntries() const

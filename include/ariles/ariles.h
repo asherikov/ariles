@@ -14,6 +14,7 @@
 #pragma once
 
 #include "internal/helpers.h"
+#include "internal/operators/defaults.h"
 #include "internal/reader_base.h"
 #include "internal/writer_base.h"
 
@@ -53,7 +54,7 @@
         /**
          * @brief Configurable base class.
          */
-        class ARILES_VISIBILITY_ATTRIBUTE CommonConfigurableBase
+        class ARILES_VISIBILITY_ATTRIBUTE CommonConfigurableBase : public ariles::defaults::Base
         {
             protected:
                 /**
@@ -91,12 +92,6 @@
                  * members and parents.
                  */
                 virtual void arilesFinalize() = 0;
-
-
-                /**
-                 * @brief Set members to their default values.
-                 */
-                virtual void setDefaults() = 0;
 
 
                 /**

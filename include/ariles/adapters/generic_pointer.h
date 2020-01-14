@@ -11,17 +11,16 @@
 namespace ariles
 {
     template <  class t_Reader,
-                typename t_Entry,
-                class t_Flags>
+                typename t_Entry>
         void ARILES_VISIBILITY_ATTRIBUTE readBody(
                 t_Reader &reader,
                 ARILES_POINTER_TYPE<t_Entry> &entry,
-                const t_Flags & param)
+                const typename t_Reader::Parameters & param)
     {
         bool is_null = true;
 
-        ariles::ConfigurableFlags param_local = param;
-        param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
+        typename t_Reader::Parameters param_local = param;
+        param_local.unset(t_Reader::Parameters::ALLOW_MISSING_ENTRIES);
 
         reader.template startMap<t_Reader::SIZE_LIMIT_RANGE>(1, 2);
         readEntry(reader, is_null, "is_null", param_local);
@@ -41,12 +40,11 @@ namespace ariles
 
 
     template <  class t_Writer,
-                typename t_Entry,
-                class t_Flags>
+                typename t_Entry>
         void ARILES_VISIBILITY_ATTRIBUTE
         writeBody( t_Writer & writer,
                    const ARILES_POINTER_TYPE<t_Entry> &entry,
-                   const t_Flags & param)
+                   const typename t_Writer::Parameters & param)
     {
         bool is_null = true;
 
@@ -65,16 +63,6 @@ namespace ariles
             writeEntry(writer, *entry, "value", param);
             writer.endMap();
         }
-    }
-
-
-    template <typename t_Entry, class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        setDefaults(    ARILES_POINTER_TYPE<t_Entry> &entry,
-                        const t_Flags & /*param*/)
-    {
-        ARILES_TRACE_FUNCTION;
-        PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::reset(entry);
     }
 
 
@@ -122,6 +110,26 @@ namespace ariles
         }
     }
 }
+
+
+namespace ariles
+{
+    namespace defaults
+    {
+        template <typename t_Entry, class t_Iterator>
+            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+                    t_Iterator & /*iterator*/,
+                    ARILES_POINTER_TYPE<t_Entry> & entry,
+                    const std::string & /*name*/,
+                    const typename t_Iterator::Parameters & /*param*/)
+        {
+            ARILES_TRACE_FUNCTION;
+            PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::reset(entry);
+        }
+    }
+}
+
+
 
 #undef ARILES_POINTER_HANDLER
 #undef ARILES_POINTER_TYPE

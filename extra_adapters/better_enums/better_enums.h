@@ -49,22 +49,6 @@ namespace ariles
     }
 
 
-    template <  class t_BetterEnum,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        setDefaults(t_BetterEnum &entry,
-                    const t_Flags & /*param*/,
-                    const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
-                    const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
-                    const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
-                    const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
-                    const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
-    {
-        ARILES_TRACE_FUNCTION;
-        entry = t_BetterEnum::_from_integral_unchecked(0);
-    }
-
-
     template <class t_BetterEnum>
         void ARILES_VISIBILITY_ATTRIBUTE
         finalize(   t_BetterEnum & /*entry*/,
@@ -94,3 +78,30 @@ namespace ariles
         return (left == right);
     }
 }
+
+
+
+namespace ariles
+{
+    namespace defaults
+    {
+        template <  class t_BetterEnum,
+                    class t_Iterator>
+            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+                    t_Iterator & /*iterator*/,
+                    t_BetterEnum &entry,
+                    const std::string & /*name*/,
+                    const typename t_Iterator::Parameters & /*param*/,
+                    const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
+                    const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
+                    const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
+                    const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
+                    const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
+        {
+            ARILES_TRACE_FUNCTION;
+            entry = t_BetterEnum::_from_integral_unchecked(0);
+        }
+    }
+}
+
+

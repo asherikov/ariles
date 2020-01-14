@@ -83,7 +83,7 @@
 
 namespace ariles
 {
-    struct ArilesNamespaceLookupTrigger
+    struct ARILES_VISIBILITY_ATTRIBUTE ArilesNamespaceLookupTrigger
     {
     };
 
@@ -100,6 +100,7 @@ namespace ariles
     {
     };
 }
+
 
 #include "../configurable_flags.h"
 #include "../bridge_flags.h"

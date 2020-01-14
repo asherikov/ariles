@@ -18,6 +18,7 @@ namespace ariles
     {
         public:
             typedef int ReaderIndicatorType;
+            typedef ariles::ConfigurableFlags Parameters;
 
             enum SizeLimitEnforcementType
             {
@@ -45,7 +46,7 @@ namespace ariles
                     config_ifs.open(file_name_default.c_str());
                 }
                 ARILES_PERSISTENT_ASSERT(   true == config_ifs.good(),
-                                        std::string("Could not open configuration file: ") + file_name.c_str());
+                                            std::string("Could not open configuration file: ") + file_name.c_str());
             }
 
 
@@ -76,6 +77,21 @@ namespace ariles
 
 
         public:
+            template<class t_Configurable>
+            void start(t_Configurable & /*configurable*/, Parameters &param)
+            {
+                if (false == param.isSet(Parameters::PROPAGATE_ALLOW_MISSING_ENTRIES))
+                {
+                    param.set(Parameters::DEFAULT & Parameters::ALLOW_MISSING_ENTRIES);
+                }
+            }
+
+            template<class t_Configurable>
+            void finish(t_Configurable & configurable, Parameters & /*param*/)
+            {
+                configurable.finalize();
+            }
+
             virtual const BridgeFlags & getBridgeFlags() const = 0;
 
 
@@ -123,6 +139,7 @@ namespace ariles
             virtual std::size_t startArray() = 0;
             virtual void shiftArray() = 0;
             virtual void endArray() = 0;
+
 
 
             #define ARILES_BASIC_TYPE(type) \

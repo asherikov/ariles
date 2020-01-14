@@ -17,6 +17,7 @@ namespace ariles
     {
         public:
             typedef int WriterIndicatorType;
+            typedef ariles::ConfigurableFlags Parameters;
 
 
         protected:
@@ -30,7 +31,7 @@ namespace ariles
             {
                 config_ofs.open(file_name.c_str());
 
-                ARILES_PERSISTENT_ASSERT(   true == config_ofs.good(), 
+                ARILES_PERSISTENT_ASSERT(   true == config_ofs.good(),
                                         std::string("Could not open configuration file for writing: ") + file_name.c_str());
             }
 

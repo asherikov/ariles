@@ -37,13 +37,39 @@
     public:
         #ifdef ARILES_ENTRIES
 
+            #define ARILES_NAMED_ENTRY(entry, name)     arilesApply(iterator, entry, name, param);
+            #define ARILES_PARENT(entry)                entry::arilesIterator(iterator, param);
+
+            template<class t_Iterator>
+            void arilesIterator(t_Iterator &iterator, const typename t_Iterator::Parameters &parameters)
+            {
+                typename t_Iterator::Parameters param = parameters; /// @todo something better?
+                iterator.start(*this, param);
+                ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
+                iterator.finish(*this, param);
+            }
+
+
+            template<class t_Iterator>
+            void arilesConstIterator(t_Iterator &iterator, const typename t_Iterator::Parameters &param) const
+            {
+                iterator.start(*this, param);
+                ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
+                iterator.finish(*this, param);
+            }
+
+            #undef ARILES_NAMED_ENTRY
+            #undef ARILES_PARENT
+
+
+
         // Define write method
 
             #define ARILES_NAMED_ENTRY(entry, name)     ARILES_WRITE_NAMED_ENTRY(entry, name)
             #define ARILES_PARENT(entry)                ARILES_WRITE_PARENT(entry);
 
             void writeConfigEntries(ariles::WriterBase & writer,
-                                    const ariles::ConfigurableFlags & param) const
+                                    const ariles::WriterBase::Parameters & param) const
             {
                 ARILES_UNUSED_ARG(writer);
                 ARILES_UNUSED_ARG(param);
@@ -59,34 +85,38 @@
             #define ARILES_PARENT(entry)                ARILES_READ_PARENT(entry);
 
             void readConfigEntries( ariles::ReaderBase & reader,
-                                    const ariles::ConfigurableFlags & parameters)
+                                    const ariles::ReaderBase::Parameters & parameters)
             {
-                ariles::ConfigurableFlags param = parameters;
-                if (false == param.isSet(ariles::ConfigurableFlags::PROPAGATE_ALLOW_MISSING_ENTRIES))
-                {
-                    param.set(ariles::ConfigurableFlags::DEFAULT & ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
-                }
-                ARILES_UNUSED_ARG(reader);
+                ariles::ReaderBase::Parameters param = parameters; /// @todo something better?
+                reader.start(*this, param);
                 ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
-                this->finalize();
+                reader.finish(*this, param);
             }
 
             #undef ARILES_NAMED_ENTRY
             #undef ARILES_PARENT
 
+
+
         // Define initialization method
 
             #ifdef ARILES_AUTO_DEFAULTS
-                #define ARILES_NAMED_ENTRY(entry, name)  ariles::setDefaults(entry, this->getArilesConfigurableFlags());
-                #define ARILES_PARENT(entry)             entry::setDefaults();
-
-                void setDefaults()
+                void arilesSetDefaults(ariles::defaults::Iterator &iterator, const ariles::defaults::Iterator::Parameters &param)
                 {
-                    ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
+                    ARILES_TRACE_FUNCTION;
+                    arilesIterator(iterator, param);
                 }
 
-                #undef ARILES_NAMED_ENTRY
-                #undef ARILES_PARENT
+                using ariles::defaults::Base::arilesSetDefaults;
+            #else
+                void arilesSetDefaults( ariles::defaults::Iterator & /*iterator*/,
+                                        const ariles::defaults::Iterator::Parameters & /*param*/)
+                {
+                    ARILES_TRACE_FUNCTION;
+                    this->setDefaults();
+                }
+
+                using ariles::defaults::Base::arilesSetDefaults;
             #endif
 
 
@@ -249,7 +279,7 @@
                         const std::string   & node_name,
                         const ariles::ConfigurableFlags & param)
         {
-            this->setDefaults();
+            this->arilesSetDefaults();
             ariles::readEntry(reader, *this, node_name, param);
         }
 
@@ -257,7 +287,7 @@
                         const char          * node_name,
                         const ariles::ConfigurableFlags & param)
         {
-            this->setDefaults();
+            this->arilesSetDefaults();
             ariles::readEntry(reader, *this, node_name, param);
         }
 
