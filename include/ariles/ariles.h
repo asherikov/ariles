@@ -15,6 +15,7 @@
 
 #include "internal/helpers.h"
 #include "internal/operators/defaults.h"
+#include "internal/operators/finalize.h"
 #include "internal/reader_base.h"
 #include "internal/writer_base.h"
 
@@ -54,7 +55,9 @@
         /**
          * @brief Configurable base class.
          */
-        class ARILES_VISIBILITY_ATTRIBUTE CommonConfigurableBase : public ariles::defaults::Base
+        class ARILES_VISIBILITY_ATTRIBUTE CommonConfigurableBase
+            :   public ariles::defaults::Base,
+                public ariles::finalize::Base
         {
             protected:
                 /**
@@ -77,21 +80,6 @@
                  * ARILES_SECTION_ID is defined.
                  */
                 virtual const std::string & getConfigSectionID() const = 0;
-
-
-                /**
-                 * @brief This function is called automaticaly after reading
-                 * a configuration file.
-                 */
-                virtual void finalize()
-                {
-                }
-
-                /**
-                 * @brief Automatically generated, finalize()'s Configarable
-                 * members and parents.
-                 */
-                virtual void arilesFinalize() = 0;
 
 
                 /**

@@ -40,18 +40,18 @@
             #define ARILES_NAMED_ENTRY(entry, name)     arilesApply(iterator, entry, name, param);
             #define ARILES_PARENT(entry)                entry::arilesIterator(iterator, param);
 
-            template<class t_Iterator>
-            void arilesIterator(t_Iterator &iterator, const typename t_Iterator::Parameters &parameters)
+            template<class t_Iterator, class t_Parameters>
+            void arilesIterator(t_Iterator &iterator, const t_Parameters &parameters)
             {
-                typename t_Iterator::Parameters param = parameters; /// @todo something better?
+                t_Parameters param = parameters; /// @todo something better?
                 iterator.start(*this, param);
                 ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
                 iterator.finish(*this, param);
             }
 
 
-            template<class t_Iterator>
-            void arilesConstIterator(t_Iterator &iterator, const typename t_Iterator::Parameters &param) const
+            template<class t_Iterator, class t_Parameters>
+            void arilesConstIterator(t_Iterator &iterator, const t_Parameters &param) const
             {
                 iterator.start(*this, param);
                 ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
@@ -101,7 +101,8 @@
         // Define initialization method
 
             #ifdef ARILES_AUTO_DEFAULTS
-                void arilesSetDefaults(ariles::defaults::Iterator &iterator, const ariles::defaults::Iterator::Parameters &param)
+                void arilesSetDefaults( ariles::defaults::Iterator &iterator,
+                                        const ariles::defaults::Iterator::DefaultsParameters &param)
                 {
                     ARILES_TRACE_FUNCTION;
                     arilesIterator(iterator, param);
@@ -110,7 +111,7 @@
                 using ariles::defaults::Base::arilesSetDefaults;
             #else
                 void arilesSetDefaults( ariles::defaults::Iterator & /*iterator*/,
-                                        const ariles::defaults::Iterator::Parameters & /*param*/)
+                                        const ariles::defaults::Iterator::DefaultsParameters & /*param*/)
                 {
                     ARILES_TRACE_FUNCTION;
                     this->setDefaults();
@@ -121,18 +122,13 @@
 
 
             #ifndef ARILES_NO_AUTO_FINALIZE
-                #define ARILES_NAMED_ENTRY(entry, name)  ARILES_TRACE_ENTRY(entry); ariles::finalize(entry, ariles::ArilesNamespaceLookupTrigger());
-                #define ARILES_PARENT(entry)             ARILES_TRACE_ENTRY(entry); entry::arilesFinalize();
-
-                void arilesFinalize()
+                void arilesFinalize(ariles::finalize::Iterator &iterator,
+                                    const ariles::finalize::Iterator::FinalizeParameters &param)
                 {
-                    ARILES_TRACE_FUNCTION;
-                    ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
-                    this->finalize();
+                    arilesIterator(iterator, param);
                 }
 
-                #undef ARILES_NAMED_ENTRY
-                #undef ARILES_PARENT
+                using ariles::finalize::Base::arilesFinalize;
             #endif
 
 

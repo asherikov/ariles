@@ -51,21 +51,6 @@ namespace ariles
     }
 
 
-
-    template <  typename t_VectorEntryType,
-                class t_Allocator>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        finalize(   std::vector<t_VectorEntryType, t_Allocator> & entry,
-                    const ArilesNamespaceLookupTrigger &trigger)
-    {
-        ARILES_TRACE_FUNCTION;
-        for (std::size_t i = 0; i < entry.size(); ++i)
-        {
-            finalize(entry[i], trigger);
-        }
-    }
-
-
     template <  typename t_VectorEntryType,
                 class t_Allocator>
         bool ARILES_VISIBILITY_ATTRIBUTE
@@ -97,14 +82,14 @@ namespace ariles
 {
     namespace defaults
     {
-        template <  typename t_VectorEntryType,
-                    class t_Allocator,
-                    class t_Iterator>
+        template <  class t_Iterator,
+                    typename t_VectorEntryType,
+                    class t_Allocator>
             void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
                     t_Iterator & /*iterator*/,
                     std::vector<t_VectorEntryType, t_Allocator> & entry,
                     const std::string & /*name*/,
-                    const typename t_Iterator::Parameters & /*param*/)
+                    const typename t_Iterator::DefaultsParameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
             entry.clear();
@@ -112,3 +97,26 @@ namespace ariles
     }
 }
 
+
+
+namespace ariles
+{
+    namespace finalize
+    {
+        template <  class t_Iterator,
+                    typename t_VectorEntryType,
+                    class t_Allocator>
+            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+                    t_Iterator & iterator,
+                    std::vector<t_VectorEntryType, t_Allocator> & entry,
+                    const std::string & /*name*/,
+                    const typename t_Iterator::FinalizeParameters & param)
+        {
+            ARILES_TRACE_FUNCTION;
+            for (std::size_t i = 0; i < entry.size(); ++i)
+            {
+                arilesApply(iterator, entry[i], "", param);
+            }
+        }
+    }
+}

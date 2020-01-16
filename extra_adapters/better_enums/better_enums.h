@@ -50,20 +50,6 @@ namespace ariles
 
 
     template <class t_BetterEnum>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        finalize(   t_BetterEnum & /*entry*/,
-                    const ArilesNamespaceLookupTrigger &,
-                    const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
-                    const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
-                    const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
-                    const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
-                    const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
-    {
-        ARILES_TRACE_FUNCTION;
-    }
-
-
-    template <class t_BetterEnum>
         bool ARILES_VISIBILITY_ATTRIBUTE
         compare(const t_BetterEnum &left,
                 const t_BetterEnum &right,
@@ -85,13 +71,13 @@ namespace ariles
 {
     namespace defaults
     {
-        template <  class t_BetterEnum,
-                    class t_Iterator>
+        template <  class t_Iterator, 
+                    class t_BetterEnum>
             void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
                     t_Iterator & /*iterator*/,
                     t_BetterEnum &entry,
                     const std::string & /*name*/,
-                    const typename t_Iterator::Parameters & /*param*/,
+                    const typename t_Iterator::DefaultsParameters & /*param*/,
                     const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
@@ -105,3 +91,25 @@ namespace ariles
 }
 
 
+
+namespace ariles
+{
+    namespace finalize
+    {
+        template <  class t_Iterator, 
+                    class t_BetterEnum>
+            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+                        t_Iterator & /*iterator*/,
+                        t_BetterEnum & /*entry*/,
+                        const std::string & /*name*/,
+                        const typename t_Iterator::FinalizeParameters & /*param*/,
+                        const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
+                        const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
+                        const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
+                        const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
+                        const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
+        {
+            ARILES_TRACE_FUNCTION;
+        }
+    }
+}

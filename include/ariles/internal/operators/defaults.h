@@ -19,14 +19,14 @@ namespace ariles
         class ARILES_VISIBILITY_ATTRIBUTE Iterator
         {
             public:
-                class Parameters
+                class DefaultsParameters
                 {
                     public:
                         double default_double_value_;
                         float default_float_value_;
 
                     public:
-                        Parameters()
+                        DefaultsParameters()
                         {
                             default_double_value_ = ARILES_DEFAULT_DOUBLE_VALUE;
                             default_float_value_ = ARILES_DEFAULT_FLOAT_VALUE;
@@ -42,38 +42,38 @@ namespace ariles
 
             public:
                 template<class t_Configurable>
-                void start(t_Configurable & /*configurable*/, Parameters & /*param*/)
+                void start(t_Configurable & /*configurable*/, DefaultsParameters & /*param*/)
                 {
                     ARILES_TRACE_FUNCTION;
                 }
 
                 template<class t_Configurable>
-                void finish(t_Configurable & /*configurable*/, Parameters & /*param*/)
+                void finish(t_Configurable & /*configurable*/, DefaultsParameters & /*param*/)
                 {
                     ARILES_TRACE_FUNCTION;
                 }
         };
 
         template<>
-        inline double Iterator::Parameters::getDefault<double>() const
+        inline double Iterator::DefaultsParameters::getDefault<double>() const
         {
             return default_double_value_;
         }
 
         template<>
-        inline float Iterator::Parameters::getDefault<float>() const
+        inline float Iterator::DefaultsParameters::getDefault<float>() const
         {
             return default_float_value_;
         }
 
         template<>
-        inline bool Iterator::Parameters::getDefault<bool>() const
+        inline bool Iterator::DefaultsParameters::getDefault<bool>() const
         {
             return false;
         }
 
         template<>
-        inline std::string Iterator::Parameters::getDefault<std::string>() const
+        inline std::string Iterator::DefaultsParameters::getDefault<std::string>() const
         {
             return "";
         }
@@ -85,7 +85,8 @@ namespace ariles
                 /**
                  * @brief Set members to their default values.
                  */
-                virtual void arilesSetDefaults(ariles::defaults::Iterator &, const ariles::defaults::Iterator::Parameters &) = 0;
+                virtual void arilesSetDefaults( ariles::defaults::Iterator &,
+                                                const ariles::defaults::Iterator::DefaultsParameters &) = 0;
                 virtual void arilesSetDefaults()
                 {
                     ARILES_TRACE_FUNCTION;

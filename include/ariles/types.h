@@ -188,15 +188,16 @@ namespace ariles
             }
 
 
-            void arilesFinalize()
+            void arilesFinalize(ariles::finalize::Iterator & iterator, const ariles::finalize::Iterator::FinalizeParameters & param)
             {
                 if (true == isInitialized())
                 {
-                    value_->finalize();
+                    value_->arilesFinalize(iterator, param);
                 }
             }
+            using ariles::CommonConfigurableBase::arilesFinalize;
 
-            void arilesSetDefaults(ariles::defaults::Iterator & /*iterator*/, const ariles::defaults::Iterator::Parameters & /*param*/)
+            void arilesSetDefaults(ariles::defaults::Iterator & /*iterator*/, const ariles::defaults::Iterator::DefaultsParameters & /*param*/)
             {
                 id_ = "";
                 value_.reset();
@@ -321,13 +322,14 @@ namespace ariles
             }
 
 
-            void arilesFinalize()
+            void arilesFinalize(ariles::finalize::Iterator & /*iterator*/, const ariles::finalize::Iterator::FinalizeParameters & /*param*/)
             {
                 ARILES_ASSERT(false == isNull(), "Not initialized");
             }
+            using ariles::CommonConfigurableBase::arilesFinalize;
 
 
-            void arilesSetDefaults(ariles::defaults::Iterator & iterator, const ariles::defaults::Iterator::Parameters & param)
+            void arilesSetDefaults(ariles::defaults::Iterator & iterator, const ariles::defaults::Iterator::DefaultsParameters & param)
             {
                 Handler::allocate(value_);
                 value_->arilesSetDefaults(iterator, param);

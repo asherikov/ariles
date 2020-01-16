@@ -83,11 +83,6 @@
 
 namespace ariles
 {
-    struct ARILES_VISIBILITY_ATTRIBUTE ArilesNamespaceLookupTrigger
-    {
-    };
-
-
     struct ARILES_VISIBILITY_ATTRIBUTE BridgeSelectorBase
     {
         public:

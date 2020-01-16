@@ -104,19 +104,6 @@ namespace ariles
     }
 
 
-
-    template <  typename t_First,
-                typename t_Second>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        finalize(   std::pair<t_First, t_Second> &entry,
-                    const ArilesNamespaceLookupTrigger &trigger)
-    {
-        ARILES_TRACE_FUNCTION;
-        finalize(entry.first, trigger);
-        finalize(entry.second, trigger);
-    }
-
-
     template <  typename t_First,
                 typename t_Second>
         bool ARILES_VISIBILITY_ATTRIBUTE
@@ -146,14 +133,14 @@ namespace ariles
 {
     namespace defaults
     {
-        template <  typename t_First,
-                    typename t_Second,
-                    class t_Iterator>
+        template <  class t_Iterator, 
+                    typename t_First,
+                    typename t_Second>
             void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
                     t_Iterator & iterator,
                     std::pair<t_First, t_Second> & entry,
                     const std::string & /*name*/,
-                    const typename t_Iterator::Parameters & param)
+                    const typename t_Iterator::DefaultsParameters & param)
         {
             ARILES_TRACE_FUNCTION;
             arilesApply(iterator, entry.first, "", param);
@@ -162,3 +149,24 @@ namespace ariles
     }
 }
 
+
+
+namespace ariles
+{
+    namespace finalize
+    {
+        template <  class t_Iterator, 
+                    typename t_First,
+                    typename t_Second>
+            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+                    t_Iterator & iterator,
+                    std::pair<t_First, t_Second> &entry,
+                    const std::string & /*name*/,
+                    const typename t_Iterator::FinalizeParameters & param)
+        {
+            ARILES_TRACE_FUNCTION;
+            arilesApply(iterator, entry.first, "", param);
+            arilesApply(iterator, entry.second, "", param);
+        }
+    }
+}

@@ -67,19 +67,6 @@ namespace ariles
 
 
     template <typename t_Entry>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        finalize(   ARILES_POINTER_TYPE<t_Entry> &entry,
-                    const ArilesNamespaceLookupTrigger &trigger)
-    {
-        ARILES_TRACE_FUNCTION;
-        if (false == (PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(entry)))
-        {
-            finalize(*entry, trigger);
-        }
-    }
-
-
-    template <typename t_Entry>
         bool ARILES_VISIBILITY_ATTRIBUTE
         compare(const ARILES_POINTER_TYPE<t_Entry> &left,
                 const ARILES_POINTER_TYPE<t_Entry> &right,
@@ -116,12 +103,13 @@ namespace ariles
 {
     namespace defaults
     {
-        template <typename t_Entry, class t_Iterator>
+        template <  class t_Iterator, 
+                    typename t_Entry>
             void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
                     t_Iterator & /*iterator*/,
                     ARILES_POINTER_TYPE<t_Entry> & entry,
                     const std::string & /*name*/,
-                    const typename t_Iterator::Parameters & /*param*/)
+                    const typename t_Iterator::DefaultsParameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
             PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::reset(entry);
@@ -129,6 +117,27 @@ namespace ariles
     }
 }
 
+
+namespace ariles
+{
+    namespace finalize
+    {
+        template <  class t_Iterator, 
+                    typename t_Entry>
+            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+                    t_Iterator & iterator,
+                    ARILES_POINTER_TYPE<t_Entry> &entry,
+                    const std::string & name,
+                    const typename t_Iterator::FinalizeParameters & param)
+        {
+            ARILES_TRACE_FUNCTION;
+            if (false == (PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(entry)))
+            {
+                arilesApply(iterator, *entry, name, param);
+            }
+        }
+    }
+}
 
 
 #undef ARILES_POINTER_HANDLER
