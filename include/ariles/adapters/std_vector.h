@@ -85,10 +85,9 @@ namespace ariles
         template <  class t_Iterator,
                     typename t_VectorEntryType,
                     class t_Allocator>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                     t_Iterator & /*iterator*/,
                     std::vector<t_VectorEntryType, t_Allocator> & entry,
-                    const std::string & /*name*/,
                     const typename t_Iterator::DefaultsParameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
@@ -106,16 +105,15 @@ namespace ariles
         template <  class t_Iterator,
                     typename t_VectorEntryType,
                     class t_Allocator>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                     t_Iterator & iterator,
                     std::vector<t_VectorEntryType, t_Allocator> & entry,
-                    const std::string & /*name*/,
                     const typename t_Iterator::FinalizeParameters & param)
         {
             ARILES_TRACE_FUNCTION;
             for (std::size_t i = 0; i < entry.size(); ++i)
             {
-                arilesApply(iterator, entry[i], "", param);
+                apply(iterator, entry[i], param);
             }
         }
     }

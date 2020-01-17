@@ -69,6 +69,17 @@
 
 
             public:
+                using ariles::defaults::Base::arilesApply;
+                using ariles::finalize::Base::arilesApply;
+
+                template <class t_Iterator>
+                    void arilesApply()
+                {
+                    t_Iterator iterator;
+                    arilesApply(iterator);
+                }
+
+
                 /**
                  * @brief Return the default name of a configuration node
                  * corresponding to this class

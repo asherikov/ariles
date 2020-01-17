@@ -73,10 +73,9 @@ namespace ariles
     {
         template <  class t_Iterator, 
                     class t_BetterEnum>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                     t_Iterator & /*iterator*/,
                     t_BetterEnum &entry,
-                    const std::string & /*name*/,
                     const typename t_Iterator::DefaultsParameters & /*param*/,
                     const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
@@ -98,10 +97,9 @@ namespace ariles
     {
         template <  class t_Iterator, 
                     class t_BetterEnum>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                         t_Iterator & /*iterator*/,
                         t_BetterEnum & /*entry*/,
-                        const std::string & /*name*/,
                         const typename t_Iterator::FinalizeParameters & /*param*/,
                         const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
                         const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,

@@ -29,6 +29,7 @@ namespace ariles
                     ARILES_TRACE_FUNCTION;
                 }
 
+
                 template<class t_Configurable>
                 void finish(t_Configurable & configurable, FinalizeParameters & /*param*/)
                 {
@@ -41,23 +42,29 @@ namespace ariles
         class Base
         {
             public:
-                virtual void arilesFinalize(ariles::finalize::Iterator &, const ariles::finalize::Iterator::FinalizeParameters &) = 0;
-                virtual void arilesFinalize()
+                virtual void arilesApply(ariles::finalize::Iterator &, const ariles::finalize::Iterator::FinalizeParameters &) = 0;
+                virtual void arilesApply(ariles::finalize::Iterator & iterator)
                 {
                     ARILES_TRACE_FUNCTION;
 
-                    ariles::finalize::Iterator iterator;
-                    arilesFinalize(iterator, iterator.default_parameters_);
+                    arilesApply(iterator, iterator.default_parameters_);
                 }
 
 
                 /**
-                 * @brief This function is called automaticaly after reading
-                 * a configuration file.
+                 * @todo DEPRECATED
+                 * @{
                  */
+                virtual void arilesFinalize()
+                {
+                    ariles::finalize::Iterator iterator;
+                    arilesApply(iterator);
+                }
+
                 virtual void finalize()
                 {
                 }
+                /// @}
         };
     }
 }

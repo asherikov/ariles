@@ -175,10 +175,9 @@ namespace ariles
                     typename t_Value,
                     class t_Compare,
                     class t_Allocator>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                     t_Iterator & /*iterator*/,
                     std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry,
-                    const std::string & /*name*/,
                     const typename t_Iterator::DefaultsParameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
@@ -197,10 +196,9 @@ namespace ariles
                     typename t_Value,
                     class t_Compare,
                     class t_Allocator>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                     t_Iterator & iterator,
                     std::map<t_Key, t_Value, t_Compare, t_Allocator> &entry,
-                    const std::string & /*name*/,
                     const typename t_Iterator::FinalizeParameters & param)
         {
             ARILES_TRACE_FUNCTION;
@@ -209,8 +207,8 @@ namespace ariles
                 it != entry.end();
                 ++it)
             {
-                //arilesApply(iterator, it->first, "", param);
-                arilesApply(iterator, it->second, "", param);
+                apply(iterator, it->first, param);
+                apply(iterator, it->second, param);
             }
         }
     }

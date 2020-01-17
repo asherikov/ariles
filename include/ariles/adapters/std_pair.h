@@ -136,15 +136,14 @@ namespace ariles
         template <  class t_Iterator, 
                     typename t_First,
                     typename t_Second>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                     t_Iterator & iterator,
                     std::pair<t_First, t_Second> & entry,
-                    const std::string & /*name*/,
                     const typename t_Iterator::DefaultsParameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            arilesApply(iterator, entry.first, "", param);
-            arilesApply(iterator, entry.second, "", param);
+            apply(iterator, entry.first, param);
+            apply(iterator, entry.second, param);
         }
     }
 }
@@ -158,15 +157,14 @@ namespace ariles
         template <  class t_Iterator, 
                     typename t_First,
                     typename t_Second>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                     t_Iterator & iterator,
                     std::pair<t_First, t_Second> &entry,
-                    const std::string & /*name*/,
                     const typename t_Iterator::FinalizeParameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            arilesApply(iterator, entry.first, "", param);
-            arilesApply(iterator, entry.second, "", param);
+            apply(iterator, entry.first, param);
+            apply(iterator, entry.second, param);
         }
     }
 }

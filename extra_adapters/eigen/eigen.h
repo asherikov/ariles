@@ -340,34 +340,11 @@ namespace ariles
         template <  class t_Iterator,
                     typename t_Scalar,
                     int t_rows,
-                    int t_flags>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
-                    t_Iterator & /*iterator*/,
-                    Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
-                    const std::string & /*name*/,
-                    const typename t_Iterator::DefaultsParameters & param)
-        {
-            ARILES_TRACE_FUNCTION;
-            if (Eigen::Dynamic == t_rows)
-            {
-                entry.resize(0);
-            }
-            else
-            {
-                entry.setConstant(param.template getDefault<t_Scalar>());
-            }
-        }
-
-
-        template <  class t_Iterator,
-                    typename t_Scalar,
-                    int t_rows,
                     int t_cols,
                     int t_flags>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                     t_Iterator & /*iterator*/,
                     Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
-                    const std::string & /*name*/,
                     const typename t_Iterator::DefaultsParameters & param)
         {
             ARILES_TRACE_FUNCTION;
@@ -401,10 +378,9 @@ namespace ariles
                     int t_dim,
                     int t_mode,
                     int t_options>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                     t_Iterator & /*iterator*/,
                     Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
-                    const std::string & /*name*/,
                     const typename t_Iterator::DefaultsParameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
@@ -415,10 +391,9 @@ namespace ariles
         template <  class t_Iterator,
                     typename t_Scalar,
                     int t_options>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                     t_Iterator & /*iterator*/,
                     Eigen::Quaternion< t_Scalar, t_options > &entry,
-                    const std::string & /*name*/,
                     const typename t_Iterator::DefaultsParameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
@@ -438,10 +413,9 @@ namespace ariles
                     int t_dim,
                     int t_mode,
                     int t_options>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                     t_Iterator & /*iterator*/,
                     const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & /*entry*/,
-                    const std::string & /*name*/,
                     const typename t_Iterator::FinalizeParameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
@@ -451,10 +425,9 @@ namespace ariles
         template <  class t_Iterator,
                     typename t_Scalar,
                     int t_options>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                     t_Iterator & /*iterator*/,
                     const Eigen::Quaternion< t_Scalar, t_options > &/*entry*/,
-                    const std::string & /*name*/,
                     const typename t_Iterator::FinalizeParameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
@@ -463,10 +436,9 @@ namespace ariles
 
         template <  class t_Iterator,
                     class t_Derived>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                     t_Iterator & /*iterator*/,
                     const Eigen::EigenBase<t_Derived> & /*entry*/,
-                    const std::string & /*name*/,
                     const typename t_Iterator::FinalizeParameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;

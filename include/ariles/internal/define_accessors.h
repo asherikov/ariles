@@ -35,9 +35,12 @@
     #ifndef ARILES_DOXYGEN_PROCESSING
 
     public:
+        using ariles::CommonConfigurableBase::arilesApply;
+
+
         #ifdef ARILES_ENTRIES
 
-            #define ARILES_NAMED_ENTRY(entry, name)     arilesApply(iterator, entry, name, param);
+            #define ARILES_NAMED_ENTRY(entry, name)     arilesEntryApply(iterator, entry, name, param);
             #define ARILES_PARENT(entry)                entry::arilesIterator(iterator, param);
 
             template<class t_Iterator, class t_Parameters>
@@ -51,15 +54,15 @@
 
 
             template<class t_Iterator, class t_Parameters>
-            void arilesConstIterator(t_Iterator &iterator, const t_Parameters &param) const
+            void arilesIterator(t_Iterator &iterator, const t_Parameters &param) const
             {
                 iterator.start(*this, param);
                 ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
                 iterator.finish(*this, param);
             }
 
-            #undef ARILES_NAMED_ENTRY
             #undef ARILES_PARENT
+            #undef ARILES_NAMED_ENTRY
 
 
 
@@ -101,34 +104,28 @@
         // Define initialization method
 
             #ifdef ARILES_AUTO_DEFAULTS
-                void arilesSetDefaults( ariles::defaults::Iterator &iterator,
-                                        const ariles::defaults::Iterator::DefaultsParameters &param)
+                void arilesApply(   ariles::defaults::Iterator &iterator,
+                                    const ariles::defaults::Iterator::DefaultsParameters &param)
                 {
                     ARILES_TRACE_FUNCTION;
                     arilesIterator(iterator, param);
                 }
-
-                using ariles::defaults::Base::arilesSetDefaults;
             #else
-                void arilesSetDefaults( ariles::defaults::Iterator & /*iterator*/,
-                                        const ariles::defaults::Iterator::DefaultsParameters & /*param*/)
+                void arilesApply(   ariles::defaults::Iterator & /*iterator*/,
+                                    const ariles::defaults::Iterator::DefaultsParameters & /*param*/)
                 {
                     ARILES_TRACE_FUNCTION;
                     this->setDefaults();
                 }
-
-                using ariles::defaults::Base::arilesSetDefaults;
             #endif
 
 
             #ifndef ARILES_NO_AUTO_FINALIZE
-                void arilesFinalize(ariles::finalize::Iterator &iterator,
+                void arilesApply(   ariles::finalize::Iterator &iterator,
                                     const ariles::finalize::Iterator::FinalizeParameters &param)
                 {
                     arilesIterator(iterator, param);
                 }
-
-                using ariles::finalize::Base::arilesFinalize;
             #endif
 
 
@@ -275,7 +272,7 @@
                         const std::string   & node_name,
                         const ariles::ConfigurableFlags & param)
         {
-            this->arilesSetDefaults();
+            ariles::CommonConfigurableBase::arilesApply<ariles::defaults::Iterator>();
             ariles::readEntry(reader, *this, node_name, param);
         }
 
@@ -283,7 +280,7 @@
                         const char          * node_name,
                         const ariles::ConfigurableFlags & param)
         {
-            this->arilesSetDefaults();
+            ariles::CommonConfigurableBase::arilesApply<ariles::defaults::Iterator>();
             ariles::readEntry(reader, *this, node_name, param);
         }
 

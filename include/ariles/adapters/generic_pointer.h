@@ -105,10 +105,9 @@ namespace ariles
     {
         template <  class t_Iterator, 
                     typename t_Entry>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                     t_Iterator & /*iterator*/,
                     ARILES_POINTER_TYPE<t_Entry> & entry,
-                    const std::string & /*name*/,
                     const typename t_Iterator::DefaultsParameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
@@ -124,16 +123,15 @@ namespace ariles
     {
         template <  class t_Iterator, 
                     typename t_Entry>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                     t_Iterator & iterator,
                     ARILES_POINTER_TYPE<t_Entry> &entry,
-                    const std::string & name,
                     const typename t_Iterator::FinalizeParameters & param)
         {
             ARILES_TRACE_FUNCTION;
             if (false == (PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(entry)))
             {
-                arilesApply(iterator, *entry, name, param);
+                apply(iterator, *entry, param);
             }
         }
     }

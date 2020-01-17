@@ -260,24 +260,35 @@ namespace ariles
 {
     namespace defaults
     {
-        template<class t_Iterator>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+        template<   class t_Iterator,
+                    class t_Entry>
+            void ARILES_VISIBILITY_ATTRIBUTE arilesEntryApply(
                     t_Iterator & iterator,
-                    ariles::CommonConfigurableBase & entry,
+                    t_Entry & entry,
                     const std::string & /*name*/,
                     const typename t_Iterator::DefaultsParameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            entry.arilesSetDefaults(iterator, param);
+            apply(iterator, entry, param);
+        }
+
+
+        template<class t_Iterator>
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
+                    t_Iterator & iterator,
+                    ariles::CommonConfigurableBase & entry,
+                    const typename t_Iterator::DefaultsParameters & param)
+        {
+            ARILES_TRACE_FUNCTION;
+            entry.arilesApply(iterator, param);
         }
 
 
         template <  class t_Iterator,
                     typename t_Enumeration>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                     t_Iterator & /*iterator*/,
                     t_Enumeration & entry,
-                    const std::string & /*name*/,
                     const typename t_Iterator::DefaultsParameters & /*param*/,
                     ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
         {
@@ -288,19 +299,15 @@ namespace ariles
 
         #define ARILES_BASIC_TYPE(type) \
             template<class t_Iterator> \
-                void ARILES_VISIBILITY_ATTRIBUTE arilesApply( \
+                void ARILES_VISIBILITY_ATTRIBUTE apply( \
                         t_Iterator &, \
                         type & entry, \
-                        const std::string &, \
                         const typename t_Iterator::DefaultsParameters & param) \
                 { \
                     ARILES_TRACE_FUNCTION; \
                     entry = param.template getDefault<type>(); \
                 }
 
-        /**
-         * @brief Generate arilesApply methods for basic types.
-         */
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
         #undef ARILES_BASIC_TYPE
@@ -313,24 +320,35 @@ namespace ariles
 {
     namespace finalize
     {
+        template<   class t_Iterator,
+                    class t_Entry>
+            void ARILES_VISIBILITY_ATTRIBUTE arilesEntryApply(
+                    t_Iterator & iterator,
+                    t_Entry & entry,
+                    const std::string & /*name*/,
+                    const typename t_Iterator::FinalizeParameters & param)
+        {
+            ARILES_TRACE_FUNCTION;
+            apply(iterator, entry, param);
+        }
+
+
         template<class t_Iterator>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                         t_Iterator & iterator,
                         ariles::CommonConfigurableBase & entry,
-                        const std::string & /*name*/,
                         const typename t_Iterator::FinalizeParameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            entry.arilesFinalize(iterator, param);
+            entry.arilesApply(iterator, param);
         }
 
 
         template <  class t_Iterator,
                     typename t_Enumeration>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesApply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
                     t_Iterator & /*iterator*/,
                     t_Enumeration & /*entry*/,
-                    const std::string & /*name*/,
                     const typename t_Iterator::FinalizeParameters & /*param*/,
                     ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
         {
@@ -340,10 +358,9 @@ namespace ariles
 
         #define ARILES_BASIC_TYPE(type) \
             template<class t_Iterator> \
-                void ARILES_VISIBILITY_ATTRIBUTE arilesApply( \
+                void ARILES_VISIBILITY_ATTRIBUTE apply( \
                         t_Iterator &, \
                         const type &, \
-                        const std::string &, \
                         const typename t_Iterator::FinalizeParameters &) \
                 { \
                     ARILES_TRACE_FUNCTION; \
