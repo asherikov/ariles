@@ -102,28 +102,36 @@ namespace ariles
             writer.endMap();
         }
     }
+}
 
 
-    template <  typename t_First,
-                typename t_Second>
-        bool ARILES_VISIBILITY_ATTRIBUTE
-        compare(const std::pair<t_First, t_Second> & left,
-                const std::pair<t_First, t_Second> & right,
-                const ariles::ComparisonParameters & param)
+namespace ariles
+{
+    namespace compare
     {
-        ARILES_TRACE_FUNCTION;
-
-        if (false == compare(left.first, right.first, param))
+        template <  class t_Iterator,
+                    typename t_First,
+                    typename t_Second>
+            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+                    const t_Iterator & iterator,
+                    const std::pair<t_First, t_Second> & left,
+                    const std::pair<t_First, t_Second> & right,
+                    const typename t_Iterator::CompareParameters & param)
         {
-            return (false);
-        }
+            ARILES_TRACE_FUNCTION;
 
-        if (false == compare(left.second, right.second, param))
-        {
-            return (false);
-        }
+            if (false == apply(iterator, left.first, right.first, param))
+            {
+                return (false);
+            }
 
-        return (true);
+            if (false == apply(iterator, left.second, right.second, param))
+            {
+                return (false);
+            }
+
+            return (true);
+        }
     }
 }
 
@@ -133,11 +141,11 @@ namespace ariles
 {
     namespace defaults
     {
-        template <  class t_Iterator, 
+        template <  class t_Iterator,
                     typename t_First,
                     typename t_Second>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator & iterator,
+                    const t_Iterator & iterator,
                     std::pair<t_First, t_Second> & entry,
                     const typename t_Iterator::DefaultsParameters & param)
         {
@@ -154,11 +162,11 @@ namespace ariles
 {
     namespace finalize
     {
-        template <  class t_Iterator, 
+        template <  class t_Iterator,
                     typename t_First,
                     typename t_Second>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator & iterator,
+                    const t_Iterator & iterator,
                     std::pair<t_First, t_Second> &entry,
                     const typename t_Iterator::FinalizeParameters & param)
         {

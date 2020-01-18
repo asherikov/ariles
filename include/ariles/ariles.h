@@ -14,8 +14,9 @@
 #pragma once
 
 #include "internal/helpers.h"
-#include "internal/operators/defaults.h"
-#include "internal/operators/finalize.h"
+#include "operators/defaults.h"
+#include "operators/finalize.h"
+#include "operators/compare.h"
 #include "internal/reader_base.h"
 #include "internal/writer_base.h"
 
@@ -48,6 +49,15 @@
     #define ARILES_READ_PARENT(parent_class)  parent_class::readConfigEntries(reader, param);
 
 
+    #define ARILES_APPLY_METHOD(Operator, Parameters) \
+        void arilesApply(   Operator &iterator, \
+                            Parameters &param) \
+        { \
+            ARILES_TRACE_FUNCTION; \
+            arilesIterator(iterator, param); \
+        }
+
+
     // ----------------------------
 
     namespace ariles
@@ -57,7 +67,8 @@
          */
         class ARILES_VISIBILITY_ATTRIBUTE CommonConfigurableBase
             :   public ariles::defaults::Base,
-                public ariles::finalize::Base
+                public ariles::finalize::Base,
+                public ariles::compare::Base
         {
             protected:
                 /**
@@ -71,6 +82,7 @@
             public:
                 using ariles::defaults::Base::arilesApply;
                 using ariles::finalize::Base::arilesApply;
+                //using ariles::compare::Base::arilesApply;
 
                 template <class t_Iterator>
                     void arilesApply()

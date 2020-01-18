@@ -160,98 +160,109 @@ namespace ariles
         writeBody(writer, entry, param);
         writer.ascend();
     }
+}
 
 
-
-    // ============================================
-
-
-    template<class t_Left, class t_Right>
-        bool ARILES_VISIBILITY_ATTRIBUTE compare(
-                        const t_Left & left,
-                        const t_Right & right,
-                        const ariles::ComparisonParameters & param,
-                        ARILES_IS_CONFIGURABLE_ENABLER_TYPE(t_Left) * = NULL)
+namespace ariles
+{
+    namespace compare
     {
-        return (left.arilesCompare(right, param));
-    }
-
-
-    template <typename t_Enumeration>
-        bool ARILES_VISIBILITY_ATTRIBUTE compare(
-                        const t_Enumeration & left,
-                        const t_Enumeration & right,
-                        const ariles::ComparisonParameters & /*param*/,
-                        ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
-    {
-        return (left == right);
-    }
-
-
-    #define ARILES_BASIC_TYPE(type) \
-            inline bool ARILES_VISIBILITY_ATTRIBUTE compare( \
-                    const type & left,\
-                    const type & right, \
-                    const ariles::ComparisonParameters &) \
-            { return (left == right); }
-
-    /**
-     * @brief Generate compare methods for basic types.
-     */
-    #define ARILES_COMPARE_TYPES_LIST \
-            ARILES_BASIC_INTEGER_TYPES_LIST \
-            ARILES_BASIC_TYPE(bool) \
-            ARILES_BASIC_TYPE(std::string)
-
-    ARILES_MACRO_SUBSTITUTE(ARILES_COMPARE_TYPES_LIST)
-
-    #undef ARILES_BASIC_TYPE
-
-
-	template <typename t_Scalar>
-    inline bool ARILES_VISIBILITY_ATTRIBUTE compareFloats(
-            const t_Scalar left, const t_Scalar right, const ariles::ComparisonParameters & param)
-    {
-        if (isNaN(left))
+        template<   class t_Iterator,
+                    class t_Left,
+                    class t_Right>
+            void ARILES_VISIBILITY_ATTRIBUTE arilesEntryApply(
+                    t_Iterator & iterator,
+                    const t_Left & left,
+                    const t_Right & right,
+                    const std::string & name,
+                    const typename t_Iterator::CompareParameters & param)
         {
-            if (isNaN(right))
-            {
-				return (param.nan_equal_);
-            }
-            else
-            {
-                return (false);
-            }
-        }
+            ARILES_TRACE_FUNCTION;
 
-        if (isInfinity(left))
-        {
-            if (isInfinity(right))
+            try
             {
-                if (((left > 0) && (right > 0)) || ((left < 0) && (right < 0)))
+                if (false == apply(iterator, left, right, param))
                 {
-					return (param.inf_equal_);
+                    ARILES_THROW("");
                 }
             }
-            return (false);
+            catch (const std::exception & e)
+            {
+                ARILES_THROW("entry: " + name + " // " + std::string(e.what()));
+            }
         }
 
-        return (std::abs(left - right) <=
-                ( (std::abs(left) < std::abs(right) ? std::abs(right) : std::abs(left)) * param.double_tolerance_));
-    }
+
+        template<   class t_Iterator,
+                    class t_Left,
+                    class t_Right>
+            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+                    t_Iterator & /*iterator*/,
+                    const t_Left & left,
+                    const t_Right & right,
+                    const typename t_Iterator::CompareParameters & param,
+                    ARILES_IS_CONFIGURABLE_ENABLER_TYPE(t_Left) * = NULL)
+        {
+            return (left.arilesCompare(right, param));
+        }
 
 
-    inline bool ARILES_VISIBILITY_ATTRIBUTE compare(
-            const float left, const float right, const ariles::ComparisonParameters & param)
-    {
-        return (compareFloats(left, right, param));
-    }
+        template <  class t_Iterator,
+                    typename t_Enumeration>
+            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+                    const t_Iterator & /*iterator*/,
+                    const t_Enumeration & left,
+                    const t_Enumeration & right,
+                    const typename t_Iterator::CompareParameters & /*param*/,
+                    ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
+        {
+            return (left == right);
+        }
 
 
-    inline bool ARILES_VISIBILITY_ATTRIBUTE compare(
-            const double left, const double right, const ariles::ComparisonParameters & param)
-    {
-        return (compareFloats(left, right, param));
+        #define ARILES_BASIC_TYPE(type) \
+                template <class t_Iterator> \
+                    inline bool ARILES_VISIBILITY_ATTRIBUTE apply( \
+                            const t_Iterator &, \
+                            const type & left, \
+                            const type & right, \
+                            const typename t_Iterator::CompareParameters &) \
+                { return (left == right); }
+
+        /**
+         * @brief Generate compare methods for basic types.
+         */
+        #define ARILES_COMPARE_TYPES_LIST \
+                ARILES_BASIC_INTEGER_TYPES_LIST \
+                ARILES_BASIC_TYPE(bool) \
+                ARILES_BASIC_TYPE(std::string)
+
+        ARILES_MACRO_SUBSTITUTE(ARILES_COMPARE_TYPES_LIST)
+
+        #undef ARILES_BASIC_TYPE
+
+
+
+        template<class t_Iterator>
+            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+                    const t_Iterator & iterator,
+                    const float & left,
+                    const float & right,
+                    const typename t_Iterator::CompareParameters & param)
+        {
+            return (iterator.compareFloats(left, right, param));
+        }
+
+
+        template<class t_Iterator>
+            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+                    const t_Iterator & iterator,
+                    const double & left,
+                    const double & right,
+                    const typename t_Iterator::CompareParameters & param)
+        {
+            return (iterator.compareFloats(left, right, param));
+        }
     }
 }
 
@@ -263,7 +274,7 @@ namespace ariles
         template<   class t_Iterator,
                     class t_Entry>
             void ARILES_VISIBILITY_ATTRIBUTE arilesEntryApply(
-                    t_Iterator & iterator,
+                    const t_Iterator & iterator,
                     t_Entry & entry,
                     const std::string & /*name*/,
                     const typename t_Iterator::DefaultsParameters & param)
@@ -275,7 +286,7 @@ namespace ariles
 
         template<class t_Iterator>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator & iterator,
+                    const t_Iterator & iterator,
                     ariles::CommonConfigurableBase & entry,
                     const typename t_Iterator::DefaultsParameters & param)
         {
@@ -287,7 +298,7 @@ namespace ariles
         template <  class t_Iterator,
                     typename t_Enumeration>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator & /*iterator*/,
+                    const t_Iterator & /*iterator*/,
                     t_Enumeration & entry,
                     const typename t_Iterator::DefaultsParameters & /*param*/,
                     ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
@@ -300,7 +311,7 @@ namespace ariles
         #define ARILES_BASIC_TYPE(type) \
             template<class t_Iterator> \
                 void ARILES_VISIBILITY_ATTRIBUTE apply( \
-                        t_Iterator &, \
+                        const t_Iterator &, \
                         type & entry, \
                         const typename t_Iterator::DefaultsParameters & param) \
                 { \
@@ -323,7 +334,7 @@ namespace ariles
         template<   class t_Iterator,
                     class t_Entry>
             void ARILES_VISIBILITY_ATTRIBUTE arilesEntryApply(
-                    t_Iterator & iterator,
+                    const t_Iterator & iterator,
                     t_Entry & entry,
                     const std::string & /*name*/,
                     const typename t_Iterator::FinalizeParameters & param)
@@ -335,7 +346,7 @@ namespace ariles
 
         template<class t_Iterator>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                        t_Iterator & iterator,
+                        const t_Iterator & iterator,
                         ariles::CommonConfigurableBase & entry,
                         const typename t_Iterator::FinalizeParameters & param)
         {
@@ -347,7 +358,7 @@ namespace ariles
         template <  class t_Iterator,
                     typename t_Enumeration>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator & /*iterator*/,
+                    const t_Iterator & /*iterator*/,
                     t_Enumeration & /*entry*/,
                     const typename t_Iterator::FinalizeParameters & /*param*/,
                     ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
@@ -359,7 +370,7 @@ namespace ariles
         #define ARILES_BASIC_TYPE(type) \
             template<class t_Iterator> \
                 void ARILES_VISIBILITY_ATTRIBUTE apply( \
-                        t_Iterator &, \
+                        const t_Iterator &, \
                         const type &, \
                         const typename t_Iterator::FinalizeParameters &) \
                 { \

@@ -24,14 +24,16 @@ namespace ariles
 
             public:
                 template<class t_Configurable>
-                void start(t_Configurable & /*configurable*/, FinalizeParameters & /*param*/)
+                    void start( const t_Configurable &,
+                                const FinalizeParameters &) const
                 {
                     ARILES_TRACE_FUNCTION;
                 }
 
 
                 template<class t_Configurable>
-                void finish(t_Configurable & configurable, FinalizeParameters & /*param*/)
+                    void finish(t_Configurable & configurable,
+                                const FinalizeParameters &) const
                 {
                     ARILES_TRACE_FUNCTION;
                     configurable.finalize();
@@ -42,11 +44,12 @@ namespace ariles
         class Base
         {
             public:
-                virtual void arilesApply(ariles::finalize::Iterator &, const ariles::finalize::Iterator::FinalizeParameters &) = 0;
-                virtual void arilesApply(ariles::finalize::Iterator & iterator)
+                virtual void arilesApply(   const ariles::finalize::Iterator &,
+                                            const ariles::finalize::Iterator::FinalizeParameters &) = 0;
+
+                void arilesApply(const ariles::finalize::Iterator & iterator)
                 {
                     ARILES_TRACE_FUNCTION;
-
                     arilesApply(iterator, iterator.default_parameters_);
                 }
 
@@ -57,8 +60,7 @@ namespace ariles
                  */
                 virtual void arilesFinalize()
                 {
-                    ariles::finalize::Iterator iterator;
-                    arilesApply(iterator);
+                    arilesApply(ariles::finalize::Iterator());
                 }
 
                 virtual void finalize()

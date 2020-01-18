@@ -285,49 +285,58 @@ namespace ariles
 
         writer.endMap();
     }
+}
 
 
 
-    // ====================================================
-
-
-    template <  typename t_Scalar,
-                int t_dim,
-                int t_mode,
-                int t_options>
-        bool ARILES_VISIBILITY_ATTRIBUTE
-        compare(const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & left,
-                const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & right,
-                const ariles::ComparisonParameters & param)
+namespace ariles
+{
+    namespace compare
     {
-        ARILES_TRACE_FUNCTION;
-        return (left.isApprox(right, param.getTolerance<t_Scalar>()));
-    }
+        template <  class t_Iterator,
+                    typename t_Scalar,
+                    int t_dim,
+                    int t_mode,
+                    int t_options>
+            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+                    const t_Iterator & /*iterator*/,
+                    const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & left,
+                    const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & right,
+                    const typename t_Iterator::CompareParameters & param)
+        {
+            ARILES_TRACE_FUNCTION;
+            return (left.isApprox(right, param.template getTolerance<t_Scalar>()));
+        }
 
 
-    template <  typename t_Scalar,
-                int t_options>
-        bool ARILES_VISIBILITY_ATTRIBUTE
-        compare(const Eigen::Quaternion< t_Scalar, t_options > &left,
-                const Eigen::Quaternion< t_Scalar, t_options > &right,
-                const ariles::ComparisonParameters & param)
-    {
-        ARILES_TRACE_FUNCTION;
-        return (left.isApprox(right, param.getTolerance<t_Scalar>()));
-    }
+        template <  class t_Iterator,
+                    typename t_Scalar,
+                    int t_options>
+            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+                    const t_Iterator & /*iterator*/,
+                    const Eigen::Quaternion< t_Scalar, t_options > &left,
+                    const Eigen::Quaternion< t_Scalar, t_options > &right,
+                    const typename t_Iterator::CompareParameters & param)
+        {
+            ARILES_TRACE_FUNCTION;
+            return (left.isApprox(right, param.template getTolerance<t_Scalar>()));
+        }
 
 
-    template <  typename t_Scalar,
-                int t_rows,
-                int t_cols,
-                int t_flags>
-        bool ARILES_VISIBILITY_ATTRIBUTE
-        compare(const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> & left,
-                const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> & right,
-                const ariles::ComparisonParameters & param)
-    {
-        ARILES_TRACE_FUNCTION;
-        return (left.isApprox(right, param.getTolerance<t_Scalar>()));
+        template <  class t_Iterator,
+                    typename t_Scalar,
+                    int t_rows,
+                    int t_cols,
+                    int t_flags>
+            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+                    const t_Iterator & /*iterator*/,
+                    const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> & left,
+                    const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> & right,
+                    const typename t_Iterator::CompareParameters & param)
+        {
+            ARILES_TRACE_FUNCTION;
+            return (left.isApprox(right, param.template getTolerance<t_Scalar>()));
+        }
     }
 }
 
@@ -343,7 +352,7 @@ namespace ariles
                     int t_cols,
                     int t_flags>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator & /*iterator*/,
+                    const t_Iterator & /*iterator*/,
                     Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
                     const typename t_Iterator::DefaultsParameters & param)
         {
@@ -379,7 +388,7 @@ namespace ariles
                     int t_mode,
                     int t_options>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator & /*iterator*/,
+                    const t_Iterator & /*iterator*/,
                     Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
                     const typename t_Iterator::DefaultsParameters & /*param*/)
         {
@@ -392,7 +401,7 @@ namespace ariles
                     typename t_Scalar,
                     int t_options>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator & /*iterator*/,
+                    const t_Iterator & /*iterator*/,
                     Eigen::Quaternion< t_Scalar, t_options > &entry,
                     const typename t_Iterator::DefaultsParameters & /*param*/)
         {
@@ -414,7 +423,7 @@ namespace ariles
                     int t_mode,
                     int t_options>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator & /*iterator*/,
+                    const t_Iterator & /*iterator*/,
                     const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & /*entry*/,
                     const typename t_Iterator::FinalizeParameters & /*param*/)
         {
@@ -426,7 +435,7 @@ namespace ariles
                     typename t_Scalar,
                     int t_options>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator & /*iterator*/,
+                    const t_Iterator & /*iterator*/,
                     const Eigen::Quaternion< t_Scalar, t_options > &/*entry*/,
                     const typename t_Iterator::FinalizeParameters & /*param*/)
         {
@@ -437,7 +446,7 @@ namespace ariles
         template <  class t_Iterator,
                     class t_Derived>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator & /*iterator*/,
+                    const t_Iterator & /*iterator*/,
                     const Eigen::EigenBase<t_Derived> & /*entry*/,
                     const typename t_Iterator::FinalizeParameters & /*param*/)
         {

@@ -188,7 +188,8 @@ namespace ariles
             }
 
 
-            void arilesApply(ariles::finalize::Iterator & iterator, const ariles::finalize::Iterator::FinalizeParameters & param)
+            void arilesApply(   const ariles::finalize::Iterator & iterator,
+                                const ariles::finalize::Iterator::FinalizeParameters & param)
             {
                 if (true == isInitialized())
                 {
@@ -196,7 +197,8 @@ namespace ariles
                 }
             }
 
-            void arilesApply(ariles::defaults::Iterator & /*iterator*/, const ariles::defaults::Iterator::DefaultsParameters & /*param*/)
+            void arilesApply(   const ariles::defaults::Iterator & /*iterator*/,
+                                const ariles::defaults::Iterator::DefaultsParameters & /*param*/)
             {
                 id_ = "";
                 value_.reset();
@@ -210,28 +212,26 @@ namespace ariles
 
 
             template<class t_Other>
-            bool arilesCompare(const t_Other &other, const ariles::ComparisonParameters &param) const
+            bool arilesCompare( const t_Other &other,
+                                const ariles::compare::Iterator::CompareParameters &param) const
             {
                 ARILES_TRACE_FUNCTION;
-                if (true == param.compare_number_of_entries_)
+                try
                 {
-                    if (getNumberOfEntries() != other.getNumberOfEntries())
+                    ariles::compare::Iterator iterator;
+
+                    iterator.start(*this, other, param);
+                    arilesEntryApply(iterator, id_, other.id_, "id", param);
+                    arilesEntryApply(iterator, value_, other.value_, "value", param);
+                    iterator.finish(*this, other, param);
+                    return (true);
+                }
+                catch (std::exception &e)
+                {
+                    if (true == param.throw_on_error_)
                     {
-                        return (false);
+                        ARILES_THROW(std::string("Comparison failed: ") + e.what());
                     }
-                }
-
-                if (this->id_ != other.id_)
-                {
-                    return (false);
-                }
-
-                if (NULL != value_.get() && NULL != other.value_.get())
-                {
-                    return (ariles::compare(*value_, *(other.value_), param));
-                }
-                else
-                {
                     return (false);
                 }
             }
@@ -320,12 +320,14 @@ namespace ariles
             }
 
 
-            void arilesApply(ariles::finalize::Iterator & /*iterator*/, const ariles::finalize::Iterator::FinalizeParameters & /*param*/)
+            void arilesApply(   const ariles::finalize::Iterator & /*iterator*/,
+                                const ariles::finalize::Iterator::FinalizeParameters & /*param*/)
             {
                 ARILES_ASSERT(false == isNull(), "Not initialized");
             }
 
-            void arilesApply(ariles::defaults::Iterator & iterator, const ariles::defaults::Iterator::DefaultsParameters & param)
+            void arilesApply(   const ariles::defaults::Iterator & iterator,
+                                const ariles::defaults::Iterator::DefaultsParameters & param)
             {
                 Handler::allocate(value_);
                 value_->arilesApply(iterator, param);
@@ -346,7 +348,8 @@ namespace ariles
 
 
             template<class t_Other>
-            bool arilesCompare(const t_Other &other, const ariles::ComparisonParameters &param) const
+            bool arilesCompare( const t_Other &other,
+                                const ariles::compare::Iterator::CompareParameters &param) const
             {
                 ARILES_TRACE_FUNCTION;
                 return (value_->arilesCompare(*other.value_, param));

@@ -47,21 +47,28 @@ namespace ariles
     {
         writer.writeElement(std::string(entry._to_string()));
     }
+}
 
 
-    template <class t_BetterEnum>
-        bool ARILES_VISIBILITY_ATTRIBUTE
-        compare(const t_BetterEnum &left,
-                const t_BetterEnum &right,
-                const ariles::ComparisonParameters & /*param*/,
-                const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
+namespace ariles
+{
+    namespace compare
     {
-        ARILES_TRACE_FUNCTION;
-        return (left == right);
+        template <class t_Iterator, class t_BetterEnum>
+            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+                    const t_Iterator & /*iterator*/,
+                    const t_BetterEnum &left,
+                    const t_BetterEnum &right,
+                    const typename t_Iterator::CompareParameters & /*param*/,
+                    const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
+                    const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
+                    const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
+                    const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
+                    const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
+        {
+            ARILES_TRACE_FUNCTION;
+            return (left == right);
+        }
     }
 }
 
@@ -71,7 +78,7 @@ namespace ariles
 {
     namespace defaults
     {
-        template <  class t_Iterator, 
+        template <  class t_Iterator,
                     class t_BetterEnum>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
                     t_Iterator & /*iterator*/,
@@ -95,7 +102,7 @@ namespace ariles
 {
     namespace finalize
     {
-        template <  class t_Iterator, 
+        template <  class t_Iterator,
                     class t_BetterEnum>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
                         t_Iterator & /*iterator*/,

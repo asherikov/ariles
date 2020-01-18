@@ -64,35 +64,42 @@ namespace ariles
             writer.endMap();
         }
     }
+}
 
 
-    template <typename t_Entry>
-        bool ARILES_VISIBILITY_ATTRIBUTE
-        compare(const ARILES_POINTER_TYPE<t_Entry> &left,
-                const ARILES_POINTER_TYPE<t_Entry> &right,
-                const ariles::ComparisonParameters & param)
+namespace ariles
+{
+    namespace compare
     {
-        ARILES_TRACE_FUNCTION;
-        if (true == PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(left))
+        template <class t_Iterator, typename t_Entry>
+            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+                    const t_Iterator & iterator,
+                    const ARILES_POINTER_TYPE<t_Entry> &left,
+                    const ARILES_POINTER_TYPE<t_Entry> &right,
+                    const typename t_Iterator::CompareParameters & param)
         {
-            if (true == PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(right))
+            ARILES_TRACE_FUNCTION;
+            if (true == PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(left))
             {
-                return (true);
+                if (true == PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(right))
+                {
+                    return (true);
+                }
+                else
+                {
+                    return (false);
+                }
             }
             else
             {
-                return (false);
-            }
-        }
-        else
-        {
-            if (true == PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(right))
-            {
-                return (false);
-            }
-            else
-            {
-                return (compare(*left, *right, param));
+                if (true == PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(right))
+                {
+                    return (false);
+                }
+                else
+                {
+                    return (apply(iterator, *left, *right, param));
+                }
             }
         }
     }
@@ -103,10 +110,10 @@ namespace ariles
 {
     namespace defaults
     {
-        template <  class t_Iterator, 
+        template <  class t_Iterator,
                     typename t_Entry>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator & /*iterator*/,
+                    const t_Iterator & /*iterator*/,
                     ARILES_POINTER_TYPE<t_Entry> & entry,
                     const typename t_Iterator::DefaultsParameters & /*param*/)
         {
@@ -121,10 +128,10 @@ namespace ariles
 {
     namespace finalize
     {
-        template <  class t_Iterator, 
+        template <  class t_Iterator,
                     typename t_Entry>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator & iterator,
+                    const t_Iterator & iterator,
                     ARILES_POINTER_TYPE<t_Entry> &entry,
                     const typename t_Iterator::FinalizeParameters & param)
         {

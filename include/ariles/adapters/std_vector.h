@@ -49,31 +49,39 @@ namespace ariles
         }
         writer.endArray();
     }
+}
 
 
-    template <  typename t_VectorEntryType,
-                class t_Allocator>
-        bool ARILES_VISIBILITY_ATTRIBUTE
-        compare(const std::vector<t_VectorEntryType, t_Allocator> &left,
-                const std::vector<t_VectorEntryType, t_Allocator> &right,
-                const ariles::ComparisonParameters & param)
+namespace ariles
+{
+    namespace compare
     {
-        ARILES_TRACE_FUNCTION;
-
-        if (left.size() != right.size())
+        template <  class t_Iterator,
+                    typename t_VectorEntryType,
+                    class t_Allocator>
+            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+                    const t_Iterator & iterator,
+                    const std::vector<t_VectorEntryType, t_Allocator> &left,
+                    const std::vector<t_VectorEntryType, t_Allocator> &right,
+                    const typename t_Iterator::CompareParameters & param)
         {
-            return (false);
-        }
+            ARILES_TRACE_FUNCTION;
 
-        for (std::size_t i = 0; i < left.size(); ++i)
-        {
-            if (false == compare(left[i], right[i], param))
+            if (left.size() != right.size())
             {
                 return (false);
             }
-        }
 
-        return (true);
+            for (std::size_t i = 0; i < left.size(); ++i)
+            {
+                if (false == apply(iterator, left[i], right[i], param))
+                {
+                    return (false);
+                }
+            }
+
+            return (true);
+        }
     }
 }
 
@@ -86,7 +94,7 @@ namespace ariles
                     typename t_VectorEntryType,
                     class t_Allocator>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator & /*iterator*/,
+                    const t_Iterator & /*iterator*/,
                     std::vector<t_VectorEntryType, t_Allocator> & entry,
                     const typename t_Iterator::DefaultsParameters & /*param*/)
         {
@@ -106,7 +114,7 @@ namespace ariles
                     typename t_VectorEntryType,
                     class t_Allocator>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator & iterator,
+                    const t_Iterator & iterator,
                     std::vector<t_VectorEntryType, t_Allocator> & entry,
                     const typename t_Iterator::FinalizeParameters & param)
         {

@@ -42,14 +42,16 @@ namespace ariles
 
             public:
                 template<class t_Configurable>
-                void start(t_Configurable & /*configurable*/, DefaultsParameters & /*param*/)
+                    void start( const t_Configurable &,
+                                const DefaultsParameters &) const
                 {
                     ARILES_TRACE_FUNCTION;
                 }
 
 
                 template<class t_Configurable>
-                void finish(t_Configurable & /*configurable*/, DefaultsParameters & /*param*/)
+                    void finish(const t_Configurable &,
+                                const DefaultsParameters &) const
                 {
                     ARILES_TRACE_FUNCTION;
                 }
@@ -86,19 +88,20 @@ namespace ariles
                 /**
                  * @brief Set members to their default values.
                  */
-                virtual void arilesApply(   ariles::defaults::Iterator &,
+                virtual void arilesApply(   const ariles::defaults::Iterator &,
                                             const ariles::defaults::Iterator::DefaultsParameters &) = 0;
-                virtual void arilesApply(   ariles::defaults::Iterator & iterator)
+
+                void arilesApply(const ariles::defaults::Iterator & iterator)
                 {
                     ARILES_TRACE_FUNCTION;
                     arilesApply(iterator, iterator.default_parameters_);
                 }
 
+
                 /// @todo DEPRECATED
                 void setDefaults()
                 {
-                    ariles::defaults::Iterator iterator;
-                    arilesApply(iterator);
+                    arilesApply(ariles::defaults::Iterator());
                 }
         };
     }

@@ -65,6 +65,21 @@
             #undef ARILES_NAMED_ENTRY
 
 
+            #define ARILES_NAMED_ENTRY(entry, name)     arilesEntryApply(iterator, entry, other.entry, name, param);
+            #define ARILES_PARENT(entry)                entry::arilesIterator(iterator, other, param);
+
+            template<class t_Iterator, class t_Parameters, class t_Other>
+            void arilesIterator(const t_Iterator &iterator, t_Other & other, const t_Parameters &parameters) const
+            {
+                t_Parameters param = parameters; /// @todo something better?
+                iterator.start(*this, other, param);
+                ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
+                iterator.finish(*this, other, param);
+            }
+
+            #undef ARILES_PARENT
+            #undef ARILES_NAMED_ENTRY
+
 
         // Define write method
 
@@ -100,18 +115,12 @@
             #undef ARILES_PARENT
 
 
-
         // Define initialization method
 
             #ifdef ARILES_AUTO_DEFAULTS
-                void arilesApply(   ariles::defaults::Iterator &iterator,
-                                    const ariles::defaults::Iterator::DefaultsParameters &param)
-                {
-                    ARILES_TRACE_FUNCTION;
-                    arilesIterator(iterator, param);
-                }
+                ARILES_APPLY_METHOD(const ariles::defaults::Iterator, const ariles::defaults::Iterator::DefaultsParameters)
             #else
-                void arilesApply(   ariles::defaults::Iterator & /*iterator*/,
+                void arilesApply(   const ariles::defaults::Iterator & /*iterator*/,
                                     const ariles::defaults::Iterator::DefaultsParameters & /*param*/)
                 {
                     ARILES_TRACE_FUNCTION;
@@ -121,77 +130,30 @@
 
 
             #ifndef ARILES_NO_AUTO_FINALIZE
-                void arilesApply(   ariles::finalize::Iterator &iterator,
-                                    const ariles::finalize::Iterator::FinalizeParameters &param)
-                {
-                    arilesIterator(iterator, param);
-                }
+                ARILES_APPLY_METHOD(const ariles::finalize::Iterator, const ariles::finalize::Iterator::FinalizeParameters)
             #endif
 
 
-        // define comparison method.
-
-            #define ARILES_NAMED_ENTRY(entry, name) \
-                    ARILES_TRACE_ENTRY(entry); \
-                    try \
-                    { \
-                        result = ariles::compare(entry, other.entry, param); \
-                    } \
-                    catch (const std::exception & e) \
-                    { \
-                        ARILES_THROW("Comparison failed for entry: " #entry " // " + std::string(e.what())); \
-                    } \
-                    if (false == result) \
-                    { \
-                        if (true == param.throw_on_error_)\
-                        { \
-                            ARILES_THROW("Comparison failed for entry: " #entry); \
-                        } \
-                        return (false); \
-                    };
-
-            #define ARILES_PARENT(entry) \
-                    ARILES_TRACE_ENTRY(entry); \
-                    try \
-                    { \
-                        result = entry::arilesCompare(other, param); \
-                    } \
-                    catch (const std::exception & e) \
-                    { \
-                        ARILES_THROW("Comparison failed for entry: " #entry " // " + std::string(e.what())); \
-                    } \
-                    if (false == result) \
-                    { \
-                        if (true == param.throw_on_error_)\
-                        { \
-                            ARILES_THROW("Comparison failed for entry: " #entry); \
-                        } \
-                        return (false); \
-                    }
+        // comparison method.
 
             template<class t_Other>
-            bool arilesCompare(const t_Other &other, const ariles::ComparisonParameters &param) const
+            bool arilesCompare(const t_Other &other, const ariles::compare::Iterator::CompareParameters & param) const
             {
                 ARILES_TRACE_FUNCTION;
-                bool result = true;
-                if (true == param.compare_number_of_entries_)
+                try
                 {
-                    if (getNumberOfEntries() != other.getNumberOfEntries())
-                    {
-                        if (true == param.throw_on_error_)
-                        {
-                            ARILES_THROW("Comparison failed: dfferent number of entries.");
-                        }
-                        return (false);
-                    }
+                    arilesIterator(ariles::compare::Iterator(), other, param);
+                    return (true);
                 }
-                ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
-
-                return (result);
+                catch (std::exception &e)
+                {
+                    if (true == param.throw_on_error_)
+                    {
+                        ARILES_THROW(std::string("Comparison failed: ") + e.what());
+                    }
+                    return (false);
+                }
             }
-
-            #undef ARILES_NAMED_ENTRY
-            #undef ARILES_PARENT
 
 
         // Count number of entries and define a function, which returns it.

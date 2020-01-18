@@ -126,41 +126,49 @@ namespace ariles
             writeBody<t_Writer, std::string, t_Value, t_Compare, t_Allocator>(writer, entry, param);
         }
     }
+}
 
 
-    template <  typename t_Key,
-                typename t_Value,
-                class t_Compare,
-                class t_Allocator>
-        bool ARILES_VISIBILITY_ATTRIBUTE
-        compare(const std::map<t_Key, t_Value, t_Compare, t_Allocator> &left,
-                const std::map<t_Key, t_Value, t_Compare, t_Allocator> &right,
-                const ariles::ComparisonParameters & param)
+namespace ariles
+{
+    namespace compare
     {
-        ARILES_TRACE_FUNCTION;
-
-        if (left.size() != right.size())
+        template <  class t_Iterator,
+                    typename t_Key,
+                    typename t_Value,
+                    class t_Compare,
+                    class t_Allocator>
+            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+                    const t_Iterator & iterator,
+                    const std::map<t_Key, t_Value, t_Compare, t_Allocator> &left,
+                    const std::map<t_Key, t_Value, t_Compare, t_Allocator> &right,
+                    const typename t_Iterator::CompareParameters & param)
         {
-            return (false);
-        }
+            ARILES_TRACE_FUNCTION;
 
-        typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator left_it = left.begin();
-        typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator right_it = right.begin();
-
-        for (; (left_it != left.end()) && (right_it != right.end()); ++left_it, ++right_it)
-        {
-            if (false == compare(left_it->first, right_it->first, param))
+            if (left.size() != right.size())
             {
                 return (false);
             }
 
-            if (false == compare(left_it->second, right_it->second, param))
-            {
-                return (false);
-            }
-        }
+            typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator left_it = left.begin();
+            typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator right_it = right.begin();
 
-        return (true);
+            for (; (left_it != left.end()) && (right_it != right.end()); ++left_it, ++right_it)
+            {
+                if (false == apply(iterator, left_it->first, right_it->first, param))
+                {
+                    return (false);
+                }
+
+                if (false == apply(iterator, left_it->second, right_it->second, param))
+                {
+                    return (false);
+                }
+            }
+
+            return (true);
+        }
     }
 }
 
@@ -176,7 +184,7 @@ namespace ariles
                     class t_Compare,
                     class t_Allocator>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator & /*iterator*/,
+                    const t_Iterator & /*iterator*/,
                     std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry,
                     const typename t_Iterator::DefaultsParameters & /*param*/)
         {
@@ -197,7 +205,7 @@ namespace ariles
                     class t_Compare,
                     class t_Allocator>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator & iterator,
+                    const t_Iterator & iterator,
                     std::map<t_Key, t_Value, t_Compare, t_Allocator> &entry,
                     const typename t_Iterator::FinalizeParameters & param)
         {
