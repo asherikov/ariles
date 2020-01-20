@@ -17,6 +17,7 @@
 #include "operators/defaults.h"
 #include "operators/finalize.h"
 #include "operators/compare.h"
+#include "operators/count.h"
 #include "internal/reader_base.h"
 #include "internal/writer_base.h"
 
@@ -49,12 +50,30 @@
     #define ARILES_READ_PARENT(parent_class)  parent_class::readConfigEntries(reader, param);
 
 
-    #define ARILES_APPLY_METHOD(Operator, Parameters) \
-        void arilesApply(   Operator &iterator, \
-                            Parameters &param) \
+    #define ARILES_APPLY_METHOD(Operator, Parameters, Qualifier) \
+        void ariles(Operator &iterator, \
+                    Parameters &param) Qualifier \
         { \
             ARILES_TRACE_FUNCTION; \
             arilesIterator(iterator, param); \
+        }
+
+
+    #define ARILES_APPLY_METHOD_WITH_ARG(Operator, Parameters) \
+        template<class t_Extra> \
+            void ariles(Operator &iterator, \
+                        t_Extra & extra, \
+                        Parameters &param) const \
+        { \
+            ARILES_TRACE_FUNCTION; \
+            arilesIterator(iterator, extra, param); \
+        } \
+        template<class t_Extra> \
+            void ariles(Operator &iterator, \
+                        t_Extra & extra) const \
+        { \
+            ARILES_TRACE_FUNCTION; \
+            arilesIterator(iterator, extra, iterator.default_parameters_); \
         }
 
 
@@ -68,7 +87,8 @@
         class ARILES_VISIBILITY_ATTRIBUTE CommonConfigurableBase
             :   public ariles::defaults::Base,
                 public ariles::finalize::Base,
-                public ariles::compare::Base
+                public ariles::compare::Base,
+                public ariles::count::Base
         {
             protected:
                 /**
@@ -80,16 +100,40 @@
 
 
             public:
-                using ariles::defaults::Base::arilesApply;
-                using ariles::finalize::Base::arilesApply;
-                //using ariles::compare::Base::arilesApply;
+                using ariles::defaults::Base::ariles;
+                using ariles::finalize::Base::ariles;
 
+                /*
                 template <class t_Iterator>
                     void arilesApply()
                 {
+                    ARILES_TRACE_FUNCTION;
                     t_Iterator iterator;
                     arilesApply(iterator);
                 }
+
+                template <class t_Iterator>
+                    void arilesApply(t_Iterator &iterator)
+                {
+                    ARILES_TRACE_FUNCTION;
+                    arilesApply(iterator, iterator.default_parameters_);
+                }
+
+                template <class t_Iterator>
+                    void arilesApply() const
+                {
+                    ARILES_TRACE_FUNCTION;
+                    t_Iterator iterator;
+                    arilesApply(iterator);
+                }
+
+                template <class t_Iterator>
+                    void ariles(t_Iterator &iterator) const
+                {
+                    ARILES_TRACE_FUNCTION;
+                    ariles(iterator, iterator.default_parameters_);
+                }
+                */
 
 
                 /**

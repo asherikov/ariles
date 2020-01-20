@@ -36,6 +36,8 @@
 
 #define ARILES_INITIALIZE  "ariles/internal/define_accessors.h"
 
+/// @todo DEPRECATED C++11
+#define ARILES_EMPTY_MACRO
 
 
 #define ARILES_IS_ENUM_ENABLER_TYPE(Enum) \

@@ -51,9 +51,7 @@ namespace ariles
 
                     template <typename t_Scalar>
                     t_Scalar getTolerance() const;
-                };
-
-                static const CompareParameters default_parameters_;
+                } default_parameters_;
 
 
 

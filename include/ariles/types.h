@@ -43,7 +43,8 @@ namespace ariles
         public:
             Any()
             {
-                arilesApply<ariles::defaults::Iterator>();
+                ariles::defaults::Iterator iterator;
+                ariles(iterator, iterator.default_parameters_);
             }
 
 
@@ -188,17 +189,17 @@ namespace ariles
             }
 
 
-            void arilesApply(   const ariles::finalize::Iterator & iterator,
-                                const ariles::finalize::Iterator::FinalizeParameters & param)
+            void ariles(const ariles::finalize::Iterator & iterator,
+                        const ariles::finalize::Iterator::FinalizeParameters & param)
             {
                 if (true == isInitialized())
                 {
-                    value_->arilesApply(iterator, param);
+                    value_->ariles(iterator, param);
                 }
             }
 
-            void arilesApply(   const ariles::defaults::Iterator & /*iterator*/,
-                                const ariles::defaults::Iterator::DefaultsParameters & /*param*/)
+            void ariles(const ariles::defaults::Iterator & /*iterator*/,
+                        const ariles::defaults::Iterator::DefaultsParameters & /*param*/)
             {
                 id_ = "";
                 value_.reset();
@@ -259,7 +260,8 @@ namespace ariles
         public:
             NonNullPointer()
             {
-                arilesApply<ariles::defaults::Iterator>();
+                ariles::defaults::Iterator iterator;
+                ariles(iterator, iterator.default_parameters_);
             }
 
 
@@ -320,17 +322,17 @@ namespace ariles
             }
 
 
-            void arilesApply(   const ariles::finalize::Iterator & /*iterator*/,
-                                const ariles::finalize::Iterator::FinalizeParameters & /*param*/)
+            void ariles(const ariles::finalize::Iterator & /*iterator*/,
+                        const ariles::finalize::Iterator::FinalizeParameters & /*param*/)
             {
                 ARILES_ASSERT(false == isNull(), "Not initialized");
             }
 
-            void arilesApply(   const ariles::defaults::Iterator & iterator,
-                                const ariles::defaults::Iterator::DefaultsParameters & param)
+            void ariles(const ariles::defaults::Iterator & iterator,
+                        const ariles::defaults::Iterator::DefaultsParameters & param)
             {
                 Handler::allocate(value_);
-                value_->arilesApply(iterator, param);
+                value_->ariles(iterator, param);
             }
 
 

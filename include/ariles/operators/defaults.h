@@ -2,7 +2,7 @@
     @file
     @author  Alexander Sherikov
 
-    @copyright 2017-2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
+    @copyright 2017-2020 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
 
     @brief
@@ -88,20 +88,15 @@ namespace ariles
                 /**
                  * @brief Set members to their default values.
                  */
-                virtual void arilesApply(   const ariles::defaults::Iterator &,
-                                            const ariles::defaults::Iterator::DefaultsParameters &) = 0;
-
-                void arilesApply(const ariles::defaults::Iterator & iterator)
-                {
-                    ARILES_TRACE_FUNCTION;
-                    arilesApply(iterator, iterator.default_parameters_);
-                }
+                virtual void ariles(const ariles::defaults::Iterator &,
+                                    const ariles::defaults::Iterator::DefaultsParameters &) = 0;
 
 
                 /// @todo DEPRECATED
                 void setDefaults()
                 {
-                    arilesApply(ariles::defaults::Iterator());
+                    ariles::defaults::Iterator iterator;
+                    ariles(iterator, iterator.default_parameters_);
                 }
         };
     }

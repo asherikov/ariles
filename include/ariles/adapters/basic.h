@@ -291,7 +291,7 @@ namespace ariles
                     const typename t_Iterator::DefaultsParameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            entry.arilesApply(iterator, param);
+            entry.ariles(iterator, param);
         }
 
 
@@ -351,7 +351,7 @@ namespace ariles
                         const typename t_Iterator::FinalizeParameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            entry.arilesApply(iterator, param);
+            entry.ariles(iterator, param);
         }
 
 

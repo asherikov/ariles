@@ -3,7 +3,7 @@
     @author  Alexander Sherikov
     @copyright 2014-2017 INRIA. Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
-    @copyright 2017-2019 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
+    @copyright 2017-2020 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
 
     @brief Inclusion of this file results in generation of functions which
@@ -35,7 +35,7 @@
     #ifndef ARILES_DOXYGEN_PROCESSING
 
     public:
-        using ariles::CommonConfigurableBase::arilesApply;
+        using ariles::CommonConfigurableBase::ariles;
 
 
         #ifdef ARILES_ENTRIES
@@ -69,7 +69,7 @@
             #define ARILES_PARENT(entry)                entry::arilesIterator(iterator, other, param);
 
             template<class t_Iterator, class t_Parameters, class t_Other>
-            void arilesIterator(const t_Iterator &iterator, t_Other & other, const t_Parameters &parameters) const
+                void arilesIterator(const t_Iterator &iterator, t_Other & other, const t_Parameters &parameters) const
             {
                 t_Parameters param = parameters; /// @todo something better?
                 iterator.start(*this, other, param);
@@ -118,10 +118,12 @@
         // Define initialization method
 
             #ifdef ARILES_AUTO_DEFAULTS
-                ARILES_APPLY_METHOD(const ariles::defaults::Iterator, const ariles::defaults::Iterator::DefaultsParameters)
+                ARILES_APPLY_METHOD(const ariles::defaults::Iterator,
+                                    const ariles::defaults::Iterator::DefaultsParameters,
+                                    ARILES_EMPTY_MACRO)
             #else
-                void arilesApply(   const ariles::defaults::Iterator & /*iterator*/,
-                                    const ariles::defaults::Iterator::DefaultsParameters & /*param*/)
+                void ariles(const ariles::defaults::Iterator & /*iterator*/,
+                            const ariles::defaults::Iterator::DefaultsParameters & /*param*/)
                 {
                     ARILES_TRACE_FUNCTION;
                     this->setDefaults();
@@ -130,19 +132,27 @@
 
 
             #ifndef ARILES_NO_AUTO_FINALIZE
-                ARILES_APPLY_METHOD(const ariles::finalize::Iterator, const ariles::finalize::Iterator::FinalizeParameters)
+                ARILES_APPLY_METHOD(const ariles::finalize::Iterator,
+                                    const ariles::finalize::Iterator::FinalizeParameters,
+                                    ARILES_EMPTY_MACRO)
             #endif
+
+            ARILES_APPLY_METHOD(ariles::count::Iterator, const ariles::count::Iterator::CountParameters, const)
+
 
 
         // comparison method.
+            ARILES_APPLY_METHOD_WITH_ARG(   const ariles::compare::Iterator,
+                                            const ariles::compare::Iterator::CompareParameters)
 
             template<class t_Other>
-            bool arilesCompare(const t_Other &other, const ariles::compare::Iterator::CompareParameters & param) const
+                bool arilesCompare(const t_Other &other, const ariles::compare::Iterator::CompareParameters & param) const
             {
                 ARILES_TRACE_FUNCTION;
                 try
                 {
-                    arilesIterator(ariles::compare::Iterator(), other, param);
+                    ariles::compare::Iterator iterator;
+                    ariles(iterator, other, param);
                     return (true);
                 }
                 catch (std::exception &e)
@@ -156,20 +166,21 @@
             }
 
 
-        // Count number of entries and define a function, which returns it.
+                template <class t_Iterator>
+                    void ariles(t_Iterator &iterator) const
+                {
+                    ARILES_TRACE_FUNCTION;
+                    ariles(iterator, iterator.default_parameters_);
+                }
 
-            #define ARILES_NAMED_ENTRY(entry, name)  +1
-            #define ARILES_PARENT(entry)       +entry::getNumberOfEntries()
 
+        // count method.
             std::size_t getNumberOfEntries() const
             {
-                static const std::size_t    num_entries = (0 ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES) );
-                return(num_entries);
+                ariles::count::Iterator iterator;
+                ariles(iterator);
+                return(iterator.counter_);
             }
-
-            #undef ARILES_NAMED_ENTRY
-            #undef ARILES_PARENT
-
 
             #undef ARILES_TYPED_NAMED_ENTRY
         #endif
@@ -234,7 +245,8 @@
                         const std::string   & node_name,
                         const ariles::ConfigurableFlags & param)
         {
-            ariles::CommonConfigurableBase::arilesApply<ariles::defaults::Iterator>();
+            ariles::defaults::Iterator iterator;
+            ariles(iterator, iterator.default_parameters_);
             ariles::readEntry(reader, *this, node_name, param);
         }
 
@@ -242,7 +254,8 @@
                         const char          * node_name,
                         const ariles::ConfigurableFlags & param)
         {
-            ariles::CommonConfigurableBase::arilesApply<ariles::defaults::Iterator>();
+            ariles::defaults::Iterator iterator;
+            ariles(iterator, iterator.default_parameters_);
             ariles::readEntry(reader, *this, node_name, param);
         }
 
