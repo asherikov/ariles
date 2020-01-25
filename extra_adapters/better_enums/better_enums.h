@@ -13,11 +13,13 @@
 
 namespace ariles
 {
-    template <  class t_Reader,
-                class t_BetterEnum,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        readBody(   t_Reader &reader,
+    namespace read
+    {
+        template <  class t_Iterator,
+                    class t_BetterEnum,
+                    class t_Flags>
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
+                    t_Iterator &iterator,
                     t_BetterEnum &entry,
                     const t_Flags & /*param*/,
                     const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
@@ -25,13 +27,18 @@ namespace ariles
                     const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
-    {
-        std::string enum_value;
-        reader.readElement(enum_value);
-        entry = t_BetterEnum::_from_string(enum_value.c_str());
+        {
+            ARILES_TRACE_FUNCTION;
+            std::string enum_value;
+            iterator.readElement(enum_value);
+            entry = t_BetterEnum::_from_string(enum_value.c_str());
+        }
     }
+}
 
 
+namespace ariles
+{
     template <  class t_Writer,
                 class t_BetterEnum,
                 class t_Flags>

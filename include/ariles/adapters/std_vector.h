@@ -14,25 +14,31 @@
 
 namespace ariles
 {
-    template <  class t_Reader,
-                typename t_VectorEntryType,
-                class t_Allocator>
-        void ARILES_VISIBILITY_ATTRIBUTE readBody(
-                t_Reader & reader,
-                std::vector<t_VectorEntryType, t_Allocator> & entry,
-                const typename t_Reader::Parameters & param)
+    namespace read
     {
-        entry.resize(reader.startArray());
-        for(std::size_t i = 0; i < entry.size(); ++i)
+        template <  class t_Iterator,
+                    typename t_VectorEntryType,
+                    class t_Allocator>
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
+                    t_Iterator & iterator,
+                    std::vector<t_VectorEntryType, t_Allocator> & entry,
+                    const typename t_Iterator::ReadParameters & param)
         {
-            readBody(reader, entry[i], param);
-            reader.shiftArray();
+            ARILES_TRACE_FUNCTION;
+            entry.resize(iterator.startArray());
+            for(std::size_t i = 0; i < entry.size(); ++i)
+            {
+                apply(iterator, entry[i], param);
+                iterator.shiftArray();
+            }
+            iterator.endArray();
         }
-        reader.endArray();
     }
+}
 
 
-
+namespace ariles
+{
     template <  class t_Writer,
                 typename t_VectorEntryType,
                 class t_Allocator>

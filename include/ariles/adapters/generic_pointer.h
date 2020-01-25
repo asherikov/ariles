@@ -10,35 +10,41 @@
 
 namespace ariles
 {
-    template <  class t_Reader,
-                typename t_Entry>
-        void ARILES_VISIBILITY_ATTRIBUTE readBody(
-                t_Reader &reader,
-                ARILES_POINTER_TYPE<t_Entry> &entry,
-                const typename t_Reader::Parameters & param)
+    namespace read
     {
-        bool is_null = true;
-
-        typename t_Reader::Parameters param_local = param;
-        param_local.unset(t_Reader::Parameters::ALLOW_MISSING_ENTRIES);
-
-        reader.template startMap<t_Reader::SIZE_LIMIT_RANGE>(1, 2);
-        readEntry(reader, is_null, "is_null", param_local);
-
-        if (true == is_null)
+        template <  class t_Iterator,
+                    typename t_Entry>
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
+                    t_Iterator &iterator,
+                    ARILES_POINTER_TYPE<t_Entry> &entry,
+                    const typename t_Iterator::ReadParameters & param)
         {
-            PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::reset(entry);
+            ARILES_TRACE_FUNCTION;
+            bool is_null = true;
+
+            typename t_Iterator::ReadParameters param_local = param;
+            param_local.unset(t_Iterator::ReadParameters::ALLOW_MISSING_ENTRIES);
+
+            iterator.template startMap<t_Iterator::SIZE_LIMIT_RANGE>(1, 2);
+            arilesEntryApply(iterator, is_null, "is_null", param_local);
+
+            if (true == is_null)
+            {
+                PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::reset(entry);
+            }
+            else
+            {
+                PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::allocate(entry);
+                arilesEntryApply(iterator, *entry, "value", param_local);
+            }
+            iterator.endMap();
         }
-        else
-        {
-            PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::allocate(entry);
-            readEntry(reader, *entry, "value", param_local);
-        }
-        reader.endMap();
     }
+}
 
 
-
+namespace ariles
+{
     template <  class t_Writer,
                 typename t_Entry>
         void ARILES_VISIBILITY_ATTRIBUTE

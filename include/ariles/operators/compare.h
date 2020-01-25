@@ -57,9 +57,9 @@ namespace ariles
 
             public:
                 template<class t_Configurable, class t_Other>
-                    void start( const t_Configurable & configurable,
-                                const t_Other & other,
-                                const CompareParameters & parameters) const
+                    void startBody( const t_Configurable & configurable,
+                                    const t_Other & other,
+                                    const CompareParameters & parameters) const
                 {
                     ARILES_TRACE_FUNCTION;
 
@@ -74,11 +74,28 @@ namespace ariles
 
 
                 template<class t_Configurable, class t_Other>
-                    void finish(const t_Configurable &,
-                                const t_Other &,
-                                const CompareParameters &) const
+                    void finishBody(const t_Configurable &,
+                                    const t_Other &,
+                                    const CompareParameters &) const
                 {
                     ARILES_TRACE_FUNCTION;
+                }
+
+
+                template<class t_Configurable, class t_Other>
+                    void startRoot( const t_Configurable &,
+                                    const t_Other &,
+                                    const CompareParameters &) const
+                {
+                    ARILES_TRACE_FUNCTION;
+                }
+
+
+                template<class t_Configurable, class t_Other>
+                    void finishRoot(const t_Configurable &,
+                                    const t_Other &,
+                                    const CompareParameters &) const
+                {
                 }
 
 
@@ -131,11 +148,10 @@ namespace ariles
 
 
 
-        class Base
+        class ARILES_VISIBILITY_ATTRIBUTE Base
         {
             public:
         };
-
     }  // namespace compare
 
     /// @todo DEPRECATED

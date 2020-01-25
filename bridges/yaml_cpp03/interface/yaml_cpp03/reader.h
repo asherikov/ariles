@@ -24,7 +24,7 @@ namespace ariles
              * @brief Configuration reader class
              */
             class ARILES_VISIBILITY_ATTRIBUTE Reader : 
-                public ariles::bridge::yaml_cpp03::Base<ariles::ReaderBase>
+                public ariles::bridge::yaml_cpp03::Base<ariles::read::Iterator>
             {
                 protected:
                     typedef ariles::Node<const YAML::Node *> NodeWrapper;
@@ -82,7 +82,7 @@ namespace ariles
                     explicit Reader(const std::string& file_name)
                     {
                         std::ifstream config_ifs;
-                        ReaderBase::openFile(config_ifs, file_name);
+                        read::Iterator::openFile(config_ifs, file_name);
 
                         parser_.Load(config_ifs),
                         parser_.GetNextDocument(root_node_);

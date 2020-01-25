@@ -18,7 +18,7 @@
 #include "operators/finalize.h"
 #include "operators/compare.h"
 #include "operators/count.h"
-#include "internal/reader_base.h"
+#include "operators/read.h"
 #include "internal/writer_base.h"
 
 // These defines are always necessary
@@ -50,16 +50,38 @@
     #define ARILES_READ_PARENT(parent_class)  parent_class::readConfigEntries(reader, param);
 
 
-    #define ARILES_APPLY_METHOD(Operator, Parameters, Qualifier) \
-        void ariles(Operator &iterator, \
-                    Parameters &param) Qualifier \
+    #define ARILES_METHODS(Qualifier) \
+        template<class t_Operator, class t_Parameters> \
+            void ariles(t_Operator &op, \
+                        t_Parameters &param) Qualifier \
         { \
             ARILES_TRACE_FUNCTION; \
-            arilesIterator(iterator, param); \
+            op.startRoot(*this, param); \
+            arilesEntryApply(op, *this, this->getConfigSectionID(), param); \
+            op.finishRoot(*this, param); \
+        } \
+        template<class t_Operator, class t_Parameters> \
+            void ariles(t_Operator &op, \
+                        const std::string & name, \
+                        t_Parameters &param) Qualifier \
+        { \
+            ARILES_TRACE_FUNCTION; \
+            op.startRoot(*this, param); \
+            arilesEntryApply(op, *this, name, param); \
+            op.finishRoot(*this, param); \
         }
 
 
-    #define ARILES_APPLY_METHOD_WITH_ARG(Operator, Parameters) \
+    #define ARILES_APPLY_METHODS(Operator, Parameters, Qualifier) \
+        virtual void arilesApply(   Operator &iterator, \
+                                    Parameters &param) Qualifier \
+        { \
+            ARILES_TRACE_FUNCTION; \
+            this->arilesIterator(iterator, param); \
+        }
+
+
+    #define ARILES_METHOD_WITH_ARG(Operator, Parameters) \
         template<class t_Extra> \
             void ariles(Operator &iterator, \
                         t_Extra & extra, \
@@ -88,7 +110,8 @@
             :   public ariles::defaults::Base,
                 public ariles::finalize::Base,
                 public ariles::compare::Base,
-                public ariles::count::Base
+                public ariles::count::Base,
+                public ariles::read::Base
         {
             protected:
                 /**
@@ -100,10 +123,11 @@
 
 
             public:
-                using ariles::defaults::Base::ariles;
-                using ariles::finalize::Base::ariles;
+                using ariles::defaults::Base::arilesApply;
+                using ariles::finalize::Base::arilesApply;
+                using ariles::read::Base::arilesApply;
 
-                /*
+
                 template <class t_Iterator>
                     void arilesApply()
                 {
@@ -111,14 +135,6 @@
                     t_Iterator iterator;
                     arilesApply(iterator);
                 }
-
-                template <class t_Iterator>
-                    void arilesApply(t_Iterator &iterator)
-                {
-                    ARILES_TRACE_FUNCTION;
-                    arilesApply(iterator, iterator.default_parameters_);
-                }
-
                 template <class t_Iterator>
                     void arilesApply() const
                 {
@@ -126,145 +142,6 @@
                     t_Iterator iterator;
                     arilesApply(iterator);
                 }
-
-                template <class t_Iterator>
-                    void ariles(t_Iterator &iterator) const
-                {
-                    ARILES_TRACE_FUNCTION;
-                    ariles(iterator, iterator.default_parameters_);
-                }
-                */
-
-
-                /**
-                 * @brief Return the default name of a configuration node
-                 * corresponding to this class
-                 *
-                 * @return the name
-                 *
-                 * @attention Implementation of this method is added
-                 * automatically upon inclusion of define_accessors.h if
-                 * ARILES_SECTION_ID is defined.
-                 */
-                virtual const std::string & getConfigSectionID() const = 0;
-
-
-                /**
-                 * @brief Get number of entries in the corresponding
-                 * configuration node.
-                 *
-                 * @return number of entries
-                 */
-                virtual std::size_t getNumberOfEntries() const = 0;
-
-
-                virtual const ConfigurableFlags &getArilesConfigurableFlags() const = 0;
-
-
-                /**
-                 * @brief Read configuration (assuming the configuration node
-                 * to be in the root).
-                 *
-                 * @param[in] file_name file name
-                 */
-                #define ARILES_READ_CONFIG(InitializerType) \
-                        template <class t_Bridge, class t_ReaderInitializer> \
-                            void readConfig(InitializerType &reader_initializer, \
-                                            typename t_Bridge::BridgeSelectorIndicatorType * = NULL) \
-                        { \
-                            typename t_Bridge::Reader reader(reader_initializer); \
-                            this->readConfig(reader, this->getConfigSectionID(), this->getArilesConfigurableFlags()); \
-                        } \
-                        template <class t_Bridge, class t_ReaderInitializer> \
-                            void readConfig(InitializerType & reader_initializer, \
-                                            const ariles::ConfigurableFlags & param, \
-                                            typename t_Bridge::BridgeSelectorIndicatorType * = NULL) \
-                        { \
-                            typename t_Bridge::Reader reader(reader_initializer); \
-                            this->readConfig(reader, this->getConfigSectionID(), param); \
-                        }
-
-                ARILES_READ_CONFIG(t_ReaderInitializer)
-                ARILES_READ_CONFIG(const t_ReaderInitializer)
-
-                #undef ARILES_READ_CONFIG
-
-
-                /**
-                 * @brief Read configuration (assuming the configuration node
-                 * to be in the root).
-                 *
-                 * @param[in] file_name file name
-                 * @param[in] node_name node name, the default is used if empty
-                 *
-                 * @note Intercept implicit conversion of a pointer to bool.
-                 */
-                #define ARILES_READ_CONFIG(InitializerType, NameType) \
-                        template <class t_Bridge, class t_ReaderInitializer> \
-                            void readConfig(InitializerType     &reader_initializer, \
-                                            NameType            node_name, \
-                                            typename t_Bridge::BridgeSelectorIndicatorType * = NULL) \
-                        { \
-                            typename t_Bridge::Reader reader(reader_initializer); \
-                            this->readConfig(reader, node_name, this->getArilesConfigurableFlags()); \
-                        } \
-                        template <class t_Bridge, class t_ReaderInitializer> \
-                            void readConfig(InitializerType     &reader_initializer, \
-                                            NameType            node_name, \
-                                            const ariles::ConfigurableFlags & param, \
-                                            typename t_Bridge::BridgeSelectorIndicatorType * = NULL) \
-                        { \
-                            typename t_Bridge::Reader reader(reader_initializer); \
-                            this->readConfig(reader, node_name, param); \
-                        }
-
-                ARILES_READ_CONFIG(t_ReaderInitializer, const std::string &)
-                ARILES_READ_CONFIG(const t_ReaderInitializer, const std::string &)
-                ARILES_READ_CONFIG(t_ReaderInitializer, const char *)
-                ARILES_READ_CONFIG(const t_ReaderInitializer, const char *)
-
-                #undef ARILES_READ_CONFIG
-
-
-                /**
-                 * @brief Read configuration (assuming the configuration node
-                 * to be in the root).
-                 *
-                 * @param[in] reader configuration reader
-                 */
-                void readConfig(ariles::ReaderBase & reader, const ariles::ConfigurableFlags & param)
-                {
-                    this->readConfig(reader, this->getConfigSectionID(), param);
-                }
-                void readConfig(ariles::ReaderBase & reader)
-                {
-                    this->readConfig(reader, this->getConfigSectionID(), this->getArilesConfigurableFlags());
-                }
-
-
-                /**
-                 * @brief Read configuration (assuming the configuration node
-                 * to be in the root).
-                 *
-                 * @param[in] reader configuration reader
-                 * @param[in] node_name   node name, the default is used if empty
-                 *
-                 * @note Intercept implicit conversion of a pointer to bool.
-                 */
-                #define ARILES_READ_CONFIG(NameType) \
-                        virtual void readConfig(ariles::ReaderBase  & reader, \
-                                                NameType            node_name, \
-                                                const ariles::ConfigurableFlags & param) = 0; \
-                        void readConfig(ariles::ReaderBase  & reader, \
-                                        NameType            node_name) \
-                        { \
-                            this->readConfig(reader, node_name, this->getArilesConfigurableFlags()); \
-                        }
-
-                ARILES_READ_CONFIG(const std::string &)
-                ARILES_READ_CONFIG(const char *)
-
-                #undef ARILES_READ_CONFIG
 
 
 
@@ -367,9 +244,6 @@
 
                 virtual void writeConfigEntries(ariles::WriterBase & writer,
                                                 const ConfigurableFlags & param) const = 0;
-
-                virtual void readConfigEntries( ariles::ReaderBase & reader,
-                                                const ConfigurableFlags & param) = 0;
         };
 
 

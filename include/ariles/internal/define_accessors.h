@@ -35,7 +35,7 @@
     #ifndef ARILES_DOXYGEN_PROCESSING
 
     public:
-        using ariles::CommonConfigurableBase::ariles;
+        using ariles::CommonConfigurableBase::arilesApply;
 
 
         #ifdef ARILES_ENTRIES
@@ -46,23 +46,34 @@
             template<class t_Iterator, class t_Parameters>
             void arilesIterator(t_Iterator &iterator, const t_Parameters &parameters)
             {
+                ARILES_TRACE_FUNCTION;
                 t_Parameters param = parameters; /// @todo something better?
-                iterator.start(*this, param);
+                iterator.startBody(*this, param);
                 ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
-                iterator.finish(*this, param);
+                iterator.finishBody(*this, param);
             }
 
 
             template<class t_Iterator, class t_Parameters>
             void arilesIterator(t_Iterator &iterator, const t_Parameters &param) const
             {
-                iterator.start(*this, param);
+                iterator.startBody(*this, param);
                 ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
-                iterator.finish(*this, param);
+                iterator.finishBody(*this, param);
             }
 
             #undef ARILES_PARENT
             #undef ARILES_NAMED_ENTRY
+
+
+            #ifndef ARILES_AUTO_DEFAULTS
+                void arilesIterator(const ariles::defaults::Iterator & /*iterator*/,
+                                    const ariles::defaults::Iterator::DefaultsParameters & /*param*/)
+                {
+                    ARILES_TRACE_FUNCTION;
+                    this->setDefaults();
+                }
+            #endif
 
 
             #define ARILES_NAMED_ENTRY(entry, name)     arilesEntryApply(iterator, entry, other.entry, name, param);
@@ -72,9 +83,9 @@
                 void arilesIterator(const t_Iterator &iterator, t_Other & other, const t_Parameters &parameters) const
             {
                 t_Parameters param = parameters; /// @todo something better?
-                iterator.start(*this, other, param);
+                iterator.startBody(*this, other, param);
                 ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
-                iterator.finish(*this, other, param);
+                iterator.finishBody(*this, other, param);
             }
 
             #undef ARILES_PARENT
@@ -97,53 +108,6 @@
             #undef ARILES_NAMED_ENTRY
             #undef ARILES_PARENT
 
-        // Define read method
-
-            #define ARILES_NAMED_ENTRY(entry, name)     ARILES_READ_NAMED_ENTRY(entry, name)
-            #define ARILES_PARENT(entry)                ARILES_READ_PARENT(entry);
-
-            void readConfigEntries( ariles::ReaderBase & reader,
-                                    const ariles::ReaderBase::Parameters & parameters)
-            {
-                ariles::ReaderBase::Parameters param = parameters; /// @todo something better?
-                reader.start(*this, param);
-                ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
-                reader.finish(*this, param);
-            }
-
-            #undef ARILES_NAMED_ENTRY
-            #undef ARILES_PARENT
-
-
-        // Define initialization method
-
-            #ifdef ARILES_AUTO_DEFAULTS
-                ARILES_APPLY_METHOD(const ariles::defaults::Iterator,
-                                    const ariles::defaults::Iterator::DefaultsParameters,
-                                    ARILES_EMPTY_MACRO)
-            #else
-                void ariles(const ariles::defaults::Iterator & /*iterator*/,
-                            const ariles::defaults::Iterator::DefaultsParameters & /*param*/)
-                {
-                    ARILES_TRACE_FUNCTION;
-                    this->setDefaults();
-                }
-            #endif
-
-
-            #ifndef ARILES_NO_AUTO_FINALIZE
-                ARILES_APPLY_METHOD(const ariles::finalize::Iterator,
-                                    const ariles::finalize::Iterator::FinalizeParameters,
-                                    ARILES_EMPTY_MACRO)
-            #endif
-
-            ARILES_APPLY_METHOD(ariles::count::Iterator, const ariles::count::Iterator::CountParameters, const)
-
-
-
-        // comparison method.
-            ARILES_APPLY_METHOD_WITH_ARG(   const ariles::compare::Iterator,
-                                            const ariles::compare::Iterator::CompareParameters)
 
             template<class t_Other>
                 bool arilesCompare(const t_Other &other, const ariles::compare::Iterator::CompareParameters & param) const
@@ -164,24 +128,6 @@
                     return (false);
                 }
             }
-
-
-                template <class t_Iterator>
-                    void ariles(t_Iterator &iterator) const
-                {
-                    ARILES_TRACE_FUNCTION;
-                    ariles(iterator, iterator.default_parameters_);
-                }
-
-
-        // count method.
-            std::size_t getNumberOfEntries() const
-            {
-                ariles::count::Iterator iterator;
-                ariles(iterator);
-                return(iterator.counter_);
-            }
-
             #undef ARILES_TYPED_NAMED_ENTRY
         #endif
     #endif
@@ -211,52 +157,56 @@
              * Define constructors for the given class.
              */
             ARILES_CONSTRUCTOR(
-                    ariles::ReaderBase &reader,
+                    ariles::read::Iterator &reader,
                     const std::string &node_name)
             {
+                ARILES_TRACE_FUNCTION;
                 readConfig(reader, node_name, this->getArilesConfigurableFlags());
             }
             ARILES_CONSTRUCTOR(
-                    ariles::ReaderBase &reader,
+                    ariles::read::Iterator &reader,
                     const std::string &node_name,
                     const ariles::ConfigurableFlags & param)
             {
+                ARILES_TRACE_FUNCTION;
                 readConfig(reader, node_name, param);
             }
 
 
             explicit ARILES_CONSTRUCTOR(
-                    ariles::ReaderBase &reader)
+                    ariles::read::Iterator &reader)
             {
+                ARILES_TRACE_FUNCTION;
                 readConfig(reader, this->getArilesConfigurableFlags());
             }
             explicit ARILES_CONSTRUCTOR(
-                    ariles::ReaderBase &reader,
-                    const ariles::ConfigurableFlags & param)
+                    ariles::read::Iterator &reader,
+                    const ariles::read::Iterator::ReadParameters & param)
             {
+                ARILES_TRACE_FUNCTION;
                 readConfig(reader, param);
             }
         #endif
 
+        ARILES_METHODS(const)
+        ARILES_METHODS(ARILES_EMPTY_MACRO)
 
         using ariles::CommonConfigurableBase::readConfig;
 
-        void readConfig(ariles::ReaderBase  & reader,
+        void readConfig(ariles::read::Iterator  & reader,
                         const std::string   & node_name,
                         const ariles::ConfigurableFlags & param)
         {
-            ariles::defaults::Iterator iterator;
-            ariles(iterator, iterator.default_parameters_);
-            ariles::readEntry(reader, *this, node_name, param);
+            ARILES_TRACE_FUNCTION;
+            ariles(reader, node_name, param);
         }
 
-        void readConfig(ariles::ReaderBase  & reader,
+        void readConfig(ariles::read::Iterator & reader,
                         const char          * node_name,
                         const ariles::ConfigurableFlags & param)
         {
-            ariles::defaults::Iterator iterator;
-            ariles(iterator, iterator.default_parameters_);
-            ariles::readEntry(reader, *this, node_name, param);
+            ARILES_TRACE_FUNCTION;
+            ariles(reader, node_name, param);
         }
 
 
@@ -280,6 +230,54 @@
             writer.flush();
         }
 
+        std::size_t getNumberOfEntries() const
+        {
+            ARILES_TRACE_FUNCTION;
+            ariles::count::Iterator iterator;
+            arilesApply(iterator, iterator.default_parameters_);
+            return(iterator.counter_);
+        }
+
+
+        ARILES_APPLY_METHODS(   ariles::read::Iterator,
+                                const ariles::read::Iterator::ReadParameters,
+                                ARILES_EMPTY_MACRO)
+
+        ARILES_APPLY_METHODS(   const ariles::defaults::Iterator,
+                                const ariles::defaults::Iterator::DefaultsParameters,
+                                ARILES_EMPTY_MACRO)
+
+        ARILES_APPLY_METHODS(   const ariles::finalize::Iterator,
+                                const ariles::finalize::Iterator::FinalizeParameters,
+                                ARILES_EMPTY_MACRO)
+
+        ARILES_APPLY_METHODS(   ariles::count::Iterator,
+                                const ariles::count::Iterator::CountParameters,
+                                const)
+
+        /**
+         * @{
+         * Some operators, e.g., entry counter, do not have virtual
+         * arilesApply() in the base, so these templates must be defined here
+         * and not in the ConfigurableBase class.
+         */
+        template <class t_Iterator>
+            void arilesApply(t_Iterator &iterator)
+        {
+            ARILES_TRACE_FUNCTION;
+            arilesApply(iterator, iterator.default_parameters_);
+        }
+        template <class t_Iterator>
+            void arilesApply(t_Iterator &iterator) const
+        {
+            ARILES_TRACE_FUNCTION;
+            arilesApply(iterator, iterator.default_parameters_);
+        }
+        /// @}
+
+
+        ARILES_METHOD_WITH_ARG( const ariles::compare::Iterator,
+                                const ariles::compare::Iterator::CompareParameters)
 
 #endif //ARILES_ENABLED
 

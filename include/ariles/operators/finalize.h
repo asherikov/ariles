@@ -24,16 +24,33 @@ namespace ariles
 
             public:
                 template<class t_Configurable>
-                    void start( const t_Configurable &,
-                                const FinalizeParameters &) const
+                    void startBody( const t_Configurable &,
+                                    const FinalizeParameters &) const
                 {
                     ARILES_TRACE_FUNCTION;
                 }
 
 
                 template<class t_Configurable>
-                    void finish(t_Configurable & configurable,
-                                const FinalizeParameters &) const
+                    void finishBody(t_Configurable & configurable,
+                                    const FinalizeParameters &) const
+                {
+                    ARILES_TRACE_FUNCTION;
+                    configurable.finalize();
+                }
+
+
+                template<class t_Configurable>
+                    void startRoot( const t_Configurable &,
+                                    const FinalizeParameters &) const
+                {
+                    ARILES_TRACE_FUNCTION;
+                }
+
+
+                template<class t_Configurable>
+                    void finishRoot(t_Configurable & configurable,
+                                    const FinalizeParameters &) const
                 {
                     ARILES_TRACE_FUNCTION;
                     configurable.finalize();
@@ -41,11 +58,11 @@ namespace ariles
         };
 
 
-        class Base
+        class ARILES_VISIBILITY_ATTRIBUTE Base
         {
             public:
-                virtual void ariles(const ariles::finalize::Iterator &,
-                                    const ariles::finalize::Iterator::FinalizeParameters &) = 0;
+                virtual void arilesApply(   const ariles::finalize::Iterator &,
+                                            const ariles::finalize::Iterator::FinalizeParameters &) = 0;
 
 
                 /**
@@ -55,7 +72,7 @@ namespace ariles
                 virtual void arilesFinalize()
                 {
                     ariles::finalize::Iterator iterator;
-                    ariles(iterator, iterator.default_parameters_);
+                    arilesApply(iterator, iterator.default_parameters_);
                 }
 
                 virtual void finalize()

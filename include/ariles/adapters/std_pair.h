@@ -14,54 +14,61 @@
 
 namespace ariles
 {
-    template <  class t_Reader,
-                typename t_First,
-                typename t_Second>
-        void ARILES_VISIBILITY_ATTRIBUTE readBody(
-                t_Reader & reader,
-                std::pair<t_First, t_Second> & entry,
-                const typename t_Reader::Parameters & param)
+    namespace read
     {
-        typename t_Reader::Parameters param_local = param;
-        param_local.unset(t_Reader::Parameters::ALLOW_MISSING_ENTRIES);
-        reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(2);
-        readEntry(reader, entry.first, "first", param_local);
-        readEntry(reader, entry.second, "second", param_local);
-        reader.endMap();
-    }
-
-
-    template <  class t_Reader,
-                typename t_Second>
-        void ARILES_VISIBILITY_ATTRIBUTE readBody(
-                t_Reader & reader,
-                std::pair<std::string, t_Second> & entry,
-                const typename t_Reader::Parameters & param)
-    {
-        if (reader.getBridgeFlags().isSet(BridgeFlags::SLOPPY_PAIRS_SUPPORTED)
-                && param.isSet(t_Reader::Parameters::SLOPPY_PAIRS_IF_SUPPORTED))
+        template <  class t_Iterator,
+                    typename t_First,
+                    typename t_Second>
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
+                    t_Iterator & iterator,
+                    std::pair<t_First, t_Second> & entry,
+                    const typename t_Iterator::ReadParameters & param)
         {
-            std::vector<std::string> entry_names;
-            ARILES_ASSERT(true == reader.getMapEntryNames(entry_names), "Could not read names of map entries.");
-            ARILES_ASSERT(1 == entry_names.size(), "Wrong number of map entries for a sloppy pair.");
-            entry.first = entry_names[0];
-
-            typename t_Reader::Parameters param_local = param;
-            param_local.unset(t_Reader::Parameters::ALLOW_MISSING_ENTRIES);
-            reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(1);
-
-            readEntry(reader, entry.second, entry.first, param_local);
-
-            reader.endMap();
+            ARILES_TRACE_FUNCTION;
+            typename t_Iterator::ReadParameters param_local = param;
+            param_local.unset(t_Iterator::ReadParameters::ALLOW_MISSING_ENTRIES);
+            iterator.template startMap<t_Iterator::SIZE_LIMIT_EQUAL>(2);
+            arilesEntryApply(iterator, entry.first, "first", param_local);
+            arilesEntryApply(iterator, entry.second, "second", param_local);
+            iterator.endMap();
         }
-        else
+
+
+        template <  class t_Iterator,
+                    typename t_Second>
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
+                    t_Iterator & iterator,
+                    std::pair<std::string, t_Second> & entry,
+                    const typename t_Iterator::ReadParameters & param)
         {
-            readBody<t_Reader, std::string, t_Second>(reader, entry, param);
+            ARILES_TRACE_FUNCTION;
+            if (iterator.getBridgeFlags().isSet(BridgeFlags::SLOPPY_PAIRS_SUPPORTED)
+                    && param.isSet(t_Iterator::ReadParameters::SLOPPY_PAIRS_IF_SUPPORTED))
+            {
+                std::vector<std::string> entry_names;
+                ARILES_ASSERT(true == iterator.getMapEntryNames(entry_names), "Could not read names of map entries.");
+                ARILES_ASSERT(1 == entry_names.size(), "Wrong number of map entries for a sloppy pair.");
+                entry.first = entry_names[0];
+
+                typename t_Iterator::ReadParameters param_local = param;
+                param_local.unset(t_Iterator::ReadParameters::ALLOW_MISSING_ENTRIES);
+                iterator.template startMap<t_Iterator::SIZE_LIMIT_EQUAL>(1);
+
+                arilesEntryApply(iterator, entry.second, entry.first, param_local);
+
+                iterator.endMap();
+            }
+            else
+            {
+                apply<t_Iterator, std::string, t_Second>(iterator, entry, param);
+            }
         }
     }
+}
 
 
-
+namespace ariles
+{
     template <  class t_Writer,
                 typename t_First,
                 typename t_Second>

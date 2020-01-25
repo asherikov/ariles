@@ -23,7 +23,7 @@ namespace ariles
              * @brief Configuration reader class
              */
             class ARILES_VISIBILITY_ATTRIBUTE Reader :
-                public ariles::bridge::msgpack::Base<ariles::ReaderBase>
+                public ariles::bridge::msgpack::Base<ariles::read::Iterator>
             {
                 protected:
                     typedef ariles::Node< const ::msgpack::object * > NodeWrapper;
@@ -109,7 +109,7 @@ namespace ariles
                     explicit Reader(const std::string& file_name)
                     {
                         std::ifstream config_ifs;
-                        ReaderBase::openFile(config_ifs, file_name);
+                        read::Iterator::openFile(config_ifs, file_name);
                         initialize(config_ifs);
                     }
 

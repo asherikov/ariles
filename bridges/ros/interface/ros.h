@@ -13,7 +13,7 @@
 
 #include <ariles/internal/helpers.h>
 #include <ariles/internal/node.h>
-#include <ariles/internal/reader_base.h>
+#include <ariles/operators/read.h>
 #include <ariles/internal/writer_base.h>
 
 #include <ros/ros.h>

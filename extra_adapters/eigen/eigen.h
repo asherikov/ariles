@@ -15,137 +15,144 @@
 
 namespace ariles
 {
-    template <  class t_Reader,
-                typename t_Scalar,
-                int t_rows,
-                int t_flags>
-        void ARILES_VISIBILITY_ATTRIBUTE readBody(
-                t_Reader &reader,
-                Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
-                const typename t_Reader::Parameters & param)
+    namespace read
     {
-        std::size_t size = reader.startArray();
-
-        if (Eigen::Dynamic == t_rows)
+        template <  class t_Iterator,
+                    typename t_Scalar,
+                    int t_rows,
+                    int t_flags>
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
+                    t_Iterator &iterator,
+                    Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
+                    const typename t_Iterator::ReadParameters & param)
         {
-            entry.resize(size);
+            ARILES_TRACE_FUNCTION;
+            std::size_t size = iterator.startArray();
+
+            if (Eigen::Dynamic == t_rows)
+            {
+                entry.resize(size);
+            }
+            else
+            {
+                ARILES_ASSERT(  (static_cast<int>(size) == t_rows),
+                                "Wrong entry size.");
+            }
+
+            for(EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows); ++i)
+            {
+                apply(iterator, entry[i], param);
+                iterator.shiftArray();
+            }
+            iterator.endArray();
         }
-        else
+
+
+
+        template <  class t_Iterator,
+                    typename t_Scalar,
+                    int t_rows,
+                    int t_cols,
+                    int t_flags>
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
+                    t_Iterator & iterator,
+                    Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
+                    const typename t_Iterator::ReadParameters & param)
         {
-            ARILES_ASSERT(  (static_cast<int>(size) == t_rows),
-                            "Wrong entry size.");
+            ARILES_TRACE_FUNCTION;
+            if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols || param.isSet(ConfigurableFlags::FORCE_EXPLICIT_MATRIX_SIZE))
+            {
+                EIGEN_DEFAULT_DENSE_INDEX_TYPE num_rows;
+                EIGEN_DEFAULT_DENSE_INDEX_TYPE num_cols;
+
+                ariles::ConfigurableFlags param_local = param;
+                param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
+
+                iterator.template startMap<t_Iterator::SIZE_LIMIT_EQUAL>(3);
+                arilesEntryApply(iterator, num_cols, "cols", param_local);
+                ARILES_ASSERT(Eigen::Dynamic == t_cols || t_cols == num_cols, "Wrong number of columns.");
+                arilesEntryApply(iterator, num_rows, "rows", param_local);
+                ARILES_ASSERT(Eigen::Dynamic == t_rows || t_rows == num_rows, "Wrong number of rows.");
+
+
+                Eigen::Matrix<t_Scalar, Eigen::Dynamic, 1> v;
+                arilesEntryApply(iterator, v, "data", param_local);
+                iterator.endMap();
+
+                ARILES_ASSERT(v.rows() == num_rows*num_cols, "Wrong entry size.");
+
+                Eigen::Map<
+                    Eigen::Matrix<  t_Scalar,
+                                    t_rows,
+                                    t_cols,
+                                    Eigen::RowMajor> >  map(v.data(),
+                                                        num_rows,
+                                                        num_cols);
+                entry = map;
+            }
+            else
+            {
+                Eigen::Matrix<t_Scalar, t_rows*t_cols, 1> v;
+
+                apply(iterator, v, param);
+
+                Eigen::Map<
+                    Eigen::Matrix<  double,
+                                    t_rows,
+                                    t_cols,
+                                    Eigen::RowMajor> >  map(v.data(),
+                                                        t_rows,
+                                                        t_cols);
+                entry = map;
+            }
         }
 
-        for(EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows); ++i)
+
+        template <  class t_Iterator,
+                    typename t_Scalar,
+                    int t_dim,
+                    int t_mode,
+                    int t_options>
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
+                    t_Iterator & iterator,
+                    Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
+                    const typename t_Iterator::ReadParameters & param)
         {
-            readBody(reader, entry[i], param);
-            reader.shiftArray();
+            ARILES_TRACE_FUNCTION;
+            Eigen::Matrix<
+                t_Scalar,
+                Eigen::Dynamic == t_dim ? Eigen::Dynamic : t_dim+1,
+                Eigen::Dynamic == t_dim ? Eigen::Dynamic : t_dim+1> raw_matrix;
+            apply(iterator, raw_matrix, param);
+            entry.matrix() = raw_matrix;
         }
-        reader.endArray();
-    }
 
 
-
-    template <  class t_Reader,
-                typename t_Scalar,
-                int t_rows,
-                int t_cols,
-                int t_flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        readBody(  t_Reader & reader,
-                   Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
-                   const typename t_Reader::Parameters & param)
-    {
-        if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols || param.isSet(ConfigurableFlags::FORCE_EXPLICIT_MATRIX_SIZE))
+        template <  class t_Iterator,
+                    typename t_Scalar,
+                    int t_options>
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
+                    t_Iterator & iterator,
+                    Eigen::Quaternion< t_Scalar, t_options > &entry,
+                    const typename t_Iterator::ReadParameters & param)
         {
-            EIGEN_DEFAULT_DENSE_INDEX_TYPE num_rows;
-            EIGEN_DEFAULT_DENSE_INDEX_TYPE num_cols;
-
+            ARILES_TRACE_FUNCTION;
             ariles::ConfigurableFlags param_local = param;
             param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
 
-            reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(3);
-            readEntry(reader, num_cols, "cols", param_local);
-            ARILES_ASSERT(Eigen::Dynamic == t_cols || t_cols == num_cols, "Wrong number of columns.");
-            readEntry(reader, num_rows, "rows", param_local);
-            ARILES_ASSERT(Eigen::Dynamic == t_rows || t_rows == num_rows, "Wrong number of rows.");
-
-
-            Eigen::Matrix<t_Scalar, Eigen::Dynamic, 1> v;
-            readEntry(reader, v, "data", param_local);
-            reader.endMap();
-
-            ARILES_ASSERT(v.rows() == num_rows*num_cols, "Wrong entry size.");
-
-            Eigen::Map<
-                Eigen::Matrix<  t_Scalar,
-                                t_rows,
-                                t_cols,
-                                Eigen::RowMajor> >  map(v.data(),
-                                                    num_rows,
-                                                    num_cols);
-            entry = map;
-        }
-        else
-        {
-            Eigen::Matrix<t_Scalar, t_rows*t_cols, 1> v;
-
-            readBody(reader, v, param);
-
-            Eigen::Map<
-                Eigen::Matrix<  double,
-                                t_rows,
-                                t_cols,
-                                Eigen::RowMajor> >  map(v.data(),
-                                                    t_rows,
-                                                    t_cols);
-            entry = map;
+            iterator.template startMap<t_Iterator::SIZE_LIMIT_EQUAL>(4);
+            arilesEntryApply(iterator, entry.x(), "x", param_local);
+            arilesEntryApply(iterator, entry.y(), "y", param_local);
+            arilesEntryApply(iterator, entry.z(), "z", param_local);
+            arilesEntryApply(iterator, entry.w(), "w", param_local);
+            iterator.endMap();
         }
     }
+}
 
 
-    template <  class t_Reader,
-                typename t_Scalar,
-                int t_dim,
-                int t_mode,
-                int t_options>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        readBody(   t_Reader & reader,
-                    Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
-                    const typename t_Reader::Parameters & param)
-    {
-        Eigen::Matrix<
-            t_Scalar,
-            Eigen::Dynamic == t_dim ? Eigen::Dynamic : t_dim+1,
-            Eigen::Dynamic == t_dim ? Eigen::Dynamic : t_dim+1> raw_matrix;
-        readBody(reader, raw_matrix, param);
-        entry.matrix() = raw_matrix;
-    }
-
-
-    template <  class t_Reader,
-                typename t_Scalar,
-                int t_options>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        readBody(   t_Reader & reader,
-                    Eigen::Quaternion< t_Scalar, t_options > &entry,
-                    const typename t_Reader::Parameters & param)
-    {
-        ariles::ConfigurableFlags param_local = param;
-        param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
-
-        reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(4);
-        readEntry(reader, entry.x(), "x", param_local);
-        readEntry(reader, entry.y(), "y", param_local);
-        readEntry(reader, entry.z(), "z", param_local);
-        readEntry(reader, entry.w(), "w", param_local);
-        reader.endMap();
-    }
-
-
-    // ====================================================
-
-
+namespace ariles
+{
     template <  class t_Writer,
                 typename t_Scalar,
                 int t_rows,

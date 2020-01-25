@@ -42,16 +42,31 @@ namespace ariles
 
             public:
                 template<class t_Configurable>
-                    void start( const t_Configurable &,
-                                const DefaultsParameters &) const
+                    void startBody( const t_Configurable &,
+                                    const DefaultsParameters &) const
                 {
                     ARILES_TRACE_FUNCTION;
                 }
 
 
                 template<class t_Configurable>
-                    void finish(const t_Configurable &,
-                                const DefaultsParameters &) const
+                    void finishBody(const t_Configurable &,
+                                    const DefaultsParameters &) const
+                {
+                    ARILES_TRACE_FUNCTION;
+                }
+
+                template<class t_Configurable>
+                    void startRoot( const t_Configurable &,
+                                    const DefaultsParameters &) const
+                {
+                    ARILES_TRACE_FUNCTION;
+                }
+
+
+                template<class t_Configurable>
+                    void finishRoot(const t_Configurable &,
+                                    const DefaultsParameters &) const
                 {
                     ARILES_TRACE_FUNCTION;
                 }
@@ -82,21 +97,22 @@ namespace ariles
         }
 
 
-        class Base
+        class ARILES_VISIBILITY_ATTRIBUTE Base
         {
             public:
                 /**
                  * @brief Set members to their default values.
                  */
-                virtual void ariles(const ariles::defaults::Iterator &,
-                                    const ariles::defaults::Iterator::DefaultsParameters &) = 0;
+                virtual void arilesApply(   const ariles::defaults::Iterator &,
+                                            const ariles::defaults::Iterator::DefaultsParameters &) = 0;
+
 
 
                 /// @todo DEPRECATED
                 void setDefaults()
                 {
                     ariles::defaults::Iterator iterator;
-                    ariles(iterator, iterator.default_parameters_);
+                    arilesApply(iterator, iterator.default_parameters_);
                 }
         };
     }

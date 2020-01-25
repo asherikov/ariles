@@ -14,68 +14,75 @@
 
 namespace ariles
 {
-    template <  class t_Reader,
-                typename t_Key,
-                typename t_Value,
-                class t_Compare,
-                class t_Allocator>
-        void ARILES_VISIBILITY_ATTRIBUTE readBody(
-                t_Reader & reader,
-                std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry,
-                const typename t_Reader::Parameters & param)
+    namespace read
     {
-        std::size_t size = reader.startArray();
-        typename t_Reader::Parameters param_local = param;
-        param_local.unset(t_Reader::Parameters::ALLOW_MISSING_ENTRIES);
-        entry.clear();
-        for(std::size_t i = 0; i < size; ++i)
+        template <  class t_Iterator,
+                    typename t_Key,
+                    typename t_Value,
+                    class t_Compare,
+                    class t_Allocator>
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
+                    t_Iterator & iterator,
+                    std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry,
+                    const typename t_Iterator::ReadParameters & param)
         {
-            std::pair<t_Key, t_Value> map_entry;
-
-            readBody(reader, map_entry, param_local);
-
-            entry.insert(map_entry);
-
-            reader.shiftArray();
-        }
-        reader.endArray();
-    }
-
-
-    template <  class t_Reader,
-                typename t_Value,
-                class t_Compare,
-                class t_Allocator>
-        void ARILES_VISIBILITY_ATTRIBUTE readBody(
-                t_Reader & reader,
-                std::map<std::string, t_Value, t_Compare, t_Allocator> & entry,
-                const typename t_Reader::Parameters & param)
-    {
-        if (reader.getBridgeFlags().isSet(BridgeFlags::SLOPPY_MAPS_SUPPORTED)
-                && param.isSet(t_Reader::Parameters::SLOPPY_MAPS_IF_SUPPORTED))
-        {
-            std::vector<std::string> entry_names;
-            ARILES_ASSERT(true == reader.getMapEntryNames(entry_names), "Could not read names of map entries.");
-            typename t_Reader::Parameters param_local = param;
-            param_local.unset(t_Reader::Parameters::ALLOW_MISSING_ENTRIES);
+            ARILES_TRACE_FUNCTION;
+            std::size_t size = iterator.startArray();
+            typename t_Iterator::ReadParameters param_local = param;
+            param_local.unset(t_Iterator::ReadParameters::ALLOW_MISSING_ENTRIES);
             entry.clear();
-            reader.template startMap<t_Reader::SIZE_LIMIT_NONE>();
-            for (std::size_t i = 0; i < entry_names.size(); ++i)
+            for(std::size_t i = 0; i < size; ++i)
             {
-                t_Value entry_value;
-                readEntry(reader, entry_value, entry_names[i], param_local);
-                entry[entry_names[i]] = entry_value;
+                std::pair<t_Key, t_Value> map_entry;
+
+                apply(iterator, map_entry, param_local);
+
+                entry.insert(map_entry);
+
+                iterator.shiftArray();
             }
-            reader.endMap();
+            iterator.endArray();
         }
-        else
+
+
+        template <  class t_Iterator,
+                    typename t_Value,
+                    class t_Compare,
+                    class t_Allocator>
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
+                    t_Iterator & iterator,
+                    std::map<std::string, t_Value, t_Compare, t_Allocator> & entry,
+                    const typename t_Iterator::ReadParameters & param)
         {
-            readBody<t_Reader, std::string, t_Value, t_Compare, t_Allocator>(reader, entry, param);
+            ARILES_TRACE_FUNCTION;
+            if (iterator.getBridgeFlags().isSet(BridgeFlags::SLOPPY_MAPS_SUPPORTED)
+                    && param.isSet(t_Iterator::ReadParameters::SLOPPY_MAPS_IF_SUPPORTED))
+            {
+                std::vector<std::string> entry_names;
+                ARILES_ASSERT(true == iterator.getMapEntryNames(entry_names), "Could not read names of map entries.");
+                typename t_Iterator::ReadParameters param_local = param;
+                param_local.unset(t_Iterator::ReadParameters::ALLOW_MISSING_ENTRIES);
+                entry.clear();
+                iterator.template startMap<t_Iterator::SIZE_LIMIT_NONE>();
+                for (std::size_t i = 0; i < entry_names.size(); ++i)
+                {
+                    t_Value entry_value;
+                    arilesEntryApply(iterator, entry_value, entry_names[i], param_local);
+                    entry[entry_names[i]] = entry_value;
+                }
+                iterator.endMap();
+            }
+            else
+            {
+                apply<t_Iterator, std::string, t_Value, t_Compare, t_Allocator>(iterator, entry, param);
+            }
         }
     }
+}
 
 
-
+namespace ariles
+{
     template <  class t_Writer,
                 typename t_Key,
                 typename t_Value,
