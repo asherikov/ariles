@@ -10,13 +10,13 @@
 
 #pragma once
 
-#include <limits>
+#include "common.h"
 
 namespace ariles
 {
     namespace compare
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Iterator
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Visitor
         {
             public:
                 class CompareParameters
@@ -57,32 +57,6 @@ namespace ariles
 
             public:
                 template<class t_Configurable, class t_Other>
-                    void startBody( const t_Configurable & configurable,
-                                    const t_Other & other,
-                                    const CompareParameters & parameters) const
-                {
-                    ARILES_TRACE_FUNCTION;
-
-                    if (true == parameters.compare_number_of_entries_)
-                    {
-                        if (configurable.getNumberOfEntries() != other.getNumberOfEntries())
-                        {
-                            ARILES_THROW("Comparison failed: dfferent number of entries.");
-                        }
-                    }
-                }
-
-
-                template<class t_Configurable, class t_Other>
-                    void finishBody(const t_Configurable &,
-                                    const t_Other &,
-                                    const CompareParameters &) const
-                {
-                    ARILES_TRACE_FUNCTION;
-                }
-
-
-                template<class t_Configurable, class t_Other>
                     void startRoot( const t_Configurable &,
                                     const t_Other &,
                                     const CompareParameters &) const
@@ -96,6 +70,7 @@ namespace ariles
                                     const t_Other &,
                                     const CompareParameters &) const
                 {
+                    ARILES_TRACE_FUNCTION;
                 }
 
 
@@ -135,25 +110,22 @@ namespace ariles
 
 
         template <>
-        inline double Iterator::CompareParameters::getTolerance<double>() const
+        inline double Visitor::CompareParameters::getTolerance<double>() const
         {
             return (double_tolerance_);
         }
 
         template <>
-        inline float Iterator::CompareParameters::getTolerance<float>() const
+        inline float Visitor::CompareParameters::getTolerance<float>() const
         {
             return (float_tolerance_);
         }
 
 
-
-        class ARILES_VISIBILITY_ATTRIBUTE Base
+        template<class t_Derived>
+            class ARILES_VISIBILITY_ATTRIBUTE Base
         {
             public:
         };
     }  // namespace compare
-
-    /// @todo DEPRECATED
-    typedef compare::Iterator::CompareParameters ComparisonParameters;
 }  // namespace ariles

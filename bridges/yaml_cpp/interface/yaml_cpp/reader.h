@@ -20,7 +20,7 @@ namespace ariles
              * @brief Configuration reader class
              */
             class ARILES_VISIBILITY_ATTRIBUTE Reader :
-                public ariles::bridge::yaml_cpp::Base<ariles::read::Iterator>
+                public ariles::bridge::yaml_cpp::Base<ariles::read::Visitor>
             {
                 protected:
                     typedef ariles::Node<YAML::Node> NodeWrapper;

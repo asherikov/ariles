@@ -20,7 +20,7 @@ namespace ariles
              * @brief Configuration writer class
              */
             class ARILES_VISIBILITY_ATTRIBUTE Writer :
-                public ariles::bridge::ros::Base<ariles::WriterBase>
+                public ariles::bridge::ros::Base<ariles::write::Visitor>
             {
                 public:
                     explicit Writer(const ::ros::NodeHandle &nh)

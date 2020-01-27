@@ -15,11 +15,11 @@ namespace ariles
 {
     namespace read
     {
-        template <  class t_Iterator,
+        template <  class t_Visitor,
                     class t_BetterEnum,
                     class t_Flags>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator &iterator,
+                    t_Visitor &visitor,
                     t_BetterEnum &entry,
                     const t_Flags & /*param*/,
                     const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
@@ -30,7 +30,7 @@ namespace ariles
         {
             ARILES_TRACE_FUNCTION;
             std::string enum_value;
-            iterator.readElement(enum_value);
+            visitor.readElement(enum_value);
             entry = t_BetterEnum::_from_string(enum_value.c_str());
         }
     }
@@ -39,11 +39,13 @@ namespace ariles
 
 namespace ariles
 {
-    template <  class t_Writer,
-                class t_BetterEnum,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        writeBody(  t_Writer & writer,
+    namespace write
+    {
+        template <  class t_Visitor,
+                    class t_BetterEnum,
+                    class t_Flags>
+            void ARILES_VISIBILITY_ATTRIBUTE apply(
+                    t_Visitor & writer,
                     const t_BetterEnum &entry,
                     const t_Flags & /*param*/,
                     const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
@@ -51,8 +53,10 @@ namespace ariles
                     const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
-    {
-        writer.writeElement(std::string(entry._to_string()));
+        {
+            ARILES_TRACE_FUNCTION;
+            writer.writeElement(std::string(entry._to_string()));
+        }
     }
 }
 
@@ -61,12 +65,12 @@ namespace ariles
 {
     namespace compare
     {
-        template <class t_Iterator, class t_BetterEnum>
+        template <class t_Visitor, class t_BetterEnum>
             bool ARILES_VISIBILITY_ATTRIBUTE apply(
-                    const t_Iterator & /*iterator*/,
+                    const t_Visitor & /*visitor*/,
                     const t_BetterEnum &left,
                     const t_BetterEnum &right,
-                    const typename t_Iterator::CompareParameters & /*param*/,
+                    const typename t_Visitor::CompareParameters & /*param*/,
                     const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
@@ -85,12 +89,12 @@ namespace ariles
 {
     namespace defaults
     {
-        template <  class t_Iterator,
+        template <  class t_Visitor,
                     class t_BetterEnum>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator & /*iterator*/,
+                    t_Visitor & /*visitor*/,
                     t_BetterEnum &entry,
-                    const typename t_Iterator::DefaultsParameters & /*param*/,
+                    const typename t_Visitor::DefaultsParameters & /*param*/,
                     const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
@@ -109,12 +113,12 @@ namespace ariles
 {
     namespace finalize
     {
-        template <  class t_Iterator,
+        template <  class t_Visitor,
                     class t_BetterEnum>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                        t_Iterator & /*iterator*/,
+                        t_Visitor & /*visitor*/,
                         t_BetterEnum & /*entry*/,
-                        const typename t_Iterator::FinalizeParameters & /*param*/,
+                        const typename t_Visitor::FinalizeParameters & /*param*/,
                         const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
                         const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
                         const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,

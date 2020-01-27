@@ -19,7 +19,7 @@ namespace ariles
         #include ARILES_INITIALIZE
 
         protected:
-            bool isConsitent() const
+            bool isConsistent() const
             {
                 if (("" != id_) && (NULL != value_.get()))
                 {
@@ -43,8 +43,8 @@ namespace ariles
         public:
             Any()
             {
-                ariles::defaults::Iterator iterator;
-                arilesApply(iterator, iterator.default_parameters_);
+                ariles::defaults::Visitor visitor;
+                arilesApply(visitor, visitor.default_parameters_);
             }
 
 
@@ -153,91 +153,76 @@ namespace ariles
 
         // Ariles methods
 
-            void writeConfigEntries(ariles::WriterBase & writer,
-                                    const ariles::WriterBase::Parameters & param) const
+            void arilesVisit(ariles::write::Visitor & writer,
+                                const ariles::write::Visitor::WriteParameters & param) const
             {
                 ARILES_ASSERT(
-                        true == isConsitent(),
+                        true == isConsistent(),
                         "Could not write config: entry is in an inconsistent (partially initialized) state.");
 
-                ARILES_WRITE_ENTRY_(id);
+                arilesEntryApply(writer, id_, "id", param);
                 if (true == isInitialized())
                 {
-                    ARILES_WRITE_NAMED_ENTRY(*value_, "value");
+                    arilesEntryApply(writer, *value_, "value", param);
                 }
             }
 
 
-            void arilesIterator(ariles::read::Iterator & iterator,
-                                const ariles::read::Iterator::ReadParameters & parameters)
+            void arilesVisit(ariles::read::Visitor & visitor,
+                                const ariles::read::Visitor::ReadParameters & parameters)
             {
                 ARILES_TRACE_FUNCTION;
 
-                ariles::read::Iterator::ReadParameters param = parameters;
-                param.unset(ariles::read::Iterator::ReadParameters::ALLOW_MISSING_ENTRIES);
+                ariles::read::Visitor::ReadParameters param = parameters;
+                param.unset(ariles::read::Visitor::ReadParameters::ALLOW_MISSING_ENTRIES);
 
-                arilesEntryApply(iterator, id_, "id", param);
+                arilesEntryApply(visitor, id_, "id", param);
                 if ("" == id_)
                 {
                     ARILES_ASSERT(
-                            true == parameters.isSet(ariles::read::Iterator::ReadParameters::ALLOW_MISSING_ENTRIES),
+                            true == parameters.isSet(ariles::read::Visitor::ReadParameters::ALLOW_MISSING_ENTRIES),
                             "Id is empty, value cannot be read.");
                 }
                 else
                 {
                     build(id_);
-                    arilesEntryApply(iterator, *value_, "value", param);
+                    arilesEntryApply(visitor, *value_, "value", param);
                 }
             }
 
 
-            void arilesIterator(const ariles::finalize::Iterator & iterator,
-                                const ariles::finalize::Iterator::FinalizeParameters & param)
+            void arilesVisit(const ariles::finalize::Visitor & visitor,
+                                const ariles::finalize::Visitor::FinalizeParameters & param)
             {
                 if (true == isInitialized())
                 {
-                    value_->arilesIterator(iterator, param);
+                    value_->arilesVisit(visitor, param);
                 }
             }
 
-            void arilesIterator(const ariles::defaults::Iterator & /*iterator*/,
-                                const ariles::defaults::Iterator::DefaultsParameters & /*param*/)
+            void arilesVisit(const ariles::defaults::Visitor & /*visitor*/,
+                                const ariles::defaults::Visitor::DefaultsParameters & /*param*/)
             {
                 id_ = "";
                 value_.reset();
             }
 
 
-            void arilesIterator(ariles::count::Iterator & iterator,
-                                const ariles::count::Iterator::CountParameters & /*param*/) const
+            void arilesVisit(ariles::count::Visitor & visitor,
+                                const ariles::count::Visitor::CountParameters & /*param*/) const
             {
-                iterator.counter_ += 2;
+                visitor.counter_ += 2;
             }
 
 
             template<class t_Other>
-            bool arilesCompare( const t_Other &other,
-                                const ariles::compare::Iterator::CompareParameters &param) const
+            void arilesVisit(const ariles::compare::Visitor &visitor,
+                                const t_Other &other,
+                                const ariles::compare::Visitor::CompareParameters &param) const
             {
                 ARILES_TRACE_FUNCTION;
-                try
-                {
-                    ariles::compare::Iterator iterator;
-
-                    iterator.startBody(*this, other, param);
-                    arilesEntryApply(iterator, id_, other.id_, "id", param);
-                    arilesEntryApply(iterator, value_, other.value_, "value", param);
-                    iterator.finishBody(*this, other, param);
-                    return (true);
-                }
-                catch (std::exception &e)
-                {
-                    if (true == param.throw_on_error_)
-                    {
-                        ARILES_THROW(std::string("Comparison failed: ") + e.what());
-                    }
-                    return (false);
-                }
+                arilesEntryApply(visitor, id_, other.id_, "id", param);
+                arilesEntryApply(visitor, value_, other.value_, "value", param);
             }
     };
 }
@@ -263,8 +248,8 @@ namespace ariles
         public:
             NonNullPointer()
             {
-                ariles::defaults::Iterator iterator;
-                arilesIterator(iterator, iterator.default_parameters_);
+                ariles::defaults::Visitor visitor;
+                arilesVisit(visitor, visitor.default_parameters_);
             }
 
 
@@ -311,38 +296,38 @@ namespace ariles
             }
 
 
-            void writeConfigEntries(ariles::WriterBase &writer, const ariles::WriterBase::Parameters &parameters) const
+            void arilesVisit(ariles::write::Visitor &writer, const ariles::write::Visitor::WriteParameters &parameters) const
             {
                 ARILES_ASSERT(false == isNull(), "Could not write config: entry is not initialized");
-                value_->writeConfigEntries(writer, parameters);
+                value_->arilesVisit(writer, parameters);
             }
 
 
-            void arilesIterator(ariles::read::Iterator &reader, const ariles::read::Iterator::ReadParameters &parameters)
+            void arilesVisit(ariles::read::Visitor &reader, const ariles::read::Visitor::ReadParameters &parameters)
             {
                 Handler::allocate(value_);
-                value_->arilesIterator(reader, parameters);
+                value_->arilesVisit(reader, parameters);
             }
 
 
-            void arilesIterator(const ariles::finalize::Iterator & /*iterator*/,
-                                const ariles::finalize::Iterator::FinalizeParameters & /*param*/)
+            void arilesVisit(const ariles::finalize::Visitor & /*visitor*/,
+                                const ariles::finalize::Visitor::FinalizeParameters & /*param*/)
             {
                 ARILES_ASSERT(false == isNull(), "Not initialized");
             }
 
-            void arilesIterator(const ariles::defaults::Iterator & iterator,
-                                const ariles::defaults::Iterator::DefaultsParameters & param)
+            void arilesVisit(const ariles::defaults::Visitor & visitor,
+                                const ariles::defaults::Visitor::DefaultsParameters & param)
             {
                 Handler::allocate(value_);
-                value_->arilesIterator(iterator, param);
+                value_->arilesVisit(visitor, param);
             }
 
 
-            void arilesIterator(ariles::count::Iterator & iterator,
-                                const ariles::count::Iterator::CountParameters & param) const
+            void arilesVisit(ariles::count::Visitor & visitor,
+                                const ariles::count::Visitor::CountParameters & param) const
             {
-                value_->arilesIterator(iterator, param);
+                value_->arilesVisit(visitor, param);
             }
 
 
@@ -353,11 +338,12 @@ namespace ariles
 
 
             template<class t_Other>
-            bool arilesCompare( const t_Other &other,
-                                const ariles::compare::Iterator::CompareParameters &param) const
+            void arilesVisit(const ariles::compare::Visitor &visitor,
+                                const t_Other &other,
+                                const ariles::compare::Visitor::CompareParameters &param) const
             {
                 ARILES_TRACE_FUNCTION;
-                return (value_->arilesCompare(*other.value_, param));
+                value_->arilesVisit(visitor, *other.value_, param);
             }
     };
 }

@@ -24,7 +24,7 @@ namespace ariles
             /**
              * @brief Configuration writer class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::WriterBase
+            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::write::Visitor
             {
                 protected:
                     typedef ariles::Node< std::string > NodeWrapper;
@@ -53,7 +53,7 @@ namespace ariles
                 public:
                     explicit Writer(const std::string& file_name)
                     {
-                        WriterBase::openFile(config_ofs_, file_name);
+                        ariles::write::Visitor::openFile(config_ofs_, file_name);
                         output_stream_ = &config_ofs_;
                         initEmitter();
                     }

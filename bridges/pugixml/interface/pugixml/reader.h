@@ -21,7 +21,7 @@ namespace ariles
              * @brief Configuration reader class
              */
             class ARILES_VISIBILITY_ATTRIBUTE Reader :
-                public ariles::bridge::pugixml::Base<ariles::read::Iterator>
+                public ariles::bridge::pugixml::Base<ariles::read::Visitor>
             {
                 protected:
                     std::size_t getMapSize(const bool /*expect_empty*/)

@@ -20,7 +20,7 @@ namespace ariles
              * @brief Configuration reader class
              */
             class ARILES_VISIBILITY_ATTRIBUTE Reader :
-                public ariles::bridge::rapidjson::Base<ariles::read::Iterator, const ::rapidjson::Value>
+                public ariles::bridge::rapidjson::Base<ariles::read::Visitor, const ::rapidjson::Value>
             {
                 protected:
                     void initialize(std::istream & input_stream)
@@ -52,7 +52,7 @@ namespace ariles
                     explicit Reader(const std::string& file_name)
                     {
                         std::ifstream config_ifs;
-                        read::Iterator::openFile(config_ifs, file_name);
+                        read::Visitor::openFile(config_ifs, file_name);
                         initialize(config_ifs);
                     }
 

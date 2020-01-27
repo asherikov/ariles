@@ -10,13 +10,13 @@
 
 #pragma once
 
-#include <limits>
+#include "common.h"
 
 namespace ariles
 {
     namespace count
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Iterator
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Visitor
         {
             public:
                 class CountParameters
@@ -30,26 +30,10 @@ namespace ariles
 
 
             public:
-                Iterator()
+                Visitor()
                 {
                     counter_ = 0;
                     descend_ = false;
-                }
-
-
-                template<class t_Configurable>
-                    void startBody( const t_Configurable &,
-                                    const CountParameters &)
-                {
-                    ARILES_TRACE_FUNCTION;
-                }
-
-
-                template<class t_Configurable>
-                    void finishBody(const t_Configurable &,
-                                    const CountParameters &) const
-                {
-                    ARILES_TRACE_FUNCTION;
                 }
 
 
@@ -58,6 +42,7 @@ namespace ariles
                                     const CountParameters &)
                 {
                     ARILES_TRACE_FUNCTION;
+                    counter_ = 0;
                     descend_ = true;
                 }
 
@@ -72,18 +57,10 @@ namespace ariles
 
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Base
+        template<class t_Derived>
+            class ARILES_VISIBILITY_ATTRIBUTE Base
         {
             public:
-                /**
-                 * @brief Get number of entries in the corresponding
-                 * configuration node.
-                 *
-                 * @return number of entries
-                 *
-                 * @todo DEPRECATED
-                 */
-                virtual std::size_t getNumberOfEntries() const = 0;
         };
     }
 }

@@ -12,21 +12,21 @@ namespace ariles
 {
     namespace read
     {
-        template <  class t_Iterator,
+        template <  class t_Visitor,
                     typename t_Entry>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    t_Iterator &iterator,
+                    t_Visitor &visitor,
                     ARILES_POINTER_TYPE<t_Entry> &entry,
-                    const typename t_Iterator::ReadParameters & param)
+                    const typename t_Visitor::ReadParameters & param)
         {
             ARILES_TRACE_FUNCTION;
             bool is_null = true;
 
-            typename t_Iterator::ReadParameters param_local = param;
-            param_local.unset(t_Iterator::ReadParameters::ALLOW_MISSING_ENTRIES);
+            typename t_Visitor::ReadParameters param_local = param;
+            param_local.unset(t_Visitor::ReadParameters::ALLOW_MISSING_ENTRIES);
 
-            iterator.template startMap<t_Iterator::SIZE_LIMIT_RANGE>(1, 2);
-            arilesEntryApply(iterator, is_null, "is_null", param_local);
+            visitor.template startMap<t_Visitor::SIZE_LIMIT_RANGE>(1, 2);
+            arilesEntryApply(visitor, is_null, "is_null", param_local);
 
             if (true == is_null)
             {
@@ -35,9 +35,9 @@ namespace ariles
             else
             {
                 PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::allocate(entry);
-                arilesEntryApply(iterator, *entry, "value", param_local);
+                arilesEntryApply(visitor, *entry, "value", param_local);
             }
-            iterator.endMap();
+            visitor.endMap();
         }
     }
 }
@@ -45,29 +45,33 @@ namespace ariles
 
 namespace ariles
 {
-    template <  class t_Writer,
-                typename t_Entry>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        writeBody( t_Writer & writer,
-                   const ARILES_POINTER_TYPE<t_Entry> &entry,
-                   const typename t_Writer::Parameters & param)
+    namespace write
     {
-        bool is_null = true;
+        template <  class t_Visitor,
+                    typename t_Entry>
+            void ARILES_VISIBILITY_ATTRIBUTE
+            apply( t_Visitor & writer,
+                   const ARILES_POINTER_TYPE<t_Entry> &entry,
+                   const typename t_Visitor::WriteParameters & param)
+        {
+            ARILES_TRACE_FUNCTION;
+            bool is_null = true;
 
-        if (PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(entry))
-        {
-            is_null = true;
-            writer.startMap(1);
-            writeEntry(writer, is_null, "is_null", param);
-            writer.endMap();
-        }
-        else
-        {
-            is_null = false;
-            writer.startMap(2);
-            writeEntry(writer, is_null, "is_null", param);
-            writeEntry(writer, *entry, "value", param);
-            writer.endMap();
+            if (PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(entry))
+            {
+                is_null = true;
+                writer.startMap(1);
+                arilesEntryApply(writer, is_null, "is_null", param);
+                writer.endMap();
+            }
+            else
+            {
+                is_null = false;
+                writer.startMap(2);
+                arilesEntryApply(writer, is_null, "is_null", param);
+                arilesEntryApply(writer, *entry, "value", param);
+                writer.endMap();
+            }
         }
     }
 }
@@ -77,12 +81,12 @@ namespace ariles
 {
     namespace compare
     {
-        template <class t_Iterator, typename t_Entry>
+        template <class t_Visitor, typename t_Entry>
             bool ARILES_VISIBILITY_ATTRIBUTE apply(
-                    const t_Iterator & iterator,
+                    const t_Visitor & visitor,
                     const ARILES_POINTER_TYPE<t_Entry> &left,
                     const ARILES_POINTER_TYPE<t_Entry> &right,
-                    const typename t_Iterator::CompareParameters & param)
+                    const typename t_Visitor::CompareParameters & param)
         {
             ARILES_TRACE_FUNCTION;
             if (true == PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(left))
@@ -104,7 +108,7 @@ namespace ariles
                 }
                 else
                 {
-                    return (apply(iterator, *left, *right, param));
+                    return (apply(visitor, *left, *right, param));
                 }
             }
         }
@@ -116,12 +120,12 @@ namespace ariles
 {
     namespace defaults
     {
-        template <  class t_Iterator,
+        template <  class t_Visitor,
                     typename t_Entry>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    const t_Iterator & /*iterator*/,
+                    const t_Visitor & /*visitor*/,
                     ARILES_POINTER_TYPE<t_Entry> & entry,
-                    const typename t_Iterator::DefaultsParameters & /*param*/)
+                    const typename t_Visitor::DefaultsParameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
             PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::reset(entry);
@@ -134,17 +138,17 @@ namespace ariles
 {
     namespace finalize
     {
-        template <  class t_Iterator,
+        template <  class t_Visitor,
                     typename t_Entry>
             void ARILES_VISIBILITY_ATTRIBUTE apply(
-                    const t_Iterator & iterator,
+                    const t_Visitor & visitor,
                     ARILES_POINTER_TYPE<t_Entry> &entry,
-                    const typename t_Iterator::FinalizeParameters & param)
+                    const typename t_Visitor::FinalizeParameters & param)
         {
             ARILES_TRACE_FUNCTION;
             if (false == (PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(entry)))
             {
-                apply(iterator, *entry, param);
+                apply(visitor, *entry, param);
             }
         }
     }

@@ -51,7 +51,7 @@ namespace ariles
              * @brief Configuration writer class
              */
             template<class t_NameValuePair>
-            class ARILES_VISIBILITY_ATTRIBUTE GenericWriter : public ariles::WriterBase
+            class ARILES_VISIBILITY_ATTRIBUTE GenericWriter : public ariles::write::Visitor
             {
                 protected:
                     typedef ariles::Node< std::string > NodeWrapper;

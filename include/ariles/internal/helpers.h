@@ -47,10 +47,10 @@
     const typename boost::enable_if_c< (boost::is_enum<Enum>::value) >::type
 
 #define ARILES_IS_CONFIGURABLE_ENABLER_TYPE(Derived) \
-    const typename boost::enable_if_c< (boost::is_base_of<ariles::ConfigurableBase, Derived>::value) >::type
+    const typename boost::enable_if_c< (boost::is_base_of<ariles::Base, Derived>::value) >::type
 
 #define ARILES_IS_CONFIGURABLE_DISABLER_TYPE(Derived) \
-    const typename boost::enable_if_c< not (boost::is_base_of<ariles::ConfigurableBase, Derived>::value) >::type
+    const typename boost::enable_if_c< not (boost::is_base_of<ariles::Base, Derived>::value) >::type
 
 
 #define ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST \
@@ -104,6 +104,21 @@ namespace ariles
     };
 }
 
+
+namespace ariles
+{
+    namespace utils
+    {
+        template<class T>   struct DecayConst
+        {
+            typedef T Type;
+        };
+        template<class T>   struct DecayConst<const T>
+        {
+            typedef T Type;
+        };
+    }
+}
 
 #include "../configurable_flags.h"
 #include "../bridge_flags.h"

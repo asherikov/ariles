@@ -13,8 +13,8 @@
 
 #include <ariles/internal/helpers.h>
 #include <ariles/internal/node.h>
-#include <ariles/operators/read.h>
-#include <ariles/internal/writer_base.h>
+#include <ariles/visitors/read.h>
+#include <ariles/visitors/write.h>
 
 #include <ros/ros.h>
 // http://docs.ros.org/api/xmlrpcpp/html/classXmlRpc_1_1XmlRpcValue.html

@@ -10,13 +10,13 @@
 
 #pragma once
 
-#include <limits>
+#include "common.h"
 
 namespace ariles
 {
     namespace defaults
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Iterator
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Visitor
         {
             public:
                 class DefaultsParameters
@@ -42,21 +42,6 @@ namespace ariles
 
             public:
                 template<class t_Configurable>
-                    void startBody( const t_Configurable &,
-                                    const DefaultsParameters &) const
-                {
-                    ARILES_TRACE_FUNCTION;
-                }
-
-
-                template<class t_Configurable>
-                    void finishBody(const t_Configurable &,
-                                    const DefaultsParameters &) const
-                {
-                    ARILES_TRACE_FUNCTION;
-                }
-
-                template<class t_Configurable>
                     void startRoot( const t_Configurable &,
                                     const DefaultsParameters &) const
                 {
@@ -73,47 +58,35 @@ namespace ariles
         };
 
         template<>
-        inline double Iterator::DefaultsParameters::getDefault<double>() const
+        inline double Visitor::DefaultsParameters::getDefault<double>() const
         {
             return default_double_value_;
         }
 
         template<>
-        inline float Iterator::DefaultsParameters::getDefault<float>() const
+        inline float Visitor::DefaultsParameters::getDefault<float>() const
         {
             return default_float_value_;
         }
 
         template<>
-        inline bool Iterator::DefaultsParameters::getDefault<bool>() const
+        inline bool Visitor::DefaultsParameters::getDefault<bool>() const
         {
             return false;
         }
 
         template<>
-        inline std::string Iterator::DefaultsParameters::getDefault<std::string>() const
+        inline std::string Visitor::DefaultsParameters::getDefault<std::string>() const
         {
             return "";
         }
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Base
+        template<class t_Derived>
+            class ARILES_VISIBILITY_ATTRIBUTE Base
+                : public visitor::Base<t_Derived, const defaults::Visitor, const defaults::Visitor::DefaultsParameters>
         {
             public:
-                /**
-                 * @brief Set members to their default values.
-                 */
-                virtual void arilesApply(   const ariles::defaults::Iterator &,
-                                            const ariles::defaults::Iterator::DefaultsParameters &) = 0;
-
-
-
-                /// @todo DEPRECATED
-                void setDefaults()
-                {
-                    ariles::defaults::Iterator iterator;
-                    arilesApply(iterator, iterator.default_parameters_);
-                }
         };
     }
 }

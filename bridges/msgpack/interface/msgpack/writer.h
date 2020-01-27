@@ -23,7 +23,7 @@ namespace ariles
              * @brief Configuration writer class
              */
             class ARILES_VISIBILITY_ATTRIBUTE Writer :
-                public ariles::bridge::msgpack::Base<ariles::WriterBase>
+                public ariles::bridge::msgpack::Base<ariles::write::Visitor>
             {
                 protected:
                     /// output file stream
@@ -43,7 +43,7 @@ namespace ariles
                      */
                     explicit Writer(const std::string& file_name)
                     {
-                        WriterBase::openFile(config_ofs_, file_name);
+                        ariles::write::Visitor::openFile(config_ofs_, file_name);
                         output_stream_ = &config_ofs_;
                         packer_ = new ::msgpack::packer< std::ostream >(*output_stream_);
                     }
