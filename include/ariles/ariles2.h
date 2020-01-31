@@ -38,11 +38,11 @@
 
 
 
-    #define ARILES_METHODS_WITH_ARG(Visitor, Parameters, Qualifier) \
+    #define ARILES_METHODS_WITH_ARG(Visitor, Qualifier) \
         template<class t_Extra> \
             void ariles(Visitor &visitor, \
                         t_Extra & extra, \
-                        Parameters &param) Qualifier \
+                        const ariles::utils::DecayConst<Visitor>::Type::Parameters &param) Qualifier \
         { \
             ARILES_TRACE_FUNCTION; \
             arilesVisit(visitor, extra, param); \
@@ -52,23 +52,29 @@
                         t_Extra & extra) Qualifier \
         { \
             ARILES_TRACE_FUNCTION; \
-            ariles(visitor, extra, visitor.default_parameters_); \
+            ariles(visitor, extra, arilesGetParameters(visitor)); \
+        } \
+        const ariles::utils::DecayConst<Visitor>::Type::Parameters & \
+            arilesGetParameters(const ariles::utils::DecayConst<Visitor>::Type &visitor) const \
+        { \
+            ARILES_TRACE_FUNCTION; \
+            return(visitor.getDefaultParameters()); \
         }
 
 
-    #define ARILES_METHODS(Visitor, Parameters, Qualifier) \
+    #define ARILES_METHODS(Visitor, Qualifier) \
         virtual void ariles( \
                 Visitor &visitor, \
                 const std::string & name, \
-                Parameters &param) Qualifier \
+                const ariles::utils::DecayConst<Visitor>::Type::Parameters &param) Qualifier \
         { \
             ARILES_TRACE_FUNCTION; \
             visitor.startRoot(*this, param); \
             arilesEntryApply(visitor, *this, name, param); \
             visitor.finishRoot(*this, param); \
         } \
-        virtual void arilesApply(   Visitor &visitor, \
-                                    Parameters &param) Qualifier \
+        virtual void arilesVirtualVisit(Visitor &visitor, \
+                                        const ariles::utils::DecayConst<Visitor>::Type::Parameters &param) Qualifier \
         { \
             ARILES_TRACE_FUNCTION; \
             this->arilesVisit(visitor, param); \
@@ -79,26 +85,31 @@
      * base, so the following methods must be defined inside the derived
      * classes.
      */
-    #define ARILES_NONVIRTUAL_METHODS(Visitor, Parameters, Qualifier) \
-        void arilesApply(Visitor &visitor) Qualifier \
+    #define ARILES_NONVIRTUAL_METHODS(Visitor, Qualifier) \
+        void arilesVirtualVisit(Visitor &visitor) Qualifier \
         { \
             ARILES_TRACE_FUNCTION; \
-            arilesApply(visitor, visitor.default_parameters_); \
+            arilesVirtualVisit(visitor, arilesGetParameters(visitor)); \
         } \
         void ariles(Visitor &visitor) Qualifier \
         { \
             ARILES_TRACE_FUNCTION; \
-            ariles(visitor, visitor.default_parameters_); \
+            ariles(visitor, arilesGetParameters(visitor)); \
         } \
-        void ariles(Visitor &visitor, Parameters &param) Qualifier \
+        void ariles(Visitor &visitor, const ariles::utils::DecayConst<Visitor>::Type::Parameters &param) Qualifier \
         { \
             ARILES_TRACE_FUNCTION; \
             ariles(visitor, this->arilesDefaultID(), param); \
+        } \
+        const ariles::utils::DecayConst<Visitor>::Type::Parameters & \
+            arilesGetParameters(const ariles::utils::DecayConst<Visitor>::Type &visitor) const \
+        { \
+            ARILES_TRACE_FUNCTION; \
+            return(visitor.getDefaultParameters()); \
         }
 
 
     // ----------------------------
-
 
 
     namespace ariles
@@ -121,16 +132,20 @@
 
 
             public:
-                using ariles::defaults::Base<ariles::Base>::arilesApply;
-                using ariles::finalize::Base<ariles::Base>::arilesApply;
-                using ariles::read::Base<ariles::Base>::arilesApply;
-                using ariles::write::Base<ariles::Base>::arilesApply;
+                using ariles::defaults::Base<ariles::Base>::arilesVirtualVisit;
+                using ariles::finalize::Base<ariles::Base>::arilesVirtualVisit;
+                using ariles::read::Base<ariles::Base>::arilesVirtualVisit;
+                using ariles::write::Base<ariles::Base>::arilesVirtualVisit;
 
                 using ariles::defaults::Base<ariles::Base>::ariles;
                 using ariles::finalize::Base<ariles::Base>::ariles;
                 using ariles::read::Base<ariles::Base>::ariles;
                 using ariles::write::Base<ariles::Base>::ariles;
 
+                using ariles::defaults::Base<ariles::Base>::arilesGetParameters;
+                using ariles::finalize::Base<ariles::Base>::arilesGetParameters;
+                using ariles::read::Base<ariles::Base>::arilesGetParameters;
+                using ariles::write::Base<ariles::Base>::arilesGetParameters;
 
 
                 virtual const std::string & arilesDefaultID() const = 0;
@@ -138,16 +153,16 @@
 
                 #define ARILES_BASE_METHODS(Qualifier) \
                     template <class t_Visitor> \
-                        void arilesApply( \
-                                const typename ariles::utils::DecayConst<t_Visitor>::Type::VisitorIndicatorType * = NULL) Qualifier \
+                        void arilesVirtualVisit( \
+                                ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor)) Qualifier \
                     { \
                         ARILES_TRACE_FUNCTION; \
                         t_Visitor visitor; \
-                        arilesApply(visitor); \
+                        arilesVirtualVisit(visitor, arilesGetParameters(visitor)); \
                     }
 
-                ARILES_BASE_METHODS(ARILES_EMPTY_MACRO);
-                ARILES_BASE_METHODS(const);
+                ARILES_BASE_METHODS(ARILES_EMPTY_MACRO)
+                ARILES_BASE_METHODS(const)
 
                 #undef ARILES_BASE_METHODS
         };

@@ -41,7 +41,8 @@
     #ifndef ARILES_DOXYGEN_PROCESSING
 
     public:
-        using ariles::Base::arilesApply;
+        using ariles::Base::arilesGetParameters;
+        using ariles::Base::arilesVirtualVisit;
         using ariles::Base::ariles;
 
 
@@ -75,7 +76,7 @@
 
             #ifndef ARILES_AUTO_DEFAULTS
                 void arilesVisit(   const ariles::defaults::Visitor & /*visitor*/,
-                                    const ariles::defaults::Visitor::DefaultsParameters & /*param*/)
+                                    const ariles::defaults::Visitor::Parameters & /*param*/)
                 {
                     ARILES_TRACE_FUNCTION;
                     this->setDefaults();
@@ -158,7 +159,7 @@
             }
             explicit ARILES_CONSTRUCTOR(
                     ariles::read::Visitor &reader,
-                    const ariles::read::Visitor::ReadParameters & param)
+                    const ariles::read::Visitor::Parameters & param)
             {
                 ARILES_TRACE_FUNCTION;
                 readConfig(reader, param);
@@ -213,12 +214,12 @@
         {
             ARILES_TRACE_FUNCTION;
             ariles::count::Visitor visitor;
-            arilesApply(visitor);
+            arilesVirtualVisit(visitor);
             return(visitor.counter_);
         }
 
         template<class t_Other>
-            bool arilesCompare(const t_Other &other, const ariles::compare::Visitor::CompareParameters & param) const
+            bool arilesCompare(const t_Other &other, const ariles::compare::Visitor::Parameters & param) const
         {
             ARILES_TRACE_FUNCTION;
             try
@@ -238,34 +239,20 @@
         }
 
 
-        ARILES_METHODS( ariles::read::Visitor,
-                        const ariles::read::Visitor::ReadParameters,
-                        ARILES_EMPTY_MACRO)
+        ARILES_METHODS(ariles::read::Visitor, ARILES_EMPTY_MACRO)
 
-        ARILES_METHODS( ariles::write::Visitor,
-                        const ariles::write::Visitor::WriteParameters,
-                        const)
+        ARILES_METHODS(ariles::write::Visitor, const)
 
-        ARILES_METHODS( const ariles::defaults::Visitor,
-                        const ariles::defaults::Visitor::DefaultsParameters,
-                        ARILES_EMPTY_MACRO)
+        ARILES_METHODS(const ariles::defaults::Visitor, ARILES_EMPTY_MACRO)
 
-        ARILES_METHODS( const ariles::finalize::Visitor,
-                        const ariles::finalize::Visitor::FinalizeParameters,
-                        ARILES_EMPTY_MACRO)
+        ARILES_METHODS(const ariles::finalize::Visitor, ARILES_EMPTY_MACRO)
 
-        ARILES_METHODS( ariles::count::Visitor,
-                        const ariles::count::Visitor::CountParameters,
-                        const)
+        ARILES_METHODS(ariles::count::Visitor, const)
 
-        ARILES_NONVIRTUAL_METHODS(  ariles::count::Visitor,
-                                    const ariles::count::Visitor::CountParameters,
-                                    const)
+        ARILES_NONVIRTUAL_METHODS(ariles::count::Visitor, const)
 
 
-        ARILES_METHODS_WITH_ARG(const ariles::compare::Visitor,
-                                const ariles::compare::Visitor::CompareParameters,
-                                const)
+        ARILES_METHODS_WITH_ARG(const ariles::compare::Visitor, const)
 
         #ifdef ARILES_DEFAULT_ID
             const std::string & getConfigSectionID() const

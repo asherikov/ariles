@@ -21,9 +21,7 @@ namespace ariles
         {
             public:
                 typedef int ReaderIndicatorType;
-                typedef ariles::ConfigurableFlags ReadParameters;
-
-                ReadParameters default_parameters_;
+                typedef ariles::ConfigurableFlags Parameters;
 
                 enum SizeLimitEnforcementType
                 {
@@ -82,16 +80,23 @@ namespace ariles
 
 
             public:
-                template<class t_Configurable>
-                    void startRoot(t_Configurable &configurable, const ReadParameters &)
+                const Parameters & getDefaultParameters() const
                 {
-                    ariles::defaults::Visitor visitor;
-                    configurable.arilesApply(visitor, visitor.default_parameters_);
+                    const static Parameters parameters;
+                    return parameters;
                 }
 
 
                 template<class t_Configurable>
-                    void finishRoot(t_Configurable &, const ReadParameters &)
+                    void startRoot(t_Configurable &configurable, const Parameters &)
+                {
+                    ariles::defaults::Visitor visitor;
+                    configurable.arilesVirtualVisit(visitor, configurable.arilesGetParameters(visitor));
+                }
+
+
+                template<class t_Configurable>
+                    void finishRoot(t_Configurable &, const Parameters &)
                 {
                 }
 
@@ -201,7 +206,7 @@ namespace ariles
 
         template<class t_Derived>
             class ARILES_VISIBILITY_ATTRIBUTE Base
-                : public visitor::Base<t_Derived, read::Visitor, const read::Visitor::ReadParameters>
+                : public visitor::Base<t_Derived, read::Visitor>
         {
         };
     }

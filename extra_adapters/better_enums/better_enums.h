@@ -18,7 +18,7 @@ namespace ariles
         template <  class t_Visitor,
                     class t_BetterEnum,
                     class t_Flags>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
                     t_Visitor &visitor,
                     t_BetterEnum &entry,
                     const t_Flags & /*param*/,
@@ -44,7 +44,7 @@ namespace ariles
         template <  class t_Visitor,
                     class t_BetterEnum,
                     class t_Flags>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_write(
                     t_Visitor & writer,
                     const t_BetterEnum &entry,
                     const t_Flags & /*param*/,
@@ -66,11 +66,11 @@ namespace ariles
     namespace compare
     {
         template <class t_Visitor, class t_BetterEnum>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
                     const t_Visitor & /*visitor*/,
                     const t_BetterEnum &left,
                     const t_BetterEnum &right,
-                    const typename t_Visitor::CompareParameters & /*param*/,
+                    const typename t_Visitor::Parameters & /*param*/,
                     const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
@@ -91,10 +91,10 @@ namespace ariles
     {
         template <  class t_Visitor,
                     class t_BetterEnum>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
                     t_Visitor & /*visitor*/,
                     t_BetterEnum &entry,
-                    const typename t_Visitor::DefaultsParameters & /*param*/,
+                    const typename t_Visitor::Parameters & /*param*/,
                     const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
@@ -115,10 +115,10 @@ namespace ariles
     {
         template <  class t_Visitor,
                     class t_BetterEnum>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_finalize(
                         t_Visitor & /*visitor*/,
                         t_BetterEnum & /*entry*/,
-                        const typename t_Visitor::FinalizeParameters & /*param*/,
+                        const typename t_Visitor::Parameters & /*param*/,
                         const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
                         const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
                         const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,

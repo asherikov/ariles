@@ -21,21 +21,21 @@ namespace ariles
                     typename t_Value,
                     class t_Compare,
                     class t_Allocator>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
                     t_Visitor & visitor,
                     std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry,
-                    const typename t_Visitor::ReadParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             std::size_t size = visitor.startArray();
-            typename t_Visitor::ReadParameters param_local = param;
-            param_local.unset(t_Visitor::ReadParameters::ALLOW_MISSING_ENTRIES);
+            typename t_Visitor::Parameters param_local = param;
+            param_local.unset(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES);
             entry.clear();
             for(std::size_t i = 0; i < size; ++i)
             {
                 std::pair<t_Key, t_Value> map_entry;
 
-                apply(visitor, map_entry, param_local);
+                apply_read(visitor, map_entry, param_local);
 
                 entry.insert(map_entry);
 
@@ -49,19 +49,19 @@ namespace ariles
                     typename t_Value,
                     class t_Compare,
                     class t_Allocator>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
                     t_Visitor & visitor,
                     std::map<std::string, t_Value, t_Compare, t_Allocator> & entry,
-                    const typename t_Visitor::ReadParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             if (visitor.getBridgeFlags().isSet(BridgeFlags::SLOPPY_MAPS_SUPPORTED)
-                    && param.isSet(t_Visitor::ReadParameters::SLOPPY_MAPS_IF_SUPPORTED))
+                    && param.isSet(t_Visitor::Parameters::SLOPPY_MAPS_IF_SUPPORTED))
             {
                 std::vector<std::string> entry_names;
                 ARILES_ASSERT(true == visitor.getMapEntryNames(entry_names), "Could not read names of map entries.");
-                typename t_Visitor::ReadParameters param_local = param;
-                param_local.unset(t_Visitor::ReadParameters::ALLOW_MISSING_ENTRIES);
+                typename t_Visitor::Parameters param_local = param;
+                param_local.unset(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES);
                 entry.clear();
                 visitor.template startMap<t_Visitor::SIZE_LIMIT_NONE>();
                 for (std::size_t i = 0; i < entry_names.size(); ++i)
@@ -74,7 +74,7 @@ namespace ariles
             }
             else
             {
-                apply<t_Visitor, std::string, t_Value, t_Compare, t_Allocator>(visitor, entry, param);
+                apply_read<t_Visitor, std::string, t_Value, t_Compare, t_Allocator>(visitor, entry, param);
             }
         }
     }
@@ -90,19 +90,19 @@ namespace ariles
                     typename t_Value,
                     class t_Compare,
                     class t_Allocator>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_write(
                     t_Visitor & writer,
                     const std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry,
-                    const typename t_Visitor::WriteParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            writer.startArray(entry.size(), param.isSet(t_Visitor::WriteParameters::COMPACT_ARRAYS_IF_SUPPORTED));
+            writer.startArray(entry.size(), param.isSet(t_Visitor::Parameters::COMPACT_ARRAYS_IF_SUPPORTED));
             for (
                 typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator it = entry.begin();
                 it != entry.end();
                 ++it)
             {
-                apply(writer, *it, param);
+                apply_write(writer, *it, param);
                 writer.shiftArray();
             }
             writer.endArray();
@@ -113,14 +113,14 @@ namespace ariles
                     typename t_Value,
                     class t_Compare,
                     class t_Allocator>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_write(
                     t_Visitor & writer,
                     const std::map<std::string, t_Value, t_Compare, t_Allocator> & entry,
-                    const typename t_Visitor::WriteParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             if (writer.getBridgeFlags().isSet(BridgeFlags::SLOPPY_MAPS_SUPPORTED)
-                    && param.isSet(t_Visitor::WriteParameters::SLOPPY_MAPS_IF_SUPPORTED))
+                    && param.isSet(t_Visitor::Parameters::SLOPPY_MAPS_IF_SUPPORTED))
             {
                 writer.startMap(entry.size());
                 for (
@@ -134,7 +134,7 @@ namespace ariles
             }
             else
             {
-                apply<t_Visitor, std::string, t_Value, t_Compare, t_Allocator>(writer, entry, param);
+                apply_write<t_Visitor, std::string, t_Value, t_Compare, t_Allocator>(writer, entry, param);
             }
         }
     }
@@ -150,11 +150,11 @@ namespace ariles
                     typename t_Value,
                     class t_Compare,
                     class t_Allocator>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
                     const t_Visitor & visitor,
                     const std::map<t_Key, t_Value, t_Compare, t_Allocator> &left,
                     const std::map<t_Key, t_Value, t_Compare, t_Allocator> &right,
-                    const typename t_Visitor::CompareParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
 
@@ -168,12 +168,12 @@ namespace ariles
 
             for (; (left_it != left.end()) && (right_it != right.end()); ++left_it, ++right_it)
             {
-                if (false == apply(visitor, left_it->first, right_it->first, param))
+                if (false == apply_compare(visitor, left_it->first, right_it->first, param))
                 {
                     return (false);
                 }
 
-                if (false == apply(visitor, left_it->second, right_it->second, param))
+                if (false == apply_compare(visitor, left_it->second, right_it->second, param))
                 {
                     return (false);
                 }
@@ -195,10 +195,10 @@ namespace ariles
                     typename t_Value,
                     class t_Compare,
                     class t_Allocator>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
                     const t_Visitor & /*visitor*/,
                     std::map<t_Key, t_Value, t_Compare, t_Allocator> & entry,
-                    const typename t_Visitor::DefaultsParameters & /*param*/)
+                    const typename t_Visitor::Parameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
             entry.clear();
@@ -216,10 +216,10 @@ namespace ariles
                     typename t_Value,
                     class t_Compare,
                     class t_Allocator>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_finalize(
                     const t_Visitor & visitor,
                     std::map<t_Key, t_Value, t_Compare, t_Allocator> &entry,
-                    const typename t_Visitor::FinalizeParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             for (
@@ -227,8 +227,8 @@ namespace ariles
                 it != entry.end();
                 ++it)
             {
-                apply(visitor, it->first, param);
-                apply(visitor, it->second, param);
+                apply_finalize(visitor, it->first, param);
+                apply_finalize(visitor, it->second, param);
             }
         }
     }

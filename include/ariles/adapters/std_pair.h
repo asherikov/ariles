@@ -19,14 +19,14 @@ namespace ariles
         template <  class t_Visitor,
                     typename t_First,
                     typename t_Second>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
                     t_Visitor & visitor,
                     std::pair<t_First, t_Second> & entry,
-                    const typename t_Visitor::ReadParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            typename t_Visitor::ReadParameters param_local = param;
-            param_local.unset(t_Visitor::ReadParameters::ALLOW_MISSING_ENTRIES);
+            typename t_Visitor::Parameters param_local = param;
+            param_local.unset(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES);
             visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(2);
             arilesEntryApply(visitor, entry.first, "first", param_local);
             arilesEntryApply(visitor, entry.second, "second", param_local);
@@ -36,22 +36,22 @@ namespace ariles
 
         template <  class t_Visitor,
                     typename t_Second>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
                     t_Visitor & visitor,
                     std::pair<std::string, t_Second> & entry,
-                    const typename t_Visitor::ReadParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             if (visitor.getBridgeFlags().isSet(BridgeFlags::SLOPPY_PAIRS_SUPPORTED)
-                    && param.isSet(t_Visitor::ReadParameters::SLOPPY_PAIRS_IF_SUPPORTED))
+                    && param.isSet(t_Visitor::Parameters::SLOPPY_PAIRS_IF_SUPPORTED))
             {
                 std::vector<std::string> entry_names;
                 ARILES_ASSERT(true == visitor.getMapEntryNames(entry_names), "Could not read names of map entries.");
                 ARILES_ASSERT(1 == entry_names.size(), "Wrong number of map entries for a sloppy pair.");
                 entry.first = entry_names[0];
 
-                typename t_Visitor::ReadParameters param_local = param;
-                param_local.unset(t_Visitor::ReadParameters::ALLOW_MISSING_ENTRIES);
+                typename t_Visitor::Parameters param_local = param;
+                param_local.unset(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES);
                 visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(1);
 
                 arilesEntryApply(visitor, entry.second, entry.first, param_local);
@@ -60,7 +60,7 @@ namespace ariles
             }
             else
             {
-                apply<t_Visitor, std::string, t_Second>(visitor, entry, param);
+                apply_read<t_Visitor, std::string, t_Second>(visitor, entry, param);
             }
         }
     }
@@ -74,10 +74,10 @@ namespace ariles
         template <  class t_Visitor,
                     typename t_First,
                     typename t_Second>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_write(
                     t_Visitor & writer,
                     const std::pair<t_First, t_Second> & entry,
-                    const typename t_Visitor::WriteParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             writer.startMap(2);
@@ -90,14 +90,14 @@ namespace ariles
 
         template <  class t_Visitor,
                     typename t_Second>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_write(
                     t_Visitor & writer,
                     const std::pair<std::string, t_Second> & entry,
-                    const typename t_Visitor::WriteParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             if (writer.getBridgeFlags().isSet(BridgeFlags::SLOPPY_PAIRS_SUPPORTED)
-                    && param.isSet(t_Visitor::WriteParameters::SLOPPY_PAIRS_IF_SUPPORTED))
+                    && param.isSet(t_Visitor::Parameters::SLOPPY_PAIRS_IF_SUPPORTED))
             {
                 writer.startMap(1);
                 arilesEntryApply(writer, entry.second, entry.first, param);
@@ -124,20 +124,20 @@ namespace ariles
         template <  class t_Visitor,
                     typename t_First,
                     typename t_Second>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
                     const t_Visitor & visitor,
                     const std::pair<t_First, t_Second> & left,
                     const std::pair<t_First, t_Second> & right,
-                    const typename t_Visitor::CompareParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
 
-            if (false == apply(visitor, left.first, right.first, param))
+            if (false == apply_compare(visitor, left.first, right.first, param))
             {
                 return (false);
             }
 
-            if (false == apply(visitor, left.second, right.second, param))
+            if (false == apply_compare(visitor, left.second, right.second, param))
             {
                 return (false);
             }
@@ -156,14 +156,14 @@ namespace ariles
         template <  class t_Visitor,
                     typename t_First,
                     typename t_Second>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
                     const t_Visitor & visitor,
                     std::pair<t_First, t_Second> & entry,
-                    const typename t_Visitor::DefaultsParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            apply(visitor, entry.first, param);
-            apply(visitor, entry.second, param);
+            apply_defaults(visitor, entry.first, param);
+            apply_defaults(visitor, entry.second, param);
         }
     }
 }
@@ -177,14 +177,14 @@ namespace ariles
         template <  class t_Visitor,
                     typename t_First,
                     typename t_Second>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_finalize(
                     const t_Visitor & visitor,
                     std::pair<t_First, t_Second> &entry,
-                    const typename t_Visitor::FinalizeParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            apply(visitor, entry.first, param);
-            apply(visitor, entry.second, param);
+            apply_finalize(visitor, entry.first, param);
+            apply_finalize(visitor, entry.second, param);
         }
     }
 }

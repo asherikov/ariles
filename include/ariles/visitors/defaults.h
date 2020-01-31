@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <limits>
 #include "common.h"
 
 namespace ariles
@@ -19,14 +20,14 @@ namespace ariles
         class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Visitor
         {
             public:
-                class DefaultsParameters
+                class Parameters
                 {
                     public:
                         double default_double_value_;
                         float default_float_value_;
 
                     public:
-                        DefaultsParameters()
+                        Parameters()
                         {
                             default_double_value_ = ARILES_DEFAULT_DOUBLE_VALUE;
                             default_float_value_ = ARILES_DEFAULT_FLOAT_VALUE;
@@ -37,13 +38,20 @@ namespace ariles
                         {
                             return 0;
                         }
-                } default_parameters_;
+                };
 
 
             public:
+                const Parameters & getDefaultParameters() const
+                {
+                    const static Parameters parameters;
+                    return parameters;
+                }
+
+
                 template<class t_Configurable>
                     void startRoot( const t_Configurable &,
-                                    const DefaultsParameters &) const
+                                    const Parameters &) const
                 {
                     ARILES_TRACE_FUNCTION;
                 }
@@ -51,32 +59,32 @@ namespace ariles
 
                 template<class t_Configurable>
                     void finishRoot(const t_Configurable &,
-                                    const DefaultsParameters &) const
+                                    const Parameters &) const
                 {
                     ARILES_TRACE_FUNCTION;
                 }
         };
 
         template<>
-        inline double Visitor::DefaultsParameters::getDefault<double>() const
+        inline double Visitor::Parameters::getDefault<double>() const
         {
             return default_double_value_;
         }
 
         template<>
-        inline float Visitor::DefaultsParameters::getDefault<float>() const
+        inline float Visitor::Parameters::getDefault<float>() const
         {
             return default_float_value_;
         }
 
         template<>
-        inline bool Visitor::DefaultsParameters::getDefault<bool>() const
+        inline bool Visitor::Parameters::getDefault<bool>() const
         {
             return false;
         }
 
         template<>
-        inline std::string Visitor::DefaultsParameters::getDefault<std::string>() const
+        inline std::string Visitor::Parameters::getDefault<std::string>() const
         {
             return "";
         }
@@ -84,7 +92,7 @@ namespace ariles
 
         template<class t_Derived>
             class ARILES_VISIBILITY_ATTRIBUTE Base
-                : public visitor::Base<t_Derived, const defaults::Visitor, const defaults::Visitor::DefaultsParameters>
+                : public visitor::Base<t_Derived, const defaults::Visitor>
         {
             public:
         };

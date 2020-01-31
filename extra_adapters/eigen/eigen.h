@@ -21,10 +21,10 @@ namespace ariles
                     typename t_Scalar,
                     int t_rows,
                     int t_flags>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
                     t_Visitor &visitor,
                     Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
-                    const typename t_Visitor::ReadParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             std::size_t size = visitor.startArray();
@@ -41,7 +41,7 @@ namespace ariles
 
             for(EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows); ++i)
             {
-                apply(visitor, entry[i], param);
+                apply_read(visitor, entry[i], param);
                 visitor.shiftArray();
             }
             visitor.endArray();
@@ -54,10 +54,10 @@ namespace ariles
                     int t_rows,
                     int t_cols,
                     int t_flags>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
                     t_Visitor & visitor,
                     Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
-                    const typename t_Visitor::ReadParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols || param.isSet(ConfigurableFlags::FORCE_EXPLICIT_MATRIX_SIZE))
@@ -94,7 +94,7 @@ namespace ariles
             {
                 Eigen::Matrix<t_Scalar, t_rows*t_cols, 1> v;
 
-                apply(visitor, v, param);
+                apply_read(visitor, v, param);
 
                 Eigen::Map<
                     Eigen::Matrix<  double,
@@ -113,17 +113,17 @@ namespace ariles
                     int t_dim,
                     int t_mode,
                     int t_options>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
                     t_Visitor & visitor,
                     Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
-                    const typename t_Visitor::ReadParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             Eigen::Matrix<
                 t_Scalar,
                 Eigen::Dynamic == t_dim ? Eigen::Dynamic : t_dim+1,
                 Eigen::Dynamic == t_dim ? Eigen::Dynamic : t_dim+1> raw_matrix;
-            apply(visitor, raw_matrix, param);
+            apply_read(visitor, raw_matrix, param);
             entry.matrix() = raw_matrix;
         }
 
@@ -131,10 +131,10 @@ namespace ariles
         template <  class t_Visitor,
                     typename t_Scalar,
                     int t_options>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
                     t_Visitor & visitor,
                     Eigen::Quaternion< t_Scalar, t_options > &entry,
-                    const typename t_Visitor::ReadParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             ariles::ConfigurableFlags param_local = param;
@@ -159,10 +159,10 @@ namespace ariles
                     typename t_Scalar,
                     int t_rows,
                     int t_flags>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_write(
                     t_Visitor & writer,
                     const Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
-                    const typename t_Visitor::WriteParameters & /*param*/)
+                    const typename t_Visitor::Parameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
             if (writer.getBridgeFlags().isSet(BridgeFlags::NATIVE_MATRIX_SUPPORTED))
@@ -197,10 +197,10 @@ namespace ariles
                     int t_rows,
                     int t_cols,
                     int t_flags>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_write(
                     t_Visitor & writer,
                     const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
-                    const typename t_Visitor::WriteParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             if (writer.getBridgeFlags().isSet(BridgeFlags::NATIVE_MATRIX_SUPPORTED))
@@ -269,13 +269,13 @@ namespace ariles
                     int t_dim,
                     int t_mode,
                     int t_options>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_write(
                     t_Visitor & writer,
                     const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
-                    const typename t_Visitor::WriteParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            apply(writer, entry.matrix(), param);
+            apply_write(writer, entry.matrix(), param);
         }
 
 
@@ -283,7 +283,7 @@ namespace ariles
                     typename t_Scalar,
                     int t_options,
                     class t_Flags>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_write(
                     t_Visitor & writer,
                     const Eigen::Quaternion< t_Scalar, t_options > &entry,
                     const t_Flags & param)
@@ -313,11 +313,11 @@ namespace ariles
                     int t_dim,
                     int t_mode,
                     int t_options>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
                     const t_Visitor & /*visitor*/,
                     const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & left,
                     const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & right,
-                    const typename t_Visitor::CompareParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             return (left.isApprox(right, param.template getTolerance<t_Scalar>()));
@@ -327,11 +327,11 @@ namespace ariles
         template <  class t_Visitor,
                     typename t_Scalar,
                     int t_options>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
                     const t_Visitor & /*visitor*/,
                     const Eigen::Quaternion< t_Scalar, t_options > &left,
                     const Eigen::Quaternion< t_Scalar, t_options > &right,
-                    const typename t_Visitor::CompareParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             return (left.isApprox(right, param.template getTolerance<t_Scalar>()));
@@ -343,11 +343,11 @@ namespace ariles
                     int t_rows,
                     int t_cols,
                     int t_flags>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
                     const t_Visitor & /*visitor*/,
                     const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> & left,
                     const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> & right,
-                    const typename t_Visitor::CompareParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             return (left.isApprox(right, param.template getTolerance<t_Scalar>()));
@@ -366,10 +366,10 @@ namespace ariles
                     int t_rows,
                     int t_cols,
                     int t_flags>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
                     const t_Visitor & /*visitor*/,
                     Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
-                    const typename t_Visitor::DefaultsParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             if (Eigen::Dynamic == t_rows)
@@ -402,10 +402,10 @@ namespace ariles
                     int t_dim,
                     int t_mode,
                     int t_options>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
                     const t_Visitor & /*visitor*/,
                     Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
-                    const typename t_Visitor::DefaultsParameters & /*param*/)
+                    const typename t_Visitor::Parameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
             entry.setIdentity();
@@ -415,10 +415,10 @@ namespace ariles
         template <  class t_Visitor,
                     typename t_Scalar,
                     int t_options>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
                     const t_Visitor & /*visitor*/,
                     Eigen::Quaternion< t_Scalar, t_options > &entry,
-                    const typename t_Visitor::DefaultsParameters & /*param*/)
+                    const typename t_Visitor::Parameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
             entry.setIdentity();
@@ -437,10 +437,10 @@ namespace ariles
                     int t_dim,
                     int t_mode,
                     int t_options>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_finalize(
                     const t_Visitor & /*visitor*/,
                     const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & /*entry*/,
-                    const typename t_Visitor::FinalizeParameters & /*param*/)
+                    const typename t_Visitor::Parameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
         }
@@ -449,10 +449,10 @@ namespace ariles
         template <  class t_Visitor,
                     typename t_Scalar,
                     int t_options>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_finalize(
                     const t_Visitor & /*visitor*/,
                     const Eigen::Quaternion< t_Scalar, t_options > &/*entry*/,
-                    const typename t_Visitor::FinalizeParameters & /*param*/)
+                    const typename t_Visitor::Parameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
         }
@@ -460,10 +460,10 @@ namespace ariles
 
         template <  class t_Visitor,
                     class t_Derived>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_finalize(
                     const t_Visitor & /*visitor*/,
                     const Eigen::EigenBase<t_Derived> & /*entry*/,
-                    const typename t_Visitor::FinalizeParameters & /*param*/)
+                    const typename t_Visitor::Parameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
         }

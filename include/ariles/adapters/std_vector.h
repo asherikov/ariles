@@ -19,16 +19,16 @@ namespace ariles
         template <  class t_Visitor,
                     typename t_VectorEntryType,
                     class t_Allocator>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
                     t_Visitor & visitor,
                     std::vector<t_VectorEntryType, t_Allocator> & entry,
-                    const typename t_Visitor::ReadParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             entry.resize(visitor.startArray());
             for(std::size_t i = 0; i < entry.size(); ++i)
             {
-                apply(visitor, entry[i], param);
+                apply_read(visitor, entry[i], param);
                 visitor.shiftArray();
             }
             visitor.endArray();
@@ -44,16 +44,16 @@ namespace ariles
         template <  class t_Visitor,
                     typename t_VectorEntryType,
                     class t_Allocator>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_write(
                     t_Visitor & writer,
                     const std::vector<t_VectorEntryType, t_Allocator> & entry,
-                    const typename t_Visitor::WriteParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            writer.startArray(entry.size(), param.isSet(t_Visitor::WriteParameters::COMPACT_ARRAYS_IF_SUPPORTED));
+            writer.startArray(entry.size(), param.isSet(t_Visitor::Parameters::COMPACT_ARRAYS_IF_SUPPORTED));
             for (std::size_t i = 0; i < entry.size(); ++i)
             {
-                apply(writer, entry[i], param);
+                apply_write(writer, entry[i], param);
                 writer.shiftArray();
             }
             writer.endArray();
@@ -69,11 +69,11 @@ namespace ariles
         template <  class t_Visitor,
                     typename t_VectorEntryType,
                     class t_Allocator>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
                     const t_Visitor & visitor,
                     const std::vector<t_VectorEntryType, t_Allocator> &left,
                     const std::vector<t_VectorEntryType, t_Allocator> &right,
-                    const typename t_Visitor::CompareParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
 
@@ -84,7 +84,7 @@ namespace ariles
 
             for (std::size_t i = 0; i < left.size(); ++i)
             {
-                if (false == apply(visitor, left[i], right[i], param))
+                if (false == apply_compare(visitor, left[i], right[i], param))
                 {
                     return (false);
                 }
@@ -103,10 +103,10 @@ namespace ariles
         template <  class t_Visitor,
                     typename t_VectorEntryType,
                     class t_Allocator>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
                     const t_Visitor & /*visitor*/,
                     std::vector<t_VectorEntryType, t_Allocator> & entry,
-                    const typename t_Visitor::DefaultsParameters & /*param*/)
+                    const typename t_Visitor::Parameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
             entry.clear();
@@ -123,15 +123,15 @@ namespace ariles
         template <  class t_Visitor,
                     typename t_VectorEntryType,
                     class t_Allocator>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_finalize(
                     const t_Visitor & visitor,
                     std::vector<t_VectorEntryType, t_Allocator> & entry,
-                    const typename t_Visitor::FinalizeParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             for (std::size_t i = 0; i < entry.size(); ++i)
             {
-                apply(visitor, entry[i], param);
+                apply_finalize(visitor, entry[i], param);
             }
         }
     }

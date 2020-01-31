@@ -19,9 +19,9 @@ namespace ariles
         class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Visitor
         {
             public:
-                class CountParameters
+                class Parameters
                 {
-                } default_parameters_;
+                };
 
 
             public:
@@ -37,9 +37,16 @@ namespace ariles
                 }
 
 
+                const Parameters & getDefaultParameters() const
+                {
+                    const static Parameters parameters;
+                    return parameters;
+                }
+
+
                 template<class t_Configurable>
                     void startRoot( const t_Configurable &,
-                                    const CountParameters &)
+                                    const Parameters &)
                 {
                     ARILES_TRACE_FUNCTION;
                     counter_ = 0;
@@ -49,7 +56,7 @@ namespace ariles
 
                 template<class t_Configurable>
                     void finishRoot(const t_Configurable &,
-                                    const CountParameters &) const
+                                    const Parameters &) const
                 {
                     ARILES_TRACE_FUNCTION;
                 }

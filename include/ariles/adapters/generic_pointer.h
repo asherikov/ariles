@@ -14,16 +14,16 @@ namespace ariles
     {
         template <  class t_Visitor,
                     typename t_Entry>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
                     t_Visitor &visitor,
                     ARILES_POINTER_TYPE<t_Entry> &entry,
-                    const typename t_Visitor::ReadParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             bool is_null = true;
 
-            typename t_Visitor::ReadParameters param_local = param;
-            param_local.unset(t_Visitor::ReadParameters::ALLOW_MISSING_ENTRIES);
+            typename t_Visitor::Parameters param_local = param;
+            param_local.unset(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES);
 
             visitor.template startMap<t_Visitor::SIZE_LIMIT_RANGE>(1, 2);
             arilesEntryApply(visitor, is_null, "is_null", param_local);
@@ -50,9 +50,9 @@ namespace ariles
         template <  class t_Visitor,
                     typename t_Entry>
             void ARILES_VISIBILITY_ATTRIBUTE
-            apply( t_Visitor & writer,
+            apply_write( t_Visitor & writer,
                    const ARILES_POINTER_TYPE<t_Entry> &entry,
-                   const typename t_Visitor::WriteParameters & param)
+                   const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             bool is_null = true;
@@ -82,11 +82,11 @@ namespace ariles
     namespace compare
     {
         template <class t_Visitor, typename t_Entry>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply(
+            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
                     const t_Visitor & visitor,
                     const ARILES_POINTER_TYPE<t_Entry> &left,
                     const ARILES_POINTER_TYPE<t_Entry> &right,
-                    const typename t_Visitor::CompareParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             if (true == PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(left))
@@ -108,7 +108,7 @@ namespace ariles
                 }
                 else
                 {
-                    return (apply(visitor, *left, *right, param));
+                    return (apply_compare(visitor, *left, *right, param));
                 }
             }
         }
@@ -122,10 +122,10 @@ namespace ariles
     {
         template <  class t_Visitor,
                     typename t_Entry>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
                     const t_Visitor & /*visitor*/,
                     ARILES_POINTER_TYPE<t_Entry> & entry,
-                    const typename t_Visitor::DefaultsParameters & /*param*/)
+                    const typename t_Visitor::Parameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
             PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::reset(entry);
@@ -140,15 +140,15 @@ namespace ariles
     {
         template <  class t_Visitor,
                     typename t_Entry>
-            void ARILES_VISIBILITY_ATTRIBUTE apply(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_finalize(
                     const t_Visitor & visitor,
                     ARILES_POINTER_TYPE<t_Entry> &entry,
-                    const typename t_Visitor::FinalizeParameters & param)
+                    const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
             if (false == (PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(entry)))
             {
-                apply(visitor, *entry, param);
+                apply_finalize(visitor, *entry, param);
             }
         }
     }

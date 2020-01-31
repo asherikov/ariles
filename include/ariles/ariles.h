@@ -43,7 +43,7 @@
 
     namespace ariles
     {
-        typedef ariles::compare::Visitor::CompareParameters ComparisonParameters;
+        typedef ariles::compare::Visitor::Parameters ComparisonParameters;
 
 
         /**
@@ -62,8 +62,7 @@
             public:
                 void setDefaults()
                 {
-                    ariles::defaults::Visitor visitor;
-                    arilesApply(visitor, visitor.default_parameters_);
+                    arilesVirtualVisit<ariles::defaults::Visitor>();
                 }
 
 
@@ -99,10 +98,10 @@
 
 
                 virtual void readConfigEntries( ariles::read::Visitor & visitor,
-                                                const ariles::read::Visitor::ReadParameters & parameters)
+                                                const ariles::read::Visitor::Parameters & parameters)
                 {
                     ARILES_TRACE_FUNCTION;
-                    arilesApply(visitor, parameters);
+                    arilesVirtualVisit(visitor, parameters);
                 }
 
 
@@ -137,7 +136,7 @@
                 #define ARILES_READ_CONFIG(NameType) \
                         virtual void readConfig(ariles::read::Visitor  &   reader, \
                                                 NameType                    node_name, \
-                                                const ariles::read::Visitor::ReadParameters & param) = 0; \
+                                                const ariles::read::Visitor::Parameters & param) = 0; \
                         void readConfig(ariles::read::Visitor  &   reader, \
                                         NameType                    node_name) \
                         { \
@@ -320,10 +319,10 @@
 
 
                 virtual void writeConfigEntries(ariles::write::Visitor & visitor,
-                                                const ariles::write::Visitor::WriteParameters & param) const
+                                                const ariles::write::Visitor::Parameters & param) const
                 {
                     ARILES_TRACE_FUNCTION;
-                    arilesApply(visitor, param);
+                    arilesVirtualVisit(visitor, param);
                 }
         };
 

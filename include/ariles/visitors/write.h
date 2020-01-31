@@ -20,7 +20,7 @@ namespace ariles
         {
             public:
                 typedef int WriterIndicatorType;
-                typedef ariles::ConfigurableFlags WriteParameters;
+                typedef ariles::ConfigurableFlags Parameters;
 
 
             protected:
@@ -40,15 +40,22 @@ namespace ariles
 
 
             public:
+                const Parameters & getDefaultParameters() const
+                {
+                    const static Parameters parameters;
+                    return parameters;
+                }
+
+
                 template<class t_Configurable>
-                    void startRoot(const t_Configurable &, const WriteParameters &)
+                    void startRoot(const t_Configurable &, const Parameters &)
                 {
                     ARILES_TRACE_FUNCTION;
                     initRoot();
                 }
 
                 template<class t_Configurable>
-                    void finishRoot(const t_Configurable &, const WriteParameters &)
+                    void finishRoot(const t_Configurable &, const Parameters &)
                 {
                     ARILES_TRACE_FUNCTION;
                     flush();
@@ -112,7 +119,7 @@ namespace ariles
 
         template<class t_Derived>
             class ARILES_VISIBILITY_ATTRIBUTE Base
-                : public visitor::ConstBase<t_Derived, write::Visitor, const write::Visitor::WriteParameters>
+                : public visitor::ConstBase<t_Derived, write::Visitor>
         {
         };
     }

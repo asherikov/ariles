@@ -19,7 +19,7 @@ namespace ariles
         class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Visitor
         {
             public:
-                class CompareParameters
+                class Parameters
                 {
                 public:
                     double float_tolerance_;
@@ -31,7 +31,7 @@ namespace ariles
 
 
                 public:
-                    CompareParameters()
+                    Parameters()
                     {
                         setDefaults();
                     }
@@ -51,15 +51,22 @@ namespace ariles
 
                     template <typename t_Scalar>
                     t_Scalar getTolerance() const;
-                } default_parameters_;
+                };
 
 
 
             public:
+                const Parameters & getDefaultParameters() const
+                {
+                    const static Parameters parameters;
+                    return parameters;
+                }
+
+
                 template<class t_Configurable, class t_Other>
                     void startRoot( const t_Configurable &,
                                     const t_Other &,
-                                    const CompareParameters &) const
+                                    const Parameters &) const
                 {
                     ARILES_TRACE_FUNCTION;
                 }
@@ -68,7 +75,7 @@ namespace ariles
                 template<class t_Configurable, class t_Other>
                     void finishRoot(const t_Configurable &,
                                     const t_Other &,
-                                    const CompareParameters &) const
+                                    const Parameters &) const
                 {
                     ARILES_TRACE_FUNCTION;
                 }
@@ -78,7 +85,7 @@ namespace ariles
                     static bool ARILES_VISIBILITY_ATTRIBUTE compareFloats(
                             const t_Scalar left,
                             const t_Scalar right,
-                            const CompareParameters & param)
+                            const Parameters & param)
                 {
                     if (isNaN(left))
                     {
@@ -110,13 +117,13 @@ namespace ariles
 
 
         template <>
-        inline double Visitor::CompareParameters::getTolerance<double>() const
+        inline double Visitor::Parameters::getTolerance<double>() const
         {
             return (double_tolerance_);
         }
 
         template <>
-        inline float Visitor::CompareParameters::getTolerance<float>() const
+        inline float Visitor::Parameters::getTolerance<float>() const
         {
             return (float_tolerance_);
         }
