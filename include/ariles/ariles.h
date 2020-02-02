@@ -25,6 +25,10 @@
 #   define ARILES_ENABLED
 
 
+    #undef ARILES_INITIALIZE
+    #define ARILES_INITIALIZE  "ariles/members/define_accessors.h"
+
+
     #define ARILES_WRITE_NAMED_ENTRY(entry, name)   ariles::writeEntry(writer, entry, name, param);
 
     #define ARILES_WRITE_ENTRY_(entry)   ARILES_WRITE_NAMED_ENTRY(entry##_, #entry)

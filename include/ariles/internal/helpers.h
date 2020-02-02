@@ -37,8 +37,6 @@
 #   define ARILES_DEFAULT_CONFIG_PREFIX     ""
 #endif
 
-#define ARILES_INITIALIZE  "ariles/internal/define_accessors.h"
-
 /// @todo DEPRECATED C++11
 #define ARILES_EMPTY_MACRO
 

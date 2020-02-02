@@ -11,68 +11,13 @@
     header from / to a configuration file.
 */
 
-#ifndef ARILES_DOXYGEN_PROCESSING
-    public:
-        #ifdef ARILES_ENTRIES
-            #define ARILES_NAMED_ENTRY(entry, name)
-            #define ARILES_PARENT(entry)
-            #define ARILES_TYPED_NAMED_ENTRY(type, entry, name)  type    entry;
-
-            ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
-
-            #undef ARILES_NAMED_ENTRY
-            #undef ARILES_PARENT
-            #undef ARILES_TYPED_NAMED_ENTRY
-
-            #define ARILES_TYPED_NAMED_ENTRY(type, entry, name)  ARILES_NAMED_ENTRY(entry, name)
-        #endif
-#endif
-
 
 #ifdef ARILES_ENABLED
-
-    /// @todo DEPRECATED
-    #ifdef ARILES_SECTION_ID
-        #define ARILES_DEFAULT_ID ARILES_SECTION_ID
-    #endif
-
-
 
     #ifndef ARILES_DOXYGEN_PROCESSING
 
     public:
-        using ariles::Base::arilesGetParameters;
-        using ariles::Base::arilesVirtualVisit;
-        using ariles::Base::ariles;
-
-
         #ifdef ARILES_ENTRIES
-
-            #define ARILES_NAMED_ENTRY(entry, name)     arilesEntryApply(visitor, entry, name, parameters);
-            #define ARILES_PARENT(entry)                entry::arilesVisit(visitor, parameters);
-
-            template<class t_Visitor, class t_Parameters>
-            void arilesVisit(t_Visitor &visitor, const t_Parameters &parameters)
-            {
-                ARILES_UNUSED_ARG(visitor);
-                ARILES_UNUSED_ARG(parameters);
-                ARILES_TRACE_FUNCTION;
-                ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
-            }
-
-
-            template<class t_Visitor, class t_Parameters>
-            void arilesVisit(t_Visitor &visitor, const t_Parameters &parameters) const
-            {
-                ARILES_UNUSED_ARG(visitor);
-                ARILES_UNUSED_ARG(parameters);
-                ARILES_TRACE_FUNCTION;
-                ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
-            }
-
-            #undef ARILES_PARENT
-            #undef ARILES_NAMED_ENTRY
-
 
             #ifndef ARILES_AUTO_DEFAULTS
                 void arilesVisit(   const ariles::defaults::Visitor & /*visitor*/,
@@ -83,45 +28,11 @@
                 }
             #endif
 
-
-            #define ARILES_NAMED_ENTRY(entry, name)     arilesEntryApply(visitor, entry, other.entry, name, parameters);
-            #define ARILES_PARENT(entry)                entry::arilesVisit(visitor, other, parameters);
-
-            template<class t_Visitor, class t_Parameters, class t_Other>
-                void arilesVisit(const t_Visitor &visitor, t_Other & other, const t_Parameters &parameters) const
-            {
-                ARILES_UNUSED_ARG(visitor);
-                ARILES_UNUSED_ARG(other);
-                ARILES_UNUSED_ARG(parameters);
-                ARILES_TRACE_FUNCTION;
-                ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
-            }
-
-            #undef ARILES_PARENT
-            #undef ARILES_NAMED_ENTRY
-
-
-            #undef ARILES_TYPED_NAMED_ENTRY
         #endif
     #endif
 
 
     public:
-        // Define node name
-        #ifdef ARILES_DEFAULT_ID
-            const std::string & arilesDefaultID() const
-            {
-                static const std::string name(ARILES_DEFAULT_ID);
-                return (name);
-            }
-        #else
-            const std::string & arilesDefaultID() const
-            {
-                return (getConfigSectionID());
-            }
-        #endif
-
-
         #ifdef ARILES_CONFIGURABLE_FLAGS
             virtual const ariles::ConfigurableFlags &getArilesConfigurableFlags() const
             {
@@ -185,11 +96,13 @@
             ariles(reader, node_name, param);
         }
 
-        void arilesFinalize()
-        {
-            ariles::finalize::Visitor visitor;
-            ariles(visitor);
-        }
+        #ifndef ARILES_NO_AUTO_FINALIZE
+            void arilesFinalize()
+            {
+                ariles::finalize::Visitor visitor;
+                ariles(visitor);
+            }
+        #endif
 
 
         using ariles::CommonConfigurableBase::writeConfig;
@@ -239,37 +152,25 @@
         }
 
 
-        ARILES_METHODS(ariles::read::Visitor, ARILES_EMPTY_MACRO)
 
-        ARILES_METHODS(ariles::write::Visitor, const)
-
-        ARILES_METHODS(const ariles::defaults::Visitor, ARILES_EMPTY_MACRO)
-
-        ARILES_METHODS(const ariles::finalize::Visitor, ARILES_EMPTY_MACRO)
-
-        ARILES_METHODS(ariles::count::Visitor, const)
-
-        ARILES_NONVIRTUAL_METHODS(ariles::count::Visitor, const)
-
-
-        ARILES_METHODS_WITH_ARG(const ariles::compare::Visitor, const)
-
-        #ifdef ARILES_DEFAULT_ID
+        #ifdef ARILES_SECTION_ID
             const std::string & getConfigSectionID() const
             {
                 return (arilesDefaultID());
+            }
+        #else
+            const std::string & arilesDefaultID() const
+            {
+                return (getConfigSectionID());
             }
         #endif
 
 
 #endif //ARILES_ENABLED
 
-#undef ARILES_DEFAULT_ID
 #undef ARILES_CONSTRUCTOR
 #undef ARILES_AUTO_DEFAULTS
 #undef ARILES_NO_AUTO_FINALIZE
 #undef ARILES_ENTRIES
 #undef ARILES_CONFIGURABLE_FLAGS
-
-
 #undef ARILES_SECTION_ID

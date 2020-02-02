@@ -33,6 +33,8 @@
 #   define ARILES_ENABLED
 
 
+    #define ARILES_INITIALIZE  "ariles/members/all.h"
+
     #define ARILES_ENTRY_(entry)     ARILES_NAMED_ENTRY(entry##_, #entry)
     #define ARILES_ENTRY(entry)      ARILES_NAMED_ENTRY(entry, #entry)
 
@@ -174,6 +176,7 @@
 #else
 
 #   define ARILES_DISABLED
+#   define ARILES_INITIALIZE  "ariles/members/variables.h"
 
     namespace ariles
     {
@@ -186,6 +189,7 @@
                  * classes via base pointer.
                  */
                 ~Base() {}
+                Base() {}
         };
     }
 
