@@ -28,6 +28,82 @@
                 }
             #endif
 
+            #ifndef ARILES_NO_AUTO_FINALIZE
+                void arilesFinalize()
+                {
+                    ariles::finalize::Visitor visitor;
+                    ariles(visitor);
+                }
+            #endif
+
+
+            std::size_t getNumberOfEntries() const
+            {
+                ARILES_TRACE_FUNCTION;
+                ariles::count::Visitor visitor;
+                arilesVirtualVisit(visitor);
+                return(visitor.counter_);
+            }
+
+
+            template<class t_Other>
+                bool arilesCompare(const t_Other &other, const ariles::compare::Visitor::Parameters & param) const
+            {
+                ARILES_TRACE_FUNCTION;
+                try
+                {
+                    ariles::compare::Visitor visitor;
+                    ariles(visitor, other, param);
+                    return (true);
+                }
+                catch (std::exception &e)
+                {
+                    if (true == param.throw_on_error_)
+                    {
+                        ARILES_THROW(std::string("Comparison failed: ") + e.what());
+                    }
+                    return (false);
+                }
+            }
+
+
+        #else // ARILES_ENTRIES
+
+            virtual void arilesVisit(   ariles::count::Visitor &visitor,
+                                        const ariles::count::Visitor::Parameters &/*param*/) const
+            {
+                ARILES_TRACE_FUNCTION;
+                visitor.counter_ += this->getNumberOfEntries();
+            }
+
+            virtual void arilesVisit(   ariles::read::Visitor &visitor,
+                                        const ariles::read::Visitor::Parameters &param)
+            {
+                ARILES_TRACE_FUNCTION;
+                readConfigEntries(visitor, param);
+            }
+
+            virtual void arilesVisit(   ariles::write::Visitor &visitor,
+                                        const ariles::write::Visitor::Parameters &param) const
+            {
+                ARILES_TRACE_FUNCTION;
+                writeConfigEntries(visitor, param);
+            }
+
+            virtual void arilesVisit(   const ariles::finalize::Visitor &/*visitor*/,
+                                        const ariles::finalize::Visitor::Parameters &/*param*/)
+            {
+                ARILES_TRACE_FUNCTION;
+                arilesFinalize();
+            }
+
+            virtual void arilesVisit(   const ariles::defaults::Visitor &/*visitor*/,
+                                        const ariles::defaults::Visitor::Parameters &/*param*/)
+            {
+                ARILES_TRACE_FUNCTION;
+                setDefaults();
+            }
+
         #endif
     #endif
 
@@ -96,14 +172,6 @@
             ariles(reader, node_name, param);
         }
 
-        #ifndef ARILES_NO_AUTO_FINALIZE
-            void arilesFinalize()
-            {
-                ariles::finalize::Visitor visitor;
-                ariles(visitor);
-            }
-        #endif
-
 
         using ariles::CommonConfigurableBase::writeConfig;
 
@@ -122,35 +190,6 @@
             ARILES_TRACE_FUNCTION;
             ariles(writer, node_name, param);
         }
-
-        std::size_t getNumberOfEntries() const
-        {
-            ARILES_TRACE_FUNCTION;
-            ariles::count::Visitor visitor;
-            arilesVirtualVisit(visitor);
-            return(visitor.counter_);
-        }
-
-        template<class t_Other>
-            bool arilesCompare(const t_Other &other, const ariles::compare::Visitor::Parameters & param) const
-        {
-            ARILES_TRACE_FUNCTION;
-            try
-            {
-                ariles::compare::Visitor visitor;
-                ariles(visitor, other, param);
-                return (true);
-            }
-            catch (std::exception &e)
-            {
-                if (true == param.throw_on_error_)
-                {
-                    ARILES_THROW(std::string("Comparison failed: ") + e.what());
-                }
-                return (false);
-            }
-        }
-
 
 
         #ifdef ARILES_SECTION_ID
@@ -171,6 +210,5 @@
 #undef ARILES_CONSTRUCTOR
 #undef ARILES_AUTO_DEFAULTS
 #undef ARILES_NO_AUTO_FINALIZE
-#undef ARILES_ENTRIES
 #undef ARILES_CONFIGURABLE_FLAGS
 #undef ARILES_SECTION_ID

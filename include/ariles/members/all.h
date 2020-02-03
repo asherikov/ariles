@@ -14,3 +14,5 @@
 
 #include "variables.h"
 #include "methods.h"
+
+#undef ARILES_ENTRIES

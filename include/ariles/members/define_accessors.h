@@ -19,3 +19,5 @@
 #include "variables.h"
 #include "methods.h"
 #include "methods_deprecated.h"
+
+#undef ARILES_ENTRIES
