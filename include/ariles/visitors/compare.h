@@ -25,9 +25,10 @@ namespace ariles
                     double float_tolerance_;
                     double double_tolerance_;
                     bool compare_number_of_entries_;
-                    bool throw_on_error_;
+                    bool throw_on_error_; /// @todo DEPRECATED
                     bool nan_equal_;
                     bool inf_equal_;
+                    /// @todo continue on failure.
 
 
                 public:
@@ -53,9 +54,19 @@ namespace ariles
                     t_Scalar getTolerance() const;
                 };
 
+            public:
+                bool equal_;
+
 
 
             public:
+                template<class t_Left, class t_Right>
+                    bool compare(const t_Left &left, const t_Right &right, const Parameters &param)
+                {
+                    left.ariles(*this, right, param);
+                    return (equal_);
+                }
+
                 const Parameters & getDefaultParameters() const
                 {
                     const static Parameters parameters;
@@ -63,18 +74,17 @@ namespace ariles
                 }
 
 
-                template<class t_Configurable, class t_Other>
+                template<class t_Configurable>
                     void startRoot( const t_Configurable &,
-                                    const t_Other &,
-                                    const Parameters &) const
+                                    const Parameters &)
                 {
                     ARILES_TRACE_FUNCTION;
+                    equal_ = true;
                 }
 
 
-                template<class t_Configurable, class t_Other>
+                template<class t_Configurable>
                     void finishRoot(const t_Configurable &,
-                                    const t_Other &,
                                     const Parameters &) const
                 {
                     ARILES_TRACE_FUNCTION;

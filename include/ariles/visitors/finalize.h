@@ -41,11 +41,10 @@ namespace ariles
 
 
                 template<class t_Configurable>
-                    void finishRoot(t_Configurable & configurable,
+                    void finishRoot(t_Configurable &,
                                     const Parameters &) const
                 {
                     ARILES_TRACE_FUNCTION;
-                    configurable.finalize();
                 }
         };
 

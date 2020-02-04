@@ -313,28 +313,28 @@ namespace ariles
                     int t_dim,
                     int t_mode,
                     int t_options>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
-                    const t_Visitor & /*visitor*/,
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
                     const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & left,
                     const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & right,
                     const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            return (left.isApprox(right, param.template getTolerance<t_Scalar>()));
+            visitor.equal_ &= (left.isApprox(right, param.template getTolerance<t_Scalar>()));
         }
 
 
         template <  class t_Visitor,
                     typename t_Scalar,
                     int t_options>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
-                    const t_Visitor & /*visitor*/,
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
                     const Eigen::Quaternion< t_Scalar, t_options > &left,
                     const Eigen::Quaternion< t_Scalar, t_options > &right,
                     const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            return (left.isApprox(right, param.template getTolerance<t_Scalar>()));
+            visitor.equal_ &= (left.isApprox(right, param.template getTolerance<t_Scalar>()));
         }
 
 
@@ -343,14 +343,14 @@ namespace ariles
                     int t_rows,
                     int t_cols,
                     int t_flags>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
-                    const t_Visitor & /*visitor*/,
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
                     const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> & left,
                     const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> & right,
                     const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            return (left.isApprox(right, param.template getTolerance<t_Scalar>()));
+            visitor.equal_ &= (left.isApprox(right, param.template getTolerance<t_Scalar>()));
         }
     }
 }

@@ -50,20 +50,9 @@
                 bool arilesCompare(const t_Other &other, const ariles::compare::Visitor::Parameters & param) const
             {
                 ARILES_TRACE_FUNCTION;
-                try
-                {
-                    ariles::compare::Visitor visitor;
-                    ariles(visitor, other, param);
-                    return (true);
-                }
-                catch (std::exception &e)
-                {
-                    if (true == param.throw_on_error_)
-                    {
-                        ARILES_THROW(std::string("Comparison failed: ") + e.what());
-                    }
-                    return (false);
-                }
+                ariles::compare::Visitor visitor;
+                ariles(visitor, other, param);
+                return (visitor.equal_);
             }
 
 
@@ -102,6 +91,18 @@
             {
                 ARILES_TRACE_FUNCTION;
                 setDefaults();
+            }
+
+            template<class t_Other>
+            void arilesVisit(   const ariles::compare::Visitor &/*visitor*/,
+                                const t_Other & other,
+                                const ariles::compare::Visitor::Parameters &param) const
+            {
+                ARILES_TRACE_FUNCTION;
+                if (false == arilesCompare(other, param))
+                {
+                    ARILES_THROW("Comparison failed in " + arilesDefaultID());
+                }
             }
 
         #endif

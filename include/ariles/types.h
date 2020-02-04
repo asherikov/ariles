@@ -229,7 +229,7 @@ namespace ariles
                 if (NULL != value_.get() && NULL != other.value_.get())
                 {
                     ariles::compare::Visitor visitor;
-                    return (ariles::compare::apply_compare(visitor, *value_, *(other.value_), param));
+                    return (visitor.compare(*value_, *(other.value_), param));
                 }
                 else
                 {

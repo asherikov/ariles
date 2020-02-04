@@ -69,28 +69,20 @@ namespace ariles
         template <  class t_Visitor,
                     typename t_VectorEntryType,
                     class t_Allocator>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
-                    const t_Visitor & visitor,
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
                     const std::vector<t_VectorEntryType, t_Allocator> &left,
                     const std::vector<t_VectorEntryType, t_Allocator> &right,
                     const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
 
-            if (left.size() != right.size())
-            {
-                return (false);
-            }
+            visitor.equal_ &= (left.size() == right.size());
 
-            for (std::size_t i = 0; i < left.size(); ++i)
+            for (std::size_t i = 0; i < left.size() and true == visitor.equal_; ++i)
             {
-                if (false == apply_compare(visitor, left[i], right[i], param))
-                {
-                    return (false);
-                }
+                apply_compare(visitor, left[i], right[i], param);
             }
-
-            return (true);
         }
     }
 }

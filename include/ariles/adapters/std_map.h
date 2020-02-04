@@ -150,36 +150,24 @@ namespace ariles
                     typename t_Value,
                     class t_Compare,
                     class t_Allocator>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
-                    const t_Visitor & visitor,
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
                     const std::map<t_Key, t_Value, t_Compare, t_Allocator> &left,
                     const std::map<t_Key, t_Value, t_Compare, t_Allocator> &right,
                     const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
 
-            if (left.size() != right.size())
-            {
-                return (false);
-            }
+            visitor.equal_ &= (left.size() == right.size());
 
             typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator left_it = left.begin();
             typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator right_it = right.begin();
 
-            for (; (left_it != left.end()) && (right_it != right.end()); ++left_it, ++right_it)
+            for (; (left_it != left.end()) and (right_it != right.end()) and (true == visitor.equal_); ++left_it, ++right_it)
             {
-                if (false == apply_compare(visitor, left_it->first, right_it->first, param))
-                {
-                    return (false);
-                }
-
-                if (false == apply_compare(visitor, left_it->second, right_it->second, param))
-                {
-                    return (false);
-                }
+                apply_compare(visitor, left_it->first, right_it->first, param);
+                apply_compare(visitor, left_it->second, right_it->second, param);
             }
-
-            return (true);
         }
     }
 }

@@ -124,25 +124,16 @@ namespace ariles
         template <  class t_Visitor,
                     typename t_First,
                     typename t_Second>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
-                    const t_Visitor & visitor,
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
                     const std::pair<t_First, t_Second> & left,
                     const std::pair<t_First, t_Second> & right,
                     const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
 
-            if (false == apply_compare(visitor, left.first, right.first, param))
-            {
-                return (false);
-            }
-
-            if (false == apply_compare(visitor, left.second, right.second, param))
-            {
-                return (false);
-            }
-
-            return (true);
+            apply_compare(visitor, left.first, right.first, param);
+            apply_compare(visitor, left.second, right.second, param);
         }
     }
 }

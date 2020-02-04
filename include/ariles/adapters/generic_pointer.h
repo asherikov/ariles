@@ -82,8 +82,8 @@ namespace ariles
     namespace compare
     {
         template <class t_Visitor, typename t_Entry>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
-                    const t_Visitor & visitor,
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
                     const ARILES_POINTER_TYPE<t_Entry> &left,
                     const ARILES_POINTER_TYPE<t_Entry> &right,
                     const typename t_Visitor::Parameters & param)
@@ -91,24 +91,20 @@ namespace ariles
             ARILES_TRACE_FUNCTION;
             if (true == PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(left))
             {
-                if (true == PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(right))
+                if (false == PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(right))
                 {
-                    return (true);
-                }
-                else
-                {
-                    return (false);
+                    visitor.equal_ = false;
                 }
             }
             else
             {
                 if (true == PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(right))
                 {
-                    return (false);
+                    visitor.equal_ = false;
                 }
                 else
                 {
-                    return (apply_compare(visitor, *left, *right, param));
+                    apply_compare(visitor, *left, *right, param);
                 }
             }
         }

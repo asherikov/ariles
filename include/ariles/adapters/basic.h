@@ -79,7 +79,9 @@ namespace ariles
             entry.arilesVirtualVisit(visitor, param);
             visitor.endMap();
 
+#if 1 == ARILES_API_VERSION
             entry.finalize(); /// @todo DEPRECATED
+#endif
         }
 
 
@@ -136,7 +138,7 @@ namespace ariles
                     ARILES_IS_BASE_ENABLER(ariles::write::Visitor, t_Visitor))
         {
             ARILES_TRACE_FUNCTION;
-            ARILES_TRACE_ENTRY(name);
+            ARILES_TRACE_ENTRY(entry_name);
             ARILES_TRACE_TYPE(entry);
 
             writer.descend(entry_name);
@@ -220,7 +222,8 @@ namespace ariles
 
             try
             {
-                if (false == apply_compare(visitor, left, right, param))
+                apply_compare(visitor, left, right, param);
+                if (false == visitor.equal_ and true == param.throw_on_error_)
                 {
                     ARILES_THROW("");
                 }
@@ -235,8 +238,8 @@ namespace ariles
         template<   class t_Visitor,
                     class t_Left,
                     class t_Right>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
-                    t_Visitor & /*visitor*/,
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
                     const t_Left & left,
                     const t_Right & right,
                     const typename t_Visitor::Parameters & param,
@@ -251,36 +254,33 @@ namespace ariles
                 const std::size_t left_counter = counter.counter_;
                 right.ariles(counter);
 
-                if (left_counter != counter.counter_)
-                {
-                    ARILES_THROW("Comparison failed: different number of entries.");
-                }
+                visitor.equal_ &= (left_counter == counter.counter_);
             }
-            return (left.arilesCompare(right, param));
+            left.arilesVisit(visitor, right, param);
         }
 
 
         template <  class t_Visitor,
                     typename t_Enumeration>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
-                    const t_Visitor & /*visitor*/,
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
                     const t_Enumeration & left,
                     const t_Enumeration & right,
                     const typename t_Visitor::Parameters & /*param*/,
                     ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
         {
-            return (left == right);
+            visitor.equal_ &= (left == right);
         }
 
 
         #define ARILES_BASIC_TYPE(type) \
                 template <class t_Visitor> \
-                    inline bool ARILES_VISIBILITY_ATTRIBUTE apply_compare( \
-                            const t_Visitor &, \
+                    inline void ARILES_VISIBILITY_ATTRIBUTE apply_compare( \
+                            t_Visitor & visitor, \
                             const type & left, \
                             const type & right, \
                             const typename t_Visitor::Parameters &) \
-                { return (left == right); }
+                { visitor.equal_ &= (left == right); }
 
         /**
          * @brief Generate compare methods for basic types.
@@ -297,24 +297,24 @@ namespace ariles
 
 
         template<class t_Visitor>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
-                    const t_Visitor & visitor,
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
                     const float & left,
                     const float & right,
                     const typename t_Visitor::Parameters & param)
         {
-            return (visitor.compareFloats(left, right, param));
+            visitor.equal_ &= (visitor.compareFloats(left, right, param));
         }
 
 
         template<class t_Visitor>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
-                    const t_Visitor & visitor,
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
                     const double & left,
                     const double & right,
                     const typename t_Visitor::Parameters & param)
         {
-            return (visitor.compareFloats(left, right, param));
+            visitor.equal_ &= visitor.compareFloats(left, right, param);
         }
     }
 }
@@ -415,7 +415,9 @@ namespace ariles
         {
             ARILES_TRACE_FUNCTION;
             entry.arilesVirtualVisit(visitor, param);
+#if 1 == ARILES_API_VERSION
             entry.finalize(); /// @todo DEPRECATED
+#endif
         }
 
 

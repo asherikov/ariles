@@ -15,10 +15,10 @@
 
 #pragma once
 
-#include "ariles2.h"
-
 #undef ARILES_API_VERSION
 #define ARILES_API_VERSION 1
+
+#include "ariles2.h"
 
 
 #ifndef ARILES_DISABLE

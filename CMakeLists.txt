@@ -93,6 +93,12 @@ set(CPACK_DEBIAN_PACKAGE_SECTION    "devel")
 
 #####################################
 
+find_program(CCACHE_FOUND ccache)
+if(CCACHE_FOUND)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+endif(CCACHE_FOUND)
+
+
 if (NOT ${ARILES_ENABLE_CORE})
     # tests cannot be built if the core is not installed
     set(ARILES_BUILD_REGRESSION_TESTS   OFF)

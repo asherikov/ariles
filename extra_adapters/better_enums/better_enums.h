@@ -66,8 +66,8 @@ namespace ariles
     namespace compare
     {
         template <class t_Visitor, class t_BetterEnum>
-            bool ARILES_VISIBILITY_ATTRIBUTE apply_compare(
-                    const t_Visitor & /*visitor*/,
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
                     const t_BetterEnum &left,
                     const t_BetterEnum &right,
                     const typename t_Visitor::Parameters & /*param*/,
@@ -78,7 +78,7 @@ namespace ariles
                     const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
         {
             ARILES_TRACE_FUNCTION;
-            return (left == right);
+            visitor.equal_ &= (left == right);
         }
     }
 }

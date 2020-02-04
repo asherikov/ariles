@@ -27,8 +27,8 @@
             #define ARILES_NAMED_ENTRY(entry, name)     arilesEntryApply(visitor, entry, name, parameters);
             #define ARILES_PARENT(entry)                entry::arilesVisit(visitor, parameters);
 
-            template<class t_Visitor, class t_Parameters>
-            void arilesVisit(t_Visitor &visitor, const t_Parameters &parameters)
+            template<class t_Visitor>
+                void arilesVisit(t_Visitor &visitor, const typename t_Visitor::Parameters &parameters)
             {
                 ARILES_UNUSED_ARG(visitor);
                 ARILES_UNUSED_ARG(parameters);
@@ -37,8 +37,8 @@
             }
 
 
-            template<class t_Visitor, class t_Parameters>
-            void arilesVisit(t_Visitor &visitor, const t_Parameters &parameters) const
+            template<class t_Visitor>
+                void arilesVisit(t_Visitor &visitor, const typename t_Visitor::Parameters &parameters) const
             {
                 ARILES_UNUSED_ARG(visitor);
                 ARILES_UNUSED_ARG(parameters);
@@ -54,8 +54,11 @@
             #define ARILES_NAMED_ENTRY(entry, name)     arilesEntryApply(visitor, entry, other.entry, name, parameters);
             #define ARILES_PARENT(entry)                entry::arilesVisit(visitor, other, parameters);
 
-            template<class t_Visitor, class t_Parameters, class t_Other>
-                void arilesVisit(const t_Visitor &visitor, t_Other & other, const t_Parameters &parameters) const
+            template<class t_Visitor, class t_Other>
+                void arilesVisit(
+                        t_Visitor &visitor,
+                        const t_Other & other,
+                        const typename t_Visitor::Parameters &parameters) const
             {
                 ARILES_UNUSED_ARG(visitor);
                 ARILES_UNUSED_ARG(other);
@@ -97,7 +100,7 @@
         ARILES_NONVIRTUAL_METHODS(ariles::count::Visitor, const)
 
 
-        ARILES_METHODS_WITH_ARG(const ariles::compare::Visitor, const)
+        ARILES_METHODS_WITH_ARG(ariles::compare::Visitor, const)
 
 
 #endif //ARILES_ENABLED

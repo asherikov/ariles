@@ -53,6 +53,9 @@
 #define ARILES_IS_BASE_ENABLER(Base, Derived) \
     const typename boost::enable_if_c< (boost::is_base_of<Base, Derived>::value) >::type * = NULL
 
+#define ARILES_IS_BASE_DISABLER(Base, Derived) \
+    const typename boost::enable_if_c< not (boost::is_base_of<Base, Derived>::value) >::type * = NULL
+
 
 #define ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST \
     ARILES_BASIC_TYPE(int) \

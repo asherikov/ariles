@@ -67,16 +67,16 @@
 
                         std::cout   << tabulation_ //
                                     << ">>> Entering function: " << function_name_ //
-                                    << " File: " << file_  //
-                                    << " Line: " << line_number_ << std::endl;
+                                    << " | File: " << file_  //
+                                    << " | Line: " << line_number_ << std::endl;
                     }
 
                     ~Tracer()
                     {
                         std::cout   << tabulation_ //
                                     << "<<< Leaving function: " << function_name_ //
-                                    << " File: " << file_  //
-                                    << " Line: " << line_number_ << std::endl;
+                                    << " | File: " << file_  //
+                                    << " | Line: " << line_number_ << std::endl;
                         getDepth(false);
                     }
 

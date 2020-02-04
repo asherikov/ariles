@@ -38,7 +38,7 @@ namespace ariles
                                 const typename t_Visitor::Parameters &param) Qualifier \
                     { \
                         ARILES_TRACE_FUNCTION; \
-                        ariles(visitor, static_cast<t_Derived*>(this)->arilesDefaultID(), param); \
+                        ariles(visitor, static_cast<const t_Derived*>(this)->arilesDefaultID(), param); \
                     } \
                     \
                     void ariles(t_Visitor &visitor) Qualifier \

@@ -12,6 +12,7 @@
 
 #include <vector>
 #include "defaults.h"
+#include "finalize.h"
 
 namespace ariles
 {
@@ -91,13 +92,18 @@ namespace ariles
                     void startRoot(t_Configurable &configurable, const Parameters &)
                 {
                     ariles::defaults::Visitor visitor;
-                    configurable.arilesVirtualVisit(visitor, configurable.arilesGetParameters(visitor));
+                    configurable.ariles(visitor);
                 }
 
 
                 template<class t_Configurable>
-                    void finishRoot(t_Configurable &, const Parameters &)
+                    void finishRoot(t_Configurable &configurable, const Parameters &)
                 {
+                    ARILES_TRACE_FUNCTION;
+                    ARILES_UNUSED_ARG(configurable);
+#if 2 == ARILES_API_VERSION
+                    configurable.template ariles<ariles::finalize::Visitor>();
+#endif
                 }
 
 
