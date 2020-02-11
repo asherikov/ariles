@@ -66,6 +66,7 @@ namespace ariles
 
         template<class t_Derived>
             class ARILES_VISIBILITY_ATTRIBUTE Base
+                : public visitor::ConstBase<t_Derived, count::Visitor>
         {
             public:
         };

@@ -41,7 +41,7 @@ namespace ariles
         public:
             Any()
             {
-                arilesVirtualVisit<ariles::defaults::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
             }
 
 
@@ -157,10 +157,10 @@ namespace ariles
                         true == isConsistent(),
                         "Could not write config: entry is in an inconsistent (partially initialized) state.");
 
-                arilesEntryApply(writer, id_, "id", param);
+                applyToEntry(writer, id_, "id", param);
                 if (true == isInitialized())
                 {
-                    arilesEntryApply(writer, *value_, "value", param);
+                    applyToEntry(writer, *value_, "value", param);
                 }
             }
 
@@ -173,7 +173,7 @@ namespace ariles
                 ariles::read::Visitor::Parameters param = parameters;
                 param.unset(ariles::read::Visitor::Parameters::ALLOW_MISSING_ENTRIES);
 
-                arilesEntryApply(visitor, id_, "id", param);
+                applyToEntry(visitor, id_, "id", param);
                 if ("" == id_)
                 {
                     ARILES_ASSERT(
@@ -183,7 +183,7 @@ namespace ariles
                 else
                 {
                     build(id_);
-                    arilesEntryApply(visitor, *value_, "value", param);
+                    applyToEntry(visitor, *value_, "value", param);
                 }
             }
 
@@ -220,7 +220,7 @@ namespace ariles
         public:
             NonNullPointer()
             {
-                arilesVirtualVisit<ariles::defaults::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
             }
 
 

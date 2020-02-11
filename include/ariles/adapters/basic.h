@@ -16,7 +16,7 @@ namespace ariles
     {
         template<   class t_Visitor,
                     class t_Entry>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesEntryApply(
+            void ARILES_VISIBILITY_ATTRIBUTE applyToEntry(
                     t_Visitor & visitor,
                     t_Entry & entry,
                     const std::string & name,
@@ -67,7 +67,7 @@ namespace ariles
             }
 
             ariles::count::Visitor counter;
-            entry.ariles(counter);
+            ariles::apply(counter, entry);
             if (true == param.isSet(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES))
             {
                 visitor.template startMap<t_Visitor::SIZE_LIMIT_NONE>(counter.counter_);
@@ -130,7 +130,7 @@ namespace ariles
     {
         template <  class t_Visitor,
                     typename t_Entry>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesEntryApply(
+            void ARILES_VISIBILITY_ATTRIBUTE applyToEntry(
                     t_Visitor & writer,
                     const t_Entry & entry,
                     const std::string & entry_name,
@@ -157,7 +157,7 @@ namespace ariles
         {
             ARILES_TRACE_FUNCTION;
             ariles::count::Visitor counter;
-            entry.ariles(counter);
+            ariles::apply(counter, entry);
             writer.startMap(counter.counter_);
             entry.arilesVirtualVisit(writer, param);
             writer.endMap();
@@ -207,7 +207,7 @@ namespace ariles
         template<   class t_Visitor,
                     class t_Left,
                     class t_Right>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesEntryApply(
+            void ARILES_VISIBILITY_ATTRIBUTE applyToEntry(
                     t_Visitor & visitor,
                     const t_Left & left,
                     const t_Right & right,
@@ -249,10 +249,10 @@ namespace ariles
             if (true == param.compare_number_of_entries_)
             {
                 ariles::count::Visitor counter;
-                left.ariles(counter);
+                ariles::apply(counter, left);
 
                 const std::size_t left_counter = counter.counter_;
-                right.ariles(counter);
+                ariles::apply(counter, right);
 
                 visitor.equal_ &= (left_counter == counter.counter_);
             }
@@ -326,7 +326,7 @@ namespace ariles
     {
         template<   class t_Visitor,
                     class t_Entry>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesEntryApply(
+            void ARILES_VISIBILITY_ATTRIBUTE applyToEntry(
                     const t_Visitor & visitor,
                     t_Entry & entry,
                     const std::string & name,
@@ -391,7 +391,7 @@ namespace ariles
     {
         template<   class t_Visitor,
                     class t_Entry>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesEntryApply(
+            void ARILES_VISIBILITY_ATTRIBUTE applyToEntry(
                     const t_Visitor & visitor,
                     t_Entry & entry,
                     const std::string & name,
@@ -456,7 +456,7 @@ namespace ariles
     {
         template<   class t_Visitor,
                     class t_Entry>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesEntryApply(
+            void ARILES_VISIBILITY_ATTRIBUTE applyToEntry(
                     t_Visitor & visitor,
                     const t_Entry & entry,
                     const std::string & name,
@@ -475,7 +475,7 @@ namespace ariles
 
         template<   class t_Visitor,
                     class t_Entry>
-            void ARILES_VISIBILITY_ATTRIBUTE arilesEntryApply(
+            void ARILES_VISIBILITY_ATTRIBUTE applyToEntry(
                     t_Visitor & visitor,
                     const t_Entry & entry,
                     const std::string & name,

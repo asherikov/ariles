@@ -16,10 +16,6 @@ namespace ariles_tests
     class ConfigurableAutoDeclare : public ariles::Base
     {
         #define ARILES_DEFAULT_ID "unique_id_on_a_particular_level_in_a_configuration_file"
-        // optional, override default flags
-        #define ARILES_CONFIGURABLE_FLAGS   ariles::ConfigurableFlags::DEFAULT \
-                                            | ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED \
-                                            | ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED
         // optional, but what is the point in omitting it?
         // members can be defined manually, see ConfigurableVerbose
         #define ARILES_ENTRIES \
@@ -32,7 +28,7 @@ namespace ariles_tests
         public:
             ConfigurableAutoDeclare()
             {
-                ariles<ariles::defaults::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
             }
 
 
@@ -50,7 +46,7 @@ namespace ariles_tests
                 boost::random::random_device random_generator;
                 integer_ = GET_RANDOM_INT;
                 real_    = GET_RANDOM_REAL;
-                ariles<ariles::finalize::Visitor>();
+                ariles::apply<ariles::finalize::Visitor>(*this);
             }
 #endif
     };

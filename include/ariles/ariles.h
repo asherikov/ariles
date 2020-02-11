@@ -29,7 +29,7 @@
     #define ARILES_INITIALIZE  "ariles/members/define_accessors.h"
 
 
-    #define ARILES_WRITE_NAMED_ENTRY(entry, name)   ariles::write::arilesEntryApply(writer, entry, name, param);
+    #define ARILES_WRITE_NAMED_ENTRY(entry, name)   ariles::write::applyToEntry(writer, entry, name, param);
 
     #define ARILES_WRITE_ENTRY_(entry)   ARILES_WRITE_NAMED_ENTRY(entry##_, #entry)
     #define ARILES_WRITE_ENTRY(entry)    ARILES_WRITE_NAMED_ENTRY(entry, #entry)
@@ -37,7 +37,7 @@
     #define ARILES_WRITE_PARENT(parent_class)  parent_class::writeConfigEntries(writer, param);
 
 
-    #define ARILES_READ_NAMED_ENTRY(entry, name)    ariles::read::arilesEntryApply(reader, entry, name, param);
+    #define ARILES_READ_NAMED_ENTRY(entry, name)    ariles::read::applyToEntry(reader, entry, name, param);
 
     #define ARILES_READ_ENTRY_(entry)    ARILES_READ_NAMED_ENTRY(entry##_, #entry);
     #define ARILES_READ_ENTRY(entry)     ARILES_READ_NAMED_ENTRY(entry, #entry);
@@ -68,7 +68,7 @@
             public:
                 void setDefaults()
                 {
-                    arilesVirtualVisit<ariles::defaults::Visitor>();
+                    ariles::apply<ariles::defaults::Visitor>(*this);
                 }
 
 

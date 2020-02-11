@@ -48,7 +48,7 @@ namespace ariles
                         pugi::xml_parse_result result = document_.load_file(
                                 file_name.c_str(),
                                 pugi::parse_minimal);
-                        ARILES_ASSERT(true == result, std::string("Parsing failed: ") + result.description());
+                        ARILES_ASSERT(true == result, std::string("Parsing of '") + file_name + "' failed: " + result.description());
                         node_stack_.push_back(document_);
                     }
 

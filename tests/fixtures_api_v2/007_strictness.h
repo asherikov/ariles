@@ -30,14 +30,14 @@ namespace ariles_tests
                     t_Configurable1 configurable;
 
                     typename t_Bridge::Writer writer(getWriterInitializer("configurable.cfg"));
-                    configurable.ariles(writer);
+                    ariles::apply(writer, configurable);
                 );
 
                 BOOST_CHECK_THROW(
                     t_Configurable2 configurable;
 
                     typename t_Bridge::Reader reader(getReaderInitializer("configurable.cfg"));
-                    configurable.ariles(reader);
+                    ariles::apply(reader, configurable);
                     ,
                     std::runtime_error
                 );
@@ -48,12 +48,12 @@ namespace ariles_tests
 
                 BOOST_CHECK_NO_THROW(
                     t_Configurable1 configurable;
-                    configurable.template ariles<typename t_Bridge::Writer>(getWriterInitializer("configurable2.cfg"));
+                    ariles::apply<typename t_Bridge::Writer>(getWriterInitializer("configurable2.cfg"), configurable);
                 );
 
                 BOOST_CHECK_THROW(
                     t_Configurable2 configurable;
-                    configurable.template ariles<typename t_Bridge::Reader>(getReaderInitializer("configurable2.cfg"));
+                    ariles::apply<typename t_Bridge::Reader>(getReaderInitializer("configurable2.cfg"), configurable);
                     ,
                     std::runtime_error
                 );

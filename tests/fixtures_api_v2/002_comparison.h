@@ -28,14 +28,14 @@ namespace ariles_tests
                 t_Configurable  configurable_out;
                 configurable_out.randomize();
                 BOOST_CHECK_NO_THROW(
-                    configurable_out.template ariles<typename t_Bridge::Writer>(getWriterInitializer("configurable_match_simple.cfg"));
+                    ariles::apply<typename t_Bridge::Writer>(getWriterInitializer("configurable_match_simple.cfg"), configurable_out);
                 );
 
                 // -------
 
                 t_Configurable  configurable_in;
                 BOOST_CHECK_NO_THROW(
-                    configurable_in.template ariles<typename t_Bridge::Reader>(getReaderInitializer("configurable_match_simple.cfg"));
+                    ariles::apply<typename t_Bridge::Reader>(getReaderInitializer("configurable_match_simple.cfg"), configurable_in);
                 );
 
                 // -------
@@ -72,8 +72,8 @@ namespace ariles_tests
 
                 BOOST_CHECK_NO_THROW(
                     typename t_Bridge::Writer writer(getWriterInitializer("configurable_match_multi.cfg"));
-                    configurable_out1.ariles(writer, "node1");
-                    configurable_out2.ariles(writer, "node2");
+                    ariles::apply(writer, configurable_out1, "node1");
+                    ariles::apply(writer, configurable_out2, "node2");
                 );
 
                 // -------
@@ -83,8 +83,8 @@ namespace ariles_tests
 
                 BOOST_CHECK_NO_THROW(
                     typename t_Bridge::Reader reader(getReaderInitializer("configurable_match_multi.cfg"));
-                    configurable_in1.ariles(reader, "node1");
-                    configurable_in2.ariles(reader, "node2");
+                    ariles::apply(reader, configurable_in1, "node1");
+                    ariles::apply(reader, configurable_in2, "node2");
                 );
 
                 // -------

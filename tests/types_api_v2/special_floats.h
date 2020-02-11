@@ -32,7 +32,7 @@ namespace ariles_tests
         public:
             ConfigurableSpecialFloats()
             {
-                ariles<ariles::defaults::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
             }
 
             virtual ~ConfigurableSpecialFloats() {}

@@ -63,7 +63,7 @@ namespace ariles
                 template<class t_Left, class t_Right>
                     bool compare(const t_Left &left, const t_Right &right, const Parameters &param)
                 {
-                    left.ariles(*this, right, param);
+                    ariles::apply(*this, left, right, param);
                     return (equal_);
                 }
 

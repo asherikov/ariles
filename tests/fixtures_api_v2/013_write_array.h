@@ -31,7 +31,7 @@ namespace ariles_tests
                     configurable.randomize();
 
                     typename t_Bridge::Writer writer(getWriterInitializer("configurable.cfg"));
-                    configurable.ariles(writer);
+                    ariles::apply(writer, configurable);
 
                     BOOST_CHECK_EQUAL(writer.index_, writer.name_value_pairs_->size());
 
@@ -50,7 +50,7 @@ namespace ariles_tests
                     std::vector<ariles::bridge::array::NameValuePair> name_value_pairs;
 
                     typename t_Bridge::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
-                    configurable.ariles(writer);
+                    ariles::apply(writer, configurable);
 
                     BOOST_CHECK_EQUAL(writer.index_, name_value_pairs.size());
                 }
@@ -64,14 +64,14 @@ namespace ariles_tests
                     std::vector<ariles::bridge::array::NameValuePair> name_value_pairs;
 
                     typename t_Bridge::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
-                    configurable.ariles(writer);
+                    ariles::apply(writer, configurable);
 
                     BOOST_CHECK_EQUAL(writer.index_, name_value_pairs.size());
 
                     std::vector<ariles::bridge::array::NameValuePair> name_value_pairs_back = name_value_pairs;
                     writer.reset();
 
-                    configurable.ariles(writer);
+                    ariles::apply(writer, configurable);
 
                     BOOST_CHECK_EQUAL(writer.index_, name_value_pairs.size());
 
@@ -93,7 +93,7 @@ namespace ariles_tests
                     std::vector<ariles::bridge::array::NameValuePair> name_value_pairs;
 
                     typename t_Bridge::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
-                    configurable.ariles(writer);
+                    ariles::apply(writer, configurable);
 
                     BOOST_CHECK_EQUAL(writer.index_, name_value_pairs.size());
 
@@ -102,7 +102,7 @@ namespace ariles_tests
                     std::vector<ariles::bridge::array::NameValuePair> name_value_pairs_back = name_value_pairs;
                     writer.reset(initialize_structure);
 
-                    configurable.ariles(writer);
+                    ariles::apply(writer, configurable);
 
                     BOOST_CHECK_EQUAL(writer.index_, name_value_pairs.size());
                     BOOST_CHECK_EQUAL(name_value_pairs_back.size(), name_value_pairs.size());
@@ -118,7 +118,7 @@ namespace ariles_tests
                     writer.reset(initialize_structure);
                     name_value_pairs.clear();
 
-                    configurable.ariles(writer);
+                    ariles::apply(writer, configurable);
 
                     BOOST_CHECK_EQUAL(writer.index_, name_value_pairs.size());
                     BOOST_CHECK_EQUAL(name_value_pairs_back.size(), name_value_pairs.size());

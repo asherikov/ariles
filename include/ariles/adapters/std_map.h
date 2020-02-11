@@ -67,7 +67,7 @@ namespace ariles
                 for (std::size_t i = 0; i < entry_names.size(); ++i)
                 {
                     t_Value entry_value;
-                    arilesEntryApply(visitor, entry_value, entry_names[i], param_local);
+                    applyToEntry(visitor, entry_value, entry_names[i], param_local);
                     entry[entry_names[i]] = entry_value;
                 }
                 visitor.endMap();
@@ -128,7 +128,7 @@ namespace ariles
                     it != entry.end();
                     ++it)
                 {
-                    arilesEntryApply(writer, it->second, it->first, param);
+                    applyToEntry(writer, it->second, it->first, param);
                 }
                 writer.endMap();
             }

@@ -68,7 +68,7 @@ namespace ariles_tests
         public:
             ConfigurablePointersScalar()
             {
-                ariles<ariles::defaults::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
             }
 
             void arilesVisit(   const ariles::defaults::Visitor &/*visitor*/,

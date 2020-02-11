@@ -89,11 +89,10 @@ namespace ariles_tests
 #undef ARILES_ENTRIES_2
 #undef ARILES_ENTRIES_3
 
-
         public:
             ConfigurablePointers()
             {
-                ariles<ariles::defaults::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
             }
 
             void arilesVisit(   const ariles::defaults::Visitor &/*visitor*/,

@@ -99,7 +99,7 @@ namespace ariles_tests
         public:
             ConfigurableComplexVerbose()
             {
-                ariles<ariles::defaults::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
             }
 
             virtual ~ConfigurableComplexVerbose() {}

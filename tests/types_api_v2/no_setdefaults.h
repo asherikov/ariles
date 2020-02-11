@@ -25,8 +25,8 @@ namespace ariles_tests
         public:
             ConfigurableNoSetDefaults()
             {
-                ariles<ariles::defaults::Visitor>();
-                ariles<ariles::finalize::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::finalize::Visitor>(*this);
             }
 
 
@@ -36,7 +36,7 @@ namespace ariles_tests
                 boost::random::random_device random_generator;
                 integer_ = GET_RANDOM_INT;
                 real_    = GET_RANDOM_REAL;
-                ariles<ariles::finalize::Visitor>();
+                ariles::apply<ariles::finalize::Visitor>(*this);
             }
 #endif
     };

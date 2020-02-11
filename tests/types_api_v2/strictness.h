@@ -25,7 +25,7 @@ namespace ariles_tests
         public:
             ConfigurableStrictness1()
             {
-                ariles<ariles::defaults::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
             }
 
 
@@ -52,7 +52,7 @@ namespace ariles_tests
         public:
             ConfigurableStrictness2()
             {
-                ariles<ariles::defaults::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
             }
 
 

@@ -40,7 +40,7 @@ namespace testlib2
         public:
             ConfigurableVerbose()
             {
-                ariles<ariles::defaults::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
             }
 
 

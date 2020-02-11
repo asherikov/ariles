@@ -20,44 +20,293 @@ namespace ariles
         };
 
 
-        #define ARILES_VISITOR_BASE(ClassName, Qualifier) \
-            template<class t_Derived, class t_Visitor> \
-                class ARILES_VISIBILITY_ATTRIBUTE ClassName \
-            { \
-                public: \
-                    virtual void arilesVirtualVisit( \
-                            t_Visitor &, \
-                            const typename t_Visitor::Parameters &) Qualifier = 0; \
-                    \
-                    virtual void ariles( \
-                            t_Visitor &visitor, \
-                            const std::string & name, \
-                            const typename t_Visitor::Parameters &param) Qualifier = 0; \
-                    \
-                    void ariles(t_Visitor &visitor, \
-                                const typename t_Visitor::Parameters &param) Qualifier \
-                    { \
-                        ARILES_TRACE_FUNCTION; \
-                        ariles(visitor, static_cast<const t_Derived*>(this)->arilesDefaultID(), param); \
-                    } \
-                    \
-                    void ariles(t_Visitor &visitor) Qualifier \
-                    { \
-                        ARILES_TRACE_FUNCTION; \
-                        ariles(visitor, arilesGetParameters(visitor)); \
-                    } \
-                    \
-                    virtual const typename t_Visitor::Parameters & arilesGetParameters(const t_Visitor &visitor) const \
-                    { \
-                        ARILES_TRACE_FUNCTION; \
-                        return(visitor.getDefaultParameters()); \
-                    } \
-            };
+        template<class t_Derived, class t_Visitor>
+            class ARILES_VISIBILITY_ATTRIBUTE Base
+        {
+            public:
+                virtual void arilesVirtualVisit(
+                        t_Visitor &,
+                        const typename t_Visitor::Parameters &) = 0;
+
+                virtual const typename t_Visitor::Parameters & arilesGetParameters(const t_Visitor &visitor) const
+                {
+                    ARILES_TRACE_FUNCTION;
+                    return(visitor.getDefaultParameters());
+                }
+        };
 
 
-        ARILES_VISITOR_BASE(Base, ARILES_EMPTY_MACRO)
-        ARILES_VISITOR_BASE(ConstBase, const)
+        template<class t_Derived, class t_Visitor>
+            class ARILES_VISIBILITY_ATTRIBUTE ConstBase
+        {
+            public:
+                virtual void arilesVirtualVisit(
+                        t_Visitor &,
+                        const typename t_Visitor::Parameters &) const = 0;
 
-        #undef ARILES_VISITOR_BASE
+                virtual const typename t_Visitor::Parameters & arilesGetParameters(const t_Visitor &visitor) const
+                {
+                    ARILES_TRACE_FUNCTION;
+                    return(visitor.getDefaultParameters());
+                }
+        };
     }
 }
+
+#ifndef ARILES_DISABLE
+#   ifndef ARILES_ENABLED
+#       define ARILES_ENABLED
+#   endif
+#endif
+
+#ifdef ARILES_ENABLED
+
+    namespace ariles
+    {
+        // -----
+        template<class t_Ariles, class t_Visitor>
+            void apply(
+                    t_Visitor & visitor,
+                    t_Ariles & ariles_class,
+                    const std::string & name,
+                    const typename ariles::utils::DecayConst<t_Visitor>::Type::Parameters &param,
+                    ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
+        {
+            ARILES_TRACE_FUNCTION;
+            visitor.startRoot(ariles_class, param);
+            applyToEntry(visitor, ariles_class, name, param);
+            visitor.finishRoot(ariles_class, param);
+        }
+
+
+        template<class t_Ariles, class t_Visitor>
+            void apply(
+                    t_Visitor & visitor,
+                    t_Ariles & ariles_class,
+                    const char * name,
+                    const typename ariles::utils::DecayConst<t_Visitor>::Type::Parameters &param,
+                    ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
+        {
+            ARILES_TRACE_FUNCTION;
+            visitor.startRoot(ariles_class, param);
+            applyToEntry(visitor, ariles_class, name, param);
+            visitor.finishRoot(ariles_class, param);
+        }
+
+
+        template<class t_Visitor, class t_Ariles>
+            void apply(
+                    t_Visitor & visitor,
+                    t_Ariles & ariles_class,
+                    const typename ariles::utils::DecayConst<t_Visitor>::Type::Parameters &param,
+                    ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
+        {
+            ARILES_TRACE_FUNCTION;
+            ariles::apply(visitor, ariles_class, ariles_class.arilesDefaultID(), param);
+        }
+
+
+        template<class t_Visitor, class t_Ariles>
+            void apply(
+                    t_Visitor & visitor,
+                    t_Ariles & ariles_class,
+                    const std::string & name,
+                    ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
+        {
+            ARILES_TRACE_FUNCTION;
+            ariles::apply(visitor, ariles_class, name, ariles_class.arilesGetParameters(visitor));
+        }
+
+
+        template<class t_Visitor, class t_Ariles>
+            void apply(
+                    t_Visitor & visitor,
+                    t_Ariles & ariles_class,
+                    const char * name,
+                    ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
+        {
+            ARILES_TRACE_FUNCTION;
+            ariles::apply(visitor, ariles_class, name, ariles_class.arilesGetParameters(visitor));
+        }
+
+
+        template<class t_Visitor, class t_Ariles>
+            void apply(
+                    t_Visitor & visitor,
+                    t_Ariles & ariles_class,
+                    ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
+        {
+            ARILES_TRACE_FUNCTION;
+            ariles::apply(visitor, ariles_class, ariles_class.arilesDefaultID());
+        }
+
+
+        template <class t_Visitor, class t_Ariles>
+            void apply(
+                    t_Ariles & ariles_class,
+                    ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
+        {
+            ARILES_TRACE_FUNCTION;
+            t_Visitor visitor;
+            ariles::apply(visitor, ariles_class);
+        }
+        // -----
+
+
+
+        // -----
+        template <class t_Visitor, class t_Ariles, class t_Arg>
+            void apply(
+                    t_Arg & arg,
+                    t_Ariles & ariles_class,
+                    ARILES_IS_BASE_DISABLER(ariles::visitor::Visitor, t_Arg),
+                    ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
+        {
+            ARILES_TRACE_FUNCTION;
+            t_Visitor visitor(arg);
+            ariles::apply(visitor, ariles_class);
+        }
+
+
+        template <class t_Visitor, class t_Ariles, class t_Arg>
+            void apply(
+                    t_Arg & arg,
+                    t_Ariles & ariles_class,
+                    const char *name,
+                    ARILES_IS_BASE_DISABLER(ariles::visitor::Visitor, t_Arg),
+                    ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
+        {
+            ARILES_TRACE_FUNCTION;
+            t_Visitor visitor(arg);
+            ariles::apply(visitor, ariles_class, name);
+        }
+
+
+        template <class t_Visitor, class t_Ariles, class t_Arg>
+            void apply(
+                    const t_Arg & arg,
+                    t_Ariles & ariles_class,
+                    ARILES_IS_BASE_DISABLER(ariles::visitor::Visitor, t_Arg),
+                    ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
+        {
+            ARILES_TRACE_FUNCTION;
+            t_Visitor visitor(arg);
+            ariles::apply(visitor, ariles_class);
+        }
+
+
+        template <class t_Visitor, class t_Ariles, class t_Arg>
+            void apply(
+                    t_Arg &arg,
+                    t_Ariles & ariles_class,
+                    const typename t_Visitor::Parameters &param,
+                    ARILES_IS_BASE_DISABLER(ariles::visitor::Visitor, t_Arg),
+                    ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
+        {
+            ARILES_TRACE_FUNCTION;
+            t_Visitor visitor(arg);
+            ariles::apply(visitor, ariles_class, param);
+        }
+
+
+        template <class t_Visitor, class t_Ariles>
+            void apply(
+                    const std::string &arg,
+                    t_Ariles & ariles_class,
+                    const unsigned int flags,
+                    ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
+        {
+            ARILES_TRACE_FUNCTION;
+            t_Visitor visitor(arg);
+            ariles::apply(visitor, ariles_class, typename t_Visitor::Parameters(flags));
+        }
+        // -----
+
+
+        // -----
+        template<class t_Visitor, class t_Left, class t_Right>
+            void apply(
+                    t_Visitor & visitor,
+                    t_Left & left,
+                    t_Right & right,
+                    const std::string & name,
+                    const typename ariles::utils::DecayConst<t_Visitor>::Type::Parameters &param,
+                    ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
+        {
+            ARILES_TRACE_FUNCTION;
+            try
+            {
+                visitor.startRoot(left, param);
+                applyToEntry(visitor, left, right, name, param);
+                visitor.finishRoot(left, param);
+            }
+            catch (std::exception &e)
+            {
+                if (true == param.throw_on_error_)
+                {
+                    ARILES_THROW(std::string("Comparison failed: ") + e.what());
+                }
+                visitor.equal_ = false;
+            }
+        }
+
+
+        template<class t_Visitor, class t_Left, class t_Right>
+            void apply(
+                    t_Visitor & visitor,
+                    t_Left & left,
+                    t_Right & right,
+                    ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
+        {
+            ARILES_TRACE_FUNCTION;
+            ariles::apply(visitor, left, right, left.arilesDefaultID(), left.arilesGetParameters(visitor));
+        }
+
+
+        template<class t_Visitor, class t_Left, class t_Right>
+            void apply(
+                    t_Visitor & visitor,
+                    t_Left & left,
+                    t_Right & right,
+                    const typename ariles::utils::DecayConst<t_Visitor>::Type::Parameters &param,
+                    ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
+        {
+            ARILES_TRACE_FUNCTION;
+            ariles::apply(visitor, left, right, left.arilesDefaultID(), param);
+        }
+        // -----
+    }
+
+#else
+
+    namespace ariles
+    {
+        // -----
+        template<class t_One, class t_Two, class t_Three, class t_Four, class t_Five>
+            void apply(t_One, t_Two, t_Three, t_Four, t_Five)
+        {
+        }
+
+        template<class t_One, class t_Two, class t_Three, class t_Four>
+            void apply(t_One, t_Two, t_Three, t_Four)
+        {
+        }
+
+        template<class t_One, class t_Two, class t_Three>
+            void apply(t_One, t_Two, t_Three)
+        {
+        }
+
+        template<class t_One, class t_Two>
+            void apply(t_One, t_Two)
+        {
+        }
+
+        template<class t_One, class t_Two>
+            void apply(t_Two)
+        {
+        }
+        // -----
+    }
+
+#endif

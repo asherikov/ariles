@@ -144,7 +144,7 @@ int main()
     // access members as usual
     my_container_class.myclass_vector_.size();
     my_container_class.myclass_vector_.push_back(demo::MyClass());
-    my_container_class.myclass_vector_[0].ariles<ariles::defaults::Visitor>();
+    ariles::apply<ariles::defaults::Visitor>(my_container_class.myclass_vector_[0]);
 
 
     // YAML
@@ -162,20 +162,20 @@ int main()
      */
     {
         // You can read and write YAML configuration files as follows:
-        my_container_class.ariles<ariles::yaml_cpp::Writer>("config.yaml");
-        my_container_class.ariles<ariles::yaml_cpp::Reader>("config.yaml");
+        ariles::apply<ariles::yaml_cpp::Writer>("config.yaml", my_container_class);
+        ariles::apply<ariles::yaml_cpp::Reader>("config.yaml", my_container_class);
 
         // Sometimes it may be useful to dump configuration to std::cout
-        my_container_class.ariles<ariles::yaml_cpp::Writer>(std::cout);
+        ariles::apply<ariles::yaml_cpp::Writer>(std::cout, my_container_class);
 
         // In some situations it is more convenient to instantiate Reader and
         // Writer classes explicitly, e.g., if you keep configurations of several
         // classses in the same file
         ariles::yaml_cpp::Writer writer("config.yaml");
-        my_container_class.ariles(writer);
+        ariles::apply(writer, my_container_class);
 
         ariles::yaml_cpp::Reader reader("config.yaml");
-        my_container_class.ariles(reader);
+        ariles::apply(reader, my_container_class);
     }
 
 
@@ -184,28 +184,28 @@ int main()
         ros::NodeHandle nh;
 
         // read/write
-        my_container_class.ariles<ariles::ros::Writer>(nh);
-        my_container_class.ariles<ariles::ros::Reader>(nh);
+        ariles::apply<ariles::ros::Writer>(nh, my_container_class);
+        ariles::apply<ariles::ros::Reader>(nh, my_container_class);
         // parameters can be uploaded to parameter server in advance using
         // roslaunch, see http://wiki.ros.org/roslaunch/XML/rosparam
 
         // read/write with namespace
-        my_container_class.ariles<ariles::ros::Writer>(nh, "/some_namespace/");
-        my_container_class.ariles<ariles::ros::Reader>(nh, "/some_namespace/");
+        ariles::apply<ariles::ros::Writer>(nh, my_container_class, "/some_namespace/");
+        ariles::apply<ariles::ros::Reader>(nh, my_container_class, "/some_namespace/");
 
         // Reader / Wrter classes
         ariles::ros::Writer writer(nh);
-        my_container_class.ariles(writer);
+        ariles::apply(writer, my_container_class);
 
         ariles::ros::Reader reader(nh);
-        my_container_class.ariles(reader);
+        ariles::apply(reader, my_container_class);
     }
 
 
     // Octave
     {
         // Octave bridge supports only writing
-        my_container_class.ariles<ariles::octave::Writer>("debug.m");
+        ariles::apply<ariles::octave::Writer>("debug.m", my_container_class);
         // the generated file can later be loaded in Octave with
         // 'source debug.m' for debugging
     }

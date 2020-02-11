@@ -179,7 +179,7 @@ namespace ariles_tests
                 impl.quaternion_.w() = GET_RANDOM_REAL;
 #   endif
 
-                impl.template ariles<ariles::finalize::Visitor>();
+                ariles::apply<ariles::finalize::Visitor>(impl);
             }
 #endif
     };

@@ -69,14 +69,14 @@ namespace ariles
                 param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
 
                 visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(3);
-                arilesEntryApply(visitor, num_cols, "cols", param_local);
+                applyToEntry(visitor, num_cols, "cols", param_local);
                 ARILES_ASSERT(Eigen::Dynamic == t_cols || t_cols == num_cols, "Wrong number of columns.");
-                arilesEntryApply(visitor, num_rows, "rows", param_local);
+                applyToEntry(visitor, num_rows, "rows", param_local);
                 ARILES_ASSERT(Eigen::Dynamic == t_rows || t_rows == num_rows, "Wrong number of rows.");
 
 
                 Eigen::Matrix<t_Scalar, Eigen::Dynamic, 1> v;
-                arilesEntryApply(visitor, v, "data", param_local);
+                applyToEntry(visitor, v, "data", param_local);
                 visitor.endMap();
 
                 ARILES_ASSERT(v.rows() == num_rows*num_cols, "Wrong entry size.");
@@ -141,10 +141,10 @@ namespace ariles
             param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
 
             visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(4);
-            arilesEntryApply(visitor, entry.x(), "x", param_local);
-            arilesEntryApply(visitor, entry.y(), "y", param_local);
-            arilesEntryApply(visitor, entry.z(), "z", param_local);
-            arilesEntryApply(visitor, entry.w(), "w", param_local);
+            applyToEntry(visitor, entry.x(), "x", param_local);
+            applyToEntry(visitor, entry.y(), "y", param_local);
+            applyToEntry(visitor, entry.z(), "z", param_local);
+            applyToEntry(visitor, entry.w(), "w", param_local);
             visitor.endMap();
         }
     }
@@ -228,8 +228,8 @@ namespace ariles
                 {
                     writer.startMap(3);
 
-                    arilesEntryApply(writer, entry.cols(), "cols", param);
-                    arilesEntryApply(writer, entry.rows(), "rows", param);
+                    applyToEntry(writer, entry.cols(), "cols", param);
+                    applyToEntry(writer, entry.rows(), "rows", param);
 
 
                     writer.descend("data");
@@ -292,10 +292,10 @@ namespace ariles
 
             writer.startMap(4);
 
-            arilesEntryApply(writer, entry.x(), "x", param);
-            arilesEntryApply(writer, entry.y(), "y", param);
-            arilesEntryApply(writer, entry.z(), "z", param);
-            arilesEntryApply(writer, entry.w(), "w", param);
+            applyToEntry(writer, entry.x(), "x", param);
+            applyToEntry(writer, entry.y(), "y", param);
+            applyToEntry(writer, entry.z(), "z", param);
+            applyToEntry(writer, entry.w(), "w", param);
 
             writer.endMap();
         }

@@ -31,14 +31,14 @@ namespace ariles_tests
                     configurable.randomize();
 
                     typename t_Bridge::Writer writer(getWriterInitializer("configurable.cfg"));
-                    configurable.ariles(writer);
+                    ariles::apply(writer, configurable);
                 }
 
                 {
                     t_Configurable configurable;
 
                     typename t_Bridge::Reader reader(getReaderInitializer("configurable.cfg"));
-                    configurable.ariles(reader);
+                    ariles::apply(reader, configurable);
                 }
 
                 // --------------------------------
@@ -48,12 +48,12 @@ namespace ariles_tests
                 {
                     t_Configurable configurable;
                     configurable.randomize();
-                    configurable.template ariles<typename t_Bridge::Writer>(getWriterInitializer("configurable2.cfg"));
+                    ariles::apply<typename t_Bridge::Writer>(getWriterInitializer("configurable2.cfg"), configurable);
                 }
 
                 {
                     t_Configurable configurable;
-                    configurable.template ariles<typename t_Bridge::Reader>(getReaderInitializer("configurable2.cfg"));
+                    ariles::apply<typename t_Bridge::Reader>(getReaderInitializer("configurable2.cfg"), configurable);
                 }
 
 
@@ -66,14 +66,14 @@ namespace ariles_tests
                     configurable.randomize();
 
                     typename t_Bridge::Writer writer(getWriterInitializer("configurable.cfg"));
-                    configurable.ariles(writer);
+                    ariles::apply(writer, configurable);
                 }
 
                 {
                     t_Configurable configurable;
 
                     typename t_Bridge::Reader reader(getReaderInitializer("configurable.cfg"));
-                    configurable.ariles(reader,
+                    ariles::apply(reader, configurable,
                             ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
                 }
 
@@ -84,12 +84,12 @@ namespace ariles_tests
                 {
                     t_Configurable configurable;
                     configurable.randomize();
-                    configurable.template ariles<typename t_Bridge::Writer>(getWriterInitializer("configurable2.cfg"));
+                    ariles::apply<typename t_Bridge::Writer>(getWriterInitializer("configurable2.cfg"), configurable);
                 }
 
                 {
                     t_Configurable configurable;
-                    configurable.template ariles<typename t_Bridge::Reader>(getReaderInitializer("configurable2.cfg"),
+                    ariles::apply<typename t_Bridge::Reader>(getReaderInitializer("configurable2.cfg"), configurable,
                             ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
                 }
             }

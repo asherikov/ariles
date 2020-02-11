@@ -26,7 +26,7 @@ namespace ariles
             param_local.unset(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES);
 
             visitor.template startMap<t_Visitor::SIZE_LIMIT_RANGE>(1, 2);
-            arilesEntryApply(visitor, is_null, "is_null", param_local);
+            applyToEntry(visitor, is_null, "is_null", param_local);
 
             if (true == is_null)
             {
@@ -35,7 +35,7 @@ namespace ariles
             else
             {
                 PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::allocate(entry);
-                arilesEntryApply(visitor, *entry, "value", param_local);
+                applyToEntry(visitor, *entry, "value", param_local);
             }
             visitor.endMap();
         }
@@ -61,15 +61,15 @@ namespace ariles
             {
                 is_null = true;
                 writer.startMap(1);
-                arilesEntryApply(writer, is_null, "is_null", param);
+                applyToEntry(writer, is_null, "is_null", param);
                 writer.endMap();
             }
             else
             {
                 is_null = false;
                 writer.startMap(2);
-                arilesEntryApply(writer, is_null, "is_null", param);
-                arilesEntryApply(writer, *entry, "value", param);
+                applyToEntry(writer, is_null, "is_null", param);
+                applyToEntry(writer, *entry, "value", param);
                 writer.endMap();
             }
         }

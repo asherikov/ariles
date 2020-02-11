@@ -29,7 +29,7 @@ namespace ariles_tests
         public:
             ConfigurableNoAutoID()
             {
-                ariles<ariles::defaults::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
                 id_ = "unique_id_on_a_particular_level_in_a_configuration_file";
             }
 
@@ -62,7 +62,7 @@ namespace ariles_tests
                 boost::random::random_device random_generator;
                 integer_ = GET_RANDOM_INT;
                 real_    = GET_RANDOM_REAL;
-                ariles<ariles::finalize::Visitor>();
+                ariles::apply<ariles::finalize::Visitor>(*this);
             }
 #endif
     };

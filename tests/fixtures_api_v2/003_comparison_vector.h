@@ -28,7 +28,7 @@ namespace ariles_tests
         public:
             ConfigurableVector()
             {
-                ariles<ariles::defaults::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
             }
 
 
@@ -65,14 +65,14 @@ namespace ariles_tests
                 ConfigurableVector<t_Configurable> configurable_vector_out;
                 configurable_vector_out.randomize();
                 BOOST_CHECK_NO_THROW(
-                    configurable_vector_out.template ariles<typename t_Bridge::Writer>(getWriterInitializer("configurable_match_vector.cfg"));
+                    ariles::apply<typename t_Bridge::Writer>(getWriterInitializer("configurable_match_vector.cfg"), configurable_vector_out);
                 );
 
                 // -------
 
                 ConfigurableVector<t_Configurable> configurable_vector_in;
                 BOOST_CHECK_NO_THROW(
-                    configurable_vector_in.template ariles<typename t_Bridge::Reader>(getReaderInitializer("configurable_match_vector.cfg"));
+                    ariles::apply<typename t_Bridge::Reader>(getReaderInitializer("configurable_match_vector.cfg"), configurable_vector_in);
                 );
 
                 // -------

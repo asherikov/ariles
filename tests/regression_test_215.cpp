@@ -47,7 +47,7 @@ namespace ariles_tests
             public:
                 FilenameReaderBase()
                 {
-                    string_id_ = "regression_test_015.xml";
+                    string_id_ = "regression_test_215.xml";
                 }
         };
 

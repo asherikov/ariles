@@ -14,7 +14,7 @@
 namespace ariles_tests
 {
     template<class t_FixtureBase>
-    class ComparisonViaBaseFixture : public t_FixtureBase  
+    class ComparisonViaBaseFixture : public t_FixtureBase
     {
         public:
             using t_FixtureBase::getWriterInitializer;
@@ -29,7 +29,7 @@ namespace ariles_tests
                 configurable_out.randomize();
                 t_Base *configurable_out_base = &configurable_out;
                 BOOST_CHECK_NO_THROW(
-                    configurable_out_base->template ariles<typename t_Bridge::Writer>(getWriterInitializer("configurable_match_member_definitions.cfg"), "Configurable");
+                    ariles::apply<typename t_Bridge::Writer>(getWriterInitializer("configurable_match_member_definitions.cfg"), *configurable_out_base, "Configurable");
                 );
 
                 // -------
@@ -37,7 +37,7 @@ namespace ariles_tests
                 t_Configurable configurable_in;
                 t_Base *configurable_in_base = &configurable_in;
                 BOOST_CHECK_NO_THROW(
-                    configurable_in_base->template ariles<typename t_Bridge::Reader>(getReaderInitializer("configurable_match_member_definitions.cfg"), "Configurable");
+                    ariles::apply<typename t_Bridge::Reader>(getReaderInitializer("configurable_match_member_definitions.cfg"), *configurable_in_base, "Configurable");
                 );
 
                 // -------

@@ -19,12 +19,11 @@
     public:
         using ariles::Base::arilesGetParameters;
         using ariles::Base::arilesVirtualVisit;
-        using ariles::Base::ariles;
 
 
         #ifdef ARILES_ENTRIES
 
-            #define ARILES_NAMED_ENTRY(entry, name)     arilesEntryApply(visitor, entry, name, parameters);
+            #define ARILES_NAMED_ENTRY(entry, name)     applyToEntry(visitor, entry, name, parameters);
             #define ARILES_PARENT(entry)                entry::arilesVisit(visitor, parameters);
 
             template<class t_Visitor>
@@ -51,7 +50,7 @@
 
 
 
-            #define ARILES_NAMED_ENTRY(entry, name)     arilesEntryApply(visitor, entry, other.entry, name, parameters);
+            #define ARILES_NAMED_ENTRY(entry, name)     applyToEntry(visitor, entry, other.entry, name, parameters);
             #define ARILES_PARENT(entry)                entry::arilesVisit(visitor, other, parameters);
 
             template<class t_Visitor, class t_Other>
@@ -97,10 +96,7 @@
 
         ARILES_METHODS(ariles::count::Visitor, const)
 
-        ARILES_NONVIRTUAL_METHODS(ariles::count::Visitor, const)
-
-
-        ARILES_METHODS_WITH_ARG(ariles::compare::Visitor, const)
+        ARILES_NONVIRTUAL_METHODS(ariles::compare::Visitor, const)
 
 
 #endif //ARILES_ENABLED

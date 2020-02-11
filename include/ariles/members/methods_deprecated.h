@@ -31,8 +31,7 @@
             #ifndef ARILES_NO_AUTO_FINALIZE
                 void arilesFinalize()
                 {
-                    ariles::finalize::Visitor visitor;
-                    ariles(visitor);
+                    ariles::apply<ariles::finalize::Visitor>(*this);
                 }
             #endif
 
@@ -41,7 +40,7 @@
             {
                 ARILES_TRACE_FUNCTION;
                 ariles::count::Visitor visitor;
-                arilesVirtualVisit(visitor);
+                ariles::apply(visitor, *this);
                 return(visitor.counter_);
             }
 
@@ -51,7 +50,7 @@
             {
                 ARILES_TRACE_FUNCTION;
                 ariles::compare::Visitor visitor;
-                ariles(visitor, other, param);
+                ariles::apply(visitor, *this, other, arilesDefaultID(), param);
                 return (visitor.equal_);
             }
 
@@ -162,7 +161,7 @@
                         const ariles::ConfigurableFlags & param)
         {
             ARILES_TRACE_FUNCTION;
-            ariles(reader, node_name, param);
+            ariles::apply(reader, *this, node_name, param);
         }
 
         void readConfig(ariles::read::Visitor & reader,
@@ -170,7 +169,7 @@
                         const ariles::ConfigurableFlags & param)
         {
             ARILES_TRACE_FUNCTION;
-            ariles(reader, node_name, param);
+            ariles::apply(reader, *this, node_name, param);
         }
 
 
@@ -181,7 +180,7 @@
                             const ariles::ConfigurableFlags & param) const
         {
             ARILES_TRACE_FUNCTION;
-            ariles(writer, node_name, param);
+            ariles::apply(writer, *this, node_name, param);
         }
 
         void writeConfig(   ariles::write::Visitor & writer,
@@ -189,7 +188,7 @@
                             const ariles::ConfigurableFlags & param) const
         {
             ARILES_TRACE_FUNCTION;
-            ariles(writer, node_name, param);
+            ariles::apply(writer, *this, node_name, param);
         }
 
 

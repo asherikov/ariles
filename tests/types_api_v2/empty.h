@@ -27,7 +27,7 @@ namespace ariles_tests
         public:
             ConfigurableEmpty()
             {
-                ariles<ariles::defaults::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
             }
 
 
@@ -42,7 +42,7 @@ namespace ariles_tests
 
             void randomize()
             {
-                ariles<ariles::finalize::Visitor>();
+                ariles::apply<ariles::finalize::Visitor>(*this);
             }
     };
 }

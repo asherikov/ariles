@@ -53,7 +53,7 @@
 BOOST_FIXTURE_TEST_CASE( Complex_arilesFinalize, ariles_tests::DummyFixture )
 {
     ariles_tests::ConfigurableComplex configurable;
-    configurable.ariles<ariles::finalize::Visitor>();
+    ariles::apply<ariles::finalize::Visitor>(configurable);
 }
 
 

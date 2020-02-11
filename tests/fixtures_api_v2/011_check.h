@@ -28,14 +28,14 @@ namespace ariles_tests
                 t_Configurable  configurable_out;
                 configurable_out.randomize();
                 BOOST_CHECK_NO_THROW(
-                    configurable_out.template ariles<typename t_Bridge::Writer>(getWriterInitializer("configurable_check.cfg"));
+                    ariles::apply<typename t_Bridge::Writer>(getWriterInitializer("configurable_check.cfg"), configurable_out);
                 );
 
                 // -------
 
                 t_Configurable  configurable_in;
                 BOOST_CHECK_NO_THROW(
-                    configurable_in.template ariles<typename t_Bridge::Reader>(getReaderInitializer("configurable_check.cfg"));
+                    ariles::apply<typename t_Bridge::Reader>(getReaderInitializer("configurable_check.cfg"), configurable_in);
                 );
 
                 // -------

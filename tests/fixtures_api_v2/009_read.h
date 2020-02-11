@@ -26,7 +26,7 @@ namespace ariles_tests
             {
                 BOOST_CHECK_NO_THROW(
                     t_Configurable configurable;
-                    configurable.template ariles<typename t_Bridge::Reader>(getReaderInitializer("configurable.cfg"));
+                    ariles::apply<typename t_Bridge::Reader>(getReaderInitializer("configurable.cfg"), configurable);
                 );
             }
     };

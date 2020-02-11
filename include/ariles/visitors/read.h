@@ -14,6 +14,7 @@
 #include "defaults.h"
 #include "finalize.h"
 
+
 namespace ariles
 {
     namespace read
@@ -91,8 +92,7 @@ namespace ariles
                 template<class t_Configurable>
                     void startRoot(t_Configurable &configurable, const Parameters &)
                 {
-                    ariles::defaults::Visitor visitor;
-                    configurable.ariles(visitor);
+                    ariles::apply<ariles::defaults::Visitor>(configurable);
                 }
 
 
@@ -102,7 +102,7 @@ namespace ariles
                     ARILES_TRACE_FUNCTION;
                     ARILES_UNUSED_ARG(configurable);
 #if 2 == ARILES_API_VERSION
-                    configurable.template ariles<ariles::finalize::Visitor>();
+                    ariles::apply<ariles::finalize::Visitor>(configurable);
 #endif
                 }
 

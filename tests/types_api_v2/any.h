@@ -30,7 +30,7 @@ namespace ariles_tests
 
             Base()
             {
-                ariles<ariles::defaults::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
             }
 
             virtual ~Base()
@@ -59,7 +59,7 @@ namespace ariles_tests
 
             Derived1()
             {
-                ariles<ariles::defaults::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
             }
     };
 
@@ -84,7 +84,7 @@ namespace ariles_tests
 
             Derived2()
             {
-                ariles<ariles::defaults::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
             }
     };
 
@@ -221,7 +221,7 @@ namespace ariles_tests
         public:
             ConfigurableAny()
             {
-                ariles<ariles::defaults::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
             }
 
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED

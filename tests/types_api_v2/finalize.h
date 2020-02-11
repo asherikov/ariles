@@ -24,8 +24,8 @@ namespace ariles_tests
         public:
             ConfigurableFinalizeBase()
             {
-                ariles<ariles::defaults::Visitor>();
-                ariles<ariles::finalize::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::finalize::Visitor>(*this);
             }
 
             virtual ~ConfigurableFinalizeBase() {}
@@ -54,7 +54,7 @@ namespace ariles_tests
                 boost::random::random_device random_generator;
                 integer_ = GET_RANDOM_INT;
                 real_    = GET_RANDOM_REAL;
-                ariles<ariles::finalize::Visitor>();
+                ariles::apply<ariles::finalize::Visitor>(*this);
             }
 #endif
     };
@@ -71,8 +71,8 @@ namespace ariles_tests
         public:
             ConfigurableFinalize()
             {
-                ariles<ariles::defaults::Visitor>();
-                ariles<ariles::finalize::Visitor>();
+                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::finalize::Visitor>(*this);
             }
 
             virtual ~ConfigurableFinalize() {}
@@ -86,7 +86,7 @@ namespace ariles_tests
                 boost::random::random_device random_generator;
                 ConfigurableFinalizeBase::randomize();
                 member_.randomize();
-                ariles<ariles::finalize::Visitor>();
+                ariles::apply<ariles::finalize::Visitor>(*this);
             }
 #endif
     };
@@ -109,7 +109,7 @@ namespace ariles_tests
         t_Configurable_in manual_finalize = configurable_in;
         manual_finalize.another_real_ = 0.0;
         manual_finalize.member_.another_real_ = 0.0;
-        manual_finalize.template ariles<ariles::finalize::Visitor>();
+        ariles::apply<ariles::finalize::Visitor>(manual_finalize);
 
         BOOST_CHECK_EQUAL(manual_finalize.integer_,          configurable_in.integer_);
         BOOST_CHECK_CLOSE(manual_finalize.real_,             configurable_in.real_, g_tolerance);
@@ -124,7 +124,7 @@ namespace ariles_tests
         // Known issue of APIv1.
         manual_finalize.another_real_ = 0.0;
         manual_finalize.member_.another_real_ = 0.0;
-        manual_finalize.template ariles<ariles::finalize::Visitor>();
+        ariles::apply<ariles::finalize::Visitor>(manual_finalize);
 
         BOOST_CHECK_EQUAL(manual_finalize.integer_,          configurable_in.integer_);
         BOOST_CHECK_CLOSE(manual_finalize.real_,             configurable_in.real_, g_tolerance);
