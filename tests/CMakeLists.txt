@@ -54,6 +54,7 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "018" "" "${ARILES_TEST_ALL_
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "019" "" "")                            # comparison (complex)
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "020" "" "")                            # comparison (inheritance)
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "021" "array" "")                       # array
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "022" "" "${ARILES_TEST_ALL_BRIDGES}")  # flags
 
 
 
@@ -86,3 +87,4 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "218" "" "${ARILES_TEST_ALL_
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "219" "" "")                            # comparison (complex)
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "220" "" "")                            # comparison (inheritance)
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "221" "array" "")                       # array
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "222" "" "${ARILES_TEST_ALL_BRIDGES}")  # flags

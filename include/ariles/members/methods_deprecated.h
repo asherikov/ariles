@@ -116,6 +116,15 @@
                 return (parameters);
             }
         #endif
+        virtual const ariles::ConfigurableFlags &arilesGetParameters(const ariles::read::Visitor &) const
+        {
+            return (this->getArilesConfigurableFlags());
+        }
+        virtual const ariles::ConfigurableFlags &arilesGetParameters(const ariles::write::Visitor &) const
+        {
+            return (this->getArilesConfigurableFlags());
+        }
+
 
         #ifdef ARILES_CONSTRUCTOR
             /**
