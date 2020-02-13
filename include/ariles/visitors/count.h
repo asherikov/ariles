@@ -64,11 +64,14 @@ namespace ariles
 
 
 
-        template<class t_Derived>
-            class ARILES_VISIBILITY_ATTRIBUTE Base
-                : public visitor::ConstBase<t_Derived, count::Visitor>
+        class ARILES_VISIBILITY_ATTRIBUTE Base
+            : public visitor::ConstBase<count::Visitor>
         {
             public:
         };
+
+#ifndef ARILES_METHODS_count
+#   define ARILES_METHODS_count ARILES_METHODS(ariles::count::Visitor, const)
+#endif
     }
 }

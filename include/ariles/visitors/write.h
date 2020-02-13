@@ -117,10 +117,13 @@ namespace ariles
 
 
 
-        template<class t_Derived>
-            class ARILES_VISIBILITY_ATTRIBUTE Base
-                : public visitor::ConstBase<t_Derived, write::Visitor>
+        class ARILES_VISIBILITY_ATTRIBUTE Base
+            : public visitor::ConstBase<write::Visitor>
         {
         };
+
+#ifndef ARILES_METHODS_write
+#   define ARILES_METHODS_write ARILES_METHODS(ariles::write::Visitor, const)
+#endif
     }
 }

@@ -20,7 +20,16 @@ namespace ariles
         };
 
 
-        template<class t_Derived, class t_Visitor>
+        #define ARILES_METHODS(Visitor, Qualifier) \
+            virtual void arilesVirtualVisit(Visitor &visitor, \
+                                            const ariles::utils::DecayConst<Visitor>::Type::Parameters &param) Qualifier \
+            { \
+                ARILES_TRACE_FUNCTION; \
+                this->arilesVisit(visitor, param); \
+            }
+
+
+        template<class t_Visitor>
             class ARILES_VISIBILITY_ATTRIBUTE Base
         {
             public:
@@ -36,7 +45,7 @@ namespace ariles
         };
 
 
-        template<class t_Derived, class t_Visitor>
+        template<class t_Visitor>
             class ARILES_VISIBILITY_ATTRIBUTE ConstBase
         {
             public:

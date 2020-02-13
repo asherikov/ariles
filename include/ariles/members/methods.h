@@ -86,17 +86,16 @@
         #endif
 
 
-        ARILES_METHODS(ariles::read::Visitor, ARILES_EMPTY_MACRO)
+        #ifndef ARILES_VISITORS
+            #define ARILES_VISITORS ARILES_DEFAULT_VISITORS
+        #endif
 
-        ARILES_METHODS(ariles::write::Visitor, const)
+        #define ARILES_VISITOR(visitor) ARILES_METHODS_##visitor
 
-        ARILES_METHODS(const ariles::defaults::Visitor, ARILES_EMPTY_MACRO)
+        ARILES_VISITORS
 
-        ARILES_METHODS(const ariles::finalize::Visitor, ARILES_EMPTY_MACRO)
-
-        ARILES_METHODS(ariles::count::Visitor, const)
-
-        ARILES_NONVIRTUAL_METHODS(ariles::compare::Visitor, const)
+        #undef ARILES_VISITOR
+        #undef ARILES_VISITORS
 
 
 #endif //ARILES_ENABLED

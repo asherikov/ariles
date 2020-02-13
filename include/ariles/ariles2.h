@@ -44,27 +44,13 @@
     #define ARILES_ENTRY(entry)      ARILES_NAMED_ENTRY(entry, #entry)
 
 
-
-    #define ARILES_METHODS(Visitor, Qualifier) \
-        virtual void arilesVirtualVisit(Visitor &visitor, \
-                                        const ariles::utils::DecayConst<Visitor>::Type::Parameters &param) Qualifier \
-        { \
-            ARILES_TRACE_FUNCTION; \
-            this->arilesVisit(visitor, param); \
-        }
-
-    /**
-     * Some visitors, e.g., comparison, do not have virtual methods in the
-     * base, so the following methods must be defined inside the derived
-     * classes.
-     */
-    #define ARILES_NONVIRTUAL_METHODS(Visitor, Qualifier) \
-        const ariles::utils::DecayConst<Visitor>::Type::Parameters & \
-            arilesGetParameters(const ariles::utils::DecayConst<Visitor>::Type &visitor) const \
-        { \
-            ARILES_TRACE_FUNCTION; \
-            return(visitor.getDefaultParameters()); \
-        }
+    #define ARILES_DEFAULT_VISITORS \
+        ARILES_VISITOR(count) \
+        ARILES_VISITOR(finalize) \
+        ARILES_VISITOR(defaults) \
+        ARILES_VISITOR(read) \
+        ARILES_VISITOR(write) \
+        ARILES_VISITOR(compare)
 
 
     // ----------------------------
@@ -72,13 +58,13 @@
 
     namespace ariles
     {
+        /// @todo variadic template
         class ARILES_VISIBILITY_ATTRIBUTE Base
-            :   public ariles::defaults::Base<ariles::Base>,
-                public ariles::finalize::Base<ariles::Base>,
-                public ariles::compare::Base<ariles::Base>,
-                public ariles::count::Base<ariles::Base>,
-                public ariles::read::Base<ariles::Base>,
-                public ariles::write::Base<ariles::Base>
+            :   public ariles::defaults::Base,
+                public ariles::finalize::Base,
+                public ariles::count::Base,
+                public ariles::read::Base,
+                public ariles::write::Base
         {
             protected:
                 /**
@@ -90,18 +76,18 @@
 
 
             public:
-                using ariles::defaults::Base<ariles::Base>::arilesVirtualVisit;
-                using ariles::finalize::Base<ariles::Base>::arilesVirtualVisit;
-                using ariles::read::Base<ariles::Base>::arilesVirtualVisit;
-                using ariles::write::Base<ariles::Base>::arilesVirtualVisit;
-                using ariles::count::Base<ariles::Base>::arilesVirtualVisit;
+                using ariles::defaults::Base::arilesVirtualVisit;
+                using ariles::finalize::Base::arilesVirtualVisit;
+                using ariles::read::Base::arilesVirtualVisit;
+                using ariles::write::Base::arilesVirtualVisit;
+                using ariles::count::Base::arilesVirtualVisit;
 
 
-                using ariles::defaults::Base<ariles::Base>::arilesGetParameters;
-                using ariles::finalize::Base<ariles::Base>::arilesGetParameters;
-                using ariles::read::Base<ariles::Base>::arilesGetParameters;
-                using ariles::write::Base<ariles::Base>::arilesGetParameters;
-                using ariles::count::Base<ariles::Base>::arilesGetParameters;
+                using ariles::defaults::Base::arilesGetParameters;
+                using ariles::finalize::Base::arilesGetParameters;
+                using ariles::read::Base::arilesGetParameters;
+                using ariles::write::Base::arilesGetParameters;
+                using ariles::count::Base::arilesGetParameters;
 
 
                 virtual const std::string & arilesDefaultID() const = 0;

@@ -139,10 +139,14 @@ namespace ariles
         }
 
 
-        template<class t_Derived>
-            class ARILES_VISIBILITY_ATTRIBUTE Base
-        {
-            public:
-        };
+#ifndef ARILES_METHODS_compare
+#   define ARILES_METHODS_compare \
+        const ariles::compare::Visitor::Parameters & \
+            arilesGetParameters(const ariles::compare::Visitor &visitor) const \
+        { \
+            ARILES_TRACE_FUNCTION; \
+            return(visitor.getDefaultParameters()); \
+        }
+#endif
     }  // namespace compare
 }  // namespace ariles

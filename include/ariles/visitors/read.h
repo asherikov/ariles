@@ -210,10 +210,14 @@ namespace ariles
         }
 
 
-        template<class t_Derived>
-            class ARILES_VISIBILITY_ATTRIBUTE Base
-                : public visitor::Base<t_Derived, read::Visitor>
+        class ARILES_VISIBILITY_ATTRIBUTE Base
+            : public visitor::Base<read::Visitor>
         {
         };
+
+
+#ifndef ARILES_METHODS_read
+#   define ARILES_METHODS_read ARILES_METHODS(ariles::read::Visitor, ARILES_EMPTY_MACRO)
+#endif
     }
 }

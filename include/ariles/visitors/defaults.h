@@ -90,11 +90,15 @@ namespace ariles
         }
 
 
-        template<class t_Derived>
-            class ARILES_VISIBILITY_ATTRIBUTE Base
-                : public visitor::Base<t_Derived, const defaults::Visitor>
+        class ARILES_VISIBILITY_ATTRIBUTE Base
+            : public visitor::Base<const defaults::Visitor>
         {
             public:
         };
+
+
+#ifndef ARILES_METHODS_defaults
+#   define ARILES_METHODS_defaults ARILES_METHODS(const ariles::defaults::Visitor, ARILES_EMPTY_MACRO)
+#endif
     }
 }
