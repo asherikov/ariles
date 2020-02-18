@@ -92,7 +92,7 @@ namespace ariles
 
 
                 template <typename t_Scalar>
-                    static bool ARILES_VISIBILITY_ATTRIBUTE compareFloats(
+                    static bool compareFloats(
                             const t_Scalar left,
                             const t_Scalar right,
                             const Parameters & param)
@@ -122,6 +122,34 @@ namespace ariles
                     }
                     return (std::abs(left - right) <=
                             ( (std::abs(left) < std::abs(right) ? std::abs(right) : std::abs(left)) * param.double_tolerance_));
+                }
+
+
+                template<   class t_Left,
+                            class t_Right>
+                    void operator()(
+                            const t_Left & left,
+                            const t_Right & right,
+                            const std::string & name,
+                            const Parameters & param)
+                {
+                    ARILES_TRACE_FUNCTION;
+                    ARILES_TRACE_ENTRY(name);
+                    ARILES_TRACE_TYPE(left);
+                    ARILES_TRACE_TYPE(right);
+
+                    try
+                    {
+                        apply_compare(*this, left, right, param);
+                        if (false == this->equal_ and true == param.throw_on_error_)
+                        {
+                            ARILES_THROW("");
+                        }
+                    }
+                    catch (const std::exception & e)
+                    {
+                        ARILES_THROW("entry: " + name + " // " + std::string(e.what()));
+                    }
                 }
         };
 

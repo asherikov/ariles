@@ -28,8 +28,8 @@ namespace ariles
             typename t_Visitor::Parameters param_local = param;
             param_local.unset(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES);
             visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(2);
-            applyToEntry(visitor, entry.first, "first", param_local);
-            applyToEntry(visitor, entry.second, "second", param_local);
+            visitor(entry.first, "first", param_local);
+            visitor(entry.second, "second", param_local);
             visitor.endMap();
         }
 
@@ -54,7 +54,7 @@ namespace ariles
                 param_local.unset(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES);
                 visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(1);
 
-                applyToEntry(visitor, entry.second, entry.first, param_local);
+                visitor(entry.second, entry.first, param_local);
 
                 visitor.endMap();
             }
@@ -81,8 +81,8 @@ namespace ariles
         {
             ARILES_TRACE_FUNCTION;
             writer.startMap(2);
-            applyToEntry(writer, entry.first, "first", param);
-            applyToEntry(writer, entry.second, "second", param);
+            writer(entry.first, "first", param);
+            writer(entry.second, "second", param);
             writer.endMap();
         }
 
@@ -100,7 +100,7 @@ namespace ariles
                     && param.isSet(t_Visitor::Parameters::SLOPPY_PAIRS_IF_SUPPORTED))
             {
                 writer.startMap(1);
-                applyToEntry(writer, entry.second, entry.first, param);
+                writer(entry.second, entry.first, param);
                 writer.endMap();
             }
             else
@@ -108,8 +108,8 @@ namespace ariles
                 // ? Gets mixed up with vector and fails.
                 // apply<t_Visitor, std::string, t_Second>(writer, entry, param);
                 writer.startMap(2);
-                applyToEntry(writer, entry.first, "first", param);
-                applyToEntry(writer, entry.second, "second", param);
+                writer(entry.first, "first", param);
+                writer(entry.second, "second", param);
                 writer.endMap();
             }
         }

@@ -73,7 +73,7 @@ namespace ariles_tests
             void arilesVisit(   const ariles::defaults::Visitor &visitor,
                                 const ariles::defaults::Visitor::Parameters &param)
             {
-                ariles::defaults::applyToEntry(visitor, member_, "member", param);
+                visitor(member_, "member", param);
             }
 
 
@@ -108,7 +108,7 @@ namespace ariles_tests
             void arilesVisit(   const ariles::defaults::Visitor &visitor,
                                 const ariles::defaults::Visitor::Parameters &param)
             {
-                ariles::defaults::applyToEntry(visitor, member_, "member", param);
+                visitor(member_, "member", param);
             }
 
 
@@ -144,8 +144,8 @@ namespace ariles_tests
             void arilesVisit(   const ariles::defaults::Visitor &visitor,
                                 const ariles::defaults::Visitor::Parameters &param)
             {
-                ariles::defaults::applyToEntry(visitor, another_member_, "another_member", param);
-                ariles::defaults::applyToEntry(visitor, another_member1_, "another_member1", param);
+                visitor(another_member_, "another_member", param);
+                visitor(another_member1_, "another_member1", param);
                 ConfigurableBase::arilesVisit(visitor, param);
                 ConfigurableMember<int>::arilesVisit(visitor, param);
             }

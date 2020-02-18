@@ -157,10 +157,10 @@ namespace ariles
                         true == isConsistent(),
                         "Could not write config: entry is in an inconsistent (partially initialized) state.");
 
-                applyToEntry(writer, id_, "id", param);
+                writer(id_, "id", param);
                 if (true == isInitialized())
                 {
-                    applyToEntry(writer, *value_, "value", param);
+                    writer(*value_, "value", param);
                 }
             }
 
@@ -173,7 +173,7 @@ namespace ariles
                 ariles::read::Visitor::Parameters param = parameters;
                 param.unset(ariles::read::Visitor::Parameters::ALLOW_MISSING_ENTRIES);
 
-                applyToEntry(visitor, id_, "id", param);
+                visitor(id_, "id", param);
                 if ("" == id_)
                 {
                     ARILES_ASSERT(
@@ -183,7 +183,7 @@ namespace ariles
                 else
                 {
                     build(id_);
-                    applyToEntry(visitor, *value_, "value", param);
+                    visitor(*value_, "value", param);
                 }
             }
 

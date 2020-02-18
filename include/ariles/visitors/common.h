@@ -83,7 +83,7 @@ namespace ariles
         {
             ARILES_TRACE_FUNCTION;
             visitor.startRoot(ariles_class, param);
-            applyToEntry(visitor, ariles_class, name, param);
+            visitor(ariles_class, name, param);
             visitor.finishRoot(ariles_class, param);
         }
 
@@ -98,7 +98,7 @@ namespace ariles
         {
             ARILES_TRACE_FUNCTION;
             visitor.startRoot(ariles_class, param);
-            applyToEntry(visitor, ariles_class, name, param);
+            visitor(ariles_class, name, param);
             visitor.finishRoot(ariles_class, param);
         }
 
@@ -246,7 +246,7 @@ namespace ariles
             try
             {
                 visitor.startRoot(left, param);
-                applyToEntry(visitor, left, right, name, param);
+                visitor(left, right, name, param);
                 visitor.finishRoot(left, param);
             }
             catch (std::exception &e)

@@ -44,12 +44,6 @@
 #define ARILES_IS_ENUM_ENABLER_TYPE(Enum) \
     const typename boost::enable_if_c< (boost::is_enum<Enum>::value) >::type
 
-#define ARILES_IS_CONFIGURABLE_ENABLER(Derived) \
-    const typename boost::enable_if_c< (boost::is_base_of<ariles::Base, Derived>::value) >::type * = NULL
-
-#define ARILES_IS_CONFIGURABLE_DISABLER(Derived) \
-    const typename boost::enable_if_c< not (boost::is_base_of<ariles::Base, Derived>::value) >::type * = NULL
-
 #define ARILES_IS_BASE_ENABLER(Base, Derived) \
     const typename boost::enable_if_c< (boost::is_base_of<Base, Derived>::value) >::type * = NULL
 

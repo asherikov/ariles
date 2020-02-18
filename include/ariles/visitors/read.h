@@ -163,6 +163,39 @@ namespace ariles
                 ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
                 #undef ARILES_BASIC_TYPE
+
+
+                template<class t_Entry>
+                    void operator()(
+                            t_Entry & entry,
+                            const std::string & name,
+                            const Parameters & param)
+                {
+                    ARILES_TRACE_FUNCTION;
+                    ARILES_TRACE_ENTRY(name);
+                    ARILES_TRACE_TYPE(entry);
+                    if (this->descend(name))
+                    {
+                        try
+                        {
+                            apply_read(*this, entry, param);
+                        }
+                        catch(const std::exception &e)
+                        {
+                            ARILES_THROW(std::string("Failed to parse entry <")
+                                        + name
+                                        + "> ||  "
+                                        + e.what());
+                        }
+
+                        this->ascend();
+                    }
+                    else
+                    {
+                        ARILES_PERSISTENT_ASSERT(   true == param.isSet(Parameters::ALLOW_MISSING_ENTRIES),
+                                                    std::string("Configuration file does not contain entry '") + name + "'.");
+                    }
+                }
         };
 
 

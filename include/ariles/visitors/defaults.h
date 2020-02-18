@@ -63,6 +63,20 @@ namespace ariles
                 {
                     ARILES_TRACE_FUNCTION;
                 }
+
+
+                template<class t_Entry>
+                    void operator()(
+                            t_Entry & entry,
+                            const std::string & name,
+                            const Parameters & param) const
+                {
+                    ARILES_UNUSED_ARG(name);
+                    ARILES_TRACE_FUNCTION;
+                    ARILES_TRACE_ENTRY(name);
+                    ARILES_TRACE_TYPE(entry);
+                    apply_defaults(*this, entry, param);
+                }
         };
 
         template<>

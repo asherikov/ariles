@@ -113,6 +113,22 @@ namespace ariles
                 ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
                 #undef ARILES_BASIC_TYPE
+
+
+                template <typename t_Entry>
+                    void operator()(
+                            const t_Entry & entry,
+                            const std::string & entry_name,
+                            const Parameters & param)
+                {
+                    ARILES_TRACE_FUNCTION;
+                    ARILES_TRACE_ENTRY(entry_name);
+                    ARILES_TRACE_TYPE(entry);
+
+                    this->descend(entry_name);
+                    apply_write(*this, entry, param);
+                    this->ascend();
+                }
         };
 
 

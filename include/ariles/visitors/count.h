@@ -60,6 +60,45 @@ namespace ariles
                 {
                     ARILES_TRACE_FUNCTION;
                 }
+
+
+                template<class t_Entry>
+                    void operator()(
+                            const t_Entry & entry,
+                            const std::string & name,
+                            const Parameters & /*param*/,
+                            ARILES_IS_BASE_DISABLER(visitor::ConstBase<count::Visitor>, t_Entry))
+                {
+                    ARILES_UNUSED_ARG(name);
+                    ARILES_UNUSED_ARG(entry);
+                    ARILES_TRACE_FUNCTION;
+                    ARILES_TRACE_ENTRY(name);
+                    ARILES_TRACE_TYPE(entry);
+                    ++this->counter_;
+                }
+
+
+                template<class t_Entry>
+                    void operator()(
+                            const t_Entry & entry,
+                            const std::string & name,
+                            const Parameters & param,
+                            ARILES_IS_BASE_ENABLER(visitor::ConstBase<count::Visitor>, t_Entry))
+                {
+                    ARILES_UNUSED_ARG(name);
+                    ARILES_TRACE_FUNCTION;
+                    ARILES_TRACE_ENTRY(name);
+                    ARILES_TRACE_TYPE(entry);
+                    if (true == this->descend_)
+                    {
+                        this->descend_ = false;
+                        entry.arilesVirtualVisit(*this, param);
+                    }
+                    else
+                    {
+                        ++this->counter_;
+                    }
+                }
         };
 
 
