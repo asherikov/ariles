@@ -33,10 +33,6 @@
 #include "trace.h"
 
 
-#ifndef ARILES_DEFAULT_CONFIG_PREFIX
-#   define ARILES_DEFAULT_CONFIG_PREFIX     ""
-#endif
-
 /// @todo DEPRECATED C++11
 #define ARILES_EMPTY_MACRO
 
@@ -89,13 +85,6 @@
 
 namespace ariles
 {
-    struct ARILES_VISIBILITY_ATTRIBUTE BridgeSelectorBase
-    {
-        public:
-            typedef int BridgeSelectorIndicatorType;
-    };
-
-
     template <class t_Pointer>
     class PointerHandler
     {

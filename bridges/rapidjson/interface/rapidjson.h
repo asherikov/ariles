@@ -117,13 +117,13 @@ namespace ariles
     /**
      * @brief JSON bridge.
      */
-    struct ARILES_VISIBILITY_ATTRIBUTE rapidjson : public BridgeSelectorBase
+    struct ARILES_VISIBILITY_ATTRIBUTE rapidjson
     {
         typedef bridge::rapidjson::Reader Reader;
         typedef bridge::rapidjson::Writer Writer;
 
 #ifdef ARILES_BRIDGE_INCLUDED_jsonnet
-        struct ARILES_VISIBILITY_ATTRIBUTE jsonnet : public BridgeSelectorBase
+        struct ARILES_VISIBILITY_ATTRIBUTE jsonnet
         {
             typedef bridge::rapidjson::jsonnet::Reader Reader;
             typedef bridge::rapidjson::jsonnet::Writer Writer;

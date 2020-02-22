@@ -26,7 +26,7 @@ namespace ariles
     /**
      * @brief Array bridge.
      */
-    struct ARILES_VISIBILITY_ATTRIBUTE array : public BridgeSelectorBase
+    struct ARILES_VISIBILITY_ATTRIBUTE array
     {
         typedef bridge::array::Writer Writer;
     };

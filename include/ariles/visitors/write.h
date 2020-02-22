@@ -110,7 +110,7 @@ namespace ariles
                 #define ARILES_BASIC_TYPE(type) \
                         virtual void writeElement(const type &entry) = 0;
 
-                ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+                ARILES_BASIC_TYPES_LIST
 
                 #undef ARILES_BASIC_TYPE
 

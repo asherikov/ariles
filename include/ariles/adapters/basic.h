@@ -80,7 +80,7 @@ namespace ariles
                     visitor.readElement(entry); \
                 }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+        ARILES_BASIC_TYPES_LIST
 
         #undef ARILES_BASIC_TYPE
     }
@@ -136,7 +136,7 @@ namespace ariles
         /**
          * @brief Generate apply methods for basic types.
          */
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+        ARILES_BASIC_TYPES_LIST
 
         #undef ARILES_BASIC_TYPE
     }
@@ -202,7 +202,7 @@ namespace ariles
                 ARILES_BASIC_TYPE(bool) \
                 ARILES_BASIC_TYPE(std::string)
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_COMPARE_TYPES_LIST)
+        ARILES_COMPARE_TYPES_LIST
 
         #undef ARILES_BASIC_TYPE
 
@@ -272,7 +272,7 @@ namespace ariles
                     entry = param.template getDefault<type>(); \
                 }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+        ARILES_BASIC_TYPES_LIST
 
         #undef ARILES_BASIC_TYPE
     }
@@ -321,7 +321,7 @@ namespace ariles
                     ARILES_TRACE_FUNCTION; \
                 }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+        ARILES_BASIC_TYPES_LIST
 
         #undef ARILES_BASIC_TYPE
     }

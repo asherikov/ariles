@@ -93,7 +93,7 @@ namespace ariles
     /**
      * @brief ROS parameter server bridge.
      */
-    struct ARILES_VISIBILITY_ATTRIBUTE ros : public BridgeSelectorBase
+    struct ARILES_VISIBILITY_ATTRIBUTE ros
     {
         typedef bridge::ros::Reader Reader;
         typedef bridge::ros::Writer Writer;

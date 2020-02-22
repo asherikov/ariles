@@ -77,7 +77,7 @@ namespace ariles
     /**
      * @brief JSON bridge.
      */
-    struct ARILES_VISIBILITY_ATTRIBUTE pugixml : public BridgeSelectorBase
+    struct ARILES_VISIBILITY_ATTRIBUTE pugixml
     {
         typedef bridge::pugixml::Reader Reader;
         typedef bridge::pugixml::Writer Writer;

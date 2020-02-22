@@ -32,7 +32,7 @@
                 ARILES_UNUSED_ARG(visitor);
                 ARILES_UNUSED_ARG(parameters);
                 ARILES_TRACE_FUNCTION;
-                ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
+                ARILES_ENTRIES
             }
 
 
@@ -42,7 +42,7 @@
                 ARILES_UNUSED_ARG(visitor);
                 ARILES_UNUSED_ARG(parameters);
                 ARILES_TRACE_FUNCTION;
-                ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
+                ARILES_ENTRIES
             }
 
             #undef ARILES_PARENT
@@ -63,7 +63,7 @@
                 ARILES_UNUSED_ARG(other);
                 ARILES_UNUSED_ARG(parameters);
                 ARILES_TRACE_FUNCTION;
-                ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
+                ARILES_ENTRIES
             }
 
             #undef ARILES_PARENT

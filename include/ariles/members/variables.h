@@ -19,7 +19,7 @@
             #define ARILES_PARENT(entry)
             #define ARILES_TYPED_NAMED_ENTRY(type, entry, name)  type    entry;
 
-            ARILES_MACRO_SUBSTITUTE(ARILES_ENTRIES)
+            ARILES_ENTRIES
 
             #undef ARILES_NAMED_ENTRY
             #undef ARILES_PARENT

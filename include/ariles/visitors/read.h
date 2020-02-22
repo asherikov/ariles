@@ -47,7 +47,7 @@ namespace ariles
                     config_ifs.open(file_name.c_str());
                     if (!config_ifs.good())
                     {
-                        std::string file_name_default = std::string(ARILES_DEFAULT_CONFIG_PREFIX) + file_name;
+                        std::string file_name_default = file_name;
                         config_ifs.open(file_name_default.c_str());
                     }
                     ARILES_PERSISTENT_ASSERT(   true == config_ifs.good(),
@@ -160,7 +160,7 @@ namespace ariles
                 #define ARILES_BASIC_TYPE(type) \
                         virtual void readElement(type &entry) = 0;
 
-                ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+                ARILES_BASIC_TYPES_LIST
 
                 #undef ARILES_BASIC_TYPE
 

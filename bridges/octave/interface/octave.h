@@ -26,7 +26,7 @@ namespace ariles
     /**
      * @brief Octave bridge.
      */
-    struct ARILES_VISIBILITY_ATTRIBUTE octave : public BridgeSelectorBase
+    struct ARILES_VISIBILITY_ATTRIBUTE octave
     {
         typedef bridge::octave::Writer Writer;
     };

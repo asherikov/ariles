@@ -164,8 +164,7 @@
                  */
                 #define ARILES_READ_CONFIG(InitializerType) \
                         template <class t_Bridge, class t_ReaderInitializer> \
-                            void readConfig(InitializerType &reader_initializer, \
-                                            typename t_Bridge::BridgeSelectorIndicatorType * = NULL) \
+                            void readConfig(InitializerType &reader_initializer) \
                         { \
                             ARILES_TRACE_FUNCTION; \
                             typename t_Bridge::Reader reader(reader_initializer); \
@@ -173,8 +172,7 @@
                         } \
                         template <class t_Bridge, class t_ReaderInitializer> \
                             void readConfig(InitializerType & reader_initializer, \
-                                            const ariles::ConfigurableFlags & param, \
-                                            typename t_Bridge::BridgeSelectorIndicatorType * = NULL) \
+                                            const ariles::ConfigurableFlags & param) \
                         { \
                             ARILES_TRACE_FUNCTION; \
                             typename t_Bridge::Reader reader(reader_initializer); \
@@ -199,8 +197,7 @@
                 #define ARILES_READ_CONFIG(InitializerType, NameType) \
                         template <class t_Bridge, class t_ReaderInitializer> \
                             void readConfig(InitializerType     &reader_initializer, \
-                                            NameType            node_name, \
-                                            typename t_Bridge::BridgeSelectorIndicatorType * = NULL) \
+                                            NameType            node_name) \
                         { \
                             ARILES_TRACE_FUNCTION; \
                             typename t_Bridge::Reader reader(reader_initializer); \
@@ -209,8 +206,7 @@
                         template <class t_Bridge, class t_ReaderInitializer> \
                             void readConfig(InitializerType     &reader_initializer, \
                                             NameType            node_name, \
-                                            const ariles::ConfigurableFlags & param, \
-                                            typename t_Bridge::BridgeSelectorIndicatorType * = NULL) \
+                                            const ariles::ConfigurableFlags & param) \
                         { \
                             ARILES_TRACE_FUNCTION; \
                             typename t_Bridge::Reader reader(reader_initializer); \
@@ -229,16 +225,14 @@
 
                 #define ARILES_WRITE_CONFIG(InitializerType) \
                         template <class t_Bridge, class t_WriterInitializer> \
-                            void writeConfig(   InitializerType &writer_initializer, \
-                                                typename t_Bridge::BridgeSelectorIndicatorType * = NULL) const \
+                            void writeConfig(   InitializerType &writer_initializer) const \
                         { \
                             typename t_Bridge::Writer writer(writer_initializer); \
                             this->writeConfig(writer, this->getArilesConfigurableFlags()); \
                         } \
                         template <class t_Bridge, class t_WriterInitializer> \
                             void writeConfig(   InitializerType &writer_initializer, \
-                                                const ariles::ConfigurableFlags & param, \
-                                                typename t_Bridge::BridgeSelectorIndicatorType * = NULL) const \
+                                                const ariles::ConfigurableFlags & param) const \
                         { \
                             typename t_Bridge::Writer writer(writer_initializer); \
                             this->writeConfig(writer, param); \
@@ -260,8 +254,7 @@
                 #define ARILES_WRITE_CONFIG(InitializerType, NameType) \
                         template <class t_Bridge, class t_WriterInitializer> \
                             void writeConfig(   InitializerType &writer_initializer, \
-                                                NameType node_name, \
-                                                typename t_Bridge::BridgeSelectorIndicatorType * = NULL) const \
+                                                NameType node_name) const \
                         { \
                             typename t_Bridge::Writer writer(writer_initializer); \
                             this->writeConfig(writer, node_name, this->getArilesConfigurableFlags()); \
@@ -269,8 +262,7 @@
                         template <class t_Bridge, class t_WriterInitializer> \
                             void writeConfig(   InitializerType &writer_initializer, \
                                                 NameType node_name, \
-                                                const ariles::ConfigurableFlags & param, \
-                                                typename t_Bridge::BridgeSelectorIndicatorType * = NULL) const \
+                                                const ariles::ConfigurableFlags & param) const \
                         { \
                             typename t_Bridge::Writer writer(writer_initializer); \
                             this->writeConfig(writer, node_name, param); \
