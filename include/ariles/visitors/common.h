@@ -15,8 +15,41 @@ namespace ariles
 {
     namespace visitor
     {
-        struct ARILES_VISIBILITY_ATTRIBUTE Visitor
+        class Visitor
         {
+            protected:
+                Visitor() {};
+                ~Visitor() {};
+        };
+
+
+        template<class t_Parameters>
+            class ARILES_VISIBILITY_ATTRIBUTE VisitorBase : public Visitor
+        {
+            protected:
+                VisitorBase() {};
+                ~VisitorBase() {};
+
+                const t_Parameters & getDefaultParameters() const
+                {
+                    const static t_Parameters parameters;
+                    return parameters;
+                }
+
+
+                template<class t_Ariles>
+                    void startRoot( const t_Ariles &,
+                                    const t_Parameters &)
+                {
+                    ARILES_TRACE_FUNCTION;
+                }
+
+                template<class t_Ariles>
+                    void finishRoot(const t_Ariles &,
+                                    const t_Parameters &) const
+                {
+                    ARILES_TRACE_FUNCTION;
+                }
         };
 
 
@@ -123,7 +156,7 @@ namespace ariles
                     ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
         {
             ARILES_TRACE_FUNCTION;
-            ariles::apply(visitor, ariles_class, name, ariles_class.arilesGetParameters(visitor));
+            ariles::apply(visitor, ariles_class, name, visitor.getParameters(ariles_class));
         }
 
 
@@ -135,7 +168,7 @@ namespace ariles
                     ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
         {
             ARILES_TRACE_FUNCTION;
-            ariles::apply(visitor, ariles_class, name, ariles_class.arilesGetParameters(visitor));
+            ariles::apply(visitor, ariles_class, name, visitor.getParameters(ariles_class));
         }
 
 
@@ -268,7 +301,7 @@ namespace ariles
                     ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
         {
             ARILES_TRACE_FUNCTION;
-            ariles::apply(visitor, left, right, left.arilesDefaultID(), left.arilesGetParameters(visitor));
+            ariles::apply(visitor, left, right, left.arilesDefaultID(), visitor.getParameters(left));
         }
 
 

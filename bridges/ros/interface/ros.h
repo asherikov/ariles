@@ -13,8 +13,7 @@
 
 #include <ariles/internal/helpers.h>
 #include <ariles/internal/node.h>
-#include <ariles/visitors/read.h>
-#include <ariles/visitors/write.h>
+#include <ariles/visitors/config.h>
 
 #include <ros/ros.h>
 // http://docs.ros.org/api/xmlrpcpp/html/classXmlRpc_1_1XmlRpcValue.html
@@ -95,7 +94,7 @@ namespace ariles
      */
     struct ARILES_VISIBILITY_ATTRIBUTE ros
     {
-        typedef bridge::ros::Reader Reader;
-        typedef bridge::ros::Writer Writer;
+        typedef ariles::cfgread::Visitor<bridge::ros::Reader> Reader;
+        typedef ariles::cfgwrite::Visitor<bridge::ros::Writer> Writer;
     };
 }

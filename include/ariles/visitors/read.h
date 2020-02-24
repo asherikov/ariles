@@ -2,7 +2,7 @@
     @file
     @author  Alexander Sherikov
 
-    @copyright 2017-2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
+    @copyright 2017-2020 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
 
     @brief
@@ -11,18 +11,21 @@
 #pragma once
 
 #include <vector>
-#include "defaults.h"
-#include "finalize.h"
+
+#include "common.h"
+#if 1 == ARILES_API_VERSION
+#   include "defaults.h"
+#   include "finalize.h"
+#endif
 
 
 namespace ariles
 {
     namespace read
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Visitor
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::VisitorBase<ariles::ConfigurableFlags>
         {
             public:
-                typedef int ReaderIndicatorType;
                 typedef ariles::ConfigurableFlags Parameters;
 
                 enum SizeLimitEnforcementType
@@ -82,29 +85,26 @@ namespace ariles
 
 
             public:
-                const Parameters & getDefaultParameters() const
+                using visitor::VisitorBase<Parameters>::getDefaultParameters;
+
+                template<class t_Ariles>
+                    const Parameters & getParameters(const t_Ariles & ariles_class) const
                 {
-                    const static Parameters parameters;
-                    return parameters;
+                    return (ariles_class.arilesGetParameters(*this));
                 }
 
 
-                template<class t_Configurable>
-                    void startRoot(t_Configurable &configurable, const Parameters &)
-                {
-                    ariles::apply<ariles::defaults::Visitor>(configurable);
-                }
-
-
-                template<class t_Configurable>
-                    void finishRoot(t_Configurable &configurable, const Parameters &)
+                template<class t_Ariles>
+                    void startRoot(t_Ariles & ariles_class, const Parameters &)
                 {
                     ARILES_TRACE_FUNCTION;
-                    ARILES_UNUSED_ARG(configurable);
-#if 2 == ARILES_API_VERSION
-                    ariles::apply<ariles::finalize::Visitor>(configurable);
+                    ARILES_UNUSED_ARG(ariles_class);
+#if 1 == ARILES_API_VERSION
+                    ariles::apply<ariles::defaults::Visitor>(ariles_class);
 #endif
                 }
+
+                using visitor::VisitorBase<Parameters>::finishRoot;
 
 
                 virtual const BridgeFlags & getBridgeFlags() const = 0;

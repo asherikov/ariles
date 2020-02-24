@@ -16,47 +16,50 @@ namespace ariles
 {
     namespace compare
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Visitor
+        class Parameters
         {
             public:
-                class Parameters
+                double float_tolerance_;
+                double double_tolerance_;
+                bool compare_number_of_entries_;
+                bool throw_on_error_; /// @todo DEPRECATED
+                bool nan_equal_;
+                bool inf_equal_;
+                /// @todo continue on failure.
+
+
+            public:
+                Parameters()
                 {
-                public:
-                    double float_tolerance_;
-                    double double_tolerance_;
-                    bool compare_number_of_entries_;
-                    bool throw_on_error_; /// @todo DEPRECATED
-                    bool nan_equal_;
-                    bool inf_equal_;
-                    /// @todo continue on failure.
+                    setDefaults();
+                }
 
 
-                public:
-                    Parameters()
-                    {
-                        setDefaults();
-                    }
+                void setDefaults()
+                {
+                    double_tolerance_ = 1e-12;
+                    float_tolerance_ = 1e-8;
+                    compare_number_of_entries_ = false;
+                    throw_on_error_ = false;
+
+                    nan_equal_ = true;
+                    inf_equal_ = true;
+                }
 
 
-                    void setDefaults()
-                    {
-                        double_tolerance_ = 1e-12;
-                        float_tolerance_ = 1e-8;
-                        compare_number_of_entries_ = false;
-                        throw_on_error_ = false;
-
-                        nan_equal_ = true;
-                        inf_equal_ = true;
-                    }
+                template <typename t_Scalar>
+                t_Scalar getTolerance() const;
+        };
 
 
-                    template <typename t_Scalar>
-                    t_Scalar getTolerance() const;
-                };
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::VisitorBase<compare::Parameters>
+        {
+            public:
+                typedef compare::Parameters Parameters;
+
 
             public:
                 bool equal_;
-
 
 
             public:
@@ -67,15 +70,17 @@ namespace ariles
                     return (equal_);
                 }
 
-                const Parameters & getDefaultParameters() const
+                using visitor::VisitorBase<Parameters>::getDefaultParameters;
+
+                template<class t_Ariles>
+                    const Parameters & getParameters(const t_Ariles & ariles_class) const
                 {
-                    const static Parameters parameters;
-                    return parameters;
+                    return (ariles_class.arilesGetParameters(*this));
                 }
 
 
-                template<class t_Configurable>
-                    void startRoot( const t_Configurable &,
+                template<class t_Ariles>
+                    void startRoot( const t_Ariles &,
                                     const Parameters &)
                 {
                     ARILES_TRACE_FUNCTION;
@@ -83,12 +88,7 @@ namespace ariles
                 }
 
 
-                template<class t_Configurable>
-                    void finishRoot(const t_Configurable &,
-                                    const Parameters &) const
-                {
-                    ARILES_TRACE_FUNCTION;
-                }
+                using visitor::VisitorBase<Parameters>::finishRoot;
 
 
                 template <typename t_Scalar>

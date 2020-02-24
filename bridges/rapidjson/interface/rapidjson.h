@@ -13,8 +13,7 @@
 
 #include <ariles/internal/helpers.h>
 #include <ariles/internal/node.h>
-#include <ariles/visitors/read.h>
-#include <ariles/visitors/write.h>
+#include <ariles/visitors/config.h>
 
 // In old versions of RapidJSON it is impossible to specify flags
 // as template parameter of PrettyWriter, so this is the only way
@@ -119,14 +118,14 @@ namespace ariles
      */
     struct ARILES_VISIBILITY_ATTRIBUTE rapidjson
     {
-        typedef bridge::rapidjson::Reader Reader;
-        typedef bridge::rapidjson::Writer Writer;
+        typedef ariles::cfgread::Visitor<bridge::rapidjson::Reader> Reader;
+        typedef ariles::cfgwrite::Visitor<bridge::rapidjson::Writer> Writer;
 
 #ifdef ARILES_BRIDGE_INCLUDED_jsonnet
         struct ARILES_VISIBILITY_ATTRIBUTE jsonnet
         {
-            typedef bridge::rapidjson::jsonnet::Reader Reader;
-            typedef bridge::rapidjson::jsonnet::Writer Writer;
+            typedef ariles::cfgread::Visitor<bridge::rapidjson::jsonnet::Reader> Reader;
+            typedef ariles::cfgwrite::Visitor<bridge::rapidjson::jsonnet::Writer> Writer;
         };
 #endif
     };

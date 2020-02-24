@@ -30,6 +30,7 @@
 #include "visitors/count.h"
 #include "visitors/read.h"
 #include "visitors/write.h"
+#include "visitors/config.h"
 
 
 // These defines are always necessary

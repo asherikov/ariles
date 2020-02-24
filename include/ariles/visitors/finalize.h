@@ -16,36 +16,28 @@ namespace ariles
 {
     namespace finalize
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Visitor
+        class Parameters
+        {
+        };
+
+
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::VisitorBase<finalize::Parameters>
         {
             public:
-                class Parameters
-                {
-                };
+                typedef finalize::Parameters Parameters;
 
 
             public:
-                const Parameters & getDefaultParameters() const
+                using visitor::VisitorBase<Parameters>::getDefaultParameters;
+
+                template<class t_Ariles>
+                    const Parameters & getParameters(const t_Ariles & ariles_class) const
                 {
-                    const static Parameters parameters;
-                    return parameters;
+                    return (ariles_class.arilesGetParameters(*this));
                 }
 
-
-                template<class t_Configurable>
-                    void startRoot( const t_Configurable &,
-                                    const Parameters &) const
-                {
-                    ARILES_TRACE_FUNCTION;
-                }
-
-
-                template<class t_Configurable>
-                    void finishRoot(t_Configurable &,
-                                    const Parameters &) const
-                {
-                    ARILES_TRACE_FUNCTION;
-                }
+                using visitor::VisitorBase<Parameters>::startRoot;
+                using visitor::VisitorBase<Parameters>::finishRoot;
 
 
                 template<class t_Entry>

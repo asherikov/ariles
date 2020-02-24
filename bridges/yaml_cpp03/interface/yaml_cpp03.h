@@ -17,8 +17,7 @@
 
 #include <ariles/internal/helpers.h>
 #include <ariles/internal/node.h>
-#include <ariles/visitors/read.h>
-#include <ariles/visitors/write.h>
+#include <ariles/visitors/config.h>
 
 #include <@ARILES_BRIDGE_yaml_cpp03_INCLUDE_HEADER@>
 
@@ -58,7 +57,7 @@ namespace ariles
      */
     struct ARILES_VISIBILITY_ATTRIBUTE yaml_cpp03
     {
-        typedef bridge::yaml_cpp03::Reader Reader;
-        typedef bridge::yaml_cpp03::Writer Writer;
+        typedef ariles::cfgread::Visitor<bridge::yaml_cpp03::Reader> Reader;
+        typedef ariles::cfgwrite::Visitor<bridge::yaml_cpp03::Writer> Writer;
     };
 }

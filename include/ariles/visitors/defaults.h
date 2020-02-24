@@ -17,52 +17,44 @@ namespace ariles
 {
     namespace defaults
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Visitor
+        class Parameters
         {
             public:
-                class Parameters
+                double default_double_value_;
+                float default_float_value_;
+
+            public:
+                Parameters()
                 {
-                    public:
-                        double default_double_value_;
-                        float default_float_value_;
+                    default_double_value_ = ARILES_DEFAULT_DOUBLE_VALUE;
+                    default_float_value_ = ARILES_DEFAULT_FLOAT_VALUE;
+                }
 
-                    public:
-                        Parameters()
-                        {
-                            default_double_value_ = ARILES_DEFAULT_DOUBLE_VALUE;
-                            default_float_value_ = ARILES_DEFAULT_FLOAT_VALUE;
-                        }
+                template<typename t_Scalar>
+                inline t_Scalar getDefault() const
+                {
+                    return 0;
+                }
+        };
 
-                        template<typename t_Scalar>
-                        inline t_Scalar getDefault() const
-                        {
-                            return 0;
-                        }
-                };
+
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::VisitorBase<defaults::Parameters>
+        {
+            public:
+                typedef defaults::Parameters Parameters;
 
 
             public:
-                const Parameters & getDefaultParameters() const
+                using visitor::VisitorBase<Parameters>::getDefaultParameters;
+
+                template<class t_Ariles>
+                    const Parameters & getParameters(const t_Ariles & ariles_class) const
                 {
-                    const static Parameters parameters;
-                    return parameters;
+                    return (ariles_class.arilesGetParameters(*this));
                 }
 
-
-                template<class t_Configurable>
-                    void startRoot( const t_Configurable &,
-                                    const Parameters &) const
-                {
-                    ARILES_TRACE_FUNCTION;
-                }
-
-
-                template<class t_Configurable>
-                    void finishRoot(const t_Configurable &,
-                                    const Parameters &) const
-                {
-                    ARILES_TRACE_FUNCTION;
-                }
+                using visitor::VisitorBase<Parameters>::startRoot;
+                using visitor::VisitorBase<Parameters>::finishRoot;
 
 
                 template<class t_Entry>

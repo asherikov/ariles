@@ -16,12 +16,15 @@ namespace ariles
 {
     namespace count
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Visitor
+        class Parameters
+        {
+        };
+
+
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::VisitorBase<count::Parameters>
         {
             public:
-                class Parameters
-                {
-                };
+                typedef count::Parameters Parameters;
 
 
             public:
@@ -37,15 +40,17 @@ namespace ariles
                 }
 
 
-                const Parameters & getDefaultParameters() const
+                using visitor::VisitorBase<Parameters>::getDefaultParameters;
+
+                template<class t_Ariles>
+                    const Parameters & getParameters(const t_Ariles & ariles_class) const
                 {
-                    const static Parameters parameters;
-                    return parameters;
+                    return (ariles_class.arilesGetParameters(*this));
                 }
 
 
-                template<class t_Configurable>
-                    void startRoot( const t_Configurable &,
+                template<class t_Ariles>
+                    void startRoot( const t_Ariles &,
                                     const Parameters &)
                 {
                     ARILES_TRACE_FUNCTION;
@@ -53,13 +58,7 @@ namespace ariles
                     descend_ = true;
                 }
 
-
-                template<class t_Configurable>
-                    void finishRoot(const t_Configurable &,
-                                    const Parameters &) const
-                {
-                    ARILES_TRACE_FUNCTION;
-                }
+                using visitor::VisitorBase<Parameters>::finishRoot;
 
 
                 template<class t_Entry>

@@ -131,14 +131,14 @@
              * Define constructors for the given class.
              */
             ARILES_CONSTRUCTOR(
-                    ariles::read::Visitor &reader,
+                    ariles::ReaderBase &reader,
                     const std::string &node_name)
             {
                 ARILES_TRACE_FUNCTION;
                 readConfig(reader, node_name, this->getArilesConfigurableFlags());
             }
             ARILES_CONSTRUCTOR(
-                    ariles::read::Visitor &reader,
+                    ariles::ReaderBase &reader,
                     const std::string &node_name,
                     const ariles::ConfigurableFlags & param)
             {
@@ -148,14 +148,14 @@
 
 
             explicit ARILES_CONSTRUCTOR(
-                    ariles::read::Visitor &reader)
+                    ariles::ReaderBase &reader)
             {
                 ARILES_TRACE_FUNCTION;
                 readConfig(reader, this->getArilesConfigurableFlags());
             }
             explicit ARILES_CONSTRUCTOR(
-                    ariles::read::Visitor &reader,
-                    const ariles::read::Visitor::Parameters & param)
+                    ariles::ReaderBase &reader,
+                    const ariles::ReaderBase::Parameters & param)
             {
                 ARILES_TRACE_FUNCTION;
                 readConfig(reader, param);
@@ -165,7 +165,7 @@
 
         using ariles::CommonConfigurableBase::readConfig;
 
-        void readConfig(ariles::read::Visitor  & reader,
+        void readConfig(ariles::ReaderBase  & reader,
                         const std::string   & node_name,
                         const ariles::ConfigurableFlags & param)
         {
@@ -173,7 +173,7 @@
             ariles::apply(reader, *this, node_name, param);
         }
 
-        void readConfig(ariles::read::Visitor & reader,
+        void readConfig(ariles::ReaderBase & reader,
                         const char          * node_name,
                         const ariles::ConfigurableFlags & param)
         {
@@ -184,7 +184,7 @@
 
         using ariles::CommonConfigurableBase::writeConfig;
 
-        void writeConfig(   ariles::write::Visitor & writer,
+        void writeConfig(   ariles::WriterBase & writer,
                             const std::string &node_name,
                             const ariles::ConfigurableFlags & param) const
         {
@@ -192,7 +192,7 @@
             ariles::apply(writer, *this, node_name, param);
         }
 
-        void writeConfig(   ariles::write::Visitor & writer,
+        void writeConfig(   ariles::WriterBase & writer,
                             const char *node_name,
                             const ariles::ConfigurableFlags & param) const
         {

@@ -2,7 +2,7 @@
     @file
     @author  Alexander Sherikov
 
-    @copyright 2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
+    @copyright 2017-2020 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
 
     @brief
@@ -16,10 +16,9 @@ namespace ariles
 {
     namespace write
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Visitor
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::VisitorBase<ariles::ConfigurableFlags>
         {
             public:
-                typedef int WriterIndicatorType;
                 typedef ariles::ConfigurableFlags Parameters;
 
 
@@ -40,22 +39,24 @@ namespace ariles
 
 
             public:
-                const Parameters & getDefaultParameters() const
+                using visitor::VisitorBase<Parameters>::getDefaultParameters;
+
+                template<class t_Ariles>
+                    const Parameters & getParameters(const t_Ariles & ariles_class) const
                 {
-                    const static Parameters parameters;
-                    return parameters;
+                    return (ariles_class.arilesGetParameters(*this));
                 }
 
 
-                template<class t_Configurable>
-                    void startRoot(const t_Configurable &, const Parameters &)
+                template<class t_Ariles>
+                    void startRoot(const t_Ariles &, const Parameters &)
                 {
                     ARILES_TRACE_FUNCTION;
                     initRoot();
                 }
 
-                template<class t_Configurable>
-                    void finishRoot(const t_Configurable &, const Parameters &)
+                template<class t_Ariles>
+                    void finishRoot(const t_Ariles &, const Parameters &)
                 {
                     ARILES_TRACE_FUNCTION;
                     flush();

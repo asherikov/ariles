@@ -16,8 +16,7 @@
 
 #include <ariles/internal/helpers.h>
 #include <ariles/internal/node.h>
-#include <ariles/visitors/read.h>
-#include <ariles/visitors/write.h>
+#include <ariles/visitors/config.h>
 
 #include <msgpack.hpp>
 
@@ -60,13 +59,13 @@ namespace ariles
      */
     struct ARILES_VISIBILITY_ATTRIBUTE msgpack
     {
-        typedef bridge::msgpack::Reader Reader;
-        typedef bridge::msgpack::Writer Writer;
+        typedef ariles::cfgread::Visitor<bridge::msgpack::Reader> Reader;
+        typedef ariles::cfgwrite::Visitor<bridge::msgpack::Writer> Writer;
 
         struct ARILES_VISIBILITY_ATTRIBUTE compact
         {
-            typedef bridge::msgpack::compact::Reader Reader;
-            typedef bridge::msgpack::compact::Writer Writer;
+            typedef ariles::cfgread::Visitor<bridge::msgpack::compact::Reader> Reader;
+            typedef ariles::cfgwrite::Visitor<bridge::msgpack::compact::Writer> Writer;
         };
     };
 }

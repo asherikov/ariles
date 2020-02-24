@@ -13,7 +13,7 @@
 
 #include <ariles/internal/helpers.h>
 #include <ariles/internal/node.h>
-#include <ariles/visitors/write.h>
+#include <ariles/visitors/config.h>
 
 #include "./octave/writer.h"
 
@@ -28,6 +28,6 @@ namespace ariles
      */
     struct ARILES_VISIBILITY_ATTRIBUTE octave
     {
-        typedef bridge::octave::Writer Writer;
+        typedef ariles::cfgwrite::Visitor<bridge::octave::Writer> Writer;
     };
 }

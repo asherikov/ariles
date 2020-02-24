@@ -13,8 +13,7 @@
 
 #include <ariles/internal/helpers.h>
 #include <ariles/internal/node.h>
-#include <ariles/visitors/read.h>
-#include <ariles/visitors/write.h>
+#include <ariles/visitors/config.h>
 
 
 #include <boost/lexical_cast.hpp>
@@ -79,7 +78,7 @@ namespace ariles
      */
     struct ARILES_VISIBILITY_ATTRIBUTE pugixml
     {
-        typedef bridge::pugixml::Reader Reader;
-        typedef bridge::pugixml::Writer Writer;
+        typedef ariles::cfgread::Visitor<bridge::pugixml::Reader> Reader;
+        typedef ariles::cfgwrite::Visitor<bridge::pugixml::Writer> Writer;
     };
 }

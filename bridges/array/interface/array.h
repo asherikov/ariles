@@ -13,7 +13,7 @@
 
 #include <ariles/internal/helpers.h>
 #include <ariles/internal/node.h>
-#include <ariles/visitors/write.h>
+#include <ariles/visitors/config.h>
 
 #include "./array/writer.h"
 
@@ -28,6 +28,6 @@ namespace ariles
      */
     struct ARILES_VISIBILITY_ATTRIBUTE array
     {
-        typedef bridge::array::Writer Writer;
+        typedef ariles::cfgwrite::Visitor<bridge::array::Writer> Writer;
     };
 }

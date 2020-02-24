@@ -103,8 +103,8 @@
                 virtual const ConfigurableFlags &getArilesConfigurableFlags() const = 0;
 
 
-                virtual void readConfigEntries( ariles::read::Visitor & visitor,
-                                                const ariles::read::Visitor::Parameters & parameters)
+                virtual void readConfigEntries( ariles::ReaderBase & visitor,
+                                                const ariles::ReaderBase::Parameters & parameters)
                 {
                     ARILES_TRACE_FUNCTION;
                     arilesVirtualVisit(visitor, parameters);
@@ -117,13 +117,13 @@
                  *
                  * @param[in] reader configuration reader
                  */
-                void readConfig(ariles::read::Visitor & reader, const ariles::ConfigurableFlags & param)
+                void readConfig(ariles::ReaderBase & reader, const ariles::ConfigurableFlags & param)
                 {
                     ARILES_TRACE_FUNCTION;
                     this->readConfig(reader, this->getConfigSectionID(), param);
                 }
 
-                void readConfig(ariles::read::Visitor & reader)
+                void readConfig(ariles::ReaderBase & reader)
                 {
                     ARILES_TRACE_FUNCTION;
                     this->readConfig(reader, this->getConfigSectionID(), this->getArilesConfigurableFlags());
@@ -140,11 +140,11 @@
                  * @note Intercept implicit conversion of a pointer to bool.
                  */
                 #define ARILES_READ_CONFIG(NameType) \
-                        virtual void readConfig(ariles::read::Visitor  &   reader, \
-                                                NameType                    node_name, \
-                                                const ariles::read::Visitor::Parameters & param) = 0; \
-                        void readConfig(ariles::read::Visitor  &   reader, \
-                                        NameType                    node_name) \
+                        virtual void readConfig(ariles::ReaderBase  &   reader, \
+                                                NameType                node_name, \
+                                                const ariles::ReaderBase::Parameters & param) = 0; \
+                        void readConfig(ariles::ReaderBase  &   reader, \
+                                        NameType                node_name) \
                         { \
                             ARILES_TRACE_FUNCTION; \
                             this->readConfig(reader, node_name, this->getArilesConfigurableFlags()); \
@@ -282,12 +282,12 @@
                  *
                  * @param[in,out] writer configuration writer
                  */
-                void writeConfig(   ariles::write::Visitor & writer,
+                void writeConfig(   ariles::WriterBase & writer,
                                     const ariles::ConfigurableFlags & param) const
                 {
                     this->writeConfig(writer, this->getConfigSectionID(), param);
                 }
-                void writeConfig(ariles::write::Visitor & writer) const
+                void writeConfig(ariles::WriterBase & writer) const
                 {
                     this->writeConfig(writer, this->getConfigSectionID(), this->getArilesConfigurableFlags());
                 }
@@ -300,10 +300,10 @@
                  * @param[in] node_name   node name, the default is used if empty
                  */
                 #define ARILES_WRITE_CONFIG(NameType) \
-                        virtual void writeConfig(   ariles::write::Visitor & writer, \
+                        virtual void writeConfig(   ariles::WriterBase & writer, \
                                                     NameType node_name, \
                                                     const ariles::ConfigurableFlags & param) const = 0; \
-                        void writeConfig(   ariles::write::Visitor & writer, \
+                        void writeConfig(   ariles::WriterBase & writer, \
                                             NameType node_name) const \
                         { \
                             this->writeConfig(writer, node_name, this->getArilesConfigurableFlags()); \
@@ -316,8 +316,8 @@
 
 
 
-                virtual void writeConfigEntries(ariles::write::Visitor & visitor,
-                                                const ariles::write::Visitor::Parameters & param) const
+                virtual void writeConfigEntries(ariles::WriterBase & visitor,
+                                                const ariles::WriterBase::Parameters & param) const
                 {
                     ARILES_TRACE_FUNCTION;
                     arilesVirtualVisit(visitor, param);

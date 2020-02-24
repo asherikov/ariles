@@ -27,11 +27,15 @@ namespace ariles_tests
                 t_Configurable configurable;
 
                 typename t_Bridge::Writer writer(getWriterInitializer("configurable.cfg"));
-                BOOST_CHECK_EQUAL(configurable.getExpectedConfigurableFlags().flags_, configurable.arilesGetParameters(writer).flags_);
+                BOOST_CHECK_EQUAL(
+                        configurable.getExpectedConfigurableFlags().flags_,
+                        configurable.arilesGetParameters(writer.getWriter()).flags_);
                 ariles::apply(writer, configurable);
 
                 typename t_Bridge::Reader reader(getReaderInitializer("configurable.cfg"));
-                BOOST_CHECK_EQUAL(configurable.getExpectedConfigurableFlags().flags_, configurable.arilesGetParameters(reader).flags_);
+                BOOST_CHECK_EQUAL(
+                        configurable.getExpectedConfigurableFlags().flags_,
+                        configurable.arilesGetParameters(reader.getReader()).flags_);
             }
     };
 }
