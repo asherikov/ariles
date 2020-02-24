@@ -17,7 +17,7 @@ namespace ariles_tests
      * @brief Verbose definition of a configurable class (with explicit declaration
      * of members)
      */
-    class ConfigurableVerbose : public ariles::Base
+    class ConfigurableVerbose : public ariles::DefaultBase
     {
         #define ARILES_DEFAULT_ID "unique_id_on_a_particular_level_in_a_configuration_file"
         #define ARILES_ENTRIES \
@@ -34,12 +34,12 @@ namespace ariles_tests
         public:
             ConfigurableVerbose()
             {
-                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::Defaults>(*this);
             }
 
 
-            void arilesVisit(   const ariles::defaults::Visitor &/*visitor*/,
-                                const ariles::defaults::Visitor::Parameters &/*param*/)
+            void arilesVisit(   const ariles::Defaults &/*visitor*/,
+                                const ariles::Defaults::Parameters &/*param*/)
             {
                 integer_ = 10;
                 real_ = 1.33;
@@ -52,7 +52,7 @@ namespace ariles_tests
                 boost::random::random_device random_generator;
                 integer_ = GET_RANDOM_INT;
                 real_    = GET_RANDOM_REAL;
-                ariles::apply<ariles::finalize::Visitor>(*this);
+                ariles::apply<ariles::Finalize>(*this);
             }
 #endif
     };

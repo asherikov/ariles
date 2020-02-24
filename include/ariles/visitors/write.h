@@ -140,7 +140,13 @@ namespace ariles
         };
 
 #ifndef ARILES_METHODS_write
-#   define ARILES_METHODS_write ARILES_METHODS(ariles::write::Visitor, const)
+#   define ARILES_METHODS_write \
+        ARILES_METHODS(ariles::write::Visitor, const) \
+        using ariles::write::Base::arilesVirtualVisit; \
+        using ariles::write::Base::arilesGetParameters;
 #endif
     }
+
+
+    typedef write::Visitor Write;
 }

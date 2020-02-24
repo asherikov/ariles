@@ -13,7 +13,7 @@
 
 namespace ariles_tests
 {
-    class ConfigurableStrictness1 : public ariles::Base
+    class ConfigurableStrictness1 : public ariles::DefaultBase
     {
         #define ARILES_DEFAULT_ID "unique_id_on_a_particular_level_in_a_configuration_file"
         #define ARILES_CONSTRUCTOR ConfigurableStrictness1
@@ -25,15 +25,15 @@ namespace ariles_tests
         public:
             ConfigurableStrictness1()
             {
-                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::Defaults>(*this);
             }
 
 
             /**
              * @brief This method must be defined
              */
-            void arilesVisit(   const ariles::defaults::Visitor &/*visitor*/,
-                                const ariles::defaults::Visitor::Parameters &/*param*/)
+            void arilesVisit(   const ariles::Defaults &/*visitor*/,
+                                const ariles::Defaults::Parameters &/*param*/)
             {
                 real_ = 1.33;
             }
@@ -52,15 +52,15 @@ namespace ariles_tests
         public:
             ConfigurableStrictness2()
             {
-                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::Defaults>(*this);
             }
 
 
             /**
              * @brief This method must be defined
              */
-            void arilesVisit(   const ariles::defaults::Visitor &visitor,
-                                const ariles::defaults::Visitor::Parameters &param)
+            void arilesVisit(   const ariles::Defaults &visitor,
+                                const ariles::Defaults::Parameters &param)
             {
                 integer_ = 10;
                 ConfigurableStrictness1::arilesVisit(visitor, param);

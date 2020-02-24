@@ -14,7 +14,7 @@
 namespace ariles_tests
 {
     template<class t_Scalar>
-    class ConfigurableMember : virtual public ariles::Base
+    class ConfigurableMember : virtual public ariles::DefaultBase
     {
         #define ARILES_DEFAULT_ID "ConfigurableMember"
         #define ARILES_ENTRIES \
@@ -26,14 +26,14 @@ namespace ariles_tests
         public:
             ConfigurableMember()
             {
-                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::Defaults>(*this);
             }
 
             virtual ~ConfigurableMember() {}
 
 
-            void arilesVisit(   const ariles::defaults::Visitor &/*visitor*/,
-                                const ariles::defaults::Visitor::Parameters &/*param*/)
+            void arilesVisit(   const ariles::Defaults &/*visitor*/,
+                                const ariles::Defaults::Parameters &/*param*/)
             {
                 integer_ = 10;
                 real_ = 1.33;
@@ -46,7 +46,7 @@ namespace ariles_tests
                 boost::random::random_device random_generator;
                 integer_ = GET_RANDOM_INT;
                 real_    = GET_RANDOM_REAL;
-                ariles::apply<ariles::finalize::Visitor>(*this);
+                ariles::apply<ariles::Finalize>(*this);
             }
 #endif
     };
@@ -64,14 +64,14 @@ namespace ariles_tests
         public:
             ConfigurableMember1()
             {
-                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::Defaults>(*this);
             }
 
             virtual ~ConfigurableMember1() {}
 
 
-            void arilesVisit(   const ariles::defaults::Visitor &visitor,
-                                const ariles::defaults::Visitor::Parameters &param)
+            void arilesVisit(   const ariles::Defaults &visitor,
+                                const ariles::Defaults::Parameters &param)
             {
                 visitor(member_, "member", param);
             }
@@ -82,13 +82,13 @@ namespace ariles_tests
             {
                 boost::random::random_device random_generator;
                 member_.randomize();
-                ariles::apply<ariles::finalize::Visitor>(*this);
+                ariles::apply<ariles::Finalize>(*this);
             }
 #endif
     };
 
 
-    class ConfigurableBase : virtual public ariles::Base
+    class ConfigurableBase : virtual public ariles::DefaultBase
     {
         #define ARILES_DEFAULT_ID "ConfigurableBase"
         #define ARILES_ENTRIES \
@@ -99,14 +99,14 @@ namespace ariles_tests
         public:
             ConfigurableBase()
             {
-                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::Defaults>(*this);
             }
 
             virtual ~ConfigurableBase() {}
 
 
-            void arilesVisit(   const ariles::defaults::Visitor &visitor,
-                                const ariles::defaults::Visitor::Parameters &param)
+            void arilesVisit(   const ariles::Defaults &visitor,
+                                const ariles::Defaults::Parameters &param)
             {
                 visitor(member_, "member", param);
             }
@@ -117,7 +117,7 @@ namespace ariles_tests
             {
                 boost::random::random_device random_generator;
                 member_.randomize();
-                ariles::apply<ariles::finalize::Visitor>(*this);
+                ariles::apply<ariles::Finalize>(*this);
             }
 #endif
     };
@@ -137,12 +137,12 @@ namespace ariles_tests
         public:
             ConfigurableDerived()
             {
-                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::Defaults>(*this);
             }
 
 
-            void arilesVisit(   const ariles::defaults::Visitor &visitor,
-                                const ariles::defaults::Visitor::Parameters &param)
+            void arilesVisit(   const ariles::Defaults &visitor,
+                                const ariles::Defaults::Parameters &param)
             {
                 visitor(another_member_, "another_member", param);
                 visitor(another_member1_, "another_member1", param);
@@ -159,7 +159,7 @@ namespace ariles_tests
                 another_member1_.randomize();
                 ConfigurableBase::randomize();
                 ConfigurableMember<int>::randomize();
-                ariles::apply<ariles::finalize::Visitor>(*this);
+                ariles::apply<ariles::Finalize>(*this);
             }
 #endif
     };

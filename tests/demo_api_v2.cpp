@@ -40,8 +40,8 @@
 namespace demo
 {
     class ArilesBaseClass
-        // must inherit from ariles::Base
-        : public ariles::Base
+        // must inherit from ariles::DefaultBase
+        : public ariles::DefaultBase
     {
         // Unique entry name, to be safe use only alphanumeric characters and underscores
         #define ARILES_DEFAULT_ID "ArilesBaseClass"
@@ -62,8 +62,8 @@ namespace demo
 
             // This method is called every time you deserialize a class. If
             // omitted, the default automatically generated method is used.
-            void arilesVisit(   const ariles::defaults::Visitor &/*visitor*/,
-                                const ariles::defaults::Visitor::Parameters &/*param*/)
+            void arilesVisit(   const ariles::Defaults &/*visitor*/,
+                                const ariles::Defaults::Parameters &/*param*/)
             {
                 real_member = 0.0;
                 integer_member_ = 12;
@@ -101,8 +101,8 @@ namespace demo
             virtual ~MyClass(){}; // added to suppress compiler warnings
 
 
-            void arilesVisit(   const ariles::defaults::Visitor & visitor,
-                                const ariles::defaults::Visitor::Parameters & param)
+            void arilesVisit(   const ariles::Defaults & visitor,
+                                const ariles::Defaults::Parameters & param)
             {
                 // If you use your own method to initialize member variables,
                 // it is up to you to properly initialize all entries and
@@ -117,7 +117,7 @@ namespace demo
 
 
     class MyContainerClass
-        :   public ariles::Base
+        :   public ariles::DefaultBase
     {
         #define ARILES_DEFAULT_ID "MyContainerClass"
 
@@ -144,7 +144,7 @@ int main()
     // access members as usual
     my_container_class.myclass_vector_.size();
     my_container_class.myclass_vector_.push_back(demo::MyClass());
-    ariles::apply<ariles::defaults::Visitor>(my_container_class.myclass_vector_[0]);
+    ariles::apply<ariles::Defaults>(my_container_class.myclass_vector_[0]);
 
 
     // YAML

@@ -17,7 +17,7 @@ namespace ariles_tests
     /**
      * @brief Configurable class without extra constructors.
      */
-    class ConfigurableEmpty : public ariles::Base
+    class ConfigurableEmpty : public ariles::DefaultBase
     {
         #define ARILES_DEFAULT_ID "unique_id_on_a_particular_level_in_a_configuration_file"
         #define ARILES_ENTRIES
@@ -27,22 +27,22 @@ namespace ariles_tests
         public:
             ConfigurableEmpty()
             {
-                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::Defaults>(*this);
             }
 
 
             /**
              * @brief This method must be defined
              */
-            void arilesVisit(   const ariles::defaults::Visitor &/*visitor*/,
-                                const ariles::defaults::Visitor::Parameters &/*param*/)
+            void arilesVisit(   const ariles::Defaults &/*visitor*/,
+                                const ariles::Defaults::Parameters &/*param*/)
             {
             }
 
 
             void randomize()
             {
-                ariles::apply<ariles::finalize::Visitor>(*this);
+                ariles::apply<ariles::Finalize>(*this);
             }
     };
 }

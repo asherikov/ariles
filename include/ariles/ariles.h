@@ -55,7 +55,7 @@
         /**
          * @brief Configurable base class.
          */
-        class ARILES_VISIBILITY_ATTRIBUTE CommonConfigurableBase : public ariles::Base
+        class ARILES_VISIBILITY_ATTRIBUTE CommonConfigurableBase : public ariles::DefaultBase
         {
             protected:
                 /**

@@ -177,4 +177,7 @@ namespace ariles
         }
 #endif
     }  // namespace compare
+
+
+    typedef compare::Visitor Compare;
 }  // namespace ariles

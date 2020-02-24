@@ -14,7 +14,7 @@
 
 namespace ariles_tests
 {
-    class ConfigurableComplex : public ariles::Base, public ConfigurableComplexBase<ConfigurableComplex>
+    class ConfigurableComplex : public ariles::DefaultBase, public ConfigurableComplexBase<ConfigurableComplex>
     {
         #define ARILES_DEFAULT_ID "ConfigurableComplex"
 
@@ -71,13 +71,13 @@ namespace ariles_tests
         public:
             ConfigurableComplex()
             {
-                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::Defaults>(*this);
             }
 
             virtual ~ConfigurableComplex() {}
 
-            void arilesVisit(   const ariles::defaults::Visitor &visitor,
-                                const ariles::defaults::Visitor::Parameters &param)
+            void arilesVisit(   const ariles::Defaults &visitor,
+                                const ariles::Defaults::Parameters &param)
             {
                 ConfigurableComplexBase<ConfigurableComplex>::arilesVisit(visitor, param);
             }

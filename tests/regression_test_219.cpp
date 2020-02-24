@@ -41,8 +41,8 @@ BOOST_FIXTURE_TEST_CASE( CompareComplex, ariles_tests::DummyFixture )
     ariles_tests::ConfigurableComplex configurable1, configurable2;
 
 
-    ariles::compare::Visitor visitor;
-    ariles::compare::Visitor::Parameters param;
+    ariles::Compare visitor;
+    ariles::Compare::Parameters param;
     param.double_tolerance_ = g_tolerance;
     param.compare_number_of_entries_ = true;
     param.throw_on_error_ = false;
@@ -177,28 +177,28 @@ BOOST_FIXTURE_TEST_CASE( SpecialFloats, ariles_tests::DummyFixture )
     ariles_tests::ConfigurableSpecialFloats configurable1, configurable2;
 
 
-    ariles::compare::Visitor visitor;
-    ariles::compare::Visitor::Parameters param;
+    ariles::Compare visitor;
+    ariles::Compare::Parameters param;
     param.double_tolerance_ = g_tolerance;
     param.compare_number_of_entries_ = true;
     param.throw_on_error_ = false;
 
 
-    ariles::apply<ariles::defaults::Visitor>(configurable1);
+    ariles::apply<ariles::Defaults>(configurable1);
     configurable2 = configurable1;
     configurable1.float_quiet_nan_ = std::numeric_limits<float>::quiet_NaN();
     BOOST_CHECK(false == visitor.compare(configurable1, configurable2, param));
     configurable2 = configurable1;
     BOOST_CHECK(visitor.compare(configurable1, configurable2, param));
 
-    ariles::apply<ariles::defaults::Visitor>(configurable1);
+    ariles::apply<ariles::Defaults>(configurable1);
     configurable2 = configurable1;
     configurable1.float_signaling_nan_ = std::numeric_limits<float>::signaling_NaN();
     BOOST_CHECK(false == visitor.compare(configurable1, configurable2, param));
     configurable2 = configurable1;
     BOOST_CHECK(visitor.compare(configurable1, configurable2, param));
 
-    ariles::apply<ariles::defaults::Visitor>(configurable1);
+    ariles::apply<ariles::Defaults>(configurable1);
     configurable2 = configurable1;
     configurable1.float_positive_infinity_ = std::numeric_limits<float>::infinity();
     BOOST_CHECK(false == visitor.compare(configurable1, configurable2, param));
@@ -207,7 +207,7 @@ BOOST_FIXTURE_TEST_CASE( SpecialFloats, ariles_tests::DummyFixture )
     configurable2 = configurable1;
     BOOST_CHECK(visitor.compare(configurable1, configurable2, param));
 
-    ariles::apply<ariles::defaults::Visitor>(configurable1);
+    ariles::apply<ariles::Defaults>(configurable1);
     configurable2 = configurable1;
     configurable1.float_negative_infinity_ = - std::numeric_limits<float>::infinity();
     BOOST_CHECK(false == visitor.compare(configurable1, configurable2, param));
@@ -215,21 +215,21 @@ BOOST_FIXTURE_TEST_CASE( SpecialFloats, ariles_tests::DummyFixture )
     BOOST_CHECK(visitor.compare(configurable1, configurable2, param));
 
 
-    ariles::apply<ariles::defaults::Visitor>(configurable1);
+    ariles::apply<ariles::Defaults>(configurable1);
     configurable2 = configurable1;
     configurable1.double_quiet_nan_ = std::numeric_limits<double>::quiet_NaN();
     BOOST_CHECK(false == visitor.compare(configurable1, configurable2, param));
     configurable2 = configurable1;
     BOOST_CHECK(visitor.compare(configurable1, configurable2, param));
 
-    ariles::apply<ariles::defaults::Visitor>(configurable1);
+    ariles::apply<ariles::Defaults>(configurable1);
     configurable2 = configurable1;
     configurable1.double_signaling_nan_ = std::numeric_limits<double>::signaling_NaN();
     BOOST_CHECK(false == visitor.compare(configurable1, configurable2, param));
     configurable2 = configurable1;
     BOOST_CHECK(visitor.compare(configurable1, configurable2, param));
 
-    ariles::apply<ariles::defaults::Visitor>(configurable1);
+    ariles::apply<ariles::Defaults>(configurable1);
     configurable2 = configurable1;
     configurable1.double_positive_infinity_ = std::numeric_limits<double>::infinity();
     BOOST_CHECK(false == visitor.compare(configurable1, configurable2, param));
@@ -238,7 +238,7 @@ BOOST_FIXTURE_TEST_CASE( SpecialFloats, ariles_tests::DummyFixture )
     configurable2 = configurable1;
     BOOST_CHECK(visitor.compare(configurable1, configurable2, param));
 
-    ariles::apply<ariles::defaults::Visitor>(configurable1);
+    ariles::apply<ariles::Defaults>(configurable1);
     configurable2 = configurable1;
     configurable1.double_negative_infinity_ = - std::numeric_limits<double>::infinity();
     BOOST_CHECK(false == visitor.compare(configurable1, configurable2, param));

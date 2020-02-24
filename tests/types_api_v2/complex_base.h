@@ -23,8 +23,8 @@ namespace ariles_tests
 
 
         public:
-            void arilesVisit(   const ariles::defaults::Visitor &/*visitor*/,
-                                const ariles::defaults::Visitor::Parameters &/*param*/)
+            void arilesVisit(   const ariles::Defaults &/*visitor*/,
+                                const ariles::Defaults::Parameters &/*param*/)
             {
                 t_ConfigurableComplex &impl = static_cast<t_ConfigurableComplex &>(*this);
 
@@ -179,7 +179,7 @@ namespace ariles_tests
                 impl.quaternion_.w() = GET_RANDOM_REAL;
 #   endif
 
-                ariles::apply<ariles::finalize::Visitor>(impl);
+                ariles::apply<ariles::Finalize>(impl);
             }
 #endif
     };

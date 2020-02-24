@@ -23,7 +23,7 @@ namespace testlib1
      * @brief Verbose definition of a configurable class (with explicit declaration
      * of members)
      */
-    class ConfigurableVerbose : public ariles::Base
+    class ConfigurableVerbose : public ariles::DefaultBase
     {
         #define ARILES_DEFAULT_ID "unique_id_on_a_particular_level_in_a_configuration_file"
         #define ARILES_ENTRIES \
@@ -40,12 +40,12 @@ namespace testlib1
         public:
             ConfigurableVerbose()
             {
-                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::Defaults>(*this);
             }
 
 
-            void arilesVisit(   const ariles::defaults::Visitor &/*visitor*/,
-                                const ariles::defaults::Visitor::Parameters &/*param*/)
+            void arilesVisit(   const ariles::Defaults &/*visitor*/,
+                                const ariles::Defaults::Parameters &/*param*/)
             {
                 integer_ = 10;
                 real_ = 1.33;

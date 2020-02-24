@@ -42,8 +42,8 @@ namespace ariles_tests
 
                 compare(configurable_out, configurable_in);
 
-                ariles::compare::Visitor visitor;
-                ariles::compare::Visitor::Parameters param;
+                ariles::Compare visitor;
+                ariles::Compare::Parameters param;
                 param.double_tolerance_ = g_tolerance;
                 param.compare_number_of_entries_ = true;
                 param.throw_on_error_ = true;
@@ -92,8 +92,8 @@ namespace ariles_tests
                 compare(configurable_out1, configurable_in1);
                 compare(configurable_out2, configurable_in2);
 
-                ariles::compare::Visitor visitor;
-                ariles::compare::Visitor::Parameters param;
+                ariles::Compare visitor;
+                ariles::Compare::Parameters param;
                 param.double_tolerance_ = g_tolerance;
                 param.compare_number_of_entries_ = true;
                 param.throw_on_error_ = true;

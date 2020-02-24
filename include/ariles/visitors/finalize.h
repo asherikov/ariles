@@ -63,7 +63,13 @@ namespace ariles
 
 
 #ifndef ARILES_METHODS_finalize
-#   define ARILES_METHODS_finalize ARILES_METHODS(const ariles::finalize::Visitor, ARILES_EMPTY_MACRO)
+#   define ARILES_METHODS_finalize \
+        ARILES_METHODS(const ariles::finalize::Visitor, ARILES_EMPTY_MACRO) \
+        using ariles::finalize::Base::arilesVirtualVisit; \
+        using ariles::finalize::Base::arilesGetParameters;
 #endif
     }
+
+
+    typedef finalize::Visitor Finalize;
 }

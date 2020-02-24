@@ -11,7 +11,7 @@
 #include <iostream>
 namespace ariles_tests
 {
-    class ConfigurablePointersScalar : public ariles::Base
+    class ConfigurablePointersScalar : public ariles::DefaultBase
     {
         #define ARILES_DEFAULT_ID "ConfigurablePointersScalar"
 
@@ -68,11 +68,11 @@ namespace ariles_tests
         public:
             ConfigurablePointersScalar()
             {
-                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::Defaults>(*this);
             }
 
-            void arilesVisit(   const ariles::defaults::Visitor &/*visitor*/,
-                                const ariles::defaults::Visitor::Parameters &/*param*/)
+            void arilesVisit(   const ariles::Defaults &/*visitor*/,
+                                const ariles::Defaults::Parameters &/*param*/)
             {
 #if __cplusplus >= 201103L
                 std_shared_ptr_real_.reset();

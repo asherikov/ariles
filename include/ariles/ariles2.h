@@ -60,7 +60,7 @@
     namespace ariles
     {
         /// @todo variadic template
-        class ARILES_VISIBILITY_ATTRIBUTE Base
+        class ARILES_VISIBILITY_ATTRIBUTE DefaultBase
             :   public ariles::defaults::Base,
                 public ariles::finalize::Base,
                 public ariles::count::Base,
@@ -72,8 +72,8 @@
                  * @brief Protected destructor: prevent destruction of the child
                  * classes through a base pointer.
                  */
-                ~Base() {}
-                Base() {}
+                ~DefaultBase() {}
+                DefaultBase() {}
 
 
             public:
@@ -107,15 +107,15 @@
     namespace ariles
     {
         // Some classes may inherit from this
-        class ARILES_VISIBILITY_ATTRIBUTE Base
+        class ARILES_VISIBILITY_ATTRIBUTE DefaultBase
         {
             protected:
                 /**
                  * @brief Protected destructor: prevent destruction of derived
                  * classes via base pointer.
                  */
-                ~Base() {}
-                Base() {}
+                ~DefaultBase() {}
+                DefaultBase() {}
 
             public:
         };

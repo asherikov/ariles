@@ -13,7 +13,7 @@
 
 namespace ariles_tests
 {
-    class ConfigurableFlags1 : public ariles::Base
+    class ConfigurableFlags1 : public ariles::DefaultBase
     {
         #define ARILES_DEFAULT_ID "ConfigurableFlags1"
         #define ARILES_ENTRIES \
@@ -31,18 +31,18 @@ namespace ariles_tests
                             | ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED));
             }
 
-            virtual const ariles::read::Visitor::Parameters &arilesGetParameters(const ariles::read::Visitor &) const
+            virtual const ariles::Read::Parameters &arilesGetParameters(const ariles::Read &) const
             {
-                static ariles::read::Visitor::Parameters flags(
+                static ariles::Read::Parameters flags(
                             ariles::ConfigurableFlags::DEFAULT
                             | ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
                             | ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED);
                 return (flags);
             }
 
-            virtual const ariles::write::Visitor::Parameters &arilesGetParameters(const ariles::write::Visitor &) const
+            virtual const ariles::Write::Parameters &arilesGetParameters(const ariles::Write &) const
             {
-                static ariles::write::Visitor::Parameters flags(
+                static ariles::Write::Parameters flags(
                             ariles::ConfigurableFlags::DEFAULT
                             | ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
                             | ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED);
@@ -51,7 +51,7 @@ namespace ariles_tests
     };
 
 
-    class ConfigurableFlags2 : public ariles::Base
+    class ConfigurableFlags2 : public ariles::DefaultBase
     {
         #define ARILES_DEFAULT_ID "ConfigurableFlags2"
         #define ARILES_ENTRIES \
@@ -70,18 +70,18 @@ namespace ariles_tests
                             & ~ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED));
             }
 
-            virtual const ariles::read::Visitor::Parameters &arilesGetParameters(const ariles::read::Visitor &) const
+            virtual const ariles::Read::Parameters &arilesGetParameters(const ariles::Read &) const
             {
-                static ariles::read::Visitor::Parameters flags(
+                static ariles::Read::Parameters flags(
                             ariles::ConfigurableFlags::DEFAULT
                             & ~ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
                             & ~ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED);
                 return (flags);
             }
 
-            virtual const ariles::write::Visitor::Parameters &arilesGetParameters(const ariles::write::Visitor &) const
+            virtual const ariles::Write::Parameters &arilesGetParameters(const ariles::Write &) const
             {
-                static ariles::write::Visitor::Parameters flags(
+                static ariles::Write::Parameters flags(
                             ariles::ConfigurableFlags::DEFAULT
                             & ~ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
                             & ~ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED);

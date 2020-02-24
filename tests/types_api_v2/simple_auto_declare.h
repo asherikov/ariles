@@ -13,7 +13,7 @@
 
 namespace ariles_tests
 {
-    class ConfigurableAutoDeclare : public ariles::Base
+    class ConfigurableAutoDeclare : public ariles::DefaultBase
     {
         #define ARILES_DEFAULT_ID "unique_id_on_a_particular_level_in_a_configuration_file"
         // optional, but what is the point in omitting it?
@@ -28,12 +28,12 @@ namespace ariles_tests
         public:
             ConfigurableAutoDeclare()
             {
-                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::Defaults>(*this);
             }
 
 
-            void arilesVisit(   const ariles::defaults::Visitor &/*visitor*/,
-                                const ariles::defaults::Visitor::Parameters &/*param*/)
+            void arilesVisit(   const ariles::Defaults &/*visitor*/,
+                                const ariles::Defaults::Parameters &/*param*/)
             {
                 integer_ = 10;
                 real_ = 1.33;
@@ -46,7 +46,7 @@ namespace ariles_tests
                 boost::random::random_device random_generator;
                 integer_ = GET_RANDOM_INT;
                 real_    = GET_RANDOM_REAL;
-                ariles::apply<ariles::finalize::Visitor>(*this);
+                ariles::apply<ariles::Finalize>(*this);
             }
 #endif
     };

@@ -11,7 +11,7 @@
 
 namespace ariles_tests
 {
-    class ConfigurableSpecialFloats : virtual public ariles::Base
+    class ConfigurableSpecialFloats : virtual public ariles::DefaultBase
     {
         #define ARILES_DEFAULT_ID "ConfigurableSpecialFloats"
         #define ARILES_ENTRIES \
@@ -32,14 +32,14 @@ namespace ariles_tests
         public:
             ConfigurableSpecialFloats()
             {
-                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::Defaults>(*this);
             }
 
             virtual ~ConfigurableSpecialFloats() {}
 
 
-            void arilesVisit(   const ariles::defaults::Visitor &/*visitor*/,
-                                const ariles::defaults::Visitor::Parameters &/*param*/)
+            void arilesVisit(   const ariles::Defaults &/*visitor*/,
+                                const ariles::Defaults::Parameters &/*param*/)
             {
                 finalized_ = false;
 
@@ -73,8 +73,8 @@ namespace ariles_tests
             }
 #endif
 
-            void arilesVisit(   const ariles::finalize::Visitor & /*visitor*/,
-                                const ariles::finalize::Visitor::Parameters & /*param*/)
+            void arilesVisit(   const ariles::Finalize & /*visitor*/,
+                                const ariles::Finalize::Parameters & /*param*/)
             {
                 finalized_ = true;
             }

@@ -250,7 +250,13 @@ namespace ariles
 
 
 #ifndef ARILES_METHODS_read
-#   define ARILES_METHODS_read ARILES_METHODS(ariles::read::Visitor, ARILES_EMPTY_MACRO)
+#   define ARILES_METHODS_read \
+        ARILES_METHODS(ariles::read::Visitor, ARILES_EMPTY_MACRO) \
+        using ariles::read::Base::arilesVirtualVisit; \
+        using ariles::read::Base::arilesGetParameters;
 #endif
     }
+
+
+    typedef read::Visitor Read;
 }

@@ -21,7 +21,7 @@ namespace ariles_tests
             {
                 BOOST_CHECK_NO_THROW(
                     t_Configurable configurable;
-                    ariles::apply<ariles::defaults::Visitor>(configurable);
+                    ariles::apply<ariles::Defaults>(configurable);
                 );
             }
     };

@@ -13,10 +13,10 @@
 
 namespace ariles_tests
 {
-    class ConfigurablePointers : public ariles::Base
+    class ConfigurablePointers : public ariles::DefaultBase
     {
         public:
-            class Minimal : public ariles::Base
+            class Minimal : public ariles::DefaultBase
             {
                 #define ARILES_DEFAULT_ID "ConfigurableEntryName"
                 #define ARILES_ENTRIES \
@@ -92,11 +92,11 @@ namespace ariles_tests
         public:
             ConfigurablePointers()
             {
-                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::Defaults>(*this);
             }
 
-            void arilesVisit(   const ariles::defaults::Visitor &/*visitor*/,
-                                const ariles::defaults::Visitor::Parameters &/*param*/)
+            void arilesVisit(   const ariles::Defaults &/*visitor*/,
+                                const ariles::Defaults::Parameters &/*param*/)
             {
 #if __cplusplus >= 201103L
                 std_shared_ptr_test_.reset();

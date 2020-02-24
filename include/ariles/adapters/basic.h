@@ -19,7 +19,7 @@ namespace ariles
                     t_Visitor & visitor,
                     t_Entry & entry,
                     const typename t_Visitor::Parameters & parameters,
-                    ARILES_IS_BASE_ENABLER(ariles::Base, t_Entry))
+                    ARILES_IS_BASE_ENABLER(ariles::DefaultBase, t_Entry))
         {
             ARILES_TRACE_FUNCTION;
 
@@ -96,7 +96,7 @@ namespace ariles
                     t_Visitor & writer,
                     const t_Entry & entry,
                     const typename t_Visitor::Parameters & param,
-                    ARILES_IS_BASE_ENABLER(ariles::Base, t_Entry))
+                    ARILES_IS_BASE_ENABLER(ariles::DefaultBase, t_Entry))
         {
             ARILES_TRACE_FUNCTION;
             ariles::count::Visitor counter;
@@ -155,7 +155,7 @@ namespace ariles
                     const t_Left & left,
                     const t_Right & right,
                     const typename t_Visitor::Parameters & param,
-                    ARILES_IS_BASE_ENABLER(ariles::Base, t_Left))
+                    ARILES_IS_BASE_ENABLER(ariles::DefaultBase, t_Left))
         {
             ARILES_TRACE_FUNCTION;
             if (true == param.compare_number_of_entries_)
@@ -241,7 +241,7 @@ namespace ariles
                     const t_Visitor & visitor,
                     t_Entry & entry,
                     const typename t_Visitor::Parameters & param,
-                    ARILES_IS_BASE_ENABLER(ariles::Base, t_Entry))
+                    ARILES_IS_BASE_ENABLER(ariles::DefaultBase, t_Entry))
         {
             ARILES_TRACE_FUNCTION;
             entry.arilesVirtualVisit(visitor, param);
@@ -289,7 +289,7 @@ namespace ariles
                     const t_Visitor & visitor,
                     t_Entry & entry,
                     const typename t_Visitor::Parameters & param,
-                    ARILES_IS_BASE_ENABLER(ariles::Base, t_Entry))
+                    ARILES_IS_BASE_ENABLER(ariles::DefaultBase, t_Entry))
         {
             ARILES_TRACE_FUNCTION;
             entry.arilesVirtualVisit(visitor, param);

@@ -14,7 +14,7 @@
 
 namespace ariles_tests
 {
-    class ConfigurableComplexVerbose : public ariles::Base, public ConfigurableComplexBase<ConfigurableComplexVerbose>
+    class ConfigurableComplexVerbose : public ariles::DefaultBase, public ConfigurableComplexBase<ConfigurableComplexVerbose>
     {
         #define ARILES_DEFAULT_ID "ConfigurableComplexVerbose"
         #define ARILES_ENTRIES_STANDARD_TYPES \
@@ -99,13 +99,13 @@ namespace ariles_tests
         public:
             ConfigurableComplexVerbose()
             {
-                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::Defaults>(*this);
             }
 
             virtual ~ConfigurableComplexVerbose() {}
 
-            void arilesVisit(   const ariles::defaults::Visitor &visitor,
-                                const ariles::defaults::Visitor::Parameters &param)
+            void arilesVisit(   const ariles::Defaults &visitor,
+                                const ariles::Defaults::Parameters &param)
             {
                 ConfigurableComplexBase<ConfigurableComplexVerbose>::arilesVisit(visitor, param);
             }

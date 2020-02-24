@@ -10,7 +10,7 @@
 
 namespace ariles_tests
 {
-    class ConfigurableFinalizeBase : public ariles::Base
+    class ConfigurableFinalizeBase : public ariles::DefaultBase
     {
         #define ARILES_DEFAULT_ID "ConfigurableFinalizeBase"
         #define ARILES_ENTRIES \
@@ -24,15 +24,15 @@ namespace ariles_tests
         public:
             ConfigurableFinalizeBase()
             {
-                ariles::apply<ariles::defaults::Visitor>(*this);
-                ariles::apply<ariles::finalize::Visitor>(*this);
+                ariles::apply<ariles::Defaults>(*this);
+                ariles::apply<ariles::Finalize>(*this);
             }
 
             virtual ~ConfigurableFinalizeBase() {}
 
 
-            void arilesVisit(   const ariles::defaults::Visitor &/*visitor*/,
-                                const ariles::defaults::Visitor::Parameters &/*param*/)
+            void arilesVisit(   const ariles::Defaults &/*visitor*/,
+                                const ariles::Defaults::Parameters &/*param*/)
             {
                 ARILES_TRACE_FUNCTION;
                 integer_ = 10;
@@ -40,8 +40,8 @@ namespace ariles_tests
             }
 
 
-            void arilesVisit(   const ariles::finalize::Visitor & /*visitor*/,
-                                const ariles::finalize::Visitor::Parameters & /*param*/)
+            void arilesVisit(   const ariles::Finalize & /*visitor*/,
+                                const ariles::Finalize::Parameters & /*param*/)
             {
                 ARILES_TRACE_FUNCTION;
                 another_real_ = integer_ * real_;
@@ -54,7 +54,7 @@ namespace ariles_tests
                 boost::random::random_device random_generator;
                 integer_ = GET_RANDOM_INT;
                 real_    = GET_RANDOM_REAL;
-                ariles::apply<ariles::finalize::Visitor>(*this);
+                ariles::apply<ariles::Finalize>(*this);
             }
 #endif
     };
@@ -71,8 +71,8 @@ namespace ariles_tests
         public:
             ConfigurableFinalize()
             {
-                ariles::apply<ariles::defaults::Visitor>(*this);
-                ariles::apply<ariles::finalize::Visitor>(*this);
+                ariles::apply<ariles::Defaults>(*this);
+                ariles::apply<ariles::Finalize>(*this);
             }
 
             virtual ~ConfigurableFinalize() {}
@@ -86,7 +86,7 @@ namespace ariles_tests
                 boost::random::random_device random_generator;
                 ConfigurableFinalizeBase::randomize();
                 member_.randomize();
-                ariles::apply<ariles::finalize::Visitor>(*this);
+                ariles::apply<ariles::Finalize>(*this);
             }
 #endif
     };
@@ -109,7 +109,7 @@ namespace ariles_tests
         t_Configurable_in manual_finalize = configurable_in;
         manual_finalize.another_real_ = 0.0;
         manual_finalize.member_.another_real_ = 0.0;
-        ariles::apply<ariles::finalize::Visitor>(manual_finalize);
+        ariles::apply<ariles::Finalize>(manual_finalize);
 
         BOOST_CHECK_EQUAL(manual_finalize.integer_,          configurable_in.integer_);
         BOOST_CHECK_CLOSE(manual_finalize.real_,             configurable_in.real_, g_tolerance);
@@ -124,7 +124,7 @@ namespace ariles_tests
         // Known issue of APIv1.
         manual_finalize.another_real_ = 0.0;
         manual_finalize.member_.another_real_ = 0.0;
-        ariles::apply<ariles::finalize::Visitor>(manual_finalize);
+        ariles::apply<ariles::Finalize>(manual_finalize);
 
         BOOST_CHECK_EQUAL(manual_finalize.integer_,          configurable_in.integer_);
         BOOST_CHECK_CLOSE(manual_finalize.real_,             configurable_in.real_, g_tolerance);

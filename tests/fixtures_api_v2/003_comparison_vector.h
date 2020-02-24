@@ -14,7 +14,7 @@
 namespace ariles_tests
 {
     template<class t_Configurable>
-        class ConfigurableVector : public ariles::Base
+        class ConfigurableVector : public ariles::DefaultBase
     {
         #define ARILES_DEFAULT_ID "ConfigurableVector"
         #define ARILES_ENTRIES \
@@ -28,12 +28,12 @@ namespace ariles_tests
         public:
             ConfigurableVector()
             {
-                ariles::apply<ariles::defaults::Visitor>(*this);
+                ariles::apply<ariles::Defaults>(*this);
             }
 
 
-            void arilesVisit(   const ariles::defaults::Visitor &/*visitor*/,
-                                const ariles::defaults::Visitor::Parameters &/*param*/)
+            void arilesVisit(   const ariles::Defaults &/*visitor*/,
+                                const ariles::Defaults::Parameters &/*param*/)
             {
             }
 
@@ -83,8 +83,8 @@ namespace ariles_tests
                     compare(configurable_vector_out.vector_[i], configurable_vector_in.vector_[i]);
                 }
 
-                ariles::compare::Visitor visitor;
-                ariles::compare::Visitor::Parameters param;
+                ariles::Compare visitor;
+                ariles::Compare::Parameters param;
                 param.double_tolerance_ = g_tolerance;
                 param.compare_number_of_entries_ = true;
                 param.throw_on_error_ = true;

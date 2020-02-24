@@ -17,10 +17,6 @@
     #ifndef ARILES_DOXYGEN_PROCESSING
 
     public:
-        using ariles::Base::arilesGetParameters;
-        using ariles::Base::arilesVirtualVisit;
-
-
         #ifdef ARILES_ENTRIES
 
             #define ARILES_NAMED_ENTRY(entry, name)     visitor(entry, name, parameters);
