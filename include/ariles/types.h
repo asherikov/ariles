@@ -196,6 +196,15 @@ namespace ariles
                 }
             }
 
+            void arilesVisit(   const ariles::PreProcess & visitor,
+                                const ariles::PreProcess::Parameters & param)
+            {
+                if (true == isInitialized())
+                {
+                    value_->arilesVisit(visitor, param);
+                }
+            }
+
             void setDefaults()
             {
                 id_ = "";
@@ -324,6 +333,15 @@ namespace ariles
             void arilesFinalize()
             {
                 ARILES_ASSERT(false == isNull(), "Not initialized");
+            }
+
+            void arilesVisit(   const ariles::PreProcess & visitor,
+                                const ariles::PreProcess::Parameters & param)
+            {
+                if (false == isNull())
+                {
+                    value_->arilesVisit(visitor, param);
+                }
             }
 
 

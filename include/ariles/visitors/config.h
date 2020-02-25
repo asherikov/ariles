@@ -13,6 +13,7 @@
 
 #include "defaults.h"
 #include "postprocess.h"
+#include "preprocess.h"
 #include "read.h"
 #include "write.h"
 
@@ -48,9 +49,9 @@ namespace ariles
             class Parameters
         {
             public:
-                ariles::defaults::Visitor::Parameters parameters0_;
-                typename t_Reader::Parameters parameters1_;
-                ariles::postprocess::Visitor::Parameters parameters2_;
+                ariles::defaults::Visitor::Parameters defaults_parameters_;
+                typename t_Reader::Parameters reader_parameters_;
+                ariles::postprocess::Visitor::Parameters postprocess_parameters_;
 
 
             public:
@@ -60,21 +61,21 @@ namespace ariles
 
                 Parameters(const int &param)
                 {
-                    this->parameters1_ = param;
+                    this->reader_parameters_ = param;
                 }
 
                 Parameters(const typename t_Reader::Parameters &param)
                 {
-                    this->parameters1_ = param;
+                    this->reader_parameters_ = param;
                 }
 
-                Parameters(const ariles::defaults::Visitor::Parameters &parameters0,
-                           const typename t_Reader::Parameters &parameters1,
-                           const ariles::postprocess::Visitor::Parameters &parameters2)
+                Parameters(const ariles::defaults::Visitor::Parameters &defaults_parameters,
+                           const typename t_Reader::Parameters &reader_parameters,
+                           const ariles::postprocess::Visitor::Parameters &postprocess_parameters)
                 {
-                    this->parameters0_ = parameters0;
-                    this->parameters1_ = parameters1;
-                    this->parameters2_ = parameters2;
+                    this->defaults_parameters_ = defaults_parameters;
+                    this->reader_parameters_ = reader_parameters;
+                    this->postprocess_parameters_ = postprocess_parameters;
                 }
         };
 
@@ -87,20 +88,20 @@ namespace ariles
 
 
             public:
-                ariles::defaults::Visitor visitors0_;
-                t_Reader visitors1_;
-                ariles::postprocess::Visitor visitors2_;
+                ariles::defaults::Visitor defaults_visitor_;
+                t_Reader reader_visitor_;
+                ariles::postprocess::Visitor postprocess_visitor_;
 
 
             public:
                 template<class t_Initializer>
-                    Visitor(t_Initializer &initializer) : visitors1_(initializer)
+                    Visitor(t_Initializer &initializer) : reader_visitor_(initializer)
                 {
                     ARILES_TRACE_FUNCTION;
                 }
 
                 template<class t_Initializer>
-                    Visitor(const t_Initializer &initializer) : visitors1_(initializer)
+                    Visitor(const t_Initializer &initializer) : reader_visitor_(initializer)
                 {
                     ARILES_TRACE_FUNCTION;
                 }
@@ -113,9 +114,9 @@ namespace ariles
                 {
                     // static variable is potentially unsafe
                     return (Parameters(
-                                ariles_class.arilesGetParameters(visitors0_),
-                                ariles_class.arilesGetParameters(visitors1_),
-                                ariles_class.arilesGetParameters(visitors2_)));
+                                ariles_class.arilesGetParameters(defaults_visitor_),
+                                ariles_class.arilesGetParameters(reader_visitor_),
+                                ariles_class.arilesGetParameters(postprocess_visitor_)));
                 }
 
 
@@ -132,15 +133,15 @@ namespace ariles
                     ARILES_TRACE_FUNCTION;
                     ARILES_TRACE_ENTRY(name);
                     ARILES_TRACE_TYPE(entry);
-                    ariles::apply(visitors0_, entry, name, param.parameters0_);
-                    ariles::apply(visitors1_, entry, name, param.parameters1_);
-                    ariles::apply(visitors2_, entry, name, param.parameters2_);
+                    ariles::apply(defaults_visitor_, entry, name, param.defaults_parameters_);
+                    ariles::apply(reader_visitor_, entry, name, param.reader_parameters_);
+                    ariles::apply(postprocess_visitor_, entry, name, param.postprocess_parameters_);
                 }
 
 
                 const t_Reader & getReader() const
                 {
-                    return (visitors1_);
+                    return (reader_visitor_);
                 }
         };
 #endif
@@ -152,6 +153,7 @@ namespace ariles
 {
     namespace cfgwrite
     {
+#if 1 == ARILES_API_VERSION
         template<class t_Writer>
             class Visitor : public t_Writer
         {
@@ -179,5 +181,116 @@ namespace ariles
                     return (*this);
                 }
         };
+#endif
+
+
+#if 2 == ARILES_API_VERSION
+        template<class t_Writer>
+            class Parameters
+        {
+            public:
+                ariles::preprocess::Visitor::Parameters preprocess_parameters_;
+                typename t_Writer::Parameters writer_parameters_;
+
+
+            public:
+                Parameters()
+                {
+                }
+
+                Parameters(const int &param)
+                {
+                    this->writer_parameters_ = param;
+                }
+
+                Parameters(const typename t_Writer::Parameters &param)
+                {
+                    this->writer_parameters_ = param;
+                }
+
+                Parameters(const ariles::preprocess::Visitor::Parameters &preprocess_parameters,
+                           const typename t_Writer::Parameters &writer_parameters)
+                {
+                    this->preprocess_parameters_ = preprocess_parameters;
+                    this->writer_parameters_ = writer_parameters;
+                }
+        };
+
+
+        template<class t_Writer>
+            class Visitor : public visitor::VisitorBase< Parameters<t_Writer> >
+        {
+            public:
+                typedef cfgwrite::Parameters<t_Writer> Parameters;
+
+
+            public:
+                ariles::preprocess::Visitor preprocess_visitor_;
+                t_Writer writer_visitor_;
+
+
+            public:
+                template<class t_Initializer>
+                    Visitor(t_Initializer &initializer) : writer_visitor_(initializer)
+                {
+                    ARILES_TRACE_FUNCTION;
+                }
+
+                template<class t_Initializer>
+                    Visitor(const t_Initializer &initializer) : writer_visitor_(initializer)
+                {
+                    ARILES_TRACE_FUNCTION;
+                }
+
+                template<class t_Initializer0, class t_Initializer1>
+                    Visitor(t_Initializer0 * initializer0, const t_Initializer1 & initializer1)
+                    : writer_visitor_(initializer0, initializer1)
+                {
+                    ARILES_TRACE_FUNCTION;
+                }
+
+
+                using visitor::VisitorBase<Parameters>::getDefaultParameters;
+
+                template<class t_Ariles>
+                    const Parameters getParameters(const t_Ariles & ariles_class) const
+                {
+                    // static variable is potentially unsafe
+                    return (Parameters(
+                                ariles_class.arilesGetParameters(preprocess_visitor_),
+                                ariles_class.arilesGetParameters(writer_visitor_)));
+                }
+
+
+                using visitor::VisitorBase<Parameters>::startRoot;
+                using visitor::VisitorBase<Parameters>::finishRoot;
+
+
+                template<class t_Entry>
+                    void operator()(
+                            t_Entry & entry,
+                            const std::string & name,
+                            const Parameters & param)
+                {
+                    ARILES_TRACE_FUNCTION;
+                    ARILES_TRACE_ENTRY(name);
+                    ARILES_TRACE_TYPE(entry);
+                    ariles::apply(preprocess_visitor_, entry, name, param.preprocess_parameters_);
+                    ariles::apply(writer_visitor_, entry, name, param.writer_parameters_);
+                }
+
+
+                const t_Writer & getWriter() const
+                {
+                    return (writer_visitor_);
+                }
+
+
+                t_Writer & getWriter()
+                {
+                    return (writer_visitor_);
+                }
+        };
+#endif
     }
 }

@@ -29,7 +29,7 @@ namespace ariles
                 template<class t_Ariles>
                     const t_Parameters & getParameters(const t_Ariles & ariles_class) const
                 {
-                    return (ariles_class.arilesGetParameters(*(static_cast<const t_Derived *>(this))));
+                    return (ariles_class.arilesGetParameters(*(static_cast<t_Derived *>(this))));
                 }
 
                 using visitor::VisitorBase<t_Parameters>::startRoot;
@@ -46,7 +46,7 @@ namespace ariles
                     ARILES_TRACE_FUNCTION;
                     ARILES_TRACE_ENTRY(name);
                     ARILES_TRACE_TYPE(entry);
-                    apply_process(*(static_cast<const t_Derived *>(this)), entry, param);
+                    apply_process(*(static_cast<t_Derived *>(this)), entry, param);
                 }
         };
     }

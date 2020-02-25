@@ -27,6 +27,7 @@
 
 #include "visitors/process.h"
 #include "visitors/defaults.h"
+#include "visitors/preprocess.h"
 #include "visitors/postprocess.h"
 #include "visitors/compare.h"
 #include "visitors/count.h"
@@ -50,6 +51,7 @@
     #define ARILES_DEFAULT_VISITORS \
         ARILES_VISITOR(count) \
         ARILES_VISITOR(postprocess) \
+        ARILES_VISITOR(preprocess) \
         ARILES_VISITOR(defaults) \
         ARILES_VISITOR(read) \
         ARILES_VISITOR(write) \
@@ -74,6 +76,7 @@
             :   public ariles::Ariles,
                 public ariles::defaults::Base,
                 public ariles::postprocess::Base,
+                public ariles::preprocess::Base,
                 public ariles::count::Base,
                 public ariles::read::Base,
                 public ariles::write::Base
@@ -90,6 +93,7 @@
             public:
                 using ariles::defaults::Base::arilesVirtualVisit;
                 using ariles::postprocess::Base::arilesVirtualVisit;
+                using ariles::preprocess::Base::arilesVirtualVisit;
                 using ariles::read::Base::arilesVirtualVisit;
                 using ariles::write::Base::arilesVirtualVisit;
                 using ariles::count::Base::arilesVirtualVisit;
@@ -97,6 +101,7 @@
 
                 using ariles::defaults::Base::arilesGetParameters;
                 using ariles::postprocess::Base::arilesGetParameters;
+                using ariles::preprocess::Base::arilesGetParameters;
                 using ariles::read::Base::arilesGetParameters;
                 using ariles::write::Base::arilesGetParameters;
                 using ariles::count::Base::arilesGetParameters;

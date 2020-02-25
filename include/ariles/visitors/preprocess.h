@@ -15,7 +15,7 @@
 
 namespace ariles
 {
-    namespace postprocess
+    namespace preprocess
     {
         class Parameters
         {
@@ -23,22 +23,22 @@ namespace ariles
 
 
         class ARILES_VISIBILITY_ATTRIBUTE Visitor
-            : public ariles::process::Visitor<const postprocess::Visitor, postprocess::Parameters>
+            : public ariles::process::Visitor<const preprocess::Visitor, preprocess::Parameters>
         {
         };
 
 
         class ARILES_VISIBILITY_ATTRIBUTE Base
-            : public visitor::Base<const postprocess::Visitor>
+            : public visitor::Base<const preprocess::Visitor>
         {
         };
 
 
-#ifndef ARILES_METHODS_postprocess
-#   define ARILES_METHODS_postprocess ARILES_METHODS(postprocess, const ariles::postprocess::Visitor, ARILES_EMPTY_MACRO)
+#ifndef ARILES_METHODS_preprocess
+#   define ARILES_METHODS_preprocess ARILES_METHODS(preprocess, const ariles::preprocess::Visitor, ARILES_EMPTY_MACRO)
 #endif
     }
 
 
-    typedef postprocess::Visitor PostProcess;
+    typedef preprocess::Visitor PreProcess;
 }
