@@ -59,9 +59,18 @@
 
     namespace ariles
     {
+        class ARILES_VISIBILITY_ATTRIBUTE Ariles
+        {
+            protected:
+                ~Ariles() {}
+                Ariles() {}
+        };
+
+
         /// @todo variadic template
         class ARILES_VISIBILITY_ATTRIBUTE DefaultBase
-            :   public ariles::defaults::Base,
+            :   public ariles::Ariles,
+                public ariles::defaults::Base,
                 public ariles::finalize::Base,
                 public ariles::count::Base,
                 public ariles::read::Base,

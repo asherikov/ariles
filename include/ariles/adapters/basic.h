@@ -19,7 +19,7 @@ namespace ariles
                     t_Visitor & visitor,
                     t_Entry & entry,
                     const typename t_Visitor::Parameters & parameters,
-                    ARILES_IS_BASE_ENABLER(ariles::DefaultBase, t_Entry))
+                    ARILES_IS_BASE_ENABLER(ariles::read::Base, t_Entry))
         {
             ARILES_TRACE_FUNCTION;
 
@@ -96,7 +96,7 @@ namespace ariles
                     t_Visitor & writer,
                     const t_Entry & entry,
                     const typename t_Visitor::Parameters & param,
-                    ARILES_IS_BASE_ENABLER(ariles::DefaultBase, t_Entry))
+                    ARILES_IS_BASE_ENABLER(ariles::write::Base, t_Entry))
         {
             ARILES_TRACE_FUNCTION;
             ariles::count::Visitor counter;
@@ -155,7 +155,7 @@ namespace ariles
                     const t_Left & left,
                     const t_Right & right,
                     const typename t_Visitor::Parameters & param,
-                    ARILES_IS_BASE_ENABLER(ariles::DefaultBase, t_Left))
+                    ARILES_IS_BASE_ENABLER(ariles::Ariles, t_Left))
         {
             ARILES_TRACE_FUNCTION;
             if (true == param.compare_number_of_entries_)
@@ -241,7 +241,7 @@ namespace ariles
                     const t_Visitor & visitor,
                     t_Entry & entry,
                     const typename t_Visitor::Parameters & param,
-                    ARILES_IS_BASE_ENABLER(ariles::DefaultBase, t_Entry))
+                    ARILES_IS_BASE_ENABLER(ariles::defaults::Base, t_Entry))
         {
             ARILES_TRACE_FUNCTION;
             entry.arilesVirtualVisit(visitor, param);
@@ -289,7 +289,7 @@ namespace ariles
                     const t_Visitor & visitor,
                     t_Entry & entry,
                     const typename t_Visitor::Parameters & param,
-                    ARILES_IS_BASE_ENABLER(ariles::DefaultBase, t_Entry))
+                    ARILES_IS_BASE_ENABLER(ariles::finalize::Base, t_Entry))
         {
             ARILES_TRACE_FUNCTION;
             entry.arilesVirtualVisit(visitor, param);
@@ -299,30 +299,14 @@ namespace ariles
         }
 
 
-        template <  class t_Visitor,
-                    typename t_Enumeration>
+        template<class t_Visitor, class t_Entry>
             void ARILES_VISIBILITY_ATTRIBUTE apply_finalize(
-                    const t_Visitor & /*visitor*/,
-                    t_Enumeration & /*entry*/,
-                    const typename t_Visitor::Parameters & /*param*/,
-                    ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
+                    const t_Visitor &,
+                    t_Entry &,
+                    const typename t_Visitor::Parameters &,
+                    ARILES_IS_BASE_DISABLER(ariles::finalize::Base, t_Entry))
         {
             ARILES_TRACE_FUNCTION;
         }
-
-
-        #define ARILES_BASIC_TYPE(type) \
-            template<class t_Visitor> \
-                void ARILES_VISIBILITY_ATTRIBUTE apply_finalize( \
-                        const t_Visitor &, \
-                        const type &, \
-                        const typename t_Visitor::Parameters &) \
-                { \
-                    ARILES_TRACE_FUNCTION; \
-                }
-
-        ARILES_BASIC_TYPES_LIST
-
-        #undef ARILES_BASIC_TYPE
     }
 }

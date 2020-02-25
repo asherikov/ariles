@@ -106,26 +106,3 @@ namespace ariles
         }
     }
 }
-
-
-
-namespace ariles
-{
-    namespace finalize
-    {
-        template <  class t_Visitor,
-                    class t_BetterEnum>
-            void ARILES_VISIBILITY_ATTRIBUTE apply_finalize(
-                        t_Visitor & /*visitor*/,
-                        t_BetterEnum & /*entry*/,
-                        const typename t_Visitor::Parameters & /*param*/,
-                        const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
-                        const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
-                        const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
-                        const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
-                        const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
-        {
-            ARILES_TRACE_FUNCTION;
-        }
-    }
-}
