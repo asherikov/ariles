@@ -282,29 +282,32 @@ namespace ariles
 
 namespace ariles
 {
-    namespace finalize
+    namespace process
     {
         template<class t_Visitor, class t_Entry>
-            void ARILES_VISIBILITY_ATTRIBUTE apply_finalize(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_process(
                     const t_Visitor & visitor,
                     t_Entry & entry,
                     const typename t_Visitor::Parameters & param,
-                    ARILES_IS_BASE_ENABLER(ariles::finalize::Base, t_Entry))
+                    ARILES_IS_BASE_ENABLER(ariles::Ariles, t_Entry))
         {
             ARILES_TRACE_FUNCTION;
             entry.arilesVirtualVisit(visitor, param);
 #if 1 == ARILES_API_VERSION
-            entry.finalize(); /// @todo DEPRECATED
+            if (true == ARILES_IS_BASE_OF(ariles::postprocess::Base, t_Entry))
+            {
+                entry.finalize(); /// @todo DEPRECATED
+            }
 #endif
         }
 
 
         template<class t_Visitor, class t_Entry>
-            void ARILES_VISIBILITY_ATTRIBUTE apply_finalize(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_process(
                     const t_Visitor &,
                     t_Entry &,
                     const typename t_Visitor::Parameters &,
-                    ARILES_IS_BASE_DISABLER(ariles::finalize::Base, t_Entry))
+                    ARILES_IS_BASE_DISABLER(ariles::Ariles, t_Entry))
         {
             ARILES_TRACE_FUNCTION;
         }

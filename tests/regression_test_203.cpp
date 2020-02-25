@@ -21,7 +21,7 @@
 // TYPES
 // ===============================================================
 
-#include "types_api_v2/finalize.h"
+#include "types_api_v2/postprocess.h"
 
 #define ARILES_TESTS_BOOST_UTF_DISABLED
 #include "types_api_v2/complex_auto_declare.h"
@@ -44,16 +44,16 @@
 // ===============================================================
 
 #define ARILES_TESTS(BRIDGE_ID, NAMESPACE, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, BRIDGE_ID, NAMESPACE, ConfigurableFinalize, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, BRIDGE_ID, NAMESPACE, ConfigurableFinalize, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, BRIDGE_ID, NAMESPACE, ConfigurableFinalize, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, BRIDGE_ID, NAMESPACE, ConfigurableFinalize, INITIALIZER)
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, BRIDGE_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, BRIDGE_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, BRIDGE_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, BRIDGE_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER)
 
 
-BOOST_FIXTURE_TEST_CASE( Complex_arilesFinalize, ariles_tests::DummyFixture )
+BOOST_FIXTURE_TEST_CASE( Complex_arilesPostProcess, ariles_tests::DummyFixture )
 {
     ariles_tests::ConfigurableComplex configurable;
-    ariles::apply<ariles::Finalize>(configurable);
+    ariles::apply<ariles::PostProcess>(configurable);
 }
 
 

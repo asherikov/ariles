@@ -12,7 +12,7 @@
 #pragma once
 
 #include "defaults.h"
-#include "finalize.h"
+#include "postprocess.h"
 #include "read.h"
 #include "write.h"
 
@@ -50,7 +50,7 @@ namespace ariles
             public:
                 ariles::defaults::Visitor::Parameters parameters0_;
                 typename t_Reader::Parameters parameters1_;
-                ariles::finalize::Visitor::Parameters parameters2_;
+                ariles::postprocess::Visitor::Parameters parameters2_;
 
 
             public:
@@ -70,7 +70,7 @@ namespace ariles
 
                 Parameters(const ariles::defaults::Visitor::Parameters &parameters0,
                            const typename t_Reader::Parameters &parameters1,
-                           const ariles::finalize::Visitor::Parameters &parameters2)
+                           const ariles::postprocess::Visitor::Parameters &parameters2)
                 {
                     this->parameters0_ = parameters0;
                     this->parameters1_ = parameters1;
@@ -89,7 +89,7 @@ namespace ariles
             public:
                 ariles::defaults::Visitor visitors0_;
                 t_Reader visitors1_;
-                ariles::finalize::Visitor visitors2_;
+                ariles::postprocess::Visitor visitors2_;
 
 
             public:

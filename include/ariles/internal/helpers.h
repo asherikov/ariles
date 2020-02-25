@@ -40,11 +40,14 @@
 #define ARILES_IS_ENUM_ENABLER_TYPE(Enum) \
     const typename boost::enable_if_c< (boost::is_enum<Enum>::value) >::type
 
+#define ARILES_IS_BASE_OF(Base, Derived) \
+    boost::is_base_of<Base, Derived>::value
+
 #define ARILES_IS_BASE_ENABLER(Base, Derived) \
-    const typename boost::enable_if_c< (boost::is_base_of<Base, Derived>::value) >::type * = NULL
+    const typename boost::enable_if_c< (ARILES_IS_BASE_OF(Base, Derived)) >::type * = NULL
 
 #define ARILES_IS_BASE_DISABLER(Base, Derived) \
-    const typename boost::enable_if_c< not (boost::is_base_of<Base, Derived>::value) >::type * = NULL
+    const typename boost::enable_if_c< not (ARILES_IS_BASE_OF(Base, Derived)) >::type * = NULL
 
 
 #define ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST \

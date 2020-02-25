@@ -42,7 +42,7 @@ namespace ariles_tests
 
             void randomize()
             {
-                ariles::apply<ariles::Finalize>(*this);
+                ariles::apply<ariles::PostProcess>(*this);
             }
     };
 }

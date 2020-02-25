@@ -15,7 +15,7 @@
 #include "common.h"
 #if 1 == ARILES_API_VERSION
 #   include "defaults.h"
-#   include "finalize.h"
+#   include "postprocess.h"
 #endif
 
 
@@ -250,10 +250,7 @@ namespace ariles
 
 
 #ifndef ARILES_METHODS_read
-#   define ARILES_METHODS_read \
-        ARILES_METHODS(ariles::read::Visitor, ARILES_EMPTY_MACRO) \
-        using ariles::read::Base::arilesVirtualVisit; \
-        using ariles::read::Base::arilesGetParameters;
+#   define ARILES_METHODS_read ARILES_METHODS(read, ariles::read::Visitor, ARILES_EMPTY_MACRO)
 #endif
     }
 

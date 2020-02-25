@@ -197,14 +197,14 @@ namespace ariles
 
 namespace ariles
 {
-    namespace finalize
+    namespace process
     {
         template <  class t_Visitor,
                     typename t_Key,
                     typename t_Value,
                     class t_Compare,
                     class t_Allocator>
-            void ARILES_VISIBILITY_ATTRIBUTE apply_finalize(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_process(
                     const t_Visitor & visitor,
                     std::map<t_Key, t_Value, t_Compare, t_Allocator> &entry,
                     const typename t_Visitor::Parameters & param)
@@ -215,8 +215,8 @@ namespace ariles
                 it != entry.end();
                 ++it)
             {
-                apply_finalize(visitor, it->first, param);
-                apply_finalize(visitor, it->second, param);
+                apply_process(visitor, it->first, param);
+                apply_process(visitor, it->second, param);
             }
         }
     }

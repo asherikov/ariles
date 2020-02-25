@@ -104,10 +104,7 @@ namespace ariles
 
 
 #ifndef ARILES_METHODS_defaults
-#   define ARILES_METHODS_defaults \
-        ARILES_METHODS(const ariles::defaults::Visitor, ARILES_EMPTY_MACRO) \
-        using ariles::defaults::Base::arilesVirtualVisit; \
-        using ariles::defaults::Base::arilesGetParameters;
+#   define ARILES_METHODS_defaults ARILES_METHODS(defaults, const ariles::defaults::Visitor, ARILES_EMPTY_MACRO)
 #endif
     }
 

@@ -132,11 +132,11 @@ namespace ariles
 
 namespace ariles
 {
-    namespace finalize
+    namespace process
     {
         template <  class t_Visitor,
                     typename t_Entry>
-            void ARILES_VISIBILITY_ATTRIBUTE apply_finalize(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_process(
                     const t_Visitor & visitor,
                     ARILES_POINTER_TYPE<t_Entry> &entry,
                     const typename t_Visitor::Parameters & param)
@@ -144,7 +144,7 @@ namespace ariles
             ARILES_TRACE_FUNCTION;
             if (false == (PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(entry)))
             {
-                apply_finalize(visitor, *entry, param);
+                apply_process(visitor, *entry, param);
             }
         }
     }

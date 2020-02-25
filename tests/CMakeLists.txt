@@ -71,7 +71,7 @@ add_library(testlib_api_v2 SHARED testlib1_api_v2.cpp testlib2_api_v2.cpp)
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "200" "" "${ARILES_TEST_ALL_BRIDGES}")  # features
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "201" "" "${ARILES_TEST_ALL_BRIDGES}")  # complex
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "202" "" "${ARILES_TEST_ALL_BRIDGES}")  # inheritance, strictness
-ariles_define_regression_test(${CMAKE_PROJECT_NAME} "203" "" "${ARILES_TEST_ALL_BRIDGES}")  # finalize
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "203" "" "${ARILES_TEST_ALL_BRIDGES}")  # postprocess
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "204" "" "${ARILES_TEST_ALL_BRIDGES}")  # no adapters_all.h
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "205" "" "${ARILES_TEST_ALL_BRIDGES}")  # disabled ariles
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "209" "" "${ARILES_TEST_ALL_BRIDGES}")  # pointers (scalar)

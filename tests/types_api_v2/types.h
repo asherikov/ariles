@@ -188,8 +188,8 @@ namespace ariles
             }
 
 
-            void arilesVisit(   const ariles::Finalize & visitor,
-                                const ariles::Finalize::Parameters & param)
+            void arilesVisit(   const ariles::PostProcess & visitor,
+                                const ariles::PostProcess::Parameters & param)
             {
                 if (true == isInitialized())
                 {
@@ -281,8 +281,8 @@ namespace ariles
             }
 
 
-            void arilesVisit(   const ariles::Finalize & visitor,
-                                const ariles::Finalize::Parameters & param)
+            void arilesVisit(   const ariles::PostProcess & visitor,
+                                const ariles::PostProcess::Parameters & param)
             {
                 ARILES_ASSERT(false == isNull(), "Not initialized");
                 value_->arilesVisit(visitor, param);

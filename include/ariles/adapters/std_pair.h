@@ -163,19 +163,19 @@ namespace ariles
 
 namespace ariles
 {
-    namespace finalize
+    namespace process
     {
         template <  class t_Visitor,
                     typename t_First,
                     typename t_Second>
-            void ARILES_VISIBILITY_ATTRIBUTE apply_finalize(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_process(
                     const t_Visitor & visitor,
                     std::pair<t_First, t_Second> &entry,
                     const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            apply_finalize(visitor, entry.first, param);
-            apply_finalize(visitor, entry.second, param);
+            apply_process(visitor, entry.first, param);
+            apply_process(visitor, entry.second, param);
         }
     }
 }

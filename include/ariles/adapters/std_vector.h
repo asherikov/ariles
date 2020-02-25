@@ -110,12 +110,12 @@ namespace ariles
 
 namespace ariles
 {
-    namespace finalize
+    namespace process
     {
         template <  class t_Visitor,
                     typename t_VectorEntryType,
                     class t_Allocator>
-            void ARILES_VISIBILITY_ATTRIBUTE apply_finalize(
+            void ARILES_VISIBILITY_ATTRIBUTE apply_process(
                     const t_Visitor & visitor,
                     std::vector<t_VectorEntryType, t_Allocator> & entry,
                     const typename t_Visitor::Parameters & param)
@@ -123,7 +123,7 @@ namespace ariles
             ARILES_TRACE_FUNCTION;
             for (std::size_t i = 0; i < entry.size(); ++i)
             {
-                apply_finalize(visitor, entry[i], param);
+                apply_process(visitor, entry[i], param);
             }
         }
     }

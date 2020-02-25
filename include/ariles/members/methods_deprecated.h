@@ -31,7 +31,7 @@
             #ifndef ARILES_NO_AUTO_FINALIZE
                 void arilesFinalize()
                 {
-                    ariles::apply<ariles::finalize::Visitor>(*this);
+                    ariles::apply<ariles::postprocess::Visitor>(*this);
                 }
             #endif
 
@@ -78,8 +78,8 @@
                 writeConfigEntries(visitor, param);
             }
 
-            virtual void arilesVisit(   const ariles::finalize::Visitor &/*visitor*/,
-                                        const ariles::finalize::Visitor::Parameters &/*param*/)
+            virtual void arilesVisit(   const ariles::postprocess::Visitor &/*visitor*/,
+                                        const ariles::postprocess::Visitor::Parameters &/*param*/)
             {
                 ARILES_TRACE_FUNCTION;
                 arilesFinalize();

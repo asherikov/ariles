@@ -53,13 +53,14 @@ namespace ariles
         };
 
 
-        #define ARILES_METHODS(Visitor, Qualifier) \
+        #define ARILES_METHODS(Namespace, Visitor, Qualifier) \
             virtual void arilesVirtualVisit(Visitor &visitor, \
                                             const ariles::utils::DecayConst<Visitor>::Type::Parameters &param) Qualifier \
             { \
                 ARILES_TRACE_FUNCTION; \
                 this->arilesVisit(visitor, param); \
-            }
+            } \
+            using ariles::Namespace::Base::arilesGetParameters;
 
 
         template<class t_Visitor>

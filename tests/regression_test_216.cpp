@@ -29,7 +29,7 @@
 #include "types_api_v2/complex_verbose.h"
 #include "types_api_v2/empty.h"
 #include "types_api_v2/enum.h"
-#include "types_api_v2/finalize.h"
+#include "types_api_v2/postprocess.h"
 #include "types_api_v2/inheritance.h"
 #include "types_api_v2/minimal.h"
 #include "types_api_v2/no_setdefaults.h"
@@ -46,7 +46,7 @@ int main()
     ariles_tests::ConfigurableComplex             a;
     ariles_tests::ConfigurableComplexVerbose      b;
     ariles_tests::ConfigurableEmpty               c;
-    ariles_tests::ConfigurableFinalize            d;
+    ariles_tests::ConfigurablePostProcess         d;
     ariles_tests::ConfigurableMember<int>         e;
     ariles_tests::ConfigurableBase                f;
     ariles_tests::ConfigurableDerived             g;

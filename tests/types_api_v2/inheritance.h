@@ -46,7 +46,7 @@ namespace ariles_tests
                 boost::random::random_device random_generator;
                 integer_ = GET_RANDOM_INT;
                 real_    = GET_RANDOM_REAL;
-                ariles::apply<ariles::Finalize>(*this);
+                ariles::apply<ariles::PostProcess>(*this);
             }
 #endif
     };
@@ -82,7 +82,7 @@ namespace ariles_tests
             {
                 boost::random::random_device random_generator;
                 member_.randomize();
-                ariles::apply<ariles::Finalize>(*this);
+                ariles::apply<ariles::PostProcess>(*this);
             }
 #endif
     };
@@ -117,7 +117,7 @@ namespace ariles_tests
             {
                 boost::random::random_device random_generator;
                 member_.randomize();
-                ariles::apply<ariles::Finalize>(*this);
+                ariles::apply<ariles::PostProcess>(*this);
             }
 #endif
     };
@@ -159,7 +159,7 @@ namespace ariles_tests
                 another_member1_.randomize();
                 ConfigurableBase::randomize();
                 ConfigurableMember<int>::randomize();
-                ariles::apply<ariles::Finalize>(*this);
+                ariles::apply<ariles::PostProcess>(*this);
             }
 #endif
     };
