@@ -255,8 +255,10 @@
         };
 
 #       undef  ARILES_USE_BASE
+    }
 
-
+#   if 2 == ARILES_API_VERSION
+#       include "adapters/basic.h"
 #       define ARILES_DEFAULT_VISITORS \
                 ARILES_VISITOR(count) \
                 ARILES_VISITOR(postprocess) \
@@ -266,17 +268,34 @@
                 ARILES_VISITOR(write) \
                 ARILES_VISITOR(compare)
 
-
-        typedef Base<   ariles::defaults::Base,
-                        ariles::postprocess::Base,
-                        ariles::preprocess::Base,
-                        ariles::count::Base,
-                        ariles::read::Base,
-                        ariles::write::Base> DefaultBase;
-    }
-
-#   if 2 == ARILES_API_VERSION
+        namespace ariles
+        {
+            typedef Base<   ariles::defaults::Base,
+                            ariles::postprocess::Base,
+                            ariles::preprocess::Base,
+                            ariles::count::Base,
+                            ariles::read::Base,
+                            ariles::write::Base> DefaultBase;
+        }
+#   endif
+#   if 1 == ARILES_API_VERSION
 #       include "adapters/basic.h"
+#       define ARILES_DEFAULT_VISITORS \
+                ARILES_VISITOR(count) \
+                ARILES_VISITOR(postprocess) \
+                ARILES_VISITOR(defaults) \
+                ARILES_VISITOR(read) \
+                ARILES_VISITOR(write) \
+                ARILES_VISITOR(compare)
+
+        namespace ariles
+        {
+            typedef Base<   ariles::defaults::Base,
+                            ariles::postprocess::Base,
+                            ariles::count::Base,
+                            ariles::read::Base,
+                            ariles::write::Base> DefaultBase;
+        }
 #   endif
 
 #else
