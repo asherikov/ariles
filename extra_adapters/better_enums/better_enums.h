@@ -102,7 +102,10 @@ namespace ariles
                     const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
         {
             ARILES_TRACE_FUNCTION;
-            entry = t_BetterEnum::_from_integral_unchecked(0);
+            if (t_BetterEnum::_size() > 0)
+            {
+                entry = t_BetterEnum::_values()[0];
+            }
         }
     }
 }

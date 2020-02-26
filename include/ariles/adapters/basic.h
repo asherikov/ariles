@@ -252,12 +252,11 @@ namespace ariles
                     typename t_Enumeration>
             void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
                     const t_Visitor & /*visitor*/,
-                    t_Enumeration & entry,
+                    t_Enumeration & /*entry*/,
                     const typename t_Visitor::Parameters & /*param*/,
                     ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
         {
             ARILES_TRACE_FUNCTION;
-            entry = static_cast<t_Enumeration>(0);
         }
 
 
