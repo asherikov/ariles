@@ -48,16 +48,6 @@
     #define ARILES_ENTRY(entry)      ARILES_NAMED_ENTRY(entry, #entry)
 
 
-    #define ARILES_DEFAULT_VISITORS \
-        ARILES_VISITOR(count) \
-        ARILES_VISITOR(postprocess) \
-        ARILES_VISITOR(preprocess) \
-        ARILES_VISITOR(defaults) \
-        ARILES_VISITOR(read) \
-        ARILES_VISITOR(write) \
-        ARILES_VISITOR(compare)
-
-
     // ----------------------------
 
 
@@ -68,47 +58,221 @@
             protected:
                 ~Ariles() {}
                 Ariles() {}
-        };
-
-
-        /// @todo variadic template
-        class ARILES_VISIBILITY_ATTRIBUTE DefaultBase
-            :   public ariles::Ariles,
-                public ariles::defaults::Base,
-                public ariles::postprocess::Base,
-                public ariles::preprocess::Base,
-                public ariles::count::Base,
-                public ariles::read::Base,
-                public ariles::write::Base
-        {
-            protected:
-                /**
-                 * @brief Protected destructor: prevent destruction of the child
-                 * classes through a base pointer.
-                 */
-                ~DefaultBase() {}
-                DefaultBase() {}
-
 
             public:
-                using ariles::defaults::Base::arilesVirtualVisit;
-                using ariles::postprocess::Base::arilesVirtualVisit;
-                using ariles::preprocess::Base::arilesVirtualVisit;
-                using ariles::read::Base::arilesVirtualVisit;
-                using ariles::write::Base::arilesVirtualVisit;
-                using ariles::count::Base::arilesVirtualVisit;
-
-
-                using ariles::defaults::Base::arilesGetParameters;
-                using ariles::postprocess::Base::arilesGetParameters;
-                using ariles::preprocess::Base::arilesGetParameters;
-                using ariles::read::Base::arilesGetParameters;
-                using ariles::write::Base::arilesGetParameters;
-                using ariles::count::Base::arilesGetParameters;
-
-
                 virtual const std::string & arilesDefaultID() const = 0;
         };
+
+
+
+#       define  ARILES_USE_BASE(Base) \
+                using Base::arilesVirtualVisit; \
+                using Base::arilesGetParameters;
+
+        // 10
+        template<   class t_B0       , class t_B1 = void, class t_B2 = void, class t_B3 = void, class t_B4 = void,
+                    class t_B5 = void, class t_B6 = void, class t_B7 = void, class t_B8 = void, class t_B9 = void>
+            class ARILES_VISIBILITY_ATTRIBUTE Base
+            :   public ariles::Ariles,
+                public t_B0, public t_B1, public t_B2, public t_B3, public t_B4,
+                public t_B5, public t_B6, public t_B7, public t_B8, public t_B9
+        {
+            protected:
+                Base(){}
+                ~Base(){}
+            public:
+                ARILES_USE_BASE(t_B0)
+                ARILES_USE_BASE(t_B1)
+                ARILES_USE_BASE(t_B2)
+                ARILES_USE_BASE(t_B3)
+                ARILES_USE_BASE(t_B4)
+                ARILES_USE_BASE(t_B5)
+                ARILES_USE_BASE(t_B6)
+                ARILES_USE_BASE(t_B7)
+                ARILES_USE_BASE(t_B8)
+                ARILES_USE_BASE(t_B9)
+        };
+
+        // 9
+        template<   class t_B0, class t_B1, class t_B2, class t_B3, class t_B4,
+                    class t_B5, class t_B6, class t_B7, class t_B8>
+            class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5, t_B6, t_B7, t_B8>
+            :   public ariles::Ariles,
+                public t_B0, public t_B1, public t_B2, public t_B3, public t_B4,
+                public t_B5, public t_B6, public t_B7, public t_B8
+        {
+            protected:
+                Base(){}
+                ~Base(){}
+            public:
+                ARILES_USE_BASE(t_B0)
+                ARILES_USE_BASE(t_B1)
+                ARILES_USE_BASE(t_B2)
+                ARILES_USE_BASE(t_B3)
+                ARILES_USE_BASE(t_B4)
+                ARILES_USE_BASE(t_B5)
+                ARILES_USE_BASE(t_B6)
+                ARILES_USE_BASE(t_B7)
+                ARILES_USE_BASE(t_B8)
+        };
+
+        // 8
+        template<   class t_B0, class t_B1, class t_B2, class t_B3, class t_B4,
+                    class t_B5, class t_B6, class t_B7>
+            class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5, t_B6, t_B7>
+            :   public ariles::Ariles,
+                public t_B0, public t_B1, public t_B2, public t_B3, public t_B4,
+                public t_B5, public t_B6, public t_B7
+        {
+            protected:
+                Base(){}
+                ~Base(){}
+            public:
+                ARILES_USE_BASE(t_B0)
+                ARILES_USE_BASE(t_B1)
+                ARILES_USE_BASE(t_B2)
+                ARILES_USE_BASE(t_B3)
+                ARILES_USE_BASE(t_B4)
+                ARILES_USE_BASE(t_B5)
+                ARILES_USE_BASE(t_B6)
+                ARILES_USE_BASE(t_B7)
+        };
+
+        // 7
+        template<   class t_B0, class t_B1, class t_B2, class t_B3, class t_B4,
+                    class t_B5, class t_B6>
+            class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5, t_B6>
+            :   public ariles::Ariles,
+                public t_B0, public t_B1, public t_B2, public t_B3, public t_B4,
+                public t_B5, public t_B6
+        {
+            protected:
+                Base(){}
+                ~Base(){}
+            public:
+                ARILES_USE_BASE(t_B0)
+                ARILES_USE_BASE(t_B1)
+                ARILES_USE_BASE(t_B2)
+                ARILES_USE_BASE(t_B3)
+                ARILES_USE_BASE(t_B4)
+                ARILES_USE_BASE(t_B5)
+                ARILES_USE_BASE(t_B6)
+        };
+
+        // 6
+        template<   class t_B0, class t_B1, class t_B2, class t_B3, class t_B4,
+                    class t_B5>
+            class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5>
+            :   public ariles::Ariles,
+                public t_B0, public t_B1, public t_B2, public t_B3, public t_B4,
+                public t_B5
+        {
+            protected:
+                Base(){}
+                ~Base(){}
+            public:
+                ARILES_USE_BASE(t_B0)
+                ARILES_USE_BASE(t_B1)
+                ARILES_USE_BASE(t_B2)
+                ARILES_USE_BASE(t_B3)
+                ARILES_USE_BASE(t_B4)
+                ARILES_USE_BASE(t_B5)
+        };
+
+        // 5
+        template<class t_B0, class t_B1, class t_B2, class t_B3, class t_B4>
+            class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4>
+            :   public ariles::Ariles,
+                public t_B0, public t_B1, public t_B2, public t_B3, public t_B4
+        {
+            protected:
+                Base(){}
+                ~Base(){}
+            public:
+                ARILES_USE_BASE(t_B0)
+                ARILES_USE_BASE(t_B1)
+                ARILES_USE_BASE(t_B2)
+                ARILES_USE_BASE(t_B3)
+                ARILES_USE_BASE(t_B4)
+        };
+
+        // 4
+        template<class t_B0, class t_B1, class t_B2, class t_B3>
+            class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3>
+            :   public ariles::Ariles,
+                public t_B0, public t_B1, public t_B2, public t_B3
+        {
+            protected:
+                Base(){}
+                ~Base(){}
+            public:
+                ARILES_USE_BASE(t_B0)
+                ARILES_USE_BASE(t_B1)
+                ARILES_USE_BASE(t_B2)
+                ARILES_USE_BASE(t_B3)
+        };
+
+        // 3
+        template<class t_B0, class t_B1, class t_B2>
+            class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2>
+            :   public ariles::Ariles,
+                public t_B0, public t_B1, public t_B2
+        {
+            protected:
+                Base(){}
+                ~Base(){}
+            public:
+                ARILES_USE_BASE(t_B0)
+                ARILES_USE_BASE(t_B1)
+                ARILES_USE_BASE(t_B2)
+        };
+
+        // 2
+        template<class t_B0, class t_B1>
+            class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1>
+            :   public ariles::Ariles,
+                public t_B0, public t_B1
+        {
+            protected:
+                Base(){}
+                ~Base(){}
+            public:
+                ARILES_USE_BASE(t_B0)
+                ARILES_USE_BASE(t_B1)
+        };
+
+        // 1
+        template<class t_B0>
+            class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0>
+            :   public ariles::Ariles,
+                public t_B0
+        {
+            protected:
+                Base(){}
+                ~Base(){}
+            public:
+                ARILES_USE_BASE(t_B0)
+        };
+
+#       undef  ARILES_USE_BASE
+
+
+#       define ARILES_DEFAULT_VISITORS \
+                ARILES_VISITOR(count) \
+                ARILES_VISITOR(postprocess) \
+                ARILES_VISITOR(preprocess) \
+                ARILES_VISITOR(defaults) \
+                ARILES_VISITOR(read) \
+                ARILES_VISITOR(write) \
+                ARILES_VISITOR(compare)
+
+
+        typedef Base<   ariles::defaults::Base,
+                        ariles::postprocess::Base,
+                        ariles::preprocess::Base,
+                        ariles::count::Base,
+                        ariles::read::Base,
+                        ariles::write::Base> DefaultBase;
     }
 
 #   if 2 == ARILES_API_VERSION
