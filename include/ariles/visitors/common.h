@@ -53,9 +53,9 @@ namespace ariles
         };
 
 
-        #define ARILES_METHODS(Namespace, Visitor, Qualifier) \
-            virtual void arilesVirtualVisit(Visitor &visitor, \
-                                            const ariles::utils::DecayConst<Visitor>::Type::Parameters &param) Qualifier \
+        #define ARILES_METHODS(Namespace, VisitorQualifier, MethodQualifier) \
+            virtual void arilesVirtualVisit(VisitorQualifier ariles::Namespace::Visitor &visitor, \
+                                            const ariles::Namespace::Visitor::Parameters &param) MethodQualifier \
             { \
                 ARILES_TRACE_FUNCTION; \
                 this->arilesVisit(visitor, param); \
@@ -112,7 +112,7 @@ namespace ariles
                     t_Visitor & visitor,
                     t_Ariles & ariles_class,
                     const std::string & name,
-                    const typename ariles::utils::DecayConst<t_Visitor>::Type::Parameters &param,
+                    const typename t_Visitor::Parameters &param,
                     ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
         {
             ARILES_TRACE_FUNCTION;
@@ -127,7 +127,7 @@ namespace ariles
                     t_Visitor & visitor,
                     t_Ariles & ariles_class,
                     const char * name,
-                    const typename ariles::utils::DecayConst<t_Visitor>::Type::Parameters &param,
+                    const typename t_Visitor::Parameters &param,
                     ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
         {
             ARILES_TRACE_FUNCTION;
@@ -141,7 +141,7 @@ namespace ariles
             void apply(
                     t_Visitor & visitor,
                     t_Ariles & ariles_class,
-                    const typename ariles::utils::DecayConst<t_Visitor>::Type::Parameters &param,
+                    const typename t_Visitor::Parameters &param,
                     ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
         {
             ARILES_TRACE_FUNCTION;
@@ -273,7 +273,7 @@ namespace ariles
                     t_Left & left,
                     t_Right & right,
                     const std::string & name,
-                    const typename ariles::utils::DecayConst<t_Visitor>::Type::Parameters &param,
+                    const typename t_Visitor::Parameters &param,
                     ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
         {
             ARILES_TRACE_FUNCTION;
@@ -311,7 +311,7 @@ namespace ariles
                     t_Visitor & visitor,
                     t_Left & left,
                     t_Right & right,
-                    const typename ariles::utils::DecayConst<t_Visitor>::Type::Parameters &param,
+                    const typename t_Visitor::Parameters &param,
                     ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
         {
             ARILES_TRACE_FUNCTION;

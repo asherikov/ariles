@@ -59,7 +59,7 @@ namespace ariles
                     t_Enumeration &entry,
                     const typename t_Visitor::Parameters & /*param*/,
                     // ENABLE this function for enums
-                    ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
+                    ARILES_IS_ENUM_ENABLER(t_Enumeration))
         {
             ARILES_TRACE_FUNCTION;
             int tmp_value = 0;
@@ -114,7 +114,7 @@ namespace ariles
                     t_Visitor & writer,
                     const t_Enumeration entry,
                     const typename t_Visitor::Parameters & /*param*/,
-                    ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
+                    ARILES_IS_ENUM_ENABLER(t_Enumeration))
         {
             ARILES_TRACE_FUNCTION;
             int tmp_value = entry;
@@ -179,7 +179,7 @@ namespace ariles
                     const t_Enumeration & left,
                     const t_Enumeration & right,
                     const typename t_Visitor::Parameters & /*param*/,
-                    ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
+                    ARILES_IS_ENUM_ENABLER(t_Enumeration))
         {
             visitor.equal_ &= (left == right);
         }
@@ -254,7 +254,7 @@ namespace ariles
                     const t_Visitor & /*visitor*/,
                     t_Enumeration & /*entry*/,
                     const typename t_Visitor::Parameters & /*param*/,
-                    ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
+                    ARILES_IS_ENUM_ENABLER(t_Enumeration))
         {
             ARILES_TRACE_FUNCTION;
         }

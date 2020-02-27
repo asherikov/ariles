@@ -35,7 +35,7 @@ namespace ariles
 
 
 #ifndef ARILES_METHODS_postprocess
-#   define ARILES_METHODS_postprocess ARILES_METHODS(postprocess, const ariles::postprocess::Visitor, ARILES_EMPTY_MACRO)
+#   define ARILES_METHODS_postprocess ARILES_METHODS(postprocess, const, ARILES_EMPTY_MACRO)
 #endif
     }
 

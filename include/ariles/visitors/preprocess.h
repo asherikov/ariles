@@ -35,7 +35,7 @@ namespace ariles
 
 
 #ifndef ARILES_METHODS_preprocess
-#   define ARILES_METHODS_preprocess ARILES_METHODS(preprocess, const ariles::preprocess::Visitor, ARILES_EMPTY_MACRO)
+#   define ARILES_METHODS_preprocess ARILES_METHODS(preprocess, const, ARILES_EMPTY_MACRO)
 #endif
     }
 

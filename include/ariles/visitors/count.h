@@ -109,7 +109,7 @@ namespace ariles
         };
 
 #ifndef ARILES_METHODS_count
-#   define ARILES_METHODS_count ARILES_METHODS(count, ariles::count::Visitor, const)
+#   define ARILES_METHODS_count ARILES_METHODS(count, ARILES_EMPTY_MACRO, const)
 #endif
     }
 

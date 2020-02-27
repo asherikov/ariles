@@ -140,7 +140,7 @@ namespace ariles
         };
 
 #ifndef ARILES_METHODS_write
-#   define ARILES_METHODS_write ARILES_METHODS(write, ariles::write::Visitor, const)
+#   define ARILES_METHODS_write ARILES_METHODS(write, ARILES_EMPTY_MACRO, const)
 #endif
     }
 

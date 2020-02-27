@@ -250,7 +250,7 @@ namespace ariles
 
 
 #ifndef ARILES_METHODS_read
-#   define ARILES_METHODS_read ARILES_METHODS(read, ariles::read::Visitor, ARILES_EMPTY_MACRO)
+#   define ARILES_METHODS_read ARILES_METHODS(read, ARILES_EMPTY_MACRO, ARILES_EMPTY_MACRO)
 #endif
     }
 

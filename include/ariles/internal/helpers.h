@@ -37,8 +37,8 @@
 #define ARILES_EMPTY_MACRO
 
 
-#define ARILES_IS_ENUM_ENABLER_TYPE(Enum) \
-    const typename boost::enable_if_c< (boost::is_enum<Enum>::value) >::type
+#define ARILES_IS_ENUM_ENABLER(Enum) \
+    const typename boost::enable_if_c< (boost::is_enum<Enum>::value) >::type * = NULL
 
 #define ARILES_IS_BASE_OF(Base, Derived) \
     boost::is_base_of<Base, Derived>::value
@@ -88,26 +88,9 @@
 
 namespace ariles
 {
+    // intentionally not defined
     template <class t_Pointer>
-    class PointerHandler
-    {
-    };
-}
-
-
-namespace ariles
-{
-    namespace utils
-    {
-        template<class T>   struct DecayConst
-        {
-            typedef T Type;
-        };
-        template<class T>   struct DecayConst<const T>
-        {
-            typedef T Type;
-        };
-    }
+        class PointerHandler;
 }
 
 #include "../configurable_flags.h"

@@ -104,7 +104,7 @@ namespace ariles
 
 
 #ifndef ARILES_METHODS_defaults
-#   define ARILES_METHODS_defaults ARILES_METHODS(defaults, const ariles::defaults::Visitor, ARILES_EMPTY_MACRO)
+#   define ARILES_METHODS_defaults ARILES_METHODS(defaults, const, ARILES_EMPTY_MACRO)
 #endif
     }
 
