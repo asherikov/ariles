@@ -17,9 +17,41 @@
 #include <cstdlib>
 
 
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_enum.hpp>
-#include <boost/type_traits/is_base_of.hpp>
+#if __cplusplus >= 201103L
+
+#   include <type_traits>
+
+#   define ARILES_IS_ENUM_ENABLER(Enum) \
+        const typename std::enable_if< (std::is_enum<Enum>::value) >::type * = NULL
+
+#   define ARILES_IS_BASE_OF(Base, Derived) \
+        std::is_base_of<Base, Derived>::value
+
+#   define ARILES_IS_BASE_ENABLER(Base, Derived) \
+        const typename std::enable_if< (ARILES_IS_BASE_OF(Base, Derived)) >::type * = NULL
+
+#   define ARILES_IS_BASE_DISABLER(Base, Derived) \
+        const typename std::enable_if< not (ARILES_IS_BASE_OF(Base, Derived)) >::type * = NULL
+
+#else
+
+#   include <boost/utility/enable_if.hpp>
+#   include <boost/type_traits/is_enum.hpp>
+#   include <boost/type_traits/is_base_of.hpp>
+
+#   define ARILES_IS_ENUM_ENABLER(Enum) \
+        const typename boost::enable_if_c< (boost::is_enum<Enum>::value) >::type * = NULL
+
+#   define ARILES_IS_BASE_OF(Base, Derived) \
+        boost::is_base_of<Base, Derived>::value
+
+#   define ARILES_IS_BASE_ENABLER(Base, Derived) \
+        const typename boost::enable_if_c< (ARILES_IS_BASE_OF(Base, Derived)) >::type * = NULL
+
+#   define ARILES_IS_BASE_DISABLER(Base, Derived) \
+        const typename boost::enable_if_c< not (ARILES_IS_BASE_OF(Base, Derived)) >::type * = NULL
+
+#endif
 
 
 #include "build_config.h"
@@ -33,21 +65,8 @@
 #include "trace.h"
 
 
-/// @todo DEPRECATED C++11
+
 #define ARILES_EMPTY_MACRO
-
-
-#define ARILES_IS_ENUM_ENABLER(Enum) \
-    const typename boost::enable_if_c< (boost::is_enum<Enum>::value) >::type * = NULL
-
-#define ARILES_IS_BASE_OF(Base, Derived) \
-    boost::is_base_of<Base, Derived>::value
-
-#define ARILES_IS_BASE_ENABLER(Base, Derived) \
-    const typename boost::enable_if_c< (ARILES_IS_BASE_OF(Base, Derived)) >::type * = NULL
-
-#define ARILES_IS_BASE_DISABLER(Base, Derived) \
-    const typename boost::enable_if_c< not (ARILES_IS_BASE_OF(Base, Derived)) >::type * = NULL
 
 
 #define ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST \
