@@ -1,6 +1,16 @@
 Unreleased
 ==========
 
+1.5.0
+=====
+
+Removed
+-------
+
+* Do not build third party libraries from sources.
+
+
+
 1.4.0
 =====
 
