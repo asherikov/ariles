@@ -1,21 +1,3 @@
-[submodule "bridges/yaml/yaml-cpp"]
-	path = bridges/yaml_cpp03/yaml-cpp
-	url = https://github.com/jbeder/yaml-cpp.git
-[submodule "bridges/msgpack/msgpack-c"]
-	path = bridges/msgpack/msgpack-c
-	url = https://github.com/msgpack/msgpack-c.git
-[submodule "bridges/yaml_cpp/yaml-cpp"]
-	path = bridges/yaml_cpp/yaml-cpp
-	url = https://github.com/jbeder/yaml-cpp.git
-[submodule "bridges/jsonnet/jsonnet"]
-	path = bridges/jsonnet/jsonnet
-	url = https://github.com/asherikov/jsonnet
-[submodule "bridges/rapidjson/rapidjson"]
-	path = bridges/rapidjson/rapidjson
-	url = https://github.com/Tencent/rapidjson
-[submodule "bridges/pugixml/pugixml"]
-	path = bridges/pugixml/pugixml
-	url = https://github.com/zeux/pugixml
 [submodule "doc/dox"]
 	path = doc/dox
 	url = ../ariles.git

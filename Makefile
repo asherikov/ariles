@@ -139,8 +139,6 @@ test-noros: clean
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp11_on_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp11_on_noros_sloppy TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp03_on_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
-	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp11_build_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
-	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp03_build_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 
 test-cmake:
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=conflict TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
@@ -156,7 +154,6 @@ addutils:
 updateutils:
 	git fetch --all
 	git show remotes/cmakeut/master:cmake/FindEigen3.cmake > cmake/FindEigen3.cmake
-	git show remotes/cmakeut/master:cmake/cmakeut_add_external_git_project.cmake    > cmake/cmakeut_add_external_git_project.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_compiler_flags.cmake              > cmake/cmakeut_compiler_flags.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_copy_dir_if_exists.cmake          > cmake/cmakeut_copy_dir_if_exists.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_copy_file_if_exists.cmake         > cmake/cmakeut_copy_file_if_exists.cmake

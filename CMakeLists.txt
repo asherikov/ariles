@@ -18,7 +18,6 @@ set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
 include(cmakeut_copy_dir_if_exists)
 include(cmakeut_copy_file_if_exists)
-include(cmakeut_add_external_git_project)
 include(cmakeut_list_filenames)
 include(cmakeut_dump_variables)
 include(cmakeut_compiler_flags)
@@ -36,8 +35,7 @@ option (ARILES_ENABLE_CORE              "Install core (if disable only selected 
 option (ARILES_ENABLE_CORE_ALL_HEADER   "Generate ariles_all.h header (not suitable for packages)" ON)
 
 # bridges
-set    (ARILES_BRIDGES_DEFAULT_MODE     "BUILD" CACHE STRING "ON = enable, OFF = disable, BUILD = build from sources")
-option (ARILES_INSTALL_BRIDGES          "Install bridges on the system (when mode = BUILD)." OFF)
+set    (ARILES_BRIDGES_DEFAULT_MODE     "ON" CACHE STRING "ON = enable, OFF = disable")
 
 # extra adapters & options
 set (ARILES_DEFAULT_CONFIGURABLE_FLAGS  "" CACHE STRING "Override default flags")
@@ -136,14 +134,14 @@ foreach (ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
         list(REMOVE_ITEM ARILES_CACHED_BRIDGES "ARILES_BRIDGE_${ARILES_BRIDGE}")
         if (DEFINED ARILES_BRIDGE_${ARILES_BRIDGE})
             set    ("ARILES_BRIDGE_${ARILES_BRIDGE}" "${ARILES_BRIDGE_${ARILES_BRIDGE}}"
-                    CACHE STRING "Bridge '${ARILES_BRIDGE} (ON / OFF / BUILD)")
+                    CACHE STRING "Bridge '${ARILES_BRIDGE} (ON / OFF")
 
             if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
                 list(APPEND ARILES_ENABLED_BRIDGES "${ARILES_BRIDGE}")
             endif()
         else()
             set    ("ARILES_BRIDGE_${ARILES_BRIDGE}" "${ARILES_BRIDGES_DEFAULT_MODE}"
-                    CACHE STRING "Bridge '${ARILES_BRIDGE} (ON / OFF / BUILD)")
+                    CACHE STRING "Bridge '${ARILES_BRIDGE} (ON / OFF)")
 
             if (NOT ${ARILES_BRIDGES_DEFAULT_MODE} STREQUAL "OFF")
                 list(APPEND ARILES_ENABLED_BRIDGES "${ARILES_BRIDGE}")
@@ -275,9 +273,6 @@ endif()
 ## Dependencies
 #####################################
 
-add_custom_target( TGT_fetch_bridges )
-set(ARILES_TARGET_FETCH_BRIDGES    TGT_fetch_bridges CACHE INTERNAL "")
-
 # Boost
 find_package(Boost REQUIRED)
 include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
@@ -303,33 +298,6 @@ if (ARILES_ADAPTER_BOOST_OPTIONAL)
 endif(ARILES_ADAPTER_BOOST_OPTIONAL)
 
 
-set (ARILES_BRIDGES_BINARY_DIR "${PROJECT_BINARY_DIR}/bridges/")
-if (ARILES_INSTALL_BRIDGES)
-    set(ARILES_BRIDGES_INSTALL_PREFIX   "${CMAKE_INSTALL_PREFIX}")
-else()
-    set(ARILES_BRIDGES_INSTALL_PREFIX   "${PROJECT_BINARY_DIR}/bridges_install/")
-endif (ARILES_INSTALL_BRIDGES)
-
-
-# TODO We use this to set CMAKE_INSTALL_LIBDIR in order to prevent creation of
-# separate directories for different architectures. This is potentially unsafe
-# if ARILES_INSTALL_BRIDGES = ON.
-#
-# It seems that the only robust solution is to work with ariles as an external
-# project, where we would be able to use find_library().
-set(ARILES_BRIDGES_LIBDIR       "${ARILES_BRIDGES_INSTALL_PREFIX}/lib")
-
-set(ARILES_BRIDGES_INCLUDE_DIR      "${ARILES_BRIDGES_INSTALL_PREFIX}/include")
-include_directories (BEFORE SYSTEM  "${ARILES_BRIDGES_INCLUDE_DIR}")
-
-
-set(BRIDGES_ARGS
-    --no-warn-unused-cli
-    -DCMAKE_INSTALL_PREFIX=${ARILES_BRIDGES_INSTALL_PREFIX}
-    -DCMAKE_INSTALL_LIBDIR=${ARILES_BRIDGES_LIBDIR}
-    -DCMAKE_VERBOSE_MAKEFILE=${CMAKE_VERBOSE_MAKEFILE}
-    -DCMAKE_BUILD_TYPE=Release)
-
 
 if(CMAKE_TOOLCHAIN_FILE)
     if(NOT IS_ABSOLUTE ${CMAKE_TOOLCHAIN_FILE})
@@ -353,7 +321,6 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
             include_directories("${ARILES_INCLUDE_DIR}/${ARILES_BRIDGE}")
             file(MAKE_DIRECTORY "${ARILES_BRIDGE_INCLUDE_DIR}")
 
-            #add_subdirectory("${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}" "${ARILES_BRIDGES_BINARY_DIR}/${ARILES_BRIDGE}")
             include("${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/CMakeLists.txt")
 
             if (ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES)

@@ -5,32 +5,10 @@ cmakeut_copy_dir_if_exists(  TGT_ariles_copy_headers                            
 add_dependencies("TGT_ariles_copy_headers_bridge_pugixml_h" "TGT_ariles_copy_headers_bridge_pugixml_dir")
 add_dependencies("TGT_ariles_copy_headers_bridge_pugixml_h" "TGT_ariles_copy_headers_ariles")
 
-set(PUGIXML_SOURCE_DIR     "${CMAKE_CURRENT_LIST_DIR}/pugixml")
 
 set (TGT_PUGIXML            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
 if(NOT ARILES_DEB_TARGETS)
-    if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "BUILD")
-        set (PUGIXML_CXX_FLAGS      "${ARILES_CXX_FLAGS} -fPIC")
-
-
-        set(PUGIXML_ARGS
-            ${BRIDGES_ARGS}
-            "-DCMAKE_CXX_FLAGS=${PUGIXML_CXX_FLAGS}")
-
-        if(ARILES_COPY_CXX_FLAGS_TO_C_FLAGS)
-            set(PUGIXML_ARGS
-                ${PUGIXML_ARGS}
-                "-DCMAKE_C_FLAGS=${PUGIXML_CXX_FLAGS}")
-        endif(ARILES_COPY_CXX_FLAGS_TO_C_FLAGS)
-
-        cmakeut_add_external_git_project(TARGET_NAME "${TGT_PUGIXML}"
-                                        PROJECT_DIR "${PUGIXML_SOURCE_DIR}"
-                                        CMAKE_ARGS   ${PUGIXML_ARGS})
-
-        set(ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES "")
-        set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS
-            "${ARILES_BRIDGES_LIBDIR}/${CMAKE_STATIC_LIBRARY_PREFIX}pugixml${CMAKE_STATIC_LIBRARY_SUFFIX}")
-    else()
+    if(${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "ON")
         pkg_search_module(${ARILES_BRIDGE} pugixml)
 
 
