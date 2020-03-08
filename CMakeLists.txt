@@ -8,7 +8,7 @@ set(PROJECT_VERSION_PATCH 0)
 
 
 include(FindPkgConfig)
-include(ExternalProject)
+include(GNUInstallDirs)
 include(CMakeParseArguments)
 include(CPackComponent)
 include(CMakePackageConfigHelpers)
@@ -252,18 +252,18 @@ add_subdirectory(cpput)
 
 add_custom_target( TGT_ariles_copy_headers ALL )
 
-# core & adapters headers are installed only in MIX or CORE mode.
-if (${ARILES_ENABLE_CORE})
-    cmakeut_copy_dir_if_exists(TGT_ariles_copy_headers          "ariles"
-                              "${PROJECT_SOURCE_DIR}/include"  "${ARILES_INCLUDE_DIR}/core/")
+# core & adapters headers
+cmakeut_copy_dir_if_exists(TGT_ariles_copy_headers          "ariles"
+                          "${PROJECT_SOURCE_DIR}/include"  "${ARILES_INCLUDE_DIR}/core/")
+include_directories("${ARILES_INCLUDE_DIR}/core/")
 
+if (${ARILES_ENABLE_CORE})
     foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
         cmakeut_copy_dir_if_exists(
             TGT_ariles_copy_headers                                         "adapter_${ARILES_EXTRA_ADAPTER}"
             "${PROJECT_SOURCE_DIR}/extra_adapters/${ARILES_EXTRA_ADAPTER}"  "${ARILES_INCLUDE_DIR}/core/ariles/adapters/")
     endforeach()
 
-    include_directories("${ARILES_INCLUDE_DIR}/core/")
     list(APPEND DEB_ARCHIVE_FILES "./include" "./extra_adapters")
 endif()
 
@@ -316,11 +316,7 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
 
     foreach(ARILES_BRIDGE ${ARILES_BRIDGES_TMP})
         if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
-            set (${ARILES_BRIDGE}_INTERFACE_DIR  "${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/interface")
-            set (ARILES_BRIDGE_INCLUDE_DIR "${ARILES_INCLUDE_DIR}/${ARILES_BRIDGE}/ariles/bridges/")
-            include_directories("${ARILES_INCLUDE_DIR}/${ARILES_BRIDGE}")
-            file(MAKE_DIRECTORY "${ARILES_BRIDGE_INCLUDE_DIR}")
-
+            add_custom_target(${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE})
             include("${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/CMakeLists.txt")
 
             if (ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES)
@@ -331,8 +327,7 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
                 link_directories("${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS}")
             endif()
 
-            list(APPEND DEB_ARCHIVE_FILES "./bridges/${ARILES_BRIDGE}/interface")
-            list(APPEND DEB_ARCHIVE_FILES "./bridges/${ARILES_BRIDGE}/CMakeLists.txt")
+            list(APPEND DEB_ARCHIVE_FILES "${PROJECT_SOURCE_DIR}/bridges/${ARILES_BRIDGE}/")
         endif()
     endforeach(ARILES_BRIDGE)
 endforeach(ARILES_BRIDGES_DIR)
@@ -381,10 +376,9 @@ endif()
 ## Auto-generated headers
 #####################################
 
-if (${ARILES_ENABLE_CORE})
-    # build config
-    #---
-    set(ARILES_BUILD_CONFIG
+# build config
+#---
+set(ARILES_BUILD_CONFIG
 "#pragma once
 // __func__ ?
 #cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNC_
@@ -393,15 +387,16 @@ if (${ARILES_ENABLE_CORE})
 #cmakedefine ARILES_DEFAULT_FLOAT_VALUE ${ARILES_DEFAULT_FLOAT_VALUE}\n
 #cmakedefine ARILES_DEFAULT_DOUBLE_VALUE ${ARILES_DEFAULT_DOUBLE_VALUE}\n")
 
-    if (ARILES_DEFAULT_CONFIGURABLE_FLAGS)
-        set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_DEFAULT_CONFIGURABLE_FLAGS ${ARILES_DEFAULT_CONFIGURABLE_FLAGS}\n")
-    endif(ARILES_DEFAULT_CONFIGURABLE_FLAGS)
+if (ARILES_DEFAULT_CONFIGURABLE_FLAGS)
+    set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_DEFAULT_CONFIGURABLE_FLAGS ${ARILES_DEFAULT_CONFIGURABLE_FLAGS}\n")
+endif(ARILES_DEFAULT_CONFIGURABLE_FLAGS)
 
-    string(CONFIGURE "${ARILES_BUILD_CONFIG}" ARILES_BUILD_CONFIG)
-    file(WRITE "${ARILES_INCLUDE_DIR}/core/ariles/internal/build_config.h" "${ARILES_BUILD_CONFIG}")
-    #---
+string(CONFIGURE "${ARILES_BUILD_CONFIG}" ARILES_BUILD_CONFIG)
+file(WRITE "${ARILES_INCLUDE_DIR}/core/ariles/internal/build_config.h" "${ARILES_BUILD_CONFIG}")
+#---
 
 
+if (${ARILES_ENABLE_CORE})
     # adapters_all.h
     #---
     set(ARILES_ADAPTERS_ALL   "#pragma once\n")
@@ -523,8 +518,8 @@ endif()
 #####################################
 ## CPack
 #####################################
-
 include(CPack)
+
 
 set(CPACK_DEBIAN_RESOURCE_FILE_CHANGELOG "")
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Alexander Sherikov <asherikov@yandex.com>")

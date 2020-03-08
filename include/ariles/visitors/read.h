@@ -39,25 +39,6 @@ namespace ariles
 
 
             protected:
-                /**
-                 * @brief open configuration file
-                 *
-                 * @param[out] config_ifs
-                 * @param[in] file_name
-                 */
-                void openFile(std::ifstream &config_ifs, const std::string& file_name)
-                {
-                    config_ifs.open(file_name.c_str());
-                    if (!config_ifs.good())
-                    {
-                        std::string file_name_default = file_name;
-                        config_ifs.open(file_name_default.c_str());
-                    }
-                    ARILES_PERSISTENT_ASSERT(   true == config_ifs.good(),
-                                                std::string("Could not open configuration file: ") + file_name.c_str());
-                }
-
-
                 template<int t_size_limit_type>
                 std::size_t checkSize(
                         const std::size_t & /*size*/,
@@ -91,6 +72,25 @@ namespace ariles
                     const Parameters & getParameters(const t_Ariles & ariles_class) const
                 {
                     return (ariles_class.arilesGetParameters(*this));
+                }
+
+
+                /**
+                 * @brief open configuration file
+                 *
+                 * @param[out] config_ifs
+                 * @param[in] file_name
+                 */
+                static void openFile(std::ifstream &config_ifs, const std::string& file_name)
+                {
+                    config_ifs.open(file_name.c_str());
+                    if (!config_ifs.good())
+                    {
+                        std::string file_name_default = file_name;
+                        config_ifs.open(file_name_default.c_str());
+                    }
+                    ARILES_PERSISTENT_ASSERT(   true == config_ifs.good(),
+                                                std::string("Could not open configuration file: ") + file_name.c_str());
                 }
 
 

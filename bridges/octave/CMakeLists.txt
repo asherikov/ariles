@@ -1,12 +1,17 @@
-cmakeut_copy_file_if_exists( TGT_ariles_copy_headers                         "bridge_octave_h"
-                            "${${ARILES_BRIDGE}_INTERFACE_DIR}/octave.h"    "${ARILES_BRIDGE_INCLUDE_DIR}/")
-cmakeut_copy_dir_if_exists(  TGT_ariles_copy_headers                         "bridge_octave_dir"
-                            "${${ARILES_BRIDGE}_INTERFACE_DIR}/octave"      "${ARILES_BRIDGE_INCLUDE_DIR}/octave")
-add_dependencies("TGT_ariles_copy_headers_bridge_octave_h" "TGT_ariles_copy_headers_bridge_octave_dir")
-add_dependencies("TGT_ariles_copy_headers_bridge_octave_h" "TGT_ariles_copy_headers_ariles")
+include_directories(${CMAKE_CURRENT_LIST_DIR})
 
+set (TGT_ARILES_BRIDGE_LIB      "ariles_${ARILES_BRIDGE}")
 
-set (TGT_OCTAVE            "${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE}")
-add_custom_target(${TGT_OCTAVE})
+if(NOT ARILES_DEB_TARGETS)
+    include_directories(${CMAKE_CURRENT_LIST_DIR})
+
+    add_library(${TGT_ARILES_BRIDGE_LIB} SHARED
+        ${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/src/writer.cpp)
+
+    add_dependencies(${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE} ${TGT_ARILES_BRIDGE_LIB})
+    add_dependencies(${TGT_ARILES_BRIDGE_LIB} TGT_ariles_copy_headers)
+
+    set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS "${TGT_ARILES_BRIDGE_LIB}")
+endif()
 
 include(ariles_install_component)

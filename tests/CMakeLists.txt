@@ -43,7 +43,7 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "004" "" "${ARILES_TEST_ALL_
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "005" "" "${ARILES_TEST_ALL_BRIDGES}")  # disabled ariles
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "009" "" "${ARILES_TEST_ALL_BRIDGES}")  # pointers (scalar)
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "010" "rapidjson;jsonnet" "")           # jsonnet
-ariles_define_regression_test(${CMAKE_PROJECT_NAME} "011" "rapidjson;yaml_cpp" "")          # bridge inclusion order
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "011" "rapidjson;jsonnet;yaml_cpp" "")          # bridge inclusion order #TODO
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "012" "octave" "")                      # octave
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "013" "" "${ARILES_TEST_ALL_BRIDGES}")  # special floats
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "014" "" "${ARILES_TEST_FILE_BRIDGES}") # filenames
@@ -76,7 +76,7 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "204" "" "${ARILES_TEST_ALL_
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "205" "" "${ARILES_TEST_ALL_BRIDGES}")  # disabled ariles
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "209" "" "${ARILES_TEST_ALL_BRIDGES}")  # pointers (scalar)
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "210" "rapidjson;jsonnet" "")           # jsonnet
-ariles_define_regression_test(${CMAKE_PROJECT_NAME} "211" "rapidjson;yaml_cpp" "")          # bridge inclusion order
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "211" "rapidjson;jsonnet;yaml_cpp" "")          # bridge inclusion order # TODO
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "212" "octave" "")                      # octave
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "213" "" "${ARILES_TEST_ALL_BRIDGES}")  # special floats
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "214" "" "${ARILES_TEST_FILE_BRIDGES}") # filenames

@@ -22,22 +22,6 @@ namespace ariles
                 typedef ariles::ConfigurableFlags Parameters;
 
 
-            protected:
-                /**
-                 * @brief open configuration file
-                 *
-                 * @param[out] config_ofs
-                 * @param[in] file_name
-                 */
-                void openFile(std::ofstream &config_ofs, const std::string& file_name)
-                {
-                    config_ofs.open(file_name.c_str());
-
-                    ARILES_PERSISTENT_ASSERT(   true == config_ofs.good(),
-                                            std::string("Could not open configuration file for writing: ") + file_name.c_str());
-                }
-
-
             public:
                 using visitor::VisitorBase<Parameters>::getDefaultParameters;
 
@@ -45,6 +29,21 @@ namespace ariles
                     const Parameters & getParameters(const t_Ariles & ariles_class) const
                 {
                     return (ariles_class.arilesGetParameters(*this));
+                }
+
+
+                /**
+                 * @brief open configuration file
+                 *
+                 * @param[out] config_ofs
+                 * @param[in] file_name
+                 */
+                static void openFile(std::ofstream &config_ofs, const std::string& file_name)
+                {
+                    config_ofs.open(file_name.c_str());
+
+                    ARILES_PERSISTENT_ASSERT(   true == config_ofs.good(),
+                                            std::string("Could not open configuration file for writing: ") + file_name.c_str());
                 }
 
 

@@ -20,6 +20,7 @@
 #if __cplusplus >= 201103L
 
 #   include <type_traits>
+#   include <memory>
 
 #   define ARILES_IS_ENUM_ENABLER(Enum) \
         const typename std::enable_if< (std::is_enum<Enum>::value) >::type * = NULL
@@ -33,11 +34,14 @@
 #   define ARILES_IS_BASE_DISABLER(Base, Derived) \
         const typename std::enable_if< not (ARILES_IS_BASE_OF(Base, Derived)) >::type * = NULL
 
+#   define ARILES_SHARED_PTR    std::shared_ptr
+
 #else
 
 #   include <boost/utility/enable_if.hpp>
 #   include <boost/type_traits/is_enum.hpp>
 #   include <boost/type_traits/is_base_of.hpp>
+#   include <boost/smart_ptr/shared_ptr.hpp>
 
 #   define ARILES_IS_ENUM_ENABLER(Enum) \
         const typename boost::enable_if_c< (boost::is_enum<Enum>::value) >::type * = NULL
@@ -50,6 +54,9 @@
 
 #   define ARILES_IS_BASE_DISABLER(Base, Derived) \
         const typename boost::enable_if_c< not (ARILES_IS_BASE_OF(Base, Derived)) >::type * = NULL
+
+
+#   define ARILES_SHARED_PTR    boost::shared_ptr
 
 #endif
 
