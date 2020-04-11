@@ -28,7 +28,7 @@ namespace ariles
             /**
              * @brief Configuration reader class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Reader :
+            class ARILES_LIB_EXPORT Reader :
                 public msgpack::Base<ariles::read::Visitor, impl::Reader>
             {
                 protected:

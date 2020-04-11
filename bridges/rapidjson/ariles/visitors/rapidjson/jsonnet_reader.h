@@ -20,7 +20,7 @@ namespace ariles
         {
             namespace jsonnet
             {
-                class Reader : public rapidjson::Reader
+                class ARILES_LIB_EXPORT Reader : public rapidjson::Reader
                 {
                     public:
                         explicit Reader(const std::string& file_name);

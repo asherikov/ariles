@@ -25,7 +25,7 @@ namespace ariles
             /**
              * @brief Configuration writer class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Writer :
+            class ARILES_LIB_EXPORT Writer :
                 public rapidjson::Base<ariles::write::Visitor, impl::Writer>
             {
                 public:

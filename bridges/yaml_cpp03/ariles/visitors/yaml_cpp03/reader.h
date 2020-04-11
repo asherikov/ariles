@@ -22,14 +22,14 @@ namespace ariles
         {
             namespace impl
             {
-                class Reader;
+                class ARILES_LIB_LOCAL Reader;
             }
 
 
             /**
              * @brief Configuration reader class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Reader :
+            class ARILES_LIB_EXPORT Reader :
                 public ariles::bridge::yaml_cpp03::Base<ariles::read::Visitor, impl::Reader>
             {
                 protected:

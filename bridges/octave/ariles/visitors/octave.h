@@ -33,7 +33,7 @@ namespace ariles
             /**
              * @brief Configuration writer class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::write::Visitor
+            class ARILES_LIB_EXPORT Writer : public ariles::write::Visitor
             {
                 protected:
                     typedef impl::Writer Impl;

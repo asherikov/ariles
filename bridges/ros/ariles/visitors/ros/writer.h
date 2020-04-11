@@ -19,7 +19,7 @@ namespace ariles
         {
             namespace impl
             {
-                class Writer;
+                class ARILES_LIB_LOCAL Writer;
             }
 
 
@@ -27,7 +27,7 @@ namespace ariles
             /**
              * @brief Configuration writer class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Writer :
+            class ARILES_LIB_EXPORT Writer :
                 public ros::Base<ariles::write::Visitor, impl::Writer>
             {
                 public:

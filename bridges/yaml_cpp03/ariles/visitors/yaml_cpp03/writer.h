@@ -22,14 +22,14 @@ namespace ariles
         {
             namespace impl
             {
-                class Writer;
+                class ARILES_LIB_LOCAL Writer;
             }
 
 
             /**
              * @brief Configuration writer class
              */
-            class ARILES_VISIBILITY_ATTRIBUTE Writer :
+            class ARILES_LIB_EXPORT Writer :
                 public ariles::bridge::yaml_cpp03::Base<ariles::write::Visitor, impl::Writer>
             {
                 public:
