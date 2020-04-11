@@ -1,6 +1,6 @@
 include_directories(${CMAKE_CURRENT_LIST_DIR})
 
-set (TGT_ARILES_BRIDGE_LIB      "ariles_${ARILES_BRIDGE}")
+set (TGT_ARILES_BRIDGE_LIB      "ariles_visitor_${ARILES_BRIDGE}")
 
 if(NOT ARILES_DEB_TARGETS)
     include_directories(${CMAKE_CURRENT_LIST_DIR})

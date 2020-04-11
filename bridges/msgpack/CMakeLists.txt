@@ -1,4 +1,4 @@
-set (TGT_ARILES_BRIDGE_LIB      "ariles_${ARILES_BRIDGE}")
+set (TGT_ARILES_BRIDGE_LIB      "ariles_visitor_${ARILES_BRIDGE}")
 if(NOT ARILES_DEB_TARGETS)
     pkg_search_module(${ARILES_BRIDGE} msgpack)
 

@@ -3,7 +3,7 @@ if (${INDEX} GREATER -1)
     message(FATAL_ERROR "Conflict between the bridges detected (yaml_cpp -- yaml_cpp03).")
 endif()
 
-set (TGT_ARILES_BRIDGE_LIB      "ariles_${ARILES_BRIDGE}")
+set (TGT_ARILES_BRIDGE_LIB      "ariles_visitor_${ARILES_BRIDGE}")
 if(NOT ARILES_DEB_TARGETS)
     pkg_search_module(${ARILES_BRIDGE} REQUIRED yaml-cpp03)
 
