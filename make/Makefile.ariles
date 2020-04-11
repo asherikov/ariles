@@ -11,7 +11,7 @@ EXTRA_CMAKE_PARAM?=
 PKG=ariles_ros
 REPO=https://github.com/asherikov/ariles.git
 DEPENDENCY_PATH=tests/dependency/
-DEBIAN_SYSTEM_DEPENDENCIES=libeigen3-dev octave libyaml-cpp-dev
+DEBIAN_SYSTEM_DEPENDENCIES=libeigen3-dev octave libyaml-cpp-dev rapidjson-dev
 
 CATKIN_PKG=ariles_ros
 CATKIN_DEPENDENCY_PATH=${DEPENDENCY_PATH}

@@ -12,334 +12,303 @@
 
 namespace ariles
 {
-    template <class t_Reader, class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE readBody(
-                                t_Reader & reader,
-                                ariles::CommonConfigurableBase & entry,
-                                const t_Flags & param)
+    namespace read
     {
-        if (true == param.isSet(ConfigurableFlags::ALLOW_MISSING_ENTRIES))
+        template <class t_Visitor, class t_Entry>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+                    t_Visitor & visitor,
+                    t_Entry & entry,
+                    const typename t_Visitor::Parameters & parameters,
+                    ARILES_IS_BASE_ENABLER(ariles::read::Base, t_Entry))
         {
-            reader.template startMap<t_Reader::SIZE_LIMIT_NONE>(entry.getNumberOfEntries());
-        }
-        else
-        {
-            reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(entry.getNumberOfEntries());
-        }
-        entry.readConfigEntries(reader, param);
-        reader.endMap();
-    }
+            ARILES_TRACE_FUNCTION;
 
-
-    /**
-     * @brief Read configuration entry (an enum)
-     * This function is necessary since an explicit casting to integer is needed.
-     */
-    template <  class t_Reader,
-                typename t_Enumeration,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE readBody(
-                        t_Reader & reader,
-                        t_Enumeration &entry,
-                        const t_Flags & /*param*/,
-                        // ENABLE this function for enums
-                        ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
-    {
-        int tmp_value = 0;
-        reader.readElement(tmp_value);
-        entry = static_cast<t_Enumeration> (tmp_value);
-    }
-
-
-    #define ARILES_BASIC_TYPE(type) \
-            template <class t_Reader, class t_Flags> \
-                void ARILES_VISIBILITY_ATTRIBUTE readBody( \
-                                t_Reader & reader, \
-                                type &entry, \
-                                const t_Flags & param) \
-            { \
-                ARILES_UNUSED_ARG(param);\
-                reader.readElement(entry);\
-            }
-
-    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
-
-    #undef ARILES_BASIC_TYPE
-
-
-
-    template <  class t_Reader,
-                class t_Entry,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE readEntry(
-                        t_Reader & reader,
-                        t_Entry &entry,
-                        const std::string & entry_name,
-                        const t_Flags & param)
-    {
-        if (reader.descend(entry_name))
-        {
-            try
+            typename t_Visitor::Parameters param = parameters;
+            if (false == param.isSet(t_Visitor::Parameters::PROPAGATE_ALLOW_MISSING_ENTRIES))
             {
-                readBody(reader, entry, param);
+                param.set(t_Visitor::Parameters::DEFAULT & t_Visitor::Parameters::ALLOW_MISSING_ENTRIES);
             }
-            catch(const std::exception &e)
+
+            ariles::count::Visitor counter;
+            ariles::apply(counter, entry);
+            if (true == param.isSet(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES))
             {
-                ARILES_THROW(std::string("Failed to parse entry <")
-                            + entry_name
-                            + "> ||  "
-                            + e.what());
-            }
-
-            reader.ascend();
-        }
-        else
-        {
-            ARILES_PERSISTENT_ASSERT(true == param.isSet(ConfigurableFlags::ALLOW_MISSING_ENTRIES),
-                                 std::string("Configuration file does not contain entry '") + entry_name + "'.");
-        }
-    }
-
-
-    // ============================================
-
-
-    template <class t_Writer, class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE writeBody(
-                        t_Writer & writer,
-                        const ariles::CommonConfigurableBase & entry,
-                        const t_Flags & param)
-    {
-        writer.startMap(entry.getNumberOfEntries());
-        entry.writeConfigEntries(writer, param);
-        writer.endMap();
-    }
-
-
-
-    template <  class t_Writer,
-                typename t_Enumeration,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE writeBody(
-                        t_Writer & writer,
-                        const t_Enumeration  entry,
-                        const t_Flags & /*param*/,
-                        ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
-    {
-        int tmp_value = entry;
-        writer.writeElement(tmp_value);
-    }
-
-
-    #define ARILES_BASIC_TYPE(type) \
-            template <  class t_Writer, \
-                        class t_Flags> \
-                void ARILES_VISIBILITY_ATTRIBUTE writeBody( \
-                                t_Writer &  writer, \
-                                const type & entry, \
-                                const t_Flags & param) \
-            {\
-                ARILES_UNUSED_ARG(param); \
-                writer.writeElement(entry); \
-            }
-
-    /**
-     * @brief Generate writeBody methods for basic types.
-     */
-    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
-
-    #undef ARILES_BASIC_TYPE
-
-
-
-    template <  class t_Writer,
-                typename t_Entry,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE writeEntry(
-                        t_Writer & writer,
-                        const t_Entry & entry,
-                        const std::string & entry_name,
-                        const t_Flags & param)
-    {
-        writer.descend(entry_name);
-        writeBody(writer, entry, param);
-        writer.ascend();
-    }
-
-
-    // ============================================
-
-
-    template<class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE setDefaults(
-                        ariles::CommonConfigurableBase & entry,
-                        const t_Flags & /*param*/)
-    {
-        entry.setDefaults();
-    }
-
-
-    template <typename t_Enumeration, class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE setDefaults(
-                        t_Enumeration  & entry,
-                        const t_Flags & /*param*/,
-                        ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
-    {
-        entry = static_cast<t_Enumeration>(0);
-    }
-
-
-    template<class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE setDefaults(bool & entry, const t_Flags & /*param*/)
-    {
-        entry = false;
-    }
-
-
-    template<class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE setDefaults(std::string & entry, const t_Flags & /*param*/)
-    {
-        entry = "";
-    }
-
-
-    #define ARILES_BASIC_TYPE(type) \
-            template<class t_Flags> \
-                void ARILES_VISIBILITY_ATTRIBUTE setDefaults(type & entry, const t_Flags & /*param*/) \
-            { entry = 0; }
-
-    /**
-     * @brief Generate setDefaults methods for basic types.
-     */
-    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_INTEGER_TYPES_LIST)
-
-    #undef ARILES_BASIC_TYPE
-
-
-    template<class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE setDefaults(float & entry, const t_Flags & /*param*/)
-    {
-        entry = ARILES_DEFAULT_FLOAT_VALUE;
-    }
-
-    template<class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE setDefaults(double & entry, const t_Flags & /*param*/)
-    {
-        entry = ARILES_DEFAULT_DOUBLE_VALUE;
-    }
-
-
-    // ============================================
-
-
-    inline void ARILES_VISIBILITY_ATTRIBUTE finalize(
-                    ariles::CommonConfigurableBase & entry,
-                    const ArilesNamespaceLookupTrigger &)
-    {
-        ARILES_TRACE_FUNCTION;
-        entry.arilesFinalize();
-    }
-
-
-    #define ARILES_BASIC_TYPE(type) \
-            inline void ARILES_VISIBILITY_ATTRIBUTE finalize(const type &, const ArilesNamespaceLookupTrigger &) \
-            { \
-                ARILES_TRACE_FUNCTION; \
-            }
-
-    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
-
-    #undef ARILES_BASIC_TYPE
-
-
-    // ============================================
-
-
-    template<class t_Left, class t_Right>
-        bool ARILES_VISIBILITY_ATTRIBUTE compare(
-                        const t_Left & left,
-                        const t_Right & right,
-                        const ariles::ComparisonParameters & param,
-                        ARILES_IS_CONFIGURABLE_ENABLER_TYPE(t_Left) * = NULL)
-    {
-        return (left.arilesCompare(right, param));
-    }
-
-
-    template <typename t_Enumeration>
-        bool ARILES_VISIBILITY_ATTRIBUTE compare(
-                        const t_Enumeration & left,
-                        const t_Enumeration & right,
-                        const ariles::ComparisonParameters & /*param*/,
-                        ARILES_IS_ENUM_ENABLER_TYPE(t_Enumeration) * = NULL)
-    {
-        return (left == right);
-    }
-
-
-    #define ARILES_BASIC_TYPE(type) \
-            inline bool ARILES_VISIBILITY_ATTRIBUTE compare( \
-                    const type & left,\
-                    const type & right, \
-                    const ariles::ComparisonParameters &) \
-            { return (left == right); }
-
-    /**
-     * @brief Generate setDefaults methods for basic types.
-     */
-    #define ARILES_COMPARE_TYPES_LIST \
-            ARILES_BASIC_INTEGER_TYPES_LIST \
-            ARILES_BASIC_TYPE(bool) \
-            ARILES_BASIC_TYPE(std::string)
-
-    ARILES_MACRO_SUBSTITUTE(ARILES_COMPARE_TYPES_LIST)
-
-    #undef ARILES_BASIC_TYPE
-
-
-	template <typename t_Scalar>
-    inline bool ARILES_VISIBILITY_ATTRIBUTE compareFloats(
-            const t_Scalar left, const t_Scalar right, const ariles::ComparisonParameters & param)
-    {
-        if (isNaN(left))
-        {
-            if (isNaN(right))
-            {
-				return (param.nan_equal_);
+                visitor.template startMap<t_Visitor::SIZE_LIMIT_NONE>(counter.counter_);
             }
             else
             {
-                return (false);
+                visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(counter.counter_);
             }
+            entry.arilesVirtualVisit(visitor, param);
+            visitor.endMap();
+
+#if 1 == ARILES_API_VERSION
+            entry.finalize(); /// @todo DEPRECATED
+#endif
         }
 
-        if (isInfinity(left))
+
+        /**
+         * @brief Read configuration entry (an enum)
+         * This function is necessary since an explicit casting to integer is needed.
+         */
+        template <  class t_Visitor,
+                    typename t_Enumeration>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+                    t_Visitor & visitor,
+                    t_Enumeration &entry,
+                    const typename t_Visitor::Parameters & /*param*/,
+                    // ENABLE this function for enums
+                    ARILES_IS_ENUM_ENABLER(t_Enumeration))
         {
-            if (isInfinity(right))
-            {
-                if (((left > 0) && (right > 0)) || ((left < 0) && (right < 0)))
-                {
-					return (param.inf_equal_);
-                }
-            }
-            return (false);
+            ARILES_TRACE_FUNCTION;
+            int tmp_value = 0;
+            visitor.readElement(tmp_value);
+            entry = static_cast<t_Enumeration> (tmp_value);
         }
 
-        return (std::abs(left - right) <=
-                ( (std::abs(left) < std::abs(right) ? std::abs(right) : std::abs(left)) * param.double_tolerance_));
+
+        #define ARILES_BASIC_TYPE(type) \
+                template <class t_Visitor> \
+                    void ARILES_VISIBILITY_ATTRIBUTE apply_read( \
+                                    t_Visitor & visitor, \
+                                    type &entry, \
+                                    const typename t_Visitor::Parameters & param) \
+                { \
+                    ARILES_TRACE_FUNCTION; \
+                    ARILES_UNUSED_ARG(param); \
+                    visitor.readElement(entry); \
+                }
+
+        ARILES_BASIC_TYPES_LIST
+
+        #undef ARILES_BASIC_TYPE
     }
+}
 
 
-    inline bool ARILES_VISIBILITY_ATTRIBUTE compare(
-            const float left, const float right, const ariles::ComparisonParameters & param)
+namespace ariles
+{
+    namespace write
     {
-        return (compareFloats(left, right, param));
+        template <class t_Visitor, class t_Entry>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+                    t_Visitor & writer,
+                    const t_Entry & entry,
+                    const typename t_Visitor::Parameters & param,
+                    ARILES_IS_BASE_ENABLER(ariles::write::Base, t_Entry))
+        {
+            ARILES_TRACE_FUNCTION;
+            ariles::count::Visitor counter;
+            ariles::apply(counter, entry);
+            writer.startMap(counter.counter_);
+            entry.arilesVirtualVisit(writer, param);
+            writer.endMap();
+        }
+
+
+
+        template <  class t_Visitor,
+                    typename t_Enumeration>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+                    t_Visitor & writer,
+                    const t_Enumeration entry,
+                    const typename t_Visitor::Parameters & /*param*/,
+                    ARILES_IS_ENUM_ENABLER(t_Enumeration))
+        {
+            ARILES_TRACE_FUNCTION;
+            int tmp_value = entry;
+            writer.writeElement(tmp_value);
+        }
+
+
+        #define ARILES_BASIC_TYPE(type) \
+                template <class t_Visitor> \
+                    void ARILES_VISIBILITY_ATTRIBUTE apply_write( \
+                            t_Visitor &  writer, \
+                            const type & entry, \
+                            const typename t_Visitor::Parameters &) \
+                {\
+                    ARILES_TRACE_FUNCTION; \
+                    writer.writeElement(entry); \
+                }
+
+        /**
+         * @brief Generate apply methods for basic types.
+         */
+        ARILES_BASIC_TYPES_LIST
+
+        #undef ARILES_BASIC_TYPE
     }
+}
 
 
-    inline bool ARILES_VISIBILITY_ATTRIBUTE compare(
-            const double left, const double right, const ariles::ComparisonParameters & param)
+namespace ariles
+{
+    namespace compare
     {
-        return (compareFloats(left, right, param));
+        template<   class t_Visitor,
+                    class t_Left,
+                    class t_Right>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
+                    const t_Left & left,
+                    const t_Right & right,
+                    const typename t_Visitor::Parameters & param,
+                    ARILES_IS_BASE_ENABLER(ariles::Ariles, t_Left))
+        {
+            ARILES_TRACE_FUNCTION;
+            if (true == param.compare_number_of_entries_)
+            {
+                ariles::count::Visitor counter;
+                ariles::apply(counter, left);
+
+                const std::size_t left_counter = counter.counter_;
+                ariles::apply(counter, right);
+
+                visitor.equal_ &= (left_counter == counter.counter_);
+            }
+            left.arilesVisit(visitor, right, param);
+        }
+
+
+        template <  class t_Visitor,
+                    typename t_Enumeration>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
+                    const t_Enumeration & left,
+                    const t_Enumeration & right,
+                    const typename t_Visitor::Parameters & /*param*/,
+                    ARILES_IS_ENUM_ENABLER(t_Enumeration))
+        {
+            visitor.equal_ &= (left == right);
+        }
+
+
+        #define ARILES_BASIC_TYPE(type) \
+                template <class t_Visitor> \
+                    inline void ARILES_VISIBILITY_ATTRIBUTE apply_compare( \
+                            t_Visitor & visitor, \
+                            const type & left, \
+                            const type & right, \
+                            const typename t_Visitor::Parameters &) \
+                { visitor.equal_ &= (left == right); }
+
+        /**
+         * @brief Generate compare methods for basic types.
+         */
+        #define ARILES_COMPARE_TYPES_LIST \
+                ARILES_BASIC_INTEGER_TYPES_LIST \
+                ARILES_BASIC_TYPE(bool) \
+                ARILES_BASIC_TYPE(std::string)
+
+        ARILES_COMPARE_TYPES_LIST
+
+        #undef ARILES_BASIC_TYPE
+
+
+
+        template<class t_Visitor>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
+                    const float & left,
+                    const float & right,
+                    const typename t_Visitor::Parameters & param)
+        {
+            visitor.equal_ &= (visitor.compareFloats(left, right, param));
+        }
+
+
+        template<class t_Visitor>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
+                    const double & left,
+                    const double & right,
+                    const typename t_Visitor::Parameters & param)
+        {
+            visitor.equal_ &= visitor.compareFloats(left, right, param);
+        }
+    }
+}
+
+
+namespace ariles
+{
+    namespace defaults
+    {
+        template<class t_Visitor, class t_Entry>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
+                    const t_Visitor & visitor,
+                    t_Entry & entry,
+                    const typename t_Visitor::Parameters & param,
+                    ARILES_IS_BASE_ENABLER(ariles::defaults::Base, t_Entry))
+        {
+            ARILES_TRACE_FUNCTION;
+            entry.arilesVirtualVisit(visitor, param);
+        }
+
+
+        template <  class t_Visitor,
+                    typename t_Enumeration>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
+                    const t_Visitor & /*visitor*/,
+                    t_Enumeration & /*entry*/,
+                    const typename t_Visitor::Parameters & /*param*/,
+                    ARILES_IS_ENUM_ENABLER(t_Enumeration))
+        {
+            ARILES_TRACE_FUNCTION;
+        }
+
+
+        #define ARILES_BASIC_TYPE(type) \
+            template<class t_Visitor> \
+                void ARILES_VISIBILITY_ATTRIBUTE apply_defaults( \
+                        const t_Visitor &, \
+                        type & entry, \
+                        const typename t_Visitor::Parameters & param) \
+                { \
+                    ARILES_TRACE_FUNCTION; \
+                    entry = param.template getDefault<type>(); \
+                }
+
+        ARILES_BASIC_TYPES_LIST
+
+        #undef ARILES_BASIC_TYPE
+    }
+}
+
+
+
+namespace ariles
+{
+    namespace process
+    {
+        template<class t_Visitor, class t_Entry>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_process(
+                    const t_Visitor & visitor,
+                    t_Entry & entry,
+                    const typename t_Visitor::Parameters & param,
+                    ARILES_IS_BASE_ENABLER(ariles::Ariles, t_Entry))
+        {
+            ARILES_TRACE_FUNCTION;
+            entry.arilesVirtualVisit(visitor, param);
+#if 1 == ARILES_API_VERSION
+            if (true == ARILES_IS_BASE_OF(ariles::postprocess::Base, t_Entry))
+            {
+                entry.finalize(); /// @todo DEPRECATED
+            }
+#endif
+        }
+
+
+        template<class t_Visitor, class t_Entry>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_process(
+                    const t_Visitor &,
+                    t_Entry &,
+                    const typename t_Visitor::Parameters &,
+                    ARILES_IS_BASE_DISABLER(ariles::Ariles, t_Entry))
+        {
+            ARILES_TRACE_FUNCTION;
+        }
     }
 }

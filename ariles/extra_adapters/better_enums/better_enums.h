@@ -13,11 +13,13 @@
 
 namespace ariles
 {
-    template <  class t_Reader,
-                class t_BetterEnum,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        readBody(   t_Reader &reader,
+    namespace read
+    {
+        template <  class t_Visitor,
+                    class t_BetterEnum,
+                    class t_Flags>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+                    t_Visitor &visitor,
                     t_BetterEnum &entry,
                     const t_Flags & /*param*/,
                     const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
@@ -25,18 +27,25 @@ namespace ariles
                     const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
-    {
-        std::string enum_value;
-        reader.readElement(enum_value);
-        entry = t_BetterEnum::_from_string(enum_value.c_str());
+        {
+            ARILES_TRACE_FUNCTION;
+            std::string enum_value;
+            visitor.readElement(enum_value);
+            entry = t_BetterEnum::_from_string(enum_value.c_str());
+        }
     }
+}
 
 
-    template <  class t_Writer,
-                class t_BetterEnum,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        writeBody(  t_Writer & writer,
+namespace ariles
+{
+    namespace write
+    {
+        template <  class t_Visitor,
+                    class t_BetterEnum,
+                    class t_Flags>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+                    t_Visitor & writer,
                     const t_BetterEnum &entry,
                     const t_Flags & /*param*/,
                     const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
@@ -44,53 +53,59 @@ namespace ariles
                     const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
-    {
-        writer.writeElement(std::string(entry._to_string()));
+        {
+            ARILES_TRACE_FUNCTION;
+            writer.writeElement(std::string(entry._to_string()));
+        }
     }
+}
 
 
-    template <  class t_BetterEnum,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        setDefaults(t_BetterEnum &entry,
-                    const t_Flags & /*param*/,
+namespace ariles
+{
+    namespace compare
+    {
+        template <class t_Visitor, class t_BetterEnum>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
+                    const t_BetterEnum &left,
+                    const t_BetterEnum &right,
+                    const typename t_Visitor::Parameters & /*param*/,
                     const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
-    {
-        ARILES_TRACE_FUNCTION;
-        entry = t_BetterEnum::_from_integral_unchecked(0);
+        {
+            ARILES_TRACE_FUNCTION;
+            visitor.equal_ &= (left == right);
+        }
     }
+}
 
 
-    template <class t_BetterEnum>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        finalize(   t_BetterEnum & /*entry*/,
-                    const ArilesNamespaceLookupTrigger &,
+
+namespace ariles
+{
+    namespace defaults
+    {
+        template <  class t_Visitor,
+                    class t_BetterEnum>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
+                    t_Visitor & /*visitor*/,
+                    t_BetterEnum &entry,
+                    const typename t_Visitor::Parameters & /*param*/,
                     const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
                     const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
-    {
-        ARILES_TRACE_FUNCTION;
-    }
-
-
-    template <class t_BetterEnum>
-        bool ARILES_VISIBILITY_ATTRIBUTE
-        compare(const t_BetterEnum &left,
-                const t_BetterEnum &right,
-                const ariles::ComparisonParameters & /*param*/,
-                const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
-    {
-        ARILES_TRACE_FUNCTION;
-        return (left == right);
+        {
+            ARILES_TRACE_FUNCTION;
+            if (t_BetterEnum::_size() > 0)
+            {
+                entry = t_BetterEnum::_values()[0];
+            }
+        }
     }
 }

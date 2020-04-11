@@ -15,545 +15,413 @@
 
 namespace ariles
 {
-    template <  class t_Reader,
-                typename t_Scalar,
-                int t_rows,
-                int t_flags,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE readBody(
-                t_Reader &reader,
-                Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
-                const t_Flags & param)
+    namespace read
     {
-        std::size_t size = reader.startArray();
-
-        if (Eigen::Dynamic == t_rows)
+        template <  class t_Visitor,
+                    typename t_Scalar,
+                    int t_rows,
+                    int t_flags>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+                    t_Visitor &visitor,
+                    Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
+                    const typename t_Visitor::Parameters & param)
         {
-            entry.resize(size);
+            ARILES_TRACE_FUNCTION;
+            std::size_t size = visitor.startArray();
+
+            if (Eigen::Dynamic == t_rows)
+            {
+                entry.resize(size);
+            }
+            else
+            {
+                ARILES_ASSERT(  (static_cast<int>(size) == t_rows),
+                                "Wrong entry size.");
+            }
+
+            for(EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows); ++i)
+            {
+                apply_read(visitor, entry[i], param);
+                visitor.shiftArray();
+            }
+            visitor.endArray();
         }
-        else
+
+
+
+        template <  class t_Visitor,
+                    typename t_Scalar,
+                    int t_rows,
+                    int t_cols,
+                    int t_flags>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+                    t_Visitor & visitor,
+                    Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
+                    const typename t_Visitor::Parameters & param)
         {
-            ARILES_ASSERT(  (static_cast<int>(size) == t_rows),
-                            "Wrong entry size.");
+            ARILES_TRACE_FUNCTION;
+            if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols || param.isSet(ConfigurableFlags::FORCE_EXPLICIT_MATRIX_SIZE))
+            {
+                EIGEN_DEFAULT_DENSE_INDEX_TYPE num_rows;
+                EIGEN_DEFAULT_DENSE_INDEX_TYPE num_cols;
+
+                ariles::ConfigurableFlags param_local = param;
+                param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
+
+                visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(3);
+                visitor(num_cols, "cols", param_local);
+                ARILES_ASSERT(Eigen::Dynamic == t_cols || t_cols == num_cols, "Wrong number of columns.");
+                visitor(num_rows, "rows", param_local);
+                ARILES_ASSERT(Eigen::Dynamic == t_rows || t_rows == num_rows, "Wrong number of rows.");
+
+
+                Eigen::Matrix<t_Scalar, Eigen::Dynamic, 1> v;
+                visitor(v, "data", param_local);
+                visitor.endMap();
+
+                ARILES_ASSERT(v.rows() == num_rows*num_cols, "Wrong entry size.");
+
+                Eigen::Map<
+                    Eigen::Matrix<  t_Scalar,
+                                    t_rows,
+                                    t_cols,
+                                    Eigen::RowMajor> >  map(v.data(),
+                                                        num_rows,
+                                                        num_cols);
+                entry = map;
+            }
+            else
+            {
+                Eigen::Matrix<t_Scalar, t_rows*t_cols, 1> v;
+
+                apply_read(visitor, v, param);
+
+                Eigen::Map<
+                    Eigen::Matrix<  double,
+                                    t_rows,
+                                    t_cols,
+                                    Eigen::RowMajor> >  map(v.data(),
+                                                        t_rows,
+                                                        t_cols);
+                entry = map;
+            }
         }
 
-        for(EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows); ++i)
+
+        template <  class t_Visitor,
+                    typename t_Scalar,
+                    int t_dim,
+                    int t_mode,
+                    int t_options>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+                    t_Visitor & visitor,
+                    Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
+                    const typename t_Visitor::Parameters & param)
         {
-            readBody(reader, entry[i], param);
-            reader.shiftArray();
+            ARILES_TRACE_FUNCTION;
+            Eigen::Matrix<
+                t_Scalar,
+                Eigen::Dynamic == t_dim ? Eigen::Dynamic : t_dim+1,
+                Eigen::Dynamic == t_dim ? Eigen::Dynamic : t_dim+1> raw_matrix;
+            apply_read(visitor, raw_matrix, param);
+            entry.matrix() = raw_matrix;
         }
-        reader.endArray();
-    }
 
 
-
-    template <  class t_Reader,
-                typename t_Scalar,
-                int t_rows,
-                int t_cols,
-                int t_flags,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        readBody(  t_Reader & reader,
-                   Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
-                   const t_Flags & param)
-    {
-        if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols || param.isSet(ConfigurableFlags::FORCE_EXPLICIT_MATRIX_SIZE))
+        template <  class t_Visitor,
+                    typename t_Scalar,
+                    int t_options>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+                    t_Visitor & visitor,
+                    Eigen::Quaternion< t_Scalar, t_options > &entry,
+                    const typename t_Visitor::Parameters & param)
         {
-            EIGEN_DEFAULT_DENSE_INDEX_TYPE num_rows;
-            EIGEN_DEFAULT_DENSE_INDEX_TYPE num_cols;
-
+            ARILES_TRACE_FUNCTION;
             ariles::ConfigurableFlags param_local = param;
             param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
 
-            reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(3);
-            readEntry(reader, num_cols, "cols", param_local);
-            ARILES_ASSERT(Eigen::Dynamic == t_cols || t_cols == num_cols, "Wrong number of columns.");
-            readEntry(reader, num_rows, "rows", param_local);
-            ARILES_ASSERT(Eigen::Dynamic == t_rows || t_rows == num_rows, "Wrong number of rows.");
-
-
-            Eigen::Matrix<t_Scalar, Eigen::Dynamic, 1> v;
-            readEntry(reader, v, "data", param_local);
-            reader.endMap();
-
-            ARILES_ASSERT(v.rows() == num_rows*num_cols, "Wrong entry size.");
-
-            Eigen::Map<
-                Eigen::Matrix<  t_Scalar,
-                                t_rows,
-                                t_cols,
-                                Eigen::RowMajor> >  map(v.data(),
-                                                    num_rows,
-                                                    num_cols);
-            entry = map;
-        }
-        else
-        {
-            Eigen::Matrix<t_Scalar, t_rows*t_cols, 1> v;
-
-            readBody(reader, v, param);
-
-            Eigen::Map<
-                Eigen::Matrix<  double,
-                                t_rows,
-                                t_cols,
-                                Eigen::RowMajor> >  map(v.data(),
-                                                    t_rows,
-                                                    t_cols);
-            entry = map;
+            visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(4);
+            visitor(entry.x(), "x", param_local);
+            visitor(entry.y(), "y", param_local);
+            visitor(entry.z(), "z", param_local);
+            visitor(entry.w(), "w", param_local);
+            visitor.endMap();
         }
     }
+}
 
 
-    template <  class t_Reader,
-                typename t_Scalar,
-                int t_dim,
-                int t_mode,
-                int t_options,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        readBody(   t_Reader & reader,
-                    Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
-                    const t_Flags & param)
+namespace ariles
+{
+    namespace write
     {
-        Eigen::Matrix<
-            t_Scalar,
-            Eigen::Dynamic == t_dim ? Eigen::Dynamic : t_dim+1,
-            Eigen::Dynamic == t_dim ? Eigen::Dynamic : t_dim+1> raw_matrix;
-        readBody(reader, raw_matrix, param);
-        entry.matrix() = raw_matrix;
-    }
-
-
-    template <  class t_Reader,
-                typename t_Scalar,
-                int t_options,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        readBody(   t_Reader & reader,
-                    Eigen::Quaternion< t_Scalar, t_options > &entry,
-                    const t_Flags & param)
-    {
-        ariles::ConfigurableFlags param_local = param;
-        param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
-
-        reader.template startMap<t_Reader::SIZE_LIMIT_EQUAL>(4);
-        readEntry(reader, entry.x(), "x", param_local);
-        readEntry(reader, entry.y(), "y", param_local);
-        readEntry(reader, entry.z(), "z", param_local);
-        readEntry(reader, entry.w(), "w", param_local);
-        reader.endMap();
-    }
-
-
-    // ====================================================
-
-
-    template <  class t_Writer,
-                typename t_Scalar,
-                int t_rows,
-                int t_flags,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        writeBody( t_Writer & writer,
-                   const Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
-                   const t_Flags & /*param*/)
-    {
-        if (writer.getBridgeFlags().isSet(BridgeFlags::NATIVE_MATRIX_SUPPORTED))
+        template <  class t_Visitor,
+                    typename t_Scalar,
+                    int t_rows,
+                    int t_flags>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+                    t_Visitor & writer,
+                    const Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
+                    const typename t_Visitor::Parameters & /*param*/)
         {
-            writer.startMatrix(true);
-            for(EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0;
-                i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows);
-                ++i)
+            ARILES_TRACE_FUNCTION;
+            if (writer.getBridgeFlags().isSet(BridgeFlags::NATIVE_MATRIX_SUPPORTED))
             {
-                writer.startMatrixRow();
-                writer.writeElement(entry(i));
-                writer.endMatrixRow();
-            }
-            writer.endMatrix();
-        }
-        else
-        {
-            writer.startArray(entry.rows(), true);
-            for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < entry.rows(); ++i)
-            {
-                writer.writeElement(entry[i]);
-                writer.shiftArray();
-            }
-            writer.endArray();
-        }
-    }
-
-
-
-    template <  class t_Writer,
-                typename t_Scalar,
-                int t_rows,
-                int t_cols,
-                int t_flags,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        writeBody( t_Writer & writer,
-                   const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
-                   const t_Flags & param)
-    {
-        if (writer.getBridgeFlags().isSet(BridgeFlags::NATIVE_MATRIX_SUPPORTED))
-        {
-            writer.startMatrix();
-            for(EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0;
-                i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows);
-                ++i)
-            {
-                writer.startMatrixRow();
-                for(EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0;
-                    j < (Eigen::Dynamic == t_cols ? entry.cols() : t_cols);
-                    ++j)
+                writer.startMatrix(true);
+                for(EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0;
+                    i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows);
+                    ++i)
                 {
-                    writer.writeElement(entry(i, j));
+                    writer.startMatrixRow();
+                    writer.writeElement(entry(i));
+                    writer.endMatrixRow();
                 }
-                writer.endMatrixRow();
+                writer.endMatrix();
             }
-            writer.endMatrix();
-        }
-        else
-        {
-            if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols
-                    || param.isSet(ConfigurableFlags::FORCE_EXPLICIT_MATRIX_SIZE))
+            else
             {
-                writer.startMap(3);
-
-                writeEntry(writer, entry.cols(), "cols", param);
-                writeEntry(writer, entry.rows(), "rows", param);
-
-
-                writer.descend("data");
-                writer.startArray(entry.size(), true);
+                writer.startArray(entry.rows(), true);
                 for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < entry.rows(); ++i)
                 {
-                    for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < entry.cols(); ++j)
-                    {
-                        writer.writeElement(entry(i, j));
-                        writer.shiftArray();
-                    }
-                }
-                writer.endArray();
-                writer.ascend();
-
-                writer.endMap();
-            }
-            else
-            {
-                writer.startArray(entry.size(), true);
-                for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < t_rows; ++i)
-                {
-                    for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < t_cols; ++j)
-                    {
-                        writer.writeElement(entry(i, j));
-                        writer.shiftArray();
-                    }
+                    writer.writeElement(entry[i]);
+                    writer.shiftArray();
                 }
                 writer.endArray();
             }
         }
-    }
 
 
-    template <  class t_Writer,
-                typename t_Scalar,
-                int t_dim,
-                int t_mode,
-                int t_options,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        writeBody(  t_Writer & writer,
+
+        template <  class t_Visitor,
+                    typename t_Scalar,
+                    int t_rows,
+                    int t_cols,
+                    int t_flags>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+                    t_Visitor & writer,
+                    const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
+                    const typename t_Visitor::Parameters & param)
+        {
+            ARILES_TRACE_FUNCTION;
+            if (writer.getBridgeFlags().isSet(BridgeFlags::NATIVE_MATRIX_SUPPORTED))
+            {
+                writer.startMatrix();
+                for(EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0;
+                    i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows);
+                    ++i)
+                {
+                    writer.startMatrixRow();
+                    for(EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0;
+                        j < (Eigen::Dynamic == t_cols ? entry.cols() : t_cols);
+                        ++j)
+                    {
+                        writer.writeElement(entry(i, j));
+                    }
+                    writer.endMatrixRow();
+                }
+                writer.endMatrix();
+            }
+            else
+            {
+                if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols
+                        || param.isSet(ConfigurableFlags::FORCE_EXPLICIT_MATRIX_SIZE))
+                {
+                    writer.startMap(3);
+
+                    writer(entry.cols(), "cols", param);
+                    writer(entry.rows(), "rows", param);
+
+
+                    writer.descend("data");
+                    writer.startArray(entry.size(), true);
+                    for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < entry.rows(); ++i)
+                    {
+                        for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < entry.cols(); ++j)
+                        {
+                            writer.writeElement(entry(i, j));
+                            writer.shiftArray();
+                        }
+                    }
+                    writer.endArray();
+                    writer.ascend();
+
+                    writer.endMap();
+                }
+                else
+                {
+                    writer.startArray(entry.size(), true);
+                    for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < t_rows; ++i)
+                    {
+                        for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < t_cols; ++j)
+                        {
+                            writer.writeElement(entry(i, j));
+                            writer.shiftArray();
+                        }
+                    }
+                    writer.endArray();
+                }
+            }
+        }
+
+
+        template <  class t_Visitor,
+                    typename t_Scalar,
+                    int t_dim,
+                    int t_mode,
+                    int t_options>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+                    t_Visitor & writer,
                     const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
-                    const t_Flags & param)
-    {
-        writeBody(writer, entry.matrix(), param);
-    }
+                    const typename t_Visitor::Parameters & param)
+        {
+            ARILES_TRACE_FUNCTION;
+            apply_write(writer, entry.matrix(), param);
+        }
 
 
-    template <  class t_Writer,
-                typename t_Scalar,
-                int t_options,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        writeBody(  t_Writer & writer,
+        template <  class t_Visitor,
+                    typename t_Scalar,
+                    int t_options,
+                    class t_Flags>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+                    t_Visitor & writer,
                     const Eigen::Quaternion< t_Scalar, t_options > &entry,
                     const t_Flags & param)
-    {
-        writer.startMap(4);
-
-        writeEntry(writer, entry.x(), "x", param);
-        writeEntry(writer, entry.y(), "y", param);
-        writeEntry(writer, entry.z(), "z", param);
-        writeEntry(writer, entry.w(), "w", param);
-
-        writer.endMap();
-    }
-
-
-    // ====================================================
-
-
-    template <  typename t_Scalar,
-                int t_rows,
-                int t_flags,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        setDefaults(
-                Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
-                const t_Flags & /*param*/)
-    {
-        if (Eigen::Dynamic == t_rows)
         {
-            entry.resize(0);
-        }
-        else
-        {
-            entry.setConstant(0);
+            ARILES_TRACE_FUNCTION;
+
+            writer.startMap(4);
+
+            writer(entry.x(), "x", param);
+            writer(entry.y(), "y", param);
+            writer(entry.z(), "z", param);
+            writer(entry.w(), "w", param);
+
+            writer.endMap();
         }
     }
+}
 
-    template <  int t_rows,
-                int t_flags,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        setDefaults(
-                Eigen::Matrix<float, t_rows, 1, t_flags> &entry,
-                const t_Flags & /*param*/)
+
+
+namespace ariles
+{
+    namespace compare
     {
-        if (Eigen::Dynamic == t_rows)
+        template <  class t_Visitor,
+                    typename t_Scalar,
+                    int t_dim,
+                    int t_mode,
+                    int t_options>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
+                    const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & left,
+                    const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & right,
+                    const typename t_Visitor::Parameters & param)
         {
-            entry.resize(0);
+            ARILES_TRACE_FUNCTION;
+            visitor.equal_ &= (left.isApprox(right, param.template getTolerance<t_Scalar>()));
         }
-        else
+
+
+        template <  class t_Visitor,
+                    typename t_Scalar,
+                    int t_options>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
+                    const Eigen::Quaternion< t_Scalar, t_options > &left,
+                    const Eigen::Quaternion< t_Scalar, t_options > &right,
+                    const typename t_Visitor::Parameters & param)
         {
-            entry.setConstant(ARILES_DEFAULT_FLOAT_VALUE);
+            ARILES_TRACE_FUNCTION;
+            visitor.equal_ &= (left.isApprox(right, param.template getTolerance<t_Scalar>()));
+        }
+
+
+        template <  class t_Visitor,
+                    typename t_Scalar,
+                    int t_rows,
+                    int t_cols,
+                    int t_flags>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
+                    const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> & left,
+                    const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> & right,
+                    const typename t_Visitor::Parameters & param)
+        {
+            ARILES_TRACE_FUNCTION;
+            visitor.equal_ &= (left.isApprox(right, param.template getTolerance<t_Scalar>()));
         }
     }
+}
 
-    template <  int t_rows,
-                int t_flags,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        setDefaults(
-                Eigen::Matrix<double , t_rows, 1, t_flags> &entry,
-                const t_Flags & /*param*/)
+
+
+namespace ariles
+{
+    namespace defaults
     {
-        if (Eigen::Dynamic == t_rows)
+        template <  class t_Visitor,
+                    typename t_Scalar,
+                    int t_rows,
+                    int t_cols,
+                    int t_flags>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
+                    const t_Visitor & /*visitor*/,
+                    Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
+                    const typename t_Visitor::Parameters & param)
         {
-            entry.resize(0);
-        }
-        else
-        {
-            entry.setConstant(ARILES_DEFAULT_DOUBLE_VALUE);
-        }
-    }
-
-
-    template <  typename t_Scalar,
-                int t_rows,
-                int t_cols,
-                int t_flags,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        setDefaults(
-                Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
-                const t_Flags & /*param*/)
-    {
-        if (Eigen::Dynamic == t_rows)
-        {
-            if (Eigen::Dynamic == t_cols)
+            ARILES_TRACE_FUNCTION;
+            if (Eigen::Dynamic == t_rows)
             {
-                entry.resize(0, 0);
+                if (Eigen::Dynamic == t_cols)
+                {
+                    entry.resize(0, 0);
+                }
+                else
+                {
+                    entry.resize(0, t_cols);
+                }
             }
             else
             {
-                entry.resize(0, t_cols);
+                if (Eigen::Dynamic == t_cols)
+                {
+                    entry.resize(t_rows, 0);
+                }
+                else
+                {
+                    entry.setConstant(param.template getDefault<t_Scalar>());
+                }
             }
         }
-        else
+
+
+        template <  class t_Visitor,
+                    typename t_Scalar,
+                    int t_dim,
+                    int t_mode,
+                    int t_options>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
+                    const t_Visitor & /*visitor*/,
+                    Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
+                    const typename t_Visitor::Parameters & /*param*/)
         {
-            if (Eigen::Dynamic == t_cols)
-            {
-                entry.resize(t_rows, 0);
-            }
-            else
-            {
-                entry.setConstant(0.0);
-            }
+            ARILES_TRACE_FUNCTION;
+            entry.setIdentity();
         }
-    }
 
-    template <  int t_rows,
-                int t_cols,
-                int t_flags,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        setDefaults(
-                Eigen::Matrix<float, t_rows, t_cols, t_flags> &entry,
-                const t_Flags & /*param*/)
-    {
-        if (Eigen::Dynamic == t_rows)
+
+        template <  class t_Visitor,
+                    typename t_Scalar,
+                    int t_options>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
+                    const t_Visitor & /*visitor*/,
+                    Eigen::Quaternion< t_Scalar, t_options > &entry,
+                    const typename t_Visitor::Parameters & /*param*/)
         {
-            if (Eigen::Dynamic == t_cols)
-            {
-                entry.resize(0, 0);
-            }
-            else
-            {
-                entry.resize(0, t_cols);
-            }
+            ARILES_TRACE_FUNCTION;
+            entry.setIdentity();
         }
-        else
-        {
-            if (Eigen::Dynamic == t_cols)
-            {
-                entry.resize(t_rows, 0);
-            }
-            else
-            {
-                entry.setConstant(ARILES_DEFAULT_FLOAT_VALUE);
-            }
-        }
-    }
-
-    template <  int t_rows,
-                int t_cols,
-                int t_flags,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        setDefaults(
-                Eigen::Matrix<double, t_rows, t_cols, t_flags> &entry,
-                const t_Flags & /*param*/)
-    {
-        if (Eigen::Dynamic == t_rows)
-        {
-            if (Eigen::Dynamic == t_cols)
-            {
-                entry.resize(0, 0);
-            }
-            else
-            {
-                entry.resize(0, t_cols);
-            }
-        }
-        else
-        {
-            if (Eigen::Dynamic == t_cols)
-            {
-                entry.resize(t_rows, 0);
-            }
-            else
-            {
-                entry.setConstant(ARILES_DEFAULT_DOUBLE_VALUE);
-            }
-        }
-    }
-
-
-
-    template <  typename t_Scalar,
-                int t_dim,
-                int t_mode,
-                int t_options,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        setDefaults(
-                Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
-                const t_Flags & /*param*/)
-    {
-        entry.setIdentity();
-    }
-
-
-    template <  typename t_Scalar,
-                int t_options,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        setDefaults(
-                Eigen::Quaternion< t_Scalar, t_options > &entry,
-                const t_Flags & /*param*/)
-    {
-        entry.setIdentity();
-    }
-
-
-    // ====================================================
-
-
-    template <  typename t_Scalar,
-                int t_dim,
-                int t_mode,
-                int t_options>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        finalize(   const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & /*entry*/,
-                    const ArilesNamespaceLookupTrigger &)
-    {
-        ARILES_TRACE_FUNCTION;
-    }
-
-
-    template <  typename t_Scalar,
-                int t_options>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        finalize(   const Eigen::Quaternion< t_Scalar, t_options > &/*entry*/,
-                    const ArilesNamespaceLookupTrigger &)
-    {
-        ARILES_TRACE_FUNCTION;
-    }
-
-
-    template <class t_Derived>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        finalize(   const Eigen::EigenBase<t_Derived> & /*entry*/,
-                    const ArilesNamespaceLookupTrigger &)
-    {
-        ARILES_TRACE_FUNCTION;
-    }
-
-
-    // ====================================================
-
-
-    template <  typename t_Scalar,
-                int t_dim,
-                int t_mode,
-                int t_options>
-        bool ARILES_VISIBILITY_ATTRIBUTE
-        compare(const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & left,
-                const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> & right,
-                const ariles::ComparisonParameters & param)
-    {
-        ARILES_TRACE_FUNCTION;
-        return (left.isApprox(right, param.getTolerance<t_Scalar>()));
-    }
-
-
-    template <  typename t_Scalar,
-                int t_options>
-        bool ARILES_VISIBILITY_ATTRIBUTE
-        compare(const Eigen::Quaternion< t_Scalar, t_options > &left,
-                const Eigen::Quaternion< t_Scalar, t_options > &right,
-                const ariles::ComparisonParameters & param)
-    {
-        ARILES_TRACE_FUNCTION;
-        return (left.isApprox(right, param.getTolerance<t_Scalar>()));
-    }
-
-
-    template <  typename t_Scalar,
-                int t_rows,
-                int t_cols,
-                int t_flags>
-        bool ARILES_VISIBILITY_ATTRIBUTE
-        compare(const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> & left,
-                const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> & right,
-                const ariles::ComparisonParameters & param)
-    {
-        ARILES_TRACE_FUNCTION;
-        return (left.isApprox(right, param.getTolerance<t_Scalar>()));
     }
 }

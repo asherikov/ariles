@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(ariles_ros VERSION 1.3.2)
+project(ariles_ros VERSION 1.6.1)
 
 
 option(ARILES_ROS_ENABLE_TESTS "Enable tests." OFF)
@@ -17,6 +17,7 @@ set(ARILES_BRIDGE_yaml_cpp      "ON"    CACHE STRING "")
 set(ARILES_BRIDGE_ros           "ON"    CACHE STRING "")
 set(ARILES_BRIDGE_octave        "ON"    CACHE STRING "")
 set(ARILES_BRIDGE_array         "ON"    CACHE STRING "")
+set(ARILES_BRIDGE_rapidjson     "ON"    CACHE STRING "")
 
 set(ARILES_ADAPTER_EIGEN            "ON"    CACHE STRING "")
 set(ARILES_ADAPTER_BOOST_POINTER    "ON"    CACHE STRING "")

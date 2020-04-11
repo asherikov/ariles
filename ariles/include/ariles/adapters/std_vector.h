@@ -14,94 +14,117 @@
 
 namespace ariles
 {
-    template <  class t_Reader,
-                typename t_VectorEntryType,
-                class t_Allocator,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE readBody(
-                t_Reader & reader,
-                std::vector<t_VectorEntryType, t_Allocator> & entry,
-                const t_Flags & param)
+    namespace read
     {
-        entry.resize(reader.startArray());
-        for(std::size_t i = 0; i < entry.size(); ++i)
+        template <  class t_Visitor,
+                    typename t_VectorEntryType,
+                    class t_Allocator>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+                    t_Visitor & visitor,
+                    std::vector<t_VectorEntryType, t_Allocator> & entry,
+                    const typename t_Visitor::Parameters & param)
         {
-            readBody(reader, entry[i], param);
-            reader.shiftArray();
-        }
-        reader.endArray();
-    }
-
-
-
-    template <  class t_Writer,
-                typename t_VectorEntryType,
-                class t_Allocator,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE writeBody(
-                t_Writer & writer,
-                const std::vector<t_VectorEntryType, t_Allocator> & entry,
-                const t_Flags & param)
-    {
-        writer.startArray(entry.size(), param.isSet(ConfigurableFlags::COMPACT_ARRAYS_IF_SUPPORTED));
-        for (std::size_t i = 0; i < entry.size(); ++i)
-        {
-            writeBody(writer, entry[i], param);
-            writer.shiftArray();
-        }
-        writer.endArray();
-    }
-
-
-
-    template <  typename t_VectorEntryType,
-                class t_Allocator,
-                class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE setDefaults(
-                std::vector<t_VectorEntryType, t_Allocator> & entry,
-                const t_Flags & /*param*/)
-    {
-        ARILES_TRACE_FUNCTION;
-        entry.clear();
-    }
-
-
-    template <  typename t_VectorEntryType,
-                class t_Allocator>
-        void ARILES_VISIBILITY_ATTRIBUTE
-        finalize(   std::vector<t_VectorEntryType, t_Allocator> & entry,
-                    const ArilesNamespaceLookupTrigger &trigger)
-    {
-        ARILES_TRACE_FUNCTION;
-        for (std::size_t i = 0; i < entry.size(); ++i)
-        {
-            finalize(entry[i], trigger);
-        }
-    }
-
-
-    template <  typename t_VectorEntryType,
-                class t_Allocator>
-        bool ARILES_VISIBILITY_ATTRIBUTE
-        compare(const std::vector<t_VectorEntryType, t_Allocator> &left,
-                const std::vector<t_VectorEntryType, t_Allocator> &right,
-                const ariles::ComparisonParameters & param)
-    {
-        ARILES_TRACE_FUNCTION;
-
-        if (left.size() != right.size())
-        {
-            return (false);
-        }
-
-        for (std::size_t i = 0; i < left.size(); ++i)
-        {
-            if (false == compare(left[i], right[i], param))
+            ARILES_TRACE_FUNCTION;
+            entry.resize(visitor.startArray());
+            for(std::size_t i = 0; i < entry.size(); ++i)
             {
-                return (false);
+                apply_read(visitor, entry[i], param);
+                visitor.shiftArray();
+            }
+            visitor.endArray();
+        }
+    }
+}
+
+
+namespace ariles
+{
+    namespace write
+    {
+        template <  class t_Visitor,
+                    typename t_VectorEntryType,
+                    class t_Allocator>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+                    t_Visitor & writer,
+                    const std::vector<t_VectorEntryType, t_Allocator> & entry,
+                    const typename t_Visitor::Parameters & param)
+        {
+            ARILES_TRACE_FUNCTION;
+            writer.startArray(entry.size(), param.isSet(t_Visitor::Parameters::COMPACT_ARRAYS_IF_SUPPORTED));
+            for (std::size_t i = 0; i < entry.size(); ++i)
+            {
+                apply_write(writer, entry[i], param);
+                writer.shiftArray();
+            }
+            writer.endArray();
+        }
+    }
+}
+
+
+namespace ariles
+{
+    namespace compare
+    {
+        template <  class t_Visitor,
+                    typename t_VectorEntryType,
+                    class t_Allocator>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+                    t_Visitor & visitor,
+                    const std::vector<t_VectorEntryType, t_Allocator> &left,
+                    const std::vector<t_VectorEntryType, t_Allocator> &right,
+                    const typename t_Visitor::Parameters & param)
+        {
+            ARILES_TRACE_FUNCTION;
+
+            visitor.equal_ &= (left.size() == right.size());
+
+            for (std::size_t i = 0; i < left.size() and true == visitor.equal_; ++i)
+            {
+                apply_compare(visitor, left[i], right[i], param);
             }
         }
+    }
+}
 
-        return (true);
+
+namespace ariles
+{
+    namespace defaults
+    {
+        template <  class t_Visitor,
+                    typename t_VectorEntryType,
+                    class t_Allocator>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
+                    const t_Visitor & /*visitor*/,
+                    std::vector<t_VectorEntryType, t_Allocator> & entry,
+                    const typename t_Visitor::Parameters & /*param*/)
+        {
+            ARILES_TRACE_FUNCTION;
+            entry.clear();
+        }
+    }
+}
+
+
+
+namespace ariles
+{
+    namespace process
+    {
+        template <  class t_Visitor,
+                    typename t_VectorEntryType,
+                    class t_Allocator>
+            void ARILES_VISIBILITY_ATTRIBUTE apply_process(
+                    const t_Visitor & visitor,
+                    std::vector<t_VectorEntryType, t_Allocator> & entry,
+                    const typename t_Visitor::Parameters & param)
+        {
+            ARILES_TRACE_FUNCTION;
+            for (std::size_t i = 0; i < entry.size(); ++i)
+            {
+                apply_process(visitor, entry[i], param);
+            }
+        }
     }
 }

@@ -3,12 +3,12 @@ cmake_minimum_required (VERSION 2.8.12)
 project (ariles CXX)
 set(ARILES_HOMEPAGE http://asherikov.github.com/ariles/)
 set(PROJECT_VERSION_MAJOR 1)
-set(PROJECT_VERSION_MINOR 3)
-set(PROJECT_VERSION_PATCH 2)
+set(PROJECT_VERSION_MINOR 6)
+set(PROJECT_VERSION_PATCH 1)
 
 
 include(FindPkgConfig)
-include(ExternalProject)
+include(GNUInstallDirs)
 include(CMakeParseArguments)
 include(CPackComponent)
 include(CMakePackageConfigHelpers)
@@ -18,7 +18,6 @@ set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
 include(cmakeut_copy_dir_if_exists)
 include(cmakeut_copy_file_if_exists)
-include(cmakeut_add_external_git_project)
 include(cmakeut_list_filenames)
 include(cmakeut_dump_variables)
 include(cmakeut_compiler_flags)
@@ -36,8 +35,7 @@ option (ARILES_ENABLE_CORE              "Install core (if disable only selected 
 option (ARILES_ENABLE_CORE_ALL_HEADER   "Generate ariles_all.h header (not suitable for packages)" ON)
 
 # bridges
-set    (ARILES_BRIDGES_DEFAULT_MODE     "BUILD" CACHE STRING "ON = enable, OFF = disable, BUILD = build from sources")
-option (ARILES_INSTALL_BRIDGES          "Install bridges on the system (when mode = BUILD)." OFF)
+set    (ARILES_BRIDGES_DEFAULT_MODE     "ON" CACHE STRING "ON = enable, OFF = disable")
 
 # extra adapters & options
 set (ARILES_DEFAULT_CONFIGURABLE_FLAGS  "" CACHE STRING "Override default flags")
@@ -93,6 +91,12 @@ set(CPACK_DEBIAN_PACKAGE_SECTION    "devel")
 
 #####################################
 
+find_program(CCACHE_FOUND ccache)
+if(CCACHE_FOUND)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+endif(CCACHE_FOUND)
+
+
 if (NOT ${ARILES_ENABLE_CORE})
     # tests cannot be built if the core is not installed
     set(ARILES_BUILD_REGRESSION_TESTS   OFF)
@@ -130,14 +134,14 @@ foreach (ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
         list(REMOVE_ITEM ARILES_CACHED_BRIDGES "ARILES_BRIDGE_${ARILES_BRIDGE}")
         if (DEFINED ARILES_BRIDGE_${ARILES_BRIDGE})
             set    ("ARILES_BRIDGE_${ARILES_BRIDGE}" "${ARILES_BRIDGE_${ARILES_BRIDGE}}"
-                    CACHE STRING "Bridge '${ARILES_BRIDGE} (ON / OFF / BUILD)")
+                    CACHE STRING "Bridge '${ARILES_BRIDGE} (ON / OFF")
 
             if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
                 list(APPEND ARILES_ENABLED_BRIDGES "${ARILES_BRIDGE}")
             endif()
         else()
             set    ("ARILES_BRIDGE_${ARILES_BRIDGE}" "${ARILES_BRIDGES_DEFAULT_MODE}"
-                    CACHE STRING "Bridge '${ARILES_BRIDGE} (ON / OFF / BUILD)")
+                    CACHE STRING "Bridge '${ARILES_BRIDGE} (ON / OFF)")
 
             if (NOT ${ARILES_BRIDGES_DEFAULT_MODE} STREQUAL "OFF")
                 list(APPEND ARILES_ENABLED_BRIDGES "${ARILES_BRIDGE}")
@@ -248,18 +252,18 @@ add_subdirectory(cpput)
 
 add_custom_target( TGT_ariles_copy_headers ALL )
 
-# core & adapters headers are installed only in MIX or CORE mode.
-if (${ARILES_ENABLE_CORE})
-    cmakeut_copy_dir_if_exists(TGT_ariles_copy_headers          "ariles"
-                              "${PROJECT_SOURCE_DIR}/include"  "${ARILES_INCLUDE_DIR}/core/")
+# core & adapters headers
+cmakeut_copy_dir_if_exists(TGT_ariles_copy_headers          "ariles"
+                          "${PROJECT_SOURCE_DIR}/include"  "${ARILES_INCLUDE_DIR}/core/")
+include_directories("${ARILES_INCLUDE_DIR}/core/")
 
+if (${ARILES_ENABLE_CORE})
     foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
         cmakeut_copy_dir_if_exists(
             TGT_ariles_copy_headers                                         "adapter_${ARILES_EXTRA_ADAPTER}"
             "${PROJECT_SOURCE_DIR}/extra_adapters/${ARILES_EXTRA_ADAPTER}"  "${ARILES_INCLUDE_DIR}/core/ariles/adapters/")
     endforeach()
 
-    include_directories("${ARILES_INCLUDE_DIR}/core/")
     list(APPEND DEB_ARCHIVE_FILES "./include" "./extra_adapters")
 endif()
 
@@ -268,9 +272,6 @@ endif()
 #####################################
 ## Dependencies
 #####################################
-
-add_custom_target( TGT_fetch_bridges )
-set(ARILES_TARGET_FETCH_BRIDGES    TGT_fetch_bridges CACHE INTERNAL "")
 
 # Boost
 find_package(Boost REQUIRED)
@@ -297,33 +298,6 @@ if (ARILES_ADAPTER_BOOST_OPTIONAL)
 endif(ARILES_ADAPTER_BOOST_OPTIONAL)
 
 
-set (ARILES_BRIDGES_BINARY_DIR "${PROJECT_BINARY_DIR}/bridges/")
-if (ARILES_INSTALL_BRIDGES)
-    set(ARILES_BRIDGES_INSTALL_PREFIX   "${CMAKE_INSTALL_PREFIX}")
-else()
-    set(ARILES_BRIDGES_INSTALL_PREFIX   "${PROJECT_BINARY_DIR}/bridges_install/")
-endif (ARILES_INSTALL_BRIDGES)
-
-
-# TODO We use this to set CMAKE_INSTALL_LIBDIR in order to prevent creation of
-# separate directories for different architectures. This is potentially unsafe
-# if ARILES_INSTALL_BRIDGES = ON.
-#
-# It seems that the only robust solution is to work with ariles as an external
-# project, where we would be able to use find_library().
-set(ARILES_BRIDGES_LIBDIR       "${ARILES_BRIDGES_INSTALL_PREFIX}/lib")
-
-set(ARILES_BRIDGES_INCLUDE_DIR      "${ARILES_BRIDGES_INSTALL_PREFIX}/include")
-include_directories (BEFORE SYSTEM  "${ARILES_BRIDGES_INCLUDE_DIR}")
-
-
-set(BRIDGES_ARGS
-    --no-warn-unused-cli
-    -DCMAKE_INSTALL_PREFIX=${ARILES_BRIDGES_INSTALL_PREFIX}
-    -DCMAKE_INSTALL_LIBDIR=${ARILES_BRIDGES_LIBDIR}
-    -DCMAKE_VERBOSE_MAKEFILE=${CMAKE_VERBOSE_MAKEFILE}
-    -DCMAKE_BUILD_TYPE=Release)
-
 
 if(CMAKE_TOOLCHAIN_FILE)
     if(NOT IS_ABSOLUTE ${CMAKE_TOOLCHAIN_FILE})
@@ -342,12 +316,7 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
 
     foreach(ARILES_BRIDGE ${ARILES_BRIDGES_TMP})
         if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
-            set (${ARILES_BRIDGE}_INTERFACE_DIR  "${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/interface")
-            set (ARILES_BRIDGE_INCLUDE_DIR "${ARILES_INCLUDE_DIR}/${ARILES_BRIDGE}/ariles/bridges/")
-            include_directories("${ARILES_INCLUDE_DIR}/${ARILES_BRIDGE}")
-            file(MAKE_DIRECTORY "${ARILES_BRIDGE_INCLUDE_DIR}")
-
-            #add_subdirectory("${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}" "${ARILES_BRIDGES_BINARY_DIR}/${ARILES_BRIDGE}")
+            add_custom_target(${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE})
             include("${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/CMakeLists.txt")
 
             if (ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES)
@@ -358,8 +327,7 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
                 link_directories("${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS}")
             endif()
 
-            list(APPEND DEB_ARCHIVE_FILES "./bridges/${ARILES_BRIDGE}/interface")
-            list(APPEND DEB_ARCHIVE_FILES "./bridges/${ARILES_BRIDGE}/CMakeLists.txt")
+            list(APPEND DEB_ARCHIVE_FILES "${PROJECT_SOURCE_DIR}/bridges/${ARILES_BRIDGE}/")
         endif()
     endforeach(ARILES_BRIDGE)
 endforeach(ARILES_BRIDGES_DIR)
@@ -408,10 +376,9 @@ endif()
 ## Auto-generated headers
 #####################################
 
-if (${ARILES_ENABLE_CORE})
-    # build config
-    #---
-    set(ARILES_BUILD_CONFIG
+# build config
+#---
+set(ARILES_BUILD_CONFIG
 "#pragma once
 // __func__ ?
 #cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNC_
@@ -420,15 +387,16 @@ if (${ARILES_ENABLE_CORE})
 #cmakedefine ARILES_DEFAULT_FLOAT_VALUE ${ARILES_DEFAULT_FLOAT_VALUE}\n
 #cmakedefine ARILES_DEFAULT_DOUBLE_VALUE ${ARILES_DEFAULT_DOUBLE_VALUE}\n")
 
-    if (ARILES_DEFAULT_CONFIGURABLE_FLAGS)
-        set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_DEFAULT_CONFIGURABLE_FLAGS ${ARILES_DEFAULT_CONFIGURABLE_FLAGS}\n")
-    endif(ARILES_DEFAULT_CONFIGURABLE_FLAGS)
+if (ARILES_DEFAULT_CONFIGURABLE_FLAGS)
+    set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_DEFAULT_CONFIGURABLE_FLAGS ${ARILES_DEFAULT_CONFIGURABLE_FLAGS}\n")
+endif(ARILES_DEFAULT_CONFIGURABLE_FLAGS)
 
-    string(CONFIGURE "${ARILES_BUILD_CONFIG}" ARILES_BUILD_CONFIG)
-    file(WRITE "${ARILES_INCLUDE_DIR}/core/ariles/internal/build_config.h" "${ARILES_BUILD_CONFIG}")
-    #---
+string(CONFIGURE "${ARILES_BUILD_CONFIG}" ARILES_BUILD_CONFIG)
+file(WRITE "${ARILES_INCLUDE_DIR}/core/ariles/internal/build_config.h" "${ARILES_BUILD_CONFIG}")
+#---
 
 
+if (${ARILES_ENABLE_CORE})
     # adapters_all.h
     #---
     set(ARILES_ADAPTERS_ALL   "#pragma once\n")
@@ -490,13 +458,6 @@ if (${ARILES_ENABLE_CORE})
     set(ARILES_DEPENDENCY_INCLUDES  "${ARILES_CORE_DEPENDENCY_INCLUDES}")
     set(ARILES_LIBRARY_DIRS         "")
 
-    if (ARILES_LIBRARIES)
-        set (ARILES_SHARED_GNU_LINKER_FLAGS "-Wl,--exclude-libs")
-
-        foreach(ARILES_LIBRARY ${ARILES_LIBRARIES})
-            set(ARILES_SHARED_GNU_LINKER_FLAGS "${ARILES_SHARED_GNU_LINKER_FLAGS},${ARILES_LIBRARY}")
-        endforeach(ARILES_LIBRARY)
-    endif (ARILES_LIBRARIES)
 
     list(REMOVE_DUPLICATES ARILES_INCLUDES)
     list(REMOVE_DUPLICATES ARILES_DEPENDENCY_INCLUDES)
@@ -550,8 +511,8 @@ endif()
 #####################################
 ## CPack
 #####################################
-
 include(CPack)
+
 
 set(CPACK_DEBIAN_RESOURCE_FILE_CHANGELOG "")
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Alexander Sherikov <asherikov@yandex.com>")

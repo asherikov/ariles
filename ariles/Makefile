@@ -112,7 +112,7 @@ deb-uninstall:
 
 cmake_dependency: clean
 	mkdir -p build/cmake_dependency_test
-	cd build/cmake_dependency_test; cmake ../../tests/cmake_dependency/ -DARILES_COMPONENTS="core;ros;yaml-cpp"
+	cd build/cmake_dependency_test; cmake ../../tests/cmake_dependency/ -DARILES_COMPONENTS="core;ros;yaml-cpp;octave"
 	cd build/cmake_dependency_test; ${MAKE} ${MAKE_FLAGS}
 
 ppa-upload:
@@ -139,8 +139,6 @@ test-noros: clean
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp11_on_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp11_on_noros_sloppy TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp03_on_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
-	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp11_build_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
-	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp03_build_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 
 test-cmake:
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=conflict TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
@@ -156,7 +154,6 @@ addutils:
 updateutils:
 	git fetch --all
 	git show remotes/cmakeut/master:cmake/FindEigen3.cmake > cmake/FindEigen3.cmake
-	git show remotes/cmakeut/master:cmake/cmakeut_add_external_git_project.cmake    > cmake/cmakeut_add_external_git_project.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_compiler_flags.cmake              > cmake/cmakeut_compiler_flags.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_copy_dir_if_exists.cmake          > cmake/cmakeut_copy_dir_if_exists.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_copy_file_if_exists.cmake         > cmake/cmakeut_copy_file_if_exists.cmake
@@ -170,8 +167,14 @@ updateutils:
 update:
 	git submodule update
 
-dox:
+
+doxclean:
+	cd doc/dox; git fetch --all; git checkout gh-pages; git pull
+	find ./doc/dox/ -mindepth 1 -not -name "\.git" | xargs rm -Rf
+
+dox: doxclean clean
 	cd doc; doxygen
+
 
 install-ros:
 	sh -c "echo \"deb http://packages.ros.org/ros/ubuntu ${UBUNTU_DISTRO} main\" > /etc/apt/sources.list.d/ros-latest.list"

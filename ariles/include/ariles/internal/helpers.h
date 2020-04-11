@@ -17,9 +17,48 @@
 #include <cstdlib>
 
 
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_enum.hpp>
-#include <boost/type_traits/is_base_of.hpp>
+#if __cplusplus >= 201103L
+
+#   include <type_traits>
+#   include <memory>
+
+#   define ARILES_IS_ENUM_ENABLER(Enum) \
+        const typename std::enable_if< (std::is_enum<Enum>::value) >::type * = NULL
+
+#   define ARILES_IS_BASE_OF(Base, Derived) \
+        std::is_base_of<Base, Derived>::value
+
+#   define ARILES_IS_BASE_ENABLER(Base, Derived) \
+        const typename std::enable_if< (ARILES_IS_BASE_OF(Base, Derived)) >::type * = NULL
+
+#   define ARILES_IS_BASE_DISABLER(Base, Derived) \
+        const typename std::enable_if< not (ARILES_IS_BASE_OF(Base, Derived)) >::type * = NULL
+
+#   define ARILES_SHARED_PTR    std::shared_ptr
+
+#else
+
+#   include <boost/utility/enable_if.hpp>
+#   include <boost/type_traits/is_enum.hpp>
+#   include <boost/type_traits/is_base_of.hpp>
+#   include <boost/smart_ptr/shared_ptr.hpp>
+
+#   define ARILES_IS_ENUM_ENABLER(Enum) \
+        const typename boost::enable_if_c< (boost::is_enum<Enum>::value) >::type * = NULL
+
+#   define ARILES_IS_BASE_OF(Base, Derived) \
+        boost::is_base_of<Base, Derived>::value
+
+#   define ARILES_IS_BASE_ENABLER(Base, Derived) \
+        const typename boost::enable_if_c< (ARILES_IS_BASE_OF(Base, Derived)) >::type * = NULL
+
+#   define ARILES_IS_BASE_DISABLER(Base, Derived) \
+        const typename boost::enable_if_c< not (ARILES_IS_BASE_OF(Base, Derived)) >::type * = NULL
+
+
+#   define ARILES_SHARED_PTR    boost::shared_ptr
+
+#endif
 
 
 #include "build_config.h"
@@ -29,20 +68,12 @@
 #include "cpput_misc.h"
 #include "cpput_flags.h"
 
-
-#ifndef ARILES_DEFAULT_CONFIG_PREFIX
-#   define ARILES_DEFAULT_CONFIG_PREFIX     ""
-#endif
-
-#define ARILES_INITIALIZE  "ariles/internal/define_accessors.h"
+// #define ARILES_TRACE_ENABLE
+#include "trace.h"
 
 
 
-#define ARILES_IS_ENUM_ENABLER_TYPE(Enum) \
-    const typename boost::enable_if_c< (boost::is_enum<Enum>::value) >::type
-
-#define ARILES_IS_CONFIGURABLE_ENABLER_TYPE(Derived) \
-    const typename boost::enable_if_c< (boost::is_base_of<ariles::ConfigurableBase, Derived>::value) >::type
+#define ARILES_EMPTY_MACRO
 
 
 #define ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST \
@@ -83,39 +114,10 @@
 
 namespace ariles
 {
-    struct ArilesNamespaceLookupTrigger
-    {
-    };
-
-
-    struct ARILES_VISIBILITY_ATTRIBUTE BridgeSelectorBase
-    {
-        public:
-            typedef int BridgeSelectorIndicatorType;
-    };
-
-
+    // intentionally not defined
     template <class t_Pointer>
-    class PointerHandler
-    {
-    };
+        class PointerHandler;
 }
 
 #include "../configurable_flags.h"
 #include "../bridge_flags.h"
-#include "../comparison_parameters.h"
-
-
-// #define ARILES_TRACE_ENABLE
-
-#ifdef ARILES_TRACE_ENABLE
-    #include <iostream>
-
-    #define ARILES_TRACE_FUNCTION \
-        std::cout << "Entering function: " << __func__ << " File: " << __FILE__  << " Line: " << __LINE__ << std::endl
-    #define ARILES_TRACE_ENTRY(entry_name) \
-        std::cout << "Processing entry: " << #entry_name << std::endl
-#else
-    #define ARILES_TRACE_FUNCTION
-    #define ARILES_TRACE_ENTRY(entry_name)
-#endif
