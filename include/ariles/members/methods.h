@@ -19,8 +19,34 @@
     public:
         #ifdef ARILES_ENTRIES
 
-            #define ARILES_NAMED_ENTRY(entry, name)     visitor(entry, name, parameters);
+            #define ARILES_NAMED_ENTRY(entry, name)
             #define ARILES_PARENT(entry)                entry::arilesVisit(visitor, parameters);
+
+            template<class t_Visitor>
+                void arilesVisitParents(t_Visitor &visitor, const typename t_Visitor::Parameters &parameters)
+            {
+                ARILES_UNUSED_ARG(visitor);
+                ARILES_UNUSED_ARG(parameters);
+                ARILES_TRACE_FUNCTION;
+                ARILES_ENTRIES
+            }
+
+
+            template<class t_Visitor>
+                void arilesVisitParents(t_Visitor &visitor, const typename t_Visitor::Parameters &parameters) const
+            {
+                ARILES_UNUSED_ARG(visitor);
+                ARILES_UNUSED_ARG(parameters);
+                ARILES_TRACE_FUNCTION;
+                ARILES_ENTRIES
+            }
+
+            #undef ARILES_PARENT
+            #undef ARILES_NAMED_ENTRY
+
+
+            #define ARILES_NAMED_ENTRY(entry, name)     visitor(entry, name, parameters);
+            #define ARILES_PARENT(entry)
 
             template<class t_Visitor>
                 void arilesVisit(t_Visitor &visitor, const typename t_Visitor::Parameters &parameters)
@@ -28,6 +54,7 @@
                 ARILES_UNUSED_ARG(visitor);
                 ARILES_UNUSED_ARG(parameters);
                 ARILES_TRACE_FUNCTION;
+                arilesVisitParents(visitor, parameters);
                 ARILES_ENTRIES
             }
 
@@ -38,6 +65,7 @@
                 ARILES_UNUSED_ARG(visitor);
                 ARILES_UNUSED_ARG(parameters);
                 ARILES_TRACE_FUNCTION;
+                arilesVisitParents(visitor, parameters);
                 ARILES_ENTRIES
             }
 
