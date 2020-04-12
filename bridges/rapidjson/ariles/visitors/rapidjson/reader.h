@@ -32,7 +32,7 @@ namespace ariles
                     std::size_t getMapSize(const bool /*expect_empty*/);
 
                     // needed for jsonnet Reader
-                    Reader()
+                    Reader(const Flags &flags = Flags::DEFAULT) : Base(flags)
                     {
                     }
                     void constructFromString(const char *);
@@ -45,7 +45,9 @@ namespace ariles
                      *
                      * @param[in] file_name
                      */
-                    explicit Reader(const std::string& file_name);
+                    explicit Reader(
+                            const std::string& file_name, 
+                            const Flags &flags = Flags::DEFAULT);
 
 
                     /**
@@ -53,7 +55,9 @@ namespace ariles
                      *
                      * @param[in] input_stream
                      */
-                    explicit Reader(std::istream & input_stream);
+                    explicit Reader(
+                            std::istream & input_stream, 
+                            const Flags &flags = Flags::DEFAULT);
 
 
 

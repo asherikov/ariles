@@ -43,7 +43,7 @@ namespace ariles
     {
         namespace rapidjson
         {
-            Reader::Reader(const std::string& file_name)
+            Reader::Reader(const std::string& file_name, const Flags &flags) : Base(flags)
             {
                 std::ifstream config_ifs;
                 read::Visitor::openFile(config_ifs, file_name);
@@ -52,7 +52,7 @@ namespace ariles
             }
 
 
-            Reader::Reader(std::istream & input_stream)
+            Reader::Reader(std::istream & input_stream, const Flags &flags) : Base(flags)
             {
                 impl_ = ImplPtr(new Impl());
                 impl_->initialize(input_stream);
@@ -100,7 +100,7 @@ namespace ariles
             {
                 const ::rapidjson::Value & selected_node = impl_->getRawNode();
 
-                if(false == selected_node.IsObject())
+                if (false == selected_node.IsObject())
                 {
                     return (false);
                 }
@@ -157,37 +157,60 @@ namespace ariles
             }
 
 
-            #define ARILES_BASIC_TYPE(type) \
-                void Reader::readElement(type &element) \
-                { \
-                    double tmp_value; \
-                    if (true == impl_->getRawNode().IsString()) \
-                    { \
-                        tmp_value = boost::lexical_cast<double>(impl_->getRawNode().GetString()); \
-                        if (true == ariles::isNaN(tmp_value)) \
-                        { \
-                            element = std::numeric_limits<type>::signaling_NaN(); \
-                            return; \
-                        } \
-                        if (true == ariles::isInfinity(tmp_value)) \
-                        { \
-                            element = static_cast<type>(tmp_value); \
-                            return; \
-                        } \
-                    } \
-                    else \
-                    { \
-                        tmp_value = impl_->getRawNode().GetDouble(); \
-                    } \
-                    ARILES_ASSERT(tmp_value <= std::numeric_limits<type>::max() \
-                                  && tmp_value >= -std::numeric_limits<type>::max(), \
-                                  "Value is out of range."); \
-                    element = static_cast<type>(tmp_value); \
+            void Reader::readElement(float &element)
+            {
+                float tmp_value;
+                if (true == impl_->getRawNode().IsString())
+                {
+                    tmp_value = boost::lexical_cast<float>(impl_->getRawNode().GetString());
+                    if (true == ariles::isNaN(tmp_value))
+                    {
+                        element = std::numeric_limits<float>::signaling_NaN();
+                        return;
+                    }
+                    if (true == ariles::isInfinity(tmp_value))
+                    {
+                        element = static_cast<float>(tmp_value);
+                        return;
+                    }
                 }
+                else
+                {
+                    tmp_value = impl_->getRawNode().GetFloat();
+                }
+                ARILES_ASSERT(tmp_value <= std::numeric_limits<float>::max()
+                              && tmp_value >= -std::numeric_limits<float>::max(),
+                              "Value is out of range.");
+                element = static_cast<float>(tmp_value);
+            }
 
-            ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
 
-            #undef ARILES_BASIC_TYPE
+            void Reader::readElement(double &element)
+            {
+                double tmp_value;
+                if (true == impl_->getRawNode().IsString())
+                {
+                    tmp_value = boost::lexical_cast<double>(impl_->getRawNode().GetString());
+                    if (true == ariles::isNaN(tmp_value))
+                    {
+                        element = std::numeric_limits<double>::signaling_NaN();
+                        return;
+                    }
+                    if (true == ariles::isInfinity(tmp_value))
+                    {
+                        element = static_cast<double>(tmp_value);
+                        return;
+                    }
+                }
+                else
+                {
+                    tmp_value = impl_->getRawNode().GetDouble();
+                }
+                ARILES_ASSERT(tmp_value <= std::numeric_limits<double>::max()
+                              && tmp_value >= -std::numeric_limits<double>::max(),
+                              "Value is out of range.");
+                element = static_cast<double>(tmp_value);
+            }
 
 
             #define ARILES_BASIC_TYPE(type) \

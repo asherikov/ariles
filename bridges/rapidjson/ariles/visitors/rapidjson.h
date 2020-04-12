@@ -22,6 +22,39 @@ namespace ariles
     {
         namespace rapidjson
         {
+            class Flags : public ariles::Flags<unsigned int, Flags>
+            {
+                public:
+                    enum Enum
+                    {
+                        RESET = 0,
+                        /// Floats are stored as strings by default to allow NaN and Inf (writer only)
+                        DISABLE_STRING_FLOATS = 1 << 0,
+
+                        DEFAULT = RESET
+                    };
+
+
+                public:
+                    Flags()
+                    {
+                        setDefaults();
+                    }
+
+
+                    Flags(const unsigned int flags, const Action action_type = REPLACE)
+                    {
+                        initialize(flags, action_type);
+                    }
+
+
+                    void setDefaults()
+                    {
+                        flags_ = DEFAULT;
+                    }
+            };
+
+
             template <class t_Base, class t_Implementation>
                 class Base : public t_Base
             {
@@ -31,6 +64,7 @@ namespace ariles
 
                 protected:
                     ImplPtr impl_;
+                    Flags flags_;
 
 
                 private:
@@ -40,6 +74,7 @@ namespace ariles
                 protected:
                     Base(){};
                     ~Base(){};
+                    Base(const Flags &flags) : flags_(flags) {};
 
 
                 public:
@@ -77,6 +112,8 @@ namespace ariles
      */
     struct ARILES_VISIBILITY_ATTRIBUTE rapidjson
     {
+        typedef ariles::bridge::rapidjson::Flags Flags;
+
         typedef ariles::cfgread::Visitor<bridge::rapidjson::Reader> Reader;
         typedef ariles::cfgwrite::Visitor<bridge::rapidjson::Writer> Writer;
 

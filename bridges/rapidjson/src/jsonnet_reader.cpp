@@ -23,7 +23,7 @@ namespace ariles
         {
             namespace jsonnet
             {
-                Reader::Reader(const std::string& file_name)
+                Reader::Reader(const std::string& file_name, const Flags &flags) : rapidjson::Reader(flags)
                 {
                     struct JsonnetVm* vm = static_cast<struct JsonnetVm*>(::jsonnet_make());
                     ARILES_ASSERT(NULL != vm, "Could not initialize jsonnet preprocessor.");
@@ -38,7 +38,7 @@ namespace ariles
                 }
 
 
-                Reader::Reader(std::istream & input_stream)
+                Reader::Reader(std::istream & input_stream, const Flags &flags) : rapidjson::Reader(flags)
                 {
                     std::string input_string;
                     char buffer[4096];

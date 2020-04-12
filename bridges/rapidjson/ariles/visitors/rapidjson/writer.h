@@ -29,8 +29,12 @@ namespace ariles
                 public rapidjson::Base<ariles::write::Visitor, impl::Writer>
             {
                 public:
-                    explicit Writer(const std::string& file_name);
-                    explicit Writer(std::ostream& output_stream);
+                    explicit Writer(
+                            const std::string& file_name,
+                            const Flags &flags = Flags::DEFAULT);
+                    explicit Writer(
+                            std::ostream& output_stream,
+                            const Flags &flags = Flags::DEFAULT);
 
                     void flush();
 

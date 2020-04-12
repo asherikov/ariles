@@ -23,8 +23,12 @@ namespace ariles
                 class ARILES_LIB_EXPORT Reader : public rapidjson::Reader
                 {
                     public:
-                        explicit Reader(const std::string& file_name);
-                        explicit Reader(std::istream & input_stream);
+                        explicit Reader(
+                                const std::string& file_name,
+                                const Flags &flags = Flags::DEFAULT);
+                        explicit Reader(
+                                std::istream & input_stream,
+                                const Flags &flags = Flags::DEFAULT);
                 };
             }
         }

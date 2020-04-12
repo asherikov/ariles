@@ -14,10 +14,9 @@
 namespace ariles_tests
 {
     template<class t_FixtureBase>
-    class ReadWriteFixture : public t_FixtureBase
+    class ReadCompareFixture : public t_FixtureBase
     {
         public:
-            using t_FixtureBase::getWriterInitializer;
             using t_FixtureBase::getReaderInitializer;
 
 
@@ -25,11 +24,16 @@ namespace ariles_tests
             template<class t_Configurable, class t_Bridge>
                 void test()
             {
+                t_Configurable configurable_default;
+                t_Configurable configurable_read;
+
+                configurable_default.setDefaults();
+
                 BOOST_CHECK_NO_THROW(
-                    t_Configurable configurable;
-                    ariles::apply<typename t_Bridge::Reader>(getReaderInitializer("configurable2.cfg"), configurable);
-                    ariles::apply<typename t_Bridge::Writer>(getWriterInitializer("configurable2.cfg"), configurable);
+                    configurable_read.template readConfig<t_Bridge>(getReaderInitializer("configurable.cfg"));
                 );
+
+                compare(configurable_default, configurable_read);
             }
     };
 }

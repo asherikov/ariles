@@ -55,6 +55,7 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "019" "" "")                
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "020" "" "")                            # comparison (inheritance)
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "021" "array" "")                       # array
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "022" "" "${ARILES_TEST_ALL_BRIDGES}")  # flags
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "023" "rapidjson;jsonnet" "")           # json floats, flags
 
 
 
@@ -88,3 +89,4 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "219" "" "")                
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "220" "" "")                            # comparison (inheritance)
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "221" "array" "")                       # array
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "222" "" "${ARILES_TEST_ALL_BRIDGES}")  # flags
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "223" "rapidjson;jsonnet" "")           # json floats, flags

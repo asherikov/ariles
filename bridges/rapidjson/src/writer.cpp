@@ -62,13 +62,13 @@ namespace ariles
     {
         namespace rapidjson
         {
-            Writer::Writer(const std::string& file_name)
+            Writer::Writer(const std::string& file_name, const Flags &flags) : Base(flags)
             {
                 impl_ = ImplPtr(new Impl(file_name));
             }
 
 
-            Writer::Writer(std::ostream& output_stream)
+            Writer::Writer(std::ostream& output_stream, const Flags &flags) : Base(flags)
             {
                 impl_ = ImplPtr(new Impl(output_stream));
             }
@@ -160,17 +160,35 @@ namespace ariles
             }
 
 
-            #define ARILES_BASIC_TYPE(type) \
-                void Writer::writeElement(const type &element) \
-                { \
-                    impl_->getRawNode().SetString(\
-                            boost::lexical_cast<std::string>(element).c_str(), \
-                            impl_->document_.GetAllocator()); \
+            void Writer::writeElement(const float &element)
+            {
+                if (true == flags_.isSet(Flags::DISABLE_STRING_FLOATS))
+                {
+                    impl_->getRawNode().SetFloat(element);
                 }
+                else
+                {
+                    impl_->getRawNode().SetString(
+                            boost::lexical_cast<std::string>(element).c_str(),
+                            impl_->document_.GetAllocator());
+                }
+            }
 
-            ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
 
-            #undef ARILES_BASIC_TYPE
+            void Writer::writeElement(const double &element)
+            {
+                if (true == flags_.isSet(Flags::DISABLE_STRING_FLOATS))
+                {
+                    impl_->getRawNode().SetDouble(element);
+                }
+                else
+                {
+                    impl_->getRawNode().SetString(
+                            boost::lexical_cast<std::string>(element).c_str(),
+                            impl_->document_.GetAllocator());
+                }
+            }
+
 
 
             #define ARILES_BASIC_TYPE(type) \
