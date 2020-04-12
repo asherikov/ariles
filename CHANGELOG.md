@@ -1,6 +1,17 @@
 Unreleased
 ==========
 
+1.6.0
+=====
+
+Changed
+-------
+
+* Compile visitors into shared libraries.
+* cmake cleanups & fixes.
+
+
+
 1.5.0
 =====
 
