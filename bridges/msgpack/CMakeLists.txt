@@ -26,9 +26,6 @@ if(NOT ARILES_DEB_TARGETS)
         ${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/src/writer.cpp
         ${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/src/reader_compact.cpp
         ${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/src/writer_compact.cpp)
-
-    add_dependencies(${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE} ${TGT_ARILES_BRIDGE_LIB})
-    add_dependencies(${TGT_ARILES_BRIDGE_LIB} TGT_ariles_copy_headers)
 endif()
 
 include(ariles_install_component)

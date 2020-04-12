@@ -1,5 +1,5 @@
 string(REGEX REPLACE "_" "-" ARILES_COMPONENT "${ARILES_BRIDGE}")
-set(ARILES_COMPONENT_CMAKE_DIR "${CMAKE_INSTALL_PREFIX}/share/ariles-${ARILES_COMPONENT}/")
+set(ARILES_COMPONENT_CMAKE_DIR "share/ariles-${ARILES_COMPONENT}/")
 
 cpack_add_component(
     "${ARILES_COMPONENT}"
@@ -10,6 +10,9 @@ cpack_add_component(
 
 
 if(TARGET ${TGT_ARILES_BRIDGE_LIB})
+    add_dependencies(${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE} ${TGT_ARILES_BRIDGE_LIB})
+    add_dependencies(${TGT_ARILES_BRIDGE_LIB} TGT_ariles_copy_headers)
+
     # built-tree specific targets, not relocatable
     #export(TARGETS ${TGT_ARILES_BRIDGE_LIB} FILE ${PROJECT_BINARY_DIR}/ariles-${ARILES_COMPONENT}-targets.cmake)
     #target_link_options(${TGT_ARILES_BRIDGE_LIB} PRIVATE "LINKER:--exclude-libs=${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS}")
@@ -17,7 +20,6 @@ if(TARGET ${TGT_ARILES_BRIDGE_LIB})
     set_target_properties(${TGT_ARILES_BRIDGE_LIB} PROPERTIES LINK_LIBRARIES "${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS}")
     set_target_properties(${TGT_ARILES_BRIDGE_LIB} PROPERTIES CXX_VISIBILITY_PRESET hidden)
     set_target_properties(${TGT_ARILES_BRIDGE_LIB} PROPERTIES VISIBILITY_INLINES_HIDDEN YES)
-
 
     install(
         TARGETS ${TGT_ARILES_BRIDGE_LIB} EXPORT ${ARILES_COMPONENT}_targets
@@ -30,6 +32,13 @@ if(TARGET ${TGT_ARILES_BRIDGE_LIB})
         EXPORT ${ARILES_COMPONENT}_targets
         DESTINATION ${ARILES_COMPONENT_CMAKE_DIR}
         COMPONENT ${ARILES_COMPONENT}
+    )
+
+    # BUG? if CMAKE_BUILD_TYPE is not set explicitly, configuration files are not installed
+    install(
+        DIRECTORY ${PROJECT_BINARY_DIR}/CMakeFiles/Export/share/ariles-${ARILES_COMPONENT}/
+        DESTINATION ${ARILES_COMPONENT_CMAKE_DIR}
+        FILES_MATCHING PATTERN "${ARILES_COMPONENT}_targets-*.cmake"
     )
 
     set(ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS "${TGT_ARILES_BRIDGE_LIB};${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS}")

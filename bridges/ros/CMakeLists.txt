@@ -12,9 +12,6 @@ if(NOT ARILES_DEB_TARGETS)
     add_library(${TGT_ARILES_BRIDGE_LIB} SHARED
         ${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/src/reader.cpp
         ${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/src/writer.cpp)
-
-    add_dependencies(${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE} ${TGT_ARILES_BRIDGE_LIB})
-    add_dependencies(${TGT_ARILES_BRIDGE_LIB} TGT_ariles_copy_headers)
 endif()
 
 
