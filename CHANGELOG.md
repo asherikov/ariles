@@ -1,6 +1,18 @@
 Unreleased
 ==========
 
+
+1.6.1
+=====
+
+Added
+-----
+
+* RapidJSON: allow writing floats as floats instead of strings, enable
+  compilation with older RapidJSON versions.
+
+
+
 1.6.0
 =====
 
