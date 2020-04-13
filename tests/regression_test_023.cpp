@@ -81,6 +81,22 @@ namespace ariles_tests
                 t_Configurable configurable;
 
                 BOOST_CHECK_NO_THROW(
+                    std::ofstream output_file_stream;
+                    output_file_stream.open("configurable.cfg");
+                    typename t_Bridge::Writer visitor(
+                        output_file_stream,
+                        ariles::rapidjson::Flags::DISABLE_STRING_FLOATS);
+                );
+
+                BOOST_CHECK_NO_THROW(
+                    std::ifstream input_file_stream;
+                    input_file_stream.open("regression_test_023_float.json");
+                    typename t_Bridge::Reader visitor(
+                        input_file_stream,
+                        ariles::rapidjson::Flags::DISABLE_STRING_FLOATS);
+                );
+
+                BOOST_CHECK_NO_THROW(
                     typename t_Bridge::Writer visitor(
                         "configurable.cfg",
                         ariles::rapidjson::Flags::DISABLE_STRING_FLOATS);

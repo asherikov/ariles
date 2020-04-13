@@ -41,6 +41,13 @@ namespace ariles
                 {
                     ARILES_TRACE_FUNCTION;
                 }
+
+                template<class t_Initializer0, class t_Initializer1>
+                    Visitor(t_Initializer0 & initializer0, const t_Initializer1 & initializer1)
+                    : t_Reader(initializer0, initializer1)
+                {
+                    ARILES_TRACE_FUNCTION;
+                }
         };
 #endif
 
@@ -171,7 +178,15 @@ namespace ariles
                 }
 
                 template<class t_Initializer0, class t_Initializer1>
-                    Visitor(t_Initializer0 * initializer0, const t_Initializer1 & initializer1) : t_Writer(initializer0, initializer1)
+                    Visitor(t_Initializer0 * initializer0, const t_Initializer1 & initializer1)
+                    : t_Writer(initializer0, initializer1)
+                {
+                    ARILES_TRACE_FUNCTION;
+                }
+
+                template<class t_Initializer0, class t_Initializer1>
+                    Visitor(t_Initializer0 & initializer0, const t_Initializer1 & initializer1)
+                    : t_Writer(initializer0, initializer1)
                 {
                     ARILES_TRACE_FUNCTION;
                 }
