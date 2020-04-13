@@ -164,7 +164,8 @@ namespace ariles
             {
                 if (true == flags_.isSet(Flags::DISABLE_STRING_FLOATS))
                 {
-                    impl_->getRawNode().SetFloat(element);
+                    impl_->getRawNode().SetDouble(element); // old API compatibility
+                    // impl_->getRawNode().SetFloat(element);
                 }
                 else
                 {

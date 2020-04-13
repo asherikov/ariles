@@ -176,7 +176,8 @@ namespace ariles
                 }
                 else
                 {
-                    tmp_value = impl_->getRawNode().GetFloat();
+                    tmp_value = impl_->getRawNode().GetDouble(); // old API compatibility
+                    // tmp_value = impl_->getRawNode().GetFloat();
                 }
                 ARILES_ASSERT(tmp_value <= std::numeric_limits<float>::max()
                               && tmp_value >= -std::numeric_limits<float>::max(),

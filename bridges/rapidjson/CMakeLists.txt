@@ -20,7 +20,10 @@ if(NOT ARILES_DEB_TARGETS)
 
         find_path("ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES" NAMES rapidjson/rapidjson.hpp)
         if (NOT ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES)
-            message(FATAL_ERROR "${ARILES_BRIDGE} is not found.")
+            find_path("ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES" NAMES rapidjson/rapidjson.h)
+            if (NOT ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES)
+                message(FATAL_ERROR "${ARILES_BRIDGE} is not found.")
+            endif()
         endif()
     endif()
 
