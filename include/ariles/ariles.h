@@ -66,7 +66,7 @@
                 CommonConfigurableBase() {}
 
             public:
-                void setDefaults()
+                virtual void setDefaults()
                 {
                     ariles::apply<ariles::defaults::Visitor>(*this);
                 }
