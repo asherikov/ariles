@@ -2,6 +2,16 @@ Unreleased
 ==========
 
 
+1.6.2
+=====
+
+Fixed
+-----
+
+* Minor old API compatibility issues.
+
+
+
 1.6.1
 =====
 

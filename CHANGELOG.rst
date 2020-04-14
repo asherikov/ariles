@@ -2,6 +2,10 @@
 Changelog for package ariles_ros
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+* Sync to 1.6.2.
+* Enable RapidJSON.
+
+
 1.3.2 (2019-12-16)
 ------------------
 
