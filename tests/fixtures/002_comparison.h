@@ -22,20 +22,20 @@ namespace ariles_tests
 
 
         protected:
-            template<class t_Configurable, class t_Bridge>
+            template<class t_Configurable, class t_Visitor>
                 void test()
             {
                 t_Configurable  configurable_out;
                 configurable_out.randomize();
                 BOOST_CHECK_NO_THROW(
-                    configurable_out.template writeConfig<t_Bridge>(getWriterInitializer("configurable_match_simple.cfg"));
+                    configurable_out.template writeConfig<t_Visitor>(getWriterInitializer("configurable_match_simple.cfg"));
                 );
 
                 // -------
 
                 t_Configurable  configurable_in;
                 BOOST_CHECK_NO_THROW(
-                    configurable_in.template readConfig<t_Bridge>(getReaderInitializer("configurable_match_simple.cfg"));
+                    configurable_in.template readConfig<t_Visitor>(getReaderInitializer("configurable_match_simple.cfg"));
                 );
 
                 // -------
@@ -60,7 +60,7 @@ namespace ariles_tests
 
 
         protected:
-            template<class t_Configurable, class t_Bridge>
+            template<class t_Configurable, class t_Visitor>
                 void test()
             {
                 t_Configurable configurable_out1;
@@ -70,7 +70,7 @@ namespace ariles_tests
                 configurable_out2.randomize();
 
                 BOOST_CHECK_NO_THROW(
-                    typename t_Bridge::Writer writer(getWriterInitializer("configurable_match_multi.cfg"));
+                    typename t_Visitor::Writer writer(getWriterInitializer("configurable_match_multi.cfg"));
                     configurable_out1.writeConfig(writer, "node1");
                     configurable_out2.writeConfig(writer, "node2");
                 );
@@ -81,7 +81,7 @@ namespace ariles_tests
                 t_Configurable configurable_in2;
 
                 BOOST_CHECK_NO_THROW(
-                    typename t_Bridge::Reader reader(getReaderInitializer("configurable_match_multi.cfg"));
+                    typename t_Visitor::Reader reader(getReaderInitializer("configurable_match_multi.cfg"));
                     configurable_in1.readConfig(reader, "node1");
                     configurable_in2.readConfig(reader, "node2");
                 );

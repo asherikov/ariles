@@ -42,14 +42,14 @@
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(BRIDGE_ID, NAMESPACE, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, BRIDGE_ID, NAMESPACE, ConfigurableEmpty, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, BRIDGE_ID, NAMESPACE, ConfigurableVerbose, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, BRIDGE_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, BRIDGE_ID, NAMESPACE, ConfigurableNoConstructors, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, BRIDGE_ID, NAMESPACE, ConfigurableNoAutoID, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, BRIDGE_ID, NAMESPACE, ConfigurableNoSetDefaults, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(ConstructorInterfaceFixture, BRIDGE_ID, NAMESPACE, ConfigurableVerbose, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(ConstructorInterfaceFixture, BRIDGE_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
+#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableEmpty, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableVerbose, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableNoConstructors, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableNoAutoID, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableNoSetDefaults, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ConstructorInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableVerbose, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ConstructorInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
 
 #include "instantiate.h"

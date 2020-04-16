@@ -141,7 +141,7 @@ test-noros: clean
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp03_on_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 
 test-cmake:
-	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=conflict TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+	/bin/sh -c "! ${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=conflict TARGETS='${TARGETS}' EXTRA_CMAKE_PARAM='${EXTRA_CMAKE_PARAM}'"
 
 #----------------------------------------------
 # other
@@ -184,9 +184,17 @@ install-ros:
 	sh -c "apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 6B05F25D762E3157 \
 	    || apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 6B05F25D762E3157 \
 	    || apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 6B05F25D762E3157"
-	apt-get update -qq
-	apt-get install dpkg
-	apt-get install -y ros-${ROS_DISTRO}-ros-base
+	apt update -qq
+	apt install dpkg
+	apt install -y ros-${ROS_DISTRO}-ros-base
+	apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
 	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; rosdep init'
+
+install-jsonnet:
+	git clone https://github.com/asherikov/jsonnet.git
+	cd jsonnet; git checkout as_cmake_fix
+	mkdir ./jsonnet/build
+	cd ./jsonnet/build/; cmake -DBUILD_JSONNET=OFF -DBUILD_TESTS=OFF -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ ..
+	cd ./jsonnet/build/; make install
 
 .PHONY: clean cmake build

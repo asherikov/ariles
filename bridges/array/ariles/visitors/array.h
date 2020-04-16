@@ -10,15 +10,13 @@
 
 #pragma once
 
+#define ARILES_VISITOR_INCLUDED_array
 
 #include <ariles/internal/helpers.h>
 #include <ariles/internal/node.h>
 #include <ariles/visitors/config.h>
 
 #include "./array/writer.h"
-
-
-#define ARILES_BRIDGE_INCLUDED_array
 
 
 namespace ariles

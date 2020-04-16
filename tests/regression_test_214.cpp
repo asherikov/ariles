@@ -13,23 +13,27 @@
 #include "utility.h"
 
 #ifdef ARILES_BRIDGE_yaml_cpp03
-#include "ariles/bridges/yaml_cpp03.h"
+#include "ariles/visitors/yaml_cpp03.h"
 #endif
 
 #ifdef ARILES_BRIDGE_yaml_cpp
-#include "ariles/bridges/yaml_cpp.h"
+#include "ariles/visitors/yaml_cpp.h"
 #endif
 
 #ifdef ARILES_BRIDGE_msgpack
-#include "ariles/bridges/msgpack.h"
+#include "ariles/visitors/msgpack.h"
+#endif
+
+#ifdef ARILES_BRIDGE_jsonnet
+#include "ariles/visitors/jsonnet.h"
 #endif
 
 #ifdef ARILES_BRIDGE_rapidjson
-#include "ariles/bridges/rapidjson.h"
+#include "ariles/visitors/rapidjson.h"
 #endif
 
 #ifdef ARILES_BRIDGE_pugixml
-#include "ariles/bridges/pugixml.h"
+#include "ariles/visitors/pugixml.h"
 #endif
 
 #include "ariles/adapters_all.h"
@@ -57,32 +61,36 @@
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(BRIDGE_ID, NAMESPACE, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, BRIDGE_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
+#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
 
 #define ARILES_TESTS_SHORTCUT(NAMESPACE, INITIALIZER) ARILES_TESTS(NAMESPACE, NAMESPACE, INITIALIZER)
 
-#ifdef ARILES_BRIDGE_INCLUDED_msgpack
+#ifdef ARILES_VISITOR_INCLUDED_msgpack
 ARILES_TESTS_SHORTCUT(msgpack, FilenameInitializer)
 #   define ComparisonMultiFixture ComparisonSimpleFixture
 ARILES_TESTS(msgpack_compact, msgpack::compact, FilenameInitializer)
 #   undef ComparisonMultiFixture
 #endif
 
-#ifdef ARILES_BRIDGE_INCLUDED_yaml_cpp03
+#ifdef ARILES_VISITOR_INCLUDED_yaml_cpp03
 ARILES_TESTS_SHORTCUT(yaml_cpp03, FilenameInitializer)
 #endif
 
-#ifdef ARILES_BRIDGE_INCLUDED_yaml_cpp
+#ifdef ARILES_VISITOR_INCLUDED_yaml_cpp
 ARILES_TESTS_SHORTCUT(yaml_cpp, FilenameInitializer)
 #endif
 
-#ifdef ARILES_BRIDGE_INCLUDED_rapidjson
+#ifdef ARILES_VISITOR_INCLUDED_rapidjson
 // A dirty hack to avoid fixture, which is known to fail for JSON.
 #   define ComparisonMultiFixture ComparisonSimpleFixture
     ARILES_TESTS_SHORTCUT(rapidjson, FilenameInitializer)
-#   ifdef ARILES_BRIDGE_INCLUDED_jsonnet
-        ARILES_TESTS(rapidjson_jsonnet, rapidjson::jsonnet, FilenameInitializer)
-#   endif
+#   undef ComparisonMultiFixture
+#endif
+
+#ifdef ARILES_VISITOR_INCLUDED_jsonnet
+// A dirty hack to avoid fixture, which is known to fail for JSON.
+#   define ComparisonMultiFixture ComparisonSimpleFixture
+    ARILES_TESTS(rapidjson_jsonnet, jsonnet<ariles::rapidjson>, FilenameInitializer)
 #   undef ComparisonMultiFixture
 #endif

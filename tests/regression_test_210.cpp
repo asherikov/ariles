@@ -13,8 +13,8 @@
 #include "utility.h"
 
 
-#include "ariles/bridges/jsonnet.h"
-#include "ariles/bridges/rapidjson.h"
+#include "ariles/visitors/jsonnet.h"
+#include "ariles/visitors/rapidjson.h"
 
 // If no format header is included, ariles is disabled, and
 // ariles::ConfigurableBase is just a dummy class.
@@ -52,7 +52,7 @@ namespace ariles_tests
                 }
         };
 
-        typedef FilenameReaderInitializer<FilenameReaderBase> FilenameReaderInitializer010;
+        typedef FilenameReaderInitializer<FilenameReaderBase> FilenameReaderInitializer210;
     }
 }
 
@@ -61,7 +61,7 @@ namespace ariles_tests
 // ===============================================================
 
 
-#define ARILES_TESTS(BRIDGE_ID, NAMESPACE, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(ReadFixture, BRIDGE_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
+#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ReadFixture, VISITOR_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
 
-ARILES_TESTS(rapidjson_jsonnet, rapidjson::jsonnet, FilenameReaderInitializer010)
+ARILES_TESTS(rapidjson_jsonnet, jsonnet<ariles::rapidjson>, FilenameReaderInitializer210)

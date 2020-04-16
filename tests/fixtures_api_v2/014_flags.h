@@ -21,18 +21,18 @@ namespace ariles_tests
             using t_FixtureBase::getReaderInitializer;
 
         protected:
-            template<class t_Configurable, class t_Bridge>
+            template<class t_Configurable, class t_Visitor>
                 void test()
             {
                 t_Configurable configurable;
 
-                typename t_Bridge::Writer writer(getWriterInitializer("configurable.cfg"));
+                typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
                 BOOST_CHECK_EQUAL(
                         configurable.getExpectedConfigurableFlags().flags_,
                         configurable.arilesGetParameters(writer.getWriter()).flags_);
                 ariles::apply(writer, configurable);
 
-                typename t_Bridge::Reader reader(getReaderInitializer("configurable.cfg"));
+                typename t_Visitor::Reader reader(getReaderInitializer("configurable.cfg"));
                 BOOST_CHECK_EQUAL(
                         configurable.getExpectedConfigurableFlags().flags_,
                         configurable.arilesGetParameters(reader.getReader()).flags_);

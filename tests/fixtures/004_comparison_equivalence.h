@@ -22,21 +22,21 @@ namespace ariles_tests
 
 
         protected:
-            template<class t_Configurable1, class t_Configurable2, class t_Bridge>
+            template<class t_Configurable1, class t_Configurable2, class t_Visitor>
                 void test()
             {
                 {
                     t_Configurable1 configurable_out;
                     configurable_out.randomize();
                     BOOST_CHECK_NO_THROW(
-                        configurable_out.template writeConfig<t_Bridge>(getWriterInitializer("configurable_match_member_definitions.cfg"), "Configurable");
+                        configurable_out.template writeConfig<t_Visitor>(getWriterInitializer("configurable_match_member_definitions.cfg"), "Configurable");
                     );
 
                     // -------
 
                     t_Configurable2 configurable_in;
                     BOOST_CHECK_NO_THROW(
-                        configurable_in.template readConfig<t_Bridge>(getReaderInitializer("configurable_match_member_definitions.cfg"), "Configurable");
+                        configurable_in.template readConfig<t_Visitor>(getReaderInitializer("configurable_match_member_definitions.cfg"), "Configurable");
                     );
 
                     // -------
@@ -58,14 +58,14 @@ namespace ariles_tests
                     t_Configurable2 configurable_out;
                     configurable_out.randomize();
                     BOOST_CHECK_NO_THROW(
-                        configurable_out.template writeConfig<t_Bridge>(getWriterInitializer("configurable_match_member_definitions.cfg"), "Configurable");
+                        configurable_out.template writeConfig<t_Visitor>(getWriterInitializer("configurable_match_member_definitions.cfg"), "Configurable");
                     );
 
                     // -------
 
                     t_Configurable1 configurable_in;
                     BOOST_CHECK_NO_THROW(
-                        configurable_in.template readConfig<t_Bridge>(getReaderInitializer("configurable_match_member_definitions.cfg"), "Configurable");
+                        configurable_in.template readConfig<t_Visitor>(getReaderInitializer("configurable_match_member_definitions.cfg"), "Configurable");
                     );
 
                     // -------

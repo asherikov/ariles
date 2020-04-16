@@ -10,12 +10,11 @@
 
 #pragma once
 
+#define ARILES_VISITOR_INCLUDED_octave
 
 #include <ariles/internal/helpers.h>
 #include <ariles/internal/node.h>
 #include <ariles/visitors/config.h>
-
-#define ARILES_BRIDGE_INCLUDED_octave
 
 
 namespace ariles

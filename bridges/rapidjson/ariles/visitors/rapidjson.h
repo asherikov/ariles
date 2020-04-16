@@ -10,6 +10,7 @@
 
 #pragma once
 
+#define ARILES_VISITOR_INCLUDED_rapidjson
 
 #include <ariles/internal/helpers.h>
 #include <ariles/internal/node.h>
@@ -91,38 +92,25 @@ namespace ariles
 }
 
 
-
 #include "./rapidjson/reader.h"
 #include "./rapidjson/writer.h"
 
 
-#ifdef ARILES_BRIDGE_INCLUDED_jsonnet
-#   include "./rapidjson/jsonnet_reader.h"
-#   include "./rapidjson/jsonnet_writer.h"
-#endif
-
-
-#define ARILES_BRIDGE_INCLUDED_rapidjson
-
-
-namespace ariles
-{
-    /**
-     * @brief JSON bridge.
-     */
-    struct ARILES_VISIBILITY_ATTRIBUTE rapidjson
+#ifndef ARILES_BRIDGE_INCLUDED_rapidjson
+    namespace ariles
     {
-        typedef ariles::bridge::rapidjson::Flags Flags;
-
-        typedef ariles::cfgread::Visitor<bridge::rapidjson::Reader> Reader;
-        typedef ariles::cfgwrite::Visitor<bridge::rapidjson::Writer> Writer;
-
-#ifdef ARILES_BRIDGE_INCLUDED_jsonnet
-        struct ARILES_VISIBILITY_ATTRIBUTE jsonnet
+        /**
+         * @brief JSON bridge.
+         */
+        struct ARILES_VISIBILITY_ATTRIBUTE rapidjson
         {
-            typedef ariles::cfgread::Visitor<bridge::rapidjson::jsonnet::Reader> Reader;
-            typedef ariles::cfgwrite::Visitor<bridge::rapidjson::jsonnet::Writer> Writer;
+            typedef ariles::bridge::rapidjson::Flags Flags;
+
+            typedef bridge::rapidjson::Reader ReaderBase;
+            typedef bridge::rapidjson::Writer WriterBase;
+
+            typedef ariles::cfgread::Visitor<bridge::rapidjson::Reader> Reader;
+            typedef ariles::cfgwrite::Visitor<bridge::rapidjson::Writer> Writer;
         };
+    }
 #endif
-    };
-}

@@ -22,7 +22,7 @@ namespace ariles_tests
 
 
         protected:
-            template<class t_Configurable, class t_Bridge>
+            template<class t_Configurable, class t_Visitor>
                 void test()
             {
                 // Exlicit instantiation of reader and writer classes
@@ -30,7 +30,7 @@ namespace ariles_tests
                     t_Configurable configurable;
                     configurable.randomize();
 
-                    typename t_Bridge::Writer writer(getWriterInitializer("configurable.cfg"));
+                    typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
                     ariles::apply(writer, configurable);
 
                     BOOST_CHECK_EQUAL(writer.getWriter().index_, writer.getWriter().name_value_pairs_->size());
@@ -50,7 +50,7 @@ namespace ariles_tests
 
                     std::vector<ariles::bridge::array::NameValuePair> name_value_pairs;
 
-                    typename t_Bridge::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
+                    typename t_Visitor::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
                     ariles::apply(writer, configurable);
 
                     BOOST_CHECK_EQUAL(writer.getWriter().index_, name_value_pairs.size());
@@ -64,7 +64,7 @@ namespace ariles_tests
 
                     std::vector<ariles::bridge::array::NameValuePair> name_value_pairs;
 
-                    typename t_Bridge::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
+                    typename t_Visitor::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
                     ariles::apply(writer, configurable);
 
                     BOOST_CHECK_EQUAL(writer.getWriter().index_, name_value_pairs.size());
@@ -93,7 +93,7 @@ namespace ariles_tests
                     const bool initialize_structure = false;
                     std::vector<ariles::bridge::array::NameValuePair> name_value_pairs;
 
-                    typename t_Bridge::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
+                    typename t_Visitor::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
                     ariles::apply(writer, configurable);
 
                     BOOST_CHECK_EQUAL(writer.getWriter().index_, name_value_pairs.size());

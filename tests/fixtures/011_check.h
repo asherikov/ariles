@@ -22,20 +22,20 @@ namespace ariles_tests
 
 
         protected:
-            template<class t_Configurable, class t_Bridge>
+            template<class t_Configurable, class t_Visitor>
                 void test()
             {
                 t_Configurable  configurable_out;
                 configurable_out.randomize();
                 BOOST_CHECK_NO_THROW(
-                    configurable_out.template writeConfig<t_Bridge>(getWriterInitializer("configurable_check.cfg"));
+                    configurable_out.template writeConfig<t_Visitor>(getWriterInitializer("configurable_check.cfg"));
                 );
 
                 // -------
 
                 t_Configurable  configurable_in;
                 BOOST_CHECK_NO_THROW(
-                    configurable_in.template readConfig<t_Bridge>(getReaderInitializer("configurable_check.cfg"));
+                    configurable_in.template readConfig<t_Visitor>(getReaderInitializer("configurable_check.cfg"));
                 );
 
                 // -------

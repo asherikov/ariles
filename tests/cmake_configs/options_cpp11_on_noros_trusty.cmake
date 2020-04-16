@@ -1,3 +1,6 @@
+#- rapidjson-dev       # not found
+#- libmsgpack-dev      # version is too old
+
 set(ARILES_CPP_STANDARD         "c++11" CACHE STRING "")
 
 set(ARILES_BRIDGE_pugixml       "ON"    CACHE STRING "")

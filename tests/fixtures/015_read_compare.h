@@ -21,7 +21,7 @@ namespace ariles_tests
 
 
         protected:
-            template<class t_Configurable, class t_Bridge>
+            template<class t_Configurable, class t_Visitor>
                 void test()
             {
                 t_Configurable configurable_default;
@@ -30,7 +30,7 @@ namespace ariles_tests
                 configurable_default.setDefaults();
 
                 BOOST_CHECK_NO_THROW(
-                    configurable_read.template readConfig<t_Bridge>(getReaderInitializer("configurable.cfg"));
+                    configurable_read.template readConfig<t_Visitor>(getReaderInitializer("configurable.cfg"));
                 );
 
                 compare(configurable_default, configurable_read);

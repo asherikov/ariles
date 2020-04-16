@@ -11,7 +11,7 @@
 #define ARILES_API_VERSION 2
 
 #include "utility.h"
-#include "all_enabled_bridges.h"
+#include "all_enabled_visitors.h"
 
 // all adapters
 // #include "ariles/adapters_all.h"
@@ -40,7 +40,7 @@
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(BRIDGE_ID, NAMESPACE, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, BRIDGE_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
+#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
 
 #include "instantiate.h"

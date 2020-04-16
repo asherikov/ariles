@@ -40,8 +40,8 @@
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(BRIDGE_ID, NAMESPACE, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(ArrayFixture, BRIDGE_ID, NAMESPACE, ConfigurableComplex, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(ArrayFixture, BRIDGE_ID, NAMESPACE, ConfigurableEmpty, INITIALIZER)
+#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ArrayFixture, VISITOR_ID, NAMESPACE, ConfigurableComplex, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ArrayFixture, VISITOR_ID, NAMESPACE, ConfigurableEmpty, INITIALIZER)
 
 #include "instantiate.h"

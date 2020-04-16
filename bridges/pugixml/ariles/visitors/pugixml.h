@@ -10,6 +10,7 @@
 
 #pragma once
 
+#define ARILES_VISITOR_INCLUDED_pugixml
 
 #include <ariles/internal/helpers.h>
 #include <ariles/internal/node.h>
@@ -61,9 +62,6 @@ namespace ariles
 
 #include "./pugixml/reader.h"
 #include "./pugixml/writer.h"
-
-
-#define ARILES_BRIDGE_INCLUDED_pugixml
 
 
 namespace ariles

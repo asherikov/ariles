@@ -1,10 +1,8 @@
 /**
     @file
     @author  Alexander Sherikov
-
     @copyright 2017-2019 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
-
     @brief
 */
 
@@ -24,6 +22,10 @@
 
 #ifdef ARILES_BRIDGE_ros
 #include "ariles/bridges/ros.h"
+#endif
+
+#ifdef ARILES_BRIDGE_jsonnet
+#include "ariles/visitors/jsonnet.h"
 #endif
 
 #ifdef ARILES_BRIDGE_rapidjson

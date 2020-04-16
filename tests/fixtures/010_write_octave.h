@@ -21,7 +21,7 @@ namespace ariles_tests
 
 
         protected:
-            template<class t_Configurable, class t_Bridge>
+            template<class t_Configurable, class t_Visitor>
                 void test()
             {
                 // Exlicit instantiation of reader and writer classes
@@ -29,7 +29,7 @@ namespace ariles_tests
                     t_Configurable configurable;
                     configurable.randomize();
 
-                    typename t_Bridge::Writer writer(getWriterInitializer("configurable.cfg"));
+                    typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
                     configurable.writeConfig(writer);
 
                     std::string octave_cmd =
@@ -45,7 +45,7 @@ namespace ariles_tests
                 {
                     t_Configurable configurable;
                     configurable.randomize();
-                    configurable.template writeConfig<t_Bridge>(getWriterInitializer("configurable2.cfg"));
+                    configurable.template writeConfig<t_Visitor>(getWriterInitializer("configurable2.cfg"));
 
                     std::string octave_cmd =
                         std::string("octave --no-gui --no-history --silent --eval 'source ")

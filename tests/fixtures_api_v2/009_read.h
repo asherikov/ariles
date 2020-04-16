@@ -21,12 +21,12 @@ namespace ariles_tests
 
 
         protected:
-            template<class t_Configurable, class t_Bridge>
+            template<class t_Configurable, class t_Visitor>
                 void test()
             {
                 BOOST_CHECK_NO_THROW(
                     t_Configurable configurable;
-                    ariles::apply<typename t_Bridge::Reader>(getReaderInitializer("configurable.cfg"), configurable);
+                    ariles::apply<typename t_Visitor::Reader>(getReaderInitializer("configurable.cfg"), configurable);
                 );
             }
     };

@@ -59,20 +59,20 @@ namespace ariles_tests
 
 
         protected:
-            template<class t_Configurable, class t_Bridge>
+            template<class t_Configurable, class t_Visitor>
                 void test()
             {
                 ConfigurableVector<t_Configurable> configurable_vector_out;
                 configurable_vector_out.randomize();
                 BOOST_CHECK_NO_THROW(
-                    ariles::apply<typename t_Bridge::Writer>(getWriterInitializer("configurable_match_vector.cfg"), configurable_vector_out);
+                    ariles::apply<typename t_Visitor::Writer>(getWriterInitializer("configurable_match_vector.cfg"), configurable_vector_out);
                 );
 
                 // -------
 
                 ConfigurableVector<t_Configurable> configurable_vector_in;
                 BOOST_CHECK_NO_THROW(
-                    ariles::apply<typename t_Bridge::Reader>(getReaderInitializer("configurable_match_vector.cfg"), configurable_vector_in);
+                    ariles::apply<typename t_Visitor::Reader>(getReaderInitializer("configurable_match_vector.cfg"), configurable_vector_in);
                 );
 
                 // -------

@@ -13,6 +13,7 @@
 
 #pragma once
 
+#define ARILES_VISITOR_INCLUDED_msgpack
 
 #include <ariles/internal/helpers.h>
 #include <ariles/internal/node.h>
@@ -62,8 +63,6 @@ namespace ariles
 #include "./msgpack/reader_compact.h"
 #include "./msgpack/writer_compact.h"
 
-
-#define ARILES_BRIDGE_INCLUDED_msgpack
 
 
 namespace ariles

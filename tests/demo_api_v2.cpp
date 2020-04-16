@@ -21,11 +21,11 @@
  */
 #include <ariles/internal/build_config.h>
 
-// `bridge` is an Ariles component which provides integration with a particular
+// `visitor` is an Ariles component which provides integration with a particular
 // 3rd party library.
-#include "ariles/bridges/yaml_cpp.h"
-#include "ariles/bridges/ros.h"
-#include "ariles/bridges/octave.h"
+#include "ariles/visitors/yaml_cpp.h"
+#include "ariles/visitors/ros.h"
+#include "ariles/visitors/octave.h"
 
 // `adapter` is an Ariles component which adds support for serialization of
 // certain type(s), e.g. Eigen types or Boost pointers.
@@ -204,7 +204,7 @@ int main()
 
     // Octave
     {
-        // Octave bridge supports only writing
+        // Octave visitor supports only writing
         ariles::apply<ariles::octave::Writer>("debug.m", my_container_class);
         // the generated file can later be loaded in Octave with
         // 'source debug.m' for debugging

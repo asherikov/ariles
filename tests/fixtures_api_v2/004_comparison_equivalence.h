@@ -22,21 +22,21 @@ namespace ariles_tests
 
 
         protected:
-            template<class t_Configurable1, class t_Configurable2, class t_Bridge>
+            template<class t_Configurable1, class t_Configurable2, class t_Visitor>
                 void test()
             {
                 {
                     t_Configurable1 configurable_out;
                     configurable_out.randomize();
                     BOOST_CHECK_NO_THROW(
-                        ariles::apply<typename t_Bridge::Writer>(getWriterInitializer("configurable_match_member_definitions.cfg"), configurable_out, "Configurable");
+                        ariles::apply<typename t_Visitor::Writer>(getWriterInitializer("configurable_match_member_definitions.cfg"), configurable_out, "Configurable");
                     );
 
                     // -------
 
                     t_Configurable2 configurable_in;
                     BOOST_CHECK_NO_THROW(
-                        ariles::apply<typename t_Bridge::Reader>(getReaderInitializer("configurable_match_member_definitions.cfg"), configurable_in, "Configurable");
+                        ariles::apply<typename t_Visitor::Reader>(getReaderInitializer("configurable_match_member_definitions.cfg"), configurable_in, "Configurable");
                     );
 
                     // -------
@@ -59,14 +59,14 @@ namespace ariles_tests
                     t_Configurable2 configurable_out;
                     configurable_out.randomize();
                     BOOST_CHECK_NO_THROW(
-                        ariles::apply<typename t_Bridge::Writer>(getWriterInitializer("configurable_match_member_definitions.cfg"), configurable_out, "Configurable");
+                        ariles::apply<typename t_Visitor::Writer>(getWriterInitializer("configurable_match_member_definitions.cfg"), configurable_out, "Configurable");
                     );
 
                     // -------
 
                     t_Configurable1 configurable_in;
                     BOOST_CHECK_NO_THROW(
-                        ariles::apply<typename t_Bridge::Reader>(getReaderInitializer("configurable_match_member_definitions.cfg"), configurable_in, "Configurable");
+                        ariles::apply<typename t_Visitor::Reader>(getReaderInitializer("configurable_match_member_definitions.cfg"), configurable_in, "Configurable");
                     );
 
                     // -------

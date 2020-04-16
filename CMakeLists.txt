@@ -109,7 +109,6 @@ if (NOT ${ARILES_ENABLE_CORE})
 endif()
 
 
-
 # Gather all cached options controlling compilation of the modules to unset
 # those that are not valid anymore.
 get_cmake_property(CACHED_VARIABLES CACHE_VARIABLES)

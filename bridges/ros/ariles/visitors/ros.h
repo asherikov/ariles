@@ -10,6 +10,7 @@
 
 #pragma once
 
+#define ARILES_VISITOR_INCLUDED_ros
 
 #include <ariles/internal/helpers.h>
 #include <ariles/internal/node.h>
@@ -60,8 +61,6 @@ namespace ariles
 
 #include "./ros/reader.h"
 #include "./ros/writer.h"
-
-#define ARILES_BRIDGE_INCLUDED_ros
 
 namespace ariles
 {

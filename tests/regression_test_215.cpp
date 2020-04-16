@@ -13,7 +13,7 @@
 #include "utility.h"
 
 
-#include "ariles/bridges/pugixml.h"
+#include "ariles/visitors/pugixml.h"
 
 // If no format header is included, ariles is disabled, and
 // ariles::ConfigurableBase is just a dummy class.
@@ -61,7 +61,7 @@ namespace ariles_tests
 // ===============================================================
 
 
-#define ARILES_TESTS(BRIDGE_ID, NAMESPACE, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(ReadFixture, BRIDGE_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
+#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(ReadFixture, VISITOR_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
 
 ARILES_TESTS(pugixml, pugixml, FilenameReaderInitializer015)

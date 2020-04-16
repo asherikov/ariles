@@ -10,6 +10,7 @@
 
 #pragma once
 
+#define ARILES_VISITOR_INCLUDED_yaml_cpp
 
 #include <ariles/internal/helpers.h>
 #include <ariles/internal/node.h>
@@ -57,9 +58,6 @@ namespace ariles
 
 #include "./yaml_cpp/reader.h"
 #include "./yaml_cpp/writer.h"
-
-
-#define ARILES_BRIDGE_INCLUDED_yaml_cpp
 
 
 namespace ariles

@@ -13,13 +13,13 @@
 #include "utility.h"
 
 
-#include "ariles/bridges/rapidjson.h"
+#include "ariles/visitors/rapidjson.h"
 
-// If no bridge header is included, ariles is disabled, and
+// If no visitor header is included, ariles is disabled, and
 // ariles::ConfigurableBase is just a dummy class.
 #include "ariles/ariles2.h"
 
-#include "ariles/bridges/yaml_cpp.h"
+#include "ariles/visitors/yaml_cpp.h"
 
 
 // ===============================================================
@@ -42,7 +42,7 @@
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(BRIDGE_ID, NAMESPACE, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, BRIDGE_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
+#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
 
 #include "instantiate.h"
