@@ -12,51 +12,48 @@
 
 namespace ariles
 {
-    namespace bridge
+    namespace ns_rapidjson
     {
-        namespace rapidjson
+        namespace impl
         {
-            namespace impl
-            {
-                class ARILES_LIB_LOCAL Writer;
-            }
-
-
-            /**
-             * @brief Configuration writer class
-             */
-            class ARILES_LIB_EXPORT Writer :
-                public rapidjson::Base<ariles::write::Visitor, impl::Writer>
-            {
-                public:
-                    explicit Writer(
-                            const std::string& file_name,
-                            const Flags &flags = Flags::DEFAULT);
-                    explicit Writer(
-                            std::ostream& output_stream,
-                            const Flags &flags = Flags::DEFAULT);
-
-                    void flush();
-
-
-                    void descend(const std::string &map_name);
-                    void ascend();
-
-                    void startMap(const std::size_t /*num_entries*/);
-                    void startArray(const std::size_t size, const bool /*compact*/ = false);
-
-                    void shiftArray();
-                    void endArray();
-
-
-
-                    #define ARILES_BASIC_TYPE(type) \
-                        void writeElement(const type &element);
-
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
-
-                    #undef ARILES_BASIC_TYPE
-            };
+            class ARILES_LIB_LOCAL Writer;
         }
+
+
+        /**
+         * @brief Configuration writer class
+         */
+        class ARILES_LIB_EXPORT Writer :
+            public ns_rapidjson::Base<ariles::write::Visitor, impl::Writer>
+        {
+            public:
+                explicit Writer(
+                        const std::string& file_name,
+                        const Flags &flags = Flags::DEFAULT);
+                explicit Writer(
+                        std::ostream& output_stream,
+                        const Flags &flags = Flags::DEFAULT);
+
+                void flush();
+
+
+                void descend(const std::string &map_name);
+                void ascend();
+
+                void startMap(const std::size_t /*num_entries*/);
+                void startArray(const std::size_t size, const bool /*compact*/ = false);
+
+                void shiftArray();
+                void endArray();
+
+
+
+                #define ARILES_BASIC_TYPE(type) \
+                    void writeElement(const type &element);
+
+                ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+
+                #undef ARILES_BASIC_TYPE
+        };
     }
 }

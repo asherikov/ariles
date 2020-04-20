@@ -17,46 +17,43 @@
 
 namespace ariles
 {
-    namespace bridge
+    namespace ns_msgpack
     {
-        namespace msgpack
+        namespace impl
         {
-            namespace impl
+            class ARILES_LIB_LOCAL Writer
             {
-                class ARILES_LIB_LOCAL Writer
-                {
-                    public:
-                        /// output file stream
-                        std::ofstream   config_ofs_;
+                public:
+                    /// output file stream
+                    std::ofstream   config_ofs_;
 
-                        /// output stream
-                        std::ostream    *output_stream_;
+                    /// output stream
+                    std::ostream    *output_stream_;
 
-                        ::msgpack::packer< std::ostream > *packer_;
+                    ::msgpack::packer< std::ostream > *packer_;
 
 
-                    public:
-                        Writer(const std::string& file_name)
-                        {
-                            ariles::write::Visitor::openFile(config_ofs_, file_name);
-                            output_stream_ = &config_ofs_;
-                            packer_ = new ::msgpack::packer< std::ostream >(*output_stream_);
-                        }
+                public:
+                    Writer(const std::string& file_name)
+                    {
+                        ariles::write::Visitor::openFile(config_ofs_, file_name);
+                        output_stream_ = &config_ofs_;
+                        packer_ = new ::msgpack::packer< std::ostream >(*output_stream_);
+                    }
 
 
-                        Writer(std::ostream& output_stream)
-                        {
-                            output_stream_ = &output_stream;
-                            packer_ = new ::msgpack::packer< std::ostream >(*output_stream_);
-                        }
+                    Writer(std::ostream& output_stream)
+                    {
+                        output_stream_ = &output_stream;
+                        packer_ = new ::msgpack::packer< std::ostream >(*output_stream_);
+                    }
 
 
-                        ~Writer()
-                        {
-                            delete packer_;
-                        }
-                };
-            }
+                    ~Writer()
+                    {
+                        delete packer_;
+                    }
+            };
         }
     }
 }
@@ -64,63 +61,60 @@ namespace ariles
 
 namespace ariles
 {
-    namespace bridge
+    namespace ns_msgpack
     {
-        namespace msgpack
+        Writer::Writer(const std::string& file_name)
         {
-            Writer::Writer(const std::string& file_name)
-            {
-                impl_ = ImplPtr(new Impl(file_name));
-            }
-
-
-            Writer::Writer(std::ostream& output_stream)
-            {
-                impl_ = ImplPtr(new Impl(output_stream));
-            }
-
-
-            void Writer::descend(const std::string &map_name)
-            {
-                impl_->packer_->pack(map_name);
-            }
-
-
-            void Writer::startMap(const std::size_t num_entries)
-            {
-                impl_->packer_->pack_map(num_entries);
-            }
-
-
-            void Writer::initRoot()
-            {
-                impl_->packer_->pack_map(1);
-            }
-
-
-            void Writer::flush()
-            {
-                impl_->output_stream_->flush();
-            }
-
-
-            void Writer::startArray(const std::size_t size, const bool /*compact*/)
-            {
-                ARILES_ASSERT(size <= std::numeric_limits<uint32_t>::max(), "Vector is too long.");
-
-                impl_->packer_->pack_array(size);
-            }
-
-
-            #define ARILES_BASIC_TYPE(type) \
-                void Writer::writeElement(const type & element) \
-                { \
-                    impl_->packer_->pack(element); \
-                }
-
-            ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
-
-            #undef ARILES_BASIC_TYPE
+            impl_ = ImplPtr(new Impl(file_name));
         }
+
+
+        Writer::Writer(std::ostream& output_stream)
+        {
+            impl_ = ImplPtr(new Impl(output_stream));
+        }
+
+
+        void Writer::descend(const std::string &map_name)
+        {
+            impl_->packer_->pack(map_name);
+        }
+
+
+        void Writer::startMap(const std::size_t num_entries)
+        {
+            impl_->packer_->pack_map(num_entries);
+        }
+
+
+        void Writer::initRoot()
+        {
+            impl_->packer_->pack_map(1);
+        }
+
+
+        void Writer::flush()
+        {
+            impl_->output_stream_->flush();
+        }
+
+
+        void Writer::startArray(const std::size_t size, const bool /*compact*/)
+        {
+            ARILES_ASSERT(size <= std::numeric_limits<uint32_t>::max(), "Vector is too long.");
+
+            impl_->packer_->pack_array(size);
+        }
+
+
+        #define ARILES_BASIC_TYPE(type) \
+            void Writer::writeElement(const type & element) \
+            { \
+                impl_->packer_->pack(element); \
+            }
+
+        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+
+        #undef ARILES_BASIC_TYPE
     }
 }

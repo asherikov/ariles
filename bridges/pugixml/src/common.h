@@ -17,11 +17,8 @@
 
 namespace ariles
 {
-    namespace bridge
+    namespace ns_pugixml
     {
-        namespace pugixml
-        {
-            typedef ariles::Node< pugi::xml_node > NodeWrapper;
-        }
+        typedef ariles::Node< pugi::xml_node > NodeWrapper;
     }
 }

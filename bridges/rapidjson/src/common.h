@@ -27,57 +27,53 @@
 
 namespace ariles
 {
-    namespace bridge
+    namespace ns_rapidjson
     {
-        namespace rapidjson
+        template <class t_Node>
+            class ARILES_LIB_LOCAL ImplBase
         {
-            template <class t_Node>
-                class ARILES_LIB_LOCAL ImplBase
-            {
-                public:
-                    typedef ariles::Node< t_Node * > NodeWrapper;
+            public:
+                typedef ariles::Node< t_Node * > NodeWrapper;
 
 
-                public:
-                    /// instance of the parser
-                    ::rapidjson::Document document_;
+            public:
+                /// instance of the parser
+                ::rapidjson::Document document_;
 
-                    /// Stack of nodes.
-                    std::vector<NodeWrapper>    node_stack_;
+                /// Stack of nodes.
+                std::vector<NodeWrapper>    node_stack_;
 
 
-                public:
-                    /**
-                     * @brief Get current node
-                     *
-                     * @return pointer to the current node
-                     */
-                    t_Node & getRawNode(const std::size_t depth)
+            public:
+                /**
+                 * @brief Get current node
+                 *
+                 * @return pointer to the current node
+                 */
+                t_Node & getRawNode(const std::size_t depth)
+                {
+                    if (node_stack_[depth].isArray())
                     {
-                        if (node_stack_[depth].isArray())
-                        {
-                            return(getRawNode(depth-1)[node_stack_[depth].index_]);
-                        }
-                        else
-                        {
-                            return(*node_stack_[depth].node_);
-                        }
+                        return(getRawNode(depth-1)[node_stack_[depth].index_]);
                     }
-
-
-                    t_Node & getRawNode()
+                    else
                     {
-                        if (true == node_stack_.empty())
-                        {
-                            return (document_);
-                        }
-                        else
-                        {
-                            return (getRawNode(node_stack_.size()-1));
-                        }
+                        return(*node_stack_[depth].node_);
                     }
-            };
-        }
+                }
+
+
+                t_Node & getRawNode()
+                {
+                    if (true == node_stack_.empty())
+                    {
+                        return (document_);
+                    }
+                    else
+                    {
+                        return (getRawNode(node_stack_.size()-1));
+                    }
+                }
+        };
     }
 }
-

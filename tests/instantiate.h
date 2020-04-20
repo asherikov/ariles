@@ -12,8 +12,8 @@
 ARILES_TESTS_SHORTCUT(msgpack, FilenameInitializer)
 ARILES_TESTS_SHORTCUT(msgpack, StreamInitializer)
 #   define ComparisonMultiFixture ComparisonSimpleFixture
-ARILES_TESTS(msgpack_compact, msgpack::compact, FilenameInitializer)
-ARILES_TESTS(msgpack_compact, msgpack::compact, StreamInitializer)
+ARILES_TESTS_SHORTCUT(msgpack_compact, FilenameInitializer)
+ARILES_TESTS_SHORTCUT(msgpack_compact, StreamInitializer)
 #   undef ComparisonMultiFixture
 #endif
 
@@ -32,6 +32,11 @@ ARILES_TESTS_SHORTCUT(yaml_cpp, StreamInitializer)
 #   define ComparisonMultiFixture ComparisonSimpleFixture
     ARILES_TESTS_SHORTCUT(rapidjson, FilenameInitializer)
     ARILES_TESTS_SHORTCUT(rapidjson, StreamInitializer)
+
+#   ifdef ARILES_VISITOR_INCLUDED_jsonnet
+        ARILES_TESTS(rapidjson_jsonnet, jsonnet<ariles::rapidjson>, FilenameInitializer)
+        ARILES_TESTS(rapidjson_jsonnet, jsonnet<ariles::rapidjson>, StreamInitializer)
+#   endif
 #   undef ComparisonMultiFixture
 #endif
 

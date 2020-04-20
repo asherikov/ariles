@@ -30,10 +30,8 @@
 
 namespace ariles
 {
-    namespace bridge
+    namespace ns_rapidjson
     {
-        namespace rapidjson
-        {
 
 //! Wrapper of \c std::basic_istream into RapidJSON's Stream concept.
 /*!
@@ -111,6 +109,5 @@ private:
 typedef BasicIStreamWrapper<std::istream> IStreamWrapper;
 typedef BasicIStreamWrapper<std::wistream> WIStreamWrapper;
 
-        }
     }
 }

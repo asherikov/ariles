@@ -13,91 +13,88 @@
 
 namespace ariles
 {
-    namespace bridge
+    namespace ns_jsonnet
     {
-        namespace jsonnet
+        namespace impl
         {
-            namespace impl
-            {
-                class JsonnetPreprocessor;
+            class JsonnetPreprocessor;
 
-                class ARILES_LIB_EXPORT Reader
-                {
-                    protected:
-                        typedef ARILES_SHARED_PTR<JsonnetPreprocessor> JsonnetPreprocessorPtr;
-
-                    protected:
-                        JsonnetPreprocessorPtr preprocessor_;
-
-
-                    public:
-                        Reader();
-                        ~Reader();
-
-
-                        const char* fromFile(const std::string &file_name);
-                        const char* fromString(const std::string &input_string);
-                };
-            }
-
-
-            template<class t_ParentVisitor>
-                class ARILES_LIB_EXPORT Reader : public t_ParentVisitor
+            class ARILES_LIB_EXPORT Reader
             {
                 protected:
-                    impl::Reader impl_;
+                    typedef ARILES_SHARED_PTR<JsonnetPreprocessor> JsonnetPreprocessorPtr;
+
+                protected:
+                    JsonnetPreprocessorPtr preprocessor_;
 
 
                 public:
-                    explicit Reader( const std::string& file_name) : t_ParentVisitor()
-                    {
-                        const char* jsonnet_output = impl_.fromFile(file_name);
-                        t_ParentVisitor::constructFromString(jsonnet_output);
-                    }
-
-                    template<class t_Flags>
-                        explicit Reader(
-                                const std::string& file_name,
-                                const t_Flags &flags) : t_ParentVisitor(flags)
-                    {
-                        const char* jsonnet_output = impl_.fromFile(file_name);
-                        t_ParentVisitor::constructFromString(jsonnet_output);
-                    }
+                    Reader();
+                    ~Reader();
 
 
-                    explicit Reader(std::istream & input_stream) : t_ParentVisitor()
-                    {
-                        std::string input_string;
-                        char buffer[4096];
-                        while (input_stream.read(buffer, sizeof(buffer)))
-                        {
-                            input_string.append(buffer, sizeof(buffer));
-                        }
-                        input_string.append(buffer, input_stream.gcount());
-
-
-                        const char* jsonnet_output = impl_.fromString(input_string);
-                        t_ParentVisitor::constructFromString(jsonnet_output);
-                    }
-
-                    template<class t_Flags>
-                        explicit Reader(
-                                std::istream & input_stream,
-                                const t_Flags &flags) : t_ParentVisitor(flags)
-                    {
-                        std::string input_string;
-                        char buffer[4096];
-                        while (input_stream.read(buffer, sizeof(buffer)))
-                        {
-                            input_string.append(buffer, sizeof(buffer));
-                        }
-                        input_string.append(buffer, input_stream.gcount());
-
-
-                        const char* jsonnet_output = impl_.fromString(input_string);
-                        t_ParentVisitor::constructFromString(jsonnet_output);
-                    }
+                    const char* fromFile(const std::string &file_name);
+                    const char* fromString(const std::string &input_string);
             };
         }
+
+
+        template<class t_ParentVisitor>
+            class ARILES_LIB_EXPORT Reader : public t_ParentVisitor
+        {
+            protected:
+                impl::Reader impl_;
+
+
+            public:
+                explicit Reader( const std::string& file_name) : t_ParentVisitor()
+                {
+                    const char* jsonnet_output = impl_.fromFile(file_name);
+                    t_ParentVisitor::constructFromString(jsonnet_output);
+                }
+
+                template<class t_Flags>
+                    explicit Reader(
+                            const std::string& file_name,
+                            const t_Flags &flags) : t_ParentVisitor(flags)
+                {
+                    const char* jsonnet_output = impl_.fromFile(file_name);
+                    t_ParentVisitor::constructFromString(jsonnet_output);
+                }
+
+
+                explicit Reader(std::istream & input_stream) : t_ParentVisitor()
+                {
+                    std::string input_string;
+                    char buffer[4096];
+                    while (input_stream.read(buffer, sizeof(buffer)))
+                    {
+                        input_string.append(buffer, sizeof(buffer));
+                    }
+                    input_string.append(buffer, input_stream.gcount());
+
+
+                    const char* jsonnet_output = impl_.fromString(input_string);
+                    t_ParentVisitor::constructFromString(jsonnet_output);
+                }
+
+                template<class t_Flags>
+                    explicit Reader(
+                            std::istream & input_stream,
+                            const t_Flags &flags) : t_ParentVisitor(flags)
+                {
+                    std::string input_string;
+                    char buffer[4096];
+                    while (input_stream.read(buffer, sizeof(buffer)))
+                    {
+                        input_string.append(buffer, sizeof(buffer));
+                    }
+                    input_string.append(buffer, input_stream.gcount());
+
+
+                    const char* jsonnet_output = impl_.fromString(input_string);
+                    t_ParentVisitor::constructFromString(jsonnet_output);
+                }
+        };
     }
 }

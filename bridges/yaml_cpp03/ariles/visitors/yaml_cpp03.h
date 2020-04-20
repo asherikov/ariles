@@ -22,40 +22,37 @@
 
 namespace ariles
 {
-    namespace bridge
+    namespace ns_yaml_cpp03
     {
-        namespace yaml_cpp03
+        template <class t_Base, class t_Implementation>
+            class Base : public t_Base
         {
-            template <class t_Base, class t_Implementation>
-                class Base : public t_Base
-            {
-                protected:
-                    typedef t_Implementation Impl;
-                    typedef ARILES_SHARED_PTR<t_Implementation> ImplPtr;
+            protected:
+                typedef t_Implementation Impl;
+                typedef ARILES_SHARED_PTR<t_Implementation> ImplPtr;
 
-                protected:
-                    ImplPtr impl_;
+            protected:
+                ImplPtr impl_;
 
 
-                private:
-                    Base(const Base&);
-                    Base& operator=(const Base&);
+            private:
+                Base(const Base&);
+                Base& operator=(const Base&);
 
-                protected:
-                    Base(){};
-                    ~Base(){};
+            protected:
+                Base(){};
+                ~Base(){};
 
 
-                public:
-                    const BridgeFlags &getBridgeFlags() const
-                    {
-                        static BridgeFlags parameters(
-                                BridgeFlags::SLOPPY_MAPS_SUPPORTED
-                                | BridgeFlags::SLOPPY_PAIRS_SUPPORTED);
-                        return (parameters);
-                    }
-            };
-        }
+            public:
+                const BridgeFlags &getBridgeFlags() const
+                {
+                    static BridgeFlags parameters(
+                            BridgeFlags::SLOPPY_MAPS_SUPPORTED
+                            | BridgeFlags::SLOPPY_PAIRS_SUPPORTED);
+                    return (parameters);
+                }
+        };
     }
 }
 
@@ -71,7 +68,7 @@ namespace ariles
      */
     struct ARILES_VISIBILITY_ATTRIBUTE yaml_cpp03
     {
-        typedef ariles::cfgread::Visitor<bridge::yaml_cpp03::Reader> Reader;
-        typedef ariles::cfgwrite::Visitor<bridge::yaml_cpp03::Writer> Writer;
+        typedef ariles::cfgread::Visitor<ns_yaml_cpp03::Reader> Reader;
+        typedef ariles::cfgwrite::Visitor<ns_yaml_cpp03::Writer> Writer;
     };
 }

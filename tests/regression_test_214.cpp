@@ -69,7 +69,7 @@
 #ifdef ARILES_VISITOR_INCLUDED_msgpack
 ARILES_TESTS_SHORTCUT(msgpack, FilenameInitializer)
 #   define ComparisonMultiFixture ComparisonSimpleFixture
-ARILES_TESTS(msgpack_compact, msgpack::compact, FilenameInitializer)
+ARILES_TESTS_SHORTCUT(msgpack_compact, FilenameInitializer)
 #   undef ComparisonMultiFixture
 #endif
 

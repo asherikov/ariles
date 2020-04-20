@@ -20,49 +20,46 @@
 
 namespace ariles
 {
-    namespace bridge
+    namespace ns_ros
     {
-        namespace ros
+        typedef ariles::Node<XmlRpc::XmlRpcValue *> NodeWrapper;
+
+
+        class ImplBase
         {
-            typedef ariles::Node<XmlRpc::XmlRpcValue *> NodeWrapper;
+            public:
+                /// Stack of nodes.
+                std::vector<NodeWrapper>    node_stack_;
+
+                std::string                 root_name_;
+                XmlRpc::XmlRpcValue         root_value_;
+
+                ::ros::NodeHandle nh_;
 
 
-            class ImplBase
-            {
-                public:
-                    /// Stack of nodes.
-                    std::vector<NodeWrapper>    node_stack_;
-
-                    std::string                 root_name_;
-                    XmlRpc::XmlRpcValue         root_value_;
-
-                    ::ros::NodeHandle nh_;
-
-
-                public:
-                    /**
-                     * @brief Get current node
-                     *
-                     * @return pointer to the current node
-                     */
-                    XmlRpc::XmlRpcValue & getRawNode(const std::size_t depth)
+            public:
+                /**
+                 * @brief Get current node
+                 *
+                 * @return pointer to the current node
+                 */
+                XmlRpc::XmlRpcValue & getRawNode(const std::size_t depth)
+                {
+                    if (node_stack_[depth].isArray())
                     {
-                        if (node_stack_[depth].isArray())
-                        {
-                            return(getRawNode(depth-1)[node_stack_[depth].index_]);
-                        }
-                        else
-                        {
-                            return(*node_stack_[depth].node_);
-                        }
+                        return(getRawNode(depth-1)[node_stack_[depth].index_]);
                     }
-
-
-                    XmlRpc::XmlRpcValue & getRawNode()
+                    else
                     {
-                        return(getRawNode(node_stack_.size()-1));
+                        return(*node_stack_[depth].node_);
                     }
-            };
-        }
+                }
+
+
+                XmlRpc::XmlRpcValue & getRawNode()
+                {
+                    return(getRawNode(node_stack_.size()-1));
+                }
+        };
     }
 }

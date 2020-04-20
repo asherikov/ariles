@@ -15,20 +15,29 @@
 
 namespace ariles
 {
+    namespace bridge
+    {
+        namespace rapidjson = ariles::ns_rapidjson;
+    }
+
+
     /**
      * @brief JSON bridge.
      */
     struct ARILES_VISIBILITY_ATTRIBUTE rapidjson
     {
-        typedef ariles::bridge::rapidjson::Flags Flags;
+        typedef ariles::ns_rapidjson::Flags Flags;
 
-        typedef ariles::cfgread::Visitor<bridge::rapidjson::Reader> Reader;
-        typedef ariles::cfgwrite::Visitor<bridge::rapidjson::Writer> Writer;
+        typedef ns_rapidjson::Reader ReaderBase;
+        typedef ns_rapidjson::Writer WriterBase;
+
+        typedef ariles::cfgread::Visitor<ns_rapidjson::Reader> Reader;
+        typedef ariles::cfgwrite::Visitor<ns_rapidjson::Writer> Writer;
 
 #ifdef ARILES_VISITOR_INCLUDED_jsonnet
         struct ARILES_VISIBILITY_ATTRIBUTE jsonnet
         {
-            typedef ariles::cfgread::Visitor<bridge::jsonnet::Reader<bridge::rapidjson::Reader> > Reader;
+            typedef ariles::cfgread::Visitor<ns_jsonnet::Reader<ns_rapidjson::Reader> > Reader;
             typedef rapidjson::Writer Writer;
         };
 #endif

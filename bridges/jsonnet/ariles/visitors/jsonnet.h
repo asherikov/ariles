@@ -22,7 +22,7 @@ namespace ariles
     template<class t_ParentVisitor>
         struct ARILES_VISIBILITY_ATTRIBUTE jsonnet
     {
-        typedef ariles::cfgread::Visitor<bridge::jsonnet::Reader<typename t_ParentVisitor::ReaderBase> > Reader;
+        typedef ariles::cfgread::Visitor<ns_jsonnet::Reader<typename t_ParentVisitor::ReaderBase> > Reader;
         typedef ariles::cfgwrite::Visitor<typename t_ParentVisitor::WriterBase> Writer;
     };
 }

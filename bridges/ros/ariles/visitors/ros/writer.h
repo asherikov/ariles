@@ -13,50 +13,47 @@
 
 namespace ariles
 {
-    namespace bridge
+    namespace ns_ros
     {
-        namespace ros
+        namespace impl
         {
-            namespace impl
-            {
-                class ARILES_LIB_LOCAL Writer;
-            }
-
-
-
-            /**
-             * @brief Configuration writer class
-             */
-            class ARILES_LIB_EXPORT Writer :
-                public ros::Base<ariles::write::Visitor, impl::Writer>
-            {
-                public:
-                    explicit Writer(const ::ros::NodeHandle &nh);
-
-
-                    void initRoot();
-
-
-                    void flush();
-
-
-
-                    void descend(const std::string &map_name);
-                    void ascend();
-
-                    void startArray(const std::size_t size, const bool /*compact*/ = false);
-                    void shiftArray();
-                    void endArray();
-
-
-
-                    #define ARILES_BASIC_TYPE(type) \
-                        void writeElement(const type & element);
-
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
-
-                    #undef ARILES_BASIC_TYPE
-            };
+            class ARILES_LIB_LOCAL Writer;
         }
+
+
+
+        /**
+         * @brief Configuration writer class
+         */
+        class ARILES_LIB_EXPORT Writer :
+            public ns_ros::Base<ariles::write::Visitor, impl::Writer>
+        {
+            public:
+                explicit Writer(const ::ros::NodeHandle &nh);
+
+
+                void initRoot();
+
+
+                void flush();
+
+
+
+                void descend(const std::string &map_name);
+                void ascend();
+
+                void startArray(const std::size_t size, const bool /*compact*/ = false);
+                void shiftArray();
+                void endArray();
+
+
+
+                #define ARILES_BASIC_TYPE(type) \
+                    void writeElement(const type & element);
+
+                ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+
+                #undef ARILES_BASIC_TYPE
+        };
     }
 }

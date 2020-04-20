@@ -12,48 +12,45 @@
 
 namespace ariles
 {
-    namespace bridge
+    namespace ns_yaml_cpp
     {
-        namespace yaml_cpp
+        namespace impl
         {
-            namespace impl
-            {
-                class ARILES_LIB_LOCAL Writer;
-            }
-
-
-            /**
-             * @brief Configuration reader class
-             */
-            class ARILES_LIB_EXPORT Writer :
-                public ariles::bridge::yaml_cpp::Base<ariles::write::Visitor, impl::Writer>
-            {
-                public:
-                    explicit Writer(const std::string& file_name);
-                    explicit Writer(std::ostream& output_stream);
-
-
-                    void descend(const std::string &map_name);
-
-
-                    void startMap(const std::size_t /*num_entries*/);
-                    void endMap();
-
-
-                    void flush();
-
-
-                    void startArray(const std::size_t /*size*/, const bool compact = false);
-                    void endArray();
-
-
-                    #define ARILES_BASIC_TYPE(type) \
-                            void writeElement(const type & element);
-
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
-
-                    #undef ARILES_BASIC_TYPE
-            };
+            class ARILES_LIB_LOCAL Writer;
         }
+
+
+        /**
+         * @brief Configuration reader class
+         */
+        class ARILES_LIB_EXPORT Writer :
+            public ns_yaml_cpp::Base<ariles::write::Visitor, impl::Writer>
+        {
+            public:
+                explicit Writer(const std::string& file_name);
+                explicit Writer(std::ostream& output_stream);
+
+
+                void descend(const std::string &map_name);
+
+
+                void startMap(const std::size_t /*num_entries*/);
+                void endMap();
+
+
+                void flush();
+
+
+                void startArray(const std::size_t /*size*/, const bool compact = false);
+                void endArray();
+
+
+                #define ARILES_BASIC_TYPE(type) \
+                        void writeElement(const type & element);
+
+                ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+
+                #undef ARILES_BASIC_TYPE
+        };
     }
 }

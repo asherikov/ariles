@@ -21,38 +21,35 @@
 
 namespace ariles
 {
-    namespace bridge
+    namespace ns_msgpack
     {
-        namespace msgpack
+        template <class t_Base, class t_Implementation>
+            class Base : public t_Base
         {
-            template <class t_Base, class t_Implementation>
-                class Base : public t_Base
-            {
-                protected:
-                    typedef t_Implementation Impl;
-                    typedef ARILES_SHARED_PTR<t_Implementation> ImplPtr;
+            protected:
+                typedef t_Implementation Impl;
+                typedef ARILES_SHARED_PTR<t_Implementation> ImplPtr;
 
-                protected:
-                    ImplPtr impl_;
+            protected:
+                ImplPtr impl_;
 
 
-                private:
-                    Base(const Base&);
-                    Base& operator=(const Base&);
+            private:
+                Base(const Base&);
+                Base& operator=(const Base&);
 
-                protected:
-                    Base(){};
-                    ~Base(){};
+            protected:
+                Base(){};
+                ~Base(){};
 
 
-                public:
-                    const BridgeFlags &getBridgeFlags() const
-                    {
-                        static const BridgeFlags parameters; // all disabled
-                        return (parameters);
-                    }
-            };
-        }
+            public:
+                const BridgeFlags &getBridgeFlags() const
+                {
+                    static const BridgeFlags parameters; // all disabled
+                    return (parameters);
+                }
+        };
     }
 }
 
@@ -64,21 +61,25 @@ namespace ariles
 #include "./msgpack/writer_compact.h"
 
 
+#ifndef ARILES_BRIDGE_INCLUDED_msgpack
+    namespace ariles
+    {
+        /**
+         * @brief MessagePack bridge.
+         */
+        struct ARILES_VISIBILITY_ATTRIBUTE msgpack
+        {
+            typedef ariles::cfgread::Visitor<ns_msgpack::Reader> Reader;
+            typedef ariles::cfgwrite::Visitor<ns_msgpack::Writer> Writer;
+        };
+    }
+#endif
 
 namespace ariles
 {
-    /**
-     * @brief MessagePack bridge.
-     */
-    struct ARILES_VISIBILITY_ATTRIBUTE msgpack
+    struct ARILES_VISIBILITY_ATTRIBUTE msgpack_compact
     {
-        typedef ariles::cfgread::Visitor<bridge::msgpack::Reader> Reader;
-        typedef ariles::cfgwrite::Visitor<bridge::msgpack::Writer> Writer;
-
-        struct ARILES_VISIBILITY_ATTRIBUTE compact
-        {
-            typedef ariles::cfgread::Visitor<bridge::msgpack_compact::Reader> Reader;
-            typedef ariles::cfgwrite::Visitor<bridge::msgpack_compact::Writer> Writer;
-        };
+        typedef ariles::cfgread::Visitor<ns_msgpack_compact::Reader> Reader;
+        typedef ariles::cfgwrite::Visitor<ns_msgpack_compact::Writer> Writer;
     };
 }

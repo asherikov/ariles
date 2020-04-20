@@ -26,6 +26,6 @@ namespace ariles
      */
     struct ARILES_VISIBILITY_ATTRIBUTE array
     {
-        typedef ariles::cfgwrite::Visitor<bridge::array::Writer> Writer;
+        typedef ariles::cfgwrite::Visitor<ns_array::Writer> Writer;
     };
 }

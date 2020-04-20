@@ -48,7 +48,7 @@ namespace ariles_tests
                     t_Configurable configurable;
                     configurable.randomize();
 
-                    std::vector<ariles::bridge::array::NameValuePair> name_value_pairs;
+                    std::vector<ariles::ns_array::NameValuePair> name_value_pairs;
 
                     typename t_Visitor::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
                     ariles::apply(writer, configurable);
@@ -62,14 +62,14 @@ namespace ariles_tests
                     t_Configurable configurable;
                     configurable.randomize();
 
-                    std::vector<ariles::bridge::array::NameValuePair> name_value_pairs;
+                    std::vector<ariles::ns_array::NameValuePair> name_value_pairs;
 
                     typename t_Visitor::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
                     ariles::apply(writer, configurable);
 
                     BOOST_CHECK_EQUAL(writer.getWriter().index_, name_value_pairs.size());
 
-                    std::vector<ariles::bridge::array::NameValuePair> name_value_pairs_back = name_value_pairs;
+                    std::vector<ariles::ns_array::NameValuePair> name_value_pairs_back = name_value_pairs;
                     writer.getWriter().reset();
 
                     ariles::apply(writer, configurable);
@@ -91,7 +91,7 @@ namespace ariles_tests
                     configurable.randomize();
 
                     const bool initialize_structure = false;
-                    std::vector<ariles::bridge::array::NameValuePair> name_value_pairs;
+                    std::vector<ariles::ns_array::NameValuePair> name_value_pairs;
 
                     typename t_Visitor::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
                     ariles::apply(writer, configurable);
@@ -100,7 +100,7 @@ namespace ariles_tests
 
                     // ---
 
-                    std::vector<ariles::bridge::array::NameValuePair> name_value_pairs_back = name_value_pairs;
+                    std::vector<ariles::ns_array::NameValuePair> name_value_pairs_back = name_value_pairs;
                     writer.getWriter().reset(initialize_structure);
 
                     ariles::apply(writer, configurable);

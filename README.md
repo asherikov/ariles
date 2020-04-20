@@ -1,10 +1,19 @@
 Ariles
 ======
 
-| branch | CI status |
-|--------|-----------|
-| `master`                  | [![Build Status](https://travis-ci.org/asherikov/ariles.svg?branch=master)](https://travis-ci.org/asherikov/ariles)  |
-| `pkg_ros` (ROS package)   | [![Build Status](https://travis-ci.org/asherikov/ariles.svg?branch=pkg_ros)](https://travis-ci.org/asherikov/ariles) |
+<table>
+  <tr>
+    <th>branch</th>
+    <td align="center">master</td>
+    <td align="center">pkg_ros (ROS package)</td>
+  </tr>
+  <tr>
+    <th>status</th>
+    <td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=master" alt="Build Status"></a></td>
+    <td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=pkg_ros" alt="Build Status"></a></td>
+  </tr>
+</table>
+
 
 
 Contents

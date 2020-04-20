@@ -15,56 +15,53 @@
 
 namespace ariles
 {
-    namespace bridge
+    namespace ns_msgpack_compact
     {
-        namespace msgpack_compact
+        namespace impl
         {
-            namespace impl
-            {
-                class ARILES_LIB_LOCAL Writer;
-            }
-
-
-            /**
-             * @brief Configuration writer class
-             */
-            class ARILES_LIB_EXPORT Writer :
-                public msgpack::Base<ariles::write::Visitor, impl::Writer>
-            {
-                public:
-                    /**
-                     * @brief Constructor
-                     *
-                     * @param[in] file_name
-                     */
-                    explicit Writer(const std::string& file_name);
-
-
-                    /**
-                     * @brief Constructor
-                     *
-                     * @param[out] output_stream
-                     */
-                    explicit Writer(std::ostream& output_stream);
-
-
-
-                    void startMap(const std::size_t num_entries);
-
-
-                    void flush();
-
-
-                    void startArray(const std::size_t size, const bool /*compact*/ = false);
-
-
-                    #define ARILES_BASIC_TYPE(type) \
-                        void writeElement(const type & element);
-
-                    ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
-
-                    #undef ARILES_BASIC_TYPE
-            };
+            class ARILES_LIB_LOCAL Writer;
         }
+
+
+        /**
+         * @brief Configuration writer class
+         */
+        class ARILES_LIB_EXPORT Writer :
+            public ns_msgpack::Base<ariles::write::Visitor, impl::Writer>
+        {
+            public:
+                /**
+                 * @brief Constructor
+                 *
+                 * @param[in] file_name
+                 */
+                explicit Writer(const std::string& file_name);
+
+
+                /**
+                 * @brief Constructor
+                 *
+                 * @param[out] output_stream
+                 */
+                explicit Writer(std::ostream& output_stream);
+
+
+
+                void startMap(const std::size_t num_entries);
+
+
+                void flush();
+
+
+                void startArray(const std::size_t size, const bool /*compact*/ = false);
+
+
+                #define ARILES_BASIC_TYPE(type) \
+                    void writeElement(const type & element);
+
+                ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+
+                #undef ARILES_BASIC_TYPE
+        };
     }
 }

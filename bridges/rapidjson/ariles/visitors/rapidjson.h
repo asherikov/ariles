@@ -19,75 +19,72 @@
 
 namespace ariles
 {
-    namespace bridge
+    namespace ns_rapidjson
     {
-        namespace rapidjson
+        class Flags : public ariles::Flags<unsigned int, Flags>
         {
-            class Flags : public ariles::Flags<unsigned int, Flags>
-            {
-                public:
-                    enum Enum
-                    {
-                        RESET = 0,
-                        /// Floats are stored as strings by default to allow NaN and Inf (writer only)
-                        DISABLE_STRING_FLOATS = 1 << 0,
+            public:
+                enum Enum
+                {
+                    RESET = 0,
+                    /// Floats are stored as strings by default to allow NaN and Inf (writer only)
+                    DISABLE_STRING_FLOATS = 1 << 0,
 
-                        DEFAULT = RESET
-                    };
+                    DEFAULT = RESET
+                };
 
 
-                public:
-                    Flags()
-                    {
-                        setDefaults();
-                    }
+            public:
+                Flags()
+                {
+                    setDefaults();
+                }
 
 
-                    Flags(const unsigned int flags, const Action action_type = REPLACE)
-                    {
-                        initialize(flags, action_type);
-                    }
+                Flags(const unsigned int flags, const Action action_type = REPLACE)
+                {
+                    initialize(flags, action_type);
+                }
 
 
-                    void setDefaults()
-                    {
-                        flags_ = DEFAULT;
-                    }
-            };
+                void setDefaults()
+                {
+                    flags_ = DEFAULT;
+                }
+        };
 
 
-            template <class t_Base, class t_Implementation>
-                class Base : public t_Base
-            {
-                protected:
-                    typedef t_Implementation Impl;
-                    typedef ARILES_SHARED_PTR<t_Implementation> ImplPtr;
+        template <class t_Base, class t_Implementation>
+            class Base : public t_Base
+        {
+            protected:
+                typedef t_Implementation Impl;
+                typedef ARILES_SHARED_PTR<t_Implementation> ImplPtr;
 
-                protected:
-                    ImplPtr impl_;
-                    Flags flags_;
-
-
-                private:
-                    Base(const Base&);
-                    Base& operator=(const Base&);
-
-                protected:
-                    Base(){};
-                    ~Base(){};
-                    Base(const Flags &flags) : flags_(flags) {};
+            protected:
+                ImplPtr impl_;
+                Flags flags_;
 
 
-                public:
-                    const BridgeFlags &getBridgeFlags() const
-                    {
-                        static BridgeFlags parameters(
-                                BridgeFlags::SLOPPY_MAPS_SUPPORTED
-                                | BridgeFlags::SLOPPY_PAIRS_SUPPORTED);
-                        return (parameters);
-                    }
-            };
-        }
+            private:
+                Base(const Base&);
+                Base& operator=(const Base&);
+
+            protected:
+                Base(){};
+                ~Base(){};
+                Base(const Flags &flags) : flags_(flags) {};
+
+
+            public:
+                const BridgeFlags &getBridgeFlags() const
+                {
+                    static BridgeFlags parameters(
+                            BridgeFlags::SLOPPY_MAPS_SUPPORTED
+                            | BridgeFlags::SLOPPY_PAIRS_SUPPORTED);
+                    return (parameters);
+                }
+        };
     }
 }
 
@@ -104,13 +101,13 @@ namespace ariles
          */
         struct ARILES_VISIBILITY_ATTRIBUTE rapidjson
         {
-            typedef ariles::bridge::rapidjson::Flags Flags;
+            typedef ariles::ns_rapidjson::Flags Flags;
 
-            typedef bridge::rapidjson::Reader ReaderBase;
-            typedef bridge::rapidjson::Writer WriterBase;
+            typedef ns_rapidjson::Reader ReaderBase;
+            typedef ns_rapidjson::Writer WriterBase;
 
-            typedef ariles::cfgread::Visitor<bridge::rapidjson::Reader> Reader;
-            typedef ariles::cfgwrite::Visitor<bridge::rapidjson::Writer> Writer;
+            typedef ariles::cfgread::Visitor<ns_rapidjson::Reader> Reader;
+            typedef ariles::cfgwrite::Visitor<ns_rapidjson::Writer> Writer;
         };
     }
 #endif
