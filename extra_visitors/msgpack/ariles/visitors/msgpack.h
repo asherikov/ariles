@@ -44,9 +44,9 @@ namespace ariles
 
 
             public:
-                const BridgeFlags &getBridgeFlags() const
+                const serialization::Features &getSerializationFeatures() const
                 {
-                    static const BridgeFlags parameters; // all disabled
+                    static const serialization::Features parameters; // all disabled
                     return (parameters);
                 }
         };

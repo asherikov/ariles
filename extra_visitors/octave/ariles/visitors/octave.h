@@ -43,7 +43,7 @@ namespace ariles
                 explicit Writer(std::ostream& output_stream);
 
 
-                const BridgeFlags &getBridgeFlags() const;
+                const serialization::Features &getSerializationFeatures() const;
 
 
                 void flush();

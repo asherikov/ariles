@@ -41,11 +41,11 @@ namespace ariles
 
 
             public:
-                const BridgeFlags &getBridgeFlags() const
+                const serialization::Features &getSerializationFeatures() const
                 {
-                    static BridgeFlags parameters(
-                            BridgeFlags::SLOPPY_MAPS_SUPPORTED
-                            | BridgeFlags::SLOPPY_PAIRS_SUPPORTED);
+                    static serialization::Features parameters(
+                            serialization::Features::SLOPPY_MAPS_SUPPORTED
+                            | serialization::Features::SLOPPY_PAIRS_SUPPORTED);
                     return (parameters);
                 }
         };

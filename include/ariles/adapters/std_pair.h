@@ -11,6 +11,7 @@
 #pragma once
 
 #include <utility>
+#include "../visitors/serialization.h"
 
 namespace ariles
 {
@@ -42,7 +43,7 @@ namespace ariles
                     const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            if (visitor.getBridgeFlags().isSet(BridgeFlags::SLOPPY_PAIRS_SUPPORTED)
+            if (visitor.getSerializationFeatures().isSet(serialization::Features::SLOPPY_PAIRS_SUPPORTED)
                     && param.isSet(t_Visitor::Parameters::SLOPPY_PAIRS_IF_SUPPORTED))
             {
                 std::vector<std::string> entry_names;
@@ -96,7 +97,7 @@ namespace ariles
                     const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            if (writer.getBridgeFlags().isSet(BridgeFlags::SLOPPY_PAIRS_SUPPORTED)
+            if (writer.getSerializationFeatures().isSet(serialization::Features::SLOPPY_PAIRS_SUPPORTED)
                     && param.isSet(t_Visitor::Parameters::SLOPPY_PAIRS_IF_SUPPORTED))
             {
                 writer.startMap(1);

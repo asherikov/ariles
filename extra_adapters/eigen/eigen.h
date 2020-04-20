@@ -12,6 +12,7 @@
 
 #include <Eigen/Core>
 #include <Eigen/Geometry>
+#include "../visitors/serialization.h"
 
 namespace ariles
 {
@@ -165,7 +166,7 @@ namespace ariles
                     const typename t_Visitor::Parameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
-            if (writer.getBridgeFlags().isSet(BridgeFlags::NATIVE_MATRIX_SUPPORTED))
+            if (writer.getSerializationFeatures().isSet(serialization::Features::NATIVE_MATRIX_SUPPORTED))
             {
                 writer.startMatrix(true);
                 for(EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0;
@@ -203,7 +204,7 @@ namespace ariles
                     const typename t_Visitor::Parameters & param)
         {
             ARILES_TRACE_FUNCTION;
-            if (writer.getBridgeFlags().isSet(BridgeFlags::NATIVE_MATRIX_SUPPORTED))
+            if (writer.getSerializationFeatures().isSet(serialization::Features::NATIVE_MATRIX_SUPPORTED))
             {
                 writer.startMatrix();
                 for(EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0;

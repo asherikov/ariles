@@ -29,7 +29,7 @@ namespace ariles
 
 
         class ARILES_VISIBILITY_ATTRIBUTE Base
-            : public visitor::Base<const postprocess::Visitor>
+            : public entry::Base<const postprocess::Visitor>
         {
         };
 

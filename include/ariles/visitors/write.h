@@ -10,28 +10,15 @@
 
 #pragma once
 
-#include "common.h"
+#include "serialization.h"
 
 namespace ariles
 {
     namespace write
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::VisitorBase<ariles::ConfigurableFlags>
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public serialization::Base
         {
             public:
-                typedef ariles::ConfigurableFlags Parameters;
-
-
-            public:
-                using visitor::VisitorBase<Parameters>::getDefaultParameters;
-
-                template<class t_Ariles>
-                    const Parameters & getParameters(const t_Ariles & ariles_class) const
-                {
-                    return (ariles_class.arilesGetParameters(*this));
-                }
-
-
                 /**
                  * @brief open configuration file
                  *
@@ -60,9 +47,6 @@ namespace ariles
                     ARILES_TRACE_FUNCTION;
                     flush();
                 }
-
-
-                virtual const BridgeFlags & getBridgeFlags() const = 0;
 
                 /**
                  * @brief Starts a nested map in the configuration file
@@ -134,7 +118,7 @@ namespace ariles
 
 
         class ARILES_VISIBILITY_ATTRIBUTE Base
-            : public visitor::ConstBase<write::Visitor>
+            : public entry::ConstBase<write::Visitor>
         {
         };
 

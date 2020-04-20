@@ -24,11 +24,11 @@ namespace ariles
 
 
         template<class t_Parameters>
-            class ARILES_VISIBILITY_ATTRIBUTE VisitorBase : public Visitor
+            class ARILES_VISIBILITY_ATTRIBUTE Base : public Visitor
         {
             protected:
-                VisitorBase() {};
-                ~VisitorBase() {};
+                Base() {};
+                ~Base() {};
 
                 const t_Parameters & getDefaultParameters() const
                 {
@@ -51,8 +51,11 @@ namespace ariles
                     ARILES_TRACE_FUNCTION;
                 }
         };
+    }
 
 
+    namespace entry
+    {
         #define ARILES_METHODS(Namespace, VisitorQualifier, MethodQualifier) \
             virtual void arilesVirtualVisit(VisitorQualifier ariles::Namespace::Visitor &visitor, \
                                             const ariles::Namespace::Visitor::Parameters &param) MethodQualifier \

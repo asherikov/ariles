@@ -38,14 +38,14 @@ namespace ariles
         };
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::VisitorBase<defaults::Parameters>
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Base<defaults::Parameters>
         {
             public:
                 typedef defaults::Parameters Parameters;
 
 
             public:
-                using visitor::VisitorBase<Parameters>::getDefaultParameters;
+                using visitor::Base<Parameters>::getDefaultParameters;
 
                 template<class t_Ariles>
                     const Parameters & getParameters(const t_Ariles & ariles_class) const
@@ -53,8 +53,8 @@ namespace ariles
                     return (ariles_class.arilesGetParameters(*this));
                 }
 
-                using visitor::VisitorBase<Parameters>::startRoot;
-                using visitor::VisitorBase<Parameters>::finishRoot;
+                using visitor::Base<Parameters>::startRoot;
+                using visitor::Base<Parameters>::finishRoot;
 
 
                 template<class t_Entry>
@@ -97,7 +97,7 @@ namespace ariles
 
 
         class ARILES_VISIBILITY_ATTRIBUTE Base
-            : public visitor::Base<const defaults::Visitor>
+            : public entry::Base<const defaults::Visitor>
         {
             public:
         };

@@ -12,7 +12,7 @@
 
 #include <vector>
 
-#include "common.h"
+#include "serialization.h"
 #if 1 == ARILES_API_VERSION
 #   include "defaults.h"
 #   include "postprocess.h"
@@ -23,11 +23,9 @@ namespace ariles
 {
     namespace read
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::VisitorBase<ariles::ConfigurableFlags>
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public serialization::Base
         {
             public:
-                typedef ariles::ConfigurableFlags Parameters;
-
                 enum SizeLimitEnforcementType
                 {
                     SIZE_LIMIT_UNDEFINED = 0,
@@ -66,15 +64,6 @@ namespace ariles
 
 
             public:
-                using visitor::VisitorBase<Parameters>::getDefaultParameters;
-
-                template<class t_Ariles>
-                    const Parameters & getParameters(const t_Ariles & ariles_class) const
-                {
-                    return (ariles_class.arilesGetParameters(*this));
-                }
-
-
                 /**
                  * @brief open configuration file
                  *
@@ -104,10 +93,8 @@ namespace ariles
 #endif
                 }
 
-                using visitor::VisitorBase<Parameters>::finishRoot;
+                using visitor::Base<Parameters>::finishRoot;
 
-
-                virtual const BridgeFlags & getBridgeFlags() const = 0;
 
 
                 /**
@@ -244,7 +231,7 @@ namespace ariles
 
 
         class ARILES_VISIBILITY_ATTRIBUTE Base
-            : public visitor::Base<read::Visitor>
+            : public entry::Base<read::Visitor>
         {
         };
 

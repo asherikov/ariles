@@ -118,6 +118,3 @@ namespace ariles
     template <class t_Pointer>
         class PointerHandler;
 }
-
-#include "../configurable_flags.h"
-#include "../bridge_flags.h"

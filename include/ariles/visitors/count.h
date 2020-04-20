@@ -21,7 +21,7 @@ namespace ariles
         };
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::VisitorBase<count::Parameters>
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Base<count::Parameters>
         {
             public:
                 typedef count::Parameters Parameters;
@@ -40,7 +40,7 @@ namespace ariles
                 }
 
 
-                using visitor::VisitorBase<Parameters>::getDefaultParameters;
+                using visitor::Base<Parameters>::getDefaultParameters;
 
                 template<class t_Ariles>
                     const Parameters & getParameters(const t_Ariles & ariles_class) const
@@ -58,7 +58,7 @@ namespace ariles
                     descend_ = true;
                 }
 
-                using visitor::VisitorBase<Parameters>::finishRoot;
+                using visitor::Base<Parameters>::finishRoot;
 
 
                 template<class t_Entry>
@@ -66,7 +66,7 @@ namespace ariles
                             const t_Entry & entry,
                             const std::string & name,
                             const Parameters & /*param*/,
-                            ARILES_IS_BASE_DISABLER(visitor::ConstBase<count::Visitor>, t_Entry))
+                            ARILES_IS_BASE_DISABLER(entry::ConstBase<count::Visitor>, t_Entry))
                 {
                     ARILES_UNUSED_ARG(name);
                     ARILES_UNUSED_ARG(entry);
@@ -82,7 +82,7 @@ namespace ariles
                             const t_Entry & entry,
                             const std::string & name,
                             const Parameters & param,
-                            ARILES_IS_BASE_ENABLER(visitor::ConstBase<count::Visitor>, t_Entry))
+                            ARILES_IS_BASE_ENABLER(entry::ConstBase<count::Visitor>, t_Entry))
                 {
                     ARILES_UNUSED_ARG(name);
                     ARILES_TRACE_FUNCTION;
@@ -103,7 +103,7 @@ namespace ariles
 
 
         class ARILES_VISIBILITY_ATTRIBUTE Base
-            : public visitor::ConstBase<count::Visitor>
+            : public entry::ConstBase<count::Visitor>
         {
             public:
         };

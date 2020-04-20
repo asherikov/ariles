@@ -88,7 +88,7 @@ namespace ariles
 
 
         template<class t_Reader>
-            class Visitor : public visitor::VisitorBase< Parameters<t_Reader> >
+            class Visitor : public visitor::Base< Parameters<t_Reader> >
         {
             public:
                 typedef cfgread::Parameters<t_Reader> Parameters;
@@ -121,7 +121,7 @@ namespace ariles
                 }
 
 
-                using visitor::VisitorBase<Parameters>::getDefaultParameters;
+                using visitor::Base<Parameters>::getDefaultParameters;
 
                 template<class t_Ariles>
                     const Parameters getParameters(const t_Ariles & ariles_class) const
@@ -134,8 +134,8 @@ namespace ariles
                 }
 
 
-                using visitor::VisitorBase<Parameters>::startRoot;
-                using visitor::VisitorBase<Parameters>::finishRoot;
+                using visitor::Base<Parameters>::startRoot;
+                using visitor::Base<Parameters>::finishRoot;
 
 
                 template<class t_Entry>
@@ -240,7 +240,7 @@ namespace ariles
 
 
         template<class t_Writer>
-            class Visitor : public visitor::VisitorBase< Parameters<t_Writer> >
+            class Visitor : public visitor::Base< Parameters<t_Writer> >
         {
             public:
                 typedef cfgwrite::Parameters<t_Writer> Parameters;
@@ -279,7 +279,7 @@ namespace ariles
                 }
 
 
-                using visitor::VisitorBase<Parameters>::getDefaultParameters;
+                using visitor::Base<Parameters>::getDefaultParameters;
 
                 template<class t_Ariles>
                     const Parameters getParameters(const t_Ariles & ariles_class) const
@@ -291,8 +291,8 @@ namespace ariles
                 }
 
 
-                using visitor::VisitorBase<Parameters>::startRoot;
-                using visitor::VisitorBase<Parameters>::finishRoot;
+                using visitor::Base<Parameters>::startRoot;
+                using visitor::Base<Parameters>::finishRoot;
 
 
                 template<class t_Entry>

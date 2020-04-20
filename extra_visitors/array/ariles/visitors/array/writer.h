@@ -115,9 +115,9 @@ namespace ariles
                 }
 
 
-                const BridgeFlags &getBridgeFlags() const
+                const serialization::Features &getSerializationFeatures() const
                 {
-                    static BridgeFlags parameters;
+                    static serialization::Features parameters;
                     return (parameters);
                 }
 

@@ -19,6 +19,12 @@
 #define ARILES_API_VERSION 1
 
 #include "ariles2.h"
+#include "visitors/serialization.h"
+
+namespace ariles
+{
+    typedef serialization::Features BridgeFlags;
+}
 
 
 #ifndef ARILES_DISABLE

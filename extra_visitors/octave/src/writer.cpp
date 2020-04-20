@@ -86,9 +86,9 @@ namespace ariles
         }
 
 
-        const BridgeFlags &Writer::getBridgeFlags() const
+        const serialization::Features &Writer::getSerializationFeatures() const
         {
-            static BridgeFlags parameters(BridgeFlags::NATIVE_MATRIX_SUPPORTED);
+            static serialization::Features parameters(serialization::Features::NATIVE_MATRIX_SUPPORTED);
             return (parameters);
         }
 
