@@ -10,29 +10,29 @@
 
 #define ARILES_API_VERSION 2
 
-#include "../utility.h"
+#include "utility.h"
 
-#ifdef ARILES_BRIDGE_yaml_cpp03
+#ifdef ARILES_VISITOR_yaml_cpp03
 #include "ariles/visitors/yaml_cpp03.h"
 #endif
 
-#ifdef ARILES_BRIDGE_yaml_cpp
+#ifdef ARILES_VISITOR_yaml_cpp
 #include "ariles/visitors/yaml_cpp.h"
 #endif
 
-#ifdef ARILES_BRIDGE_msgpack
+#ifdef ARILES_VISITOR_msgpack
 #include "ariles/visitors/msgpack.h"
 #endif
 
-#ifdef ARILES_BRIDGE_jsonnet
+#ifdef ARILES_VISITOR_jsonnet
 #include "ariles/visitors/jsonnet.h"
 #endif
 
-#ifdef ARILES_BRIDGE_rapidjson
+#ifdef ARILES_VISITOR_rapidjson
 #include "ariles/visitors/rapidjson.h"
 #endif
 
-#ifdef ARILES_BRIDGE_pugixml
+#ifdef ARILES_VISITOR_pugixml
 #include "ariles/visitors/pugixml.h"
 #endif
 

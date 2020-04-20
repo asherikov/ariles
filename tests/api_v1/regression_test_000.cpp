@@ -8,7 +8,7 @@
     @brief
 */
 
-#include "../utility.h"
+#include "utility.h"
 #include "all_enabled_bridges.h"
 
 #include "ariles/adapters_all.h"

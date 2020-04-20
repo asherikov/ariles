@@ -9,7 +9,7 @@
 */
 
 
-#include "../utility.h"
+#include "utility.h"
 
 #ifdef ARILES_BRIDGE_octave
 #include "ariles/bridges/octave.h"

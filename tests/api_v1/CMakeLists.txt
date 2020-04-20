@@ -1,3 +1,24 @@
+##############################################################################
+set(ARILES_TESTS_CONFIG "")
+
+foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
+    string(TOUPPER ${ARILES_EXTRA_ADAPTER} ARILES_EXTRA_ADAPTER_CAPITALIZED)
+    set(ARILES_TESTS_CONFIG   "${ARILES_TESTS_CONFIG}#define ARILES_ADAPTER_${ARILES_EXTRA_ADAPTER_CAPITALIZED}\n")
+endforeach()
+
+
+foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
+    if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
+        set(ARILES_TESTS_CONFIG "${ARILES_TESTS_CONFIG}#define ARILES_BRIDGE_${ARILES_BRIDGE}\n")
+    endif()
+endforeach(ARILES_BRIDGE)
+
+
+file(WRITE "${ARILES_INCLUDE_DIR}/tests/api_v1/tests_config.h" "${ARILES_TESTS_CONFIG}")
+include_directories("${ARILES_INCLUDE_DIR}/tests")
+##############################################################################
+
+
 list(APPEND ARILES_TESTING_LIBRARIES  "testlib_api_v1")
 
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY     "${PROJECT_BINARY_DIR}/tests_bin_api_v1/")

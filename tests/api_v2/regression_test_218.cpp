@@ -11,7 +11,7 @@
 #define ARILES_API_VERSION 2
 
 
-#include "../utility.h"
+#include "utility.h"
 #include "all_enabled_visitors.h"
 
 

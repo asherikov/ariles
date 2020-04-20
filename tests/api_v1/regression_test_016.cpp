@@ -11,7 +11,7 @@
 
 #define ARILES_TESTS_BOOST_UTF_DISABLED
 
-#include <tests_config.h>
+#include <api_v1/tests_config.h>
 
 #include "ariles/adapters_all.h"
 #include "ariles/ariles.h"

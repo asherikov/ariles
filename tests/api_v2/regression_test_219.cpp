@@ -10,7 +10,7 @@
 
 #define ARILES_API_VERSION 2
 
-#include "../utility.h"
+#include "utility.h"
 
 #include "ariles/adapters_all.h"
 #include "ariles/ariles2.h"

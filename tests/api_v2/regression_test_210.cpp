@@ -10,7 +10,7 @@
 
 #define ARILES_API_VERSION 2
 
-#include "../utility.h"
+#include "utility.h"
 
 
 #include "ariles/visitors/jsonnet.h"
@@ -32,7 +32,7 @@
 // FIXTURES
 // ===============================================================
 
-#undef ARILES_BRIDGE_ros
+#undef ARILES_VISITOR_ros
 #include "fixtures/initializers.h"
 #include "fixtures/009_read.h"
 

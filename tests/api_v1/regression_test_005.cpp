@@ -8,7 +8,7 @@
     @brief
 */
 
-#include "../utility.h"
+#include "utility.h"
 
 #define ARILES_DISABLE
 #include "ariles/ariles.h"

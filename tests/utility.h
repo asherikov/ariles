@@ -85,5 +85,3 @@ boost::random::uniform_real_distribution<>  g_real_uniform_distribution(-1e5, 1e
 
 
 const double g_tolerance = 1e-12;
-
-#include <tests_config.h>

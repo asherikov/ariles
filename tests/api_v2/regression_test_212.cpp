@@ -11,9 +11,9 @@
 
 #define ARILES_API_VERSION 2
 
-#include "../utility.h"
+#include "utility.h"
 
-#ifdef ARILES_BRIDGE_octave
+#ifdef ARILES_VISITOR_octave
 #include "ariles/visitors/octave.h"
 #endif
 

@@ -341,30 +341,12 @@ cmakeut_compiler_flags("${ARILES_CPP_STANDARD}")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKEUT_CXX_FLAGS}")
 
 
+
 #####################################
 ## Tests
 #####################################
 
 if (ARILES_BUILD_REGRESSION_TESTS)
-    set(ARILES_TESTS_CONFIG "")
-
-    foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
-        string(TOUPPER ${ARILES_EXTRA_ADAPTER} ARILES_EXTRA_ADAPTER_CAPITALIZED)
-        set(ARILES_TESTS_CONFIG   "${ARILES_TESTS_CONFIG}#define ARILES_ADAPTER_${ARILES_EXTRA_ADAPTER_CAPITALIZED}\n")
-    endforeach()
-
-
-    foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
-        if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
-            set(ARILES_TESTS_CONFIG "${ARILES_TESTS_CONFIG}#define ARILES_BRIDGE_${ARILES_BRIDGE}\n")
-        endif()
-    endforeach(ARILES_BRIDGE)
-
-
-    file(WRITE "${ARILES_INCLUDE_DIR}/tests/tests_config.h" "${ARILES_TESTS_CONFIG}")
-    include_directories("${ARILES_INCLUDE_DIR}/tests")
-
-
     enable_testing()
     add_subdirectory ("${PROJECT_SOURCE_DIR}/tests")
 endif()

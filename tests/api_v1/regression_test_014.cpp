@@ -8,7 +8,7 @@
     @brief
 */
 
-#include "../utility.h"
+#include "utility.h"
 
 #ifdef ARILES_BRIDGE_yaml_cpp03
 #include "ariles/bridges/yaml_cpp03.h"
