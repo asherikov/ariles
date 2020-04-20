@@ -199,7 +199,7 @@ Documentation and examples
 ==========================
 
 * Precompiled Doxygen documentation: https://asherikov.github.io/ariles/
-* Introductory demo: https://asherikov.github.io/ariles/DEMO.html [`./tests/demo.cpp`]
+* Introductory demo: https://asherikov.github.io/ariles/DEMO.html [`./tests/api_v2/demo_api_v2.cpp`]
 * Various types defined for tests: [`./tests/types/`]
 
 

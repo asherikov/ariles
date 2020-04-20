@@ -113,6 +113,13 @@ namespace ariles
                     ARILES_TRACE_FUNCTION;
                 }
 
+                template<class t_Initializer0, class t_Initializer1>
+                    Visitor(t_Initializer0 & initializer0, const t_Initializer1 & initializer1)
+                    : reader_visitor_(initializer0, initializer1)
+                {
+                    ARILES_TRACE_FUNCTION;
+                }
+
 
                 using visitor::VisitorBase<Parameters>::getDefaultParameters;
 
@@ -259,6 +266,13 @@ namespace ariles
 
                 template<class t_Initializer0, class t_Initializer1>
                     Visitor(t_Initializer0 * initializer0, const t_Initializer1 & initializer1)
+                    : writer_visitor_(initializer0, initializer1)
+                {
+                    ARILES_TRACE_FUNCTION;
+                }
+
+                template<class t_Initializer0, class t_Initializer1>
+                    Visitor(t_Initializer0 & initializer0, const t_Initializer1 & initializer1)
                     : writer_visitor_(initializer0, initializer1)
                 {
                     ARILES_TRACE_FUNCTION;
