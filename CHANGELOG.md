@@ -1,6 +1,16 @@
 Unreleased
 ==========
 
+Fixed
+-----
+
+* Jsonnet visitor, added corresponding tests.
+
+
+Changed
+-------
+
+
 
 1.6.2
 =====
