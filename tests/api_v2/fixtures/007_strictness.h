@@ -13,50 +13,44 @@
 
 namespace ariles_tests
 {
-    template<class t_FixtureBase>
+    template <class t_FixtureBase>
     class StrictnessFixture : public t_FixtureBase
     {
-        public:
-            using t_FixtureBase::getWriterInitializer;
-            using t_FixtureBase::getReaderInitializer;
+    public:
+        using t_FixtureBase::getReaderInitializer;
+        using t_FixtureBase::getWriterInitializer;
 
 
-        protected:
-            template<class t_Configurable1, class t_Configurable2, class t_Visitor>
-                void test()
-            {
-                // Exlicit instantiation of reader and writer classes
-                BOOST_CHECK_NO_THROW(
+    protected:
+        template <class t_Configurable1, class t_Configurable2, class t_Visitor>
+        void test()
+        {
+            // Exlicit instantiation of reader and writer classes
+            BOOST_CHECK_NO_THROW(
                     t_Configurable1 configurable;
 
                     typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
-                    ariles::apply(writer, configurable);
-                );
+                    ariles::apply(writer, configurable););
 
-                BOOST_CHECK_THROW(
+            BOOST_CHECK_THROW(
                     t_Configurable2 configurable;
 
                     typename t_Visitor::Reader reader(getReaderInitializer("configurable.cfg"));
                     ariles::apply(reader, configurable);
-                    ,
-                    std::runtime_error
-                );
+                    , std::runtime_error);
 
-                // --------------------------------
+            // --------------------------------
 
-                // Implicit instantiation of reader and writer classes
+            // Implicit instantiation of reader and writer classes
 
-                BOOST_CHECK_NO_THROW(
-                    t_Configurable1 configurable;
-                    ariles::apply<typename t_Visitor::Writer>(getWriterInitializer("configurable2.cfg"), configurable);
-                );
+            BOOST_CHECK_NO_THROW(t_Configurable1 configurable;
+                                 ariles::apply<typename t_Visitor::Writer>(
+                                         getWriterInitializer("configurable2.cfg"), configurable););
 
-                BOOST_CHECK_THROW(
-                    t_Configurable2 configurable;
-                    ariles::apply<typename t_Visitor::Reader>(getReaderInitializer("configurable2.cfg"), configurable);
-                    ,
-                    std::runtime_error
-                );
-            }
+            BOOST_CHECK_THROW(t_Configurable2 configurable;
+                              ariles::apply<typename t_Visitor::Reader>(
+                                      getReaderInitializer("configurable2.cfg"), configurable);
+                              , std::runtime_error);
+        }
     };
-}
+}  // namespace ariles_tests

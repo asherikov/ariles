@@ -12,6 +12,7 @@ Changed
 
 * Stricter compilation flags.
 * Rename 'bridge' -> 'visitor'.
+* Format sources with clang-format.
 
 
 

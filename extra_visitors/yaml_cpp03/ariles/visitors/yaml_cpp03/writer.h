@@ -27,41 +27,40 @@ namespace ariles
         /**
          * @brief Configuration writer class
          */
-        class ARILES_LIB_EXPORT Writer :
-            public ns_yaml_cpp03::Base<ariles::write::Visitor, impl::Writer>
+        class ARILES_LIB_EXPORT Writer
+          : public ns_yaml_cpp03::Base<ariles::write::Visitor, impl::Writer>
         {
-            public:
-                explicit Writer(const std::string& file_name);
-                explicit Writer(std::ostream& output_stream);
+        public:
+            explicit Writer(const std::string &file_name);
+            explicit Writer(std::ostream &output_stream);
 
 
 
-                /**
-                 * @brief Starts a nested map in the configuration file
-                 *
-                 * @param[in] map_name name of the map
-                 */
-                void descend(const std::string &map_name);
+            /**
+             * @brief Starts a nested map in the configuration file
+             *
+             * @param[in] map_name name of the map
+             */
+            void descend(const std::string &map_name);
 
 
-                void startMap(const std::size_t /*num_entries*/);
-                void endMap();
+            void startMap(const std::size_t /*num_entries*/);
+            void endMap();
 
 
-                void flush();
+            void flush();
 
 
-                void startArray(const std::size_t /*size*/, const bool compact = false);
-                void endArray();
+            void startArray(const std::size_t /*size*/, const bool compact = false);
+            void endArray();
 
 
 
-                #define ARILES_BASIC_TYPE(type) \
-                        void writeElement(const type & element);
+#define ARILES_BASIC_TYPE(type) void writeElement(const type &element);
 
-                ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+            ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
-                #undef ARILES_BASIC_TYPE
+#undef ARILES_BASIC_TYPE
         };
-    }
-}
+    }  // namespace ns_yaml_cpp03
+}  // namespace ariles

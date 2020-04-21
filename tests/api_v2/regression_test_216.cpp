@@ -43,24 +43,24 @@
 
 int main()
 {
-    ariles_tests::ConfigurableComplex             a;
-    ariles_tests::ConfigurableComplexVerbose      b;
-    ariles_tests::ConfigurableEmpty               c;
-    ariles_tests::ConfigurablePostProcess         d;
-    ariles_tests::ConfigurableMember<int>         e;
-    ariles_tests::ConfigurableBase                f;
-    ariles_tests::ConfigurableDerived             g;
-    ariles_tests::ConfigurableMinimal             h;
-    ariles_tests::ConfigurableNoSetDefaults       k;
-    ariles_tests::ConfigurablePointers            l;
-    ariles_tests::ConfigurableAutoDeclare         m;
-    ariles_tests::ConfigurableNoAutoID            n;
-    ariles_tests::ConfigurableVerbose             p;
-    ariles_tests::ConfigurableSpecialFloats       q;
-    ariles_tests::ConfigurableStrictness1         r;
-    ariles_tests::ConfigurableStrictness2         s;
-    ariles_tests::ConfigurableAny                 t;
-    ariles_tests::ConfigurablePointersScalar      u;
+    ariles_tests::ConfigurableComplex a;
+    ariles_tests::ConfigurableComplexVerbose b;
+    ariles_tests::ConfigurableEmpty c;
+    ariles_tests::ConfigurablePostProcess d;
+    ariles_tests::ConfigurableMember<int> e;
+    ariles_tests::ConfigurableBase f;
+    ariles_tests::ConfigurableDerived g;
+    ariles_tests::ConfigurableMinimal h;
+    ariles_tests::ConfigurableNoSetDefaults k;
+    ariles_tests::ConfigurablePointers l;
+    ariles_tests::ConfigurableAutoDeclare m;
+    ariles_tests::ConfigurableNoAutoID n;
+    ariles_tests::ConfigurableVerbose p;
+    ariles_tests::ConfigurableSpecialFloats q;
+    ariles_tests::ConfigurableStrictness1 r;
+    ariles_tests::ConfigurableStrictness2 s;
+    ariles_tests::ConfigurableAny t;
+    ariles_tests::ConfigurablePointersScalar u;
 
     return (0);
 }

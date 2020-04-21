@@ -14,127 +14,126 @@ namespace ariles_tests
 {
     class Base : public ariles::DefaultBase
     {
-        #define ARILES_DEFAULT_ID "Base"
-        #define ARILES_ENTRIES \
-            ARILES_TYPED_ENTRY_(real, double)
-        #include ARILES_INITIALIZE
+#define ARILES_DEFAULT_ID "Base"
+#define ARILES_ENTRIES ARILES_TYPED_ENTRY_(real, double)
+#include ARILES_INITIALIZE
 
-        public:
+    public:
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
-            virtual void randomize()
-            {
-                boost::random::random_device random_generator;
-                real_ = GET_RANDOM_REAL;
-            }
+        virtual void randomize()
+        {
+            boost::random::random_device random_generator;
+            real_ = GET_RANDOM_REAL;
+        }
 #endif
 
-            Base()
-            {
-                ariles::apply<ariles::Defaults>(*this);
-            }
+        Base()
+        {
+            ariles::apply<ariles::Defaults>(*this);
+        }
 
-            virtual ~Base()
-            {
-            }
+        virtual ~Base()
+        {
+        }
     };
 
 
     class Derived1 : public Base
     {
-        #define ARILES_DEFAULT_ID "Derived1"
-        #define ARILES_ENTRIES \
-            ARILES_PARENT(Base) \
-            ARILES_TYPED_ENTRY_(real1, double)
-        #include ARILES_INITIALIZE
+#define ARILES_DEFAULT_ID "Derived1"
+#define ARILES_ENTRIES                                                                             \
+    ARILES_PARENT(Base)                                                                            \
+    ARILES_TYPED_ENTRY_(real1, double)
+#include ARILES_INITIALIZE
 
-        public:
+    public:
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
-            void randomize()
-            {
-                Base::randomize();
-                boost::random::random_device random_generator;
-                real1_ = GET_RANDOM_REAL;
-            }
+        void randomize()
+        {
+            Base::randomize();
+            boost::random::random_device random_generator;
+            real1_ = GET_RANDOM_REAL;
+        }
 #endif
 
-            Derived1()
-            {
-                ariles::apply<ariles::Defaults>(*this);
-            }
+        Derived1()
+        {
+            ariles::apply<ariles::Defaults>(*this);
+        }
     };
 
 
     class Derived2 : public Base
     {
-        #define ARILES_DEFAULT_ID "Derived2"
-        #define ARILES_ENTRIES \
-            ARILES_PARENT(Base) \
-            ARILES_TYPED_ENTRY_(real2, double)
-        #include ARILES_INITIALIZE
+#define ARILES_DEFAULT_ID "Derived2"
+#define ARILES_ENTRIES                                                                             \
+    ARILES_PARENT(Base)                                                                            \
+    ARILES_TYPED_ENTRY_(real2, double)
+#include ARILES_INITIALIZE
 
-        public:
+    public:
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
-            void randomize()
-            {
-                Base::randomize();
-                boost::random::random_device random_generator;
-                real2_ = GET_RANDOM_REAL;
-            }
+        void randomize()
+        {
+            Base::randomize();
+            boost::random::random_device random_generator;
+            real2_ = GET_RANDOM_REAL;
+        }
 #endif
 
-            Derived2()
-            {
-                ariles::apply<ariles::Defaults>(*this);
-            }
+        Derived2()
+        {
+            ariles::apply<ariles::Defaults>(*this);
+        }
     };
 
 
-    template<template<class> class t_Pointer, class t_Instantiator>
+    template <template <class> class t_Pointer, class t_Instantiator>
     class CommonAny : public ariles::Any<t_Pointer, Base, t_Instantiator>
     {
-        public:
+    public:
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
-            void randomize()
+        void randomize()
+        {
+            boost::random::random_device random_generator;
+            BOOST_CHECK(false == this->isInitialized());
+
+            this->id_ = "test";
+            BOOST_CHECK(false == this->isInitialized());
+
+            BOOST_CHECK_THROW(this->build("test"), std::exception);
+
+            BOOST_CHECK_NO_THROW(this->build("Derived1"));
+            BOOST_CHECK(true == this->isInitialized());
+
+            BOOST_CHECK(NULL != this->template cast<Derived1>());
+            BOOST_CHECK(NULL != this->template cast<Derived1>("Derived1"));
+            BOOST_CHECK(NULL == this->template cast<Derived1>("Derived2"));
+
+            double test = 0.0;
+
+            this->operator->()->real_ = 10.0;
+            test = this->operator->()->real_;
+
+            this->operator*().real_ = 10.0;
+            test = this->operator*().real_;
+
+            this->template cast<Derived1>()->real1_ = 10.0;
+            test = this->template cast<Derived1>()->real1_;
+
+
+            test = GET_RANDOM_REAL;
+            if (test > 0.0)
             {
-                boost::random::random_device random_generator;
-                BOOST_CHECK(false == this->isInitialized());
-
-                this->id_ = "test";
-                BOOST_CHECK(false == this->isInitialized());
-
-                BOOST_CHECK_THROW(this->build("test"), std::exception);
-
-                BOOST_CHECK_NO_THROW(this->build("Derived1"));
-                BOOST_CHECK(true == this->isInitialized());
-
-                BOOST_CHECK(NULL != this->template cast<Derived1>());
-                BOOST_CHECK(NULL != this->template cast<Derived1>("Derived1"));
-                BOOST_CHECK(NULL == this->template cast<Derived1>("Derived2"));
-
-                double test = 0.0;
-
-                this->operator->()->real_ = 10.0;
-                test = this->operator->()->real_;
-
-                this->operator*().real_ = 10.0;
-                test = this->operator*().real_;
-
-                this->template cast<Derived1>()->real1_ = 10.0;
-                test = this->template cast<Derived1>()->real1_;
-
-
-                test = GET_RANDOM_REAL;
-                if(test > 0.0)
-                {
-                    this->build("Derived1");
-                }
-                else
-                {
-                    this->build("Derived2");
-                }
-
-                this->value_->randomize();
+                this->build("Derived1");
             }
+            else
+            {
+                this->build("Derived2");
+            }
+
+            this->value_->randomize();
+        }
 #endif
     };
 
@@ -142,20 +141,20 @@ namespace ariles_tests
 #ifdef ARILES_ADAPTER_BOOST_POINTER
     class BoostPtrInstantiator
     {
-        public:
-            static boost::shared_ptr<Base> instantiate(const std::string &id)
+    public:
+        static boost::shared_ptr<Base> instantiate(const std::string &id)
+        {
+            if (id == "Derived1")
             {
-                if (id == "Derived1")
-                {
-                    return (boost::make_shared<Derived1>());
-                }
-                if (id == "Derived2")
-                {
-                    return (boost::make_shared<Derived2>());
-                }
-
-                return (boost::shared_ptr<Base>());
+                return (boost::make_shared<Derived1>());
             }
+            if (id == "Derived2")
+            {
+                return (boost::make_shared<Derived2>());
+            }
+
+            return (boost::shared_ptr<Base>());
+        }
     };
 #endif
 
@@ -163,91 +162,93 @@ namespace ariles_tests
 #if __cplusplus >= 201103L
     class StdPtrInstantiator
     {
-        public:
-            static std::shared_ptr<Base> instantiate(const std::string &id)
+    public:
+        static std::shared_ptr<Base> instantiate(const std::string &id)
+        {
+            if (id == "Derived1")
             {
-                if (id == "Derived1")
-                {
-                    return (std::make_shared<Derived1>());
-                }
-                if (id == "Derived2")
-                {
-                    return (std::make_shared<Derived2>());
-                }
-
-                return (std::shared_ptr<Base>());
+                return (std::make_shared<Derived1>());
             }
+            if (id == "Derived2")
+            {
+                return (std::make_shared<Derived2>());
+            }
+
+            return (std::shared_ptr<Base>());
+        }
     };
 #endif
 
 
     class ConfigurableAny : public ariles::DefaultBase
     {
-        public:
-            #define ARILES_DEFAULT_ID "ConfigurableAny"
+    public:
+#define ARILES_DEFAULT_ID "ConfigurableAny"
 
 
-            #define ARILES_ENTRIES_0
+#define ARILES_ENTRIES_0
 
 #if __cplusplus >= 201103L
-            CommonAny<std::shared_ptr, StdPtrInstantiator> std_any_;
+        CommonAny<std::shared_ptr, StdPtrInstantiator> std_any_;
 
-            #define ARILES_ENTRIES_1 \
-                ARILES_ENTRIES_0 \
-                ARILES_ENTRY_(std_any)
+#    define ARILES_ENTRIES_1                                                                       \
+        ARILES_ENTRIES_0                                                                           \
+        ARILES_ENTRY_(std_any)
 #else
-            #define ARILES_ENTRIES_1 ARILES_ENTRIES_0
+#    define ARILES_ENTRIES_1 ARILES_ENTRIES_0
 #endif
 
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
-            CommonAny<boost::shared_ptr, BoostPtrInstantiator> boost_any_;
-            #define ARILES_ENTRIES_2 \
-                    ARILES_ENTRIES_1 \
-                    ARILES_ENTRY_(boost_any)
+        CommonAny<boost::shared_ptr, BoostPtrInstantiator> boost_any_;
+#    define ARILES_ENTRIES_2                                                                       \
+        ARILES_ENTRIES_1                                                                           \
+        ARILES_ENTRY_(boost_any)
 #else
-            #define ARILES_ENTRIES_2 ARILES_ENTRIES_1
+#    define ARILES_ENTRIES_2 ARILES_ENTRIES_1
 #endif
 
 
-            #define ARILES_ENTRIES ARILES_ENTRIES_2
-            #include ARILES_INITIALIZE
+#define ARILES_ENTRIES ARILES_ENTRIES_2
+#include ARILES_INITIALIZE
 
 #undef ARILES_ENTRIES_0
 #undef ARILES_ENTRIES_1
 #undef ARILES_ENTRIES_2
 
 
-        public:
-            ConfigurableAny()
-            {
-                ariles::apply<ariles::Defaults>(*this);
-            }
+    public:
+        ConfigurableAny()
+        {
+            ariles::apply<ariles::Defaults>(*this);
+        }
 
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
-            void randomize()
-            {
-                boost::random::random_device random_generator;
-#if __cplusplus >= 201103L
-                std_any_.randomize();
-#endif
+        void randomize()
+        {
+            boost::random::random_device random_generator;
+#    if __cplusplus >= 201103L
+            std_any_.randomize();
+#    endif
 
-#ifdef ARILES_ADAPTER_BOOST_POINTER
-                boost_any_.randomize();
-#endif
-            }
+#    ifdef ARILES_ADAPTER_BOOST_POINTER
+            boost_any_.randomize();
+#    endif
+        }
 #endif
     };
 
 
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
-    template<class t_Configurable_out, class t_Configurable_in>
-    void    compare(const t_Configurable_out    &configurable_out,
-                    const t_Configurable_in     &configurable_in)
+    template <class t_Configurable_out, class t_Configurable_in>
+    void compare(
+            const t_Configurable_out &configurable_out,
+            const t_Configurable_in &configurable_in)
     {
-#if __cplusplus >= 201103L
+#    if __cplusplus >= 201103L
         BOOST_CHECK_EQUAL(configurable_out.std_any_.id_, configurable_in.std_any_.id_);
-        BOOST_CHECK_CLOSE((*configurable_out.std_any_).real_, (*configurable_in.std_any_).real_, g_tolerance);
+        BOOST_CHECK_CLOSE(
+                (*configurable_out.std_any_).real_, (*configurable_in.std_any_).real_, g_tolerance);
         if ("Derived1" == configurable_out.std_any_.id_)
         {
             BOOST_CHECK_CLOSE(
@@ -270,12 +271,15 @@ namespace ariles_tests
                     configurable_in.std_any_.template cast<Derived2>("Derived2")->real2_,
                     g_tolerance);
         }
-#endif
+#    endif
 
 
-#ifdef ARILES_ADAPTER_BOOST_POINTER
+#    ifdef ARILES_ADAPTER_BOOST_POINTER
         BOOST_CHECK_EQUAL(configurable_out.boost_any_.id_, configurable_in.boost_any_.id_);
-        BOOST_CHECK_CLOSE((*configurable_out.boost_any_).real_, (*configurable_in.boost_any_).real_, g_tolerance);
+        BOOST_CHECK_CLOSE(
+                (*configurable_out.boost_any_).real_,
+                (*configurable_in.boost_any_).real_,
+                g_tolerance);
         if ("Derived1" == configurable_out.boost_any_.id_)
         {
             BOOST_CHECK_CLOSE(
@@ -298,7 +302,7 @@ namespace ariles_tests
                     configurable_in.boost_any_.template cast<Derived2>("Derived2")->real2_,
                     g_tolerance);
         }
-#endif
+#    endif
     }
 #endif
-}
+}  // namespace ariles_tests

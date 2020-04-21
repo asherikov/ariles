@@ -13,92 +13,90 @@
 
 namespace ariles_tests
 {
-    template<class t_FixtureBase>
+    template <class t_FixtureBase>
     class ComparisonSimpleFixture : public t_FixtureBase
     {
-        public:
-            using t_FixtureBase::getWriterInitializer;
-            using t_FixtureBase::getReaderInitializer;
+    public:
+        using t_FixtureBase::getReaderInitializer;
+        using t_FixtureBase::getWriterInitializer;
 
 
-        protected:
-            template<class t_Configurable, class t_Visitor>
-                void test()
-            {
-                t_Configurable  configurable_out;
-                configurable_out.randomize();
-                BOOST_CHECK_NO_THROW(
-                    ariles::apply<typename t_Visitor::Writer>(getWriterInitializer("configurable_match_simple.cfg"), configurable_out);
-                );
+    protected:
+        template <class t_Configurable, class t_Visitor>
+        void test()
+        {
+            t_Configurable configurable_out;
+            configurable_out.randomize();
+            BOOST_CHECK_NO_THROW(ariles::apply<typename t_Visitor::Writer>(
+                                         getWriterInitializer("configurable_match_simple.cfg"),
+                                         configurable_out););
 
-                // -------
+            // -------
 
-                t_Configurable  configurable_in;
-                BOOST_CHECK_NO_THROW(
-                    ariles::apply<typename t_Visitor::Reader>(getReaderInitializer("configurable_match_simple.cfg"), configurable_in);
-                );
+            t_Configurable configurable_in;
+            BOOST_CHECK_NO_THROW(ariles::apply<typename t_Visitor::Reader>(
+                                         getReaderInitializer("configurable_match_simple.cfg"),
+                                         configurable_in););
 
-                // -------
+            // -------
 
-                compare(configurable_out, configurable_in);
+            compare(configurable_out, configurable_in);
 
-                ariles::Compare visitor;
-                ariles::Compare::Parameters param;
-                param.double_tolerance_ = g_tolerance;
-                param.compare_number_of_entries_ = true;
-                param.throw_on_error_ = true;
-                BOOST_CHECK(visitor.compare(configurable_out, configurable_in, param));
-            }
+            ariles::Compare visitor;
+            ariles::Compare::Parameters param;
+            param.double_tolerance_ = g_tolerance;
+            param.compare_number_of_entries_ = true;
+            param.throw_on_error_ = true;
+            BOOST_CHECK(visitor.compare(configurable_out, configurable_in, param));
+        }
     };
 
 
-    template<class t_FixtureBase>
+    template <class t_FixtureBase>
     class ComparisonMultiFixture : public t_FixtureBase
     {
-        public:
-            using t_FixtureBase::getWriterInitializer;
-            using t_FixtureBase::getReaderInitializer;
+    public:
+        using t_FixtureBase::getReaderInitializer;
+        using t_FixtureBase::getWriterInitializer;
 
 
-        protected:
-            template<class t_Configurable, class t_Visitor>
-                void test()
-            {
-                t_Configurable configurable_out1;
-                t_Configurable configurable_out2;
+    protected:
+        template <class t_Configurable, class t_Visitor>
+        void test()
+        {
+            t_Configurable configurable_out1;
+            t_Configurable configurable_out2;
 
-                configurable_out1.randomize();
-                configurable_out2.randomize();
+            configurable_out1.randomize();
+            configurable_out2.randomize();
 
-                BOOST_CHECK_NO_THROW(
-                    typename t_Visitor::Writer writer(getWriterInitializer("configurable_match_multi.cfg"));
-                    ariles::apply(writer, configurable_out1, "node1");
-                    ariles::apply(writer, configurable_out2, "node2");
-                );
+            BOOST_CHECK_NO_THROW(typename t_Visitor::Writer writer(
+                                         getWriterInitializer("configurable_match_multi.cfg"));
+                                 ariles::apply(writer, configurable_out1, "node1");
+                                 ariles::apply(writer, configurable_out2, "node2"););
 
-                // -------
+            // -------
 
-                t_Configurable configurable_in1;
-                t_Configurable configurable_in2;
+            t_Configurable configurable_in1;
+            t_Configurable configurable_in2;
 
-                BOOST_CHECK_NO_THROW(
-                    typename t_Visitor::Reader reader(getReaderInitializer("configurable_match_multi.cfg"));
-                    ariles::apply(reader, configurable_in1, "node1");
-                    ariles::apply(reader, configurable_in2, "node2");
-                );
+            BOOST_CHECK_NO_THROW(typename t_Visitor::Reader reader(
+                                         getReaderInitializer("configurable_match_multi.cfg"));
+                                 ariles::apply(reader, configurable_in1, "node1");
+                                 ariles::apply(reader, configurable_in2, "node2"););
 
-                // -------
+            // -------
 
-                compare(configurable_out1, configurable_in1);
-                compare(configurable_out2, configurable_in2);
+            compare(configurable_out1, configurable_in1);
+            compare(configurable_out2, configurable_in2);
 
-                ariles::Compare visitor;
-                ariles::Compare::Parameters param;
-                param.double_tolerance_ = g_tolerance;
-                param.compare_number_of_entries_ = true;
-                param.throw_on_error_ = true;
-                BOOST_CHECK(visitor.compare(configurable_out1, configurable_in1, param));
-                BOOST_CHECK(visitor.compare(configurable_out2, configurable_in2, param));
-            }
+            ariles::Compare visitor;
+            ariles::Compare::Parameters param;
+            param.double_tolerance_ = g_tolerance;
+            param.compare_number_of_entries_ = true;
+            param.throw_on_error_ = true;
+            BOOST_CHECK(visitor.compare(configurable_out1, configurable_in1, param));
+            BOOST_CHECK(visitor.compare(configurable_out2, configurable_in2, param));
+        }
     };
-}
+}  // namespace ariles_tests

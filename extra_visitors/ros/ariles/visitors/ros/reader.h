@@ -25,40 +25,38 @@ namespace ariles
         /**
          * @brief Configuration reader class
          */
-        class ARILES_LIB_EXPORT Reader :
-            public ns_ros::Base<ariles::read::Visitor, impl::Reader>
+        class ARILES_LIB_EXPORT Reader : public ns_ros::Base<ariles::read::Visitor, impl::Reader>
         {
-            protected:
-                std::size_t getMapSize(const bool expect_empty);
+        protected:
+            std::size_t getMapSize(const bool expect_empty);
 
 
-            public:
-                /**
-                 * @brief Constructor
-                 *
-                 * @param[in] nh NodeHandle
-                 */
-                explicit Reader(const ::ros::NodeHandle &nh);
+        public:
+            /**
+             * @brief Constructor
+             *
+             * @param[in] nh NodeHandle
+             */
+            explicit Reader(const ::ros::NodeHandle &nh);
 
 
-                bool descend(const std::string & child_name);
-                void ascend();
+            bool descend(const std::string &child_name);
+            void ascend();
 
 
-                bool getMapEntryNames(std::vector<std::string> &child_names);
+            bool getMapEntryNames(std::vector<std::string> &child_names);
 
 
-                std::size_t startArray();
-                void shiftArray();
-                void endArray();
+            std::size_t startArray();
+            void shiftArray();
+            void endArray();
 
 
-                #define ARILES_BASIC_TYPE(type) \
-                        void readElement(type &element);
+#define ARILES_BASIC_TYPE(type) void readElement(type &element);
 
-                ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+            ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
-                #undef ARILES_BASIC_TYPE
+#undef ARILES_BASIC_TYPE
         };
-    }
-}
+    }  // namespace ns_ros
+}  // namespace ariles

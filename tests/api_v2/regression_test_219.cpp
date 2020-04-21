@@ -35,7 +35,7 @@
 // ===============================================================
 
 
-BOOST_FIXTURE_TEST_CASE( CompareComplex, ariles_tests::DummyFixture )
+BOOST_FIXTURE_TEST_CASE(CompareComplex, ariles_tests::DummyFixture)
 {
     boost::random::random_device random_generator;
     ariles_tests::ConfigurableComplex configurable1, configurable2;
@@ -159,7 +159,7 @@ BOOST_FIXTURE_TEST_CASE( CompareComplex, ariles_tests::DummyFixture )
     configurable1 = configurable2;
 
 
-    configurable1.isometry_.matrix() = Eigen::MatrixXd::Random(4,4);
+    configurable1.isometry_.matrix() = Eigen::MatrixXd::Random(4, 4);
     BOOST_CHECK(false == visitor.compare(configurable1, configurable2, param));
     configurable1 = configurable2;
 
@@ -172,7 +172,7 @@ BOOST_FIXTURE_TEST_CASE( CompareComplex, ariles_tests::DummyFixture )
 
 
 
-BOOST_FIXTURE_TEST_CASE( SpecialFloats, ariles_tests::DummyFixture )
+BOOST_FIXTURE_TEST_CASE(SpecialFloats, ariles_tests::DummyFixture)
 {
     ariles_tests::ConfigurableSpecialFloats configurable1, configurable2;
 
@@ -209,7 +209,7 @@ BOOST_FIXTURE_TEST_CASE( SpecialFloats, ariles_tests::DummyFixture )
 
     ariles::apply<ariles::Defaults>(configurable1);
     configurable2 = configurable1;
-    configurable1.float_negative_infinity_ = - std::numeric_limits<float>::infinity();
+    configurable1.float_negative_infinity_ = -std::numeric_limits<float>::infinity();
     BOOST_CHECK(false == visitor.compare(configurable1, configurable2, param));
     configurable2 = configurable1;
     BOOST_CHECK(visitor.compare(configurable1, configurable2, param));
@@ -240,7 +240,7 @@ BOOST_FIXTURE_TEST_CASE( SpecialFloats, ariles_tests::DummyFixture )
 
     ariles::apply<ariles::Defaults>(configurable1);
     configurable2 = configurable1;
-    configurable1.double_negative_infinity_ = - std::numeric_limits<double>::infinity();
+    configurable1.double_negative_infinity_ = -std::numeric_limits<double>::infinity();
     BOOST_CHECK(false == visitor.compare(configurable1, configurable2, param));
     configurable2 = configurable1;
     BOOST_CHECK(visitor.compare(configurable1, configurable2, param));

@@ -41,10 +41,26 @@
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurablePointersScalar, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(ConstructorInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurablePointersScalar, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, VISITOR_ID, NAMESPACE, ConfigurablePointersScalar, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, VISITOR_ID, NAMESPACE, ConfigurablePointersScalar, INITIALIZER)
+#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                           \
+    ARILES_FIXTURE_TEST_CASE(                                                                      \
+            BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurablePointersScalar, INITIALIZER) \
+    ARILES_FIXTURE_TEST_CASE(                                                                      \
+            ConstructorInterfaceFixture,                                                           \
+            VISITOR_ID,                                                                            \
+            NAMESPACE,                                                                             \
+            ConfigurablePointersScalar,                                                            \
+            INITIALIZER)                                                                           \
+    ARILES_FIXTURE_TEST_CASE(                                                                      \
+            ComparisonSimpleFixture,                                                               \
+            VISITOR_ID,                                                                            \
+            NAMESPACE,                                                                             \
+            ConfigurablePointersScalar,                                                            \
+            INITIALIZER)                                                                           \
+    ARILES_FIXTURE_TEST_CASE(                                                                      \
+            ComparisonMultiFixture,                                                                \
+            VISITOR_ID,                                                                            \
+            NAMESPACE,                                                                             \
+            ConfigurablePointersScalar,                                                            \
+            INITIALIZER)
 
 #include "instantiate.h"

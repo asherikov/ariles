@@ -42,7 +42,8 @@
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
+#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                           \
+    ARILES_FIXTURE_TEST_CASE(                                                                      \
+            BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
 
 #include "instantiate.h"

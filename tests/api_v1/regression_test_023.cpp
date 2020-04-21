@@ -39,87 +39,95 @@ namespace ariles_tests
     {
         class FilenameReaderBaseString
         {
-            public:
-                std::string string_id_;
+        public:
+            std::string string_id_;
 
-            public:
-                FilenameReaderBaseString()
-                {
-                    string_id_ = "regression_test_023_string.json";
-                }
+        public:
+            FilenameReaderBaseString()
+            {
+                string_id_ = "regression_test_023_string.json";
+            }
         };
 
         class FilenameReaderBaseFloat
         {
-            public:
-                std::string string_id_;
+        public:
+            std::string string_id_;
 
-            public:
-                FilenameReaderBaseFloat()
-                {
-                    string_id_ = "regression_test_023_float.json";
-                }
+        public:
+            FilenameReaderBaseFloat()
+            {
+                string_id_ = "regression_test_023_float.json";
+            }
         };
 
-        typedef FilenameReaderInitializer<FilenameReaderBaseString> FilenameReaderInitializer023_String;
-        typedef FilenameReaderInitializer<FilenameReaderBaseFloat> FilenameReaderInitializer023_Float;
-    }
+        typedef FilenameReaderInitializer<FilenameReaderBaseString>
+                FilenameReaderInitializer023_String;
+        typedef FilenameReaderInitializer<FilenameReaderBaseFloat>
+                FilenameReaderInitializer023_Float;
+    }  // namespace initializers
 
 
-    template<class t_FixtureBase>
+    template <class t_FixtureBase>
     class WriteDiffFixture : public t_FixtureBase
     {
-        public:
-            using t_FixtureBase::getReaderInitializer;
+    public:
+        using t_FixtureBase::getReaderInitializer;
 
 
-        protected:
-            template<class t_Configurable, class t_Visitor>
-                void test()
-            {
-                t_Configurable configurable;
+    protected:
+        template <class t_Configurable, class t_Visitor>
+        void test()
+        {
+            t_Configurable configurable;
 
-                BOOST_CHECK_NO_THROW(
-                    std::ofstream output_file_stream;
-                    output_file_stream.open("configurable.cfg");
+            BOOST_CHECK_NO_THROW(
+                    std::ofstream output_file_stream; output_file_stream.open("configurable.cfg");
                     typename t_Visitor::Writer visitor(
-                        output_file_stream,
-                        ariles::rapidjson::Flags::DISABLE_STRING_FLOATS);
-                );
+                            output_file_stream, ariles::rapidjson::Flags::DISABLE_STRING_FLOATS););
 
-                BOOST_CHECK_NO_THROW(
+            BOOST_CHECK_NO_THROW(
                     std::ifstream input_file_stream;
                     input_file_stream.open("regression_test_023_float.json");
                     typename t_Visitor::Reader visitor(
-                        input_file_stream,
-                        ariles::rapidjson::Flags::DISABLE_STRING_FLOATS);
-                );
+                            input_file_stream, ariles::rapidjson::Flags::DISABLE_STRING_FLOATS););
 
-                BOOST_CHECK_NO_THROW(
+            BOOST_CHECK_NO_THROW(
                     typename t_Visitor::Writer visitor(
-                        "configurable.cfg",
-                        ariles::rapidjson::Flags::DISABLE_STRING_FLOATS);
-                    configurable.writeConfig(visitor);
-                );
+                            "configurable.cfg", ariles::rapidjson::Flags::DISABLE_STRING_FLOATS);
+                    configurable.writeConfig(visitor););
 
-                BOOST_CHECK_EQUAL(0, system("cmp configurable.cfg regression_test_023_float.json"));
+            BOOST_CHECK_EQUAL(0, system("cmp configurable.cfg regression_test_023_float.json"));
 
 
-                BOOST_CHECK_NO_THROW(
-                    typename t_Visitor::Writer visitor("configurable.cfg");
-                    configurable.writeConfig(visitor);
-                );
+            BOOST_CHECK_NO_THROW(typename t_Visitor::Writer visitor("configurable.cfg");
+                                 configurable.writeConfig(visitor););
 
-                BOOST_CHECK_EQUAL(0, system("cmp configurable.cfg regression_test_023_string.json"));
-            }
+            BOOST_CHECK_EQUAL(0, system("cmp configurable.cfg regression_test_023_string.json"));
+        }
     };
-}
+}  // namespace ariles_tests
 
 // ===============================================================
 // TESTS
 // ===============================================================
 
 
-ARILES_FIXTURE_TEST_CASE(ReadCompareFixture, rapidjson, rapidjson, ConfigurableSimpleFloats, FilenameReaderInitializer023_String)
-ARILES_FIXTURE_TEST_CASE(ReadCompareFixture, rapidjson, rapidjson, ConfigurableSimpleFloats, FilenameReaderInitializer023_Float)
-ARILES_FIXTURE_TEST_CASE(WriteDiffFixture, rapidjson, rapidjson, ConfigurableSimpleFloats, FilenameInitializer)
+ARILES_FIXTURE_TEST_CASE(
+        ReadCompareFixture,
+        rapidjson,
+        rapidjson,
+        ConfigurableSimpleFloats,
+        FilenameReaderInitializer023_String)
+ARILES_FIXTURE_TEST_CASE(
+        ReadCompareFixture,
+        rapidjson,
+        rapidjson,
+        ConfigurableSimpleFloats,
+        FilenameReaderInitializer023_Float)
+ARILES_FIXTURE_TEST_CASE(
+        WriteDiffFixture,
+        rapidjson,
+        rapidjson,
+        ConfigurableSimpleFloats,
+        FilenameInitializer)

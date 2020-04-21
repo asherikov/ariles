@@ -15,45 +15,48 @@ namespace ariles_tests
 {
     class ConfigurableSimpleFloats : public ariles::ConfigurableBase
     {
-        #define ARILES_SECTION_ID "SimpleFloats"
-        #define ARILES_ENTRIES \
-            ARILES_TYPED_ENTRY_(float_member, float) \
-            ARILES_TYPED_ENTRY_(double_member, double)
-        #include ARILES_INITIALIZE
+#define ARILES_SECTION_ID "SimpleFloats"
+#define ARILES_ENTRIES                                                                             \
+    ARILES_TYPED_ENTRY_(float_member, float)                                                       \
+    ARILES_TYPED_ENTRY_(double_member, double)
+#include ARILES_INITIALIZE
 
 
-        public:
-            ConfigurableSimpleFloats()
-            {
-                setDefaults();
-            }
+    public:
+        ConfigurableSimpleFloats()
+        {
+            setDefaults();
+        }
 
 
-            virtual void setDefaults()
-            {
-                float_member_ = 1;
-                double_member_ = 1;
-            }
+        virtual void setDefaults()
+        {
+            float_member_ = 1;
+            double_member_ = 1;
+        }
 
 
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
-            void randomize()
-            {
-                setDefaults();
-                finalize();
-            }
+        void randomize()
+        {
+            setDefaults();
+            finalize();
+        }
 #endif
     };
 
 
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
     // comparison
-    template<class t_Configurable_out, class t_Configurable_in>
-    void    compare(const t_Configurable_out    &configurable_out,
-                    const t_Configurable_in     &configurable_in)
+    template <class t_Configurable_out, class t_Configurable_in>
+    void compare(
+            const t_Configurable_out &configurable_out,
+            const t_Configurable_in &configurable_in)
     {
-        BOOST_CHECK_CLOSE(configurable_out.double_member_,  configurable_in.double_member_, g_tolerance);
-        BOOST_CHECK_CLOSE(configurable_out.float_member_,   configurable_in.float_member_, g_tolerance);
+        BOOST_CHECK_CLOSE(
+                configurable_out.double_member_, configurable_in.double_member_, g_tolerance);
+        BOOST_CHECK_CLOSE(
+                configurable_out.float_member_, configurable_in.float_member_, g_tolerance);
     }
 #endif
-}
+}  // namespace ariles_tests

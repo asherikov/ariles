@@ -20,9 +20,9 @@ namespace ariles
 {
     namespace ns_msgpack
     {
-        typedef ariles::Node< const ::msgpack::object * > NodeWrapper;
+        typedef ariles::Node<const ::msgpack::object *> NodeWrapper;
     }
-}
+}  // namespace ariles
 
 
 namespace ariles
@@ -33,80 +33,85 @@ namespace ariles
         {
             class ARILES_LIB_LOCAL Reader
             {
-                public:
-                    std::string     buffer_;
+            public:
+                std::string buffer_;
 
-                    std::vector< ARILES_SHARED_PTR< ::msgpack::object_handle >  >  handles_;
+                std::vector<ARILES_SHARED_PTR< ::msgpack::object_handle> > handles_;
 
-                    /// Stack of nodes.
-                    std::vector<NodeWrapper>    node_stack_;
+                /// Stack of nodes.
+                std::vector<NodeWrapper> node_stack_;
 
 
-                public:
-                    /**
-                     * @brief open configuration file
-                     *
-                     * @param[in] input_stream
-                     */
-                    void initialize(std::istream & input_stream)
+            public:
+                /**
+                 * @brief open configuration file
+                 *
+                 * @param[in] input_stream
+                 */
+                void initialize(std::istream &input_stream)
+                {
+                    std::stringstream str_stream;
+                    str_stream << input_stream.rdbuf();
+                    buffer_ = str_stream.str();
+
+
+                    handles_.clear();
+                    try
                     {
-                        std::stringstream   str_stream;
-                        str_stream << input_stream.rdbuf();
-                        buffer_ = str_stream.str();
+                        std::size_t buffer_offset = 0;
 
-
-                        handles_.clear();
-                        try
+                        while (buffer_offset != buffer_.size())
                         {
-                            std::size_t     buffer_offset = 0;
+                            handles_.push_back(ARILES_SHARED_PTR< ::msgpack::object_handle>(
+                                    new ::msgpack::object_handle));
 
-                            while (buffer_offset != buffer_.size())
-                            {
-                                handles_.push_back(ARILES_SHARED_PTR< ::msgpack::object_handle >(new ::msgpack::object_handle));
-
-                                unpack(*handles_[handles_.size()-1], buffer_.data(), buffer_.size(), buffer_offset);
-                            }
-                        }
-                        catch(const std::exception &e)
-                        {
-                            ARILES_THROW(std::string("Failed to parse the configuration file: ") + e.what());
+                            unpack(*handles_[handles_.size() - 1],
+                                   buffer_.data(),
+                                   buffer_.size(),
+                                   buffer_offset);
                         }
                     }
-
-
-                    /**
-                     * @brief Get current node
-                     *
-                     * @return pointer to the current node
-                     */
-                    const ::msgpack::object & getRawNode(const std::size_t depth)
+                    catch (const std::exception &e)
                     {
-                        if (node_stack_[depth].isArray())
-                        {
-                            return(getRawNode(depth-1).via.array.ptr[node_stack_[depth].index_]);
-                        }
-                        else
-                        {
-                            return(*node_stack_[depth].node_);
-                        }
+                        ARILES_THROW(
+                                std::string("Failed to parse the configuration file: ") + e.what());
                     }
+                }
 
 
-                    const ::msgpack::object & getRawNode()
+                /**
+                 * @brief Get current node
+                 *
+                 * @return pointer to the current node
+                 */
+                const ::msgpack::object &getRawNode(const std::size_t depth)
+                {
+                    if (node_stack_[depth].isArray())
                     {
-                        return(getRawNode(node_stack_.size()-1));
+                        return (getRawNode(depth - 1).via.array.ptr[node_stack_[depth].index_]);
                     }
+                    else
+                    {
+                        return (*node_stack_[depth].node_);
+                    }
+                }
+
+
+                const ::msgpack::object &getRawNode()
+                {
+                    return (getRawNode(node_stack_.size() - 1));
+                }
             };
-        }
-    }
-}
+        }  // namespace impl
+    }      // namespace ns_msgpack
+}  // namespace ariles
 
 
 namespace ariles
 {
     namespace ns_msgpack
     {
-        Reader::Reader(const std::string& file_name)
+        Reader::Reader(const std::string &file_name)
         {
             std::ifstream config_ifs;
             read::Visitor::openFile(config_ifs, file_name);
@@ -115,7 +120,7 @@ namespace ariles
         }
 
 
-        Reader::Reader(std::istream & input_stream)
+        Reader::Reader(std::istream &input_stream)
         {
             impl_ = ImplPtr(new Impl());
             impl_->initialize(input_stream);
@@ -129,7 +134,7 @@ namespace ariles
 
 
 
-        bool Reader::descend(const std::string & child_name)
+        bool Reader::descend(const std::string &child_name)
         {
             if (impl_->node_stack_.size() == 0)
             {
@@ -137,12 +142,15 @@ namespace ariles
                 {
                     if (::msgpack::type::MAP == impl_->handles_[i]->get().type)
                     {
-                        if (child_name == impl_->handles_[i]->get().via.map.ptr[0].key.as<std::string>())
+                        if (child_name
+                            == impl_->handles_[i]->get().via.map.ptr[0].key.as<std::string>())
                         {
-                            if (::msgpack::type::MAP == impl_->handles_[i]->get().via.map.ptr[0].val.type)
+                            if (::msgpack::type::MAP
+                                == impl_->handles_[i]->get().via.map.ptr[0].val.type)
                             {
-                                impl_->node_stack_.push_back( NodeWrapper( &(impl_->handles_[i]->get().via.map.ptr[0].val) ) );
-                                return(true);
+                                impl_->node_stack_.push_back(NodeWrapper(
+                                        &(impl_->handles_[i]->get().via.map.ptr[0].val)));
+                                return (true);
                             }
                         }
                     }
@@ -156,8 +164,9 @@ namespace ariles
                     {
                         if (child_name == impl_->getRawNode().via.map.ptr[i].key.as<std::string>())
                         {
-                            impl_->node_stack_.push_back( NodeWrapper( &(impl_->getRawNode().via.map.ptr[i].val) ) );
-                            return(true);
+                            impl_->node_stack_.push_back(
+                                    NodeWrapper(&(impl_->getRawNode().via.map.ptr[i].val)));
+                            return (true);
                         }
                     }
                 }
@@ -178,7 +187,7 @@ namespace ariles
             std::size_t size = impl_->getRawNode().via.array.size;
             impl_->node_stack_.push_back(NodeWrapper(0, size));
 
-            return(size);
+            return (size);
         }
 
 
@@ -190,22 +199,23 @@ namespace ariles
 
         void Reader::shiftArray()
         {
-            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(),
-                          "Internal error: expected array.");
-            ARILES_ASSERT(impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
-                          "Internal error: array has more elements than expected.");
+            ARILES_ASSERT(
+                    true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES_ASSERT(
+                    impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
+                    "Internal error: array has more elements than expected.");
             ++impl_->node_stack_.back().index_;
         }
 
 
-        #define ARILES_BASIC_TYPE(type) \
-            void Reader::readElement(type &element) \
-            { \
-                impl_->getRawNode() >> element; \
-            }
+#define ARILES_BASIC_TYPE(type)                                                                    \
+    void Reader::readElement(type &element)                                                        \
+    {                                                                                              \
+        impl_->getRawNode() >> element;                                                            \
+    }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
-        #undef ARILES_BASIC_TYPE
-    }
-}
+#undef ARILES_BASIC_TYPE
+    }  // namespace ns_msgpack
+}  // namespace ariles

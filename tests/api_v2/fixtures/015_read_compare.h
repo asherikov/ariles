@@ -13,27 +13,27 @@
 
 namespace ariles_tests
 {
-    template<class t_FixtureBase>
+    template <class t_FixtureBase>
     class ReadCompareFixture : public t_FixtureBase
     {
-        public:
-            using t_FixtureBase::getReaderInitializer;
+    public:
+        using t_FixtureBase::getReaderInitializer;
 
 
-        protected:
-            template<class t_Configurable, class t_Visitor>
-                void test()
-            {
-                t_Configurable configurable_default;
-                t_Configurable configurable_read;
+    protected:
+        template <class t_Configurable, class t_Visitor>
+        void test()
+        {
+            t_Configurable configurable_default;
+            t_Configurable configurable_read;
 
-                ariles::apply<ariles::Defaults>(configurable_default);
+            ariles::apply<ariles::Defaults>(configurable_default);
 
-                BOOST_CHECK_NO_THROW(
-                    ariles::apply<typename t_Visitor::Reader>(getReaderInitializer("configurable.cfg"), configurable_read);
-                );
+            BOOST_CHECK_NO_THROW(
+                    ariles::apply<typename t_Visitor::Reader>(
+                            getReaderInitializer("configurable.cfg"), configurable_read););
 
-                compare(configurable_default, configurable_read);
-            }
+            compare(configurable_default, configurable_read);
+        }
     };
-}
+}  // namespace ariles_tests

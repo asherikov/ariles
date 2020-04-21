@@ -18,4 +18,4 @@ namespace ariles
     {
         namespace yaml_cpp03 = ariles::ns_yaml_cpp03;
     }
-}
+}  // namespace ariles

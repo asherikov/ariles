@@ -18,4 +18,4 @@ namespace ariles
     {
         namespace ros = ariles::ns_ros;
     }
-}
+}  // namespace ariles

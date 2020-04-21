@@ -18,19 +18,20 @@ namespace ariles
     {
         namespace impl
         {
-            class ARILES_LIB_LOCAL Reader : public ariles::ns_rapidjson::ImplBase<const ::rapidjson::Value>
+            class ARILES_LIB_LOCAL Reader
+              : public ariles::ns_rapidjson::ImplBase<const ::rapidjson::Value>
             {
-                public:
-                    void initialize(std::istream & input_stream)
-                    {
-                        ariles::ns_rapidjson::IStreamWrapper isw(input_stream);
-                        document_.ParseStream(isw);
-                        ARILES_ASSERT(false == document_.HasParseError(), "Parsing failed");
-                    }
+            public:
+                void initialize(std::istream &input_stream)
+                {
+                    ariles::ns_rapidjson::IStreamWrapper isw(input_stream);
+                    document_.ParseStream(isw);
+                    ARILES_ASSERT(false == document_.HasParseError(), "Parsing failed");
+                }
             };
-        }
-    }
-}
+        }  // namespace impl
+    }      // namespace ns_rapidjson
+}  // namespace ariles
 
 
 
@@ -38,7 +39,7 @@ namespace ariles
 {
     namespace ns_rapidjson
     {
-        Reader::Reader(const std::string& file_name, const Flags &flags) : Base(flags)
+        Reader::Reader(const std::string &file_name, const Flags &flags) : Base(flags)
         {
             std::ifstream config_ifs;
             read::Visitor::openFile(config_ifs, file_name);
@@ -47,14 +48,14 @@ namespace ariles
         }
 
 
-        Reader::Reader(std::istream & input_stream, const Flags &flags) : Base(flags)
+        Reader::Reader(std::istream &input_stream, const Flags &flags) : Base(flags)
         {
             impl_ = ImplPtr(new Impl());
             impl_->initialize(input_stream);
         }
 
 
-        void Reader::constructFromString(const char * input_string)
+        void Reader::constructFromString(const char *input_string)
         {
             impl_ = ImplPtr(new Impl());
             impl_->document_.Parse(input_string);
@@ -68,19 +69,19 @@ namespace ariles
 
 
 
-        bool Reader::descend(const std::string & child_name)
+        bool Reader::descend(const std::string &child_name)
         {
             const ::rapidjson::Value::ConstMemberIterator child =
-                impl_->getRawNode().FindMember(child_name.c_str());
+                    impl_->getRawNode().FindMember(child_name.c_str());
 
             if (impl_->getRawNode().MemberEnd() == child)
             {
-                return(false);
+                return (false);
             }
             else
             {
                 impl_->node_stack_.push_back(impl::Reader::NodeWrapper(&(child->value)));
-                return(true);
+                return (true);
             }
         }
 
@@ -93,7 +94,7 @@ namespace ariles
 
         bool Reader::getMapEntryNames(std::vector<std::string> &child_names)
         {
-            const ::rapidjson::Value & selected_node = impl_->getRawNode();
+            const ::rapidjson::Value &selected_node = impl_->getRawNode();
 
             if (false == selected_node.IsObject())
             {
@@ -104,9 +105,9 @@ namespace ariles
                 child_names.resize(selected_node.MemberCount());
 
                 std::size_t i = 0;
-                for(::rapidjson::Value::ConstMemberIterator it = selected_node.MemberBegin();
-                    it != selected_node.MemberEnd();
-                    ++it, ++i)
+                for (::rapidjson::Value::ConstMemberIterator it = selected_node.MemberBegin();
+                     it != selected_node.MemberEnd();
+                     ++it, ++i)
                 {
                     child_names[i] = it->name.GetString();
                 }
@@ -120,16 +121,17 @@ namespace ariles
             std::size_t size = impl_->getRawNode().Size();
             impl_->node_stack_.push_back(impl::Reader::NodeWrapper(0, size));
 
-            return(size);
+            return (size);
         }
 
 
         void Reader::shiftArray()
         {
-            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(),
-                          "Internal error: expected array.");
-            ARILES_ASSERT(impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
-                          "Internal error: array has more elements than expected.");
+            ARILES_ASSERT(
+                    true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES_ASSERT(
+                    impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
+                    "Internal error: array has more elements than expected.");
             ++impl_->node_stack_.back().index_;
         }
 
@@ -171,12 +173,13 @@ namespace ariles
             }
             else
             {
-                tmp_value = impl_->getRawNode().GetDouble(); // old API compatibility
+                tmp_value = impl_->getRawNode().GetDouble();  // old API compatibility
                 // tmp_value = impl_->getRawNode().GetFloat();
             }
-            ARILES_ASSERT(tmp_value <= std::numeric_limits<float>::max()
-                          && tmp_value >= -std::numeric_limits<float>::max(),
-                          "Value is out of range.");
+            ARILES_ASSERT(
+                    tmp_value <= std::numeric_limits<float>::max()
+                            && tmp_value >= -std::numeric_limits<float>::max(),
+                    "Value is out of range.");
             element = static_cast<float>(tmp_value);
         }
 
@@ -202,39 +205,40 @@ namespace ariles
             {
                 tmp_value = impl_->getRawNode().GetDouble();
             }
-            ARILES_ASSERT(tmp_value <= std::numeric_limits<double>::max()
-                          && tmp_value >= -std::numeric_limits<double>::max(),
-                          "Value is out of range.");
+            ARILES_ASSERT(
+                    tmp_value <= std::numeric_limits<double>::max()
+                            && tmp_value >= -std::numeric_limits<double>::max(),
+                    "Value is out of range.");
             element = static_cast<double>(tmp_value);
         }
 
 
-        #define ARILES_BASIC_TYPE(type) \
-            void Reader::readElement(type &element) \
-            { \
-                int64_t tmp_value = impl_->getRawNode().GetInt64(); \
-                ARILES_ASSERT(tmp_value <= std::numeric_limits<type>::max() \
-                              && tmp_value >= std::numeric_limits<type>::min(), \
-                              "Value is out of range."); \
-                element = static_cast<type>(tmp_value); \
-            }
+#define ARILES_BASIC_TYPE(type)                                                                    \
+    void Reader::readElement(type &element)                                                        \
+    {                                                                                              \
+        int64_t tmp_value = impl_->getRawNode().GetInt64();                                        \
+        ARILES_ASSERT(                                                                             \
+                tmp_value <= std::numeric_limits<type>::max()                                      \
+                        && tmp_value >= std::numeric_limits<type>::min(),                          \
+                "Value is out of range.");                                                         \
+        element = static_cast<type>(tmp_value);                                                    \
+    }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
-        #undef ARILES_BASIC_TYPE
+#undef ARILES_BASIC_TYPE
 
 
-        #define ARILES_BASIC_TYPE(type) \
-            void Reader::readElement(type &element) \
-            { \
-                uint64_t tmp_value = impl_->getRawNode().GetUint64(); \
-                ARILES_ASSERT(tmp_value <= std::numeric_limits<type>::max(), \
-                              "Value is too large."); \
-                element = static_cast<type>(tmp_value); \
-            }
+#define ARILES_BASIC_TYPE(type)                                                                    \
+    void Reader::readElement(type &element)                                                        \
+    {                                                                                              \
+        uint64_t tmp_value = impl_->getRawNode().GetUint64();                                      \
+        ARILES_ASSERT(tmp_value <= std::numeric_limits<type>::max(), "Value is too large.");       \
+        element = static_cast<type>(tmp_value);                                                    \
+    }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
 
-        #undef ARILES_BASIC_TYPE
-    }
-}
+#undef ARILES_BASIC_TYPE
+    }  // namespace ns_rapidjson
+}  // namespace ariles

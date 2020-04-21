@@ -40,102 +40,99 @@
 namespace demo
 {
     class ArilesBaseClass
-        // must inherit from ariles::DefaultBase
-        : public ariles::DefaultBase
+      // must inherit from ariles::DefaultBase
+      : public ariles::DefaultBase
     {
-        // Unique entry name, to be safe use only alphanumeric characters and underscores
-        #define ARILES_DEFAULT_ID "ArilesBaseClass"
+// Unique entry name, to be safe use only alphanumeric characters and underscores
+#define ARILES_DEFAULT_ID "ArilesBaseClass"
 
-        // Declare entries, in this case two numbers
-        #define ARILES_ENTRIES \
-            ARILES_TYPED_ENTRY(real_member, double) \
-            ARILES_TYPED_ENTRY_(integer_member, int)
-        //         underscore ^ indicates that the name of the entry must be
-        // 'integer_member_' instead of 'integer_member', this is useful if your
-        // naming convention requires trailining underscores for member variables.
+// Declare entries, in this case two numbers
+#define ARILES_ENTRIES                                                                             \
+    ARILES_TYPED_ENTRY(real_member, double)                                                        \
+    ARILES_TYPED_ENTRY_(integer_member, int)
+//         underscore ^ indicates that the name of the entry must be
+// 'integer_member_' instead of 'integer_member', this is useful if your
+// naming convention requires trailining underscores for member variables.
 
-        // Initialize ariles
-        #include ARILES_INITIALIZE
+// Initialize ariles
+#include ARILES_INITIALIZE
 
-        public:
-            virtual ~ArilesBaseClass(){}; // added to suppress compiler warnings
+    public:
+        virtual ~ArilesBaseClass(){};  // added to suppress compiler warnings
 
-            // This method is called every time you deserialize a class. If
-            // omitted, the default automatically generated method is used.
-            void arilesVisit(   const ariles::Defaults &/*visitor*/,
-                                const ariles::Defaults::Parameters &/*param*/)
-            {
-                real_member = 0.0;
-                integer_member_ = 12;
-            }
+        // This method is called every time you deserialize a class. If
+        // omitted, the default automatically generated method is used.
+        void arilesVisit(
+                const ariles::Defaults & /*visitor*/,
+                const ariles::Defaults::Parameters & /*param*/)
+        {
+            real_member = 0.0;
+            integer_member_ = 12;
+        }
     };
 
 
     class NonArilesBaseClass
     {
-        public:
-            // Eigen types are supported too, see below
-            Eigen::Vector3d eigen_vector_;
+    public:
+        // Eigen types are supported too, see below
+        Eigen::Vector3d eigen_vector_;
     };
 
 
-    class MyClass
-        :   public ArilesBaseClass, // no need to inherit from ConfigurableBase directly.
-            public NonArilesBaseClass
+    class MyClass : public ArilesBaseClass,  // no need to inherit from ConfigurableBase directly.
+                    public NonArilesBaseClass
     {
-        #define ARILES_DEFAULT_ID "MyClass"
+#define ARILES_DEFAULT_ID "MyClass"
 
-        // Declare entries, in this case we indicate inheritance from another
-        // Ariles class (ArilesBaseClass) and a member from a non-Ariles class
-        // (NonArilesBaseClass)
-        #define ARILES_ENTRIES \
-            ARILES_PARENT(ArilesBaseClass) \
-            ARILES_ENTRY_(eigen_vector)
+// Declare entries, in this case we indicate inheritance from another
+// Ariles class (ArilesBaseClass) and a member from a non-Ariles class
+// (NonArilesBaseClass)
+#define ARILES_ENTRIES                                                                             \
+    ARILES_PARENT(ArilesBaseClass)                                                                 \
+    ARILES_ENTRY_(eigen_vector)
         //              In this case ^ Ariles should not declare the inherited
         // member, therefore we use 'ARILES_ENTRY_' instead of 'ARILES_TYPED_ENTRY_'.
 
-        #include ARILES_INITIALIZE
+#include ARILES_INITIALIZE
 
 
-        public:
-            virtual ~MyClass(){}; // added to suppress compiler warnings
+    public:
+        virtual ~MyClass(){};  // added to suppress compiler warnings
 
 
-            void arilesVisit(   const ariles::Defaults & visitor,
-                                const ariles::Defaults::Parameters & param)
-            {
-                // If you use your own method to initialize member variables,
-                // it is up to you to properly initialize all entries and
-                // parent classes.
-                ArilesBaseClass::arilesVisit(visitor, param);
+        void arilesVisit(const ariles::Defaults &visitor, const ariles::Defaults::Parameters &param)
+        {
+            // If you use your own method to initialize member variables,
+            // it is up to you to properly initialize all entries and
+            // parent classes.
+            ArilesBaseClass::arilesVisit(visitor, param);
 
-                // custom default values for some members
-                real_member = 100.0;
-                eigen_vector_.setZero();
-            }
+            // custom default values for some members
+            real_member = 100.0;
+            eigen_vector_.setZero();
+        }
     };
 
 
-    class MyContainerClass
-        :   public ariles::DefaultBase
+    class MyContainerClass : public ariles::DefaultBase
     {
-        #define ARILES_DEFAULT_ID "MyContainerClass"
+#define ARILES_DEFAULT_ID "MyContainerClass"
 
-        #define ARILES_ENTRIES \
-            ARILES_TYPED_ENTRY_(myclass_vector, std::vector<MyClass>)
+#define ARILES_ENTRIES ARILES_TYPED_ENTRY_(myclass_vector, std::vector<MyClass>)
         //      Some of the standard containers ^^^^^^^^^^^^^^^^^^^^ can be used
         // with Ariles types.
 
-        #include ARILES_INITIALIZE
+#include ARILES_INITIALIZE
     };
-}
+}  // namespace demo
 
 
 // ===============================================================
 // SERIALIZATION & DESERIALIZATION
 // ===============================================================
 
-#include <iostream> // std::cout
+#include <iostream>  // std::cout
 
 int main()
 {

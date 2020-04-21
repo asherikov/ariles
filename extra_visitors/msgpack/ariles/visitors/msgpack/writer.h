@@ -26,47 +26,46 @@ namespace ariles
         /**
          * @brief Configuration writer class
          */
-        class ARILES_LIB_EXPORT Writer :
-            public ns_msgpack::Base<ariles::write::Visitor, impl::Writer>
+        class ARILES_LIB_EXPORT Writer
+          : public ns_msgpack::Base<ariles::write::Visitor, impl::Writer>
         {
-            public:
-                /**
-                 * @brief Constructor
-                 *
-                 * @param[in] file_name
-                 */
-                explicit Writer(const std::string& file_name);
+        public:
+            /**
+             * @brief Constructor
+             *
+             * @param[in] file_name
+             */
+            explicit Writer(const std::string &file_name);
 
 
-                /**
-                 * @brief Constructor
-                 *
-                 * @param[out] output_stream
-                 */
-                explicit Writer(std::ostream& output_stream);
+            /**
+             * @brief Constructor
+             *
+             * @param[out] output_stream
+             */
+            explicit Writer(std::ostream &output_stream);
 
 
-                void descend(const std::string &map_name);
+            void descend(const std::string &map_name);
 
 
-                void startMap(const std::size_t num_entries);
+            void startMap(const std::size_t num_entries);
 
 
-                void initRoot();
+            void initRoot();
 
 
-                void flush();
+            void flush();
 
 
-                void startArray(const std::size_t size, const bool /*compact*/ = false);
+            void startArray(const std::size_t size, const bool /*compact*/ = false);
 
 
-                #define ARILES_BASIC_TYPE(type) \
-                    void writeElement(const type & element);
+#define ARILES_BASIC_TYPE(type) void writeElement(const type &element);
 
-                ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+            ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
-                #undef ARILES_BASIC_TYPE
+#undef ARILES_BASIC_TYPE
         };
-    }
-}
+    }  // namespace ns_msgpack
+}  // namespace ariles

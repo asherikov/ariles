@@ -25,35 +25,33 @@ namespace ariles
         /**
          * @brief Configuration writer class
          */
-        class ARILES_LIB_EXPORT Writer :
-            public ns_ros::Base<ariles::write::Visitor, impl::Writer>
+        class ARILES_LIB_EXPORT Writer : public ns_ros::Base<ariles::write::Visitor, impl::Writer>
         {
-            public:
-                explicit Writer(const ::ros::NodeHandle &nh);
+        public:
+            explicit Writer(const ::ros::NodeHandle &nh);
 
 
-                void initRoot();
+            void initRoot();
 
 
-                void flush();
-
-
-
-                void descend(const std::string &map_name);
-                void ascend();
-
-                void startArray(const std::size_t size, const bool /*compact*/ = false);
-                void shiftArray();
-                void endArray();
+            void flush();
 
 
 
-                #define ARILES_BASIC_TYPE(type) \
-                    void writeElement(const type & element);
+            void descend(const std::string &map_name);
+            void ascend();
 
-                ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+            void startArray(const std::size_t size, const bool /*compact*/ = false);
+            void shiftArray();
+            void endArray();
 
-                #undef ARILES_BASIC_TYPE
+
+
+#define ARILES_BASIC_TYPE(type) void writeElement(const type &element);
+
+            ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+
+#undef ARILES_BASIC_TYPE
         };
-    }
-}
+    }  // namespace ns_ros
+}  // namespace ariles

@@ -24,84 +24,84 @@ namespace ariles
         {
             class Writer
             {
-                public:
-                    /// output file stream
-                    std::ofstream   config_ofs_;
+            public:
+                /// output file stream
+                std::ofstream config_ofs_;
 
-                    /// output stream
-                    std::ostream    *output_stream_;
+                /// output stream
+                std::ostream *output_stream_;
 
-                    /// instance of YAML emitter, is destroyed and reinitialized by flush()
-                    YAML::Emitter   *emitter_;
+                /// instance of YAML emitter, is destroyed and reinitialized by flush()
+                YAML::Emitter *emitter_;
 
 
-                protected:
-                    void initEmitter()
+            protected:
+                void initEmitter()
+                {
+                    emitter_ = new YAML::Emitter;
+                    emitter_->SetDoublePrecision(std::numeric_limits<double>::digits10);
+                    if (output_stream_->tellp() != 0)
                     {
-                        emitter_ = new YAML::Emitter;
-                        emitter_->SetDoublePrecision(std::numeric_limits<double>::digits10);
-                        if (output_stream_->tellp() != 0)
-                        {
-                            *emitter_ << YAML::Newline;
-                        }
-                        *emitter_ << YAML::BeginMap;
+                        *emitter_ << YAML::Newline;
                     }
+                    *emitter_ << YAML::BeginMap;
+                }
 
 
-                    void destroyEmitter()
-                    {
-                        *emitter_ << YAML::EndMap;
-                        *output_stream_ << emitter_->c_str();
-                        delete emitter_;
-                    }
+                void destroyEmitter()
+                {
+                    *emitter_ << YAML::EndMap;
+                    *output_stream_ << emitter_->c_str();
+                    delete emitter_;
+                }
 
 
-                public:
-                    Writer(const std::string& file_name)
-                    {
-                        ariles::write::Visitor::openFile(config_ofs_, file_name);
-                        output_stream_ = &config_ofs_;
-                        initEmitter();
-                    }
+            public:
+                Writer(const std::string &file_name)
+                {
+                    ariles::write::Visitor::openFile(config_ofs_, file_name);
+                    output_stream_ = &config_ofs_;
+                    initEmitter();
+                }
 
 
-                    Writer(std::ostream& output_stream)
-                    {
-                        output_stream_ = &output_stream;
-                        initEmitter();
-                    }
+                Writer(std::ostream &output_stream)
+                {
+                    output_stream_ = &output_stream;
+                    initEmitter();
+                }
 
 
-                    Writer()
-                    {
-                        delete emitter_;
-                    }
+                Writer()
+                {
+                    delete emitter_;
+                }
 
 
-                    void flush()
-                    {
-                        destroyEmitter();
-                        *output_stream_ << "\n";
-                        output_stream_->flush();
-                        initEmitter();
-                    }
+                void flush()
+                {
+                    destroyEmitter();
+                    *output_stream_ << "\n";
+                    output_stream_->flush();
+                    initEmitter();
+                }
             };
-        }
-    }
-}
+        }  // namespace impl
+    }      // namespace ns_yaml_cpp03
+}  // namespace ariles
 
 
 namespace ariles
 {
     namespace ns_yaml_cpp03
     {
-        Writer::Writer(const std::string& file_name)
+        Writer::Writer(const std::string &file_name)
         {
             impl_ = ImplPtr(new Impl(file_name));
         }
 
 
-        Writer::Writer(std::ostream& output_stream)
+        Writer::Writer(std::ostream &output_stream)
         {
             impl_ = ImplPtr(new Impl(output_stream));
         }
@@ -150,58 +150,58 @@ namespace ariles
         }
 
 
-        #define ARILES_BASIC_TYPE(type) \
-                void Writer::writeElement(const type & element) \
-                { \
-                    *impl_->emitter_ << element; \
-                }
+#define ARILES_BASIC_TYPE(type)                                                                    \
+    void Writer::writeElement(const type &element)                                                 \
+    {                                                                                              \
+        *impl_->emitter_ << element;                                                               \
+    }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_INTEGER_TYPES_LIST)
 
-        #undef ARILES_BASIC_TYPE
+#undef ARILES_BASIC_TYPE
 
 
-        #define ARILES_BASIC_TYPE(type) \
-                void Writer::writeElement(const type & element) \
-                { \
-                    if (true == ariles::isNaN(element)) \
-                    { \
-                        *impl_->emitter_ << ".nan"; \
-                    } \
-                    else \
-                    { \
-                        if (true == ariles::isInfinity(element)) \
-                        { \
-                            if (element < 0.0) \
-                            { \
-                                *impl_->emitter_ << "-.inf"; \
-                            } \
-                            else \
-                            { \
-                                *impl_->emitter_ << ".inf"; \
-                            } \
-                        } \
-                        else \
-                        { \
-                            *impl_->emitter_ << element; \
-                        } \
-                    } \
-                }
+#define ARILES_BASIC_TYPE(type)                                                                    \
+    void Writer::writeElement(const type &element)                                                 \
+    {                                                                                              \
+        if (true == ariles::isNaN(element))                                                        \
+        {                                                                                          \
+            *impl_->emitter_ << ".nan";                                                            \
+        }                                                                                          \
+        else                                                                                       \
+        {                                                                                          \
+            if (true == ariles::isInfinity(element))                                               \
+            {                                                                                      \
+                if (element < 0.0)                                                                 \
+                {                                                                                  \
+                    *impl_->emitter_ << "-.inf";                                                   \
+                }                                                                                  \
+                else                                                                               \
+                {                                                                                  \
+                    *impl_->emitter_ << ".inf";                                                    \
+                }                                                                                  \
+            }                                                                                      \
+            else                                                                                   \
+            {                                                                                      \
+                *impl_->emitter_ << element;                                                       \
+            }                                                                                      \
+        }                                                                                          \
+    }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
 
-        #undef ARILES_BASIC_TYPE
+#undef ARILES_BASIC_TYPE
 
 
 
-        void Writer::writeElement(const std::string & element)
+        void Writer::writeElement(const std::string &element)
         {
             *impl_->emitter_ << element;
         }
 
-        void Writer::writeElement(const bool & element)
+        void Writer::writeElement(const bool &element)
         {
             *impl_->emitter_ << element;
         }
-    }
-}
+    }  // namespace ns_yaml_cpp03
+}  // namespace ariles

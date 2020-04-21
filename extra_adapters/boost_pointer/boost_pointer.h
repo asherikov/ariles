@@ -39,16 +39,16 @@ namespace ariles
             return (NULL == ptr);
         }
     };
-}
-#define ARILES_POINTER_TYPE                     boost::shared_ptr
-#define ARILES_POINTER_HANDLER                  BoostSharedPtrHandler
+}  // namespace ariles
+#define ARILES_POINTER_TYPE boost::shared_ptr
+#define ARILES_POINTER_HANDLER BoostSharedPtrHandler
 #include <ariles/adapters/generic_pointer.h>
 
 
 // this version is known to work
 #if BOOST_VERSION >= 105800
-#   include <boost/move/unique_ptr.hpp>
-#   include <boost/move/make_unique.hpp>
+#    include <boost/move/unique_ptr.hpp>
+#    include <boost/move/make_unique.hpp>
 
 namespace ariles
 {
@@ -76,8 +76,8 @@ namespace ariles
             return (NULL == ptr);
         }
     };
-}
+}  // namespace ariles
 
-#   define ARILES_POINTER_TYPE      boost::movelib::unique_ptr
-#   include <ariles/adapters/generic_pointer.h>
+#    define ARILES_POINTER_TYPE boost::movelib::unique_ptr
+#    include <ariles/adapters/generic_pointer.h>
 #endif

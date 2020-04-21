@@ -12,7 +12,7 @@
 #include "utility.h"
 
 #ifdef ARILES_BRIDGE_octave
-#include "ariles/bridges/octave.h"
+#    include "ariles/bridges/octave.h"
 #endif
 
 #include "ariles/adapters_all.h"
@@ -39,7 +39,7 @@
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER) \
+#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                           \
     ARILES_FIXTURE_TEST_CASE(OctaveFixture, VISITOR_ID, NAMESPACE, ConfigurableComplex, INITIALIZER)
 
 #include "instantiate.h"

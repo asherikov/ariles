@@ -14,207 +14,213 @@
 
 #ifdef ARILES_ENABLED
 
-    #ifndef ARILES_DOXYGEN_PROCESSING
+#    ifndef ARILES_DOXYGEN_PROCESSING
 
-    public:
-        #ifdef ARILES_ENTRIES
+public:
+#        ifdef ARILES_ENTRIES
 
-            #ifndef ARILES_AUTO_DEFAULTS
-                void arilesVisit(   const ariles::defaults::Visitor & /*visitor*/,
-                                    const ariles::defaults::Visitor::Parameters & /*param*/)
-                {
-                    ARILES_TRACE_FUNCTION;
-                    this->setDefaults();
-                }
-            #endif
+#            ifndef ARILES_AUTO_DEFAULTS
+void arilesVisit(
+        const ariles::defaults::Visitor & /*visitor*/,
+        const ariles::defaults::Visitor::Parameters & /*param*/)
+{
+    ARILES_TRACE_FUNCTION;
+    this->setDefaults();
+}
+#            endif
 
-            #ifndef ARILES_NO_AUTO_FINALIZE
-                void arilesFinalize()
-                {
-                    ariles::apply<ariles::postprocess::Visitor>(*this);
-                }
-            #endif
-
-
-            std::size_t getNumberOfEntries() const
-            {
-                ARILES_TRACE_FUNCTION;
-                ariles::count::Visitor visitor;
-                ariles::apply(visitor, *this);
-                return(visitor.counter_);
-            }
+#            ifndef ARILES_NO_AUTO_FINALIZE
+void arilesFinalize()
+{
+    ariles::apply<ariles::postprocess::Visitor>(*this);
+}
+#            endif
 
 
-            template<class t_Other>
-                bool arilesCompare(const t_Other &other, const ariles::compare::Visitor::Parameters & param) const
-            {
-                ARILES_TRACE_FUNCTION;
-                ariles::compare::Visitor visitor;
-                ariles::apply(visitor, *this, other, arilesDefaultID(), param);
-                return (visitor.equal_);
-            }
+std::size_t getNumberOfEntries() const
+{
+    ARILES_TRACE_FUNCTION;
+    ariles::count::Visitor visitor;
+    ariles::apply(visitor, *this);
+    return (visitor.counter_);
+}
 
 
-        #else // ARILES_ENTRIES
-
-            virtual void arilesVisit(   ariles::count::Visitor &visitor,
-                                        const ariles::count::Visitor::Parameters &/*param*/) const
-            {
-                ARILES_TRACE_FUNCTION;
-                visitor.counter_ += this->getNumberOfEntries();
-            }
-
-            virtual void arilesVisit(   ariles::read::Visitor &visitor,
-                                        const ariles::read::Visitor::Parameters &param)
-            {
-                ARILES_TRACE_FUNCTION;
-                readConfigEntries(visitor, param);
-            }
-
-            virtual void arilesVisit(   ariles::write::Visitor &visitor,
-                                        const ariles::write::Visitor::Parameters &param) const
-            {
-                ARILES_TRACE_FUNCTION;
-                writeConfigEntries(visitor, param);
-            }
-
-            virtual void arilesVisit(   const ariles::postprocess::Visitor &/*visitor*/,
-                                        const ariles::postprocess::Visitor::Parameters &/*param*/)
-            {
-                ARILES_TRACE_FUNCTION;
-                arilesFinalize();
-            }
-
-            virtual void arilesVisit(   const ariles::defaults::Visitor &/*visitor*/,
-                                        const ariles::defaults::Visitor::Parameters &/*param*/)
-            {
-                ARILES_TRACE_FUNCTION;
-                setDefaults();
-            }
-
-            template<class t_Other>
-            void arilesVisit(   const ariles::compare::Visitor &/*visitor*/,
-                                const t_Other & other,
-                                const ariles::compare::Visitor::Parameters &param) const
-            {
-                ARILES_TRACE_FUNCTION;
-                if (false == arilesCompare(other, param))
-                {
-                    ARILES_THROW("Comparison failed in " + arilesDefaultID());
-                }
-            }
-
-        #endif
-    #endif
+template <class t_Other>
+bool arilesCompare(const t_Other &other, const ariles::compare::Visitor::Parameters &param) const
+{
+    ARILES_TRACE_FUNCTION;
+    ariles::compare::Visitor visitor;
+    ariles::apply(visitor, *this, other, arilesDefaultID(), param);
+    return (visitor.equal_);
+}
 
 
-    public:
-        #ifdef ARILES_CONFIGURABLE_FLAGS
-            virtual const ariles::ConfigurableFlags &getArilesConfigurableFlags() const
-            {
-                static ariles::ConfigurableFlags parameters(ARILES_CONFIGURABLE_FLAGS);
-                return (parameters);
-            }
-        #endif
-        virtual const ariles::ConfigurableFlags &arilesGetParameters(const ariles::read::Visitor &) const
-        {
-            return (this->getArilesConfigurableFlags());
-        }
-        virtual const ariles::ConfigurableFlags &arilesGetParameters(const ariles::write::Visitor &) const
-        {
-            return (this->getArilesConfigurableFlags());
-        }
+#        else  // ARILES_ENTRIES
+
+virtual void arilesVisit(
+        ariles::count::Visitor &visitor,
+        const ariles::count::Visitor::Parameters & /*param*/) const
+{
+    ARILES_TRACE_FUNCTION;
+    visitor.counter_ += this->getNumberOfEntries();
+}
+
+virtual void arilesVisit(
+        ariles::read::Visitor &visitor,
+        const ariles::read::Visitor::Parameters &param)
+{
+    ARILES_TRACE_FUNCTION;
+    readConfigEntries(visitor, param);
+}
+
+virtual void arilesVisit(
+        ariles::write::Visitor &visitor,
+        const ariles::write::Visitor::Parameters &param) const
+{
+    ARILES_TRACE_FUNCTION;
+    writeConfigEntries(visitor, param);
+}
+
+virtual void arilesVisit(
+        const ariles::postprocess::Visitor & /*visitor*/,
+        const ariles::postprocess::Visitor::Parameters & /*param*/)
+{
+    ARILES_TRACE_FUNCTION;
+    arilesFinalize();
+}
+
+virtual void arilesVisit(
+        const ariles::defaults::Visitor & /*visitor*/,
+        const ariles::defaults::Visitor::Parameters & /*param*/)
+{
+    ARILES_TRACE_FUNCTION;
+    setDefaults();
+}
+
+template <class t_Other>
+void arilesVisit(
+        const ariles::compare::Visitor & /*visitor*/,
+        const t_Other &other,
+        const ariles::compare::Visitor::Parameters &param) const
+{
+    ARILES_TRACE_FUNCTION;
+    if (false == arilesCompare(other, param))
+    {
+        ARILES_THROW("Comparison failed in " + arilesDefaultID());
+    }
+}
+
+#        endif
+#    endif
 
 
-        #ifdef ARILES_CONSTRUCTOR
-            /**
-             * Define constructors for the given class.
-             */
-            ARILES_CONSTRUCTOR(
-                    ariles::ReaderBase &reader,
-                    const std::string &node_name)
-            {
-                ARILES_TRACE_FUNCTION;
-                readConfig(reader, node_name, this->getArilesConfigurableFlags());
-            }
-            ARILES_CONSTRUCTOR(
-                    ariles::ReaderBase &reader,
-                    const std::string &node_name,
-                    const ariles::ConfigurableFlags & param)
-            {
-                ARILES_TRACE_FUNCTION;
-                readConfig(reader, node_name, param);
-            }
+public:
+#    ifdef ARILES_CONFIGURABLE_FLAGS
+virtual const ariles::ConfigurableFlags &getArilesConfigurableFlags() const
+{
+    static ariles::ConfigurableFlags parameters(ARILES_CONFIGURABLE_FLAGS);
+    return (parameters);
+}
+#    endif
+virtual const ariles::ConfigurableFlags &arilesGetParameters(const ariles::read::Visitor &) const
+{
+    return (this->getArilesConfigurableFlags());
+}
+virtual const ariles::ConfigurableFlags &arilesGetParameters(const ariles::write::Visitor &) const
+{
+    return (this->getArilesConfigurableFlags());
+}
 
 
-            explicit ARILES_CONSTRUCTOR(
-                    ariles::ReaderBase &reader)
-            {
-                ARILES_TRACE_FUNCTION;
-                readConfig(reader, this->getArilesConfigurableFlags());
-            }
-            explicit ARILES_CONSTRUCTOR(
-                    ariles::ReaderBase &reader,
-                    const ariles::ReaderBase::Parameters & param)
-            {
-                ARILES_TRACE_FUNCTION;
-                readConfig(reader, param);
-            }
-        #endif
+#    ifdef ARILES_CONSTRUCTOR
+/**
+ * Define constructors for the given class.
+ */
+ARILES_CONSTRUCTOR(ariles::ReaderBase &reader, const std::string &node_name)
+{
+    ARILES_TRACE_FUNCTION;
+    readConfig(reader, node_name, this->getArilesConfigurableFlags());
+}
+ARILES_CONSTRUCTOR(
+        ariles::ReaderBase &reader,
+        const std::string &node_name,
+        const ariles::ConfigurableFlags &param)
+{
+    ARILES_TRACE_FUNCTION;
+    readConfig(reader, node_name, param);
+}
 
 
-        using ariles::CommonConfigurableBase::readConfig;
-
-        void readConfig(ariles::ReaderBase  & reader,
-                        const std::string   & node_name,
-                        const ariles::ConfigurableFlags & param)
-        {
-            ARILES_TRACE_FUNCTION;
-            ariles::apply(reader, *this, node_name, param);
-        }
-
-        void readConfig(ariles::ReaderBase & reader,
-                        const char          * node_name,
-                        const ariles::ConfigurableFlags & param)
-        {
-            ARILES_TRACE_FUNCTION;
-            ariles::apply(reader, *this, node_name, param);
-        }
+explicit ARILES_CONSTRUCTOR(ariles::ReaderBase &reader)
+{
+    ARILES_TRACE_FUNCTION;
+    readConfig(reader, this->getArilesConfigurableFlags());
+}
+explicit ARILES_CONSTRUCTOR(ariles::ReaderBase &reader, const ariles::ReaderBase::Parameters &param)
+{
+    ARILES_TRACE_FUNCTION;
+    readConfig(reader, param);
+}
+#    endif
 
 
-        using ariles::CommonConfigurableBase::writeConfig;
+using ariles::CommonConfigurableBase::readConfig;
 
-        void writeConfig(   ariles::WriterBase & writer,
-                            const std::string &node_name,
-                            const ariles::ConfigurableFlags & param) const
-        {
-            ARILES_TRACE_FUNCTION;
-            ariles::apply(writer, *this, node_name, param);
-        }
+void readConfig(
+        ariles::ReaderBase &reader,
+        const std::string &node_name,
+        const ariles::ConfigurableFlags &param)
+{
+    ARILES_TRACE_FUNCTION;
+    ariles::apply(reader, *this, node_name, param);
+}
 
-        void writeConfig(   ariles::WriterBase & writer,
-                            const char *node_name,
-                            const ariles::ConfigurableFlags & param) const
-        {
-            ARILES_TRACE_FUNCTION;
-            ariles::apply(writer, *this, node_name, param);
-        }
-
-
-        #ifdef ARILES_SECTION_ID
-            const std::string & getConfigSectionID() const
-            {
-                return (arilesDefaultID());
-            }
-        #else
-            const std::string & arilesDefaultID() const
-            {
-                return (getConfigSectionID());
-            }
-        #endif
+void readConfig(
+        ariles::ReaderBase &reader,
+        const char *node_name,
+        const ariles::ConfigurableFlags &param)
+{
+    ARILES_TRACE_FUNCTION;
+    ariles::apply(reader, *this, node_name, param);
+}
 
 
-#endif //ARILES_ENABLED
+using ariles::CommonConfigurableBase::writeConfig;
+
+void writeConfig(
+        ariles::WriterBase &writer,
+        const std::string &node_name,
+        const ariles::ConfigurableFlags &param) const
+{
+    ARILES_TRACE_FUNCTION;
+    ariles::apply(writer, *this, node_name, param);
+}
+
+void writeConfig(
+        ariles::WriterBase &writer,
+        const char *node_name,
+        const ariles::ConfigurableFlags &param) const
+{
+    ARILES_TRACE_FUNCTION;
+    ariles::apply(writer, *this, node_name, param);
+}
+
+
+#    ifdef ARILES_SECTION_ID
+const std::string &getConfigSectionID() const
+{
+    return (arilesDefaultID());
+}
+#    else
+const std::string &arilesDefaultID() const
+{
+    return (getConfigSectionID());
+}
+#    endif
+
+
+#endif  // ARILES_ENABLED
 
 #undef ARILES_CONSTRUCTOR
 #undef ARILES_AUTO_DEFAULTS

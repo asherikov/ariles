@@ -18,4 +18,4 @@ namespace ariles
     {
         namespace octave = ariles::ns_octave;
     }
-}
+}  // namespace ariles

@@ -38,7 +38,7 @@ namespace ariles
             return (boost::none == ptr);
         }
     };
-}
+}  // namespace ariles
 
-#define ARILES_POINTER_TYPE                     boost::optional
+#define ARILES_POINTER_TYPE boost::optional
 #include <ariles/adapters/generic_pointer.h>

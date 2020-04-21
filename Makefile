@@ -189,4 +189,7 @@ install-jsonnet:
 	cd ./jsonnet/build/; cmake -DBUILD_JSONNET=OFF -DBUILD_TESTS=OFF -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ ..
 	cd ./jsonnet/build/; make install
 
+format:
+	find ./extra_visitors/ extra_adapters/ tests/ include/ -iname "*.h" -or -iname "*.cpp" | xargs clang-format80 -verbose -i
+
 .PHONY: clean cmake build

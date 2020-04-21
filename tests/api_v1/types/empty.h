@@ -19,29 +19,29 @@ namespace ariles_tests
      */
     class ConfigurableEmpty : public ariles::ConfigurableBase
     {
-        #define ARILES_SECTION_ID "unique_id_on_a_particular_level_in_a_configuration_file"
-        #define ARILES_ENTRIES
-        #include ARILES_INITIALIZE
+#define ARILES_SECTION_ID "unique_id_on_a_particular_level_in_a_configuration_file"
+#define ARILES_ENTRIES
+#include ARILES_INITIALIZE
 
 
-        public:
-            ConfigurableEmpty()
-            {
-                setDefaults();
-            }
+    public:
+        ConfigurableEmpty()
+        {
+            setDefaults();
+        }
 
 
-            /**
-             * @brief This method must be defined
-             */
-            virtual void setDefaults()
-            {
-            }
+        /**
+         * @brief This method must be defined
+         */
+        virtual void setDefaults()
+        {
+        }
 
 
-            void randomize()
-            {
-                finalize();
-            }
+        void randomize()
+        {
+            finalize();
+        }
     };
-}
+}  // namespace ariles_tests

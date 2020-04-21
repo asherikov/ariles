@@ -13,34 +13,32 @@
 
 namespace ariles_tests
 {
-    template<class t_FixtureBase>
+    template <class t_FixtureBase>
     class CheckFixture : public t_FixtureBase
     {
-        public:
-            using t_FixtureBase::getWriterInitializer;
-            using t_FixtureBase::getReaderInitializer;
+    public:
+        using t_FixtureBase::getReaderInitializer;
+        using t_FixtureBase::getWriterInitializer;
 
 
-        protected:
-            template<class t_Configurable, class t_Visitor>
-                void test()
-            {
-                t_Configurable  configurable_out;
-                configurable_out.randomize();
-                BOOST_CHECK_NO_THROW(
-                    configurable_out.template writeConfig<t_Visitor>(getWriterInitializer("configurable_check.cfg"));
-                );
+    protected:
+        template <class t_Configurable, class t_Visitor>
+        void test()
+        {
+            t_Configurable configurable_out;
+            configurable_out.randomize();
+            BOOST_CHECK_NO_THROW(configurable_out.template writeConfig<t_Visitor>(
+                    getWriterInitializer("configurable_check.cfg")););
 
-                // -------
+            // -------
 
-                t_Configurable  configurable_in;
-                BOOST_CHECK_NO_THROW(
-                    configurable_in.template readConfig<t_Visitor>(getReaderInitializer("configurable_check.cfg"));
-                );
+            t_Configurable configurable_in;
+            BOOST_CHECK_NO_THROW(configurable_in.template readConfig<t_Visitor>(
+                    getReaderInitializer("configurable_check.cfg")););
 
-                // -------
+            // -------
 
-                check(configurable_in);
-            }
+            check(configurable_in);
+        }
     };
-}
+}  // namespace ariles_tests

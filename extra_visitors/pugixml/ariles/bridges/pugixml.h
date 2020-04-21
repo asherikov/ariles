@@ -18,4 +18,4 @@ namespace ariles
     {
         namespace pugixml = ariles::ns_pugixml;
     }
-}
+}  // namespace ariles

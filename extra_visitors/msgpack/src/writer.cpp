@@ -23,53 +23,53 @@ namespace ariles
         {
             class ARILES_LIB_LOCAL Writer
             {
-                public:
-                    /// output file stream
-                    std::ofstream   config_ofs_;
+            public:
+                /// output file stream
+                std::ofstream config_ofs_;
 
-                    /// output stream
-                    std::ostream    *output_stream_;
+                /// output stream
+                std::ostream *output_stream_;
 
-                    ::msgpack::packer< std::ostream > *packer_;
-
-
-                public:
-                    Writer(const std::string& file_name)
-                    {
-                        ariles::write::Visitor::openFile(config_ofs_, file_name);
-                        output_stream_ = &config_ofs_;
-                        packer_ = new ::msgpack::packer< std::ostream >(*output_stream_);
-                    }
+                ::msgpack::packer<std::ostream> *packer_;
 
 
-                    Writer(std::ostream& output_stream)
-                    {
-                        output_stream_ = &output_stream;
-                        packer_ = new ::msgpack::packer< std::ostream >(*output_stream_);
-                    }
+            public:
+                Writer(const std::string &file_name)
+                {
+                    ariles::write::Visitor::openFile(config_ofs_, file_name);
+                    output_stream_ = &config_ofs_;
+                    packer_ = new ::msgpack::packer<std::ostream>(*output_stream_);
+                }
 
 
-                    ~Writer()
-                    {
-                        delete packer_;
-                    }
+                Writer(std::ostream &output_stream)
+                {
+                    output_stream_ = &output_stream;
+                    packer_ = new ::msgpack::packer<std::ostream>(*output_stream_);
+                }
+
+
+                ~Writer()
+                {
+                    delete packer_;
+                }
             };
-        }
-    }
-}
+        }  // namespace impl
+    }      // namespace ns_msgpack
+}  // namespace ariles
 
 
 namespace ariles
 {
     namespace ns_msgpack
     {
-        Writer::Writer(const std::string& file_name)
+        Writer::Writer(const std::string &file_name)
         {
             impl_ = ImplPtr(new Impl(file_name));
         }
 
 
-        Writer::Writer(std::ostream& output_stream)
+        Writer::Writer(std::ostream &output_stream)
         {
             impl_ = ImplPtr(new Impl(output_stream));
         }
@@ -107,14 +107,14 @@ namespace ariles
         }
 
 
-        #define ARILES_BASIC_TYPE(type) \
-            void Writer::writeElement(const type & element) \
-            { \
-                impl_->packer_->pack(element); \
-            }
+#define ARILES_BASIC_TYPE(type)                                                                    \
+    void Writer::writeElement(const type &element)                                                 \
+    {                                                                                              \
+        impl_->packer_->pack(element);                                                             \
+    }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
-        #undef ARILES_BASIC_TYPE
-    }
-}
+#undef ARILES_BASIC_TYPE
+    }  // namespace ns_msgpack
+}  // namespace ariles

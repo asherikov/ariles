@@ -23,12 +23,14 @@ namespace ariles_tests
 
 #ifdef ARILES_ADAPTER_BETTER_ENUMS
 
-#define BETTER_ENUMS_DEFAULT_CONSTRUCTOR(Enum)  \
-    public:                                     \
-        Enum() : _value(0) { }
+#    define BETTER_ENUMS_DEFAULT_CONSTRUCTOR(Enum)                                                 \
+    public:                                                                                        \
+        Enum() : _value(0)                                                                         \
+        {                                                                                          \
+        }
 
 
-#include "ariles/internal/cpput_better_enum.h"
+#    include "ariles/internal/cpput_better_enum.h"
 
 namespace ariles_tests
 {

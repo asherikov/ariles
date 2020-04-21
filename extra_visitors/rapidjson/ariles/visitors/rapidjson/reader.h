@@ -23,60 +23,55 @@ namespace ariles
         /**
          * @brief Configuration reader class
          */
-        class ARILES_LIB_EXPORT Reader :
-            public ns_rapidjson::Base<ariles::read::Visitor, impl::Reader>
+        class ARILES_LIB_EXPORT Reader
+          : public ns_rapidjson::Base<ariles::read::Visitor, impl::Reader>
         {
-            protected:
-                std::size_t getMapSize(const bool /*expect_empty*/);
+        protected:
+            std::size_t getMapSize(const bool /*expect_empty*/);
 
-                // needed for jsonnet Reader
-                Reader(const Flags &flags = Flags::DEFAULT) : Base(flags)
-                {
-                }
-                void constructFromString(const char *);
-
-
-
-            public:
-                /**
-                 * @brief Constructor
-                 *
-                 * @param[in] file_name
-                 */
-                explicit Reader(
-                        const std::string& file_name, 
-                        const Flags &flags = Flags::DEFAULT);
-
-
-                /**
-                 * @brief Constructor
-                 *
-                 * @param[in] input_stream
-                 */
-                explicit Reader(
-                        std::istream & input_stream, 
-                        const Flags &flags = Flags::DEFAULT);
+            // needed for jsonnet Reader
+            Reader(const Flags &flags = Flags::DEFAULT) : Base(flags)
+            {
+            }
+            void constructFromString(const char *);
 
 
 
-                bool descend(const std::string & child_name);
-                void ascend();
+        public:
+            /**
+             * @brief Constructor
+             *
+             * @param[in] file_name
+             */
+            explicit Reader(const std::string &file_name, const Flags &flags = Flags::DEFAULT);
 
 
-                bool getMapEntryNames(std::vector<std::string> &child_names);
+            /**
+             * @brief Constructor
+             *
+             * @param[in] input_stream
+             */
+            explicit Reader(std::istream &input_stream, const Flags &flags = Flags::DEFAULT);
 
 
-                std::size_t startArray();
-                void shiftArray();
-                void endArray();
+
+            bool descend(const std::string &child_name);
+            void ascend();
 
 
-                #define ARILES_BASIC_TYPE(type) \
-                    void readElement(type &element);
+            bool getMapEntryNames(std::vector<std::string> &child_names);
 
-                ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
-                #undef ARILES_BASIC_TYPE
+            std::size_t startArray();
+            void shiftArray();
+            void endArray();
+
+
+#define ARILES_BASIC_TYPE(type) void readElement(type &element);
+
+            ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+
+#undef ARILES_BASIC_TYPE
         };
-    }
-}
+    }  // namespace ns_rapidjson
+}  // namespace ariles

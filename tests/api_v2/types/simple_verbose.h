@@ -19,41 +19,42 @@ namespace ariles_tests
      */
     class ConfigurableVerbose : public ariles::DefaultBase
     {
-        #define ARILES_DEFAULT_ID "unique_id_on_a_particular_level_in_a_configuration_file"
-        #define ARILES_ENTRIES \
-            ARILES_ENTRY_(integer) \
-            ARILES_ENTRY_(real)
-        #include ARILES_INITIALIZE
+#define ARILES_DEFAULT_ID "unique_id_on_a_particular_level_in_a_configuration_file"
+#define ARILES_ENTRIES                                                                             \
+    ARILES_ENTRY_(integer)                                                                         \
+    ARILES_ENTRY_(real)
+#include ARILES_INITIALIZE
 
 
-        public:
-            int                     integer_;
-            double                  real_;
+    public:
+        int integer_;
+        double real_;
 
 
-        public:
-            ConfigurableVerbose()
-            {
-                ariles::apply<ariles::Defaults>(*this);
-            }
+    public:
+        ConfigurableVerbose()
+        {
+            ariles::apply<ariles::Defaults>(*this);
+        }
 
 
-            void arilesVisit(   const ariles::Defaults &/*visitor*/,
-                                const ariles::Defaults::Parameters &/*param*/)
-            {
-                integer_ = 10;
-                real_ = 1.33;
-            }
+        void arilesVisit(
+                const ariles::Defaults & /*visitor*/,
+                const ariles::Defaults::Parameters & /*param*/)
+        {
+            integer_ = 10;
+            real_ = 1.33;
+        }
 
 
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
-            void randomize()
-            {
-                boost::random::random_device random_generator;
-                integer_ = GET_RANDOM_INT;
-                real_    = GET_RANDOM_REAL;
-                ariles::apply<ariles::PostProcess>(*this);
-            }
+        void randomize()
+        {
+            boost::random::random_device random_generator;
+            integer_ = GET_RANDOM_INT;
+            real_ = GET_RANDOM_REAL;
+            ariles::apply<ariles::PostProcess>(*this);
+        }
 #endif
     };
-}
+}  // namespace ariles_tests

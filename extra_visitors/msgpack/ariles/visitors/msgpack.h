@@ -24,34 +24,34 @@ namespace ariles
     namespace ns_msgpack
     {
         template <class t_Base, class t_Implementation>
-            class Base : public t_Base
+        class Base : public t_Base
         {
-            protected:
-                typedef t_Implementation Impl;
-                typedef ARILES_SHARED_PTR<t_Implementation> ImplPtr;
+        protected:
+            typedef t_Implementation Impl;
+            typedef ARILES_SHARED_PTR<t_Implementation> ImplPtr;
 
-            protected:
-                ImplPtr impl_;
-
-
-            private:
-                Base(const Base&);
-                Base& operator=(const Base&);
-
-            protected:
-                Base(){};
-                ~Base(){};
+        protected:
+            ImplPtr impl_;
 
 
-            public:
-                const serialization::Features &getSerializationFeatures() const
-                {
-                    static const serialization::Features parameters; // all disabled
-                    return (parameters);
-                }
+        private:
+            Base(const Base &);
+            Base &operator=(const Base &);
+
+        protected:
+            Base(){};
+            ~Base(){};
+
+
+        public:
+            const serialization::Features &getSerializationFeatures() const
+            {
+                static const serialization::Features parameters;  // all disabled
+                return (parameters);
+            }
         };
-    }
-}
+    }  // namespace ns_msgpack
+}  // namespace ariles
 
 
 
@@ -62,17 +62,17 @@ namespace ariles
 
 
 #ifndef ARILES_BRIDGE_INCLUDED_msgpack
-    namespace ariles
+namespace ariles
+{
+    /**
+     * @brief MessagePack visitor.
+     */
+    struct ARILES_VISIBILITY_ATTRIBUTE msgpack
     {
-        /**
-         * @brief MessagePack visitor.
-         */
-        struct ARILES_VISIBILITY_ATTRIBUTE msgpack
-        {
-            typedef ariles::cfgread::Visitor<ns_msgpack::Reader> Reader;
-            typedef ariles::cfgwrite::Visitor<ns_msgpack::Writer> Writer;
-        };
-    }
+        typedef ariles::cfgread::Visitor<ns_msgpack::Reader> Reader;
+        typedef ariles::cfgwrite::Visitor<ns_msgpack::Writer> Writer;
+    };
+}  // namespace ariles
 #endif
 
 namespace ariles
@@ -82,4 +82,4 @@ namespace ariles
         typedef ariles::cfgread::Visitor<ns_msgpack_compact::Reader> Reader;
         typedef ariles::cfgwrite::Visitor<ns_msgpack_compact::Writer> Writer;
     };
-}
+}  // namespace ariles

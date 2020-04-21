@@ -22,7 +22,7 @@ namespace ariles
     {
         typedef ariles::Node<const YAML::Node *> NodeWrapper;
     }
-}
+}  // namespace ariles
 
 
 namespace ariles
@@ -33,45 +33,45 @@ namespace ariles
         {
             class Reader
             {
-                public:
-                    /// instance of YAML parser
-                    YAML::Parser  parser_;
+            public:
+                /// instance of YAML parser
+                YAML::Parser parser_;
 
-                    /// root node
-                    YAML::Node    root_node_;
+                /// root node
+                YAML::Node root_node_;
 
-                    /// Stack of nodes.
-                    std::vector<NodeWrapper>    node_stack_;
+                /// Stack of nodes.
+                std::vector<NodeWrapper> node_stack_;
 
 
-                public:
-                    const YAML::Node & getRawNode(const std::size_t depth)
+            public:
+                const YAML::Node &getRawNode(const std::size_t depth)
+                {
+                    if (node_stack_[depth].isArray())
                     {
-                        if (node_stack_[depth].isArray())
-                        {
-                            return(getRawNode(depth-1)[node_stack_[depth].index_]);
-                        }
-                        else
-                        {
-                            return(*node_stack_[depth].node_);
-                        }
+                        return (getRawNode(depth - 1)[node_stack_[depth].index_]);
                     }
-
-
-                    const YAML::Node & getRawNode()
+                    else
                     {
-                        return(getRawNode(node_stack_.size()-1));
+                        return (*node_stack_[depth].node_);
                     }
+                }
+
+
+                const YAML::Node &getRawNode()
+                {
+                    return (getRawNode(node_stack_.size() - 1));
+                }
             };
-        }
-    }
-}
+        }  // namespace impl
+    }      // namespace ns_yaml_cpp03
+}  // namespace ariles
 
 namespace ariles
 {
     namespace ns_yaml_cpp03
     {
-        Reader::Reader(const std::string& file_name)
+        Reader::Reader(const std::string &file_name)
         {
             std::ifstream config_ifs;
             read::Visitor::openFile(config_ifs, file_name);
@@ -83,7 +83,7 @@ namespace ariles
         }
 
 
-        Reader::Reader(std::istream& input_stream)
+        Reader::Reader(std::istream &input_stream)
         {
             impl_ = ImplPtr(new Impl());
             impl_->parser_.Load(input_stream);
@@ -100,18 +100,18 @@ namespace ariles
 
 
 
-        bool Reader::descend(const std::string & child_name)
+        bool Reader::descend(const std::string &child_name)
         {
-            const YAML::Node * child = impl_->getRawNode().FindValue(child_name);
+            const YAML::Node *child = impl_->getRawNode().FindValue(child_name);
 
             if (child == NULL)
             {
-                return(false);
+                return (false);
             }
             else
             {
                 impl_->node_stack_.push_back(NodeWrapper(child));
-                return(true);
+                return (true);
             }
         }
 
@@ -127,7 +127,7 @@ namespace ariles
         {
             const YAML::Node *selected_node = &impl_->getRawNode();
 
-            if(YAML::NodeType::Map != selected_node->Type())
+            if (YAML::NodeType::Map != selected_node->Type())
             {
                 return (false);
             }
@@ -136,7 +136,8 @@ namespace ariles
                 child_names.resize(selected_node->size());
 
                 std::size_t i = 0;
-                for(YAML::Iterator it = selected_node->begin(); it != selected_node->end(); ++it, ++i)
+                for (YAML::Iterator it = selected_node->begin(); it != selected_node->end();
+                     ++it, ++i)
                 {
                     it.first() >> child_names[i];
                 }
@@ -150,16 +151,17 @@ namespace ariles
             std::size_t size = impl_->getRawNode().size();
             impl_->node_stack_.push_back(NodeWrapper(0, size));
 
-            return(size);
+            return (size);
         }
 
 
         void Reader::shiftArray()
         {
-            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(),
-                          "Internal error: expected array.");
-            ARILES_ASSERT(impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
-                          "Internal error: array has more elements than expected.");
+            ARILES_ASSERT(
+                    true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES_ASSERT(
+                    impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
+                    "Internal error: array has more elements than expected.");
             ++impl_->node_stack_.back().index_;
         }
 
@@ -170,14 +172,14 @@ namespace ariles
         }
 
 
-        #define ARILES_BASIC_TYPE(type) \
-            void Reader::readElement(type &element) \
-            { \
-                impl_->getRawNode() >> element; \
-            }
+#define ARILES_BASIC_TYPE(type)                                                                    \
+    void Reader::readElement(type &element)                                                        \
+    {                                                                                              \
+        impl_->getRawNode() >> element;                                                            \
+    }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
-        #undef ARILES_BASIC_TYPE
-    }
-}
+#undef ARILES_BASIC_TYPE
+    }  // namespace ns_yaml_cpp03
+}  // namespace ariles

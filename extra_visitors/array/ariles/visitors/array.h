@@ -28,4 +28,4 @@ namespace ariles
     {
         typedef ariles::cfgwrite::Visitor<ns_array::Writer> Writer;
     };
-}
+}  // namespace ariles

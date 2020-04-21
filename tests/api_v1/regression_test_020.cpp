@@ -33,7 +33,7 @@
 // ===============================================================
 
 
-BOOST_FIXTURE_TEST_CASE( CompareInheritance, ariles_tests::DummyFixture )
+BOOST_FIXTURE_TEST_CASE(CompareInheritance, ariles_tests::DummyFixture)
 {
     ariles_tests::ConfigurableDerived configurable1, configurable2;
 

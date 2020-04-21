@@ -4,7 +4,7 @@ function(cmakeut_compiler_flags STANDARD)
 
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 
-        set(CXX_WARNINGS "${CXX_WARNINGS} -Werror=extra-tokens")
+        set(CXX_WARNINGS "${CXX_WARNINGS} -Werror=extra-tokens -Wno-error=unused-command-line-argument -Wno-error=tautological-constant-out-of-range-compare")
 
     elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 

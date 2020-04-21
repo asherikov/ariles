@@ -12,7 +12,7 @@
 #include "utility.h"
 
 #ifdef ARILES_BRIDGE_array
-#include "ariles/bridges/array.h"
+#    include "ariles/bridges/array.h"
 #endif
 
 #include "ariles/adapters_all.h"
@@ -40,8 +40,9 @@
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(ArrayFixture, VISITOR_ID, NAMESPACE, ConfigurableComplex, INITIALIZER) \
+#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                           \
+    ARILES_FIXTURE_TEST_CASE(                                                                      \
+            ArrayFixture, VISITOR_ID, NAMESPACE, ConfigurableComplex, INITIALIZER)                 \
     ARILES_FIXTURE_TEST_CASE(ArrayFixture, VISITOR_ID, NAMESPACE, ConfigurableEmpty, INITIALIZER)
 
 #include "instantiate.h"

@@ -23,37 +23,32 @@ namespace ariles
         /**
          * @brief Configuration writer class
          */
-        class ARILES_LIB_EXPORT Writer :
-            public ns_rapidjson::Base<ariles::write::Visitor, impl::Writer>
+        class ARILES_LIB_EXPORT Writer
+          : public ns_rapidjson::Base<ariles::write::Visitor, impl::Writer>
         {
-            public:
-                explicit Writer(
-                        const std::string& file_name,
-                        const Flags &flags = Flags::DEFAULT);
-                explicit Writer(
-                        std::ostream& output_stream,
-                        const Flags &flags = Flags::DEFAULT);
+        public:
+            explicit Writer(const std::string &file_name, const Flags &flags = Flags::DEFAULT);
+            explicit Writer(std::ostream &output_stream, const Flags &flags = Flags::DEFAULT);
 
-                void flush();
+            void flush();
 
 
-                void descend(const std::string &map_name);
-                void ascend();
+            void descend(const std::string &map_name);
+            void ascend();
 
-                void startMap(const std::size_t /*num_entries*/);
-                void startArray(const std::size_t size, const bool /*compact*/ = false);
+            void startMap(const std::size_t /*num_entries*/);
+            void startArray(const std::size_t size, const bool /*compact*/ = false);
 
-                void shiftArray();
-                void endArray();
+            void shiftArray();
+            void endArray();
 
 
 
-                #define ARILES_BASIC_TYPE(type) \
-                    void writeElement(const type &element);
+#define ARILES_BASIC_TYPE(type) void writeElement(const type &element);
 
-                ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+            ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
-                #undef ARILES_BASIC_TYPE
+#undef ARILES_BASIC_TYPE
         };
-    }
-}
+    }  // namespace ns_rapidjson
+}  // namespace ariles

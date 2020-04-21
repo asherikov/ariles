@@ -32,54 +32,57 @@ namespace ariles
          */
         class ARILES_LIB_EXPORT Writer : public ariles::write::Visitor
         {
-            protected:
-                typedef impl::Writer Impl;
-                typedef ARILES_SHARED_PTR<impl::Writer> ImplPtr;
-                ImplPtr impl_;
+        protected:
+            typedef impl::Writer Impl;
+            typedef ARILES_SHARED_PTR<impl::Writer> ImplPtr;
+            ImplPtr impl_;
 
 
-            public:
-                explicit Writer(const std::string& file_name);
-                explicit Writer(std::ostream& output_stream);
+        public:
+            explicit Writer(const std::string &file_name);
+            explicit Writer(std::ostream &output_stream);
 
 
-                const serialization::Features &getSerializationFeatures() const;
+            const serialization::Features &getSerializationFeatures() const;
 
 
-                void flush();
+            void flush();
 
 
-                void initRoot() {};
+            void initRoot(){};
 
 
-                void descend(const std::string & map_name);
-                void ascend();
+            void descend(const std::string &map_name);
+            void ascend();
 
 
-                void startMap(const std::size_t /*num_entries*/) {}
-                void endMap() {}
+            void startMap(const std::size_t /*num_entries*/)
+            {
+            }
+            void endMap()
+            {
+            }
 
 
-                void startArray(const std::size_t size, const bool compact = false);
-                void shiftArray();
-                void endArray();
+            void startArray(const std::size_t size, const bool compact = false);
+            void shiftArray();
+            void endArray();
 
 
-                void startMatrix(const bool compact = false);
-                void startMatrixRow();
-                void endMatrixRow();
-                void endMatrix();
+            void startMatrix(const bool compact = false);
+            void startMatrixRow();
+            void endMatrixRow();
+            void endMatrix();
 
 
-                #define ARILES_BASIC_TYPE(type) \
-                        void writeElement(const type & element);
+#define ARILES_BASIC_TYPE(type) void writeElement(const type &element);
 
-                ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+            ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
-                #undef ARILES_BASIC_TYPE
+#undef ARILES_BASIC_TYPE
         };
-    }
-}
+    }  // namespace ns_octave
+}  // namespace ariles
 
 
 namespace ariles
@@ -91,4 +94,4 @@ namespace ariles
     {
         typedef ariles::cfgwrite::Visitor<ns_octave::Writer> Writer;
     };
-}
+}  // namespace ariles

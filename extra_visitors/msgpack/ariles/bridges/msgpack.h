@@ -34,4 +34,4 @@ namespace ariles
             typedef ariles::cfgwrite::Visitor<ns_msgpack_compact::Writer> Writer;
         };
     };
-}
+}  // namespace ariles

@@ -19,30 +19,31 @@ namespace ariles_tests
      */
     class ConfigurableEmpty : public ariles::DefaultBase
     {
-        #define ARILES_DEFAULT_ID "unique_id_on_a_particular_level_in_a_configuration_file"
-        #define ARILES_ENTRIES
-        #include ARILES_INITIALIZE
+#define ARILES_DEFAULT_ID "unique_id_on_a_particular_level_in_a_configuration_file"
+#define ARILES_ENTRIES
+#include ARILES_INITIALIZE
 
 
-        public:
-            ConfigurableEmpty()
-            {
-                ariles::apply<ariles::Defaults>(*this);
-            }
+    public:
+        ConfigurableEmpty()
+        {
+            ariles::apply<ariles::Defaults>(*this);
+        }
 
 
-            /**
-             * @brief This method must be defined
-             */
-            void arilesVisit(   const ariles::Defaults &/*visitor*/,
-                                const ariles::Defaults::Parameters &/*param*/)
-            {
-            }
+        /**
+         * @brief This method must be defined
+         */
+        void arilesVisit(
+                const ariles::Defaults & /*visitor*/,
+                const ariles::Defaults::Parameters & /*param*/)
+        {
+        }
 
 
-            void randomize()
-            {
-                ariles::apply<ariles::PostProcess>(*this);
-            }
+        void randomize()
+        {
+            ariles::apply<ariles::PostProcess>(*this);
+        }
     };
-}
+}  // namespace ariles_tests

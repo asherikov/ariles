@@ -22,38 +22,38 @@ namespace ariles
     namespace ns_pugixml
     {
         template <class t_Base, class t_Implementation>
-            class Base : public t_Base
+        class Base : public t_Base
         {
-            protected:
-                typedef t_Implementation Impl;
-                typedef ARILES_SHARED_PTR<t_Implementation> ImplPtr;
+        protected:
+            typedef t_Implementation Impl;
+            typedef ARILES_SHARED_PTR<t_Implementation> ImplPtr;
 
 
-            protected:
-                ImplPtr impl_;
+        protected:
+            ImplPtr impl_;
 
 
-            private:
-                Base(const Base&);
-                Base& operator=(const Base&);
+        private:
+            Base(const Base &);
+            Base &operator=(const Base &);
 
 
-            protected:
-                Base(){};
-                ~Base(){};
+        protected:
+            Base(){};
+            ~Base(){};
 
 
-            public:
-                const serialization::Features &getSerializationFeatures() const
-                {
-                    static serialization::Features parameters(
-                            serialization::Features::SLOPPY_MAPS_SUPPORTED
-                            | serialization::Features::SLOPPY_PAIRS_SUPPORTED);
-                    return (parameters);
-                }
+        public:
+            const serialization::Features &getSerializationFeatures() const
+            {
+                static serialization::Features parameters(
+                        serialization::Features::SLOPPY_MAPS_SUPPORTED
+                        | serialization::Features::SLOPPY_PAIRS_SUPPORTED);
+                return (parameters);
+            }
         };
-    }
-}
+    }  // namespace ns_pugixml
+}  // namespace ariles
 
 
 
@@ -71,4 +71,4 @@ namespace ariles
         typedef ariles::cfgread::Visitor<ns_pugixml::Reader> Reader;
         typedef ariles::cfgwrite::Visitor<ns_pugixml::Writer> Writer;
     };
-}
+}  // namespace ariles

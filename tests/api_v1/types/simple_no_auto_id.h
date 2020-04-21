@@ -18,51 +18,51 @@ namespace ariles_tests
      */
     class ConfigurableNoAutoID : public ariles::ConfigurableBase
     {
-        #define ARILES_ENTRIES \
-            ARILES_TYPED_ENTRY_(integer,     int) \
-            ARILES_TYPED_ENTRY_(real,        double)
-        #include ARILES_INITIALIZE
+#define ARILES_ENTRIES                                                                             \
+    ARILES_TYPED_ENTRY_(integer, int)                                                              \
+    ARILES_TYPED_ENTRY_(real, double)
+#include ARILES_INITIALIZE
 
-        protected:
-            std::string id_;
+    protected:
+        std::string id_;
 
-        public:
-            ConfigurableNoAutoID()
-            {
-                setDefaults();
-                id_ = "unique_id_on_a_particular_level_in_a_configuration_file";
-            }
-
-
-            /**
-             * @brief This method must be defined
-             */
-            virtual void setDefaults()
-            {
-                integer_ = 10;
-                real_ = 1.33;
-            }
+    public:
+        ConfigurableNoAutoID()
+        {
+            setDefaults();
+            id_ = "unique_id_on_a_particular_level_in_a_configuration_file";
+        }
 
 
-            /**
-             * @brief This method must be implmented if ARILES_SECTION_ID is not defined.
-             *
-             * @return id
-             */
-            const std::string & getConfigSectionID() const
-            {
-                return (id_);
-            }
+        /**
+         * @brief This method must be defined
+         */
+        virtual void setDefaults()
+        {
+            integer_ = 10;
+            real_ = 1.33;
+        }
+
+
+        /**
+         * @brief This method must be implmented if ARILES_SECTION_ID is not defined.
+         *
+         * @return id
+         */
+        const std::string &getConfigSectionID() const
+        {
+            return (id_);
+        }
 
 
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
-            void randomize()
-            {
-                boost::random::random_device random_generator;
-                integer_ = GET_RANDOM_INT;
-                real_    = GET_RANDOM_REAL;
-                finalize();
-            }
+        void randomize()
+        {
+            boost::random::random_device random_generator;
+            integer_ = GET_RANDOM_INT;
+            real_ = GET_RANDOM_REAL;
+            finalize();
+        }
 #endif
     };
-}
+}  // namespace ariles_tests

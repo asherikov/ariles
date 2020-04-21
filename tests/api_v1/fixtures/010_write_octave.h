@@ -13,46 +13,45 @@
 
 namespace ariles_tests
 {
-    template<class t_FixtureBase>
+    template <class t_FixtureBase>
     class OctaveFixture : public t_FixtureBase
     {
-        public:
-            using t_FixtureBase::getWriterInitializer;
+    public:
+        using t_FixtureBase::getWriterInitializer;
 
 
-        protected:
-            template<class t_Configurable, class t_Visitor>
-                void test()
+    protected:
+        template <class t_Configurable, class t_Visitor>
+        void test()
+        {
+            // Exlicit instantiation of reader and writer classes
             {
-                // Exlicit instantiation of reader and writer classes
-                {
-                    t_Configurable configurable;
-                    configurable.randomize();
+                t_Configurable configurable;
+                configurable.randomize();
 
-                    typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
-                    configurable.writeConfig(writer);
+                typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
+                configurable.writeConfig(writer);
 
-                    std::string octave_cmd =
+                std::string octave_cmd =
                         std::string("octave --no-gui --no-history --silent --eval 'source ")
-                        + getWriterInitializer("configurable.cfg")
-                        + "'";
-                    BOOST_CHECK_EQUAL(0, std::system(octave_cmd.c_str()));
-                }
-
-                // --------------------------------
-
-                // Implicit instantiation of the writer class
-                {
-                    t_Configurable configurable;
-                    configurable.randomize();
-                    configurable.template writeConfig<t_Visitor>(getWriterInitializer("configurable2.cfg"));
-
-                    std::string octave_cmd =
-                        std::string("octave --no-gui --no-history --silent --eval 'source ")
-                        + getWriterInitializer("configurable2.cfg")
-                        + "'";
-                    BOOST_CHECK_EQUAL(0, std::system(octave_cmd.c_str()));
-                }
+                        + getWriterInitializer("configurable.cfg") + "'";
+                BOOST_CHECK_EQUAL(0, std::system(octave_cmd.c_str()));
             }
+
+            // --------------------------------
+
+            // Implicit instantiation of the writer class
+            {
+                t_Configurable configurable;
+                configurable.randomize();
+                configurable.template writeConfig<t_Visitor>(
+                        getWriterInitializer("configurable2.cfg"));
+
+                std::string octave_cmd =
+                        std::string("octave --no-gui --no-history --silent --eval 'source ")
+                        + getWriterInitializer("configurable2.cfg") + "'";
+                BOOST_CHECK_EQUAL(0, std::system(octave_cmd.c_str()));
+            }
+        }
     };
-}
+}  // namespace ariles_tests

@@ -42,4 +42,4 @@ namespace ariles
         };
 #endif
     };
-}
+}  // namespace ariles

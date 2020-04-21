@@ -14,46 +14,48 @@ namespace ariles
 {
     class ComparisonParameters
     {
-        public:
-            double float_tolerance_;
-            double double_tolerance_;
-            bool compare_number_of_entries_;
-            bool throw_on_error_;
-            bool nan_equal_;
-            bool inf_equal_;
+    public:
+        double float_tolerance_;
+        double double_tolerance_;
+        bool compare_number_of_entries_;
+        bool throw_on_error_;
+        bool nan_equal_;
+        bool inf_equal_;
 
 
-        public:
-            ComparisonParameters()
-            {
-                setDefaults();
-            }
+    public:
+        ComparisonParameters()
+        {
+            setDefaults();
+        }
 
 
-            void setDefaults()
-            {
-                double_tolerance_ = 1e-12;
-                float_tolerance_ = 1e-8;
-                compare_number_of_entries_ = false;
-                throw_on_error_ = false;
+        void setDefaults()
+        {
+            double_tolerance_ = 1e-12;
+            float_tolerance_ = 1e-8;
+            compare_number_of_entries_ = false;
+            throw_on_error_ = false;
 
-                nan_equal_ = true;
-                inf_equal_ = true;
-            }
+            nan_equal_ = true;
+            inf_equal_ = true;
+        }
 
 
-            template<typename t_Scalar>
-                t_Scalar getTolerance() const;
+        template <typename t_Scalar>
+        t_Scalar getTolerance() const;
     };
 
 
-    template<> inline double ComparisonParameters::getTolerance<double>() const
+    template <>
+    inline double ComparisonParameters::getTolerance<double>() const
     {
         return (double_tolerance_);
     }
 
-    template<> inline float ComparisonParameters::getTolerance<float>() const
+    template <>
+    inline float ComparisonParameters::getTolerance<float>() const
     {
         return (float_tolerance_);
     }
-}
+}  // namespace ariles

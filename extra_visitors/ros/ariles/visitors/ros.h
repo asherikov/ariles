@@ -24,36 +24,36 @@ namespace ariles
     namespace ns_ros
     {
         template <class t_Base, class t_Implementation>
-            class Base : public t_Base
+        class Base : public t_Base
         {
-            protected:
-                typedef t_Implementation Impl;
-                typedef ARILES_SHARED_PTR<t_Implementation> ImplPtr;
+        protected:
+            typedef t_Implementation Impl;
+            typedef ARILES_SHARED_PTR<t_Implementation> ImplPtr;
 
-            protected:
-                ImplPtr impl_;
-
-
-            private:
-                Base(const Base&);
-                Base& operator=(const Base&);
-
-            protected:
-                Base(){};
-                ~Base(){};
+        protected:
+            ImplPtr impl_;
 
 
-            public:
-                const serialization::Features &getSerializationFeatures() const
-                {
-                    static serialization::Features parameters(
-                            serialization::Features::SLOPPY_MAPS_SUPPORTED
-                            | serialization::Features::SLOPPY_PAIRS_SUPPORTED);
-                    return (parameters);
-                }
+        private:
+            Base(const Base &);
+            Base &operator=(const Base &);
+
+        protected:
+            Base(){};
+            ~Base(){};
+
+
+        public:
+            const serialization::Features &getSerializationFeatures() const
+            {
+                static serialization::Features parameters(
+                        serialization::Features::SLOPPY_MAPS_SUPPORTED
+                        | serialization::Features::SLOPPY_PAIRS_SUPPORTED);
+                return (parameters);
+            }
         };
-    }
-}
+    }  // namespace ns_ros
+}  // namespace ariles
 
 
 #include "./ros/reader.h"
@@ -69,4 +69,4 @@ namespace ariles
         typedef ariles::cfgread::Visitor<ns_ros::Reader> Reader;
         typedef ariles::cfgwrite::Visitor<ns_ros::Writer> Writer;
     };
-}
+}  // namespace ariles

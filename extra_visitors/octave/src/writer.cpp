@@ -20,9 +20,9 @@ namespace ariles
 {
     namespace ns_octave
     {
-        typedef ariles::Node< std::string > NodeWrapper;
+        typedef ariles::Node<std::string> NodeWrapper;
     }
-}
+}  // namespace ariles
 
 namespace ariles
 {
@@ -32,55 +32,55 @@ namespace ariles
         {
             class ARILES_LIB_LOCAL Writer
             {
-                public:
-                    std::vector<NodeWrapper>    node_stack_;
+            public:
+                std::vector<NodeWrapper> node_stack_;
 
-                    /// output file stream
-                    std::ofstream   config_ofs_;
+                /// output file stream
+                std::ofstream config_ofs_;
 
-                    /// output stream
-                    std::ostream    *output_stream_;
-
-
-                protected:
-                    /**
-                     * @brief Initialize emitter
-                     */
-                    void initEmitter()
-                    {
-                        *output_stream_ << std::setprecision(std::numeric_limits<double>::digits10);
-                    }
+                /// output stream
+                std::ostream *output_stream_;
 
 
-                public:
-                    Writer(const std::string& file_name)
-                    {
-                        ariles::write::Visitor::openFile(config_ofs_, file_name);
-                        output_stream_ = &config_ofs_;
-                        initEmitter();
-                    }
+            protected:
+                /**
+                 * @brief Initialize emitter
+                 */
+                void initEmitter()
+                {
+                    *output_stream_ << std::setprecision(std::numeric_limits<double>::digits10);
+                }
 
-                    Writer(std::ostream& output_stream)
-                    {
-                        output_stream_ = &output_stream;
-                        initEmitter();
-                    }
+
+            public:
+                Writer(const std::string &file_name)
+                {
+                    ariles::write::Visitor::openFile(config_ofs_, file_name);
+                    output_stream_ = &config_ofs_;
+                    initEmitter();
+                }
+
+                Writer(std::ostream &output_stream)
+                {
+                    output_stream_ = &output_stream;
+                    initEmitter();
+                }
             };
-        }
-    }
-}
+        }  // namespace impl
+    }      // namespace ns_octave
+}  // namespace ariles
 
 namespace ariles
 {
     namespace ns_octave
     {
-        Writer::Writer(const std::string& file_name)
+        Writer::Writer(const std::string &file_name)
         {
             impl_ = ImplPtr(new Impl(file_name));
         }
 
 
-        Writer::Writer(std::ostream& output_stream)
+        Writer::Writer(std::ostream &output_stream)
         {
             impl_ = ImplPtr(new Impl(output_stream));
         }
@@ -88,7 +88,8 @@ namespace ariles
 
         const serialization::Features &Writer::getSerializationFeatures() const
         {
-            static serialization::Features parameters(serialization::Features::NATIVE_MATRIX_SUPPORTED);
+            static serialization::Features parameters(
+                    serialization::Features::NATIVE_MATRIX_SUPPORTED);
             return (parameters);
         }
 
@@ -100,7 +101,7 @@ namespace ariles
 
 
 
-        void Writer::descend(const std::string & map_name)
+        void Writer::descend(const std::string &map_name)
         {
             if (0 == impl_->node_stack_.size())
             {
@@ -148,7 +149,8 @@ namespace ariles
 
         void Writer::shiftArray()
         {
-            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: array expected.");
+            ARILES_ASSERT(
+                    true == impl_->node_stack_.back().isArray(), "Internal error: array expected.");
             ++impl_->node_stack_.back().index_;
         }
 
@@ -198,35 +200,35 @@ namespace ariles
         }
 
 
-        #define ARILES_BASIC_TYPE(type) \
-                void Writer::writeElement(const type & element) \
-                { \
-                    if (true == impl_->node_stack_.back().isMatrix()) \
-                    { \
-                        if (0 != impl_->node_stack_.back().index_) \
-                        { \
-                            *impl_->output_stream_ << ", "; \
-                        } \
-                        *impl_->output_stream_ << element; \
-                        ++impl_->node_stack_.back().index_; \
-                    } \
-                    else \
-                    { \
-                        *impl_->output_stream_ << impl_->node_stack_.back().node_; \
-                        if (true == impl_->node_stack_.back().isArray()) \
-                        { \
-                            *impl_->output_stream_ << "{" << impl_->node_stack_.back().index_ + 1 << "}"; \
-                        } \
-                        *impl_->output_stream_ << " = " << element << ";\n"; \
-                    } \
-                }
+#define ARILES_BASIC_TYPE(type)                                                                    \
+    void Writer::writeElement(const type &element)                                                 \
+    {                                                                                              \
+        if (true == impl_->node_stack_.back().isMatrix())                                          \
+        {                                                                                          \
+            if (0 != impl_->node_stack_.back().index_)                                             \
+            {                                                                                      \
+                *impl_->output_stream_ << ", ";                                                    \
+            }                                                                                      \
+            *impl_->output_stream_ << element;                                                     \
+            ++impl_->node_stack_.back().index_;                                                    \
+        }                                                                                          \
+        else                                                                                       \
+        {                                                                                          \
+            *impl_->output_stream_ << impl_->node_stack_.back().node_;                             \
+            if (true == impl_->node_stack_.back().isArray())                                       \
+            {                                                                                      \
+                *impl_->output_stream_ << "{" << impl_->node_stack_.back().index_ + 1 << "}";      \
+            }                                                                                      \
+            *impl_->output_stream_ << " = " << element << ";\n";                                   \
+        }                                                                                          \
+    }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
 
-        #undef ARILES_BASIC_TYPE
+#undef ARILES_BASIC_TYPE
 
 
-        void Writer::writeElement(const std::string & element)
+        void Writer::writeElement(const std::string &element)
         {
             *impl_->output_stream_ << impl_->node_stack_.back().node_;
             if (true == impl_->node_stack_.back().isArray())
@@ -235,5 +237,5 @@ namespace ariles
             }
             *impl_->output_stream_ << " = '" << element << "';\n";
         }
-    }
-}
+    }  // namespace ns_octave
+}  // namespace ariles

@@ -23,70 +23,70 @@ namespace ariles
     {
         class Flags : public ariles::Flags<unsigned int, Flags>
         {
-            public:
-                enum Enum
-                {
-                    RESET = 0,
-                    /// Floats are stored as strings by default to allow NaN and Inf (writer only)
-                    DISABLE_STRING_FLOATS = 1 << 0,
+        public:
+            enum Enum
+            {
+                RESET = 0,
+                /// Floats are stored as strings by default to allow NaN and Inf (writer only)
+                DISABLE_STRING_FLOATS = 1 << 0,
 
-                    DEFAULT = RESET
-                };
-
-
-            public:
-                Flags()
-                {
-                    setDefaults();
-                }
+                DEFAULT = RESET
+            };
 
 
-                Flags(const unsigned int flags, const Action action_type = REPLACE)
-                {
-                    initialize(flags, action_type);
-                }
+        public:
+            Flags()
+            {
+                setDefaults();
+            }
 
 
-                void setDefaults()
-                {
-                    flags_ = DEFAULT;
-                }
+            Flags(const unsigned int flags, const Action action_type = REPLACE)
+            {
+                initialize(flags, action_type);
+            }
+
+
+            void setDefaults()
+            {
+                flags_ = DEFAULT;
+            }
         };
 
 
         template <class t_Base, class t_Implementation>
-            class Base : public t_Base
+        class Base : public t_Base
         {
-            protected:
-                typedef t_Implementation Impl;
-                typedef ARILES_SHARED_PTR<t_Implementation> ImplPtr;
+        protected:
+            typedef t_Implementation Impl;
+            typedef ARILES_SHARED_PTR<t_Implementation> ImplPtr;
 
-            protected:
-                ImplPtr impl_;
-                Flags flags_;
-
-
-            private:
-                Base(const Base&);
-                Base& operator=(const Base&);
-
-            protected:
-                Base(){};
-                ~Base(){};
-                Base(const Flags &flags) : flags_(flags) {};
+        protected:
+            ImplPtr impl_;
+            Flags flags_;
 
 
-            public:
-                const serialization::Features &getSerializationFeatures() const
-                {
-                    static serialization::Features parameters(
-                            serialization::Features::SLOPPY_MAPS_SUPPORTED
-                            | serialization::Features::SLOPPY_PAIRS_SUPPORTED);
-                    return (parameters);
-                }
+        private:
+            Base(const Base &);
+            Base &operator=(const Base &);
+
+        protected:
+            Base(){};
+            ~Base(){};
+            Base(const Flags &flags) : flags_(flags){};
+
+
+        public:
+            const serialization::Features &getSerializationFeatures() const
+            {
+                static serialization::Features parameters(
+                        serialization::Features::SLOPPY_MAPS_SUPPORTED
+                        | serialization::Features::SLOPPY_PAIRS_SUPPORTED);
+                return (parameters);
+            }
         };
-    }
-}
+    }  // namespace ns_rapidjson
+}  // namespace ariles
 
 
 #include "./rapidjson/reader.h"
@@ -94,20 +94,20 @@ namespace ariles
 
 
 #ifndef ARILES_BRIDGE_INCLUDED_rapidjson
-    namespace ariles
+namespace ariles
+{
+    /**
+     * @brief JSON visitor.
+     */
+    struct ARILES_VISIBILITY_ATTRIBUTE rapidjson
     {
-        /**
-         * @brief JSON visitor.
-         */
-        struct ARILES_VISIBILITY_ATTRIBUTE rapidjson
-        {
-            typedef ariles::ns_rapidjson::Flags Flags;
+        typedef ariles::ns_rapidjson::Flags Flags;
 
-            typedef ns_rapidjson::Reader ReaderBase;
-            typedef ns_rapidjson::Writer WriterBase;
+        typedef ns_rapidjson::Reader ReaderBase;
+        typedef ns_rapidjson::Writer WriterBase;
 
-            typedef ariles::cfgread::Visitor<ns_rapidjson::Reader> Reader;
-            typedef ariles::cfgwrite::Visitor<ns_rapidjson::Writer> Writer;
-        };
-    }
+        typedef ariles::cfgread::Visitor<ns_rapidjson::Reader> Reader;
+        typedef ariles::cfgwrite::Visitor<ns_rapidjson::Writer> Writer;
+    };
+}  // namespace ariles
 #endif

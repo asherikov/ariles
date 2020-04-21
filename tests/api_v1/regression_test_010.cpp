@@ -40,26 +40,27 @@ namespace ariles_tests
     {
         class FilenameReaderBase
         {
-            public:
-                std::string string_id_;
+        public:
+            std::string string_id_;
 
-            public:
-                FilenameReaderBase()
-                {
-                    string_id_ = "regression_test_010.json";
-                }
+        public:
+            FilenameReaderBase()
+            {
+                string_id_ = "regression_test_010.json";
+            }
         };
 
         typedef FilenameReaderInitializer<FilenameReaderBase> FilenameReaderInitializer010;
-    }
-}
+    }  // namespace initializers
+}  // namespace ariles_tests
 
 // ===============================================================
 // TESTS
 // ===============================================================
 
 
-#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(ReadFixture, VISITOR_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
+#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                           \
+    ARILES_FIXTURE_TEST_CASE(                                                                      \
+            ReadFixture, VISITOR_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
 
 ARILES_TESTS(rapidjson_jsonnet, rapidjson::jsonnet, FilenameReaderInitializer010)

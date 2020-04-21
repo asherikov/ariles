@@ -25,30 +25,31 @@ namespace testlib2
      */
     class ConfigurableVerbose : public ariles::DefaultBase
     {
-        #define ARILES_DEFAULT_ID "unique_id_on_a_particular_level_in_a_configuration_file"
-        #define ARILES_ENTRIES \
-            ARILES_ENTRY_(integer) \
-            ARILES_ENTRY_(real)
-        #include ARILES_INITIALIZE
+#define ARILES_DEFAULT_ID "unique_id_on_a_particular_level_in_a_configuration_file"
+#define ARILES_ENTRIES                                                                             \
+    ARILES_ENTRY_(integer)                                                                         \
+    ARILES_ENTRY_(real)
+#include ARILES_INITIALIZE
 
 
-        public:
-            int                     integer_;
-            double                  real_;
+    public:
+        int integer_;
+        double real_;
 
 
-        public:
-            ConfigurableVerbose()
-            {
-                ariles::apply<ariles::Defaults>(*this);
-            }
+    public:
+        ConfigurableVerbose()
+        {
+            ariles::apply<ariles::Defaults>(*this);
+        }
 
 
-            void arilesVisit(   const ariles::Defaults &/*visitor*/,
-                                const ariles::Defaults::Parameters &/*param*/)
-            {
-                integer_ = 10;
-                real_ = 1.33;
-            }
+        void arilesVisit(
+                const ariles::Defaults & /*visitor*/,
+                const ariles::Defaults::Parameters & /*param*/)
+        {
+            integer_ = 10;
+            real_ = 1.33;
+        }
     };
-}
+}  // namespace testlib2
