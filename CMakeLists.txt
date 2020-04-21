@@ -326,7 +326,7 @@ foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
                 link_directories("${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS}")
             endif()
 
-            list(APPEND DEB_ARCHIVE_FILES "${PROJECT_SOURCE_DIR}/bridges/${ARILES_BRIDGE}/")
+            list(APPEND DEB_ARCHIVE_FILES "${PROJECT_SOURCE_DIR}/extra_visitors/${ARILES_BRIDGE}/")
         endif()
     endforeach(ARILES_BRIDGE)
 endforeach(ARILES_BRIDGES_DIR)
