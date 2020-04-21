@@ -2,12 +2,12 @@ function(ariles_parse_test_dependencies DEPENDENCIES LINK_TO_LIBRARIES TGT_DEPEN
     set(MISSING_DEPENDENCY OFF)
 
     foreach(DEPENDENCY ${DEPENDENCIES})
-        list (FIND ARILES_BRIDGES "${DEPENDENCY}" INDEX)
+        list (FIND ARILES_VISITORS "${DEPENDENCY}" INDEX)
 
         if (${INDEX} GREATER -1)
-            if (ARILES_BRIDGE_${DEPENDENCY})
-                list(APPEND TGT_DEPENDS "${BRIDGE_TARGET_PREFIX}_${DEPENDENCY}")
-                list(APPEND LINK_TO_LIBRARIES "${ARILES_BRIDGE_${DEPENDENCY}_LIBS}")
+            if (ARILES_VISITOR_${DEPENDENCY})
+                list(APPEND TGT_DEPENDS "${VISITOR_TARGET_PREFIX}_${DEPENDENCY}")
+                list(APPEND LINK_TO_LIBRARIES "${ARILES_VISITOR_${DEPENDENCY}_LIBS}")
             else()
                 set(MISSING_DEPENDENCY ON)
             endif()

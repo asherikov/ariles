@@ -1,22 +1,22 @@
-set (TGT_ARILES_BRIDGE_LIB      "ariles_visitor_${ARILES_BRIDGE}")
+set (TGT_ARILES_VISITOR_LIB      "ariles_visitor_${ARILES_VISITOR}")
 
 if(NOT ARILES_DEB_TARGETS)
     include_directories(${CMAKE_CURRENT_LIST_DIR})
 
-    find_library("ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS" "jsonnet")
-    if (NOT ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS)
-        message(FATAL_ERROR "Could not find jsonnet libraries. ${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBS}")
+    find_library("ARILES_VISITOR_${ARILES_VISITOR}_LIBS" "jsonnet")
+    if (NOT ARILES_VISITOR_${ARILES_VISITOR}_LIBS)
+        message(FATAL_ERROR "Could not find jsonnet libraries. ${ARILES_VISITOR_${ARILES_VISITOR}_LIBS}")
     endif()
 
-    find_path("ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES" "libjsonnet.h")
-    if (NOT ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES)
-        message(FATAL_ERROR "Could not find jsonnet headers. ${ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES}")
+    find_path("ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES" "libjsonnet.h")
+    if (NOT ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES)
+        message(FATAL_ERROR "Could not find jsonnet headers. ${ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES}")
     endif()
 
-    link_directories(${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS})
+    link_directories(${ARILES_VISITOR_${ARILES_VISITOR}_LIBRARY_DIRS})
 
-    add_library(${TGT_ARILES_BRIDGE_LIB} SHARED
-        ${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/src/reader.cpp)
+    add_library(${TGT_ARILES_VISITOR_LIB} SHARED
+        ${ARILES_VISITOR_${ARILES_VISITOR}_DIR}/src/reader.cpp)
 endif()
 
 include(ariles_install_component)

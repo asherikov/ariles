@@ -64,7 +64,7 @@ namespace ariles
 namespace ariles
 {
     /**
-     * @brief JSON bridge.
+     * @brief pugixml visitor.
      */
     struct ARILES_VISIBILITY_ATTRIBUTE pugixml
     {

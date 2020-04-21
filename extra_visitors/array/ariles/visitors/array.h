@@ -22,7 +22,7 @@
 namespace ariles
 {
     /**
-     * @brief Array bridge.
+     * @brief Array visitor.
      */
     struct ARILES_VISIBILITY_ATTRIBUTE array
     {

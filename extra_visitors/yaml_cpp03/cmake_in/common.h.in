@@ -14,4 +14,4 @@
 
 #pragma once
 
-#include <@ARILES_BRIDGE_yaml_cpp03_INCLUDE_HEADER@>
+#include <@ARILES_VISITOR_yaml_cpp03_INCLUDE_HEADER@>

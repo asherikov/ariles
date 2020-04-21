@@ -52,14 +52,6 @@ build-tests: build
 
 # -------
 
-FETCH_DIR=${BUILD_DIR}/fetch
-
-fetch:
-	mkdir -p ${FETCH_DIR};
-	cd ${FETCH_DIR}; cmake ${ROOT_DIR};
-	cd ${FETCH_DIR}; ${MAKE} fetch-bridges;
-
-
 #----------------------------------------------
 # debug mode (all)
 # Build & test

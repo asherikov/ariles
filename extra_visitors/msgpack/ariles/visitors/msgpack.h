@@ -65,7 +65,7 @@ namespace ariles
     namespace ariles
     {
         /**
-         * @brief MessagePack bridge.
+         * @brief MessagePack visitor.
          */
         struct ARILES_VISIBILITY_ATTRIBUTE msgpack
         {

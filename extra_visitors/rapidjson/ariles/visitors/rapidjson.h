@@ -97,7 +97,7 @@ namespace ariles
     namespace ariles
     {
         /**
-         * @brief JSON bridge.
+         * @brief JSON visitor.
          */
         struct ARILES_VISIBILITY_ATTRIBUTE rapidjson
         {

@@ -10,6 +10,9 @@ Fixed
 Changed
 -------
 
+* Stricter compilation flags.
+* Rename 'bridge' -> 'visitor'.
+
 
 
 1.6.2

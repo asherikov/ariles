@@ -4,8 +4,11 @@ Ariles
 <table>
   <tr>
     <th>branch</th>
-    <td align="center">master</td>
-    <td align="center">pkg_ros (ROS package)</td>
+    <td align="center"><a href="https://github.com/asherikov/ariles/">master</a></td>
+    <td align="center">
+        <a href="https://github.com/asherikov/ariles/tree/pkg_ros">pkg_ros</a>
+        (<a href="https://index.ros.org/p/ariles_ros/">ROS package</a>)
+    </td>
   </tr>
   <tr>
     <th>status</th>

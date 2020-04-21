@@ -133,7 +133,7 @@ namespace ariles
         {
             ARILES_ASSERT(
                     true == impl_->node_stack_.back().isAllParsed(),
-                    "Some entries were not parsed, which is not allowed by this bridge.");
+                    "Some entries were not parsed, which is not allowed by this visitor.");
             impl_->node_stack_.pop_back();
         }
 

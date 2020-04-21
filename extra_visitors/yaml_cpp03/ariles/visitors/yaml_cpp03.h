@@ -64,7 +64,7 @@ namespace ariles
 namespace ariles
 {
     /**
-     * @brief YAML bridge.
+     * @brief YAML (C++03) visitor.
      */
     struct ARILES_VISIBILITY_ATTRIBUTE yaml_cpp03
     {

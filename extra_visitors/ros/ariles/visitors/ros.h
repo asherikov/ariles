@@ -62,7 +62,7 @@ namespace ariles
 namespace ariles
 {
     /**
-     * @brief ROS parameter server bridge.
+     * @brief ROS parameter server visitor.
      */
     struct ARILES_VISIBILITY_ATTRIBUTE ros
     {

@@ -85,7 +85,7 @@ namespace ariles
 namespace ariles
 {
     /**
-     * @brief Octave bridge.
+     * @brief Octave visitor.
      */
     struct ARILES_VISIBILITY_ATTRIBUTE octave
     {
