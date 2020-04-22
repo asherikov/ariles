@@ -84,17 +84,15 @@ namespace ariles
             }
 
 
-            template <class t_Ariles>
-            void startRoot(t_Ariles &ariles_class, const Parameters &)
+            template <class t_Entry>
+            void start(t_Entry &entry, const std::string &name, const Parameters &param)
             {
                 ARILES_TRACE_FUNCTION;
-                ARILES_UNUSED_ARG(ariles_class);
 #if 1 == ARILES_API_VERSION
-                ariles::apply<ariles::defaults::Visitor>(ariles_class);
+                ariles::apply<ariles::defaults::Visitor>(entry);
 #endif
+                this->operator()(entry, name, param);
             }
-
-            using visitor::Base<Parameters>::finishRoot;
 
 
 

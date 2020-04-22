@@ -35,19 +35,6 @@ namespace ariles
                 const static t_Parameters parameters;
                 return parameters;
             }
-
-
-            template <class t_Ariles>
-            void startRoot(const t_Ariles &, const t_Parameters &)
-            {
-                ARILES_TRACE_FUNCTION;
-            }
-
-            template <class t_Ariles>
-            void finishRoot(const t_Ariles &, const t_Parameters &) const
-            {
-                ARILES_TRACE_FUNCTION;
-            }
         };
     }  // namespace visitor
 
@@ -119,9 +106,7 @@ namespace ariles
             ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
     {
         ARILES_TRACE_FUNCTION;
-        visitor.startRoot(ariles_class, param);
-        visitor(ariles_class, name, param);
-        visitor.finishRoot(ariles_class, param);
+        visitor.start(ariles_class, name, param);
     }
 
 
@@ -134,9 +119,7 @@ namespace ariles
             ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
     {
         ARILES_TRACE_FUNCTION;
-        visitor.startRoot(ariles_class, param);
-        visitor(ariles_class, name, param);
-        visitor.finishRoot(ariles_class, param);
+        visitor.start(ariles_class, name, param);
     }
 
 
@@ -280,9 +263,7 @@ namespace ariles
         ARILES_TRACE_FUNCTION;
         try
         {
-            visitor.startRoot(left, param);
-            visitor(left, right, name, param);
-            visitor.finishRoot(left, param);
+            visitor.start(left, right, name, param);
         }
         catch (std::exception &e)
         {

@@ -79,15 +79,17 @@ namespace ariles
             }
 
 
-            template <class t_Ariles>
-            void startRoot(const t_Ariles &, const Parameters &)
+            template <class t_Left, class t_Right>
+            void start(
+                    const t_Left &left,
+                    const t_Right &right,
+                    const std::string &name,
+                    const Parameters &param)
             {
                 ARILES_TRACE_FUNCTION;
                 equal_ = true;
+                this->operator()(left, right, name, param);
             }
-
-
-            using visitor::Base<Parameters>::finishRoot;
 
 
             template <typename t_Scalar>

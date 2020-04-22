@@ -54,8 +54,12 @@ namespace ariles
                 return (ariles_class.arilesGetParameters(*this));
             }
 
-            using visitor::Base<Parameters>::startRoot;
-            using visitor::Base<Parameters>::finishRoot;
+            template <class t_Entry>
+            void start(t_Entry &entry, const std::string &name, const Parameters &param) const
+            {
+                ARILES_TRACE_FUNCTION;
+                this->operator()(entry, name, param);
+            }
 
 
             template <class t_Entry>

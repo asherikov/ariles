@@ -36,19 +36,18 @@ namespace ariles
             }
 
 
-            template <class t_Ariles>
-            void startRoot(const t_Ariles &, const Parameters &)
+            template <typename t_Entry>
+            void start(
+                    const t_Entry &entry,
+                    const std::string &entry_name,
+                    const Parameters &param)
             {
                 ARILES_TRACE_FUNCTION;
                 initRoot();
-            }
-
-            template <class t_Ariles>
-            void finishRoot(const t_Ariles &, const Parameters &)
-            {
-                ARILES_TRACE_FUNCTION;
+                this->operator()(entry, entry_name, param);
                 flush();
             }
+
 
             /**
              * @brief Starts a nested map in the configuration file

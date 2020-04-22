@@ -49,15 +49,18 @@ namespace ariles
             }
 
 
-            template <class t_Ariles>
-            void startRoot(const t_Ariles &, const Parameters &)
+            template <class t_Entry>
+            void start(
+                    const t_Entry &entry,
+                    const std::string &name,
+                    const Parameters & param,
+                    ARILES_IS_BASE_ENABLER(entry::ConstBase<count::Visitor>, t_Entry))
             {
                 ARILES_TRACE_FUNCTION;
                 counter_ = 0;
                 descend_ = true;
+                this->operator()(entry, name, param);
             }
-
-            using visitor::Base<Parameters>::finishRoot;
 
 
             template <class t_Entry>

@@ -135,8 +135,12 @@ namespace ariles
             }
 
 
-            using visitor::Base<Parameters>::startRoot;
-            using visitor::Base<Parameters>::finishRoot;
+            template <class t_Entry>
+            void start(t_Entry &entry, const std::string &name, const Parameters &param)
+            {
+                ARILES_TRACE_FUNCTION;
+                this->operator()(entry, name, param);
+            }
 
 
             template <class t_Entry>
@@ -290,8 +294,12 @@ namespace ariles
             }
 
 
-            using visitor::Base<Parameters>::startRoot;
-            using visitor::Base<Parameters>::finishRoot;
+            template <class t_Entry>
+            void start(t_Entry &entry, const std::string &name, const Parameters &param)
+            {
+                ARILES_TRACE_FUNCTION;
+                this->operator()(entry, name, param);
+            }
 
 
             template <class t_Entry>
