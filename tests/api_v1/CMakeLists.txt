@@ -56,3 +56,4 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "020" "" "")                
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "021" "array" "")                       # array
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "022" "" "${ARILES_TEST_ALL_VISITORS}") # flags
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "023" "rapidjson" "")                   # json floats, flags
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "024" "" "yaml_cpp03;yaml_cpp")         # missing entries

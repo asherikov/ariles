@@ -5,6 +5,8 @@ Fixed
 -----
 
 * Jsonnet visitor, added corresponding tests.
+* Improved/fixed handling of `ALLOW_MISSING_ENTRIES`.
+* Fixed bug in `yaml-cpp` calls.
 
 
 Changed

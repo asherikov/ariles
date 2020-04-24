@@ -16,16 +16,16 @@ namespace ariles
         void ARILES_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
                 ARILES_POINTER_TYPE<t_Entry> &entry,
-                const typename t_Visitor::Parameters &param)
+                const typename t_Visitor::Parameters &parameters)
         {
             ARILES_TRACE_FUNCTION;
             bool is_null = true;
 
-            typename t_Visitor::Parameters param_local = param;
-            param_local.unset(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES);
+            ariles::ConfigurableFlags param = parameters;
+            param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
 
             visitor.template startMap<t_Visitor::SIZE_LIMIT_RANGE>(1, 2);
-            visitor(is_null, "is_null", param_local);
+            visitor(is_null, "is_null", param);
 
             if (true == is_null)
             {
@@ -34,7 +34,7 @@ namespace ariles
             else
             {
                 PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::allocate(entry);
-                visitor(*entry, "value", param_local);
+                visitor(*entry, "value", param);
             }
             visitor.endMap();
         }

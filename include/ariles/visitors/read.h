@@ -93,6 +93,7 @@ namespace ariles
              */
             virtual bool descend(const std::string &child_name)
             {
+                ARILES_TRACE_FUNCTION;
                 ARILES_UNUSED_ARG(child_name)
                 return (true);
             }
@@ -154,11 +155,14 @@ namespace ariles
 
 
             template <class t_Entry>
-            void start(t_Entry &entry, const std::string &name, const Parameters &param)
+            void start(t_Entry &entry, const std::string &name, const Parameters &parameters)
             {
                 ARILES_TRACE_FUNCTION;
                 ARILES_TRACE_ENTRY(name);
                 ARILES_TRACE_TYPE(entry);
+
+                Parameters param = parameters;  // local modifiable copy
+
 #if 1 == ARILES_API_VERSION
                 ariles::apply<ariles::defaults::Visitor>(entry);
 #endif
@@ -188,13 +192,17 @@ namespace ariles
 
 
             template <class t_Entry>
-            void operator()(t_Entry &entry, const std::string &name, const Parameters &param)
+            bool operator()(t_Entry &entry, const std::string &name, const Parameters &parameters)
             {
                 ARILES_TRACE_FUNCTION;
                 ARILES_TRACE_ENTRY(name);
                 ARILES_TRACE_TYPE(entry);
+                Parameters param = parameters;  // local modifiable copy
+
                 if (this->descend(name))
                 {
+                    param.unset(Parameters::DISABLE_ALLOW_MISSING_ENTRIES);
+
                     try
                     {
                         apply_read(*this, entry, param);
@@ -207,13 +215,16 @@ namespace ariles
                     }
 
                     this->ascend();
+                    return (true);
                 }
                 else
                 {
                     ARILES_PERSISTENT_ASSERT(
-                            true == param.isSet(Parameters::ALLOW_MISSING_ENTRIES),
+                            false == param.isSet(Parameters::DISABLE_ALLOW_MISSING_ENTRIES)
+                                    and true == param.isSet(Parameters::ALLOW_MISSING_ENTRIES),
                             std::string("Configuration file does not contain entry '") + name
                                     + "'.");
+                    return (false);
                 }
             }
         };

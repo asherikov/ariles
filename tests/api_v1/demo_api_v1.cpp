@@ -27,7 +27,7 @@
 
 // `adapter` is an Ariles component which adds support for serialization of
 // certain type(s), e.g. Eigen types or Boost pointers.
-#include "ariles/adapters_all.h"  // deprecated
+#include "ariles/adapters_all.h"
 #include "ariles/ariles.h"
 
 

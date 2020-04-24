@@ -52,29 +52,30 @@ namespace ariles
         void ARILES_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
                 Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
-                const typename t_Visitor::Parameters &param)
+                const typename t_Visitor::Parameters &parameters)
         {
             ARILES_TRACE_FUNCTION;
             if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols
-                || param.isSet(ConfigurableFlags::FORCE_EXPLICIT_MATRIX_SIZE))
+                || parameters.isSet(ConfigurableFlags::FORCE_EXPLICIT_MATRIX_SIZE))
             {
                 EIGEN_DEFAULT_DENSE_INDEX_TYPE num_rows;
                 EIGEN_DEFAULT_DENSE_INDEX_TYPE num_cols;
 
-                ariles::ConfigurableFlags param_local = param;
-                param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
+
+                ariles::ConfigurableFlags param = parameters;
+                param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
 
                 visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(3);
-                visitor(num_cols, "cols", param_local);
+                visitor(num_cols, "cols", param);
                 ARILES_ASSERT(
                         Eigen::Dynamic == t_cols || t_cols == num_cols, "Wrong number of columns.");
-                visitor(num_rows, "rows", param_local);
+                visitor(num_rows, "rows", param);
                 ARILES_ASSERT(
                         Eigen::Dynamic == t_rows || t_rows == num_rows, "Wrong number of rows.");
 
 
                 Eigen::Matrix<t_Scalar, Eigen::Dynamic, 1> v;
-                visitor(v, "data", param_local);
+                visitor(v, "data", param);
                 visitor.endMap();
 
                 ARILES_ASSERT(v.rows() == num_rows * num_cols, "Wrong entry size.");
@@ -87,7 +88,7 @@ namespace ariles
             {
                 Eigen::Matrix<t_Scalar, t_rows * t_cols, 1> v;
 
-                apply_read(visitor, v, param);
+                apply_read(visitor, v, parameters);
 
                 Eigen::Map<Eigen::Matrix<double, t_rows, t_cols, Eigen::RowMajor> > map(
                         v.data(), t_rows, t_cols);
@@ -117,17 +118,18 @@ namespace ariles
         void ARILES_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
                 Eigen::Quaternion<t_Scalar, t_options> &entry,
-                const typename t_Visitor::Parameters &param)
+                const typename t_Visitor::Parameters &parameters)
         {
             ARILES_TRACE_FUNCTION;
-            ariles::ConfigurableFlags param_local = param;
-            param_local.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
+
+            ariles::ConfigurableFlags param = parameters;
+            param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
 
             visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(4);
-            visitor(entry.x(), "x", param_local);
-            visitor(entry.y(), "y", param_local);
-            visitor(entry.z(), "z", param_local);
-            visitor(entry.w(), "w", param_local);
+            visitor(entry.x(), "x", param);
+            visitor(entry.y(), "y", param);
+            visitor(entry.z(), "z", param);
+            visitor(entry.w(), "w", param);
             visitor.endMap();
         }
     }  // namespace read

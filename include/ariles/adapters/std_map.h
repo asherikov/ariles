@@ -30,14 +30,12 @@ namespace ariles
         {
             ARILES_TRACE_FUNCTION;
             std::size_t size = visitor.startArray();
-            typename t_Visitor::Parameters param_local = param;
-            param_local.unset(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES);
             entry.clear();
             for (std::size_t i = 0; i < size; ++i)
             {
                 std::pair<t_Key, t_Value> map_entry;
 
-                apply_read(visitor, map_entry, param_local);
+                apply_read(visitor, map_entry, param);
 
                 entry.insert(map_entry);
 
@@ -51,33 +49,37 @@ namespace ariles
         void ARILES_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
                 std::map<std::string, t_Value, t_Compare, t_Allocator> &entry,
-                const typename t_Visitor::Parameters &param)
+                const typename t_Visitor::Parameters &parameters)
         {
             ARILES_TRACE_FUNCTION;
             if (visitor.getSerializationFeatures().isSet(
                         serialization::Features::SLOPPY_MAPS_SUPPORTED)
-                && param.isSet(t_Visitor::Parameters::SLOPPY_MAPS_IF_SUPPORTED))
+                && parameters.isSet(t_Visitor::Parameters::SLOPPY_MAPS_IF_SUPPORTED))
             {
                 std::vector<std::string> entry_names;
                 ARILES_ASSERT(
                         true == visitor.getMapEntryNames(entry_names),
                         "Could not read names of map entries.");
-                typename t_Visitor::Parameters param_local = param;
-                param_local.unset(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES);
                 entry.clear();
                 visitor.template startMap<t_Visitor::SIZE_LIMIT_NONE>();
+
+                ariles::ConfigurableFlags param = parameters;
+                // if entry is in the map, we should be able to read it
+                param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
+
                 for (std::size_t i = 0; i < entry_names.size(); ++i)
                 {
-                    t_Value entry_value;
-                    visitor(entry_value, entry_names[i], param_local);
-                    entry[entry_names[i]] = entry_value;
+                    if (false == visitor(entry[entry_names[i]], entry_names[i], param))
+                    {
+                        entry.erase(entry_names[i]);
+                    }
                 }
                 visitor.endMap();
             }
             else
             {
                 apply_read<t_Visitor, std::string, t_Value, t_Compare, t_Allocator>(
-                        visitor, entry, param);
+                        visitor, entry, parameters);
             }
         }
     }  // namespace read

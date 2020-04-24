@@ -79,15 +79,17 @@ namespace ariles
 
         std::size_t Reader::getMapSize(const bool /*expect_empty*/)
         {
+            ARILES_TRACE_FUNCTION;
             return (impl_->getRawNode().size());
         }
 
 
         bool Reader::descend(const std::string &child_name)
         {
+            ARILES_TRACE_FUNCTION;
             YAML::Node child = impl_->getRawNode()[child_name];
 
-            if (true == child.IsNull())
+            if (false == child.IsDefined() or true == child.IsNull())
             {
                 return (false);
             }
@@ -102,12 +104,14 @@ namespace ariles
 
         void Reader::ascend()
         {
+            ARILES_TRACE_FUNCTION;
             impl_->node_stack_.pop_back();
         }
 
 
         bool Reader::getMapEntryNames(std::vector<std::string> &child_names)
         {
+            ARILES_TRACE_FUNCTION;
             YAML::Node selected_node = impl_->getRawNode();
 
             if (false == selected_node.IsMap())
@@ -131,6 +135,7 @@ namespace ariles
 
         std::size_t Reader::startArray()
         {
+            ARILES_TRACE_FUNCTION;
             ARILES_ASSERT(true == impl_->getRawNode().IsSequence(), "Entry is not an array.");
 
             std::size_t size = impl_->getRawNode().size();
@@ -142,6 +147,7 @@ namespace ariles
 
         void Reader::shiftArray()
         {
+            ARILES_TRACE_FUNCTION;
             ARILES_ASSERT(
                     true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ARILES_ASSERT(
@@ -153,6 +159,7 @@ namespace ariles
 
         void Reader::endArray()
         {
+            ARILES_TRACE_FUNCTION;
             impl_->node_stack_.pop_back();
         }
 
@@ -160,6 +167,7 @@ namespace ariles
 #define ARILES_BASIC_TYPE(type)                                                                    \
     void Reader::readElement(type &element)                                                        \
     {                                                                                              \
+        ARILES_TRACE_FUNCTION;                                                                     \
         element = impl_->getRawNode().as<type>();                                                  \
     }
 

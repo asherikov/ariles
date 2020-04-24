@@ -21,14 +21,16 @@ namespace ariles
         void ARILES_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
                 std::pair<t_First, t_Second> &entry,
-                const typename t_Visitor::Parameters &param)
+                const typename t_Visitor::Parameters &parameters)
         {
             ARILES_TRACE_FUNCTION;
-            typename t_Visitor::Parameters param_local = param;
-            param_local.unset(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES);
             visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(2);
-            visitor(entry.first, "first", param_local);
-            visitor(entry.second, "second", param_local);
+
+            ariles::ConfigurableFlags param = parameters;
+            param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
+
+            visitor(entry.first, "first", param);
+            visitor(entry.second, "second", param);
             visitor.endMap();
         }
 
@@ -37,32 +39,47 @@ namespace ariles
         void ARILES_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
                 std::pair<std::string, t_Second> &entry,
-                const typename t_Visitor::Parameters &param)
+                const typename t_Visitor::Parameters &parameters)
         {
             ARILES_TRACE_FUNCTION;
             if (visitor.getSerializationFeatures().isSet(
                         serialization::Features::SLOPPY_PAIRS_SUPPORTED)
-                && param.isSet(t_Visitor::Parameters::SLOPPY_PAIRS_IF_SUPPORTED))
+                && parameters.isSet(t_Visitor::Parameters::SLOPPY_PAIRS_IF_SUPPORTED))
             {
                 std::vector<std::string> entry_names;
                 ARILES_ASSERT(
                         true == visitor.getMapEntryNames(entry_names),
                         "Could not read names of map entries.");
-                ARILES_ASSERT(
-                        1 == entry_names.size(), "Wrong number of map entries for a sloppy pair.");
-                entry.first = entry_names[0];
+                if (1 == entry_names.size())
+                {
+                    ariles::ConfigurableFlags param = parameters;
+                    // if entry is in the map, we should be able to read it
+                    param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
 
-                typename t_Visitor::Parameters param_local = param;
-                param_local.unset(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES);
-                visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(1);
+                    visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(1);
 
-                visitor(entry.second, entry.first, param_local);
+                    if (true == visitor(entry.second, entry_names[0], param))
+                    {
+                        entry.first = entry_names[0];
+                    }
 
-                visitor.endMap();
+                    visitor.endMap();
+                }
+                else
+                {
+                    // size = 0 is ok if missing entries are allowed.
+                    // size > 1 is never ok, due to ambiguity.
+                    ARILES_ASSERT(
+                            0 == entry_names.size()
+                                    and true
+                                                == parameters.isSet(t_Visitor::Parameters::
+                                                                            ALLOW_MISSING_ENTRIES),
+                            "Wrong number of pair entries for a sloppy pair.");
+                }
             }
             else
             {
-                apply_read<t_Visitor, std::string, t_Second>(visitor, entry, param);
+                apply_read<t_Visitor, std::string, t_Second>(visitor, entry, parameters);
             }
         }
     }  // namespace read

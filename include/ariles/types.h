@@ -171,20 +171,12 @@ namespace ariles
                 ariles::ReaderBase &reader,
                 const ariles::ConfigurableFlags &parameters)
         {
-            ariles::ConfigurableFlags param = parameters;
-            param.unset(ConfigurableFlags::ALLOW_MISSING_ENTRIES);
-
-            ARILES_READ_ENTRY_(id);
-            if ("" == id_)
-            {
-                ARILES_ASSERT(
-                        true == parameters.isSet(ConfigurableFlags::ALLOW_MISSING_ENTRIES),
-                        "Id is empty, value cannot be read.");
-            }
-            else
+            if (true == reader(id_, "id", parameters))
             {
                 build(id_);
-                ARILES_READ_NAMED_ENTRY(*value_, "value");
+                ariles::ConfigurableFlags param = parameters;
+                param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
+                reader(*value_, "value", parameters);
             }
         }
 
