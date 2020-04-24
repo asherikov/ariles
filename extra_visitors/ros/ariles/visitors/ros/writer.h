@@ -31,9 +31,6 @@ namespace ariles
             explicit Writer(const ::ros::NodeHandle &nh);
 
 
-            void initRoot();
-
-
             void flush();
 
 
@@ -45,6 +42,9 @@ namespace ariles
             void shiftArray();
             void endArray();
 
+
+            void startRoot(const std::string &name);
+            void endRoot(const std::string &name);
 
 
 #define ARILES_BASIC_TYPE(type) void writeElement(const type &element);

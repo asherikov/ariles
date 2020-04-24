@@ -49,9 +49,6 @@ namespace ariles
             void flush();
 
 
-            void initRoot(){};
-
-
             void descend(const std::string &map_name);
             void ascend();
 

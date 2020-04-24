@@ -53,7 +53,7 @@ namespace ariles
             void start(
                     const t_Entry &entry,
                     const std::string &name,
-                    const Parameters & param,
+                    const Parameters &param,
                     ARILES_IS_BASE_ENABLER(entry::ConstBase<count::Visitor>, t_Entry))
             {
                 ARILES_TRACE_FUNCTION;

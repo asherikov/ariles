@@ -143,6 +143,26 @@ namespace ariles
         }
 
 
+        bool Reader::startRoot(const std::string &name)
+        {
+            ARILES_TRACE_FUNCTION;
+            if (true == name.empty())
+            {
+                return (descend("ariles"));
+            }
+            else
+            {
+                return (descend(name));
+            }
+        }
+
+        void Reader::endRoot(const std::string & /*name*/)
+        {
+            ARILES_TRACE_FUNCTION;
+            ascend();
+        }
+
+
 #define ARILES_BASIC_TYPE(type)                                                                    \
     void Reader::readElement(type &element)                                                        \
     {                                                                                              \

@@ -36,7 +36,6 @@
 #include "types/pointers.h"
 #include "types/pointers_scalar.h"
 #include "types/simple_auto_declare.h"
-#include "types/simple_no_auto_id.h"
 #include "types/simple_verbose.h"
 #include "types/special_floats.h"
 #include "types/strictness.h"
@@ -54,7 +53,6 @@ int main()
     ariles_tests::ConfigurableNoSetDefaults k;
     ariles_tests::ConfigurablePointers l;
     ariles_tests::ConfigurableAutoDeclare m;
-    ariles_tests::ConfigurableNoAutoID n;
     ariles_tests::ConfigurableVerbose p;
     ariles_tests::ConfigurableSpecialFloats q;
     ariles_tests::ConfigurableStrictness1 r;

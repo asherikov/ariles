@@ -14,7 +14,6 @@ namespace ariles_tests
 {
     class Base : public ariles::DefaultBase
     {
-#define ARILES_DEFAULT_ID "Base"
 #define ARILES_ENTRIES ARILES_TYPED_ENTRY_(real, double)
 #include ARILES_INITIALIZE
 
@@ -40,7 +39,7 @@ namespace ariles_tests
 
     class Derived1 : public Base
     {
-#define ARILES_DEFAULT_ID "Derived1"
+#define ARILES_DEFAULT_ID "Derived1"  // Needed for cast<Derived1>("Derived1"));
 #define ARILES_ENTRIES                                                                             \
     ARILES_PARENT(Base)                                                                            \
     ARILES_TYPED_ENTRY_(real1, double)
@@ -65,7 +64,7 @@ namespace ariles_tests
 
     class Derived2 : public Base
     {
-#define ARILES_DEFAULT_ID "Derived2"
+#define ARILES_DEFAULT_ID "Derived2"  // Needed for cast<Derived2>("Derived2"));
 #define ARILES_ENTRIES                                                                             \
     ARILES_PARENT(Base)                                                                            \
     ARILES_TYPED_ENTRY_(real2, double)
@@ -183,9 +182,6 @@ namespace ariles_tests
     class ConfigurableAny : public ariles::DefaultBase
     {
     public:
-#define ARILES_DEFAULT_ID "ConfigurableAny"
-
-
 #define ARILES_ENTRIES_0
 
 #if __cplusplus >= 201103L

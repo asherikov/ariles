@@ -17,9 +17,6 @@ namespace ariles_tests
     class ConfigurableComplex : public ariles::DefaultBase,
                                 public ConfigurableComplexBase<ConfigurableComplex>
     {
-#define ARILES_DEFAULT_ID "ConfigurableComplex"
-
-
 #define ARILES_ENTRIES_STANDARD_TYPES                                                              \
     ARILES_TYPED_ENTRY_(integer, int)                                                              \
     ARILES_TYPED_ENTRY_(unsigned_integer, std::size_t)                                             \

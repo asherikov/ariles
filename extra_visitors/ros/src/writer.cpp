@@ -41,13 +41,6 @@ namespace ariles
         }
 
 
-        void Writer::initRoot()
-        {
-            impl_->root_name_ = "";
-            impl_->root_value_.clear();
-        }
-
-
         void Writer::flush()
         {
             if (XmlRpc::XmlRpcValue::TypeInvalid == impl_->root_value_.getType())
@@ -112,6 +105,30 @@ namespace ariles
         void Writer::writeElement(const std::string &element)
         {
             impl_->getRawNode() = element;
+        }
+
+
+        void Writer::startRoot(const std::string &name)
+        {
+            ARILES_TRACE_FUNCTION;
+
+            impl_->root_name_ = "";
+            impl_->root_value_.clear();
+
+            if (true == name.empty())
+            {
+                descend("ariles");
+            }
+            else
+            {
+                descend(name);
+            }
+        }
+
+        void Writer::endRoot(const std::string & /*name*/)
+        {
+            ARILES_TRACE_FUNCTION;
+            ascend();
         }
 
 

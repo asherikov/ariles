@@ -43,9 +43,6 @@ namespace demo
       // must inherit from ariles::DefaultBase
       : public ariles::DefaultBase
     {
-// Unique entry name, to be safe use only alphanumeric characters and underscores
-#define ARILES_DEFAULT_ID "ArilesBaseClass"
-
 // Declare entries, in this case two numbers
 #define ARILES_ENTRIES                                                                             \
     ARILES_TYPED_ENTRY(real_member, double)                                                        \
@@ -83,8 +80,6 @@ namespace demo
     class MyClass : public ArilesBaseClass,  // no need to inherit from ConfigurableBase directly.
                     public NonArilesBaseClass
     {
-#define ARILES_DEFAULT_ID "MyClass"
-
 // Declare entries, in this case we indicate inheritance from another
 // Ariles class (ArilesBaseClass) and a member from a non-Ariles class
 // (NonArilesBaseClass)
@@ -117,8 +112,6 @@ namespace demo
 
     class MyContainerClass : public ariles::DefaultBase
     {
-#define ARILES_DEFAULT_ID "MyContainerClass"
-
 #define ARILES_ENTRIES ARILES_TYPED_ENTRY_(myclass_vector, std::vector<MyClass>)
         //      Some of the standard containers ^^^^^^^^^^^^^^^^^^^^ can be used
         // with Ariles types.

@@ -128,6 +128,25 @@ namespace ariles
         }
 
 
+        void Writer::startRoot(const std::string &name)
+        {
+            ARILES_TRACE_FUNCTION;
+            if (true == name.empty())
+            {
+                descend("ariles");
+            }
+            else
+            {
+                descend(name);
+            }
+        }
+
+        void Writer::endRoot(const std::string & /*name*/)
+        {
+            ARILES_TRACE_FUNCTION;
+            ascend();
+        }
+
 
         void Writer::writeElement(const std::string &element)
         {

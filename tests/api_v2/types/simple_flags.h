@@ -15,7 +15,6 @@ namespace ariles_tests
 {
     class ConfigurableFlags1 : public ariles::DefaultBase
     {
-#define ARILES_DEFAULT_ID "ConfigurableFlags1"
 #define ARILES_ENTRIES                                                                             \
     ARILES_TYPED_ENTRY_(integer, int)                                                              \
     ARILES_TYPED_ENTRY_(real, double)

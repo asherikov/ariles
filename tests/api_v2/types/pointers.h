@@ -18,7 +18,6 @@ namespace ariles_tests
     public:
         class Minimal : public ariles::DefaultBase
         {
-#define ARILES_DEFAULT_ID "ConfigurableEntryName"
 #define ARILES_ENTRIES ARILES_TYPED_ENTRY_(integer_member, int)
 #include ARILES_INITIALIZE
 
@@ -33,8 +32,6 @@ namespace ariles_tests
             }
         };
 
-
-#define ARILES_DEFAULT_ID "ConfigurablePointers"
 
 
 #define ARILES_ENTRIES_0

@@ -13,7 +13,6 @@ namespace ariles_tests
 {
     class ConfigurableSpecialFloats : virtual public ariles::DefaultBase
     {
-#define ARILES_DEFAULT_ID "ConfigurableSpecialFloats"
 #define ARILES_ENTRIES                                                                             \
     ARILES_TYPED_ENTRY_(float_quiet_nan, float)                                                    \
     ARILES_TYPED_ENTRY_(float_signaling_nan, float)                                                \

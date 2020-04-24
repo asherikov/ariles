@@ -15,7 +15,6 @@ namespace ariles_tests
 {
     class ConfigurableAutoDeclare : public ariles::DefaultBase
     {
-#define ARILES_DEFAULT_ID "unique_id_on_a_particular_level_in_a_configuration_file"
 // optional, but what is the point in omitting it?
 // members can be defined manually, see ConfigurableVerbose
 #define ARILES_ENTRIES                                                                             \

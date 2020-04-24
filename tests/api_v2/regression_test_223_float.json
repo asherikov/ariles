@@ -1,6 +1,4 @@
 {
-    "SimpleFloats": {
-        "float_member": 1.0,
-        "double_member": 1.0
-    }
+    "float_member": 1.0,
+    "double_member": 1.0
 }

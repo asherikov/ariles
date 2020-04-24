@@ -16,7 +16,6 @@ namespace ariles_tests
     template <class t_Scalar>
     class ConfigurableMember : virtual public ariles::DefaultBase
     {
-#define ARILES_DEFAULT_ID "ConfigurableMember"
 #define ARILES_ENTRIES                                                                             \
     ARILES_TYPED_ENTRY_(integer, t_Scalar)                                                         \
     ARILES_TYPED_ENTRY_(real, double)
@@ -58,7 +57,6 @@ namespace ariles_tests
     template <class t_Scalar>
     class ConfigurableMember1 : public ConfigurableMember<t_Scalar>
     {
-#define ARILES_DEFAULT_ID "ConfigurableMember1"
 #define ARILES_ENTRIES ARILES_TYPED_ENTRY_(member, ConfigurableMember<t_Scalar>)
 #include ARILES_INITIALIZE
 
@@ -93,7 +91,6 @@ namespace ariles_tests
 
     class ConfigurableBase : virtual public ariles::DefaultBase
     {
-#define ARILES_DEFAULT_ID "ConfigurableBase"
 #define ARILES_ENTRIES ARILES_TYPED_ENTRY_(member, ConfigurableMember<int>)
 #include ARILES_INITIALIZE
 
@@ -128,7 +125,6 @@ namespace ariles_tests
 
     class ConfigurableDerived : public ConfigurableBase, public ConfigurableMember<int>
     {
-#define ARILES_DEFAULT_ID "ConfigurableDerived"
 #define ARILES_ENTRIES                                                                             \
     ARILES_PARENT(ConfigurableBase)                                                                \
     ARILES_PARENT(ConfigurableMember<int>)                                                         \

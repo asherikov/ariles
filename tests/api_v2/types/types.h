@@ -15,7 +15,6 @@ namespace ariles
     template <template <class> class t_Pointer, class t_Base, class t_Instantiator>
     class Any : public ariles::DefaultBase
     {
-#define ARILES_DEFAULT_ID "Any"
 #define ARILES_ENTRIES                                                                             \
     ARILES_TYPED_ENTRY_(id, std::string)                                                           \
     ARILES_TYPED_ENTRY_(value, t_Pointer<t_Base>)
@@ -215,7 +214,6 @@ namespace ariles
     template <class t_Pointer>
     class NonNullPointer : public ariles::DefaultBase
     {
-#define ARILES_DEFAULT_ID "NonNullPointer"
 #include ARILES_INITIALIZE
 
     public:

@@ -13,6 +13,10 @@ Changed
 * Stricter compilation flags.
 * Rename 'bridge' -> 'visitor'.
 * Format sources with clang-format.
+* Reworked internal API of abstract base classes for readers and writers.
+* Allow writing and reading classes with empty root name, the exact behavior
+  depends on the markup format.
+* APIv2: `ARILES_DEFAULT_ID` is now fully optional.
 
 
 

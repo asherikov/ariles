@@ -44,6 +44,9 @@ namespace ariles
             void startArray(const std::size_t /*size*/, const bool compact = false);
             void endArray();
 
+            void startRoot(const std::string &name);
+            void endRoot(const std::string &name);
+
 
 #define ARILES_BASIC_TYPE(type) void writeElement(const type &element);
 

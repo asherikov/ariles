@@ -41,6 +41,8 @@ namespace ariles
                 /// Stack of nodes.
                 std::vector<NodeWrapper> node_stack_;
 
+                std::size_t nameless_counter_;
+
 
             public:
                 /**
@@ -50,6 +52,7 @@ namespace ariles
                  */
                 void initialize(std::istream &input_stream)
                 {
+                    ARILES_TRACE_FUNCTION;
                     std::stringstream str_stream;
                     str_stream << input_stream.rdbuf();
                     buffer_ = str_stream.str();
@@ -76,6 +79,8 @@ namespace ariles
                         ARILES_THROW(
                                 std::string("Failed to parse the configuration file: ") + e.what());
                     }
+
+                    nameless_counter_ = 0;
                 }
 
 
@@ -86,6 +91,7 @@ namespace ariles
                  */
                 const ::msgpack::object &getRawNode(const std::size_t depth)
                 {
+                    ARILES_TRACE_FUNCTION;
                     if (node_stack_[depth].isArray())
                     {
                         return (getRawNode(depth - 1).via.array.ptr[node_stack_[depth].index_]);
@@ -99,6 +105,7 @@ namespace ariles
 
                 const ::msgpack::object &getRawNode()
                 {
+                    ARILES_TRACE_FUNCTION;
                     return (getRawNode(node_stack_.size() - 1));
                 }
             };
@@ -129,6 +136,7 @@ namespace ariles
 
         std::size_t Reader::getMapSize(const bool /*expect_empty*/)
         {
+            ARILES_TRACE_FUNCTION;
             return (impl_->getRawNode().via.map.size);
         }
 
@@ -136,6 +144,8 @@ namespace ariles
 
         bool Reader::descend(const std::string &child_name)
         {
+            ARILES_TRACE_FUNCTION;
+            ARILES_TRACE_ENTRY(child_name);
             if (impl_->node_stack_.size() == 0)
             {
                 for (std::size_t i = 0; i < impl_->handles_.size(); ++i)
@@ -178,12 +188,14 @@ namespace ariles
 
         void Reader::ascend()
         {
+            ARILES_TRACE_FUNCTION;
             impl_->node_stack_.pop_back();
         }
 
 
         std::size_t Reader::startArray()
         {
+            ARILES_TRACE_FUNCTION;
             std::size_t size = impl_->getRawNode().via.array.size;
             impl_->node_stack_.push_back(NodeWrapper(0, size));
 
@@ -193,12 +205,14 @@ namespace ariles
 
         void Reader::endArray()
         {
+            ARILES_TRACE_FUNCTION;
             impl_->node_stack_.pop_back();
         }
 
 
         void Reader::shiftArray()
         {
+            ARILES_TRACE_FUNCTION;
             ARILES_ASSERT(
                     true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ARILES_ASSERT(
@@ -208,9 +222,34 @@ namespace ariles
         }
 
 
+        bool Reader::startRoot(const std::string &name)
+        {
+            ARILES_TRACE_FUNCTION;
+            if (true == name.empty())
+            {
+                ARILES_ASSERT(
+                        0 == impl_->nameless_counter_,
+                        "Multiple nameless root entries are not supported, specify root names explicitly.");
+                ++impl_->nameless_counter_;
+                return (descend("ariles"));
+            }
+            else
+            {
+                return (descend(name));
+            }
+        }
+
+        void Reader::endRoot(const std::string & /*name*/)
+        {
+            ARILES_TRACE_FUNCTION;
+            ascend();
+        }
+
+
 #define ARILES_BASIC_TYPE(type)                                                                    \
     void Reader::readElement(type &element)                                                        \
     {                                                                                              \
+        ARILES_TRACE_FUNCTION;                                                                     \
         impl_->getRawNode() >> element;                                                            \
     }
 

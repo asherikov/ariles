@@ -23,7 +23,6 @@
 
 #include "types/simple_verbose.h"
 #include "types/simple_auto_declare.h"
-#include "types/simple_no_auto_id.h"
 #include "types/no_setdefaults.h"
 #include "types/empty.h"
 
@@ -44,13 +43,11 @@
 
 #define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                           \
     ARILES_FIXTURE_TEST_CASE(                                                                      \
-            BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableEmpty, INITIALIZER)          \
-    ARILES_FIXTURE_TEST_CASE(                                                                      \
             BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableVerbose, INITIALIZER)        \
     ARILES_FIXTURE_TEST_CASE(                                                                      \
-            BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)    \
+            BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableEmpty, INITIALIZER)          \
     ARILES_FIXTURE_TEST_CASE(                                                                      \
-            BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableNoAutoID, INITIALIZER)       \
+            BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)    \
     ARILES_FIXTURE_TEST_CASE(                                                                      \
             BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableNoSetDefaults, INITIALIZER)
 

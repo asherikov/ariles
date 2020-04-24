@@ -15,7 +15,6 @@ namespace ariles_tests
 {
     class ConfigurableStrictness1 : public ariles::DefaultBase
     {
-#define ARILES_DEFAULT_ID "unique_id_on_a_particular_level_in_a_configuration_file"
 #define ARILES_CONSTRUCTOR ConfigurableStrictness1
 #define ARILES_ENTRIES ARILES_TYPED_ENTRY_(real, double)
 #include ARILES_INITIALIZE
@@ -42,7 +41,6 @@ namespace ariles_tests
 
     class ConfigurableStrictness2 : public ConfigurableStrictness1
     {
-#define ARILES_DEFAULT_ID "unique_id_on_a_particular_level_in_a_configuration_file"
 #define ARILES_ENTRIES                                                                             \
     ARILES_TYPED_ENTRY_(integer, int)                                                              \
     ARILES_PARENT(ConfigurableStrictness1)

@@ -15,7 +15,6 @@ namespace ariles_tests
 {
     class ConfigurableSimpleFloats : public ariles::DefaultBase
     {
-#define ARILES_DEFAULT_ID "SimpleFloats"
 #define ARILES_ENTRIES                                                                             \
     ARILES_TYPED_ENTRY_(float_member, float)                                                       \
     ARILES_TYPED_ENTRY_(double_member, double)

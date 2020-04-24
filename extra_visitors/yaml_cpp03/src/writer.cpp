@@ -34,6 +34,9 @@ namespace ariles
                 /// instance of YAML emitter, is destroyed and reinitialized by flush()
                 YAML::Emitter *emitter_;
 
+                std::size_t map_depth_;
+                bool skip_root_map_;
+
 
             protected:
                 void initEmitter()
@@ -45,6 +48,8 @@ namespace ariles
                         *emitter_ << YAML::Newline;
                     }
                     *emitter_ << YAML::BeginMap;
+                    map_depth_ = 0;
+                    skip_root_map_ = false;
                 }
 
 
@@ -117,13 +122,22 @@ namespace ariles
 
         void Writer::startMap(const std::size_t /*num_entries*/)
         {
-            *impl_->emitter_ << YAML::BeginMap;
+            if (impl_->map_depth_ > 0 or false == impl_->skip_root_map_)
+            {
+                *impl_->emitter_ << YAML::BeginMap;
+            }
+            ++impl_->map_depth_;
         }
 
 
         void Writer::endMap()
         {
-            *impl_->emitter_ << YAML::EndMap;
+            ARILES_ASSERT(impl_->map_depth_ > 0, "Internal logic error.");
+            --impl_->map_depth_;
+            if (impl_->map_depth_ > 0 or false == impl_->skip_root_map_)
+            {
+                *impl_->emitter_ << YAML::EndMap;
+            }
         }
 
 
@@ -147,6 +161,30 @@ namespace ariles
         void Writer::endArray()
         {
             *impl_->emitter_ << YAML::EndSeq;
+        }
+
+
+        void Writer::startRoot(const std::string &name)
+        {
+            ARILES_TRACE_FUNCTION;
+            if (true == name.empty())
+            {
+                impl_->skip_root_map_ = true;
+            }
+            else
+            {
+                descend(name);
+            }
+        }
+
+        void Writer::endRoot(const std::string &name)
+        {
+            ARILES_TRACE_FUNCTION;
+            if (false == name.empty())
+            {
+                ascend();
+            }
+            impl_->skip_root_map_ = false;
         }
 
 

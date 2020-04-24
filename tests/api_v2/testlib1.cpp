@@ -25,7 +25,6 @@ namespace testlib1
      */
     class ConfigurableVerbose : public ariles::DefaultBase
     {
-#define ARILES_DEFAULT_ID "unique_id_on_a_particular_level_in_a_configuration_file"
 #define ARILES_ENTRIES                                                                             \
     ARILES_ENTRY_(integer)                                                                         \
     ARILES_ENTRY_(real)

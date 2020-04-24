@@ -36,26 +36,6 @@ namespace ariles
             }
 
 
-            template <typename t_Entry>
-            void start(
-                    const t_Entry &entry,
-                    const std::string &entry_name,
-                    const Parameters &param)
-            {
-                ARILES_TRACE_FUNCTION;
-                initRoot();
-                this->operator()(entry, entry_name, param);
-                flush();
-            }
-
-
-            /**
-             * @brief Starts a nested map in the configuration file
-             */
-            virtual void initRoot()
-            {
-            }
-
             /**
              * @brief Flush the configuration to the output
              */
@@ -117,11 +97,40 @@ namespace ariles
             }
 
 
+            virtual void startRoot(const std::string &name)
+            {
+                ARILES_TRACE_FUNCTION;
+                if (false == name.empty())
+                {
+                    descend(name);
+                }
+            }
+            virtual void endRoot(const std::string &name)
+            {
+                ARILES_TRACE_FUNCTION;
+                if (false == name.empty())
+                {
+                    ascend();
+                }
+            }
+
+
 #define ARILES_BASIC_TYPE(type) virtual void writeElement(const type &entry) = 0;
 
             ARILES_BASIC_TYPES_LIST
 
 #undef ARILES_BASIC_TYPE
+
+
+            template <typename t_Entry>
+            void start(const t_Entry &entry, const std::string &entry_name, const Parameters &param)
+            {
+                ARILES_TRACE_FUNCTION;
+                this->startRoot(entry_name);
+                apply_write(*this, entry, param);
+                this->endRoot(entry_name);
+                flush();
+            }
 
 
             template <typename t_Entry>

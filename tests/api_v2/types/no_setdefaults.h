@@ -13,7 +13,6 @@ namespace ariles_tests
 {
     class ConfigurableNoSetDefaults : public ariles::DefaultBase
     {
-#define ARILES_DEFAULT_ID "Configurable"
 #define ARILES_ENTRIES                                                                             \
     ARILES_TYPED_ENTRY_(integer, int)                                                              \
     ARILES_TYPED_ENTRY_(real, double)

@@ -84,18 +84,6 @@ namespace ariles
             }
 
 
-            template <class t_Entry>
-            void start(t_Entry &entry, const std::string &name, const Parameters &param)
-            {
-                ARILES_TRACE_FUNCTION;
-#if 1 == ARILES_API_VERSION
-                ariles::apply<ariles::defaults::Visitor>(entry);
-#endif
-                this->operator()(entry, name, param);
-            }
-
-
-
             /**
              * @brief Descend to the entry with the given name
              *
@@ -137,6 +125,25 @@ namespace ariles
             virtual void shiftArray() = 0;
             virtual void endArray() = 0;
 
+            virtual bool startRoot(const std::string &name)
+            {
+                ARILES_TRACE_FUNCTION;
+                ARILES_TRACE_ENTRY(name);
+                if (false == name.empty())
+                {
+                    return (descend(name));
+                }
+                return (true);
+            }
+
+            virtual void endRoot(const std::string &name)
+            {
+                ARILES_TRACE_FUNCTION;
+                if (false == name.empty())
+                {
+                    ascend();
+                }
+            }
 
 
 #define ARILES_BASIC_TYPE(type) virtual void readElement(type &entry) = 0;
@@ -144,6 +151,40 @@ namespace ariles
             ARILES_BASIC_TYPES_LIST
 
 #undef ARILES_BASIC_TYPE
+
+
+            template <class t_Entry>
+            void start(t_Entry &entry, const std::string &name, const Parameters &param)
+            {
+                ARILES_TRACE_FUNCTION;
+                ARILES_TRACE_ENTRY(name);
+                ARILES_TRACE_TYPE(entry);
+#if 1 == ARILES_API_VERSION
+                ariles::apply<ariles::defaults::Visitor>(entry);
+#endif
+                if (this->startRoot(name))
+                {
+                    try
+                    {
+                        apply_read(*this, entry, param);
+                    }
+                    catch (const std::exception &e)
+                    {
+                        ARILES_THROW(
+                                std::string("Failed to parse entry <") + name + "> ||  "
+                                + e.what());
+                    }
+
+                    this->endRoot(name);
+                }
+                else
+                {
+                    ARILES_PERSISTENT_ASSERT(
+                            true == param.isSet(Parameters::ALLOW_MISSING_ENTRIES),
+                            std::string("Configuration file does not contain entry '") + name
+                                    + "'.");
+                }
+            }
 
 
             template <class t_Entry>

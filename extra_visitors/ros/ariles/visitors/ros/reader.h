@@ -51,6 +51,9 @@ namespace ariles
             void shiftArray();
             void endArray();
 
+            bool startRoot(const std::string &name);
+            void endRoot(const std::string &name);
+
 
 #define ARILES_BASIC_TYPE(type) void readElement(type &element);
 
