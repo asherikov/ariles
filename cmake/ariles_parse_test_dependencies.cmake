@@ -1,4 +1,4 @@
-function(ariles_parse_test_dependencies DEPENDENCIES LINK_TO_LIBRARIES TGT_DEPENDS)
+function(ariles_parse_test_dependencies DEPENDENCIES LINK_TO_LIBRARIES TGT_DEPENDS TGT_INCLUDES)
     set(MISSING_DEPENDENCY OFF)
 
     foreach(DEPENDENCY ${DEPENDENCIES})
@@ -8,6 +8,11 @@ function(ariles_parse_test_dependencies DEPENDENCIES LINK_TO_LIBRARIES TGT_DEPEN
             if (ARILES_VISITOR_${DEPENDENCY})
                 list(APPEND TGT_DEPENDS "${VISITOR_TARGET_PREFIX}_${DEPENDENCY}")
                 list(APPEND LINK_TO_LIBRARIES "${ARILES_VISITOR_${DEPENDENCY}_LIBS}")
+
+                get_property(DEPENDENCY_INCLUDES TARGET ${VISITOR_TARGET_PREFIX}_${DEPENDENCY} PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
+                if (DEPENDENCY_INCLUDES)
+                    list(APPEND TGT_INCLUDES "${DEPENDENCY_INCLUDES}")
+                endif()
             else()
                 set(MISSING_DEPENDENCY ON)
             endif()
@@ -22,5 +27,6 @@ function(ariles_parse_test_dependencies DEPENDENCIES LINK_TO_LIBRARIES TGT_DEPEN
 
     set(LINK_TO_LIBRARIES   "${LINK_TO_LIBRARIES}"  PARENT_SCOPE)
     set(TGT_DEPENDS         "${TGT_DEPENDS}"        PARENT_SCOPE)
+    set(TGT_INCLUDES        "${TGT_INCLUDES}"       PARENT_SCOPE)
     set(MISSING_DEPENDENCY  "${MISSING_DEPENDENCY}" PARENT_SCOPE)
 endfunction()

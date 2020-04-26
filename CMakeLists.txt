@@ -260,7 +260,7 @@ set(DEB_ARCHIVE_FILES
 option(CPPUT_EMBEDDED "" ON)
 set(CPPUT_EMBEDDED_ID "ARILES"  CACHE STRING "")
 set(CPPUT_EMBEDDED_COPY_TO_DIR "${PROJECT_SOURCE_DIR}/include/ariles/internal/"  CACHE STRING "")
-set(CPPUT_SELECT_HEADERS "config.h;better_enum.h;exception.h;floating_point_utils.h;visibility.h;misc.h;flags.h"  CACHE STRING "")
+set(CPPUT_SELECT_HEADERS "config.h;;exception.h;floating_point_utils.h;visibility.h;misc.h;flags.h"  CACHE STRING "")
 add_subdirectory(cpput)
 # --------------
 
@@ -270,7 +270,7 @@ add_custom_target( TGT_ariles_copy_headers ALL )
 # core & adapters headers
 cmakeut_copy_dir_if_exists(TGT_ariles_copy_headers          "ariles"
                           "${PROJECT_SOURCE_DIR}/include"  "${ARILES_INCLUDE_DIR}/core/")
-include_directories("${ARILES_INCLUDE_DIR}/core/")
+set(ARILES_CORE_BUILD_INCLUDES "${ARILES_INCLUDE_DIR}/core/")
 
 if (${ARILES_ENABLE_CORE})
     foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
@@ -328,14 +328,6 @@ foreach(ARILES_VISITORS_DIR ${ARILES_VISITORS_DIRS})
         if (NOT ${ARILES_VISITOR_${ARILES_VISITOR}} STREQUAL "OFF")
             add_custom_target(${VISITOR_TARGET_PREFIX}_${ARILES_VISITOR})
             include("${ARILES_VISITOR_${ARILES_VISITOR}_DIR}/CMakeLists.txt")
-
-            if (ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES)
-                include_directories(SYSTEM "${ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES}")
-            endif()
-
-            if (ARILES_VISITOR_${ARILES_VISITOR}_LIBRARY_DIRS)
-                link_directories("${ARILES_VISITOR_${ARILES_VISITOR}_LIBRARY_DIRS}")
-            endif()
 
             list(APPEND DEB_ARCHIVE_FILES "${PROJECT_SOURCE_DIR}/extra_visitors/${ARILES_VISITOR}/")
         endif()

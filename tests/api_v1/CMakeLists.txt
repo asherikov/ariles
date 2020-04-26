@@ -32,6 +32,8 @@ ariles_define_test(${CMAKE_PROJECT_NAME} "demo_api_v1" "yaml_cpp;ros;octave" "")
 
 # basic test for missing inlines
 add_library(testlib_api_v1 SHARED testlib1.cpp testlib2.cpp)
+target_include_directories(testlib_api_v1 PRIVATE ${ARILES_CORE_BUILD_INCLUDES})
+target_include_directories(testlib_api_v1 SYSTEM PRIVATE ${ARILES_CORE_DEPENDENCY_INCLUDES})
 
 
 # tests

@@ -30,7 +30,7 @@ namespace ariles_tests
         }
 
 
-#    include "ariles/internal/cpput_better_enum.h"
+#    include "better_enum.h"
 
 namespace ariles_tests
 {

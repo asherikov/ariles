@@ -12,11 +12,11 @@ function(ariles_define_test ARILES_MODULE TEST_ID DEPENDENCIES)
     set(LINK_TO_LIBRARIES       "")
 
 
-    ariles_parse_test_dependencies("${DEPENDENCIES}" "${LINK_TO_LIBRARIES}" "${TGT_DEPENDS}")
+    ariles_parse_test_dependencies("${DEPENDENCIES}" "${LINK_TO_LIBRARIES}" "${TGT_DEPENDS}" "${TGT_INCLUDES}")
     if (MISSING_DEPENDENCY)
         return()
     endif()
-    ariles_parse_test_dependencies("${OPTIONAL_DEPENDENCIES}" "${LINK_TO_LIBRARIES}" "${TGT_DEPENDS}")
+    ariles_parse_test_dependencies("${OPTIONAL_DEPENDENCIES}" "${LINK_TO_LIBRARIES}" "${TGT_DEPENDS}" "${TGT_INCLUDES}")
 
 
     set(TGT_NAME "${ARILES_MODULE}_${TEST_NAME}")
@@ -25,6 +25,12 @@ function(ariles_define_test ARILES_MODULE TEST_ID DEPENDENCIES)
     add_dependencies("${ARILES_MODULE}" "${TGT_NAME}")
 
     set_target_properties(${TGT_NAME} PROPERTIES OUTPUT_NAME "${TEST_NAME}")
+
+    if (TGT_INCLUDES)
+        target_include_directories(${TGT_NAME} PRIVATE ${TGT_INCLUDES})
+    endif()
+    target_include_directories(${TGT_NAME} PRIVATE ${ARILES_CORE_BUILD_INCLUDES})
+    target_include_directories(${TGT_NAME} SYSTEM PRIVATE ${ARILES_CORE_DEPENDENCY_INCLUDES})
 
     add_dependencies(${TGT_NAME} TGT_ariles_copy_headers ${TGT_DEPENDS})
 

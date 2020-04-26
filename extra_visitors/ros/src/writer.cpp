@@ -147,7 +147,8 @@ namespace ariles
     void Writer::writeElement(const type &element)                                                                     \
     {                                                                                                                  \
         ARILES_ASSERT(                                                                                                 \
-                element <= std::numeric_limits<int>::max() && element >= std::numeric_limits<int>::min(),              \
+                static_cast<int64_t>(element) <= std::numeric_limits<int>::max()                                       \
+                        && static_cast<int64_t>(element) >= static_cast<int64_t>(std::numeric_limits<int>::min()),     \
                 "Value is out of range.");                                                                             \
         impl_->getRawNode() = static_cast<int>(element);                                                               \
     }
@@ -160,7 +161,9 @@ namespace ariles
 #define ARILES_BASIC_TYPE(type)                                                                                        \
     void Writer::writeElement(const type &element)                                                                     \
     {                                                                                                                  \
-        ARILES_ASSERT(element <= std::numeric_limits<int>::max(), "Value is too large.");                              \
+        ARILES_ASSERT(                                                                                                 \
+                static_cast<uint64_t>(element) <= static_cast<uint64_t>(std::numeric_limits<int>::max()),              \
+                "Value is too large.");                                                                                \
         impl_->getRawNode() = static_cast<int>(element);                                                               \
     }
 

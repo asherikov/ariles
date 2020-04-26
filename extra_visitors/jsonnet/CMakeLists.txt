@@ -1,8 +1,6 @@
 set (TGT_ARILES_VISITOR_LIB      "ariles_visitor_${ARILES_VISITOR}")
 
 if(NOT ARILES_DEB_TARGETS)
-    include_directories(${CMAKE_CURRENT_LIST_DIR})
-
     find_library("ARILES_VISITOR_${ARILES_VISITOR}_LIBS" "jsonnet")
     if (NOT ARILES_VISITOR_${ARILES_VISITOR}_LIBS)
         message(FATAL_ERROR "Could not find jsonnet libraries. ${ARILES_VISITOR_${ARILES_VISITOR}_LIBS}")
@@ -17,6 +15,7 @@ if(NOT ARILES_DEB_TARGETS)
 
     add_library(${TGT_ARILES_VISITOR_LIB} SHARED
         ${ARILES_VISITOR_${ARILES_VISITOR}_DIR}/src/reader.cpp)
+    target_include_directories(${TGT_ARILES_VISITOR_LIB} SYSTEM PRIVATE ${ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES})
 endif()
 
 include(ariles_install_component)

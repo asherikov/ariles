@@ -163,7 +163,8 @@ namespace ariles
         ARILES_ASSERT(impl_->getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt, "Integer type expected.");        \
         int tmp_value = static_cast<int>(impl_->getRawNode());                                                         \
         ARILES_ASSERT(                                                                                                 \
-                tmp_value <= std::numeric_limits<type>::max() && tmp_value >= std::numeric_limits<type>::min(),        \
+                static_cast<int64_t>(tmp_value) <= std::numeric_limits<type>::max()                                    \
+                        && static_cast<int64_t>(tmp_value) >= std::numeric_limits<type>::min(),                        \
                 "Value is out of range.");                                                                             \
         element = static_cast<type>(tmp_value);                                                                        \
     }
@@ -179,8 +180,7 @@ namespace ariles
         ARILES_ASSERT(impl_->getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt, "Integer type expected.");        \
         int tmp_value = static_cast<int>(impl_->getRawNode());                                                         \
         ARILES_ASSERT(tmp_value >= 0, "Expected positive value.");                                                     \
-        ARILES_ASSERT(                                                                                                 \
-                static_cast<unsigned int>(tmp_value) <= std::numeric_limits<type>::max(), "Value is too large.");      \
+        ARILES_ASSERT(static_cast<uint64_t>(tmp_value) <= std::numeric_limits<type>::max(), "Value is too large.");    \
         element = static_cast<type>(tmp_value);                                                                        \
     }
 
