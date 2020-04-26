@@ -67,20 +67,20 @@ namespace ariles_tests
             configurable_out1.randomize();
             configurable_out2.randomize();
 
-            BOOST_CHECK_NO_THROW(typename t_Visitor::Writer writer(
-                                         getWriterInitializer("configurable_match_multi.cfg"));
-                                 configurable_out1.writeConfig(writer, "node1");
-                                 configurable_out2.writeConfig(writer, "node2"););
+            BOOST_CHECK_NO_THROW(
+                    typename t_Visitor::Writer writer(getWriterInitializer("configurable_match_multi.cfg"));
+                    configurable_out1.writeConfig(writer, "node1");
+                    configurable_out2.writeConfig(writer, "node2"););
 
             // -------
 
             t_Configurable configurable_in1;
             t_Configurable configurable_in2;
 
-            BOOST_CHECK_NO_THROW(typename t_Visitor::Reader reader(
-                                         getReaderInitializer("configurable_match_multi.cfg"));
-                                 configurable_in1.readConfig(reader, "node1");
-                                 configurable_in2.readConfig(reader, "node2"););
+            BOOST_CHECK_NO_THROW(
+                    typename t_Visitor::Reader reader(getReaderInitializer("configurable_match_multi.cfg"));
+                    configurable_in1.readConfig(reader, "node1");
+                    configurable_in2.readConfig(reader, "node2"););
 
             // -------
 

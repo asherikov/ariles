@@ -32,8 +32,7 @@ namespace ariles
             {
                 preprocessor_ = JsonnetPreprocessorPtr(new JsonnetPreprocessor());
                 preprocessor_->vm_ = static_cast<struct JsonnetVm *>(::jsonnet_make());
-                ARILES_ASSERT(
-                        NULL != preprocessor_->vm_, "Could not initialize jsonnet preprocessor.");
+                ARILES_ASSERT(NULL != preprocessor_->vm_, "Could not initialize jsonnet preprocessor.");
             }
 
 
@@ -46,8 +45,7 @@ namespace ariles
             const char *Reader::fromFile(const std::string &file_name)
             {
                 int error = 0;
-                const char *jsonnet_output =
-                        ::jsonnet_evaluate_file(preprocessor_->vm_, file_name.c_str(), &error);
+                const char *jsonnet_output = ::jsonnet_evaluate_file(preprocessor_->vm_, file_name.c_str(), &error);
                 ARILES_ASSERT(0 == error, jsonnet_output);
                 return (jsonnet_output);
             }
@@ -56,8 +54,8 @@ namespace ariles
             const char *Reader::fromString(const std::string &input_string)
             {
                 int error = 0;
-                const char *jsonnet_output = ::jsonnet_evaluate_snippet(
-                        preprocessor_->vm_, "<input steam>", input_string.c_str(), &error);
+                const char *jsonnet_output =
+                        ::jsonnet_evaluate_snippet(preprocessor_->vm_, "<input steam>", input_string.c_str(), &error);
                 ARILES_ASSERT(0 == error, jsonnet_output);
                 return (jsonnet_output);
             }

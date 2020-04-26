@@ -110,8 +110,7 @@ namespace ariles
         void Writer::shiftArray()
         {
             impl_->node_stack_.pop_back();
-            ARILES_ASSERT(
-                    true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ARILES_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
@@ -154,10 +153,10 @@ namespace ariles
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    void Writer::writeElement(const type &element)                                                 \
-    {                                                                                              \
-        impl_->getRawNode().text() = (boost::lexical_cast<std::string>(element)).c_str();          \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    void Writer::writeElement(const type &element)                                                                     \
+    {                                                                                                                  \
+        impl_->getRawNode().text() = (boost::lexical_cast<std::string>(element)).c_str();                              \
     }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)

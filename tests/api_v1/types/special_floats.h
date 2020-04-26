@@ -14,14 +14,14 @@ namespace ariles_tests
     class ConfigurableSpecialFloats : virtual public ariles::ConfigurableBase
     {
 #define ARILES_SECTION_ID "ConfigurableSpecialFloats"
-#define ARILES_ENTRIES                                                                             \
-    ARILES_TYPED_ENTRY_(float_quiet_nan, float)                                                    \
-    ARILES_TYPED_ENTRY_(float_signaling_nan, float)                                                \
-    ARILES_TYPED_ENTRY_(float_positive_infinity, float)                                            \
-    ARILES_TYPED_ENTRY_(float_negative_infinity, float)                                            \
-    ARILES_TYPED_ENTRY_(double_quiet_nan, double)                                                  \
-    ARILES_TYPED_ENTRY_(double_signaling_nan, double)                                              \
-    ARILES_TYPED_ENTRY_(double_positive_infinity, double)                                          \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_TYPED_ENTRY_(float_quiet_nan, float)                                                                        \
+    ARILES_TYPED_ENTRY_(float_signaling_nan, float)                                                                    \
+    ARILES_TYPED_ENTRY_(float_positive_infinity, float)                                                                \
+    ARILES_TYPED_ENTRY_(float_negative_infinity, float)                                                                \
+    ARILES_TYPED_ENTRY_(double_quiet_nan, double)                                                                      \
+    ARILES_TYPED_ENTRY_(double_signaling_nan, double)                                                                  \
+    ARILES_TYPED_ENTRY_(double_positive_infinity, double)                                                              \
     ARILES_TYPED_ENTRY_(double_negative_infinity, double)
 #include ARILES_INITIALIZE
 

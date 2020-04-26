@@ -49,10 +49,10 @@ namespace ariles
             template <int t_size_limit_type>
             struct RelaxedSizeLimitType
             {
-                static const int value = SIZE_LIMIT_EQUAL == t_size_limit_type
-                                                         || SIZE_LIMIT_RANGE == t_size_limit_type ?
-                                                 SIZE_LIMIT_MIN :
-                                                 t_size_limit_type;
+                static const int value =
+                        SIZE_LIMIT_EQUAL == t_size_limit_type || SIZE_LIMIT_RANGE == t_size_limit_type ?
+                                SIZE_LIMIT_MIN :
+                                t_size_limit_type;
             };
 
 
@@ -108,8 +108,8 @@ namespace ariles
             template <int t_size_limit_type>
             std::size_t startMap(const std::size_t &min = 0, const std::size_t &max = 0)
             {
-                return (startMapImpl(checkSize<RelaxedSizeLimitType<t_size_limit_type>::value>(
-                        getMapSize(0 == max), min, max)));
+                return (startMapImpl(
+                        checkSize<RelaxedSizeLimitType<t_size_limit_type>::value>(getMapSize(0 == max), min, max)));
             }
 
             virtual bool getMapEntryNames(std::vector<std::string> &)
@@ -174,9 +174,7 @@ namespace ariles
                     }
                     catch (const std::exception &e)
                     {
-                        ARILES_THROW(
-                                std::string("Failed to parse entry <") + name + "> ||  "
-                                + e.what());
+                        ARILES_THROW(std::string("Failed to parse entry <") + name + "> ||  " + e.what());
                     }
 
                     this->endRoot(name);
@@ -185,8 +183,7 @@ namespace ariles
                 {
                     ARILES_PERSISTENT_ASSERT(
                             true == param.isSet(Parameters::ALLOW_MISSING_ENTRIES),
-                            std::string("Configuration file does not contain entry '") + name
-                                    + "'.");
+                            std::string("Configuration file does not contain entry '") + name + "'.");
                 }
             }
 
@@ -209,9 +206,7 @@ namespace ariles
                     }
                     catch (const std::exception &e)
                     {
-                        ARILES_THROW(
-                                std::string("Failed to parse entry <") + name + "> ||  "
-                                + e.what());
+                        ARILES_THROW(std::string("Failed to parse entry <") + name + "> ||  " + e.what());
                     }
 
                     this->ascend();
@@ -222,8 +217,7 @@ namespace ariles
                     ARILES_PERSISTENT_ASSERT(
                             false == param.isSet(Parameters::DISABLE_ALLOW_MISSING_ENTRIES)
                                     and true == param.isSet(Parameters::ALLOW_MISSING_ENTRIES),
-                            std::string("Configuration file does not contain entry '") + name
-                                    + "'.");
+                            std::string("Configuration file does not contain entry '") + name + "'.");
                     return (false);
                 }
             }
@@ -246,8 +240,7 @@ namespace ariles
                 const std::size_t &expected_size,
                 const std::size_t & /*max*/) const
         {
-            ARILES_ASSERT(
-                    expected_size == size, "Actual number of entries is not the same as expected.");
+            ARILES_ASSERT(expected_size == size, "Actual number of entries is not the same as expected.");
             return (size);
         }
 

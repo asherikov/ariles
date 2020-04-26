@@ -27,9 +27,7 @@ namespace ariles_tests
 
 
     public:
-        void arilesVisit(
-                const ariles::Defaults & /*visitor*/,
-                const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
         {
             t_ConfigurableComplex &impl = static_cast<t_ConfigurableComplex &>(*this);
 
@@ -193,9 +191,7 @@ namespace ariles_tests
 
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
     template <class t_Configurable_out, class t_Configurable_in>
-    void compare(
-            const t_Configurable_out &configurable_out,
-            const t_Configurable_in &configurable_in)
+    void compare(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)
     {
         BOOST_CHECK_EQUAL(configurable_out.integer_, configurable_in.integer_);
         BOOST_CHECK_EQUAL(configurable_out.unsigned_integer_, configurable_in.unsigned_integer_);
@@ -209,22 +205,18 @@ namespace ariles_tests
         BOOST_CHECK_EQUAL(configurable_out.better_enum_, configurable_in.better_enum_);
 
         BOOST_CHECK_EQUAL(configurable_out.std_vector_.size(), configurable_in.std_vector_.size());
-        BOOST_CHECK_EQUAL(
-                configurable_out.std_nested_vector_.size(),
-                configurable_in.std_nested_vector_.size());
+        BOOST_CHECK_EQUAL(configurable_out.std_nested_vector_.size(), configurable_in.std_nested_vector_.size());
 
         for (std::size_t i = 0; i < configurable_out.std_vector_.size(); ++i)
         {
-            BOOST_CHECK_CLOSE(
-                    configurable_out.std_vector_[i], configurable_in.std_vector_[i], g_tolerance);
+            BOOST_CHECK_CLOSE(configurable_out.std_vector_[i], configurable_in.std_vector_[i], g_tolerance);
         }
 
 
         for (std::size_t i = 0; i < configurable_out.std_nested_vector_.size(); ++i)
         {
             BOOST_CHECK_EQUAL(
-                    configurable_out.std_nested_vector_[i].size(),
-                    configurable_in.std_nested_vector_[i].size());
+                    configurable_out.std_nested_vector_[i].size(), configurable_in.std_nested_vector_[i].size());
             for (std::size_t j = 0; j < configurable_out.std_nested_vector_[i].size(); ++j)
             {
                 BOOST_CHECK_CLOSE(
@@ -236,14 +228,12 @@ namespace ariles_tests
 
 
         BOOST_CHECK_EQUAL(configurable_out.std_pair_.first, configurable_in.std_pair_.first);
-        BOOST_CHECK_CLOSE(
-                configurable_out.std_pair_.second, configurable_in.std_pair_.second, g_tolerance);
+        BOOST_CHECK_CLOSE(configurable_out.std_pair_.second, configurable_in.std_pair_.second, g_tolerance);
 
 
         BOOST_CHECK_EQUAL(configurable_out.std_map_.size(), configurable_in.std_map_.size());
 
-        for (std::map<std::string, std::vector<std::string> >::const_iterator it =
-                     configurable_in.std_map_.begin();
+        for (std::map<std::string, std::vector<std::string> >::const_iterator it = configurable_in.std_map_.begin();
              it != configurable_in.std_map_.end();
              ++it)
         {
@@ -263,12 +253,9 @@ namespace ariles_tests
         BOOST_CHECK(configurable_out.vector_.isApprox(configurable_in.vector_, g_tolerance));
         BOOST_CHECK(configurable_out.matrix_.isApprox(configurable_in.matrix_, g_tolerance));
         BOOST_CHECK(configurable_out.matrix_x_.isApprox(configurable_in.matrix_x_, g_tolerance));
+        BOOST_CHECK_EQUAL(configurable_out.std_vector_evector_.size(), configurable_in.std_vector_evector_.size());
         BOOST_CHECK_EQUAL(
-                configurable_out.std_vector_evector_.size(),
-                configurable_in.std_vector_evector_.size());
-        BOOST_CHECK_EQUAL(
-                configurable_out.std_nested_vector_evector_.size(),
-                configurable_in.std_nested_vector_evector_.size());
+                configurable_out.std_nested_vector_evector_.size(), configurable_in.std_nested_vector_evector_.size());
 
         for (std::size_t i = 0; i < configurable_out.std_vector_evector_.size(); ++i)
         {
@@ -289,8 +276,7 @@ namespace ariles_tests
         }
 
         BOOST_CHECK(configurable_out.isometry_.isApprox(configurable_in.isometry_, g_tolerance));
-        BOOST_CHECK(
-                configurable_out.quaternion_.isApprox(configurable_in.quaternion_, g_tolerance));
+        BOOST_CHECK(configurable_out.quaternion_.isApprox(configurable_in.quaternion_, g_tolerance));
 #    endif
     }
 #endif

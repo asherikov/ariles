@@ -16,8 +16,8 @@ namespace ariles_tests
     class ConfigurableFlags0 : public ariles::ConfigurableBase
     {
 #define ARILES_SECTION_ID "ConfigurableFlags0"
-#define ARILES_ENTRIES                                                                             \
-    ARILES_TYPED_ENTRY_(integer, int)                                                              \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_TYPED_ENTRY_(integer, int)                                                                                  \
     ARILES_TYPED_ENTRY_(real, double)
 #define ARILES_AUTO_DEFAULTS
 #include ARILES_INITIALIZE
@@ -34,11 +34,11 @@ namespace ariles_tests
     class ConfigurableFlags1 : public ariles::ConfigurableBase
     {
 #define ARILES_SECTION_ID "ConfigurableFlags1"
-#define ARILES_CONFIGURABLE_FLAGS                                                                  \
-    ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED       \
+#define ARILES_CONFIGURABLE_FLAGS                                                                                      \
+    ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED                           \
             | ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED
-#define ARILES_ENTRIES                                                                             \
-    ARILES_TYPED_ENTRY_(integer, int)                                                              \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_TYPED_ENTRY_(integer, int)                                                                                  \
     ARILES_TYPED_ENTRY_(real, double)
 #define ARILES_AUTO_DEFAULTS
 #include ARILES_INITIALIZE
@@ -48,8 +48,7 @@ namespace ariles_tests
         ariles::ConfigurableFlags getExpectedConfigurableFlags() const
         {
             return (ariles::ConfigurableFlags(
-                    ariles::ConfigurableFlags::DEFAULT
-                    | ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
+                    ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
                     | ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED));
         }
     };
@@ -58,11 +57,11 @@ namespace ariles_tests
     class ConfigurableFlags2 : public ariles::ConfigurableBase
     {
 #define ARILES_SECTION_ID "ConfigurableFlags2"
-#define ARILES_CONFIGURABLE_FLAGS                                                                  \
-    ariles::ConfigurableFlags::DEFAULT & ~ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED      \
+#define ARILES_CONFIGURABLE_FLAGS                                                                                      \
+    ariles::ConfigurableFlags::DEFAULT & ~ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED                          \
             & ~ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED
-#define ARILES_ENTRIES                                                                             \
-    ARILES_TYPED_ENTRY_(integer, int)                                                              \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_TYPED_ENTRY_(integer, int)                                                                                  \
     ARILES_TYPED_ENTRY_(real, double)
 #define ARILES_AUTO_DEFAULTS
 #include ARILES_INITIALIZE
@@ -72,8 +71,7 @@ namespace ariles_tests
         ariles::ConfigurableFlags getExpectedConfigurableFlags() const
         {
             return (ariles::ConfigurableFlags(
-                    ariles::ConfigurableFlags::DEFAULT
-                    & ~ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
+                    ariles::ConfigurableFlags::DEFAULT & ~ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
                     & ~ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED));
         }
     };

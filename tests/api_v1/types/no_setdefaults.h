@@ -15,8 +15,8 @@ namespace ariles_tests
     {
 #define ARILES_SECTION_ID "Configurable"
 #define ARILES_AUTO_DEFAULTS
-#define ARILES_ENTRIES                                                                             \
-    ARILES_TYPED_ENTRY_(integer, int)                                                              \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_TYPED_ENTRY_(integer, int)                                                                                  \
     ARILES_TYPED_ENTRY_(real, double)
 #include ARILES_INITIALIZE
 

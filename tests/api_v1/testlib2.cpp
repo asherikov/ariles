@@ -27,8 +27,8 @@ namespace testlib2
     {
 #define ARILES_SECTION_ID "unique_id_on_a_particular_level_in_a_configuration_file"
 #define ARILES_CONSTRUCTOR ConfigurableVerbose
-#define ARILES_ENTRIES                                                                             \
-    ARILES_ENTRY_(integer)                                                                         \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_ENTRY_(integer)                                                                                             \
     ARILES_ENTRY_(real)
 #include ARILES_INITIALIZE
 

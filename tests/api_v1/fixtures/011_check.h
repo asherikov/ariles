@@ -27,14 +27,14 @@ namespace ariles_tests
         {
             t_Configurable configurable_out;
             configurable_out.randomize();
-            BOOST_CHECK_NO_THROW(configurable_out.template writeConfig<t_Visitor>(
-                    getWriterInitializer("configurable_check.cfg")););
+            BOOST_CHECK_NO_THROW(
+                    configurable_out.template writeConfig<t_Visitor>(getWriterInitializer("configurable_check.cfg")););
 
             // -------
 
             t_Configurable configurable_in;
-            BOOST_CHECK_NO_THROW(configurable_in.template readConfig<t_Visitor>(
-                    getReaderInitializer("configurable_check.cfg")););
+            BOOST_CHECK_NO_THROW(
+                    configurable_in.template readConfig<t_Visitor>(getReaderInitializer("configurable_check.cfg")););
 
             // -------
 

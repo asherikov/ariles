@@ -30,9 +30,7 @@ namespace ariles_tests
         /**
          * @brief This method must be defined
          */
-        void arilesVisit(
-                const ariles::Defaults & /*visitor*/,
-                const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
         {
             real_ = 1.33;
         }
@@ -41,8 +39,8 @@ namespace ariles_tests
 
     class ConfigurableStrictness2 : public ConfigurableStrictness1
     {
-#define ARILES_ENTRIES                                                                             \
-    ARILES_TYPED_ENTRY_(integer, int)                                                              \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_TYPED_ENTRY_(integer, int)                                                                                  \
     ARILES_PARENT(ConfigurableStrictness1)
 #include ARILES_INITIALIZE
 

@@ -11,9 +11,8 @@
 #define ARILES_API_VERSION 2
 #include "utility.h"
 
-#define ARILES_DEFAULT_CONFIGURABLE_FLAGS                                                          \
-    ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED                                            \
-            | ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED                                 \
+#define ARILES_DEFAULT_CONFIGURABLE_FLAGS                                                                              \
+    ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED | ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED         \
             | ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES
 
 #ifdef ARILES_VISITOR_yaml_cpp03
@@ -36,8 +35,8 @@ namespace ariles_tests
 {
     struct SubstateParams : public ariles::DefaultBase
     {
-#define ARILES_ENTRIES                                                                             \
-    ARILES_ENTRY(type)                                                                             \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_ENTRY(type)                                                                                                 \
     ARILES_ENTRY(remappings)
 #include ARILES_INITIALIZE
 
@@ -97,7 +96,7 @@ namespace ariles_tests
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                           \
+#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                                               \
     ARILES_FIXTURE_TEST_CASE(ReadFixture, VISITOR_ID, NAMESPACE, StateMachineParams, INITIALIZER)
 
 #ifdef ARILES_VISITOR_INCLUDED_yaml_cpp03

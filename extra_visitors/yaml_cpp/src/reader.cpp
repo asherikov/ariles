@@ -123,8 +123,7 @@ namespace ariles
                 child_names.resize(selected_node.size());
 
                 std::size_t i = 0;
-                for (YAML::const_iterator it = selected_node.begin(); it != selected_node.end();
-                     ++it, ++i)
+                for (YAML::const_iterator it = selected_node.begin(); it != selected_node.end(); ++it, ++i)
                 {
                     child_names[i] = it->first.as<std::string>();
                 }
@@ -148,8 +147,7 @@ namespace ariles
         void Reader::shiftArray()
         {
             ARILES_TRACE_FUNCTION;
-            ARILES_ASSERT(
-                    true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ARILES_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
@@ -164,11 +162,11 @@ namespace ariles
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    void Reader::readElement(type &element)                                                        \
-    {                                                                                              \
-        ARILES_TRACE_FUNCTION;                                                                     \
-        element = impl_->getRawNode().as<type>();                                                  \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    void Reader::readElement(type &element)                                                                            \
+    {                                                                                                                  \
+        ARILES_TRACE_FUNCTION;                                                                                         \
+        element = impl_->getRawNode().as<type>();                                                                      \
     }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)

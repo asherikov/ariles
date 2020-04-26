@@ -92,10 +92,10 @@ namespace ariles
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    void Writer::writeElement(const type &element)                                                 \
-    {                                                                                              \
-        impl_->packer_->pack(element);                                                             \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    void Writer::writeElement(const type &element)                                                                     \
+    {                                                                                                                  \
+        impl_->packer_->pack(element);                                                                                 \
     }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)

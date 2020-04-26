@@ -26,9 +26,7 @@ namespace ariles
             typename t_Visitor::Parameters param = parameters;
             if (false == param.isSet(t_Visitor::Parameters::PROPAGATE_ALLOW_MISSING_ENTRIES))
             {
-                param.set(
-                        t_Visitor::Parameters::DEFAULT
-                        & t_Visitor::Parameters::ALLOW_MISSING_ENTRIES);
+                param.set(t_Visitor::Parameters::DEFAULT & t_Visitor::Parameters::ALLOW_MISSING_ENTRIES);
             }
 
             ariles::count::Visitor counter;
@@ -69,14 +67,14 @@ namespace ariles
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    template <class t_Visitor>                                                                     \
-    void ARILES_VISIBILITY_ATTRIBUTE apply_read(                                                   \
-            t_Visitor &visitor, type &entry, const typename t_Visitor::Parameters &param)          \
-    {                                                                                              \
-        ARILES_TRACE_FUNCTION;                                                                     \
-        ARILES_UNUSED_ARG(param);                                                                  \
-        visitor.readElement(entry);                                                                \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    template <class t_Visitor>                                                                                         \
+    void ARILES_VISIBILITY_ATTRIBUTE apply_read(                                                                       \
+            t_Visitor &visitor, type &entry, const typename t_Visitor::Parameters &param)                              \
+    {                                                                                                                  \
+        ARILES_TRACE_FUNCTION;                                                                                         \
+        ARILES_UNUSED_ARG(param);                                                                                      \
+        visitor.readElement(entry);                                                                                    \
     }
 
         ARILES_BASIC_TYPES_LIST
@@ -120,13 +118,13 @@ namespace ariles
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    template <class t_Visitor>                                                                     \
-    void ARILES_VISIBILITY_ATTRIBUTE apply_write(                                                  \
-            t_Visitor &writer, const type &entry, const typename t_Visitor::Parameters &)          \
-    {                                                                                              \
-        ARILES_TRACE_FUNCTION;                                                                     \
-        writer.writeElement(entry);                                                                \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    template <class t_Visitor>                                                                                         \
+    void ARILES_VISIBILITY_ATTRIBUTE apply_write(                                                                      \
+            t_Visitor &writer, const type &entry, const typename t_Visitor::Parameters &)                              \
+    {                                                                                                                  \
+        ARILES_TRACE_FUNCTION;                                                                                         \
+        writer.writeElement(entry);                                                                                    \
     }
 
         /**
@@ -178,23 +176,20 @@ namespace ariles
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    template <class t_Visitor>                                                                     \
-    inline void ARILES_VISIBILITY_ATTRIBUTE apply_compare(                                         \
-            t_Visitor &visitor,                                                                    \
-            const type &left,                                                                      \
-            const type &right,                                                                     \
-            const typename t_Visitor::Parameters &)                                                \
-    {                                                                                              \
-        visitor.equal_ &= (left == right);                                                         \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    template <class t_Visitor>                                                                                         \
+    inline void ARILES_VISIBILITY_ATTRIBUTE apply_compare(                                                             \
+            t_Visitor &visitor, const type &left, const type &right, const typename t_Visitor::Parameters &)           \
+    {                                                                                                                  \
+        visitor.equal_ &= (left == right);                                                                             \
     }
 
 /**
  * @brief Generate compare methods for basic types.
  */
-#define ARILES_COMPARE_TYPES_LIST                                                                  \
-    ARILES_BASIC_INTEGER_TYPES_LIST                                                                \
-    ARILES_BASIC_TYPE(bool)                                                                        \
+#define ARILES_COMPARE_TYPES_LIST                                                                                      \
+    ARILES_BASIC_INTEGER_TYPES_LIST                                                                                    \
+    ARILES_BASIC_TYPE(bool)                                                                                            \
     ARILES_BASIC_TYPE(std::string)
 
         ARILES_COMPARE_TYPES_LIST
@@ -254,13 +249,13 @@ namespace ariles
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    template <class t_Visitor>                                                                     \
-    void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(                                               \
-            const t_Visitor &, type &entry, const typename t_Visitor::Parameters &param)           \
-    {                                                                                              \
-        ARILES_TRACE_FUNCTION;                                                                     \
-        entry = param.template getDefault<type>();                                                 \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    template <class t_Visitor>                                                                                         \
+    void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(                                                                   \
+            const t_Visitor &, type &entry, const typename t_Visitor::Parameters &param)                               \
+    {                                                                                                                  \
+        ARILES_TRACE_FUNCTION;                                                                                         \
+        entry = param.template getDefault<type>();                                                                     \
     }
 
         ARILES_BASIC_TYPES_LIST

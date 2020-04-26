@@ -24,8 +24,7 @@ namespace ariles
     {
         namespace impl
         {
-            class ARILES_LIB_LOCAL Writer
-              : public ariles::ns_rapidjson::ImplBase< ::rapidjson::Value>
+            class ARILES_LIB_LOCAL Writer : public ariles::ns_rapidjson::ImplBase< ::rapidjson::Value>
             {
             public:
                 /// output file stream
@@ -123,8 +122,7 @@ namespace ariles
 
         void Writer::shiftArray()
         {
-            ARILES_ASSERT(
-                    true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ARILES_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
@@ -163,8 +161,7 @@ namespace ariles
             else
             {
                 impl_->getRawNode().SetString(
-                        boost::lexical_cast<std::string>(element).c_str(),
-                        impl_->document_.GetAllocator());
+                        boost::lexical_cast<std::string>(element).c_str(), impl_->document_.GetAllocator());
             }
         }
 
@@ -178,17 +175,16 @@ namespace ariles
             else
             {
                 impl_->getRawNode().SetString(
-                        boost::lexical_cast<std::string>(element).c_str(),
-                        impl_->document_.GetAllocator());
+                        boost::lexical_cast<std::string>(element).c_str(), impl_->document_.GetAllocator());
             }
         }
 
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    void Writer::writeElement(const type &element)                                                 \
-    {                                                                                              \
-        impl_->getRawNode().SetInt64(element);                                                     \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    void Writer::writeElement(const type &element)                                                                     \
+    {                                                                                                                  \
+        impl_->getRawNode().SetInt64(element);                                                                         \
     }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
@@ -196,10 +192,10 @@ namespace ariles
 #undef ARILES_BASIC_TYPE
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    void Writer::writeElement(const type &element)                                                 \
-    {                                                                                              \
-        impl_->getRawNode().SetUint64(element);                                                    \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    void Writer::writeElement(const type &element)                                                                     \
+    {                                                                                                                  \
+        impl_->getRawNode().SetUint64(element);                                                                        \
     }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)

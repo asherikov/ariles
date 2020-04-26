@@ -54,8 +54,7 @@ namespace ariles
             }
 
             template <class t_Flags>
-            explicit Reader(const std::string &file_name, const t_Flags &flags)
-              : t_ParentVisitor(flags)
+            explicit Reader(const std::string &file_name, const t_Flags &flags) : t_ParentVisitor(flags)
             {
                 const char *jsonnet_output = impl_.fromFile(file_name);
                 t_ParentVisitor::constructFromString(jsonnet_output);
@@ -78,8 +77,7 @@ namespace ariles
             }
 
             template <class t_Flags>
-            explicit Reader(std::istream &input_stream, const t_Flags &flags)
-              : t_ParentVisitor(flags)
+            explicit Reader(std::istream &input_stream, const t_Flags &flags) : t_ParentVisitor(flags)
             {
                 std::string input_string;
                 char buffer[4096];

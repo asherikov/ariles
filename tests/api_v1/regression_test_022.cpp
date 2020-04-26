@@ -35,9 +35,9 @@
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                           \
-    ARILES_FIXTURE_TEST_CASE(FlagsFixture, VISITOR_ID, NAMESPACE, ConfigurableFlags0, INITIALIZER) \
-    ARILES_FIXTURE_TEST_CASE(FlagsFixture, VISITOR_ID, NAMESPACE, ConfigurableFlags1, INITIALIZER) \
+#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                                               \
+    ARILES_FIXTURE_TEST_CASE(FlagsFixture, VISITOR_ID, NAMESPACE, ConfigurableFlags0, INITIALIZER)                     \
+    ARILES_FIXTURE_TEST_CASE(FlagsFixture, VISITOR_ID, NAMESPACE, ConfigurableFlags1, INITIALIZER)                     \
     ARILES_FIXTURE_TEST_CASE(FlagsFixture, VISITOR_ID, NAMESPACE, ConfigurableFlags2, INITIALIZER)
 
 

@@ -108,8 +108,8 @@ namespace ariles
     }  // namespace debug
 }  // namespace ariles
 
-#    define ARILES_TRACE_FUNCTION                                                                  \
-        char trace_path[] = __FILE__;                                                              \
+#    define ARILES_TRACE_FUNCTION                                                                                      \
+        char trace_path[] = __FILE__;                                                                                  \
         ariles::debug::Tracer tracer(__func__, basename(trace_path), __LINE__);
    // ariles::debug::Tracer tracer(__PRETTY_FUNCTION__, basename(trace_path), __LINE__);
 #    define ARILES_TRACE_ENTRY(entry_name) tracer.output("Processing entry: ", entry_name);

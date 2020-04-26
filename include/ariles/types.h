@@ -152,8 +152,7 @@ namespace ariles
 
         // Ariles methods
 
-        void writeConfigEntries(ariles::WriterBase &writer, const ariles::ConfigurableFlags &param)
-                const
+        void writeConfigEntries(ariles::WriterBase &writer, const ariles::ConfigurableFlags &param) const
         {
             ARILES_ASSERT(
                     true == isConsitent(),
@@ -167,9 +166,7 @@ namespace ariles
         }
 
 
-        void readConfigEntries(
-                ariles::ReaderBase &reader,
-                const ariles::ConfigurableFlags &parameters)
+        void readConfigEntries(ariles::ReaderBase &reader, const ariles::ConfigurableFlags &parameters)
         {
             if (true == reader(id_, "id", parameters))
             {
@@ -300,18 +297,14 @@ namespace ariles
         }
 
 
-        void writeConfigEntries(
-                ariles::WriterBase &writer,
-                const ariles::ConfigurableFlags &parameters) const
+        void writeConfigEntries(ariles::WriterBase &writer, const ariles::ConfigurableFlags &parameters) const
         {
             ARILES_ASSERT(false == isNull(), "Could not write config: entry is not initialized");
             value_->writeConfigEntries(writer, parameters);
         }
 
 
-        void readConfigEntries(
-                ariles::ReaderBase &reader,
-                const ariles::ConfigurableFlags &parameters)
+        void readConfigEntries(ariles::ReaderBase &reader, const ariles::ConfigurableFlags &parameters)
         {
             Handler::allocate(value_);
             value_->readConfigEntries(reader, parameters);

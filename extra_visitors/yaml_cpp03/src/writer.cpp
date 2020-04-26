@@ -188,10 +188,10 @@ namespace ariles
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    void Writer::writeElement(const type &element)                                                 \
-    {                                                                                              \
-        *impl_->emitter_ << element;                                                               \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    void Writer::writeElement(const type &element)                                                                     \
+    {                                                                                                                  \
+        *impl_->emitter_ << element;                                                                                   \
     }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_INTEGER_TYPES_LIST)
@@ -199,31 +199,31 @@ namespace ariles
 #undef ARILES_BASIC_TYPE
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    void Writer::writeElement(const type &element)                                                 \
-    {                                                                                              \
-        if (true == ariles::isNaN(element))                                                        \
-        {                                                                                          \
-            *impl_->emitter_ << ".nan";                                                            \
-        }                                                                                          \
-        else                                                                                       \
-        {                                                                                          \
-            if (true == ariles::isInfinity(element))                                               \
-            {                                                                                      \
-                if (element < 0.0)                                                                 \
-                {                                                                                  \
-                    *impl_->emitter_ << "-.inf";                                                   \
-                }                                                                                  \
-                else                                                                               \
-                {                                                                                  \
-                    *impl_->emitter_ << ".inf";                                                    \
-                }                                                                                  \
-            }                                                                                      \
-            else                                                                                   \
-            {                                                                                      \
-                *impl_->emitter_ << element;                                                       \
-            }                                                                                      \
-        }                                                                                          \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    void Writer::writeElement(const type &element)                                                                     \
+    {                                                                                                                  \
+        if (true == ariles::isNaN(element))                                                                            \
+        {                                                                                                              \
+            *impl_->emitter_ << ".nan";                                                                                \
+        }                                                                                                              \
+        else                                                                                                           \
+        {                                                                                                              \
+            if (true == ariles::isInfinity(element))                                                                   \
+            {                                                                                                          \
+                if (element < 0.0)                                                                                     \
+                {                                                                                                      \
+                    *impl_->emitter_ << "-.inf";                                                                       \
+                }                                                                                                      \
+                else                                                                                                   \
+                {                                                                                                      \
+                    *impl_->emitter_ << ".inf";                                                                        \
+                }                                                                                                      \
+            }                                                                                                          \
+            else                                                                                                       \
+            {                                                                                                          \
+                *impl_->emitter_ << element;                                                                           \
+            }                                                                                                          \
+        }                                                                                                              \
     }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)

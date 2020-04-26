@@ -13,8 +13,8 @@ namespace ariles_tests
     class ConfigurableFinalizeBase : public ariles::ConfigurableBase
     {
 #define ARILES_SECTION_ID "ConfigurableFinalizeBase"
-#define ARILES_ENTRIES                                                                             \
-    ARILES_TYPED_ENTRY_(integer, int)                                                              \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_TYPED_ENTRY_(integer, int)                                                                                  \
     ARILES_TYPED_ENTRY_(real, double)
 #include ARILES_INITIALIZE
 
@@ -61,8 +61,8 @@ namespace ariles_tests
     class ConfigurableFinalize : public ConfigurableFinalizeBase
     {
 #define ARILES_SECTION_ID "ConfigurableFinalize"
-#define ARILES_ENTRIES                                                                             \
-    ARILES_PARENT(ConfigurableFinalizeBase)                                                        \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_PARENT(ConfigurableFinalizeBase)                                                                            \
     ARILES_TYPED_ENTRY_(member, ConfigurableFinalizeBase)
 #define ARILES_AUTO_DEFAULTS
 #include ARILES_INITIALIZE
@@ -95,22 +95,15 @@ namespace ariles_tests
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
     // comparison
     template <class t_Configurable_out, class t_Configurable_in>
-    void compare(
-            const t_Configurable_out &configurable_out,
-            const t_Configurable_in &configurable_in)
+    void compare(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)
     {
         BOOST_CHECK_EQUAL(configurable_out.integer_, configurable_in.integer_);
         BOOST_CHECK_CLOSE(configurable_out.real_, configurable_in.real_, g_tolerance);
-        BOOST_CHECK_CLOSE(
-                configurable_out.another_real_, configurable_in.another_real_, g_tolerance);
+        BOOST_CHECK_CLOSE(configurable_out.another_real_, configurable_in.another_real_, g_tolerance);
 
         BOOST_CHECK_EQUAL(configurable_out.member_.integer_, configurable_in.member_.integer_);
-        BOOST_CHECK_CLOSE(
-                configurable_out.member_.real_, configurable_in.member_.real_, g_tolerance);
-        BOOST_CHECK_CLOSE(
-                configurable_out.member_.another_real_,
-                configurable_in.member_.another_real_,
-                g_tolerance);
+        BOOST_CHECK_CLOSE(configurable_out.member_.real_, configurable_in.member_.real_, g_tolerance);
+        BOOST_CHECK_CLOSE(configurable_out.member_.another_real_, configurable_in.member_.another_real_, g_tolerance);
 
         t_Configurable_in manual_finalize = configurable_in;
         manual_finalize.another_real_ = 0.0;
@@ -119,16 +112,11 @@ namespace ariles_tests
 
         BOOST_CHECK_EQUAL(manual_finalize.integer_, configurable_in.integer_);
         BOOST_CHECK_CLOSE(manual_finalize.real_, configurable_in.real_, g_tolerance);
-        BOOST_CHECK_CLOSE(
-                manual_finalize.another_real_, configurable_in.another_real_, g_tolerance);
+        BOOST_CHECK_CLOSE(manual_finalize.another_real_, configurable_in.another_real_, g_tolerance);
 
         BOOST_CHECK_EQUAL(manual_finalize.member_.integer_, configurable_in.member_.integer_);
-        BOOST_CHECK_CLOSE(
-                manual_finalize.member_.real_, configurable_in.member_.real_, g_tolerance);
-        BOOST_CHECK_CLOSE(
-                manual_finalize.member_.another_real_,
-                configurable_in.member_.another_real_,
-                g_tolerance);
+        BOOST_CHECK_CLOSE(manual_finalize.member_.real_, configurable_in.member_.real_, g_tolerance);
+        BOOST_CHECK_CLOSE(manual_finalize.member_.another_real_, configurable_in.member_.another_real_, g_tolerance);
 
 
         // Known issue.
@@ -138,12 +126,10 @@ namespace ariles_tests
 
         BOOST_CHECK_EQUAL(manual_finalize.integer_, configurable_in.integer_);
         BOOST_CHECK_CLOSE(manual_finalize.real_, configurable_in.real_, g_tolerance);
-        BOOST_CHECK_CLOSE(
-                manual_finalize.another_real_, configurable_in.another_real_, g_tolerance);
+        BOOST_CHECK_CLOSE(manual_finalize.another_real_, configurable_in.another_real_, g_tolerance);
 
         BOOST_CHECK_EQUAL(manual_finalize.member_.integer_, configurable_in.member_.integer_);
-        BOOST_CHECK_CLOSE(
-                manual_finalize.member_.real_, configurable_in.member_.real_, g_tolerance);
+        BOOST_CHECK_CLOSE(manual_finalize.member_.real_, configurable_in.member_.real_, g_tolerance);
         BOOST_CHECK_EQUAL(manual_finalize.member_.another_real_, 0.0);  // <--
     }
 #endif

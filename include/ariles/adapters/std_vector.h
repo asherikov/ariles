@@ -46,8 +46,7 @@ namespace ariles
                 const typename t_Visitor::Parameters &param)
         {
             ARILES_TRACE_FUNCTION;
-            writer.startArray(
-                    entry.size(), param.isSet(t_Visitor::Parameters::COMPACT_ARRAYS_IF_SUPPORTED));
+            writer.startArray(entry.size(), param.isSet(t_Visitor::Parameters::COMPACT_ARRAYS_IF_SUPPORTED));
             for (std::size_t i = 0; i < entry.size(); ++i)
             {
                 apply_write(writer, entry[i], param);

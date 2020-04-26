@@ -48,14 +48,12 @@ namespace ariles_tests
             {
                 t_Configurable configurable;
                 configurable.randomize();
-                configurable.template writeConfig<t_Visitor>(
-                        getWriterInitializer("configurable2.cfg"));
+                configurable.template writeConfig<t_Visitor>(getWriterInitializer("configurable2.cfg"));
             }
 
             {
                 t_Configurable configurable;
-                configurable.template readConfig<t_Visitor>(
-                        getReaderInitializer("configurable2.cfg"));
+                configurable.template readConfig<t_Visitor>(getReaderInitializer("configurable2.cfg"));
             }
 
 
@@ -76,9 +74,7 @@ namespace ariles_tests
 
                 typename t_Visitor::Reader reader(getReaderInitializer("configurable.cfg"));
                 configurable.readConfig(
-                        reader,
-                        ariles::ConfigurableFlags::DEFAULT
-                                | ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
+                        reader, ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
             }
 
             // --------------------------------
@@ -88,16 +84,14 @@ namespace ariles_tests
             {
                 t_Configurable configurable;
                 configurable.randomize();
-                configurable.template writeConfig<t_Visitor>(
-                        getWriterInitializer("configurable2.cfg"));
+                configurable.template writeConfig<t_Visitor>(getWriterInitializer("configurable2.cfg"));
             }
 
             {
                 t_Configurable configurable;
                 configurable.template readConfig<t_Visitor>(
                         getReaderInitializer("configurable2.cfg"),
-                        ariles::ConfigurableFlags::DEFAULT
-                                | ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
+                        ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
             }
         }
     };

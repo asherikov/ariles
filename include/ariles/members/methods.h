@@ -78,10 +78,7 @@ void arilesVisit(t_Visitor &visitor, const typename t_Visitor::Parameters &param
 #            define ARILES_PARENT(entry) entry::arilesVisit(visitor, other, parameters);
 
 template <class t_Visitor, class t_Other>
-void arilesVisit(
-        t_Visitor &visitor,
-        const t_Other &other,
-        const typename t_Visitor::Parameters &parameters) const
+void arilesVisit(t_Visitor &visitor, const t_Other &other, const typename t_Visitor::Parameters &parameters) const
 {
     ARILES_UNUSED_ARG(visitor);
     ARILES_UNUSED_ARG(other);

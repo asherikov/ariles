@@ -103,9 +103,7 @@ namespace ariles
             }
 
 
-            explicit GenericWriter(
-                    std::vector<t_NameValuePair> *name_value_pairs,
-                    const std::size_t reserve = 0)
+            explicit GenericWriter(std::vector<t_NameValuePair> *name_value_pairs, const std::size_t reserve = 0)
             {
                 name_value_pairs_ = name_value_pairs;
 
@@ -213,9 +211,7 @@ namespace ariles
             {
                 if (true == initialize_structure_)
                 {
-                    ARILES_ASSERT(
-                            true == node_stack_.back().isArray(),
-                            "Internal error: array expected.");
+                    ARILES_ASSERT(true == node_stack_.back().isArray(), "Internal error: array expected.");
                     ++node_stack_.back().index_;
                 }
             }
@@ -229,23 +225,22 @@ namespace ariles
             }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    void writeElement(const type &element)                                                         \
-    {                                                                                              \
-        expand();                                                                                  \
-        if (true == initialize_structure_)                                                         \
-        {                                                                                          \
-            NameValuePairHandler<t_NameValuePair>::name((*name_value_pairs_)[index_]) =            \
-                    node_stack_.back().node_;                                                      \
-            if (true == node_stack_.back().isArray())                                              \
-            {                                                                                      \
-                NameValuePairHandler<t_NameValuePair>::name((*name_value_pairs_)[index_]) += "_";  \
-                NameValuePairHandler<t_NameValuePair>::name((*name_value_pairs_)[index_]) +=       \
-                        boost::lexical_cast<std::string>(node_stack_.back().index_);               \
-            }                                                                                      \
-        }                                                                                          \
-        NameValuePairHandler<t_NameValuePair>::value((*name_value_pairs_)[index_]) = element;      \
-        ++index_;                                                                                  \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    void writeElement(const type &element)                                                                             \
+    {                                                                                                                  \
+        expand();                                                                                                      \
+        if (true == initialize_structure_)                                                                             \
+        {                                                                                                              \
+            NameValuePairHandler<t_NameValuePair>::name((*name_value_pairs_)[index_]) = node_stack_.back().node_;      \
+            if (true == node_stack_.back().isArray())                                                                  \
+            {                                                                                                          \
+                NameValuePairHandler<t_NameValuePair>::name((*name_value_pairs_)[index_]) += "_";                      \
+                NameValuePairHandler<t_NameValuePair>::name((*name_value_pairs_)[index_]) +=                           \
+                        boost::lexical_cast<std::string>(node_stack_.back().index_);                                   \
+            }                                                                                                          \
+        }                                                                                                              \
+        NameValuePairHandler<t_NameValuePair>::value((*name_value_pairs_)[index_]) = element;                          \
+        ++index_;                                                                                                      \
     }
 
             ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)

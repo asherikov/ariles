@@ -38,8 +38,7 @@ namespace ariles
         };
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor
-          : public ariles::visitor::Base<defaults::Parameters>
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Base<defaults::Parameters>
         {
         public:
             typedef defaults::Parameters Parameters;

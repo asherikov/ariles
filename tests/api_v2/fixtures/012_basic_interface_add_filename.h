@@ -48,14 +48,12 @@ namespace ariles_tests
             {
                 t_Configurable configurable;
                 configurable.randomize();
-                ariles::apply<typename t_Visitor::Writer>(
-                        std::string("configurable2") + ".cfg", configurable);
+                ariles::apply<typename t_Visitor::Writer>(std::string("configurable2") + ".cfg", configurable);
             }
 
             {
                 t_Configurable configurable;
-                ariles::apply<typename t_Visitor::Reader>(
-                        std::string("configurable2") + ".cfg", configurable);
+                ariles::apply<typename t_Visitor::Reader>(std::string("configurable2") + ".cfg", configurable);
             }
 
 
@@ -79,8 +77,7 @@ namespace ariles_tests
                 ariles::apply(
                         reader,
                         configurable,
-                        ariles::ConfigurableFlags::DEFAULT
-                                | ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
+                        ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
             }
 
             // --------------------------------
@@ -90,8 +87,7 @@ namespace ariles_tests
             {
                 t_Configurable configurable;
                 configurable.randomize();
-                ariles::apply<typename t_Visitor::Writer>(
-                        std::string("configurable4") + ".cfg", configurable);
+                ariles::apply<typename t_Visitor::Writer>(std::string("configurable4") + ".cfg", configurable);
             }
 
             {
@@ -99,8 +95,7 @@ namespace ariles_tests
                 ariles::apply<typename t_Visitor::Reader>(
                         std::string("configurable4") + ".cfg",
                         configurable,
-                        ariles::ConfigurableFlags::DEFAULT
-                                | ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
+                        ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
             }
         }
     };

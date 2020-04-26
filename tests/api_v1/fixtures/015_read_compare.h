@@ -29,8 +29,8 @@ namespace ariles_tests
 
             configurable_default.setDefaults();
 
-            BOOST_CHECK_NO_THROW(configurable_read.template readConfig<t_Visitor>(
-                    getReaderInitializer("configurable.cfg")););
+            BOOST_CHECK_NO_THROW(
+                    configurable_read.template readConfig<t_Visitor>(getReaderInitializer("configurable.cfg")););
 
             compare(configurable_default, configurable_read);
         }

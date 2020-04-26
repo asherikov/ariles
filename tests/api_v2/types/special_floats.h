@@ -13,14 +13,14 @@ namespace ariles_tests
 {
     class ConfigurableSpecialFloats : virtual public ariles::DefaultBase
     {
-#define ARILES_ENTRIES                                                                             \
-    ARILES_TYPED_ENTRY_(float_quiet_nan, float)                                                    \
-    ARILES_TYPED_ENTRY_(float_signaling_nan, float)                                                \
-    ARILES_TYPED_ENTRY_(float_positive_infinity, float)                                            \
-    ARILES_TYPED_ENTRY_(float_negative_infinity, float)                                            \
-    ARILES_TYPED_ENTRY_(double_quiet_nan, double)                                                  \
-    ARILES_TYPED_ENTRY_(double_signaling_nan, double)                                              \
-    ARILES_TYPED_ENTRY_(double_positive_infinity, double)                                          \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_TYPED_ENTRY_(float_quiet_nan, float)                                                                        \
+    ARILES_TYPED_ENTRY_(float_signaling_nan, float)                                                                    \
+    ARILES_TYPED_ENTRY_(float_positive_infinity, float)                                                                \
+    ARILES_TYPED_ENTRY_(float_negative_infinity, float)                                                                \
+    ARILES_TYPED_ENTRY_(double_quiet_nan, double)                                                                      \
+    ARILES_TYPED_ENTRY_(double_signaling_nan, double)                                                                  \
+    ARILES_TYPED_ENTRY_(double_positive_infinity, double)                                                              \
     ARILES_TYPED_ENTRY_(double_negative_infinity, double)
 #include ARILES_INITIALIZE
 
@@ -39,9 +39,7 @@ namespace ariles_tests
         }
 
 
-        void arilesVisit(
-                const ariles::Defaults & /*visitor*/,
-                const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
         {
             postprocessd_ = false;
 
@@ -75,9 +73,7 @@ namespace ariles_tests
         }
 #endif
 
-        void arilesVisit(
-                const ariles::PostProcess & /*visitor*/,
-                const ariles::PostProcess::Parameters & /*param*/)
+        void arilesVisit(const ariles::PostProcess & /*visitor*/, const ariles::PostProcess::Parameters & /*param*/)
         {
             postprocessd_ = true;
         }

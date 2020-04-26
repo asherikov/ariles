@@ -23,8 +23,7 @@ namespace ariles
         /**
          * @brief Configuration reader class
          */
-        class ARILES_LIB_EXPORT Writer
-          : public ns_yaml_cpp::Base<ariles::write::Visitor, impl::Writer>
+        class ARILES_LIB_EXPORT Writer : public ns_yaml_cpp::Base<ariles::write::Visitor, impl::Writer>
         {
         public:
             explicit Writer(const std::string &file_name);

@@ -22,15 +22,14 @@
 #    include <type_traits>
 #    include <memory>
 
-#    define ARILES_IS_ENUM_ENABLER(Enum)                                                           \
-        const typename std::enable_if<(std::is_enum<Enum>::value)>::type * = NULL
+#    define ARILES_IS_ENUM_ENABLER(Enum) const typename std::enable_if<(std::is_enum<Enum>::value)>::type * = NULL
 
 #    define ARILES_IS_BASE_OF(Base, Derived) std::is_base_of<Base, Derived>::value
 
-#    define ARILES_IS_BASE_ENABLER(Base, Derived)                                                  \
+#    define ARILES_IS_BASE_ENABLER(Base, Derived)                                                                      \
         const typename std::enable_if<(ARILES_IS_BASE_OF(Base, Derived))>::type * = NULL
 
-#    define ARILES_IS_BASE_DISABLER(Base, Derived)                                                 \
+#    define ARILES_IS_BASE_DISABLER(Base, Derived)                                                                     \
         const typename std::enable_if<not(ARILES_IS_BASE_OF(Base, Derived))>::type * = NULL
 
 #    define ARILES_SHARED_PTR std::shared_ptr
@@ -42,15 +41,14 @@
 #    include <boost/type_traits/is_base_of.hpp>
 #    include <boost/smart_ptr/shared_ptr.hpp>
 
-#    define ARILES_IS_ENUM_ENABLER(Enum)                                                           \
-        const typename boost::enable_if_c<(boost::is_enum<Enum>::value)>::type * = NULL
+#    define ARILES_IS_ENUM_ENABLER(Enum) const typename boost::enable_if_c<(boost::is_enum<Enum>::value)>::type * = NULL
 
 #    define ARILES_IS_BASE_OF(Base, Derived) boost::is_base_of<Base, Derived>::value
 
-#    define ARILES_IS_BASE_ENABLER(Base, Derived)                                                  \
+#    define ARILES_IS_BASE_ENABLER(Base, Derived)                                                                      \
         const typename boost::enable_if_c<(ARILES_IS_BASE_OF(Base, Derived))>::type * = NULL
 
-#    define ARILES_IS_BASE_DISABLER(Base, Derived)                                                 \
+#    define ARILES_IS_BASE_DISABLER(Base, Derived)                                                                     \
         const typename boost::enable_if_c<not(ARILES_IS_BASE_OF(Base, Derived))>::type * = NULL
 
 
@@ -74,33 +72,33 @@
 #define ARILES_EMPTY_MACRO
 
 
-#define ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST                                                     \
-    ARILES_BASIC_TYPE(int)                                                                         \
-    ARILES_BASIC_TYPE(short)                                                                       \
-    ARILES_BASIC_TYPE(long)                                                                        \
+#define ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST                                                                         \
+    ARILES_BASIC_TYPE(int)                                                                                             \
+    ARILES_BASIC_TYPE(short)                                                                                           \
+    ARILES_BASIC_TYPE(long)                                                                                            \
     ARILES_BASIC_TYPE(char)
 
-#define ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST                                                   \
-    ARILES_BASIC_TYPE(unsigned int)                                                                \
-    ARILES_BASIC_TYPE(unsigned short)                                                              \
-    ARILES_BASIC_TYPE(unsigned long)                                                               \
+#define ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST                                                                       \
+    ARILES_BASIC_TYPE(unsigned int)                                                                                    \
+    ARILES_BASIC_TYPE(unsigned short)                                                                                  \
+    ARILES_BASIC_TYPE(unsigned long)                                                                                   \
     ARILES_BASIC_TYPE(unsigned char)
 
-#define ARILES_BASIC_INTEGER_TYPES_LIST                                                            \
-    ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST                                                         \
+#define ARILES_BASIC_INTEGER_TYPES_LIST                                                                                \
+    ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST                                                                             \
     ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST
 
-#define ARILES_BASIC_REAL_TYPES_LIST                                                               \
-    ARILES_BASIC_TYPE(float)                                                                       \
+#define ARILES_BASIC_REAL_TYPES_LIST                                                                                   \
+    ARILES_BASIC_TYPE(float)                                                                                           \
     ARILES_BASIC_TYPE(double)
 
-#define ARILES_BASIC_NUMERIC_TYPES_LIST                                                            \
-    ARILES_BASIC_INTEGER_TYPES_LIST                                                                \
-    ARILES_BASIC_REAL_TYPES_LIST                                                                   \
+#define ARILES_BASIC_NUMERIC_TYPES_LIST                                                                                \
+    ARILES_BASIC_INTEGER_TYPES_LIST                                                                                    \
+    ARILES_BASIC_REAL_TYPES_LIST                                                                                       \
     ARILES_BASIC_TYPE(bool)
 
-#define ARILES_BASIC_TYPES_LIST                                                                    \
-    ARILES_BASIC_NUMERIC_TYPES_LIST                                                                \
+#define ARILES_BASIC_TYPES_LIST                                                                                        \
+    ARILES_BASIC_NUMERIC_TYPES_LIST                                                                                    \
     ARILES_BASIC_TYPE(std::string)
 
 

@@ -42,8 +42,8 @@ namespace ariles_tests
     {
 #define ARILES_SECTION_ID "unique_id_on_a_particular_level_in_a_configuration_file"
 #define ARILES_CONSTRUCTOR ConfigurableStrictness2
-#define ARILES_ENTRIES                                                                             \
-    ARILES_TYPED_ENTRY_(integer, int)                                                              \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_TYPED_ENTRY_(integer, int)                                                                                  \
     ARILES_PARENT(ConfigurableStrictness1)
 #include ARILES_INITIALIZE
 

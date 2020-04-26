@@ -51,29 +51,21 @@ namespace ariles_tests
 #pragma GCC diagnostic pop
 
 
-#define ARILES_FIXTURE_TEST_CASE(                                                                  \
-        FIXTURE_NAME, VISITOR_ID, FORMAT_NAMESPACE, CONFIGURABLE_TYPE, INITIALIZER_TYPE)           \
-    BOOST_FIXTURE_TEST_CASE(                                                                       \
-            FIXTURE_NAME##_##VISITOR_ID##_##CONFIGURABLE_TYPE##_##INITIALIZER_TYPE,                \
-            ariles_tests::FIXTURE_NAME<ariles_tests::initializers::INITIALIZER_TYPE>)              \
-    {                                                                                              \
-        test<ariles_tests::CONFIGURABLE_TYPE, ariles::FORMAT_NAMESPACE>();                         \
+#define ARILES_FIXTURE_TEST_CASE(FIXTURE_NAME, VISITOR_ID, FORMAT_NAMESPACE, CONFIGURABLE_TYPE, INITIALIZER_TYPE)      \
+    BOOST_FIXTURE_TEST_CASE(                                                                                           \
+            FIXTURE_NAME##_##VISITOR_ID##_##CONFIGURABLE_TYPE##_##INITIALIZER_TYPE,                                    \
+            ariles_tests::FIXTURE_NAME<ariles_tests::initializers::INITIALIZER_TYPE>)                                  \
+    {                                                                                                                  \
+        test<ariles_tests::CONFIGURABLE_TYPE, ariles::FORMAT_NAMESPACE>();                                             \
     }
 
-#define ARILES_FIXTURE_TEST_CASE_2CLASSES(                                                                  \
-        FIXTURE_NAME,                                                                                       \
-        VISITOR_ID,                                                                                         \
-        FORMAT_NAMESPACE,                                                                                   \
-        CONFIGURABLE_TYPE1,                                                                                 \
-        CONFIGURABLE_TYPE2,                                                                                 \
-        INITIALIZER_TYPE)                                                                                   \
-    BOOST_FIXTURE_TEST_CASE(                                                                                \
-            FIXTURE_NAME##_##VISITOR_ID##_##CONFIGURABLE_TYPE1##_##CONFIGURABLE_TYPE2##_##INITIALIZER_TYPE, \
-            ariles_tests::FIXTURE_NAME<ariles_tests::initializers::INITIALIZER_TYPE>)                       \
-    {                                                                                                       \
-        test<ariles_tests::CONFIGURABLE_TYPE1,                                                              \
-             ariles_tests::CONFIGURABLE_TYPE2,                                                              \
-             ariles::FORMAT_NAMESPACE>();                                                                   \
+#define ARILES_FIXTURE_TEST_CASE_2CLASSES(                                                                             \
+        FIXTURE_NAME, VISITOR_ID, FORMAT_NAMESPACE, CONFIGURABLE_TYPE1, CONFIGURABLE_TYPE2, INITIALIZER_TYPE)          \
+    BOOST_FIXTURE_TEST_CASE(                                                                                           \
+            FIXTURE_NAME##_##VISITOR_ID##_##CONFIGURABLE_TYPE1##_##CONFIGURABLE_TYPE2##_##INITIALIZER_TYPE,            \
+            ariles_tests::FIXTURE_NAME<ariles_tests::initializers::INITIALIZER_TYPE>)                                  \
+    {                                                                                                                  \
+        test<ariles_tests::CONFIGURABLE_TYPE1, ariles_tests::CONFIGURABLE_TYPE2, ariles::FORMAT_NAMESPACE>();          \
     }
 
 // -----

@@ -80,11 +80,7 @@ namespace ariles
 
 
             template <class t_Left, class t_Right>
-            void start(
-                    const t_Left &left,
-                    const t_Right &right,
-                    const std::string &name,
-                    const Parameters &param)
+            void start(const t_Left &left, const t_Right &right, const std::string &name, const Parameters &param)
             {
                 ARILES_TRACE_FUNCTION;
                 equal_ = true;
@@ -93,10 +89,7 @@ namespace ariles
 
 
             template <typename t_Scalar>
-            static bool compareFloats(
-                    const t_Scalar left,
-                    const t_Scalar right,
-                    const Parameters &param)
+            static bool compareFloats(const t_Scalar left, const t_Scalar right, const Parameters &param)
             {
                 if (isNaN(left))
                 {
@@ -128,11 +121,7 @@ namespace ariles
 
 
             template <class t_Left, class t_Right>
-            void operator()(
-                    const t_Left &left,
-                    const t_Right &right,
-                    const std::string &name,
-                    const Parameters &param)
+            void operator()(const t_Left &left, const t_Right &right, const std::string &name, const Parameters &param)
             {
                 ARILES_TRACE_FUNCTION;
                 ARILES_TRACE_ENTRY(name);
@@ -169,12 +158,11 @@ namespace ariles
 
 
 #ifndef ARILES_METHODS_compare
-#    define ARILES_METHODS_compare                                                                 \
-        const ariles::compare::Visitor::Parameters &arilesGetParameters(                           \
-                const ariles::compare::Visitor &visitor) const                                     \
-        {                                                                                          \
-            ARILES_TRACE_FUNCTION;                                                                 \
-            return (visitor.getDefaultParameters());                                               \
+#    define ARILES_METHODS_compare                                                                                     \
+        const ariles::compare::Visitor::Parameters &arilesGetParameters(const ariles::compare::Visitor &visitor) const \
+        {                                                                                                              \
+            ARILES_TRACE_FUNCTION;                                                                                     \
+            return (visitor.getDefaultParameters());                                                                   \
         }
 #endif
     }  // namespace compare

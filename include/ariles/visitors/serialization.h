@@ -18,8 +18,7 @@ namespace ariles
 {
     namespace serialization
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Features
-          : public ariles::Flags<unsigned int, serialization::Features>
+        class ARILES_VISIBILITY_ATTRIBUTE Features : public ariles::Flags<unsigned int, serialization::Features>
         {
         public:
             enum Flags

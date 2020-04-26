@@ -136,8 +136,7 @@ namespace ariles
                 child_names.resize(selected_node->size());
 
                 std::size_t i = 0;
-                for (YAML::Iterator it = selected_node->begin(); it != selected_node->end();
-                     ++it, ++i)
+                for (YAML::Iterator it = selected_node->begin(); it != selected_node->end(); ++it, ++i)
                 {
                     it.first() >> child_names[i];
                 }
@@ -157,8 +156,7 @@ namespace ariles
 
         void Reader::shiftArray()
         {
-            ARILES_ASSERT(
-                    true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ARILES_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
@@ -172,10 +170,10 @@ namespace ariles
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    void Reader::readElement(type &element)                                                        \
-    {                                                                                              \
-        impl_->getRawNode() >> element;                                                            \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    void Reader::readElement(type &element)                                                                            \
+    {                                                                                                                  \
+        impl_->getRawNode() >> element;                                                                                \
     }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)

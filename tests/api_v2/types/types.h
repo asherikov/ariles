@@ -15,8 +15,8 @@ namespace ariles
     template <template <class> class t_Pointer, class t_Base, class t_Instantiator>
     class Any : public ariles::DefaultBase
     {
-#define ARILES_ENTRIES                                                                             \
-    ARILES_TYPED_ENTRY_(id, std::string)                                                           \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_TYPED_ENTRY_(id, std::string)                                                                               \
     ARILES_TYPED_ENTRY_(value, t_Pointer<t_Base>)
 #include ARILES_INITIALIZE
 
@@ -185,9 +185,7 @@ namespace ariles
         }
 
 
-        void arilesVisit(
-                const ariles::PostProcess &visitor,
-                const ariles::PostProcess::Parameters &param)
+        void arilesVisit(const ariles::PostProcess &visitor, const ariles::PostProcess::Parameters &param)
         {
             if (true == isInitialized())
             {
@@ -196,9 +194,7 @@ namespace ariles
         }
 
 
-        void arilesVisit(
-                const ariles::PreProcess &visitor,
-                const ariles::PreProcess::Parameters &param)
+        void arilesVisit(const ariles::PreProcess &visitor, const ariles::PreProcess::Parameters &param)
         {
             if (true == isInitialized())
             {
@@ -289,17 +285,13 @@ namespace ariles
         }
 
 
-        void arilesVisit(
-                const ariles::PostProcess &visitor,
-                const ariles::PostProcess::Parameters &param)
+        void arilesVisit(const ariles::PostProcess &visitor, const ariles::PostProcess::Parameters &param)
         {
             ARILES_ASSERT(false == isNull(), "Not initialized");
             value_->arilesVisit(visitor, param);
         }
 
-        void arilesVisit(
-                const ariles::PreProcess &visitor,
-                const ariles::PreProcess::Parameters &param)
+        void arilesVisit(const ariles::PreProcess &visitor, const ariles::PreProcess::Parameters &param)
         {
             if (false == isNull())
             {
@@ -328,10 +320,7 @@ namespace ariles
 
 
         template <class t_Other>
-        void arilesVisit(
-                ariles::Compare &visitor,
-                const t_Other &other,
-                const ariles::Compare::Parameters &param) const
+        void arilesVisit(ariles::Compare &visitor, const t_Other &other, const ariles::Compare::Parameters &param) const
         {
             ARILES_TRACE_FUNCTION;
             value_->arilesVisit(visitor, *other.value_, param);

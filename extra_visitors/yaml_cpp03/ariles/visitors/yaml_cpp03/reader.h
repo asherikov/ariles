@@ -27,8 +27,7 @@ namespace ariles
         /**
          * @brief Configuration reader class
          */
-        class ARILES_LIB_EXPORT Reader
-          : public ns_yaml_cpp03::Base<ariles::read::Visitor, impl::Reader>
+        class ARILES_LIB_EXPORT Reader : public ns_yaml_cpp03::Base<ariles::read::Visitor, impl::Reader>
         {
         protected:
             std::size_t getMapSize(const bool /*expect_empty*/);

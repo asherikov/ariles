@@ -53,13 +53,13 @@
 
 #    if 2 == ARILES_API_VERSION
 #        include "adapters/basic.h"
-#        define ARILES_DEFAULT_VISITORS                                                            \
-            ARILES_VISITOR(count)                                                                  \
-            ARILES_VISITOR(postprocess)                                                            \
-            ARILES_VISITOR(preprocess)                                                             \
-            ARILES_VISITOR(defaults)                                                               \
-            ARILES_VISITOR(read)                                                                   \
-            ARILES_VISITOR(write)                                                                  \
+#        define ARILES_DEFAULT_VISITORS                                                                                \
+            ARILES_VISITOR(count)                                                                                      \
+            ARILES_VISITOR(postprocess)                                                                                \
+            ARILES_VISITOR(preprocess)                                                                                 \
+            ARILES_VISITOR(defaults)                                                                                   \
+            ARILES_VISITOR(read)                                                                                       \
+            ARILES_VISITOR(write)                                                                                      \
             ARILES_VISITOR(compare)
 
 namespace ariles
@@ -77,12 +77,12 @@ namespace ariles
 
 #    if 1 == ARILES_API_VERSION
 #        include "adapters/basic.h"
-#        define ARILES_DEFAULT_VISITORS                                                            \
-            ARILES_VISITOR(count)                                                                  \
-            ARILES_VISITOR(postprocess)                                                            \
-            ARILES_VISITOR(defaults)                                                               \
-            ARILES_VISITOR(read)                                                                   \
-            ARILES_VISITOR(write)                                                                  \
+#        define ARILES_DEFAULT_VISITORS                                                                                \
+            ARILES_VISITOR(count)                                                                                      \
+            ARILES_VISITOR(postprocess)                                                                                \
+            ARILES_VISITOR(defaults)                                                                                   \
+            ARILES_VISITOR(read)                                                                                       \
+            ARILES_VISITOR(write)                                                                                      \
             ARILES_VISITOR(compare)
 
 namespace ariles

@@ -37,8 +37,8 @@ namespace ariles_tests
 
                 for (std::size_t i = 0; i < writer.name_value_pairs_->size(); ++i)
                 {
-                    std::cout << (*writer.name_value_pairs_)[i].first << " = "
-                              << (*writer.name_value_pairs_)[i].second << std::endl;
+                    std::cout << (*writer.name_value_pairs_)[i].first << " = " << (*writer.name_value_pairs_)[i].second
+                              << std::endl;
                 }
             }
 
@@ -50,8 +50,7 @@ namespace ariles_tests
 
                 std::vector<ariles::bridge::array::NameValuePair> name_value_pairs;
 
-                typename t_Visitor::Writer writer(
-                        &name_value_pairs, getWriterInitializer("configurable.cfg"));
+                typename t_Visitor::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
                 configurable.writeConfig(writer);
 
                 BOOST_CHECK_EQUAL(writer.index_, name_value_pairs.size());
@@ -65,14 +64,12 @@ namespace ariles_tests
 
                 std::vector<ariles::bridge::array::NameValuePair> name_value_pairs;
 
-                typename t_Visitor::Writer writer(
-                        &name_value_pairs, getWriterInitializer("configurable.cfg"));
+                typename t_Visitor::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
                 configurable.writeConfig(writer);
 
                 BOOST_CHECK_EQUAL(writer.index_, name_value_pairs.size());
 
-                std::vector<ariles::bridge::array::NameValuePair> name_value_pairs_back =
-                        name_value_pairs;
+                std::vector<ariles::bridge::array::NameValuePair> name_value_pairs_back = name_value_pairs;
                 writer.reset();
 
                 configurable.writeConfig(writer);
@@ -96,16 +93,14 @@ namespace ariles_tests
                 const bool initialize_structure = false;
                 std::vector<ariles::bridge::array::NameValuePair> name_value_pairs;
 
-                typename t_Visitor::Writer writer(
-                        &name_value_pairs, getWriterInitializer("configurable.cfg"));
+                typename t_Visitor::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
                 configurable.writeConfig(writer);
 
                 BOOST_CHECK_EQUAL(writer.index_, name_value_pairs.size());
 
                 // ---
 
-                std::vector<ariles::bridge::array::NameValuePair> name_value_pairs_back =
-                        name_value_pairs;
+                std::vector<ariles::bridge::array::NameValuePair> name_value_pairs_back = name_value_pairs;
                 writer.reset(initialize_structure);
 
                 configurable.writeConfig(writer);

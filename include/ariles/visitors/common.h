@@ -41,14 +41,14 @@ namespace ariles
 
     namespace entry
     {
-#define ARILES_METHODS(Namespace, VisitorQualifier, MethodQualifier)                               \
-    virtual void arilesVirtualVisit(                                                               \
-            VisitorQualifier ariles::Namespace::Visitor &visitor,                                  \
-            const ariles::Namespace::Visitor::Parameters &param) MethodQualifier                   \
-    {                                                                                              \
-        ARILES_TRACE_FUNCTION;                                                                     \
-        this->arilesVisit(visitor, param);                                                         \
-    }                                                                                              \
+#define ARILES_METHODS(Namespace, VisitorQualifier, MethodQualifier)                                                   \
+    virtual void arilesVirtualVisit(                                                                                   \
+            VisitorQualifier ariles::Namespace::Visitor &visitor, const ariles::Namespace::Visitor::Parameters &param) \
+            MethodQualifier                                                                                            \
+    {                                                                                                                  \
+        ARILES_TRACE_FUNCTION;                                                                                         \
+        this->arilesVisit(visitor, param);                                                                             \
+    }                                                                                                                  \
     using ariles::Namespace::Base::arilesGetParameters;
 
 
@@ -56,12 +56,9 @@ namespace ariles
         class ARILES_VISIBILITY_ATTRIBUTE Base
         {
         public:
-            virtual void arilesVirtualVisit(
-                    t_Visitor &,
-                    const typename t_Visitor::Parameters &) = 0;
+            virtual void arilesVirtualVisit(t_Visitor &, const typename t_Visitor::Parameters &) = 0;
 
-            virtual const typename t_Visitor::Parameters &arilesGetParameters(
-                    const t_Visitor &visitor) const
+            virtual const typename t_Visitor::Parameters &arilesGetParameters(const t_Visitor &visitor) const
             {
                 ARILES_TRACE_FUNCTION;
                 return (visitor.getDefaultParameters());
@@ -73,11 +70,9 @@ namespace ariles
         class ARILES_VISIBILITY_ATTRIBUTE ConstBase
         {
         public:
-            virtual void arilesVirtualVisit(t_Visitor &, const typename t_Visitor::Parameters &)
-                    const = 0;
+            virtual void arilesVirtualVisit(t_Visitor &, const typename t_Visitor::Parameters &) const = 0;
 
-            virtual const typename t_Visitor::Parameters &arilesGetParameters(
-                    const t_Visitor &visitor) const
+            virtual const typename t_Visitor::Parameters &arilesGetParameters(const t_Visitor &visitor) const
             {
                 ARILES_TRACE_FUNCTION;
                 return (visitor.getDefaultParameters());
@@ -160,10 +155,7 @@ namespace ariles
 
 
     template <class t_Visitor, class t_Ariles>
-    void apply(
-            t_Visitor &visitor,
-            t_Ariles &ariles_class,
-            ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
+    void apply(t_Visitor &visitor, t_Ariles &ariles_class, ARILES_IS_BASE_ENABLER(ariles::visitor::Visitor, t_Visitor))
     {
         ARILES_TRACE_FUNCTION;
         ariles::apply(visitor, ariles_class, ariles_class.arilesDefaultID());

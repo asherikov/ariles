@@ -69,8 +69,7 @@ namespace ariles
             else
             {
                 XmlRpc::XmlRpcValue &node = impl_->getRawNode();
-                if ((XmlRpc::XmlRpcValue::TypeStruct == node.getType())
-                    && (true == node.hasMember(child_name)))
+                if ((XmlRpc::XmlRpcValue::TypeStruct == node.getType()) && (true == node.hasMember(child_name)))
                 {
                     impl_->node_stack_.push_back(NodeWrapper(&(node[child_name])));
                     return (true);
@@ -102,9 +101,7 @@ namespace ariles
                 child_names.resize(selected_node.size());
 
                 std::size_t i = 0;
-                for (XmlRpc::XmlRpcValue::iterator it = selected_node.begin();
-                     it != selected_node.end();
-                     ++it, ++i)
+                for (XmlRpc::XmlRpcValue::iterator it = selected_node.begin(); it != selected_node.end(); ++it, ++i)
                 {
                     child_names[i] = it->first;
                 }
@@ -115,9 +112,7 @@ namespace ariles
 
         std::size_t Reader::startArray()
         {
-            ARILES_ASSERT(
-                    XmlRpc::XmlRpcValue::TypeArray == impl_->getRawNode().getType(),
-                    "Expected array.");
+            ARILES_ASSERT(XmlRpc::XmlRpcValue::TypeArray == impl_->getRawNode().getType(), "Expected array.");
 
             std::size_t size = impl_->getRawNode().size();
             impl_->node_stack_.push_back(NodeWrapper(0, size));
@@ -128,8 +123,7 @@ namespace ariles
 
         void Reader::shiftArray()
         {
-            ARILES_ASSERT(
-                    true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ARILES_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
@@ -163,18 +157,15 @@ namespace ariles
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    void Reader::readElement(type &element)                                                        \
-    {                                                                                              \
-        ARILES_ASSERT(                                                                             \
-                impl_->getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt,                     \
-                "Integer type expected.");                                                         \
-        int tmp_value = static_cast<int>(impl_->getRawNode());                                     \
-        ARILES_ASSERT(                                                                             \
-                tmp_value <= std::numeric_limits<type>::max()                                      \
-                        && tmp_value >= std::numeric_limits<type>::min(),                          \
-                "Value is out of range.");                                                         \
-        element = static_cast<type>(tmp_value);                                                    \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    void Reader::readElement(type &element)                                                                            \
+    {                                                                                                                  \
+        ARILES_ASSERT(impl_->getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt, "Integer type expected.");        \
+        int tmp_value = static_cast<int>(impl_->getRawNode());                                                         \
+        ARILES_ASSERT(                                                                                                 \
+                tmp_value <= std::numeric_limits<type>::max() && tmp_value >= std::numeric_limits<type>::min(),        \
+                "Value is out of range.");                                                                             \
+        element = static_cast<type>(tmp_value);                                                                        \
     }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
@@ -182,18 +173,15 @@ namespace ariles
 #undef ARILES_BASIC_TYPE
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    void Reader::readElement(type &element)                                                        \
-    {                                                                                              \
-        ARILES_ASSERT(                                                                             \
-                impl_->getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt,                     \
-                "Integer type expected.");                                                         \
-        int tmp_value = static_cast<int>(impl_->getRawNode());                                     \
-        ARILES_ASSERT(tmp_value >= 0, "Expected positive value.");                                 \
-        ARILES_ASSERT(                                                                             \
-                static_cast<unsigned int>(tmp_value) <= std::numeric_limits<type>::max(),          \
-                "Value is too large.");                                                            \
-        element = static_cast<type>(tmp_value);                                                    \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    void Reader::readElement(type &element)                                                                            \
+    {                                                                                                                  \
+        ARILES_ASSERT(impl_->getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt, "Integer type expected.");        \
+        int tmp_value = static_cast<int>(impl_->getRawNode());                                                         \
+        ARILES_ASSERT(tmp_value >= 0, "Expected positive value.");                                                     \
+        ARILES_ASSERT(                                                                                                 \
+                static_cast<unsigned int>(tmp_value) <= std::numeric_limits<type>::max(), "Value is too large.");      \
+        element = static_cast<type>(tmp_value);                                                                        \
     }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
@@ -201,25 +189,24 @@ namespace ariles
 #undef ARILES_BASIC_TYPE
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    void Reader::readElement(type &element)                                                        \
-    {                                                                                              \
-        switch (impl_->getRawNode().getType())                                                     \
-        {                                                                                          \
-            case XmlRpc::XmlRpcValue::TypeDouble:                                                  \
-                element = static_cast<double>(impl_->getRawNode());                                \
-                break;                                                                             \
-            case XmlRpc::XmlRpcValue::TypeString:                                                  \
-                element = boost::lexical_cast<double>(                                             \
-                        static_cast<std::string>(impl_->getRawNode()));                            \
-                break;                                                                             \
-            case XmlRpc::XmlRpcValue::TypeInt:                                                     \
-                element = static_cast<int>(impl_->getRawNode());                                   \
-                break;                                                                             \
-            default:                                                                               \
-                ARILES_THROW("Could not convert value to type.");                                  \
-                break;                                                                             \
-        }                                                                                          \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    void Reader::readElement(type &element)                                                                            \
+    {                                                                                                                  \
+        switch (impl_->getRawNode().getType())                                                                         \
+        {                                                                                                              \
+            case XmlRpc::XmlRpcValue::TypeDouble:                                                                      \
+                element = static_cast<double>(impl_->getRawNode());                                                    \
+                break;                                                                                                 \
+            case XmlRpc::XmlRpcValue::TypeString:                                                                      \
+                element = boost::lexical_cast<double>(static_cast<std::string>(impl_->getRawNode()));                  \
+                break;                                                                                                 \
+            case XmlRpc::XmlRpcValue::TypeInt:                                                                         \
+                element = static_cast<int>(impl_->getRawNode());                                                       \
+                break;                                                                                                 \
+            default:                                                                                                   \
+                ARILES_THROW("Could not convert value to type.");                                                      \
+                break;                                                                                                 \
+        }                                                                                                              \
     }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
@@ -238,8 +225,7 @@ namespace ariles
             switch (impl_->getRawNode().getType())
             {
                 case XmlRpc::XmlRpcValue::TypeString:
-                    element = boost::lexical_cast<bool>(
-                            static_cast<std::string>(impl_->getRawNode()));
+                    element = boost::lexical_cast<bool>(static_cast<std::string>(impl_->getRawNode()));
                     break;
 
                 case XmlRpc::XmlRpcValue::TypeBoolean:

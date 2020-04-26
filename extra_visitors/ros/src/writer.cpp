@@ -81,8 +81,7 @@ namespace ariles
 
         void Writer::shiftArray()
         {
-            ARILES_ASSERT(
-                    true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ARILES_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
@@ -132,10 +131,10 @@ namespace ariles
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    void Writer::writeElement(const type &element)                                                 \
-    {                                                                                              \
-        impl_->getRawNode() = element;                                                             \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    void Writer::writeElement(const type &element)                                                                     \
+    {                                                                                                                  \
+        impl_->getRawNode() = element;                                                                                 \
     }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
@@ -144,14 +143,13 @@ namespace ariles
 
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    void Writer::writeElement(const type &element)                                                 \
-    {                                                                                              \
-        ARILES_ASSERT(                                                                             \
-                element <= std::numeric_limits<int>::max()                                         \
-                        && element >= std::numeric_limits<int>::min(),                             \
-                "Value is out of range.");                                                         \
-        impl_->getRawNode() = static_cast<int>(element);                                           \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    void Writer::writeElement(const type &element)                                                                     \
+    {                                                                                                                  \
+        ARILES_ASSERT(                                                                                                 \
+                element <= std::numeric_limits<int>::max() && element >= std::numeric_limits<int>::min(),              \
+                "Value is out of range.");                                                                             \
+        impl_->getRawNode() = static_cast<int>(element);                                                               \
     }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
@@ -159,11 +157,11 @@ namespace ariles
 #undef ARILES_BASIC_TYPE
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    void Writer::writeElement(const type &element)                                                 \
-    {                                                                                              \
-        ARILES_ASSERT(element <= std::numeric_limits<int>::max(), "Value is too large.");          \
-        impl_->getRawNode() = static_cast<int>(element);                                           \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    void Writer::writeElement(const type &element)                                                                     \
+    {                                                                                                                  \
+        ARILES_ASSERT(element <= std::numeric_limits<int>::max(), "Value is too large.");                              \
+        impl_->getRawNode() = static_cast<int>(element);                                                               \
     }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)

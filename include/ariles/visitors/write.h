@@ -31,8 +31,7 @@ namespace ariles
 
                 ARILES_PERSISTENT_ASSERT(
                         true == config_ofs.good(),
-                        std::string("Could not open configuration file for writing: ")
-                                + file_name.c_str());
+                        std::string("Could not open configuration file for writing: ") + file_name.c_str());
             }
 
 
@@ -134,10 +133,7 @@ namespace ariles
 
 
             template <typename t_Entry>
-            void operator()(
-                    const t_Entry &entry,
-                    const std::string &entry_name,
-                    const Parameters &param)
+            void operator()(const t_Entry &entry, const std::string &entry_name, const Parameters &param)
             {
                 ARILES_TRACE_FUNCTION;
                 ARILES_TRACE_ENTRY(entry_name);

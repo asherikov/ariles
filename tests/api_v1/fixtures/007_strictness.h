@@ -26,30 +26,26 @@ namespace ariles_tests
         void test()
         {
             // Exlicit instantiation of reader and writer classes
-            BOOST_CHECK_NO_THROW(
-                    t_Configurable1 configurable;
+            BOOST_CHECK_NO_THROW(t_Configurable1 configurable;
 
-                    typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
-                    configurable.writeConfig(writer););
+                                 typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
+                                 configurable.writeConfig(writer););
 
-            BOOST_CHECK_THROW(
-                    t_Configurable2 configurable;
+            BOOST_CHECK_THROW(t_Configurable2 configurable;
 
-                    typename t_Visitor::Reader reader(getReaderInitializer("configurable.cfg"));
-                    configurable.readConfig(reader);
-                    , std::runtime_error);
+                              typename t_Visitor::Reader reader(getReaderInitializer("configurable.cfg"));
+                              configurable.readConfig(reader);
+                              , std::runtime_error);
 
             // --------------------------------
 
             // Implicit instantiation of reader and writer classes
 
-            BOOST_CHECK_NO_THROW(t_Configurable1 configurable;
-                                 configurable.template writeConfig<t_Visitor>(
-                                         getWriterInitializer("configurable2.cfg")););
+            BOOST_CHECK_NO_THROW(t_Configurable1 configurable; configurable.template writeConfig<t_Visitor>(
+                    getWriterInitializer("configurable2.cfg")););
 
             BOOST_CHECK_THROW(t_Configurable2 configurable;
-                              configurable.template readConfig<t_Visitor>(
-                                      getReaderInitializer("configurable2.cfg"));
+                              configurable.template readConfig<t_Visitor>(getReaderInitializer("configurable2.cfg"));
                               , std::runtime_error);
         }
     };

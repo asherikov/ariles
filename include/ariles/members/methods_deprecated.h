@@ -20,9 +20,7 @@ public:
 #        ifdef ARILES_ENTRIES
 
 #            ifndef ARILES_AUTO_DEFAULTS
-void arilesVisit(
-        const ariles::defaults::Visitor & /*visitor*/,
-        const ariles::defaults::Visitor::Parameters & /*param*/)
+void arilesVisit(const ariles::defaults::Visitor & /*visitor*/, const ariles::defaults::Visitor::Parameters & /*param*/)
 {
     ARILES_TRACE_FUNCTION;
     this->setDefaults();
@@ -58,25 +56,19 @@ bool arilesCompare(const t_Other &other, const ariles::compare::Visitor::Paramet
 
 #        else  // ARILES_ENTRIES
 
-virtual void arilesVisit(
-        ariles::count::Visitor &visitor,
-        const ariles::count::Visitor::Parameters & /*param*/) const
+virtual void arilesVisit(ariles::count::Visitor &visitor, const ariles::count::Visitor::Parameters & /*param*/) const
 {
     ARILES_TRACE_FUNCTION;
     visitor.counter_ += this->getNumberOfEntries();
 }
 
-virtual void arilesVisit(
-        ariles::read::Visitor &visitor,
-        const ariles::read::Visitor::Parameters &param)
+virtual void arilesVisit(ariles::read::Visitor &visitor, const ariles::read::Visitor::Parameters &param)
 {
     ARILES_TRACE_FUNCTION;
     readConfigEntries(visitor, param);
 }
 
-virtual void arilesVisit(
-        ariles::write::Visitor &visitor,
-        const ariles::write::Visitor::Parameters &param) const
+virtual void arilesVisit(ariles::write::Visitor &visitor, const ariles::write::Visitor::Parameters &param) const
 {
     ARILES_TRACE_FUNCTION;
     writeConfigEntries(visitor, param);
@@ -142,10 +134,7 @@ ARILES_CONSTRUCTOR(ariles::ReaderBase &reader, const std::string &node_name)
     ARILES_TRACE_FUNCTION;
     readConfig(reader, node_name, this->getArilesConfigurableFlags());
 }
-ARILES_CONSTRUCTOR(
-        ariles::ReaderBase &reader,
-        const std::string &node_name,
-        const ariles::ConfigurableFlags &param)
+ARILES_CONSTRUCTOR(ariles::ReaderBase &reader, const std::string &node_name, const ariles::ConfigurableFlags &param)
 {
     ARILES_TRACE_FUNCTION;
     readConfig(reader, node_name, param);
@@ -167,19 +156,13 @@ explicit ARILES_CONSTRUCTOR(ariles::ReaderBase &reader, const ariles::ReaderBase
 
 using ariles::CommonConfigurableBase::readConfig;
 
-void readConfig(
-        ariles::ReaderBase &reader,
-        const std::string &node_name,
-        const ariles::ConfigurableFlags &param)
+void readConfig(ariles::ReaderBase &reader, const std::string &node_name, const ariles::ConfigurableFlags &param)
 {
     ARILES_TRACE_FUNCTION;
     ariles::apply(reader, *this, node_name, param);
 }
 
-void readConfig(
-        ariles::ReaderBase &reader,
-        const char *node_name,
-        const ariles::ConfigurableFlags &param)
+void readConfig(ariles::ReaderBase &reader, const char *node_name, const ariles::ConfigurableFlags &param)
 {
     ARILES_TRACE_FUNCTION;
     ariles::apply(reader, *this, node_name, param);
@@ -188,19 +171,13 @@ void readConfig(
 
 using ariles::CommonConfigurableBase::writeConfig;
 
-void writeConfig(
-        ariles::WriterBase &writer,
-        const std::string &node_name,
-        const ariles::ConfigurableFlags &param) const
+void writeConfig(ariles::WriterBase &writer, const std::string &node_name, const ariles::ConfigurableFlags &param) const
 {
     ARILES_TRACE_FUNCTION;
     ariles::apply(writer, *this, node_name, param);
 }
 
-void writeConfig(
-        ariles::WriterBase &writer,
-        const char *node_name,
-        const ariles::ConfigurableFlags &param) const
+void writeConfig(ariles::WriterBase &writer, const char *node_name, const ariles::ConfigurableFlags &param) const
 {
     ARILES_TRACE_FUNCTION;
     ariles::apply(writer, *this, node_name, param);

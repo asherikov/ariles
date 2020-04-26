@@ -19,8 +19,8 @@ namespace ariles_tests
      */
     class ConfigurableVerbose : public ariles::DefaultBase
     {
-#define ARILES_ENTRIES                                                                             \
-    ARILES_ENTRY_(integer)                                                                         \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_ENTRY_(integer)                                                                                             \
     ARILES_ENTRY_(real)
 #include ARILES_INITIALIZE
 
@@ -37,9 +37,7 @@ namespace ariles_tests
         }
 
 
-        void arilesVisit(
-                const ariles::Defaults & /*visitor*/,
-                const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
         {
             integer_ = 10;
             real_ = 1.33;

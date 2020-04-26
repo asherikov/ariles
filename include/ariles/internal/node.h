@@ -43,17 +43,13 @@ namespace ariles
             compact_ = compact;
         }
 
-        Node(const std::size_t index, const std::size_t size, const bool compact = false)
-          : index_(index), size_(size)
+        Node(const std::size_t index, const std::size_t size, const bool compact = false) : index_(index), size_(size)
         {
             type_ = ARRAY;
             compact_ = compact;
         }
 
-        Node(t_RawNode node,
-             const std::size_t index,
-             const std::size_t size,
-             const bool compact = false)
+        Node(t_RawNode node, const std::size_t index, const std::size_t size, const bool compact = false)
           : node_(node), index_(index), size_(size)
         {
             type_ = ARRAY;

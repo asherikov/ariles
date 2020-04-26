@@ -29,15 +29,13 @@ namespace ariles_tests
                 t_Configurable1 configurable_out;
                 configurable_out.randomize();
                 BOOST_CHECK_NO_THROW(configurable_out.template writeConfig<t_Visitor>(
-                        getWriterInitializer("configurable_match_member_definitions.cfg"),
-                        "Configurable"););
+                        getWriterInitializer("configurable_match_member_definitions.cfg"), "Configurable"););
 
                 // -------
 
                 t_Configurable2 configurable_in;
                 BOOST_CHECK_NO_THROW(configurable_in.template readConfig<t_Visitor>(
-                        getReaderInitializer("configurable_match_member_definitions.cfg"),
-                        "Configurable"););
+                        getReaderInitializer("configurable_match_member_definitions.cfg"), "Configurable"););
 
                 // -------
 
@@ -58,15 +56,13 @@ namespace ariles_tests
                 t_Configurable2 configurable_out;
                 configurable_out.randomize();
                 BOOST_CHECK_NO_THROW(configurable_out.template writeConfig<t_Visitor>(
-                        getWriterInitializer("configurable_match_member_definitions.cfg"),
-                        "Configurable"););
+                        getWriterInitializer("configurable_match_member_definitions.cfg"), "Configurable"););
 
                 // -------
 
                 t_Configurable1 configurable_in;
                 BOOST_CHECK_NO_THROW(configurable_in.template readConfig<t_Visitor>(
-                        getReaderInitializer("configurable_match_member_definitions.cfg"),
-                        "Configurable"););
+                        getReaderInitializer("configurable_match_member_definitions.cfg"), "Configurable"););
 
                 // -------
 

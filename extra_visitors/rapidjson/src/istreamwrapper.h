@@ -60,8 +60,7 @@ namespace ariles
             Ch Peek() const
             {
                 typename StreamType::int_type c = stream_.peek();
-                return (c != StreamType::traits_type::eof()) ? static_cast<Ch>(c) :
-                                                               static_cast<Ch>('\0');
+                return (c != StreamType::traits_type::eof()) ? static_cast<Ch>(c) : static_cast<Ch>('\0');
             }
 
             Ch Take()

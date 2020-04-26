@@ -29,16 +29,14 @@ namespace ariles_tests
             configurable_out.randomize();
             t_ConfigurableBase *configurable_out_base = &configurable_out;
             BOOST_CHECK_NO_THROW(configurable_out_base->template writeConfig<t_Visitor>(
-                    getWriterInitializer("configurable_match_member_definitions.cfg"),
-                    "Configurable"););
+                    getWriterInitializer("configurable_match_member_definitions.cfg"), "Configurable"););
 
             // -------
 
             t_Configurable configurable_in;
             t_ConfigurableBase *configurable_in_base = &configurable_in;
             BOOST_CHECK_NO_THROW(configurable_in_base->template readConfig<t_Visitor>(
-                    getReaderInitializer("configurable_match_member_definitions.cfg"),
-                    "Configurable"););
+                    getReaderInitializer("configurable_match_member_definitions.cfg"), "Configurable"););
 
             // -------
 

@@ -100,8 +100,7 @@ namespace ariles_tests
                     output_file_stream_.close();
                 }
                 output_file_stream_.open(string_id.c_str());
-                ARILES_PERSISTENT_ASSERT(
-                        true == output_file_stream_.good(), "Could not open file.");
+                ARILES_PERSISTENT_ASSERT(true == output_file_stream_.good(), "Could not open file.");
                 return (output_file_stream_);
             }
         };

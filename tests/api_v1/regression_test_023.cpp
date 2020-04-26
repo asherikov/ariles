@@ -61,10 +61,8 @@ namespace ariles_tests
             }
         };
 
-        typedef FilenameReaderInitializer<FilenameReaderBaseString>
-                FilenameReaderInitializer023_String;
-        typedef FilenameReaderInitializer<FilenameReaderBaseFloat>
-                FilenameReaderInitializer023_Float;
+        typedef FilenameReaderInitializer<FilenameReaderBaseString> FilenameReaderInitializer023_String;
+        typedef FilenameReaderInitializer<FilenameReaderBaseFloat> FilenameReaderInitializer023_Float;
     }  // namespace initializers
 
 
@@ -81,21 +79,18 @@ namespace ariles_tests
         {
             t_Configurable configurable;
 
-            BOOST_CHECK_NO_THROW(
-                    std::ofstream output_file_stream; output_file_stream.open("configurable.cfg");
-                    typename t_Visitor::Writer visitor(
-                            output_file_stream, ariles::rapidjson::Flags::DISABLE_STRING_FLOATS););
+            BOOST_CHECK_NO_THROW(std::ofstream output_file_stream; output_file_stream.open("configurable.cfg");
+                                 typename t_Visitor::Writer visitor(
+                                         output_file_stream, ariles::rapidjson::Flags::DISABLE_STRING_FLOATS););
 
-            BOOST_CHECK_NO_THROW(
-                    std::ifstream input_file_stream;
-                    input_file_stream.open("regression_test_023_float.json");
-                    typename t_Visitor::Reader visitor(
-                            input_file_stream, ariles::rapidjson::Flags::DISABLE_STRING_FLOATS););
+            BOOST_CHECK_NO_THROW(std::ifstream input_file_stream;
+                                 input_file_stream.open("regression_test_023_float.json");
+                                 typename t_Visitor::Reader visitor(
+                                         input_file_stream, ariles::rapidjson::Flags::DISABLE_STRING_FLOATS););
 
-            BOOST_CHECK_NO_THROW(
-                    typename t_Visitor::Writer visitor(
-                            "configurable.cfg", ariles::rapidjson::Flags::DISABLE_STRING_FLOATS);
-                    configurable.writeConfig(visitor););
+            BOOST_CHECK_NO_THROW(typename t_Visitor::Writer visitor(
+                                         "configurable.cfg", ariles::rapidjson::Flags::DISABLE_STRING_FLOATS);
+                                 configurable.writeConfig(visitor););
 
             BOOST_CHECK_EQUAL(0, system("cmp configurable.cfg regression_test_023_float.json"));
 
@@ -125,9 +120,4 @@ ARILES_FIXTURE_TEST_CASE(
         rapidjson,
         ConfigurableSimpleFloats,
         FilenameReaderInitializer023_Float)
-ARILES_FIXTURE_TEST_CASE(
-        WriteDiffFixture,
-        rapidjson,
-        rapidjson,
-        ConfigurableSimpleFloats,
-        FilenameInitializer)
+ARILES_FIXTURE_TEST_CASE(WriteDiffFixture, rapidjson, rapidjson, ConfigurableSimpleFloats, FilenameInitializer)

@@ -19,8 +19,8 @@ namespace ariles_tests
     class ConfigurableNoConstructors : public ariles::ConfigurableBase
     {
 #define ARILES_SECTION_ID "unique_id_on_a_particular_level_in_a_configuration_file"
-#define ARILES_ENTRIES                                                                             \
-    ARILES_TYPED_ENTRY_(integer, int)                                                              \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_TYPED_ENTRY_(integer, int)                                                                                  \
     ARILES_TYPED_ENTRY_(real, double)
 #include ARILES_INITIALIZE
 

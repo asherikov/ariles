@@ -61,12 +61,10 @@
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                           \
-    ARILES_FIXTURE_TEST_CASE(                                                                      \
-            BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
+#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                                               \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
 
-#define ARILES_TESTS_SHORTCUT(NAMESPACE, INITIALIZER)                                              \
-    ARILES_TESTS(NAMESPACE, NAMESPACE, INITIALIZER)
+#define ARILES_TESTS_SHORTCUT(NAMESPACE, INITIALIZER) ARILES_TESTS(NAMESPACE, NAMESPACE, INITIALIZER)
 
 #ifdef ARILES_VISITOR_INCLUDED_msgpack
 ARILES_TESTS_SHORTCUT(msgpack, FilenameInitializer)

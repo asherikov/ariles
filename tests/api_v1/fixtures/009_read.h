@@ -26,8 +26,7 @@ namespace ariles_tests
         {
             // BOOST_CHECK_NO_THROW(
             t_Configurable configurable;
-            configurable.template readConfig<t_Visitor>(
-                    getReaderInitializer("configurable.cfg"));  //);
+            configurable.template readConfig<t_Visitor>(getReaderInitializer("configurable.cfg"));  //);
         }
     };
 }  // namespace ariles_tests

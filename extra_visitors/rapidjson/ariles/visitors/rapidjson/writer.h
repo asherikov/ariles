@@ -23,8 +23,7 @@ namespace ariles
         /**
          * @brief Configuration writer class
          */
-        class ARILES_LIB_EXPORT Writer
-          : public ns_rapidjson::Base<ariles::write::Visitor, impl::Writer>
+        class ARILES_LIB_EXPORT Writer : public ns_rapidjson::Base<ariles::write::Visitor, impl::Writer>
         {
         public:
             explicit Writer(const std::string &file_name, const Flags &flags = Flags::DEFAULT);

@@ -17,12 +17,7 @@ namespace ariles
 {
     namespace read
     {
-        template <
-                class t_Visitor,
-                typename t_Key,
-                typename t_Value,
-                class t_Compare,
-                class t_Allocator>
+        template <class t_Visitor, typename t_Key, typename t_Value, class t_Compare, class t_Allocator>
         void ARILES_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
                 std::map<t_Key, t_Value, t_Compare, t_Allocator> &entry,
@@ -52,14 +47,11 @@ namespace ariles
                 const typename t_Visitor::Parameters &parameters)
         {
             ARILES_TRACE_FUNCTION;
-            if (visitor.getSerializationFeatures().isSet(
-                        serialization::Features::SLOPPY_MAPS_SUPPORTED)
+            if (visitor.getSerializationFeatures().isSet(serialization::Features::SLOPPY_MAPS_SUPPORTED)
                 && parameters.isSet(t_Visitor::Parameters::SLOPPY_MAPS_IF_SUPPORTED))
             {
                 std::vector<std::string> entry_names;
-                ARILES_ASSERT(
-                        true == visitor.getMapEntryNames(entry_names),
-                        "Could not read names of map entries.");
+                ARILES_ASSERT(true == visitor.getMapEntryNames(entry_names), "Could not read names of map entries.");
                 entry.clear();
                 visitor.template startMap<t_Visitor::SIZE_LIMIT_NONE>();
 
@@ -78,8 +70,7 @@ namespace ariles
             }
             else
             {
-                apply_read<t_Visitor, std::string, t_Value, t_Compare, t_Allocator>(
-                        visitor, entry, parameters);
+                apply_read<t_Visitor, std::string, t_Value, t_Compare, t_Allocator>(visitor, entry, parameters);
             }
         }
     }  // namespace read
@@ -90,22 +81,15 @@ namespace ariles
 {
     namespace write
     {
-        template <
-                class t_Visitor,
-                typename t_Key,
-                typename t_Value,
-                class t_Compare,
-                class t_Allocator>
+        template <class t_Visitor, typename t_Key, typename t_Value, class t_Compare, class t_Allocator>
         void ARILES_VISIBILITY_ATTRIBUTE apply_write(
                 t_Visitor &writer,
                 const std::map<t_Key, t_Value, t_Compare, t_Allocator> &entry,
                 const typename t_Visitor::Parameters &param)
         {
             ARILES_TRACE_FUNCTION;
-            writer.startArray(
-                    entry.size(), param.isSet(t_Visitor::Parameters::COMPACT_ARRAYS_IF_SUPPORTED));
-            for (typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator it =
-                         entry.begin();
+            writer.startArray(entry.size(), param.isSet(t_Visitor::Parameters::COMPACT_ARRAYS_IF_SUPPORTED));
+            for (typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator it = entry.begin();
                  it != entry.end();
                  ++it)
             {
@@ -123,13 +107,11 @@ namespace ariles
                 const typename t_Visitor::Parameters &param)
         {
             ARILES_TRACE_FUNCTION;
-            if (writer.getSerializationFeatures().isSet(
-                        serialization::Features::SLOPPY_MAPS_SUPPORTED)
+            if (writer.getSerializationFeatures().isSet(serialization::Features::SLOPPY_MAPS_SUPPORTED)
                 && param.isSet(t_Visitor::Parameters::SLOPPY_MAPS_IF_SUPPORTED))
             {
                 writer.startMap(entry.size());
-                for (typename std::map<std::string, t_Value, t_Compare, t_Allocator>::const_iterator
-                             it = entry.begin();
+                for (typename std::map<std::string, t_Value, t_Compare, t_Allocator>::const_iterator it = entry.begin();
                      it != entry.end();
                      ++it)
                 {
@@ -139,8 +121,7 @@ namespace ariles
             }
             else
             {
-                apply_write<t_Visitor, std::string, t_Value, t_Compare, t_Allocator>(
-                        writer, entry, param);
+                apply_write<t_Visitor, std::string, t_Value, t_Compare, t_Allocator>(writer, entry, param);
             }
         }
     }  // namespace write
@@ -151,12 +132,7 @@ namespace ariles
 {
     namespace compare
     {
-        template <
-                class t_Visitor,
-                typename t_Key,
-                typename t_Value,
-                class t_Compare,
-                class t_Allocator>
+        template <class t_Visitor, typename t_Key, typename t_Value, class t_Compare, class t_Allocator>
         void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
                 t_Visitor &visitor,
                 const std::map<t_Key, t_Value, t_Compare, t_Allocator> &left,
@@ -167,13 +143,10 @@ namespace ariles
 
             visitor.equal_ &= (left.size() == right.size());
 
-            typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator left_it =
-                    left.begin();
-            typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator right_it =
-                    right.begin();
+            typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator left_it = left.begin();
+            typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator right_it = right.begin();
 
-            for (;
-                 (left_it != left.end()) and (right_it != right.end()) and (true == visitor.equal_);
+            for (; (left_it != left.end()) and (right_it != right.end()) and (true == visitor.equal_);
                  ++left_it, ++right_it)
             {
                 apply_compare(visitor, left_it->first, right_it->first, param);
@@ -189,12 +162,7 @@ namespace ariles
 {
     namespace defaults
     {
-        template <
-                class t_Visitor,
-                typename t_Key,
-                typename t_Value,
-                class t_Compare,
-                class t_Allocator>
+        template <class t_Visitor, typename t_Key, typename t_Value, class t_Compare, class t_Allocator>
         void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
                 const t_Visitor & /*visitor*/,
                 std::map<t_Key, t_Value, t_Compare, t_Allocator> &entry,
@@ -211,20 +179,14 @@ namespace ariles
 {
     namespace process
     {
-        template <
-                class t_Visitor,
-                typename t_Key,
-                typename t_Value,
-                class t_Compare,
-                class t_Allocator>
+        template <class t_Visitor, typename t_Key, typename t_Value, class t_Compare, class t_Allocator>
         void ARILES_VISIBILITY_ATTRIBUTE apply_process(
                 const t_Visitor &visitor,
                 std::map<t_Key, t_Value, t_Compare, t_Allocator> &entry,
                 const typename t_Visitor::Parameters &param)
         {
             ARILES_TRACE_FUNCTION;
-            for (typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::iterator it =
-                         entry.begin();
+            for (typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::iterator it = entry.begin();
                  it != entry.end();
                  ++it)
             {

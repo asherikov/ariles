@@ -73,8 +73,7 @@ namespace ariles_tests
 
             // -------
 
-            BOOST_REQUIRE_EQUAL(
-                    configurable_vector_out.vector_.size(), configurable_vector_in.vector_.size());
+            BOOST_REQUIRE_EQUAL(configurable_vector_out.vector_.size(), configurable_vector_in.vector_.size());
             for (std::size_t i = 0; i < configurable_vector_out.vector_.size(); ++i)
             {
                 compare(configurable_vector_out.vector_[i], configurable_vector_in.vector_[i]);

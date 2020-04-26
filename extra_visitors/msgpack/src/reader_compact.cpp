@@ -63,8 +63,7 @@ namespace ariles
                     }
                     catch (const std::exception &e)
                     {
-                        ARILES_THROW(
-                                std::string("Failed to parse the configuration file: ") + e.what());
+                        ARILES_THROW(std::string("Failed to parse the configuration file: ") + e.what());
                     }
                 }
 
@@ -165,8 +164,7 @@ namespace ariles
 
         void Reader::shiftArray()
         {
-            ARILES_ASSERT(
-                    true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ARILES_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
@@ -174,10 +172,10 @@ namespace ariles
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    void Reader::readElement(type &element)                                                        \
-    {                                                                                              \
-        impl_->getRawNode() >> element;                                                            \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    void Reader::readElement(type &element)                                                                            \
+    {                                                                                                                  \
+        impl_->getRawNode() >> element;                                                                                \
     }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)

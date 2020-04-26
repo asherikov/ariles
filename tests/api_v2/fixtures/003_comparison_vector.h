@@ -30,9 +30,7 @@ namespace ariles_tests
         }
 
 
-        void arilesVisit(
-                const ariles::Defaults & /*visitor*/,
-                const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
         {
         }
 
@@ -63,21 +61,20 @@ namespace ariles_tests
         {
             ConfigurableVector<t_Configurable> configurable_vector_out;
             configurable_vector_out.randomize();
-            BOOST_CHECK_NO_THROW(ariles::apply<typename t_Visitor::Writer>(
-                                         getWriterInitializer("configurable_match_vector.cfg"),
-                                         configurable_vector_out););
+            BOOST_CHECK_NO_THROW(
+                    ariles::apply<typename t_Visitor::Writer>(
+                            getWriterInitializer("configurable_match_vector.cfg"), configurable_vector_out););
 
             // -------
 
             ConfigurableVector<t_Configurable> configurable_vector_in;
-            BOOST_CHECK_NO_THROW(ariles::apply<typename t_Visitor::Reader>(
-                                         getReaderInitializer("configurable_match_vector.cfg"),
-                                         configurable_vector_in););
+            BOOST_CHECK_NO_THROW(
+                    ariles::apply<typename t_Visitor::Reader>(
+                            getReaderInitializer("configurable_match_vector.cfg"), configurable_vector_in););
 
             // -------
 
-            BOOST_REQUIRE_EQUAL(
-                    configurable_vector_out.vector_.size(), configurable_vector_in.vector_.size());
+            BOOST_REQUIRE_EQUAL(configurable_vector_out.vector_.size(), configurable_vector_in.vector_.size());
             for (std::size_t i = 0; i < configurable_vector_out.vector_.size(); ++i)
             {
                 compare(configurable_vector_out.vector_[i], configurable_vector_in.vector_[i]);

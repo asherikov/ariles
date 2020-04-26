@@ -19,8 +19,7 @@ namespace ariles_tests
         template <class t_Configurable>
         void test()
         {
-            BOOST_CHECK_NO_THROW(t_Configurable configurable;
-                                 ariles::apply<ariles::Defaults>(configurable););
+            BOOST_CHECK_NO_THROW(t_Configurable configurable; ariles::apply<ariles::Defaults>(configurable););
         }
     };
 }  // namespace ariles_tests

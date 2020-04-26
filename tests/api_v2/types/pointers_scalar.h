@@ -16,9 +16,9 @@ namespace ariles_tests
 #define ARILES_ENTRIES_0
 
 #if __cplusplus >= 201103L
-#    define ARILES_ENTRIES_1                                                                       \
-        ARILES_ENTRIES_0                                                                           \
-        ARILES_TYPED_ENTRY_(std_shared_ptr_real, std::shared_ptr<double>)                          \
+#    define ARILES_ENTRIES_1                                                                                           \
+        ARILES_ENTRIES_0                                                                                               \
+        ARILES_TYPED_ENTRY_(std_shared_ptr_real, std::shared_ptr<double>)                                              \
         ARILES_TYPED_ENTRY_(std_unique_ptr_real, std::unique_ptr<double>)
 #else
 #    define ARILES_ENTRIES_1 ARILES_ENTRIES_0
@@ -27,15 +27,15 @@ namespace ariles_tests
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
 #    if BOOST_VERSION >= 105800
-#        define ARILES_ENTRIES_2                                                                   \
-            ARILES_ENTRIES_1                                                                       \
-            ARILES_TYPED_ENTRY_(shared_ptr_real, boost::shared_ptr<double>)                        \
-            ARILES_TYPED_ENTRY_(shared_ptr_real_null, boost::shared_ptr<double>)                   \
+#        define ARILES_ENTRIES_2                                                                                       \
+            ARILES_ENTRIES_1                                                                                           \
+            ARILES_TYPED_ENTRY_(shared_ptr_real, boost::shared_ptr<double>)                                            \
+            ARILES_TYPED_ENTRY_(shared_ptr_real_null, boost::shared_ptr<double>)                                       \
             ARILES_TYPED_ENTRY_(unique_ptr_real, boost::movelib::unique_ptr<double>)
 #    else
-#        define ARILES_ENTRIES_2                                                                   \
-            ARILES_ENTRIES_1                                                                       \
-            ARILES_TYPED_ENTRY_(shared_ptr_real, boost::shared_ptr<double>)                        \
+#        define ARILES_ENTRIES_2                                                                                       \
+            ARILES_ENTRIES_1                                                                                           \
+            ARILES_TYPED_ENTRY_(shared_ptr_real, boost::shared_ptr<double>)                                            \
             ARILES_TYPED_ENTRY_(shared_ptr_real_null, boost::shared_ptr<double>)
 #    endif
 #else
@@ -44,9 +44,9 @@ namespace ariles_tests
 
 
 #ifdef ARILES_ADAPTER_BOOST_OPTIONAL
-#    define ARILES_ENTRIES_3                                                                       \
-        ARILES_ENTRIES_2                                                                           \
-        ARILES_TYPED_ENTRY_(optional_real, boost::optional<double>)                                \
+#    define ARILES_ENTRIES_3                                                                                           \
+        ARILES_ENTRIES_2                                                                                               \
+        ARILES_TYPED_ENTRY_(optional_real, boost::optional<double>)                                                    \
         ARILES_TYPED_ENTRY_(optional_real_null, boost::optional<double>)
 #else
 #    define ARILES_ENTRIES_3 ARILES_ENTRIES_2
@@ -68,9 +68,7 @@ namespace ariles_tests
             ariles::apply<ariles::Defaults>(*this);
         }
 
-        void arilesVisit(
-                const ariles::Defaults & /*visitor*/,
-                const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
         {
 #if __cplusplus >= 201103L
             std_shared_ptr_real_.reset();
@@ -127,36 +125,28 @@ namespace ariles_tests
 
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
     template <class t_Configurable_out, class t_Configurable_in>
-    void compare(
-            const t_Configurable_out &configurable_out,
-            const t_Configurable_in &configurable_in)
+    void compare(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)
     {
 #    if __cplusplus >= 201103L
         if (configurable_in.std_shared_ptr_real_ == NULL)
         {
-            BOOST_CHECK_EQUAL(
-                    configurable_out.std_shared_ptr_real_, configurable_in.std_shared_ptr_real_);
+            BOOST_CHECK_EQUAL(configurable_out.std_shared_ptr_real_, configurable_in.std_shared_ptr_real_);
         }
         else
         {
             BOOST_CHECK(configurable_out.std_shared_ptr_real_ != NULL);
             BOOST_CHECK_CLOSE(
-                    *configurable_out.std_shared_ptr_real_,
-                    *configurable_in.std_shared_ptr_real_,
-                    g_tolerance);
+                    *configurable_out.std_shared_ptr_real_, *configurable_in.std_shared_ptr_real_, g_tolerance);
         }
         if (configurable_in.std_unique_ptr_real_ == NULL)
         {
-            BOOST_CHECK(
-                    configurable_out.std_unique_ptr_real_ == configurable_in.std_unique_ptr_real_);
+            BOOST_CHECK(configurable_out.std_unique_ptr_real_ == configurable_in.std_unique_ptr_real_);
         }
         else
         {
             BOOST_CHECK(configurable_out.std_unique_ptr_real_ != NULL);
             BOOST_CHECK_CLOSE(
-                    *configurable_out.std_unique_ptr_real_,
-                    *configurable_in.std_unique_ptr_real_,
-                    g_tolerance);
+                    *configurable_out.std_unique_ptr_real_, *configurable_in.std_unique_ptr_real_, g_tolerance);
         }
 #    endif
 
@@ -169,10 +159,7 @@ namespace ariles_tests
         else
         {
             BOOST_CHECK(configurable_out.shared_ptr_real_ != NULL);
-            BOOST_CHECK_CLOSE(
-                    *configurable_out.shared_ptr_real_,
-                    *configurable_in.shared_ptr_real_,
-                    g_tolerance);
+            BOOST_CHECK_CLOSE(*configurable_out.shared_ptr_real_, *configurable_in.shared_ptr_real_, g_tolerance);
         }
 #        if BOOST_VERSION >= 105800
         if (configurable_in.unique_ptr_real_ == NULL)
@@ -182,24 +169,19 @@ namespace ariles_tests
         else
         {
             BOOST_CHECK(configurable_out.unique_ptr_real_ != NULL);
-            BOOST_CHECK_CLOSE(
-                    *configurable_out.unique_ptr_real_,
-                    *configurable_in.unique_ptr_real_,
-                    g_tolerance);
+            BOOST_CHECK_CLOSE(*configurable_out.unique_ptr_real_, *configurable_in.unique_ptr_real_, g_tolerance);
         }
 #        endif
 
         BOOST_CHECK(configurable_out.shared_ptr_real_null_ == NULL);
-        BOOST_CHECK_EQUAL(
-                configurable_out.shared_ptr_real_null_, configurable_in.shared_ptr_real_null_);
+        BOOST_CHECK_EQUAL(configurable_out.shared_ptr_real_null_, configurable_in.shared_ptr_real_null_);
 #    endif
 
 
 #    ifdef ARILES_ADAPTER_BOOST_OPTIONAL
         BOOST_CHECK(configurable_out.optional_real_ != boost::none);
         BOOST_CHECK(configurable_in.optional_real_ != boost::none);
-        BOOST_CHECK_CLOSE(
-                *configurable_out.optional_real_, *configurable_in.optional_real_, g_tolerance);
+        BOOST_CHECK_CLOSE(*configurable_out.optional_real_, *configurable_in.optional_real_, g_tolerance);
         BOOST_CHECK(configurable_out.optional_real_null_ == boost::none);
         BOOST_CHECK(configurable_out.optional_real_null_ == configurable_in.optional_real_null_);
 #    endif

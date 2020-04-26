@@ -40,8 +40,8 @@ namespace ariles_tests
     class Derived1 : public Base
     {
 #define ARILES_DEFAULT_ID "Derived1"  // Needed for cast<Derived1>("Derived1"));
-#define ARILES_ENTRIES                                                                             \
-    ARILES_PARENT(Base)                                                                            \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_PARENT(Base)                                                                                                \
     ARILES_TYPED_ENTRY_(real1, double)
 #include ARILES_INITIALIZE
 
@@ -65,8 +65,8 @@ namespace ariles_tests
     class Derived2 : public Base
     {
 #define ARILES_DEFAULT_ID "Derived2"  // Needed for cast<Derived2>("Derived2"));
-#define ARILES_ENTRIES                                                                             \
-    ARILES_PARENT(Base)                                                                            \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_PARENT(Base)                                                                                                \
     ARILES_TYPED_ENTRY_(real2, double)
 #include ARILES_INITIALIZE
 
@@ -187,8 +187,8 @@ namespace ariles_tests
 #if __cplusplus >= 201103L
         CommonAny<std::shared_ptr, StdPtrInstantiator> std_any_;
 
-#    define ARILES_ENTRIES_1                                                                       \
-        ARILES_ENTRIES_0                                                                           \
+#    define ARILES_ENTRIES_1                                                                                           \
+        ARILES_ENTRIES_0                                                                                               \
         ARILES_ENTRY_(std_any)
 #else
 #    define ARILES_ENTRIES_1 ARILES_ENTRIES_0
@@ -197,8 +197,8 @@ namespace ariles_tests
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
         CommonAny<boost::shared_ptr, BoostPtrInstantiator> boost_any_;
-#    define ARILES_ENTRIES_2                                                                       \
-        ARILES_ENTRIES_1                                                                           \
+#    define ARILES_ENTRIES_2                                                                                           \
+        ARILES_ENTRIES_1                                                                                               \
         ARILES_ENTRY_(boost_any)
 #else
 #    define ARILES_ENTRIES_2 ARILES_ENTRIES_1
@@ -237,14 +237,11 @@ namespace ariles_tests
 
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
     template <class t_Configurable_out, class t_Configurable_in>
-    void compare(
-            const t_Configurable_out &configurable_out,
-            const t_Configurable_in &configurable_in)
+    void compare(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)
     {
 #    if __cplusplus >= 201103L
         BOOST_CHECK_EQUAL(configurable_out.std_any_.id_, configurable_in.std_any_.id_);
-        BOOST_CHECK_CLOSE(
-                (*configurable_out.std_any_).real_, (*configurable_in.std_any_).real_, g_tolerance);
+        BOOST_CHECK_CLOSE((*configurable_out.std_any_).real_, (*configurable_in.std_any_).real_, g_tolerance);
         if ("Derived1" == configurable_out.std_any_.id_)
         {
             BOOST_CHECK_CLOSE(
@@ -272,10 +269,7 @@ namespace ariles_tests
 
 #    ifdef ARILES_ADAPTER_BOOST_POINTER
         BOOST_CHECK_EQUAL(configurable_out.boost_any_.id_, configurable_in.boost_any_.id_);
-        BOOST_CHECK_CLOSE(
-                (*configurable_out.boost_any_).real_,
-                (*configurable_in.boost_any_).real_,
-                g_tolerance);
+        BOOST_CHECK_CLOSE((*configurable_out.boost_any_).real_, (*configurable_in.boost_any_).real_, g_tolerance);
         if ("Derived1" == configurable_out.boost_any_.id_)
         {
             BOOST_CHECK_CLOSE(

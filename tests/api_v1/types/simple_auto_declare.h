@@ -26,8 +26,8 @@ namespace ariles_tests
 #define ARILES_CONSTRUCTOR ConfigurableAutoDeclare
 // optional, but what is the point in omitting it?
 // members can be defined manually, see ConfigurableVerbose
-#define ARILES_ENTRIES                                                                             \
-    ARILES_TYPED_ENTRY_(integer, int)                                                              \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_TYPED_ENTRY_(integer, int)                                                                                  \
     ARILES_TYPED_ENTRY_(real, double)
 // mandatory
 #include ARILES_INITIALIZE

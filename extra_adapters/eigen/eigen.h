@@ -36,9 +36,7 @@ namespace ariles
                 ARILES_ASSERT((static_cast<int>(size) == t_rows), "Wrong entry size.");
             }
 
-            for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0;
-                 i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows);
-                 ++i)
+            for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows); ++i)
             {
                 apply_read(visitor, entry[i], param);
                 visitor.shiftArray();
@@ -67,11 +65,9 @@ namespace ariles
 
                 visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(3);
                 visitor(num_cols, "cols", param);
-                ARILES_ASSERT(
-                        Eigen::Dynamic == t_cols || t_cols == num_cols, "Wrong number of columns.");
+                ARILES_ASSERT(Eigen::Dynamic == t_cols || t_cols == num_cols, "Wrong number of columns.");
                 visitor(num_rows, "rows", param);
-                ARILES_ASSERT(
-                        Eigen::Dynamic == t_rows || t_rows == num_rows, "Wrong number of rows.");
+                ARILES_ASSERT(Eigen::Dynamic == t_rows || t_rows == num_rows, "Wrong number of rows.");
 
 
                 Eigen::Matrix<t_Scalar, Eigen::Dynamic, 1> v;
@@ -80,8 +76,7 @@ namespace ariles
 
                 ARILES_ASSERT(v.rows() == num_rows * num_cols, "Wrong entry size.");
 
-                Eigen::Map<Eigen::Matrix<t_Scalar, t_rows, t_cols, Eigen::RowMajor> > map(
-                        v.data(), num_rows, num_cols);
+                Eigen::Map<Eigen::Matrix<t_Scalar, t_rows, t_cols, Eigen::RowMajor> > map(v.data(), num_rows, num_cols);
                 entry = map;
             }
             else
@@ -90,8 +85,7 @@ namespace ariles
 
                 apply_read(visitor, v, parameters);
 
-                Eigen::Map<Eigen::Matrix<double, t_rows, t_cols, Eigen::RowMajor> > map(
-                        v.data(), t_rows, t_cols);
+                Eigen::Map<Eigen::Matrix<double, t_rows, t_cols, Eigen::RowMajor> > map(v.data(), t_rows, t_cols);
                 entry = map;
             }
         }
@@ -147,13 +141,10 @@ namespace ariles
                 const typename t_Visitor::Parameters & /*param*/)
         {
             ARILES_TRACE_FUNCTION;
-            if (writer.getSerializationFeatures().isSet(
-                        serialization::Features::NATIVE_MATRIX_SUPPORTED))
+            if (writer.getSerializationFeatures().isSet(serialization::Features::NATIVE_MATRIX_SUPPORTED))
             {
                 writer.startMatrix(true);
-                for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0;
-                     i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows);
-                     ++i)
+                for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows); ++i)
                 {
                     writer.startMatrixRow();
                     writer.writeElement(entry(i));
@@ -182,17 +173,13 @@ namespace ariles
                 const typename t_Visitor::Parameters &param)
         {
             ARILES_TRACE_FUNCTION;
-            if (writer.getSerializationFeatures().isSet(
-                        serialization::Features::NATIVE_MATRIX_SUPPORTED))
+            if (writer.getSerializationFeatures().isSet(serialization::Features::NATIVE_MATRIX_SUPPORTED))
             {
                 writer.startMatrix();
-                for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0;
-                     i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows);
-                     ++i)
+                for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows); ++i)
                 {
                     writer.startMatrixRow();
-                    for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0;
-                         j < (Eigen::Dynamic == t_cols ? entry.cols() : t_cols);
+                    for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < (Eigen::Dynamic == t_cols ? entry.cols() : t_cols);
                          ++j)
                     {
                         writer.writeElement(entry(i, j));

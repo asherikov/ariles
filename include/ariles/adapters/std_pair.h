@@ -42,14 +42,11 @@ namespace ariles
                 const typename t_Visitor::Parameters &parameters)
         {
             ARILES_TRACE_FUNCTION;
-            if (visitor.getSerializationFeatures().isSet(
-                        serialization::Features::SLOPPY_PAIRS_SUPPORTED)
+            if (visitor.getSerializationFeatures().isSet(serialization::Features::SLOPPY_PAIRS_SUPPORTED)
                 && parameters.isSet(t_Visitor::Parameters::SLOPPY_PAIRS_IF_SUPPORTED))
             {
                 std::vector<std::string> entry_names;
-                ARILES_ASSERT(
-                        true == visitor.getMapEntryNames(entry_names),
-                        "Could not read names of map entries.");
+                ARILES_ASSERT(true == visitor.getMapEntryNames(entry_names), "Could not read names of map entries.");
                 if (1 == entry_names.size())
                 {
                     ariles::ConfigurableFlags param = parameters;
@@ -71,9 +68,7 @@ namespace ariles
                     // size > 1 is never ok, due to ambiguity.
                     ARILES_ASSERT(
                             0 == entry_names.size()
-                                    and true
-                                                == parameters.isSet(t_Visitor::Parameters::
-                                                                            ALLOW_MISSING_ENTRIES),
+                                    and true == parameters.isSet(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES),
                             "Wrong number of pair entries for a sloppy pair.");
                 }
             }
@@ -112,8 +107,7 @@ namespace ariles
                 const typename t_Visitor::Parameters &param)
         {
             ARILES_TRACE_FUNCTION;
-            if (writer.getSerializationFeatures().isSet(
-                        serialization::Features::SLOPPY_PAIRS_SUPPORTED)
+            if (writer.getSerializationFeatures().isSet(serialization::Features::SLOPPY_PAIRS_SUPPORTED)
                 && param.isSet(t_Visitor::Parameters::SLOPPY_PAIRS_IF_SUPPORTED))
             {
                 writer.startMap(1);

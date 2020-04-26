@@ -29,9 +29,8 @@ namespace ariles_tests
 
             ariles::apply<ariles::Defaults>(configurable_default);
 
-            BOOST_CHECK_NO_THROW(
-                    ariles::apply<typename t_Visitor::Reader>(
-                            getReaderInitializer("configurable.cfg"), configurable_read););
+            BOOST_CHECK_NO_THROW(ariles::apply<typename t_Visitor::Reader>(
+                                         getReaderInitializer("configurable.cfg"), configurable_read););
 
             compare(configurable_default, configurable_read);
         }

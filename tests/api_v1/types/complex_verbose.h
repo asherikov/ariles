@@ -19,36 +19,36 @@ namespace ariles_tests
     {
 #define ARILES_SECTION_ID "ConfigurableComplexVerbose"
 #define ARILES_CONSTRUCTOR ConfigurableComplexVerbose
-#define ARILES_ENTRIES_STANDARD_TYPES                                                              \
-    ARILES_ENTRY_(integer)                                                                         \
-    ARILES_ENTRY_(unsigned_integer)                                                                \
-    ARILES_ENTRY_(real)                                                                            \
-    ARILES_ENTRY_(string)                                                                          \
-    ARILES_ENTRY_(std_vector)                                                                      \
-    ARILES_ENTRY_(std_nested_vector)                                                               \
-    ARILES_ENTRY_(enum)                                                                            \
-    ARILES_ENTRY_(boolean_true)                                                                    \
-    ARILES_ENTRY_(boolean_false)                                                                   \
-    ARILES_ENTRY_(std_pair)                                                                        \
+#define ARILES_ENTRIES_STANDARD_TYPES                                                                                  \
+    ARILES_ENTRY_(integer)                                                                                             \
+    ARILES_ENTRY_(unsigned_integer)                                                                                    \
+    ARILES_ENTRY_(real)                                                                                                \
+    ARILES_ENTRY_(string)                                                                                              \
+    ARILES_ENTRY_(std_vector)                                                                                          \
+    ARILES_ENTRY_(std_nested_vector)                                                                                   \
+    ARILES_ENTRY_(enum)                                                                                                \
+    ARILES_ENTRY_(boolean_true)                                                                                        \
+    ARILES_ENTRY_(boolean_false)                                                                                       \
+    ARILES_ENTRY_(std_pair)                                                                                            \
     ARILES_ENTRY_(std_map)
 
 #ifdef ARILES_ADAPTER_EIGEN
-#    define ARILES_ENTRIES_0                                                                       \
-        ARILES_ENTRIES_STANDARD_TYPES                                                              \
-        ARILES_ENTRY_(vector)                                                                      \
-        ARILES_ENTRY_(matrix)                                                                      \
-        ARILES_ENTRY_(matrix_x)                                                                    \
-        ARILES_ENTRY_(std_vector_evector)                                                          \
-        ARILES_ENTRY_(std_nested_vector_evector)                                                   \
-        ARILES_ENTRY_(isometry)                                                                    \
+#    define ARILES_ENTRIES_0                                                                                           \
+        ARILES_ENTRIES_STANDARD_TYPES                                                                                  \
+        ARILES_ENTRY_(vector)                                                                                          \
+        ARILES_ENTRY_(matrix)                                                                                          \
+        ARILES_ENTRY_(matrix_x)                                                                                        \
+        ARILES_ENTRY_(std_vector_evector)                                                                              \
+        ARILES_ENTRY_(std_nested_vector_evector)                                                                       \
+        ARILES_ENTRY_(isometry)                                                                                        \
         ARILES_ENTRY_(quaternion)
 #else
 #    define ARILES_ENTRIES_0 ARILES_ENTRIES_STANDARD_TYPES
 #endif
 
 #ifdef ARILES_ADAPTER_BETTER_ENUMS
-#    define ARILES_ENTRIES_1                                                                       \
-        ARILES_ENTRIES_0                                                                           \
+#    define ARILES_ENTRIES_1                                                                                           \
+        ARILES_ENTRIES_0                                                                                               \
         ARILES_ENTRY_(better_enum)
 #else
 #    define ARILES_ENTRIES_1 ARILES_ENTRIES_STANDARD_TYPES

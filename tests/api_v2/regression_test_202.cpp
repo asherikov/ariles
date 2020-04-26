@@ -44,29 +44,18 @@
 // TESTS
 // ===============================================================
 
-#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                           \
-    ARILES_FIXTURE_TEST_CASE(                                                                      \
-            BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableDerived, INITIALIZER)        \
-    ARILES_FIXTURE_TEST_CASE(                                                                      \
-            ComparisonSimpleFixture, VISITOR_ID, NAMESPACE, ConfigurableDerived, INITIALIZER)      \
-    ARILES_FIXTURE_TEST_CASE(                                                                      \
-            ComparisonMultiFixture, VISITOR_ID, NAMESPACE, ConfigurableDerived, INITIALIZER)       \
-    ARILES_FIXTURE_TEST_CASE(                                                                      \
-            ComparisonVectorFixture, VISITOR_ID, NAMESPACE, ConfigurableDerived, INITIALIZER)      \
-    ARILES_FIXTURE_TEST_CASE_2CLASSES(                                                             \
-            StrictnessFixture,                                                                     \
-            VISITOR_ID,                                                                            \
-            NAMESPACE,                                                                             \
-            ConfigurableStrictness1,                                                               \
-            ConfigurableStrictness2,                                                               \
-            INITIALIZER)                                                                           \
-    BOOST_FIXTURE_TEST_CASE(                                                                       \
-            ComparisonViaBaseFixture##_##VISITOR_ID##_##INITIALIZER,                               \
-            ariles_tests::ComparisonViaBaseFixture<ariles_tests::initializers::INITIALIZER>)       \
-    {                                                                                              \
-        test<ariles_tests::ConfigurableBase,                                                       \
-             ariles_tests::ConfigurableDerived,                                                    \
-             ariles::NAMESPACE>();                                                                 \
+#define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                                               \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableDerived, INITIALIZER)           \
+    ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, VISITOR_ID, NAMESPACE, ConfigurableDerived, INITIALIZER)         \
+    ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, VISITOR_ID, NAMESPACE, ConfigurableDerived, INITIALIZER)          \
+    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, VISITOR_ID, NAMESPACE, ConfigurableDerived, INITIALIZER)         \
+    ARILES_FIXTURE_TEST_CASE_2CLASSES(                                                                                 \
+            StrictnessFixture, VISITOR_ID, NAMESPACE, ConfigurableStrictness1, ConfigurableStrictness2, INITIALIZER)   \
+    BOOST_FIXTURE_TEST_CASE(                                                                                           \
+            ComparisonViaBaseFixture##_##VISITOR_ID##_##INITIALIZER,                                                   \
+            ariles_tests::ComparisonViaBaseFixture<ariles_tests::initializers::INITIALIZER>)                           \
+    {                                                                                                                  \
+        test<ariles_tests::ConfigurableBase, ariles_tests::ConfigurableDerived, ariles::NAMESPACE>();                  \
     }
 
 

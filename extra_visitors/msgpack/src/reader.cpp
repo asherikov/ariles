@@ -65,19 +65,15 @@ namespace ariles
 
                         while (buffer_offset != buffer_.size())
                         {
-                            handles_.push_back(ARILES_SHARED_PTR< ::msgpack::object_handle>(
-                                    new ::msgpack::object_handle));
+                            handles_.push_back(
+                                    ARILES_SHARED_PTR< ::msgpack::object_handle>(new ::msgpack::object_handle));
 
-                            unpack(*handles_[handles_.size() - 1],
-                                   buffer_.data(),
-                                   buffer_.size(),
-                                   buffer_offset);
+                            unpack(*handles_[handles_.size() - 1], buffer_.data(), buffer_.size(), buffer_offset);
                         }
                     }
                     catch (const std::exception &e)
                     {
-                        ARILES_THROW(
-                                std::string("Failed to parse the configuration file: ") + e.what());
+                        ARILES_THROW(std::string("Failed to parse the configuration file: ") + e.what());
                     }
 
                     nameless_counter_ = 0;
@@ -152,14 +148,12 @@ namespace ariles
                 {
                     if (::msgpack::type::MAP == impl_->handles_[i]->get().type)
                     {
-                        if (child_name
-                            == impl_->handles_[i]->get().via.map.ptr[0].key.as<std::string>())
+                        if (child_name == impl_->handles_[i]->get().via.map.ptr[0].key.as<std::string>())
                         {
-                            if (::msgpack::type::MAP
-                                == impl_->handles_[i]->get().via.map.ptr[0].val.type)
+                            if (::msgpack::type::MAP == impl_->handles_[i]->get().via.map.ptr[0].val.type)
                             {
-                                impl_->node_stack_.push_back(NodeWrapper(
-                                        &(impl_->handles_[i]->get().via.map.ptr[0].val)));
+                                impl_->node_stack_.push_back(
+                                        NodeWrapper(&(impl_->handles_[i]->get().via.map.ptr[0].val)));
                                 return (true);
                             }
                         }
@@ -174,8 +168,7 @@ namespace ariles
                     {
                         if (child_name == impl_->getRawNode().via.map.ptr[i].key.as<std::string>())
                         {
-                            impl_->node_stack_.push_back(
-                                    NodeWrapper(&(impl_->getRawNode().via.map.ptr[i].val)));
+                            impl_->node_stack_.push_back(NodeWrapper(&(impl_->getRawNode().via.map.ptr[i].val)));
                             return (true);
                         }
                     }
@@ -213,8 +206,7 @@ namespace ariles
         void Reader::shiftArray()
         {
             ARILES_TRACE_FUNCTION;
-            ARILES_ASSERT(
-                    true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ARILES_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
@@ -246,11 +238,11 @@ namespace ariles
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                    \
-    void Reader::readElement(type &element)                                                        \
-    {                                                                                              \
-        ARILES_TRACE_FUNCTION;                                                                     \
-        impl_->getRawNode() >> element;                                                            \
+#define ARILES_BASIC_TYPE(type)                                                                                        \
+    void Reader::readElement(type &element)                                                                            \
+    {                                                                                                                  \
+        ARILES_TRACE_FUNCTION;                                                                                         \
+        impl_->getRawNode() >> element;                                                                                \
     }
 
         ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)

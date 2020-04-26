@@ -17,8 +17,8 @@ namespace ariles_tests
     {
 // optional, but what is the point in omitting it?
 // members can be defined manually, see ConfigurableVerbose
-#define ARILES_ENTRIES                                                                             \
-    ARILES_TYPED_ENTRY_(integer, int)                                                              \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_TYPED_ENTRY_(integer, int)                                                                                  \
     ARILES_TYPED_ENTRY_(real, double)
 // mandatory
 #include ARILES_INITIALIZE
@@ -31,9 +31,7 @@ namespace ariles_tests
         }
 
 
-        void arilesVisit(
-                const ariles::Defaults & /*visitor*/,
-                const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
         {
             integer_ = 10;
             real_ = 1.33;

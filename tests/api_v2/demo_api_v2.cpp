@@ -44,8 +44,8 @@ namespace demo
       : public ariles::DefaultBase
     {
 // Declare entries, in this case two numbers
-#define ARILES_ENTRIES                                                                             \
-    ARILES_TYPED_ENTRY(real_member, double)                                                        \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_TYPED_ENTRY(real_member, double)                                                                            \
     ARILES_TYPED_ENTRY_(integer_member, int)
 //         underscore ^ indicates that the name of the entry must be
 // 'integer_member_' instead of 'integer_member', this is useful if your
@@ -59,9 +59,7 @@ namespace demo
 
         // This method is called every time you deserialize a class. If
         // omitted, the default automatically generated method is used.
-        void arilesVisit(
-                const ariles::Defaults & /*visitor*/,
-                const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
         {
             real_member = 0.0;
             integer_member_ = 12;
@@ -83,8 +81,8 @@ namespace demo
 // Declare entries, in this case we indicate inheritance from another
 // Ariles class (ArilesBaseClass) and a member from a non-Ariles class
 // (NonArilesBaseClass)
-#define ARILES_ENTRIES                                                                             \
-    ARILES_PARENT(ArilesBaseClass)                                                                 \
+#define ARILES_ENTRIES                                                                                                 \
+    ARILES_PARENT(ArilesBaseClass)                                                                                     \
     ARILES_ENTRY_(eigen_vector)
         //              In this case ^ Ariles should not declare the inherited
         // member, therefore we use 'ARILES_ENTRY_' instead of 'ARILES_TYPED_ENTRY_'.

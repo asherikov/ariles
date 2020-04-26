@@ -25,15 +25,13 @@ namespace ariles_tests
         template <class t_Configurable, class t_Visitor>
         void test()
         {
-            BOOST_CHECK_NO_THROW(
-                    t_Configurable configurable; configurable.randomize();
+            BOOST_CHECK_NO_THROW(t_Configurable configurable; configurable.randomize();
 
-                    typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
-                    configurable.writeConfig(writer););
+                                 typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
+                                 configurable.writeConfig(writer););
 
-            BOOST_CHECK_NO_THROW(
-                    typename t_Visitor::Reader reader(getReaderInitializer("configurable.cfg"));
-                    t_Configurable configurable(reader););
+            BOOST_CHECK_NO_THROW(typename t_Visitor::Reader reader(getReaderInitializer("configurable.cfg"));
+                                 t_Configurable configurable(reader););
         }
     };
 }  // namespace ariles_tests
