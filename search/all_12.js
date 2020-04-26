@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['value',['value',['../structariles_1_1ReaderBase_1_1RelaxedSizeLimitType.html#ab3f44e86fde4d1db0585a034d7b791f7',1,'ariles::ReaderBase::RelaxedSizeLimitType::value()'],['../classariles_1_1bridge_1_1array_1_1NameValuePairHandler_3_01NameValuePair_01_4.html#a0cdfd89477a1d4317364c38206f53038',1,'ariles::bridge::array::NameValuePairHandler&lt; NameValuePair &gt;::value()'],['../classariles_1_1PointerHandler_3_01boost_1_1optional_3_01t__Value_01_4_01_4.html#ae44b2c8f4cade804c89e313fcb31dba0',1,'ariles::PointerHandler&lt; boost::optional&lt; t_Value &gt; &gt;::Value()'],['../classariles_1_1PointerHandler_3_01boost_1_1shared__ptr_3_01t__Value_01_4_01_4.html#ad65800424b8a3bdd3556f0eb7785c4cb',1,'ariles::PointerHandler&lt; boost::shared_ptr&lt; t_Value &gt; &gt;::Value()']]],
-  ['value_5f',['value_',['../classariles_1_1Any.html#ad552ead0fde525c0ffa88bc63efe048d',1,'ariles::Any::value_()'],['../classariles_1_1NonNullPointer.html#a3d7d7a9608990eb1d4a53a993a84d3b6',1,'ariles::NonNullPointer::value_()']]]
+  ['undefined',['UNDEFINED',['../classariles_1_1Node.html#a840532d12f73e063560d026c0dbdb28dac29e096a33b2902bcf3eba18c31329fa',1,'ariles::Node']]]
 ];

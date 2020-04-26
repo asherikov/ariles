@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['istreamwrapper',['IStreamWrapper',['../namespaceariles_1_1bridge_1_1rapidjson.html#ae34fcbaa205e549beae20166bc65ec44',1,'ariles::bridge::rapidjson']]]
+  ['flags',['Flags',['../structariles_1_1rapidjson.html#af3cd42781c94e2db8030e3e6729a60cf',1,'ariles::rapidjson::Flags()'],['../structariles_1_1rapidjson.html#af3cd42781c94e2db8030e3e6729a60cf',1,'ariles::rapidjson::Flags()']]]
 ];

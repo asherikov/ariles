@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['value',['value',['../structariles_1_1ReaderBase_1_1RelaxedSizeLimitType.html#ab3f44e86fde4d1db0585a034d7b791f7',1,'ariles::ReaderBase::RelaxedSizeLimitType']]],
-  ['value_5f',['value_',['../classariles_1_1Any.html#ad552ead0fde525c0ffa88bc63efe048d',1,'ariles::Any::value_()'],['../classariles_1_1NonNullPointer.html#a3d7d7a9608990eb1d4a53a993a84d3b6',1,'ariles::NonNullPointer::value_()']]]
+  ['throw_5fon_5ferror_5f',['throw_on_error_',['../classariles_1_1ComparisonParameters.html#a10b55328a03e5c4867c955aedcde1c62',1,'ariles::ComparisonParameters::throw_on_error_()'],['../classariles_1_1compare_1_1Parameters.html#ae1beb0e0182b5a84957d1ace034c8b2f',1,'ariles::compare::Parameters::throw_on_error_()']]],
+  ['type_5f',['type_',['../classariles_1_1Node.html#a5b60ae591cd888f6a277a8beb0e21cac',1,'ariles::Node']]]
 ];

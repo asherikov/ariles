@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['peek',['Peek',['../classariles_1_1bridge_1_1rapidjson_1_1BasicIStreamWrapper.html#ab56b98971729d6043ee28d250a1669f5',1,'ariles::bridge::rapidjson::BasicIStreamWrapper']]],
-  ['peek4',['Peek4',['../classariles_1_1bridge_1_1rapidjson_1_1BasicIStreamWrapper.html#a5d04f3c142ea6acfaf165f64b04704cc',1,'ariles::bridge::rapidjson::BasicIStreamWrapper']]],
-  ['put',['Put',['../classariles_1_1bridge_1_1rapidjson_1_1BasicIStreamWrapper.html#ac515a989b227785794642bc970e5f59f',1,'ariles::bridge::rapidjson::BasicIStreamWrapper']]],
-  ['putbegin',['PutBegin',['../classariles_1_1bridge_1_1rapidjson_1_1BasicIStreamWrapper.html#aeaa681296bdbe6fe3794328fac1f5f35',1,'ariles::bridge::rapidjson::BasicIStreamWrapper']]],
-  ['putend',['PutEnd',['../classariles_1_1bridge_1_1rapidjson_1_1BasicIStreamWrapper.html#a79ea92f9a230315cce7a5bd3af7e3be3',1,'ariles::bridge::rapidjson::BasicIStreamWrapper']]]
+  ['parameters',['Parameters',['../classariles_1_1compare_1_1Parameters.html#a8f3b338d36f69eca436e1bdf2e99fd8f',1,'ariles::compare::Parameters::Parameters()'],['../classariles_1_1defaults_1_1Parameters.html#ac340d5ae7cef0dc0f4a263667d0ee1b2',1,'ariles::defaults::Parameters::Parameters()']]],
+  ['peek',['Peek',['../classariles_1_1ns__rapidjson_1_1BasicIStreamWrapper.html#aeed79aff1e814e5b4049ce2c2a54887f',1,'ariles::ns_rapidjson::BasicIStreamWrapper']]],
+  ['peek4',['Peek4',['../classariles_1_1ns__rapidjson_1_1BasicIStreamWrapper.html#a2583ee991b892f253c0a53c1eabbcfe5',1,'ariles::ns_rapidjson::BasicIStreamWrapper']]],
+  ['put',['Put',['../classariles_1_1ns__rapidjson_1_1BasicIStreamWrapper.html#aa365df6ecad740dd6c2f0b89534153ec',1,'ariles::ns_rapidjson::BasicIStreamWrapper']]],
+  ['putbegin',['PutBegin',['../classariles_1_1ns__rapidjson_1_1BasicIStreamWrapper.html#a12135971115b9e1a99253285bbdce099',1,'ariles::ns_rapidjson::BasicIStreamWrapper']]],
+  ['putend',['PutEnd',['../classariles_1_1ns__rapidjson_1_1BasicIStreamWrapper.html#a6773a65459181f2de095c63c6d14ce76',1,'ariles::ns_rapidjson::BasicIStreamWrapper']]]
 ];

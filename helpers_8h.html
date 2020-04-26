@@ -88,23 +88,18 @@ $(function() {
 <code>#include &lt;boost/utility/enable_if.hpp&gt;</code><br />
 <code>#include &lt;boost/type_traits/is_enum.hpp&gt;</code><br />
 <code>#include &lt;boost/type_traits/is_base_of.hpp&gt;</code><br />
+<code>#include &lt;boost/smart_ptr/shared_ptr.hpp&gt;</code><br />
 <code>#include &quot;build_config.h&quot;</code><br />
 <code>#include &quot;cpput_config.h&quot;</code><br />
 <code>#include &quot;cpput_exception.h&quot;</code><br />
 <code>#include &quot;cpput_floating_point_utils.h&quot;</code><br />
 <code>#include &quot;cpput_misc.h&quot;</code><br />
 <code>#include &quot;cpput_flags.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="trace_8h_source.html">trace.h</a>&quot;</code><br />
 <code>#include &quot;cpput_visibility.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="configurable__flags_8h_source.html">../configurable_flags.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="bridge__flags_8h_source.html">../bridge_flags.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="comparison__parameters_8h_source.html">../comparison_parameters.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structariles_1_1ArilesNamespaceLookupTrigger.html">ariles::ArilesNamespaceLookupTrigger</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structariles_1_1BridgeSelectorBase.html">ariles::BridgeSelectorBase</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1PointerHandler.html">ariles::PointerHandler&lt; t_Pointer &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -115,14 +110,18 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a6c3105abd84225301073c4d00267ffdc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helpers_8h.html#a6c3105abd84225301073c4d00267ffdc">ARILES_DEFAULT_CONFIG_PREFIX</a>&#160;&#160;&#160;&quot;&quot;</td></tr>
-<tr class="separator:a6c3105abd84225301073c4d00267ffdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae86779112c3f0f64ee4c32d4c5e601f5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helpers_8h.html#ae86779112c3f0f64ee4c32d4c5e601f5">ARILES_INITIALIZE</a>&#160;&#160;&#160;&quot;ariles/internal/define_accessors.h&quot;</td></tr>
-<tr class="separator:ae86779112c3f0f64ee4c32d4c5e601f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b0d0fdde1df2ed04a92532dcb405929"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helpers_8h.html#a4b0d0fdde1df2ed04a92532dcb405929">ARILES_IS_ENUM_ENABLER_TYPE</a>(Enum)&#160;&#160;&#160;const typename boost::enable_if_c&lt; (boost::is_enum&lt;Enum&gt;::value) &gt;::type</td></tr>
-<tr class="separator:a4b0d0fdde1df2ed04a92532dcb405929"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a421994a6c2d975da5776f52a3a04cac1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helpers_8h.html#a421994a6c2d975da5776f52a3a04cac1">ARILES_IS_CONFIGURABLE_ENABLER_TYPE</a>(Derived)&#160;&#160;&#160;const typename boost::enable_if_c&lt; (boost::is_base_of&lt;<a class="el" href="classariles_1_1ConfigurableBase.html">ariles::ConfigurableBase</a>, Derived&gt;::value) &gt;::type</td></tr>
-<tr class="separator:a421994a6c2d975da5776f52a3a04cac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b88b968127511c717aa9c8050b7505a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helpers_8h.html#a0b88b968127511c717aa9c8050b7505a">ARILES_IS_ENUM_ENABLER</a>(Enum)&#160;&#160;&#160;const typename boost::enable_if_c&lt;(boost::is_enum&lt;Enum&gt;::value)&gt;::type * = NULL</td></tr>
+<tr class="separator:a0b88b968127511c717aa9c8050b7505a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a510ec64013505a5dcd5b400f153bfe0f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helpers_8h.html#a510ec64013505a5dcd5b400f153bfe0f">ARILES_IS_BASE_OF</a>(Base,  Derived)&#160;&#160;&#160;boost::is_base_of&lt;Base, Derived&gt;::value</td></tr>
+<tr class="separator:a510ec64013505a5dcd5b400f153bfe0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5d10ec7cb004317ac60fd949e026df3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helpers_8h.html#ac5d10ec7cb004317ac60fd949e026df3">ARILES_IS_BASE_ENABLER</a>(Base,  Derived)&#160;&#160;&#160;const typename boost::enable_if_c&lt;(<a class="el" href="helpers_8h.html#a510ec64013505a5dcd5b400f153bfe0f">ARILES_IS_BASE_OF</a>(Base, Derived))&gt;::type * = NULL</td></tr>
+<tr class="separator:ac5d10ec7cb004317ac60fd949e026df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a487bb665f4d2bcd630df387fc411c49f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helpers_8h.html#a487bb665f4d2bcd630df387fc411c49f">ARILES_IS_BASE_DISABLER</a>(Base,  Derived)&#160;&#160;&#160;const typename boost::enable_if_c&lt;not(<a class="el" href="helpers_8h.html#a510ec64013505a5dcd5b400f153bfe0f">ARILES_IS_BASE_OF</a>(Base, Derived))&gt;::type * = NULL</td></tr>
+<tr class="separator:a487bb665f4d2bcd630df387fc411c49f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ca4e5e9bb02a84b2c4a5ad41b974723"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helpers_8h.html#a1ca4e5e9bb02a84b2c4a5ad41b974723">ARILES_SHARED_PTR</a>&#160;&#160;&#160;boost::shared_ptr</td></tr>
+<tr class="separator:a1ca4e5e9bb02a84b2c4a5ad41b974723"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dcb1661aa82eefca5b15c52df53c0a2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helpers_8h.html#a1dcb1661aa82eefca5b15c52df53c0a2">ARILES_EMPTY_MACRO</a></td></tr>
+<tr class="separator:a1dcb1661aa82eefca5b15c52df53c0a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abcdc4a0c7172db97f721ddd44184d870"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helpers_8h.html#abcdc4a0c7172db97f721ddd44184d870">ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST</a></td></tr>
 <tr class="separator:abcdc4a0c7172db97f721ddd44184d870"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8eeda0e4bb7cd8fc16e6de95b1b9e30"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helpers_8h.html#ab8eeda0e4bb7cd8fc16e6de95b1b9e30">ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST</a></td></tr>
@@ -137,10 +136,6 @@ Macros</h2></td></tr>
 <tr class="separator:af15a977e214bddb5922dbb410d92cefc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0ff9c31b0413994fc91d82e251e98f0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a>&#160;&#160;&#160;ARILES_LIB_EXPORT</td></tr>
 <tr class="separator:ad0ff9c31b0413994fc91d82e251e98f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0beb3693786220e98fa81f1d6eeb80c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helpers_8h.html#aa0beb3693786220e98fa81f1d6eeb80c">ARILES_TRACE_FUNCTION</a></td></tr>
-<tr class="separator:aa0beb3693786220e98fa81f1d6eeb80c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c05df59a57dfc64923e26587cbf302d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="helpers_8h.html#a6c05df59a57dfc64923e26587cbf302d">ARILES_TRACE_ENTRY</a>(entry_name)</td></tr>
-<tr class="separator:a6c05df59a57dfc64923e26587cbf302d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a1b20446e8ff170479c12dbbbb5b9cf5d"></a>
@@ -154,8 +149,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST \</div><div class="line">    ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST</div></div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00060">60</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<b>Value:</b><div class="fragment"><div class="line">ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST                                                                             \</div><div class="line">    ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST</div></div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00087">87</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
 
 </div>
 </div>
@@ -170,9 +165,9 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_INTEGER_TYPES_LIST \</a></div><div class="line"><a class="code" href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">    ARILES_BASIC_REAL_TYPES_LIST \</a></div><div class="line"><a class="code" href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">    ARILES_BASIC_TYPE</a>(<span class="keywordtype">bool</span>)</div><div class="ttc" id="basic_8h_html_a6e7bb4bc9888ee14944bbe8b8212d5d3"><div class="ttname"><a href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a></div><div class="ttdeci">#define ARILES_BASIC_TYPE(type)</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00280">basic.h:280</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_INTEGER_TYPES_LIST                                                                                    \</a></div><div class="line"><a class="code" href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">    ARILES_BASIC_REAL_TYPES_LIST                                                                                       \</a></div><div class="line"><a class="code" href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">    ARILES_BASIC_TYPE</a>(<span class="keywordtype">bool</span>)</div><div class="ttc" id="basic_8h_html_a6e7bb4bc9888ee14944bbe8b8212d5d3"><div class="ttname"><a href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a></div><div class="ttdeci">#define ARILES_BASIC_TYPE(type)</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00252">basic.h:252</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00068">68</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00095">95</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
 
 </div>
 </div>
@@ -187,9 +182,9 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a>(<span class="keywordtype">float</span>) \</div><div class="line">    ARILES_BASIC_TYPE(<span class="keywordtype">double</span>) \</div><div class="ttc" id="basic_8h_html_a6e7bb4bc9888ee14944bbe8b8212d5d3"><div class="ttname"><a href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a></div><div class="ttdeci">#define ARILES_BASIC_TYPE(type)</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00280">basic.h:280</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a>(<span class="keywordtype">float</span>)                                                                                           \</div><div class="line">    ARILES_BASIC_TYPE(<span class="keywordtype">double</span>)</div><div class="ttc" id="basic_8h_html_a6e7bb4bc9888ee14944bbe8b8212d5d3"><div class="ttname"><a href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a></div><div class="ttdeci">#define ARILES_BASIC_TYPE(type)</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00252">basic.h:252</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00064">64</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00091">91</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
 
 </div>
 </div>
@@ -204,9 +199,9 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a>(<span class="keywordtype">int</span>) \</div><div class="line">    ARILES_BASIC_TYPE(<span class="keywordtype">short</span>) \</div><div class="line">    ARILES_BASIC_TYPE(<span class="keywordtype">long</span>) \</div><div class="line">    ARILES_BASIC_TYPE(<span class="keywordtype">char</span>)</div><div class="ttc" id="basic_8h_html_a6e7bb4bc9888ee14944bbe8b8212d5d3"><div class="ttname"><a href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a></div><div class="ttdeci">#define ARILES_BASIC_TYPE(type)</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00280">basic.h:280</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a>(<span class="keywordtype">int</span>)                                                                                             \</div><div class="line">    ARILES_BASIC_TYPE(<span class="keywordtype">short</span>)                                                                                           \</div><div class="line">    ARILES_BASIC_TYPE(<span class="keywordtype">long</span>)                                                                                            \</div><div class="line">    ARILES_BASIC_TYPE(<span class="keywordtype">char</span>)</div><div class="ttc" id="basic_8h_html_a6e7bb4bc9888ee14944bbe8b8212d5d3"><div class="ttname"><a href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a></div><div class="ttdeci">#define ARILES_BASIC_TYPE(type)</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00252">basic.h:252</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00048">48</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00075">75</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
 
 </div>
 </div>
@@ -221,9 +216,9 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_NUMERIC_TYPES_LIST \</a></div><div class="line"><a class="code" href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">    ARILES_BASIC_TYPE</a>(std::string)</div><div class="ttc" id="basic_8h_html_a6e7bb4bc9888ee14944bbe8b8212d5d3"><div class="ttname"><a href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a></div><div class="ttdeci">#define ARILES_BASIC_TYPE(type)</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00280">basic.h:280</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_NUMERIC_TYPES_LIST                                                                                    \</a></div><div class="line"><a class="code" href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">    ARILES_BASIC_TYPE</a>(std::string)</div><div class="ttc" id="basic_8h_html_a6e7bb4bc9888ee14944bbe8b8212d5d3"><div class="ttname"><a href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a></div><div class="ttdeci">#define ARILES_BASIC_TYPE(type)</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00252">basic.h:252</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00073">73</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00100">100</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
 
 </div>
 </div>
@@ -238,56 +233,130 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>) \</div><div class="line">    ARILES_BASIC_TYPE(<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span>) \</div><div class="line">    ARILES_BASIC_TYPE(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>) \</div><div class="line">    ARILES_BASIC_TYPE(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>)</div><div class="ttc" id="basic_8h_html_a6e7bb4bc9888ee14944bbe8b8212d5d3"><div class="ttname"><a href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a></div><div class="ttdeci">#define ARILES_BASIC_TYPE(type)</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00280">basic.h:280</a></div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>)                                                                                    \</div><div class="line">    ARILES_BASIC_TYPE(<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span>)                                                                                  \</div><div class="line">    ARILES_BASIC_TYPE(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)                                                                                   \</div><div class="line">    ARILES_BASIC_TYPE(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>)</div><div class="ttc" id="basic_8h_html_a6e7bb4bc9888ee14944bbe8b8212d5d3"><div class="ttname"><a href="basic_8h.html#a6e7bb4bc9888ee14944bbe8b8212d5d3">ARILES_BASIC_TYPE</a></div><div class="ttdeci">#define ARILES_BASIC_TYPE(type)</div><div class="ttdef"><b>Definition:</b> <a href="basic_8h_source.html#l00252">basic.h:252</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00054">54</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00081">81</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
 
 </div>
 </div>
-<a id="a6c3105abd84225301073c4d00267ffdc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c3105abd84225301073c4d00267ffdc">&#9670;&nbsp;</a></span>ARILES_DEFAULT_CONFIG_PREFIX</h2>
+<a id="a1dcb1661aa82eefca5b15c52df53c0a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dcb1661aa82eefca5b15c52df53c0a2">&#9670;&nbsp;</a></span>ARILES_EMPTY_MACRO</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define ARILES_DEFAULT_CONFIG_PREFIX&#160;&#160;&#160;&quot;&quot;</td>
+          <td class="memname">#define ARILES_EMPTY_MACRO</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00034">34</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00072">72</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
 
 </div>
 </div>
-<a id="ae86779112c3f0f64ee4c32d4c5e601f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae86779112c3f0f64ee4c32d4c5e601f5">&#9670;&nbsp;</a></span>ARILES_INITIALIZE</h2>
+<a id="a487bb665f4d2bcd630df387fc411c49f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a487bb665f4d2bcd630df387fc411c49f">&#9670;&nbsp;</a></span>ARILES_IS_BASE_DISABLER</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define ARILES_INITIALIZE&#160;&#160;&#160;&quot;ariles/internal/define_accessors.h&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00037">37</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
-
-</div>
-</div>
-<a id="a421994a6c2d975da5776f52a3a04cac1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a421994a6c2d975da5776f52a3a04cac1">&#9670;&nbsp;</a></span>ARILES_IS_CONFIGURABLE_ENABLER_TYPE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define ARILES_IS_CONFIGURABLE_ENABLER_TYPE</td>
+          <td class="memname">#define ARILES_IS_BASE_DISABLER</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">Derived</td><td>)</td>
-          <td>&#160;&#160;&#160;const typename boost::enable_if_c&lt; (boost::is_base_of&lt;<a class="el" href="classariles_1_1ConfigurableBase.html">ariles::ConfigurableBase</a>, Derived&gt;::value) &gt;::type</td>
+          <td class="paramname">Base, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Derived&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;const typename boost::enable_if_c&lt;not(<a class="el" href="helpers_8h.html#a510ec64013505a5dcd5b400f153bfe0f">ARILES_IS_BASE_OF</a>(Base, Derived))&gt;::type * = NULL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00051">51</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+
+</div>
+</div>
+<a id="ac5d10ec7cb004317ac60fd949e026df3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5d10ec7cb004317ac60fd949e026df3">&#9670;&nbsp;</a></span>ARILES_IS_BASE_ENABLER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ARILES_IS_BASE_ENABLER</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Base, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Derived&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;const typename boost::enable_if_c&lt;(<a class="el" href="helpers_8h.html#a510ec64013505a5dcd5b400f153bfe0f">ARILES_IS_BASE_OF</a>(Base, Derived))&gt;::type * = NULL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00048">48</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+
+</div>
+</div>
+<a id="a510ec64013505a5dcd5b400f153bfe0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a510ec64013505a5dcd5b400f153bfe0f">&#9670;&nbsp;</a></span>ARILES_IS_BASE_OF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ARILES_IS_BASE_OF</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Base, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Derived&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;boost::is_base_of&lt;Base, Derived&gt;::value</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00046">46</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+
+</div>
+</div>
+<a id="a0b88b968127511c717aa9c8050b7505a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b88b968127511c717aa9c8050b7505a">&#9670;&nbsp;</a></span>ARILES_IS_ENUM_ENABLER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ARILES_IS_ENUM_ENABLER</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Enum</td><td>)</td>
+          <td>&#160;&#160;&#160;const typename boost::enable_if_c&lt;(boost::is_enum&lt;Enum&gt;::value)&gt;::type * = NULL</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -296,59 +365,19 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="a4b0d0fdde1df2ed04a92532dcb405929"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b0d0fdde1df2ed04a92532dcb405929">&#9670;&nbsp;</a></span>ARILES_IS_ENUM_ENABLER_TYPE</h2>
+<a id="a1ca4e5e9bb02a84b2c4a5ad41b974723"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ca4e5e9bb02a84b2c4a5ad41b974723">&#9670;&nbsp;</a></span>ARILES_SHARED_PTR</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define ARILES_IS_ENUM_ENABLER_TYPE</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">Enum</td><td>)</td>
-          <td>&#160;&#160;&#160;const typename boost::enable_if_c&lt; (boost::is_enum&lt;Enum&gt;::value) &gt;::type</td>
+          <td class="memname">#define ARILES_SHARED_PTR&#160;&#160;&#160;boost::shared_ptr</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00041">41</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
-
-</div>
-</div>
-<a id="a6c05df59a57dfc64923e26587cbf302d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c05df59a57dfc64923e26587cbf302d">&#9670;&nbsp;</a></span>ARILES_TRACE_ENTRY</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define ARILES_TRACE_ENTRY</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">entry_name</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00120">120</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
-
-</div>
-</div>
-<a id="aa0beb3693786220e98fa81f1d6eeb80c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0beb3693786220e98fa81f1d6eeb80c">&#9670;&nbsp;</a></span>ARILES_TRACE_FUNCTION</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define ARILES_TRACE_FUNCTION</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00119">119</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00055">55</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
 
 </div>
 </div>
@@ -364,7 +393,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00080">80</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00107">107</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
 
 </div>
 </div>

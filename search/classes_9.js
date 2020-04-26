@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['strictconfigurablebase',['StrictConfigurableBase',['../classariles_1_1StrictConfigurableBase.html',1,'ariles']]]
+  ['octave',['octave',['../structariles_1_1octave.html',1,'ariles']]]
 ];

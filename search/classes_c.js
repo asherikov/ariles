@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['t_5ffixturebase',['t_FixtureBase',['../classt__FixtureBase.html',1,'']]]
+  ['strictconfigurablebase',['StrictConfigurableBase',['../classariles_1_1StrictConfigurableBase.html',1,'ariles']]]
 ];

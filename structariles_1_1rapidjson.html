@@ -74,88 +74,198 @@ $(function() {
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>JSON bridge. </p>
+<p>JSON visitor. </p>
 
-<p class="definition">Definition at line <a class="el" href="rapidjson_8h_source.html#l00120">120</a> of file <a class="el" href="rapidjson_8h_source.html">rapidjson.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bridges_2rapidjson_8h_source.html#l00027">27</a> of file <a class="el" href="bridges_2rapidjson_8h_source.html">rapidjson.h</a>.</p>
 </div>
-<p><code>#include &lt;<a class="el" href="rapidjson_8h_source.html">rapidjson.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for ariles::rapidjson:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="structariles_1_1rapidjson.png" usemap="#ariles::rapidjson_map" alt=""/>
-  <map id="ariles::rapidjson_map" name="ariles::rapidjson_map">
-<area href="structariles_1_1BridgeSelectorBase.html" alt="ariles::BridgeSelectorBase" shape="rect" coords="0,0,161,24"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="bridges_2rapidjson_8h_source.html">rapidjson.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a2c2d97072a62f12c2dc7830a0a745b4c"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles_1_1bridge_1_1rapidjson_1_1Reader.html">bridge::rapidjson::Reader</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structariles_1_1rapidjson.html#a2c2d97072a62f12c2dc7830a0a745b4c">Reader</a></td></tr>
-<tr class="separator:a2c2d97072a62f12c2dc7830a0a745b4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aead45c258918aee9465e87003e81a8d4"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles_1_1bridge_1_1rapidjson_1_1Writer.html">bridge::rapidjson::Writer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structariles_1_1rapidjson.html#aead45c258918aee9465e87003e81a8d4">Writer</a></td></tr>
-<tr class="separator:aead45c258918aee9465e87003e81a8d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e69f117582d50851dc0ffa123aaf6fb"><td class="memItemLeft" align="right" valign="top">typedef int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structariles_1_1BridgeSelectorBase.html#a0e69f117582d50851dc0ffa123aaf6fb">BridgeSelectorIndicatorType</a></td></tr>
-<tr class="separator:a0e69f117582d50851dc0ffa123aaf6fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3cd42781c94e2db8030e3e6729a60cf"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles_1_1ns__rapidjson_1_1Flags.html">ariles::ns_rapidjson::Flags</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structariles_1_1rapidjson.html#af3cd42781c94e2db8030e3e6729a60cf">Flags</a></td></tr>
+<tr class="separator:af3cd42781c94e2db8030e3e6729a60cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9b5e7ef6aa22380a612b38115a3c160"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles_1_1ns__rapidjson_1_1Reader.html">ns_rapidjson::Reader</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structariles_1_1rapidjson.html#ab9b5e7ef6aa22380a612b38115a3c160">ReaderBase</a></td></tr>
+<tr class="separator:ab9b5e7ef6aa22380a612b38115a3c160"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af125f4049ab9fed507c6da03ea43a3e4"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles_1_1ns__rapidjson_1_1Writer.html">ns_rapidjson::Writer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structariles_1_1rapidjson.html#af125f4049ab9fed507c6da03ea43a3e4">WriterBase</a></td></tr>
+<tr class="separator:af125f4049ab9fed507c6da03ea43a3e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3a540bfb62ff4ffffbe4e3804694a96"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles_1_1cfgread_1_1Visitor.html">ariles::cfgread::Visitor</a>&lt; <a class="el" href="classariles_1_1ns__rapidjson_1_1Reader.html">ns_rapidjson::Reader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structariles_1_1rapidjson.html#ad3a540bfb62ff4ffffbe4e3804694a96">Reader</a></td></tr>
+<tr class="separator:ad3a540bfb62ff4ffffbe4e3804694a96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5795b4ffa0f16330ebf244c184d5bf66"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles_1_1cfgwrite_1_1Visitor.html">ariles::cfgwrite::Visitor</a>&lt; <a class="el" href="classariles_1_1ns__rapidjson_1_1Writer.html">ns_rapidjson::Writer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structariles_1_1rapidjson.html#a5795b4ffa0f16330ebf244c184d5bf66">Writer</a></td></tr>
+<tr class="separator:a5795b4ffa0f16330ebf244c184d5bf66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3cd42781c94e2db8030e3e6729a60cf"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles_1_1ns__rapidjson_1_1Flags.html">ariles::ns_rapidjson::Flags</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structariles_1_1rapidjson.html#af3cd42781c94e2db8030e3e6729a60cf">Flags</a></td></tr>
+<tr class="separator:af3cd42781c94e2db8030e3e6729a60cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9b5e7ef6aa22380a612b38115a3c160"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles_1_1ns__rapidjson_1_1Reader.html">ns_rapidjson::Reader</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structariles_1_1rapidjson.html#ab9b5e7ef6aa22380a612b38115a3c160">ReaderBase</a></td></tr>
+<tr class="separator:ab9b5e7ef6aa22380a612b38115a3c160"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af125f4049ab9fed507c6da03ea43a3e4"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles_1_1ns__rapidjson_1_1Writer.html">ns_rapidjson::Writer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structariles_1_1rapidjson.html#af125f4049ab9fed507c6da03ea43a3e4">WriterBase</a></td></tr>
+<tr class="separator:af125f4049ab9fed507c6da03ea43a3e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3a540bfb62ff4ffffbe4e3804694a96"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles_1_1cfgread_1_1Visitor.html">ariles::cfgread::Visitor</a>&lt; <a class="el" href="classariles_1_1ns__rapidjson_1_1Reader.html">ns_rapidjson::Reader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structariles_1_1rapidjson.html#ad3a540bfb62ff4ffffbe4e3804694a96">Reader</a></td></tr>
+<tr class="separator:ad3a540bfb62ff4ffffbe4e3804694a96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5795b4ffa0f16330ebf244c184d5bf66"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles_1_1cfgwrite_1_1Visitor.html">ariles::cfgwrite::Visitor</a>&lt; <a class="el" href="classariles_1_1ns__rapidjson_1_1Writer.html">ns_rapidjson::Writer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structariles_1_1rapidjson.html#a5795b4ffa0f16330ebf244c184d5bf66">Writer</a></td></tr>
+<tr class="separator:a5795b4ffa0f16330ebf244c184d5bf66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a0e69f117582d50851dc0ffa123aaf6fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e69f117582d50851dc0ffa123aaf6fb">&#9670;&nbsp;</a></span>BridgeSelectorIndicatorType</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef int <a class="el" href="structariles_1_1BridgeSelectorBase.html#a0e69f117582d50851dc0ffa123aaf6fb">ariles::BridgeSelectorBase::BridgeSelectorIndicatorType</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00094">94</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
-
-</div>
-</div>
-<a id="a2c2d97072a62f12c2dc7830a0a745b4c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c2d97072a62f12c2dc7830a0a745b4c">&#9670;&nbsp;</a></span>Reader</h2>
+<a id="af3cd42781c94e2db8030e3e6729a60cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3cd42781c94e2db8030e3e6729a60cf">&#9670;&nbsp;</a></span>Flags <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="classariles_1_1bridge_1_1rapidjson_1_1Reader.html">bridge::rapidjson::Reader</a> <a class="el" href="structariles_1_1rapidjson.html#a2c2d97072a62f12c2dc7830a0a745b4c">ariles::rapidjson::Reader</a></td>
+          <td class="memname">typedef <a class="el" href="classariles_1_1ns__rapidjson_1_1Flags.html">ariles::ns_rapidjson::Flags</a> <a class="el" href="structariles_1_1rapidjson.html#af3cd42781c94e2db8030e3e6729a60cf">ariles::rapidjson::Flags</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rapidjson_8h_source.html#l00122">122</a> of file <a class="el" href="rapidjson_8h_source.html">rapidjson.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bridges_2rapidjson_8h_source.html#l00029">29</a> of file <a class="el" href="bridges_2rapidjson_8h_source.html">rapidjson.h</a>.</p>
 
 </div>
 </div>
-<a id="aead45c258918aee9465e87003e81a8d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aead45c258918aee9465e87003e81a8d4">&#9670;&nbsp;</a></span>Writer</h2>
+<a id="af3cd42781c94e2db8030e3e6729a60cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3cd42781c94e2db8030e3e6729a60cf">&#9670;&nbsp;</a></span>Flags <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="classariles_1_1bridge_1_1rapidjson_1_1Writer.html">bridge::rapidjson::Writer</a> <a class="el" href="structariles_1_1rapidjson.html#aead45c258918aee9465e87003e81a8d4">ariles::rapidjson::Writer</a></td>
+          <td class="memname">typedef <a class="el" href="classariles_1_1ns__rapidjson_1_1Flags.html">ariles::ns_rapidjson::Flags</a> <a class="el" href="structariles_1_1rapidjson.html#af3cd42781c94e2db8030e3e6729a60cf">ariles::rapidjson::Flags</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="rapidjson_8h_source.html#l00123">123</a> of file <a class="el" href="rapidjson_8h_source.html">rapidjson.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="visitors_2rapidjson_8h_source.html#l00104">104</a> of file <a class="el" href="visitors_2rapidjson_8h_source.html">rapidjson.h</a>.</p>
+
+</div>
+</div>
+<a id="ad3a540bfb62ff4ffffbe4e3804694a96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3a540bfb62ff4ffffbe4e3804694a96">&#9670;&nbsp;</a></span>Reader <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="classariles_1_1cfgread_1_1Visitor.html">ariles::cfgread::Visitor</a>&lt;<a class="el" href="classariles_1_1ns__rapidjson_1_1Reader.html">ns_rapidjson::Reader</a>&gt; <a class="el" href="structariles_1_1rapidjson.html#ad3a540bfb62ff4ffffbe4e3804694a96">ariles::rapidjson::Reader</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="bridges_2rapidjson_8h_source.html#l00034">34</a> of file <a class="el" href="bridges_2rapidjson_8h_source.html">rapidjson.h</a>.</p>
+
+</div>
+</div>
+<a id="ad3a540bfb62ff4ffffbe4e3804694a96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3a540bfb62ff4ffffbe4e3804694a96">&#9670;&nbsp;</a></span>Reader <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="classariles_1_1cfgread_1_1Visitor.html">ariles::cfgread::Visitor</a>&lt;<a class="el" href="classariles_1_1ns__rapidjson_1_1Reader.html">ns_rapidjson::Reader</a>&gt; <a class="el" href="structariles_1_1rapidjson.html#ad3a540bfb62ff4ffffbe4e3804694a96">ariles::rapidjson::Reader</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="visitors_2rapidjson_8h_source.html#l00109">109</a> of file <a class="el" href="visitors_2rapidjson_8h_source.html">rapidjson.h</a>.</p>
+
+</div>
+</div>
+<a id="ab9b5e7ef6aa22380a612b38115a3c160"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9b5e7ef6aa22380a612b38115a3c160">&#9670;&nbsp;</a></span>ReaderBase <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="classariles_1_1ns__rapidjson_1_1Reader.html">ns_rapidjson::Reader</a> <a class="el" href="structariles_1_1rapidjson.html#ab9b5e7ef6aa22380a612b38115a3c160">ariles::rapidjson::ReaderBase</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="bridges_2rapidjson_8h_source.html#l00031">31</a> of file <a class="el" href="bridges_2rapidjson_8h_source.html">rapidjson.h</a>.</p>
+
+</div>
+</div>
+<a id="ab9b5e7ef6aa22380a612b38115a3c160"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9b5e7ef6aa22380a612b38115a3c160">&#9670;&nbsp;</a></span>ReaderBase <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="classariles_1_1ns__rapidjson_1_1Reader.html">ns_rapidjson::Reader</a> <a class="el" href="structariles_1_1rapidjson.html#ab9b5e7ef6aa22380a612b38115a3c160">ariles::rapidjson::ReaderBase</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="visitors_2rapidjson_8h_source.html#l00106">106</a> of file <a class="el" href="visitors_2rapidjson_8h_source.html">rapidjson.h</a>.</p>
+
+</div>
+</div>
+<a id="a5795b4ffa0f16330ebf244c184d5bf66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5795b4ffa0f16330ebf244c184d5bf66">&#9670;&nbsp;</a></span>Writer <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="classariles_1_1cfgwrite_1_1Visitor.html">ariles::cfgwrite::Visitor</a>&lt;<a class="el" href="classariles_1_1ns__rapidjson_1_1Writer.html">ns_rapidjson::Writer</a>&gt; <a class="el" href="structariles_1_1rapidjson.html#a5795b4ffa0f16330ebf244c184d5bf66">ariles::rapidjson::Writer</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="bridges_2rapidjson_8h_source.html#l00035">35</a> of file <a class="el" href="bridges_2rapidjson_8h_source.html">rapidjson.h</a>.</p>
+
+</div>
+</div>
+<a id="a5795b4ffa0f16330ebf244c184d5bf66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5795b4ffa0f16330ebf244c184d5bf66">&#9670;&nbsp;</a></span>Writer <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="classariles_1_1cfgwrite_1_1Visitor.html">ariles::cfgwrite::Visitor</a>&lt;<a class="el" href="classariles_1_1ns__rapidjson_1_1Writer.html">ns_rapidjson::Writer</a>&gt; <a class="el" href="structariles_1_1rapidjson.html#a5795b4ffa0f16330ebf244c184d5bf66">ariles::rapidjson::Writer</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="visitors_2rapidjson_8h_source.html#l00110">110</a> of file <a class="el" href="visitors_2rapidjson_8h_source.html">rapidjson.h</a>.</p>
+
+</div>
+</div>
+<a id="af125f4049ab9fed507c6da03ea43a3e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af125f4049ab9fed507c6da03ea43a3e4">&#9670;&nbsp;</a></span>WriterBase <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="classariles_1_1ns__rapidjson_1_1Writer.html">ns_rapidjson::Writer</a> <a class="el" href="structariles_1_1rapidjson.html#af125f4049ab9fed507c6da03ea43a3e4">ariles::rapidjson::WriterBase</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="bridges_2rapidjson_8h_source.html#l00032">32</a> of file <a class="el" href="bridges_2rapidjson_8h_source.html">rapidjson.h</a>.</p>
+
+</div>
+</div>
+<a id="af125f4049ab9fed507c6da03ea43a3e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af125f4049ab9fed507c6da03ea43a3e4">&#9670;&nbsp;</a></span>WriterBase <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="classariles_1_1ns__rapidjson_1_1Writer.html">ns_rapidjson::Writer</a> <a class="el" href="structariles_1_1rapidjson.html#af125f4049ab9fed507c6da03ea43a3e4">ariles::rapidjson::WriterBase</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="visitors_2rapidjson_8h_source.html#l00107">107</a> of file <a class="el" href="visitors_2rapidjson_8h_source.html">rapidjson.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>/usr/home/aleks/git/asherikov/ariles_master/bridges/rapidjson/interface/<a class="el" href="rapidjson_8h_source.html">rapidjson.h</a></li>
+<li>/usr/home/aleks/git/asherikov/ariles_master/extra_visitors/rapidjson/ariles/bridges/<a class="el" href="bridges_2rapidjson_8h_source.html">rapidjson.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

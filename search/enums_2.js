@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['type',['Type',['../classariles_1_1Node.html#a840532d12f73e063560d026c0dbdb28d',1,'ariles::Node']]]
+  ['sizelimitenforcementtype',['SizeLimitEnforcementType',['../classariles_1_1read_1_1Visitor.html#a0239348a4058ebb1d0aecba38b5d91c2',1,'ariles::read::Visitor']]]
 ];

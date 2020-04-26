@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['msgpack',['msgpack',['../structariles_1_1msgpack.html',1,'ariles']]],
-  ['myclass',['MyClass',['../classdemo_1_1MyClass.html',1,'demo']]],
-  ['mycontainerclass',['MyContainerClass',['../classdemo_1_1MyContainerClass.html',1,'demo']]]
+  ['genericwriter',['GenericWriter',['../classariles_1_1ns__array_1_1GenericWriter.html',1,'ariles::ns_array']]]
 ];

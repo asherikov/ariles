@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['take',['Take',['../classariles_1_1bridge_1_1rapidjson_1_1BasicIStreamWrapper.html#ae81e644809c9a5bdbbdff2f3fb6826da',1,'ariles::bridge::rapidjson::BasicIStreamWrapper']]],
-  ['tell',['Tell',['../classariles_1_1bridge_1_1rapidjson_1_1BasicIStreamWrapper.html#aa332ef49b8115df1c577586a9dea8948',1,'ariles::bridge::rapidjson::BasicIStreamWrapper']]]
+  ['take',['Take',['../classariles_1_1ns__rapidjson_1_1BasicIStreamWrapper.html#a19b17e0415bc439df1097e099a5115d7',1,'ariles::ns_rapidjson::BasicIStreamWrapper']]],
+  ['tell',['Tell',['../classariles_1_1ns__rapidjson_1_1BasicIStreamWrapper.html#afb22207d35e8210baca2fa7e658ab774',1,'ariles::ns_rapidjson::BasicIStreamWrapper']]]
 ];
