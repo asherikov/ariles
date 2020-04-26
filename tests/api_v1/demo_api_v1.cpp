@@ -9,6 +9,9 @@
 */
 
 
+#include <iostream>  // std::cout
+
+
 // ============================================================================
 // HEADER INCLUSION
 // ============================================================================
@@ -117,11 +120,28 @@ namespace demo
 
 #define ARILES_AUTO_DEFAULTS  // Generate setDefaults() automatically
 
+        // Some of the standard containers can be used with Ariles types.
 #define ARILES_ENTRIES ARILES_TYPED_ENTRY_(myclass_vector, std::vector<MyClass>)
-        //      Some of the standard containers ^^^^^^^^^^^^^^^^^^^^ can be used
-        // with Ariles types.
 
 #include ARILES_INITIALIZE
+
+        public:
+            /*
+             * Optional method, which is called automatically after parsing a
+             * configuration. This method can be used to perform data
+             * consistency checks or initialize parameters which are not stored
+             * in the configuration.
+             * Bug: all ariles classes are `finalize()`d after reading a
+             * configuration, but manual call to `finalize()` does not
+             * guarantee that, fixed in APIv2.
+             */
+            void finalize()
+            {
+                if (myclass_vector_.size() > 2)
+                {
+                    std::cout << "myclass_vector contains more than two elements" << std::endl;
+                }
+            }
     };
 }  // namespace demo
 
@@ -129,8 +149,6 @@ namespace demo
 // ===============================================================
 // SERIALIZATION & DESERIALIZATION
 // ===============================================================
-
-#include <iostream>  // std::cout
 
 int main()
 {

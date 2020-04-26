@@ -110,10 +110,8 @@ namespace demo
 
     class MyContainerClass : public ariles::DefaultBase
     {
+        // Some of the standard containers can be used with Ariles types.
 #define ARILES_ENTRIES ARILES_TYPED_ENTRY_(myclass_vector, std::vector<MyClass>)
-        //      Some of the standard containers ^^^^^^^^^^^^^^^^^^^^ can be used
-        // with Ariles types.
-
 #include ARILES_INITIALIZE
     };
 }  // namespace demo

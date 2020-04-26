@@ -9,7 +9,14 @@
 
 
 /**
- * @page DEMO   Demo
+ * @page DEMOv1     APIv1 demo
  *
- * @include demo.cpp
+ * @include demo_api_v1.cpp
+ */
+
+
+/**
+ * @page DEMOv2     APIv2 demo
+ *
+ * @include demo_api_v2.cpp
  */

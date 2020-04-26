@@ -28,7 +28,7 @@ DEB_TARGET?=xenial
 clean:
 	rm -Rf build;
 	rm -Rf include/ariles/internal/cpput_*.h
-	git submodule update --init doc/dox/; cd doc/dox/; git clean -f; git reset --hard
+	#git submodule update --init doc/dox/; cd doc/dox/; git clean -f; git reset --hard
 
 
 #----------------------------------------------
