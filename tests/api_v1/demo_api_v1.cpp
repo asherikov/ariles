@@ -125,23 +125,23 @@ namespace demo
 
 #include ARILES_INITIALIZE
 
-        public:
-            /*
-             * Optional method, which is called automatically after parsing a
-             * configuration. This method can be used to perform data
-             * consistency checks or initialize parameters which are not stored
-             * in the configuration.
-             * Bug: all ariles classes are `finalize()`d after reading a
-             * configuration, but manual call to `finalize()` does not
-             * guarantee that, fixed in APIv2.
-             */
-            void finalize()
+    public:
+        /*
+         * Optional method, which is called automatically after parsing a
+         * configuration. This method can be used to perform data
+         * consistency checks or initialize parameters which are not stored
+         * in the configuration.
+         * Bug: all ariles classes are `finalize()`d after reading a
+         * configuration, but manual call to `finalize()` does not
+         * guarantee that, fixed in APIv2.
+         */
+        void finalize()
+        {
+            if (myclass_vector_.size() > 2)
             {
-                if (myclass_vector_.size() > 2)
-                {
-                    std::cout << "myclass_vector contains more than two elements" << std::endl;
-                }
+                std::cout << "myclass_vector contains more than two elements" << std::endl;
             }
+        }
     };
 }  // namespace demo
 

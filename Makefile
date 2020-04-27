@@ -190,6 +190,6 @@ install-jsonnet:
 	cd ./jsonnet/build/; make install
 
 format:
-	find ./extra_visitors/ extra_adapters/ tests/ include/ -iname "*.h" -or -iname "*.cpp" | xargs clang-format80 -verbose -i
+	find ./extra_visitors/ extra_adapters/ tests/ include/ -iname "*.h" -or -iname "*.cpp" | grep -v "better_enum.h" | xargs clang-format80 -verbose -i
 
 .PHONY: clean cmake build

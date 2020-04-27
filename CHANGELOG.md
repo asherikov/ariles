@@ -1,12 +1,16 @@
 Unreleased
 ==========
 
+1.6.3
+=====
+
 Fixed
 -----
 
 * Jsonnet visitor, added corresponding tests.
 * Improved/fixed handling of `ALLOW_MISSING_ENTRIES`.
 * Fixed bug in `yaml-cpp` calls.
+* Fixed some compilation warnings.
 
 
 Changed
