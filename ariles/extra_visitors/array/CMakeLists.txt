@@ -1,0 +1,1 @@
+include(ariles_install_component)

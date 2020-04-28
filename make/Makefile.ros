@@ -6,12 +6,9 @@ CATKIN_DEPENDENT_PKG_PATH=${CATKIN_WORKING_DIR}/src/${CATKIN_DEPENDENCY_TEST_PKG
 # release
 #----------------------------------------------
 
-update_version_ros: update_version_cmake
-	sed -i -e "s=\(project([ a-zA-Z0-9_-]* VERSION\) [0-9]*\.[0-9]*\.[0-9]*)=\1 ${VERSION})=" CMakeLists.txt
-
 ros_release:
 	# 0. Add Forthcoming section to the changelog
-	${MAKE} update_version_ros VERSION=${VERSION}
+	${MAKE} update_version VERSION=${VERSION}
 	git commit -a
 	catkin_prepare_release -t 'ros-' --version "${VERSION}" -y
 	# initial release -> https://wiki.ros.org/bloom/Tutorials/FirstTimeRelease

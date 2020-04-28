@@ -10,7 +10,7 @@
 #pragma once
 #if __cplusplus >= 201103L
 
-#include <memory>
+#    include <memory>
 
 namespace ariles
 {
@@ -64,13 +64,13 @@ namespace ariles
             return (NULL == ptr);
         }
     };
-}
+}  // namespace ariles
 
-#define ARILES_POINTER_TYPE                             std::shared_ptr
-#include <ariles/adapters/generic_pointer.h>
+#    define ARILES_POINTER_TYPE std::shared_ptr
+#    include <ariles/adapters/generic_pointer.h>
 
 
-#define ARILES_POINTER_TYPE                             std::unique_ptr
-#include <ariles/adapters/generic_pointer.h>
+#    define ARILES_POINTER_TYPE std::unique_ptr
+#    include <ariles/adapters/generic_pointer.h>
 
 #endif

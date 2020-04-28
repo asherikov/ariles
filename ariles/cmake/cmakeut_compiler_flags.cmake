@@ -1,9 +1,13 @@
 function(cmakeut_compiler_flags STANDARD)
-    set (CXX_WARNINGS "-Wall -Wextra -Werror=pedantic -pedantic-errors -Wshadow")
+    set (CXX_WARNINGS "-Wall -Wextra -Wshadow -Werror -pedantic-errors")
     set (CXX_OTHER "-fPIC")
 
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 
+        if (NOT CMAKE_CXX_COMPILER_VERSION OR CMAKE_CXX_COMPILER_VERSION VERSION_LESS 6.0)
+            # workaround for clang50
+            set(CXX_WARNINGS "${CXX_WARNINGS} -Wno-error=unused-command-line-argument")
+        endif()
         set(CXX_WARNINGS "${CXX_WARNINGS} -Werror=extra-tokens")
 
     elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")

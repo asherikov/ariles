@@ -29,12 +29,15 @@ namespace ariles_tests
     {
         GlobalFixtureConfig()
         {
-            //boost::unit_test::unit_test_log.set_threshold_level( boost::unit_test::log_successful_tests );
-            boost::unit_test::results_reporter::set_level( boost::unit_test::DETAILED_REPORT );
+            // boost::unit_test::unit_test_log.set_threshold_level(
+            // boost::unit_test::log_successful_tests );
+            boost::unit_test::results_reporter::set_level(boost::unit_test::DETAILED_REPORT);
         }
-        ~GlobalFixtureConfig() {}
+        ~GlobalFixtureConfig()
+        {
+        }
     };
-}
+}  // namespace ariles_tests
 
 
 #pragma GCC diagnostic push
@@ -43,47 +46,48 @@ namespace ariles_tests
 // at the same time, compilation may fail on some systems if ';' is omitted.
 namespace ariles_tests
 {
-    BOOST_GLOBAL_FIXTURE( GlobalFixtureConfig ) ;
+    BOOST_GLOBAL_FIXTURE(GlobalFixtureConfig);
 }
 #pragma GCC diagnostic pop
 
 
-#define ARILES_FIXTURE_TEST_CASE(FIXTURE_NAME, BRIDGE_ID, FORMAT_NAMESPACE, CONFIGURABLE_TYPE, INITIALIZER_TYPE) \
-    BOOST_FIXTURE_TEST_CASE( FIXTURE_NAME##_##BRIDGE_ID##_##CONFIGURABLE_TYPE##_##INITIALIZER_TYPE, \
-                             ariles_tests::FIXTURE_NAME<ariles_tests::initializers::INITIALIZER_TYPE> ) \
-    { \
-        test<ariles_tests::CONFIGURABLE_TYPE, ariles::FORMAT_NAMESPACE>(); \
+#define ARILES_FIXTURE_TEST_CASE(FIXTURE_NAME, VISITOR_ID, FORMAT_NAMESPACE, CONFIGURABLE_TYPE, INITIALIZER_TYPE)      \
+    BOOST_FIXTURE_TEST_CASE(                                                                                           \
+            FIXTURE_NAME##_##VISITOR_ID##_##CONFIGURABLE_TYPE##_##INITIALIZER_TYPE,                                    \
+            ariles_tests::FIXTURE_NAME<ariles_tests::initializers::INITIALIZER_TYPE>)                                  \
+    {                                                                                                                  \
+        test<ariles_tests::CONFIGURABLE_TYPE, ariles::FORMAT_NAMESPACE>();                                             \
     }
 
-#define ARILES_FIXTURE_TEST_CASE_2CLASSES(FIXTURE_NAME, BRIDGE_ID, FORMAT_NAMESPACE, CONFIGURABLE_TYPE1, CONFIGURABLE_TYPE2, INITIALIZER_TYPE) \
-    BOOST_FIXTURE_TEST_CASE( FIXTURE_NAME##_##BRIDGE_ID##_##CONFIGURABLE_TYPE1##_##CONFIGURABLE_TYPE2##_##INITIALIZER_TYPE, \
-                             ariles_tests::FIXTURE_NAME<ariles_tests::initializers::INITIALIZER_TYPE> ) \
-    { \
-        test<ariles_tests::CONFIGURABLE_TYPE1, ariles_tests::CONFIGURABLE_TYPE2, ariles::FORMAT_NAMESPACE>(); \
+#define ARILES_FIXTURE_TEST_CASE_2CLASSES(                                                                             \
+        FIXTURE_NAME, VISITOR_ID, FORMAT_NAMESPACE, CONFIGURABLE_TYPE1, CONFIGURABLE_TYPE2, INITIALIZER_TYPE)          \
+    BOOST_FIXTURE_TEST_CASE(                                                                                           \
+            FIXTURE_NAME##_##VISITOR_ID##_##CONFIGURABLE_TYPE1##_##CONFIGURABLE_TYPE2##_##INITIALIZER_TYPE,            \
+            ariles_tests::FIXTURE_NAME<ariles_tests::initializers::INITIALIZER_TYPE>)                                  \
+    {                                                                                                                  \
+        test<ariles_tests::CONFIGURABLE_TYPE1, ariles_tests::CONFIGURABLE_TYPE2, ariles::FORMAT_NAMESPACE>();          \
     }
 
 // -----
 // random
 
 // crashes on destruction in FreeBSD
-//boost::random::random_device                g_random_generator;
+// boost::random::random_device                g_random_generator;
 
-boost::random::uniform_int_distribution<int>   g_int_uniform_distribution(
+boost::random::uniform_int_distribution<int> g_int_uniform_distribution(
         std::numeric_limits<int>::min(),
         std::numeric_limits<int>::max());
 
-boost::random::uniform_int_distribution<unsigned int>   g_uint_uniform_distribution(
+boost::random::uniform_int_distribution<unsigned int> g_uint_uniform_distribution(
         std::numeric_limits<unsigned int>::min(),
         std::numeric_limits<int>::max());
 
-boost::random::uniform_real_distribution<>  g_real_uniform_distribution(-1e5, 1e5);
+boost::random::uniform_real_distribution<> g_real_uniform_distribution(-1e5, 1e5);
 
-#define GET_RANDOM_UINT     g_uint_uniform_distribution(random_generator);
-#define GET_RANDOM_INT      g_int_uniform_distribution(random_generator);
-#define GET_RANDOM_REAL     g_real_uniform_distribution(random_generator);
+#define GET_RANDOM_UINT g_uint_uniform_distribution(random_generator);
+#define GET_RANDOM_INT g_int_uniform_distribution(random_generator);
+#define GET_RANDOM_REAL g_real_uniform_distribution(random_generator);
 // -----
 
 
 const double g_tolerance = 1e-12;
-
-#include <tests_config.h>

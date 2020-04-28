@@ -12,11 +12,11 @@ function(ariles_define_regression_test ARILES_MODULE REGRESSION_TEST_ID DEPENDEN
     set(LINK_TO_LIBRARIES       "${ARILES_TESTING_LIBRARIES}")
 
 
-    ariles_parse_test_dependencies("${DEPENDENCIES}" "${LINK_TO_LIBRARIES}" "${TGT_DEPENDS}")
+    ariles_parse_test_dependencies("${DEPENDENCIES}" "${LINK_TO_LIBRARIES}" "${TGT_DEPENDS}" "${TGT_INCLUDES}")
     if (MISSING_DEPENDENCY)
         return()
     endif()
-    ariles_parse_test_dependencies("${OPTIONAL_DEPENDENCIES}" "${LINK_TO_LIBRARIES}" "${TGT_DEPENDS}")
+    ariles_parse_test_dependencies("${OPTIONAL_DEPENDENCIES}" "${LINK_TO_LIBRARIES}" "${TGT_DEPENDS}" "${TGT_INCLUDES}")
 
     list (FIND DEPENDENCIES "DIFF_WITH_REFERENCE" INDEX)
     if (${INDEX} GREATER -1)
@@ -30,8 +30,14 @@ function(ariles_define_regression_test ARILES_MODULE REGRESSION_TEST_ID DEPENDEN
     add_dependencies("${ARILES_MODULE}" "${TGT_NAME}")
 
     set_target_properties(${TGT_NAME} PROPERTIES OUTPUT_NAME "${TEST_NAME}")
-    # TODO this is a workaround to suppress warnings due to UTF headers
+    # TODO this is a workaround to suppress warnings due to Boost headers
     set_target_properties(${TGT_NAME} PROPERTIES COMPILE_FLAGS "-Wno-pedantic")
+
+    if (TGT_INCLUDES)
+        target_include_directories(${TGT_NAME} PRIVATE ${TGT_INCLUDES})
+    endif()
+    target_include_directories(${TGT_NAME} PRIVATE ${ARILES_CORE_BUILD_INCLUDES})
+    target_include_directories(${TGT_NAME} SYSTEM PRIVATE ${ARILES_CORE_DEPENDENCY_INCLUDES})
 
     add_dependencies(${TGT_NAME} TGT_ariles_copy_headers ${TGT_DEPENDS})
 

@@ -15,11 +15,11 @@
 
 // must be first
 #ifndef ARILES_API_VERSION
-#   define ARILES_API_VERSION 2
+#    define ARILES_API_VERSION 2
 #endif
 
 #ifndef ARILES_DISABLE
-#   define ARILES_ENABLED
+#    define ARILES_ENABLED
 #endif
 
 
@@ -37,82 +37,90 @@
 
 // These defines are always necessary
 #define ARILES_TYPED_ENTRY_(entry, type) ARILES_TYPED_NAMED_ENTRY(type, entry##_, #entry)
-#define ARILES_TYPED_ENTRY(entry, type)  ARILES_TYPED_NAMED_ENTRY(type, entry, #entry)
+#define ARILES_TYPED_ENTRY(entry, type) ARILES_TYPED_NAMED_ENTRY(type, entry, #entry)
 
 
 #include "base.h"
 
 #ifdef ARILES_ENABLED
-    #define ARILES_INITIALIZE  "ariles/members/all.h"
+#    define ARILES_INITIALIZE "ariles/members/all.h"
 
-    #define ARILES_ENTRY_(entry)     ARILES_NAMED_ENTRY(entry##_, #entry)
-    #define ARILES_ENTRY(entry)      ARILES_NAMED_ENTRY(entry, #entry)
+#    define ARILES_ENTRY_(entry) ARILES_NAMED_ENTRY(entry##_, #    entry)
+#    define ARILES_ENTRY(entry) ARILES_NAMED_ENTRY(entry, #    entry)
 
 
-    // ----------------------------
+// ----------------------------
 
-#   if 2 == ARILES_API_VERSION
-#       include "adapters/basic.h"
-#       define ARILES_DEFAULT_VISITORS \
-                ARILES_VISITOR(count) \
-                ARILES_VISITOR(postprocess) \
-                ARILES_VISITOR(preprocess) \
-                ARILES_VISITOR(defaults) \
-                ARILES_VISITOR(read) \
-                ARILES_VISITOR(write) \
-                ARILES_VISITOR(compare)
+#    if 2 == ARILES_API_VERSION
+#        include "adapters/basic.h"
+#        define ARILES_DEFAULT_VISITORS                                                                                \
+            ARILES_VISITOR(count)                                                                                      \
+            ARILES_VISITOR(postprocess)                                                                                \
+            ARILES_VISITOR(preprocess)                                                                                 \
+            ARILES_VISITOR(defaults)                                                                                   \
+            ARILES_VISITOR(read)                                                                                       \
+            ARILES_VISITOR(write)                                                                                      \
+            ARILES_VISITOR(compare)
 
-        namespace ariles
-        {
-            typedef Base<   ariles::defaults::Base,
-                            ariles::postprocess::Base,
-                            ariles::preprocess::Base,
-                            ariles::count::Base,
-                            ariles::read::Base,
-                            ariles::write::Base> DefaultBase;
-        }
-#   endif
+namespace ariles
+{
+    typedef Base<
+            ariles::defaults::Base,
+            ariles::postprocess::Base,
+            ariles::preprocess::Base,
+            ariles::count::Base,
+            ariles::read::Base,
+            ariles::write::Base>
+            DefaultBase;
+}
+#    endif
 
-#   if 1 == ARILES_API_VERSION
-#       include "adapters/basic.h"
-#       define ARILES_DEFAULT_VISITORS \
-                ARILES_VISITOR(count) \
-                ARILES_VISITOR(postprocess) \
-                ARILES_VISITOR(defaults) \
-                ARILES_VISITOR(read) \
-                ARILES_VISITOR(write) \
-                ARILES_VISITOR(compare)
+#    if 1 == ARILES_API_VERSION
+#        include "adapters/basic.h"
+#        define ARILES_DEFAULT_VISITORS                                                                                \
+            ARILES_VISITOR(count)                                                                                      \
+            ARILES_VISITOR(postprocess)                                                                                \
+            ARILES_VISITOR(defaults)                                                                                   \
+            ARILES_VISITOR(read)                                                                                       \
+            ARILES_VISITOR(write)                                                                                      \
+            ARILES_VISITOR(compare)
 
-        namespace ariles
-        {
-            typedef Base<   ariles::defaults::Base,
-                            ariles::postprocess::Base,
-                            ariles::count::Base,
-                            ariles::read::Base,
-                            ariles::write::Base> DefaultBase;
-        }
-#   endif
+namespace ariles
+{
+    typedef Base<
+            ariles::defaults::Base,
+            ariles::postprocess::Base,
+            ariles::count::Base,
+            ariles::read::Base,
+            ariles::write::Base>
+            DefaultBase;
+}
+#    endif
 
 #else
 
-#   define ARILES_DISABLED
-#   define ARILES_INITIALIZE  "ariles/members/variables.h"
+#    define ARILES_DISABLED
+#    define ARILES_INITIALIZE "ariles/members/variables.h"
 
-    namespace ariles
+namespace ariles
+{
+    // Some classes may inherit from this
+    class ARILES_VISIBILITY_ATTRIBUTE DefaultBase
     {
-        // Some classes may inherit from this
-        class ARILES_VISIBILITY_ATTRIBUTE DefaultBase
+    protected:
+        /**
+         * @brief Protected destructor: prevent destruction of derived
+         * classes via base pointer.
+         */
+        ~DefaultBase()
         {
-            protected:
-                /**
-                 * @brief Protected destructor: prevent destruction of derived
-                 * classes via base pointer.
-                 */
-                ~DefaultBase() {}
-                DefaultBase() {}
+        }
+        DefaultBase()
+        {
+        }
 
-            public:
-        };
-    }
+    public:
+    };
+}  // namespace ariles
 
 #endif

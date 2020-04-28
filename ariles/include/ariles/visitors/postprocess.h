@@ -23,22 +23,21 @@ namespace ariles
 
 
         class ARILES_VISIBILITY_ATTRIBUTE Visitor
-            : public ariles::process::Visitor<const postprocess::Visitor, postprocess::Parameters>
+          : public ariles::process::Visitor<const postprocess::Visitor, postprocess::Parameters>
         {
         };
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Base
-            : public visitor::Base<const postprocess::Visitor>
+        class ARILES_VISIBILITY_ATTRIBUTE Base : public entry::Base<const postprocess::Visitor>
         {
         };
 
 
 #ifndef ARILES_METHODS_postprocess
-#   define ARILES_METHODS_postprocess ARILES_METHODS(postprocess, const, ARILES_EMPTY_MACRO)
+#    define ARILES_METHODS_postprocess ARILES_METHODS(postprocess, const, ARILES_EMPTY_MACRO)
 #endif
-    }
+    }  // namespace postprocess
 
 
     typedef postprocess::Visitor PostProcess;
-}
+}  // namespace ariles

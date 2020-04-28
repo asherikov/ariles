@@ -13,7 +13,7 @@
 
 
 #ifdef ARILES_SECTION_ID
-    #define ARILES_DEFAULT_ID ARILES_SECTION_ID
+#    define ARILES_DEFAULT_ID ARILES_SECTION_ID
 #endif
 
 #include "variables.h"

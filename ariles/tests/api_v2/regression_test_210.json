@@ -1,0 +1,5 @@
+local integer_value = 13;
+{
+    integer: integer_value,
+    real: 22.33
+}

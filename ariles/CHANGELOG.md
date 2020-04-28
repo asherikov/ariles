@@ -1,6 +1,30 @@
 Unreleased
 ==========
 
+1.6.3
+=====
+
+Fixed
+-----
+
+* Jsonnet visitor, added corresponding tests.
+* Improved/fixed handling of `ALLOW_MISSING_ENTRIES`.
+* Fixed bug in `yaml-cpp` calls.
+* Fixed some compilation warnings.
+
+
+Changed
+-------
+
+* Stricter compilation flags.
+* Rename 'bridge' -> 'visitor'.
+* Format sources with clang-format.
+* Reworked internal API of abstract base classes for readers and writers.
+* Allow writing and reading classes with empty root name, the exact behavior
+  depends on the markup format.
+* APIv2: `ARILES_DEFAULT_ID` is now fully optional.
+
+
 
 1.6.2
 =====

@@ -3,40 +3,49 @@ language: cpp
 notifications:
     email:
         recipients:
-            - asherikov@yandex.com
+          - asherikov@yandex.com
         on_success: always
         on_failure: always
+
+services:
+  - docker
+os: linux
+
 
 jobs:
     include:
 
 # special cases
-    # no core
-      - os: linux
+      - name: "disabled_core"
         dist: trusty
-        compiler: clang
+        compiler: gcc
+        before_install:
+          - sudo apt update
+          - sudo apt install -y cmake libboost-all-dev libeigen3-dev
         script:
           - make build TYPE=Debug OPTIONS=no_core TARGETS="all"
-        addons:
-            apt:
-                update: true
-                packages:
-                  - libboost-all-dev
-                  - libeigen3-dev
 
 
-    # deb packages
-      - os: linux
-        compiler: clang
+      - name: "test_cmake"
         dist: trusty
-        sudo: required
-        cache:
-          - apt
+        compiler: gcc
+        before_install:
+          - sudo apt update
+          - sudo apt install -y cmake libboost-all-dev libeigen3-dev
+          - sudo apt install -y octave libpugixml-dev libyaml-cpp-dev
+        script:
+          - sudo make install-jsonnet
+          - make test-cmake
+
+
+      - name: "deb_packages"
+        dist: trusty
+        compiler: gcc
 
         env:
           - ROS_DISTRO=indigo
           - CI_SOURCE_PATH=$(pwd)
-          - ROS_CI_DESKTOP=trusty
+          - ROS_CI_DESKTOP=${TRAVIS_DIST}
           - ROSINSTALL_FILE=$CI_SOURCE_PATH/dependencies.rosinstall
           - CATKIN_OPTIONS=$CI_SOURCE_PATH/catkin.options
           # Set the python path manually to include /usr/-/python2.7/dist-packages
@@ -48,59 +57,23 @@ jobs:
           - sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
           - source /opt/ros/${ROS_DISTRO}/setup.bash
           - rosdep update
-
-        addons:
-            apt:
-                update: true
-                packages:
-                  - devscripts
-                  - build-essential
-                  - libboost-all-dev
-                  - libeigen3-dev
-                  - octave
-                  - libpugixml-dev
-                  - libyaml-cpp-dev
-                  - fakeroot
+          - sudo apt install -y cmake libboost-all-dev libeigen3-dev
+          - sudo apt install -y devscripts build-essential octave libpugixml-dev libyaml-cpp-dev fakeroot
 
         script:
-          - make deb-build DEB_TARGET=trusty
-          - make deb-install DEB_TARGET=trusty
+          - sudo make install-jsonnet
+          - make deb-build DEB_TARGET=${TRAVIS_DIST}
+          - make deb-install DEB_TARGET=${TRAVIS_DIST}
           - make cmake_dependency
 
-# clang
-
-    # From packages / C++11
-      - os: linux
-        dist: trusty
-        compiler: clang
-        script:
-          - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_trusty TARGETS="all" ARGS=-V
-        addons:
-            apt:
-                update: true
-                packages:
-                  - libboost-all-dev
-                  - libeigen3-dev
-                  - octave
-                  - libpugixml-dev
-                  - libyaml-cpp-dev
-                 #- rapidjson-dev       # not found
-                 #- libmsgpack-dev      # version is too old
-
-
-    # ROS / C++11
-    # based on https://github.com/felixduvallet/ros-travis-integration/blob/master/.travis.yml
-      - os: linux
-        compiler: clang
-        dist: trusty
-        sudo: required
-        cache:
-          - apt
+      - name: "bionic_deb_packages"
+        dist: bionic
+        compiler: gcc
 
         env:
-          - ROS_DISTRO=indigo
+          - ROS_DISTRO=melodic
           - CI_SOURCE_PATH=$(pwd)
-          - ROS_CI_DESKTOP=trusty
+          - ROS_CI_DESKTOP=${TRAVIS_DIST}
           - ROSINSTALL_FILE=$CI_SOURCE_PATH/dependencies.rosinstall
           - CATKIN_OPTIONS=$CI_SOURCE_PATH/catkin.options
           # Set the python path manually to include /usr/-/python2.7/dist-packages
@@ -112,54 +85,98 @@ jobs:
           - sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
           - source /opt/ros/${ROS_DISTRO}/setup.bash
           - rosdep update
-
-        addons:
-            apt:
-                update: true
-                packages:
-                  - libboost-all-dev
-                  - libeigen3-dev
-                  - libyaml-cpp-dev
-                  - octave
+          - sudo apt install -y cmake libboost-all-dev libeigen3-dev
+          - sudo apt install -y devscripts build-essential octave libpugixml-dev libyaml-cpp-dev fakeroot rapidjson-dev libmsgpack-dev
 
         script:
+          - sudo make install-jsonnet
+          - make deb-build DEB_TARGET=${TRAVIS_DIST}
+          - make deb-install DEB_TARGET=${TRAVIS_DIST}
+          - make cmake_dependency
+
+
+      - name: "gcc_cpp11_noros"
+        dist: trusty
+        compiler: gcc
+        before_install:
+          - sudo apt update
+          - sudo apt install -y cmake libboost-all-dev libeigen3-dev
+          - sudo apt install -y octave libpugixml-dev libyaml-cpp-dev
+        script:
+          - sudo make install-jsonnet
+          - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_${TRAVIS_DIST} TARGETS="all" ARGS=-V
+
+      - name: "clang_cpp11_noros"
+        dist: trusty
+        compiler: clang
+        before_install:
+          - sudo apt update
+          - sudo apt install -y cmake libboost-all-dev libeigen3-dev
+          - sudo apt install -y octave libpugixml-dev libyaml-cpp-dev
+        script:
+          - sudo make install-jsonnet
+          - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_${TRAVIS_DIST} TARGETS="all" ARGS=-V
+
+      - name: "bionic_gcc_cpp11_noros"
+        dist: bionic
+        compiler: gcc
+        before_install:
+          - sudo apt update
+          - sudo apt install -y cmake libboost-all-dev libeigen3-dev
+          - sudo apt install -y octave libpugixml-dev libyaml-cpp-dev rapidjson-dev libmsgpack-dev
+
+        script:
+          - sudo make install-jsonnet
+          - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_${TRAVIS_DIST} TARGETS="all" ARGS=-V
+
+
+      - name: "gcc_cpp11_noros_sloppy"
+        dist: trusty
+        compiler: gcc
+        before_install:
+          - sudo apt update
+          - sudo apt install -y cmake libboost-all-dev libeigen3-dev
+          - sudo apt install -y octave libpugixml-dev libyaml-cpp-dev
+        script:
+          - sudo make install-jsonnet
+          - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_${TRAVIS_DIST}_sloppy TARGETS="all" ARGS=-V
+
+
+    # based on https://github.com/felixduvallet/ros-travis-integration/blob/master/.travis.yml
+      - name: "gcc_cpp11_ros"
+        dist: trusty
+        compiler: gcc
+
+        env:
+          - ROS_DISTRO=indigo
+          - CI_SOURCE_PATH=$(pwd)
+          - ROS_CI_DESKTOP=${TRAVIS_DIST}
+          - ROSINSTALL_FILE=$CI_SOURCE_PATH/dependencies.rosinstall
+          - CATKIN_OPTIONS=$CI_SOURCE_PATH/catkin.options
+          # Set the python path manually to include /usr/-/python2.7/dist-packages
+          # as this is where apt-get installs python packages.
+          - PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
+
+        # Install system dependencies, namely a very barebones ROS setup.
+        before_install:
+          - sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
+          - source /opt/ros/${ROS_DISTRO}/setup.bash
+          - rosdep update
+          - sudo apt install -y cmake libboost-all-dev libeigen3-dev
+          - sudo apt install -y libyaml-cpp-dev octave
+
+        script:
+          - sudo make install-jsonnet
           - make build-tests TYPE=Debug OPTIONS=ros TARGETS="all" ARGS=-V
 
-
-# GCC
-
-    # From packages / C++11
-      - os: linux
+      - name: "clang_cpp11_ros"
         dist: trusty
-        compiler: gcc
-        script:
-          - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_trusty TARGETS="all" ARGS=-V
-        addons:
-            apt:
-                update: true
-                packages:
-                  - libboost-all-dev
-                  - libeigen3-dev
-                  - octave
-                  - libpugixml-dev
-                  - libyaml-cpp-dev
-                 #- rapidjson-dev       # not found
-                 #- libmsgpack-dev      # version is too old
-
-
-    # ROS / C++11
-    # based on https://github.com/felixduvallet/ros-travis-integration/blob/master/.travis.yml
-      - os: linux
-        compiler: gcc
-        dist: trusty
-        sudo: required
-        cache:
-          - apt
+        compiler: clang
 
         env:
           - ROS_DISTRO=indigo
           - CI_SOURCE_PATH=$(pwd)
-          - ROS_CI_DESKTOP=trusty
+          - ROS_CI_DESKTOP=${TRAVIS_DIST}
           - ROSINSTALL_FILE=$CI_SOURCE_PATH/dependencies.rosinstall
           - CATKIN_OPTIONS=$CI_SOURCE_PATH/catkin.options
           # Set the python path manually to include /usr/-/python2.7/dist-packages
@@ -171,16 +188,36 @@ jobs:
           - sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
           - source /opt/ros/${ROS_DISTRO}/setup.bash
           - rosdep update
-
-        addons:
-            apt:
-                update: true
-                packages:
-                  - libboost-all-dev
-                  - libeigen3-dev
-                  - libyaml-cpp-dev
-                  - octave
+          - sudo apt install -y cmake libboost-all-dev libeigen3-dev
+          - sudo apt install -y libyaml-cpp-dev octave
 
         script:
+          - sudo make install-jsonnet
+          - make build-tests TYPE=Debug OPTIONS=ros TARGETS="all" ARGS=-V
+
+      - name: "bionic_gcc_cpp11_ros"
+        dist: bionic
+        compiler: gcc
+
+        env:
+          - ROS_DISTRO=melodic
+          - CI_SOURCE_PATH=$(pwd)
+          - ROS_CI_DESKTOP=${TRAVIS_DIST}
+          - ROSINSTALL_FILE=$CI_SOURCE_PATH/dependencies.rosinstall
+          - CATKIN_OPTIONS=$CI_SOURCE_PATH/catkin.options
+          # Set the python path manually to include /usr/-/python2.7/dist-packages
+          # as this is where apt-get installs python packages.
+          - PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
+
+        # Install system dependencies, namely a very barebones ROS setup.
+        before_install:
+          - sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
+          - source /opt/ros/${ROS_DISTRO}/setup.bash
+          - rosdep update
+          - sudo apt install -y cmake libboost-all-dev libeigen3-dev
+          - sudo apt install -y libyaml-cpp-dev octave
+
+        script:
+          - sudo make install-jsonnet
           - make build-tests TYPE=Debug OPTIONS=ros TARGETS="all" ARGS=-V
 

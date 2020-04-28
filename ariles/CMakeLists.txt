@@ -4,26 +4,9 @@ project (ariles CXX)
 set(ARILES_HOMEPAGE http://asherikov.github.com/ariles/)
 set(PROJECT_VERSION_MAJOR 1)
 set(PROJECT_VERSION_MINOR 6)
-set(PROJECT_VERSION_PATCH 2)
-
-
-include(FindPkgConfig)
-include(GNUInstallDirs)
-include(CMakeParseArguments)
-include(CPackComponent)
-include(CMakePackageConfigHelpers)
-
+set(PROJECT_VERSION_PATCH 3)
 
 set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
-
-include(cmakeut_copy_dir_if_exists)
-include(cmakeut_copy_file_if_exists)
-include(cmakeut_list_filenames)
-include(cmakeut_dump_variables)
-include(cmakeut_compiler_flags)
-
-include (cmakeut_detect_func_macro)
-cmakeut_detect_func_macro()
 
 
 
@@ -31,11 +14,10 @@ cmakeut_detect_func_macro()
 ## Options (definitions & defaults)
 #####################################
 
-option (ARILES_ENABLE_CORE              "Install core (if disable only selected bridges are installed)." ON)
+option (ARILES_ENABLE_CORE              "Install core (if disabled only selected visitors are installed)." ON)
 option (ARILES_ENABLE_CORE_ALL_HEADER   "Generate ariles_all.h header (not suitable for packages)" ON)
 
-# bridges
-set    (ARILES_BRIDGES_DEFAULT_MODE     "ON" CACHE STRING "ON = enable, OFF = disable")
+set    (ARILES_VISITORS_DEFAULT_MODE    "ON" CACHE STRING "ON = enable, OFF = disable")
 
 # extra adapters & options
 set (ARILES_DEFAULT_CONFIGURABLE_FLAGS  "" CACHE STRING "Override default flags")
@@ -56,6 +38,51 @@ set    (ARILES_DEB_TARGETS              "" CACHE STRING "Enable debian package g
 # install parameters
 set    (ARILES_PKGCONFIG_INSTALL_PATH   "" CACHE STRING "pkg-config pc-file install path, not installed if empty")
 
+
+
+#####################################
+## Compatibility (deprecated)
+#####################################
+
+if (DEFINED ARILES_BRIDGES_DEFAULT_MODE)
+    set (ARILES_VISITORS_DEFAULT_MODE   "${ARILES_BRIDGES_DEFAULT_MODE}")
+    set (ARILES_VISITORS_DEFAULT_MODE   "${ARILES_BRIDGES_DEFAULT_MODE}" CACHE STRING "")
+endif()
+
+get_cmake_property(CMAKE_VARIABLES VARIABLES)
+foreach (CMAKE_VARIABLE ${CMAKE_VARIABLES})
+    if (CMAKE_VARIABLE MATCHES "ARILES_BRIDGE_.*")
+        string(REPLACE "ARILES_BRIDGE" "ARILES_VISITOR" ARILES_VISITOR_OPTION "${CMAKE_VARIABLE}")
+        set ("${ARILES_VISITOR_OPTION}" "${${CMAKE_VARIABLE}}" CACHE STRING "")
+    endif()
+endforeach()
+
+get_cmake_property(CACHED_VARIABLES CACHE_VARIABLES)
+foreach (CACHED_VARIABLE ${CACHED_VARIABLES})
+    if (CACHED_VARIABLE MATCHES "ARILES_BRIDGE_.*")
+        unset("${CACHED_VARIABLE}" CACHE)
+    endif()
+endforeach()
+
+
+#####################################
+## cmake modules
+#####################################
+
+include(FindPkgConfig)
+include(GNUInstallDirs)
+include(CMakeParseArguments)
+include(CPackComponent)
+include(CMakePackageConfigHelpers)
+
+include(cmakeut_copy_dir_if_exists)
+include(cmakeut_copy_file_if_exists)
+include(cmakeut_list_filenames)
+include(cmakeut_dump_variables)
+include(cmakeut_compiler_flags)
+
+include (cmakeut_detect_func_macro)
+cmakeut_detect_func_macro()
 
 
 #####################################
@@ -110,55 +137,43 @@ endif()
 
 
 
-# Gather all cached options controlling compilation of the modules to unset
-# those that are not valid anymore.
-get_cmake_property(CACHED_VARIABLES CACHE_VARIABLES)
-set(ARILES_CACHED_BRIDGES "")
-foreach (CACHED_VARIABLE ${CACHED_VARIABLES})
-    if (CACHED_VARIABLE MATCHES "ARILES_BRIDGE_.*")
-        list(APPEND ARILES_CACHED_BRIDGES ${CACHED_VARIABLE})
-    endif()
-endforeach(CACHED_VARIABLE)
+set(ARILES_VISITORS_DIRS "${PROJECT_SOURCE_DIR}/extra_visitors/")
+set(ARILES_VISITORS "")
+set(ARILES_ENABLED_VISITORS "")
+foreach (ARILES_VISITORS_DIR ${ARILES_VISITORS_DIRS})
+    cmakeut_list_filenames("${ARILES_VISITORS_DIR}"  "ARILES_VISITORS_TMP" DIRS_WITH_CMAKELISTS)
+    list(APPEND ARILES_VISITORS ${ARILES_VISITORS_TMP})
 
+    foreach(ARILES_VISITOR ${ARILES_VISITORS_TMP})
+        set(ARILES_VISITOR_${ARILES_VISITOR}_DIR  "${ARILES_VISITORS_DIR}/${ARILES_VISITOR}")
 
-set(ARILES_BRIDGES_DIRS "${PROJECT_SOURCE_DIR}/bridges/")
-set(ARILES_BRIDGES "")
-set(ARILES_ENABLED_BRIDGES "")
-foreach (ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
-    cmakeut_list_filenames("${ARILES_BRIDGES_DIR}"  "ARILES_BRIDGES_TMP" DIRS_WITH_CMAKELISTS)
-    list(APPEND ARILES_BRIDGES ${ARILES_BRIDGES_TMP})
+        if (DEFINED ARILES_VISITOR_${ARILES_VISITOR})
+            set    ("ARILES_VISITOR_${ARILES_VISITOR}" "${ARILES_VISITOR_${ARILES_VISITOR}}"
+                    CACHE STRING "Visitor '${ARILES_VISITOR} (ON / OFF")
 
-    foreach(ARILES_BRIDGE ${ARILES_BRIDGES_TMP})
-        set(ARILES_BRIDGE_${ARILES_BRIDGE}_DIR  "${ARILES_BRIDGES_DIR}/${ARILES_BRIDGE}")
-
-        list(REMOVE_ITEM ARILES_CACHED_BRIDGES "ARILES_BRIDGE_${ARILES_BRIDGE}")
-        if (DEFINED ARILES_BRIDGE_${ARILES_BRIDGE})
-            set    ("ARILES_BRIDGE_${ARILES_BRIDGE}" "${ARILES_BRIDGE_${ARILES_BRIDGE}}"
-                    CACHE STRING "Bridge '${ARILES_BRIDGE} (ON / OFF")
-
-            if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
-                list(APPEND ARILES_ENABLED_BRIDGES "${ARILES_BRIDGE}")
+            if (NOT ${ARILES_VISITOR_${ARILES_VISITOR}} STREQUAL "OFF")
+                list(APPEND ARILES_ENABLED_VISITORS "${ARILES_VISITOR}")
             endif()
         else()
-            set    ("ARILES_BRIDGE_${ARILES_BRIDGE}" "${ARILES_BRIDGES_DEFAULT_MODE}"
-                    CACHE STRING "Bridge '${ARILES_BRIDGE} (ON / OFF)")
+            set    ("ARILES_VISITOR_${ARILES_VISITOR}" "${ARILES_VISITORS_DEFAULT_MODE}"
+                    CACHE STRING "Visitor '${ARILES_VISITOR} (ON / OFF)")
 
-            if (NOT ${ARILES_BRIDGES_DEFAULT_MODE} STREQUAL "OFF")
-                list(APPEND ARILES_ENABLED_BRIDGES "${ARILES_BRIDGE}")
+            if (NOT ${ARILES_VISITORS_DEFAULT_MODE} STREQUAL "OFF")
+                list(APPEND ARILES_ENABLED_VISITORS "${ARILES_VISITOR}")
             endif()
         endif()
 
 
         if (ARILES_VERBOSE)
-            message("----------------------BRIDGE----------------------")
-            message("Name: ${ARILES_BRIDGE}")
-            message("Path: ${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}")
-            message("Enabled: ${ARILES_BRIDGE_${ARILES_BRIDGE}}")
-            message("Enable/disable option name: ARILES_BRIDGE_${ARILES_BRIDGE}")
+            message("----------------------VISITOR----------------------")
+            message("Name: ${ARILES_VISITOR}")
+            message("Path: ${ARILES_VISITOR_${ARILES_VISITOR}_DIR}")
+            message("Enabled: ${ARILES_VISITOR_${ARILES_VISITOR}}")
+            message("Enable/disable option name: ARILES_VISITOR_${ARILES_VISITOR}")
             message("--------------------------------------------------")
         endif(ARILES_VERBOSE)
-    endforeach(ARILES_BRIDGE)
-endforeach(ARILES_BRIDGES_DIR)
+    endforeach(ARILES_VISITOR)
+endforeach(ARILES_VISITORS_DIR)
 
 
 set(ARILES_EXTRA_ADAPTERS "")
@@ -245,7 +260,7 @@ set(DEB_ARCHIVE_FILES
 option(CPPUT_EMBEDDED "" ON)
 set(CPPUT_EMBEDDED_ID "ARILES"  CACHE STRING "")
 set(CPPUT_EMBEDDED_COPY_TO_DIR "${PROJECT_SOURCE_DIR}/include/ariles/internal/"  CACHE STRING "")
-set(CPPUT_SELECT_HEADERS "config.h;better_enum.h;exception.h;floating_point_utils.h;visibility.h;misc.h;flags.h"  CACHE STRING "")
+set(CPPUT_SELECT_HEADERS "config.h;;exception.h;floating_point_utils.h;visibility.h;misc.h;flags.h"  CACHE STRING "")
 add_subdirectory(cpput)
 # --------------
 
@@ -255,7 +270,7 @@ add_custom_target( TGT_ariles_copy_headers ALL )
 # core & adapters headers
 cmakeut_copy_dir_if_exists(TGT_ariles_copy_headers          "ariles"
                           "${PROJECT_SOURCE_DIR}/include"  "${ARILES_INCLUDE_DIR}/core/")
-include_directories("${ARILES_INCLUDE_DIR}/core/")
+set(ARILES_CORE_BUILD_INCLUDES "${ARILES_INCLUDE_DIR}/core/")
 
 if (${ARILES_ENABLE_CORE})
     foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
@@ -283,7 +298,7 @@ list(APPEND ARILES_CORE_DEPENDENCY_INCLUDES "${Boost_INCLUDE_DIRS}")
 ## Optional dependencies
 ##
 
-set(BRIDGE_TARGET_PREFIX TGT_bridge)
+set(VISITOR_TARGET_PREFIX TGT_visitor)
 
 if (ARILES_ADAPTER_EIGEN)
     find_package(Eigen3 REQUIRED)
@@ -303,34 +318,21 @@ if(CMAKE_TOOLCHAIN_FILE)
     if(NOT IS_ABSOLUTE ${CMAKE_TOOLCHAIN_FILE})
         set(CMAKE_TOOLCHAIN_FILE "${PROJECT_SOURCE_DIR}/${CMAKE_TOOLCHAIN_FILE}")
     endif()
-
-    set(BRIDGES_ARGS
-        ${BRIDGES_ARGS}
-        "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}")
 endif(CMAKE_TOOLCHAIN_FILE)
 
 
-# bridges
-foreach(ARILES_BRIDGES_DIR ${ARILES_BRIDGES_DIRS})
-    cmakeut_list_filenames("${ARILES_BRIDGES_DIR}"   "ARILES_BRIDGES_TMP" DIRS_WITH_CMAKELISTS)
+foreach(ARILES_VISITORS_DIR ${ARILES_VISITORS_DIRS})
+    cmakeut_list_filenames("${ARILES_VISITORS_DIR}"   "ARILES_VISITORS_TMP" DIRS_WITH_CMAKELISTS)
 
-    foreach(ARILES_BRIDGE ${ARILES_BRIDGES_TMP})
-        if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
-            add_custom_target(${BRIDGE_TARGET_PREFIX}_${ARILES_BRIDGE})
-            include("${ARILES_BRIDGE_${ARILES_BRIDGE}_DIR}/CMakeLists.txt")
+    foreach(ARILES_VISITOR ${ARILES_VISITORS_TMP})
+        if (NOT ${ARILES_VISITOR_${ARILES_VISITOR}} STREQUAL "OFF")
+            add_custom_target(${VISITOR_TARGET_PREFIX}_${ARILES_VISITOR})
+            include("${ARILES_VISITOR_${ARILES_VISITOR}_DIR}/CMakeLists.txt")
 
-            if (ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES)
-                include_directories(SYSTEM "${ARILES_BRIDGE_${ARILES_BRIDGE}_INCLUDES}")
-            endif()
-
-            if (ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS)
-                link_directories("${ARILES_BRIDGE_${ARILES_BRIDGE}_LIBRARY_DIRS}")
-            endif()
-
-            list(APPEND DEB_ARCHIVE_FILES "${PROJECT_SOURCE_DIR}/bridges/${ARILES_BRIDGE}/")
+            list(APPEND DEB_ARCHIVE_FILES "${PROJECT_SOURCE_DIR}/extra_visitors/${ARILES_VISITOR}/")
         endif()
-    endforeach(ARILES_BRIDGE)
-endforeach(ARILES_BRIDGES_DIR)
+    endforeach(ARILES_VISITOR)
+endforeach(ARILES_VISITORS_DIR)
 
 
 
@@ -342,30 +344,12 @@ cmakeut_compiler_flags("${ARILES_CPP_STANDARD}")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKEUT_CXX_FLAGS}")
 
 
+
 #####################################
 ## Tests
 #####################################
 
 if (ARILES_BUILD_REGRESSION_TESTS)
-    set(ARILES_TESTS_CONFIG "")
-
-    foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
-        string(TOUPPER ${ARILES_EXTRA_ADAPTER} ARILES_EXTRA_ADAPTER_CAPITALIZED)
-        set(ARILES_TESTS_CONFIG   "${ARILES_TESTS_CONFIG}#define ARILES_ADAPTER_${ARILES_EXTRA_ADAPTER_CAPITALIZED}\n")
-    endforeach()
-
-
-    foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
-        if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
-            set(ARILES_TESTS_CONFIG "${ARILES_TESTS_CONFIG}#define ARILES_BRIDGE_${ARILES_BRIDGE}\n")
-        endif()
-    endforeach(ARILES_BRIDGE)
-
-
-    file(WRITE "${ARILES_INCLUDE_DIR}/tests/tests_config.h" "${ARILES_TESTS_CONFIG}")
-    include_directories("${ARILES_INCLUDE_DIR}/tests")
-
-
     enable_testing()
     add_subdirectory ("${PROJECT_SOURCE_DIR}/tests")
 endif()
@@ -388,7 +372,9 @@ set(ARILES_BUILD_CONFIG
 #cmakedefine ARILES_DEFAULT_DOUBLE_VALUE ${ARILES_DEFAULT_DOUBLE_VALUE}\n")
 
 if (ARILES_DEFAULT_CONFIGURABLE_FLAGS)
+    set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#ifndef ARILES_DEFAULT_CONFIGURABLE_FLAGS\n")
     set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_DEFAULT_CONFIGURABLE_FLAGS ${ARILES_DEFAULT_CONFIGURABLE_FLAGS}\n")
+    set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#endif\n")
 endif(ARILES_DEFAULT_CONFIGURABLE_FLAGS)
 
 string(CONFIGURE "${ARILES_BUILD_CONFIG}" ARILES_BUILD_CONFIG)
@@ -397,7 +383,7 @@ file(WRITE "${ARILES_INCLUDE_DIR}/core/ariles/internal/build_config.h" "${ARILES
 
 
 if (${ARILES_ENABLE_CORE})
-    # adapters_all.h
+    # adapters_all.h TODO deprecated
     #---
     set(ARILES_ADAPTERS_ALL   "#pragma once\n")
     set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"internal/helpers.h\"\n")
@@ -415,17 +401,17 @@ if (${ARILES_ENABLE_CORE})
     #---
 
 
-    # ariles_all.h
+    # ariles_all.h TODO deprecated
     #---
     if (${ARILES_ENABLE_CORE_ALL_HEADER})
         set(ARILES_HEADER_ALL   "#pragma once\n")
         set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"internal/build_config.h\"\n")
 
-        foreach(ARILES_BRIDGE ${ARILES_BRIDGES})
-            if (NOT ${ARILES_BRIDGE_${ARILES_BRIDGE}} STREQUAL "OFF")
-                set(ARILES_HEADER_ALL "${ARILES_HEADER_ALL}#include <ariles/bridges/${ARILES_BRIDGE}.h>\n")
+        foreach(ARILES_VISITOR ${ARILES_VISITORS})
+            if (NOT ${ARILES_VISITOR_${ARILES_VISITOR}} STREQUAL "OFF")
+                set(ARILES_HEADER_ALL "${ARILES_HEADER_ALL}#include <ariles/bridges/${ARILES_VISITOR}.h>\n")
             endif()
-        endforeach(ARILES_BRIDGE)
+        endforeach(ARILES_VISITOR)
 
         set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"ariles.h\"\n")
         set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"adapters_all.h\"\n")
@@ -524,7 +510,7 @@ if(ARILES_DEB_TARGETS)
         "-DARILES_CPP_STANDARD=${ARILES_CPP_STANDARD} \
          -DARILES_ENABLE_CORE_ALL_HEADER=${ARILES_ENABLE_CORE_ALL_HEADER} \
          -DARILES_BUILD_REGRESSION_TESTS=${ARILES_BUILD_REGRESSION_TESTS} \
-         -DARILES_BRIDGES_DEFAULT_MODE=OFF")
+         -DARILES_VISITORS_DEFAULT_MODE=OFF")
 
     include(pkg_debian)
 endif()

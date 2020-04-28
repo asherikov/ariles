@@ -14,114 +14,119 @@
 
 #ifdef ARILES_ENABLED
 
-    #ifndef ARILES_DOXYGEN_PROCESSING
+#    ifndef ARILES_DOXYGEN_PROCESSING
 
-    public:
-        #ifdef ARILES_ENTRIES
+public:
+#        ifdef ARILES_ENTRIES
 
-            #define ARILES_NAMED_ENTRY(entry, name)
-            #define ARILES_PARENT(entry)                entry::arilesVisit(visitor, parameters);
+#            define ARILES_NAMED_ENTRY(entry, name)
+#            define ARILES_PARENT(entry) entry::arilesVisit(visitor, parameters);
 
-            template<class t_Visitor>
-                void arilesVisitParents(t_Visitor &visitor, const typename t_Visitor::Parameters &parameters)
-            {
-                ARILES_UNUSED_ARG(visitor);
-                ARILES_UNUSED_ARG(parameters);
-                ARILES_TRACE_FUNCTION;
-                ARILES_ENTRIES
-            }
-
-
-            template<class t_Visitor>
-                void arilesVisitParents(t_Visitor &visitor, const typename t_Visitor::Parameters &parameters) const
-            {
-                ARILES_UNUSED_ARG(visitor);
-                ARILES_UNUSED_ARG(parameters);
-                ARILES_TRACE_FUNCTION;
-                ARILES_ENTRIES
-            }
-
-            #undef ARILES_PARENT
-            #undef ARILES_NAMED_ENTRY
+template <class t_Visitor>
+void arilesVisitParents(t_Visitor &visitor, const typename t_Visitor::Parameters &parameters)
+{
+    ARILES_UNUSED_ARG(visitor);
+    ARILES_UNUSED_ARG(parameters);
+    ARILES_TRACE_FUNCTION;
+    ARILES_ENTRIES
+}
 
 
-            #define ARILES_NAMED_ENTRY(entry, name)     visitor(entry, name, parameters);
-            #define ARILES_PARENT(entry)
+template <class t_Visitor>
+void arilesVisitParents(t_Visitor &visitor, const typename t_Visitor::Parameters &parameters) const
+{
+    ARILES_UNUSED_ARG(visitor);
+    ARILES_UNUSED_ARG(parameters);
+    ARILES_TRACE_FUNCTION;
+    ARILES_ENTRIES
+}
 
-            template<class t_Visitor>
-                void arilesVisit(t_Visitor &visitor, const typename t_Visitor::Parameters &parameters)
-            {
-                ARILES_UNUSED_ARG(visitor);
-                ARILES_UNUSED_ARG(parameters);
-                ARILES_TRACE_FUNCTION;
-                arilesVisitParents(visitor, parameters);
-                ARILES_ENTRIES
-            }
-
-
-            template<class t_Visitor>
-                void arilesVisit(t_Visitor &visitor, const typename t_Visitor::Parameters &parameters) const
-            {
-                ARILES_UNUSED_ARG(visitor);
-                ARILES_UNUSED_ARG(parameters);
-                ARILES_TRACE_FUNCTION;
-                arilesVisitParents(visitor, parameters);
-                ARILES_ENTRIES
-            }
-
-            #undef ARILES_PARENT
-            #undef ARILES_NAMED_ENTRY
+#            undef ARILES_PARENT
+#            undef ARILES_NAMED_ENTRY
 
 
+#            define ARILES_NAMED_ENTRY(entry, name) visitor(entry, name, parameters);
+#            define ARILES_PARENT(entry)
 
-            #define ARILES_NAMED_ENTRY(entry, name)     visitor(entry, other.entry, name, parameters);
-            #define ARILES_PARENT(entry)                entry::arilesVisit(visitor, other, parameters);
-
-            template<class t_Visitor, class t_Other>
-                void arilesVisit(
-                        t_Visitor &visitor,
-                        const t_Other & other,
-                        const typename t_Visitor::Parameters &parameters) const
-            {
-                ARILES_UNUSED_ARG(visitor);
-                ARILES_UNUSED_ARG(other);
-                ARILES_UNUSED_ARG(parameters);
-                ARILES_TRACE_FUNCTION;
-                ARILES_ENTRIES
-            }
-
-            #undef ARILES_PARENT
-            #undef ARILES_NAMED_ENTRY
+template <class t_Visitor>
+void arilesVisit(t_Visitor &visitor, const typename t_Visitor::Parameters &parameters)
+{
+    ARILES_UNUSED_ARG(visitor);
+    ARILES_UNUSED_ARG(parameters);
+    ARILES_TRACE_FUNCTION;
+    arilesVisitParents(visitor, parameters);
+    ARILES_ENTRIES
+}
 
 
-            #undef ARILES_TYPED_NAMED_ENTRY
-        #endif
-    #endif
+template <class t_Visitor>
+void arilesVisit(t_Visitor &visitor, const typename t_Visitor::Parameters &parameters) const
+{
+    ARILES_UNUSED_ARG(visitor);
+    ARILES_UNUSED_ARG(parameters);
+    ARILES_TRACE_FUNCTION;
+    arilesVisitParents(visitor, parameters);
+    ARILES_ENTRIES
+}
+
+#            undef ARILES_PARENT
+#            undef ARILES_NAMED_ENTRY
 
 
-    public:
-        // Define node name
-        #ifdef ARILES_DEFAULT_ID
-            const std::string & arilesDefaultID() const
-            {
-                static const std::string name(ARILES_DEFAULT_ID);
-                return (name);
-            }
-        #endif
+
+#            define ARILES_NAMED_ENTRY(entry, name) visitor(entry, other.entry, name, parameters);
+#            define ARILES_PARENT(entry) entry::arilesVisit(visitor, other, parameters);
+
+template <class t_Visitor, class t_Other>
+void arilesVisit(t_Visitor &visitor, const t_Other &other, const typename t_Visitor::Parameters &parameters) const
+{
+    ARILES_UNUSED_ARG(visitor);
+    ARILES_UNUSED_ARG(other);
+    ARILES_UNUSED_ARG(parameters);
+    ARILES_TRACE_FUNCTION;
+    ARILES_ENTRIES
+}
+
+#            undef ARILES_PARENT
+#            undef ARILES_NAMED_ENTRY
 
 
-        #ifndef ARILES_VISITORS
-            #define ARILES_VISITORS ARILES_DEFAULT_VISITORS
-        #endif
-
-        #define ARILES_VISITOR(visitor) ARILES_METHODS_##visitor
-
-        ARILES_VISITORS
-
-        #undef ARILES_VISITOR
-        #undef ARILES_VISITORS
+#            undef ARILES_TYPED_NAMED_ENTRY
+#        endif
+#    endif
 
 
-#endif //ARILES_ENABLED
+public:
+// Define node name
+#    ifdef ARILES_DEFAULT_ID
+const std::string &arilesDefaultID() const
+{
+    static const std::string name(ARILES_DEFAULT_ID);
+    return (name);
+}
+#    else
+#        if 2 == ARILES_API_VERSION
+const std::string &arilesDefaultID() const
+{
+    static const std::string name("");
+    return (name);
+}
+#        endif
+#    endif
+
+
+#    ifndef ARILES_VISITORS
+#        define ARILES_VISITORS ARILES_DEFAULT_VISITORS
+#    endif
+
+#    define ARILES_VISITOR(visitor) ARILES_METHODS_##visitor
+
+ARILES_VISITORS
+
+#    undef ARILES_VISITOR
+#    undef ARILES_VISITORS
+
+
+#endif  // ARILES_ENABLED
 
 #undef ARILES_DEFAULT_ID

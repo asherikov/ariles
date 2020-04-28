@@ -15,41 +15,42 @@ namespace ariles
 {
     class ConfigurableFlags : public ariles::Flags<unsigned int, ConfigurableFlags>
     {
-        public:
-            enum Flags
-            {
-                RESET = 0,
-                ALLOW_MISSING_ENTRIES = 1,
-                SLOPPY_MAPS_IF_SUPPORTED = 2,
-                COMPACT_ARRAYS_IF_SUPPORTED = 4,
-                PROPAGATE_ALLOW_MISSING_ENTRIES = 8,
-                FORCE_EXPLICIT_MATRIX_SIZE = 16,
-                SLOPPY_PAIRS_IF_SUPPORTED = 32,
+    public:
+        enum Flags
+        {
+            RESET = 0,
+            ALLOW_MISSING_ENTRIES = 1,
+            SLOPPY_MAPS_IF_SUPPORTED = 2,
+            COMPACT_ARRAYS_IF_SUPPORTED = 4,
+            PROPAGATE_ALLOW_MISSING_ENTRIES = 8,
+            FORCE_EXPLICIT_MATRIX_SIZE = 16,
+            SLOPPY_PAIRS_IF_SUPPORTED = 32,
+            DISABLE_ALLOW_MISSING_ENTRIES = 64,  // internal use
 
 #ifdef ARILES_DEFAULT_CONFIGURABLE_FLAGS
-                DEFAULT = ARILES_DEFAULT_CONFIGURABLE_FLAGS
+            DEFAULT = ARILES_DEFAULT_CONFIGURABLE_FLAGS
 #else
-                DEFAULT = RESET
+            DEFAULT = RESET
 #endif
-            };
+        };
 
 
-        public:
-            ConfigurableFlags()
-            {
-                setDefaults();
-            }
+    public:
+        ConfigurableFlags()
+        {
+            setDefaults();
+        }
 
 
-            ConfigurableFlags(const unsigned int flags, const Action action_type = REPLACE)
-            {
-                initialize(flags, action_type);
-            }
+        ConfigurableFlags(const unsigned int flags, const Action action_type = REPLACE)
+        {
+            initialize(flags, action_type);
+        }
 
 
-            void setDefaults()
-            {
-                flags_ = DEFAULT;
-            }
+        void setDefaults()
+        {
+            flags_ = DEFAULT;
+        }
     };
-}
+}  // namespace ariles
