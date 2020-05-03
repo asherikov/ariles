@@ -1,6 +1,16 @@
 Unreleased
 ==========
 
+1.6.4
+=====
+
+Added
+-----
+
+* cppcheck and scan-build checks in CI, corresponding fixes.
+
+
+
 1.6.3
 =====
 
