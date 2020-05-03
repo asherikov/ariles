@@ -29,7 +29,7 @@ namespace ariles_tests
     public:
         ConfigurableNoAutoID()
         {
-            setDefaults();
+            ConfigurableNoAutoID::setDefaults();
             id_ = "unique_id_on_a_particular_level_in_a_configuration_file";
         }
 

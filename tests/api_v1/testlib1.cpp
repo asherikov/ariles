@@ -44,7 +44,7 @@ namespace testlib1
     public:
         ConfigurableVerbose()
         {
-            setDefaults();
+            ConfigurableVerbose::setDefaults();
         }
 
 

@@ -21,7 +21,7 @@ namespace ariles
             class ARILES_LIB_LOCAL Writer : public ariles::ns_ros::ImplBase
             {
             public:
-                Writer(const ::ros::NodeHandle &nh)
+                explicit Writer(const ::ros::NodeHandle &nh)
                 {
                     nh_ = nh;
                 }

@@ -22,6 +22,11 @@ namespace ariles
         {
             class ARILES_LIB_LOCAL Writer
             {
+            private:
+                Writer(const Writer &);
+                void operator=(const Writer &);
+
+
             public:
                 /// output file stream
                 std::ofstream config_ofs_;
@@ -32,7 +37,7 @@ namespace ariles
                 ::msgpack::packer<std::ostream> *packer_;
 
             public:
-                Writer(const std::string &file_name)
+                explicit Writer(const std::string &file_name)
                 {
                     ariles::write::Visitor::openFile(config_ofs_, file_name);
                     output_stream_ = &config_ofs_;
@@ -40,7 +45,7 @@ namespace ariles
                 }
 
 
-                Writer(std::ostream &output_stream)
+                explicit Writer(std::ostream &output_stream)
                 {
                     output_stream_ = &output_stream;
                     packer_ = new ::msgpack::packer<std::ostream>(*output_stream_);

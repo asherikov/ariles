@@ -32,7 +32,7 @@ namespace ariles_tests
     public:
         ConfigurableSpecialFloats()
         {
-            setDefaults();
+            ConfigurableSpecialFloats::setDefaults();
         }
 
         virtual ~ConfigurableSpecialFloats()

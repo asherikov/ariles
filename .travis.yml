@@ -221,3 +221,41 @@ jobs:
           - sudo make install-jsonnet
           - make build-tests TYPE=Debug OPTIONS=ros TARGETS="all" ARGS=-V
 
+
+      - name: "bionic_cppcheck"
+        dist: bionic
+        compiler: gcc
+
+        before_install:
+          - sudo apt update
+          - sudo apt install -y cppcheck
+
+        script:
+          - make cppcheck
+
+      - name: "bionic_gcc_cpp11_ros_scanbuild"
+        dist: bionic
+        compiler: gcc
+
+        env:
+          - ROS_DISTRO=melodic
+          - CI_SOURCE_PATH=$(pwd)
+          - ROS_CI_DESKTOP=${TRAVIS_DIST}
+          - ROSINSTALL_FILE=$CI_SOURCE_PATH/dependencies.rosinstall
+          - CATKIN_OPTIONS=$CI_SOURCE_PATH/catkin.options
+          # Set the python path manually to include /usr/-/python2.7/dist-packages
+          # as this is where apt-get installs python packages.
+          - PYTHONPATH=$PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
+
+        # Install system dependencies, namely a very barebones ROS setup.
+        before_install:
+          - sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
+          - source /opt/ros/${ROS_DISTRO}/setup.bash
+          - rosdep update
+          - sudo apt install -y cmake libboost-all-dev libeigen3-dev
+          - sudo apt install -y libyaml-cpp-dev octave
+          - sudo apt install -y clang-tools-9
+
+        script:
+          - sudo make install-jsonnet
+          - make clangcheck SCANBUILD=scan-build-9 OPTIONS=ros

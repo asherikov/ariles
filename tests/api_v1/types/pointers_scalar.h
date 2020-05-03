@@ -69,7 +69,7 @@ namespace ariles_tests
     public:
         ConfigurablePointersScalar()
         {
-            setDefaults();
+            ConfigurablePointersScalar::setDefaults();
         }
 
         virtual void setDefaults()

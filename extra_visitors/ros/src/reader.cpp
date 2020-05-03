@@ -23,7 +23,7 @@ namespace ariles
             class ARILES_LIB_LOCAL Reader : public ariles::ns_ros::ImplBase
             {
             public:
-                Reader(const ::ros::NodeHandle &nh)
+                explicit Reader(const ::ros::NodeHandle &nh)
                 {
                     nh_ = nh;
                 }
