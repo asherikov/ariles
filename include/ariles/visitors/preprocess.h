@@ -17,7 +17,7 @@ namespace ariles
 {
     namespace preprocess
     {
-        class Parameters
+        class ARILES_VISIBILITY_ATTRIBUTE Parameters
         {
         };
 

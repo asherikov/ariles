@@ -26,7 +26,38 @@ function(cmakeut_compiler_flags STANDARD)
     endif()
 
 
-    set(CXX_GENERIC "-std=${STANDARD} ${CXX_WARNINGS} ${CXX_OTHER}")
+    set(CXX_SANITIZERS "")
+    if(CMAKEUT_CPP_SANITIZERS)
+        if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+
+            if ("${CMAKE_SYSTEM_NAME}" STREQUAL "FreeBSD")
+                # -fsanitize=address segfaults on boost UTF.
+                set(CXX_SANITIZERS "-fsanitize=undefined")
+            else()
+                set(CXX_SANITIZERS "-fsanitize=address -fsanitize=undefined")
+            endif()
+
+        elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+
+            if (NOT CMAKE_CXX_COMPILER_VERSION OR CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.9)
+                message("GCC version is unknown or too old. Disabling sanitizers.")
+            else()
+                set(CXX_SANITIZERS "-fsanitize=address -fsanitize=undefined -fsanitize-undefined-trap-on-error")
+            endif()
+
+        elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
+
+            # using Intel C++
+
+        elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+
+            # using Visual Studio C++
+
+        endif()
+    endif()
+
+
+    set(CXX_GENERIC "-std=${STANDARD} ${CXX_WARNINGS} ${CXX_OTHER} ${CXX_SANITIZERS}")
 
 
     if ("${STANDARD}" STREQUAL "c++11")

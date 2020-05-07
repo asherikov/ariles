@@ -18,7 +18,7 @@ namespace ariles
     {
         namespace impl
         {
-            class ARILES_LIB_LOCAL Reader : public ariles::ns_rapidjson::ImplBase<const ::rapidjson::Value>
+            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ns_rapidjson::ImplBase<const ::rapidjson::Value>
             {
             public:
                 void initialize(std::istream &input_stream)

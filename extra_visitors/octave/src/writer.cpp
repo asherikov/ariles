@@ -30,7 +30,7 @@ namespace ariles
     {
         namespace impl
         {
-            class ARILES_LIB_LOCAL Writer
+            class ARILES_VISIBILITY_ATTRIBUTE Writer
             {
             public:
                 std::vector<NodeWrapper> node_stack_;

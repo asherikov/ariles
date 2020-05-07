@@ -17,7 +17,7 @@ namespace ariles
     {
         namespace impl
         {
-            class ARILES_LIB_LOCAL Reader
+            class ARILES_VISIBILITY_ATTRIBUTE Reader
             {
             public:
                 pugi::xml_document document_;

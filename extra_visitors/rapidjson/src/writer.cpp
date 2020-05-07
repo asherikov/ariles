@@ -24,7 +24,7 @@ namespace ariles
     {
         namespace impl
         {
-            class ARILES_LIB_LOCAL Writer : public ariles::ns_rapidjson::ImplBase< ::rapidjson::Value>
+            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::ns_rapidjson::ImplBase< ::rapidjson::Value>
             {
             public:
                 /// output file stream

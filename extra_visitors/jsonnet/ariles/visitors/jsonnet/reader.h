@@ -17,9 +17,9 @@ namespace ariles
     {
         namespace impl
         {
-            class JsonnetPreprocessor;
+            class ARILES_VISIBILITY_ATTRIBUTE JsonnetPreprocessor;
 
-            class ARILES_LIB_EXPORT Reader
+            class ARILES_VISIBILITY_ATTRIBUTE Reader
             {
             protected:
                 typedef ARILES_SHARED_PTR<JsonnetPreprocessor> JsonnetPreprocessorPtr;
@@ -40,7 +40,7 @@ namespace ariles
 
 
         template <class t_ParentVisitor>
-        class ARILES_LIB_EXPORT Reader : public t_ParentVisitor
+        class ARILES_VISIBILITY_ATTRIBUTE Reader : public t_ParentVisitor
         {
         protected:
             impl::Reader impl_;

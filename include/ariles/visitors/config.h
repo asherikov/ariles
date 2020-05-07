@@ -27,7 +27,7 @@ namespace ariles
     {
 #if 1 == ARILES_API_VERSION
         template <class t_Reader>
-        class Visitor : public t_Reader
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public t_Reader
         {
         public:
             template <class t_Initializer>
@@ -53,7 +53,7 @@ namespace ariles
 
 #if 2 == ARILES_API_VERSION
         template <class t_Reader>
-        class Parameters
+        class ARILES_VISIBILITY_ATTRIBUTE Parameters
         {
         public:
             ariles::defaults::Visitor::Parameters defaults_parameters_;
@@ -89,7 +89,7 @@ namespace ariles
 
 
         template <class t_Reader>
-        class Visitor : public visitor::Base<Parameters<t_Reader> >
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<Parameters<t_Reader> >
         {
         public:
             typedef cfgread::Parameters<t_Reader> Parameters;
@@ -171,7 +171,7 @@ namespace ariles
     {
 #if 1 == ARILES_API_VERSION
         template <class t_Writer>
-        class Visitor : public t_Writer
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public t_Writer
         {
         public:
             template <class t_Initializer>
@@ -210,7 +210,7 @@ namespace ariles
 
 #if 2 == ARILES_API_VERSION
         template <class t_Writer>
-        class Parameters
+        class ARILES_VISIBILITY_ATTRIBUTE Parameters
         {
         public:
             ariles::preprocess::Visitor::Parameters preprocess_parameters_;
@@ -243,7 +243,7 @@ namespace ariles
 
 
         template <class t_Writer>
-        class Visitor : public visitor::Base<Parameters<t_Writer> >
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<Parameters<t_Writer> >
         {
         public:
             typedef cfgwrite::Parameters<t_Writer> Parameters;

@@ -20,6 +20,11 @@ ARGS?=
 
 DEB_TARGET?=xenial
 
+TEST_ENV=UBSAN_OPTIONS=print_stacktrace=1 \
+		 ASAN_OPTIONS=suppressions=../../../cmake/sanitizer_address.supp \
+		 LSAN_OPTIONS=suppressions=../../../cmake/sanitizer_leak.supp \
+		 UBSAN_OPTIONS=suppressions=../../../cmake/sanitizer_undefined.supp
+
 
 #----------------------------------------------
 # Cleaning
@@ -47,7 +52,7 @@ build:
 	cd ${BUILD_SUBDIR}; ${MAKE} ${MAKE_FLAGS} ${TARGETS}
 
 build-tests: build
-	cd ${BUILD_SUBDIR}; ctest ${ARGS}
+	cd ${BUILD_SUBDIR}; env ${TEST_ENV} ctest ${ARGS}
 #	cd ${BUILD_SUBDIR}; ${MAKE} ${MAKE_FLAGS} test ${ARGS}
 
 # -------

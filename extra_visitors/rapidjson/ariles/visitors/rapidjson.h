@@ -21,7 +21,7 @@ namespace ariles
 {
     namespace ns_rapidjson
     {
-        class Flags : public ariles::Flags<unsigned int, Flags>
+        class ARILES_VISIBILITY_ATTRIBUTE Flags : public ariles::Flags<unsigned int, Flags>
         {
         public:
             enum Enum
@@ -55,7 +55,7 @@ namespace ariles
 
 
         template <class t_Base, class t_Implementation>
-        class Base : public t_Base
+        class ARILES_VISIBILITY_ATTRIBUTE Base : public t_Base
         {
         protected:
             typedef t_Implementation Impl;

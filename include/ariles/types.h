@@ -13,7 +13,7 @@
 namespace ariles
 {
     template <template <class> class t_Pointer, class t_Base, class t_Instantiator>
-    class Any : public ariles::ConfigurableBase
+    class ARILES_VISIBILITY_ATTRIBUTE Any : public ariles::ConfigurableBase
     {
 #define ARILES_SECTION_ID "Any"
 #include ARILES_INITIALIZE
@@ -233,7 +233,7 @@ namespace ariles
 namespace ariles
 {
     template <class t_Pointer>
-    class NonNullPointer : public ariles::ConfigurableBase
+    class ARILES_VISIBILITY_ATTRIBUTE NonNullPointer : public ariles::ConfigurableBase
     {
 #define ARILES_SECTION_ID "NonNullPointer"
 #include ARILES_INITIALIZE

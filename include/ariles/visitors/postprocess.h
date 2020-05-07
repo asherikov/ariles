@@ -17,7 +17,7 @@ namespace ariles
 {
     namespace postprocess
     {
-        class Parameters
+        class ARILES_VISIBILITY_ATTRIBUTE Parameters
         {
         };
 

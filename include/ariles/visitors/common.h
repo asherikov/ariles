@@ -15,7 +15,7 @@ namespace ariles
 {
     namespace visitor
     {
-        class Visitor
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor
         {
         protected:
             Visitor(){};

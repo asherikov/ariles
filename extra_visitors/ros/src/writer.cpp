@@ -18,7 +18,7 @@ namespace ariles
     {
         namespace impl
         {
-            class ARILES_LIB_LOCAL Writer : public ariles::ns_ros::ImplBase
+            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::ns_ros::ImplBase
             {
             public:
                 explicit Writer(const ::ros::NodeHandle &nh)

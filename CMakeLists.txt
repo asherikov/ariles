@@ -31,6 +31,7 @@ option (ARILES_ADAPTER_BETTER_ENUMS     "Enable support for beter enums." ON)
 
 # build parameters
 set    (ARILES_CPP_STANDARD             "c++98" CACHE STRING "C++ standard version")
+option (ARILES_CPP_SANITIZERS           "Enable sanitizers"                 OFF)
 option (ARILES_VERBOSE                  "Verbose build"                     ON)
 option (ARILES_BUILD_REGRESSION_TESTS   "Build regression tests."           ON)
 set    (ARILES_DEB_TARGETS              "" CACHE STRING "Enable debian package generation.")
@@ -340,6 +341,7 @@ endforeach(ARILES_VISITORS_DIR)
 ## Variables / options for ariles
 #####################################
 
+set(CMAKEUT_CPP_SANITIZERS ${ARILES_CPP_SANITIZERS})
 cmakeut_compiler_flags("${ARILES_CPP_STANDARD}")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKEUT_CXX_FLAGS}")
 

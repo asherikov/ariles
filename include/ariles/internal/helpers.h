@@ -112,5 +112,5 @@ namespace ariles
 {
     // intentionally not defined
     template <class t_Pointer>
-    class PointerHandler;
+    class ARILES_VISIBILITY_ATTRIBUTE PointerHandler;
 }  // namespace ariles

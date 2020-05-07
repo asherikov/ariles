@@ -21,7 +21,7 @@ namespace ariles
     {
         namespace impl
         {
-            class ARILES_LIB_LOCAL Writer
+            class ARILES_VISIBILITY_ATTRIBUTE Writer
             {
             private:
                 Writer(const Writer &);
