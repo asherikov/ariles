@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['handler',['Handler',['../classariles_1_1NonNullPointer.html#a98e20de7585d5a62d378887443259852',1,'ariles::NonNullPointer']]]
+  ['flags',['Flags',['../structariles_1_1rapidjson.html#af3cd42781c94e2db8030e3e6729a60cf',1,'ariles::rapidjson::Flags()'],['../structariles_1_1rapidjson.html#af3cd42781c94e2db8030e3e6729a60cf',1,'ariles::rapidjson::Flags()']]]
 ];

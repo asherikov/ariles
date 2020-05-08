@@ -6,6 +6,6 @@ var searchData=
   ['_7emyclass',['~MyClass',['../classdemo_1_1MyClass.html#af36724fde188221a03fe24c3b3e9a95f',1,'demo::MyClass::~MyClass()'],['../classdemo_1_1MyClass.html#af36724fde188221a03fe24c3b3e9a95f',1,'demo::MyClass::~MyClass()']]],
   ['_7enonnullpointer',['~NonNullPointer',['../classariles_1_1NonNullPointer.html#a6f7f789bb4e5e0d7066c94be25941b43',1,'ariles::NonNullPointer']]],
   ['_7ereader',['~Reader',['../classariles_1_1ns__jsonnet_1_1impl_1_1Reader.html#a2c180dcc83c86c9335ffa195cd7652b8',1,'ariles::ns_jsonnet::impl::Reader']]],
-  ['_7evisitor',['~Visitor',['../classariles_1_1visitor_1_1Visitor.html#a79171ed0b0351f298fe4ae6679802926',1,'ariles::visitor::Visitor']]],
+  ['_7evisitor',['~Visitor',['../classariles_1_1visitor_1_1Visitor.html#a79171ed0b0351f298fe4ae6679802926',1,'ariles::visitor::Visitor::~Visitor()'],['../classariles_1_1read_1_1Visitor.html#af350743b7959d2a8cdc5b781e72bf372',1,'ariles::read::Visitor::~Visitor()'],['../classariles_1_1write_1_1Visitor.html#ad9949184bb8fe4e16ca63043f1ec1243',1,'ariles::write::Visitor::~Visitor()']]],
   ['_7ewriter',['~Writer',['../classariles_1_1ns__msgpack_1_1impl_1_1Writer.html#acda8d02b5475dbb2087c57d3bac2c72b',1,'ariles::ns_msgpack::impl::Writer::~Writer()'],['../classariles_1_1ns__msgpack__compact_1_1impl_1_1Writer.html#a913d9f9d4084a8cff73d6f043dace3cd',1,'ariles::ns_msgpack_compact::impl::Writer::~Writer()']]]
 ];

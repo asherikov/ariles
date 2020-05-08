@@ -65,7 +65,8 @@ $(function() {
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">ariles Namespace Reference</div>  </div>
 </div><!--header-->
@@ -173,8 +174,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structariles_1_1octave.html">octave</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Octave visitor.  <a href="structariles_1_1octave.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1PointerHandler.html">PointerHandler</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1PointerHandler_3_01boost_1_1optional_3_01t__Value_01_4_01_4.html">PointerHandler&lt; boost::optional&lt; t_Value &gt; &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles_1_1PointerHandler_3_01boost_1_1shared__ptr_3_01t__Value_01_4_01_4.html">PointerHandler&lt; boost::shared_ptr&lt; t_Value &gt; &gt;</a></td></tr>
@@ -273,6 +272,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a34b71f0b30442e14008a95941337f153"><td class="memTemplParams" colspan="2">template&lt;class t_Visitor , class t_Left , class t_Right &gt; </td></tr>
 <tr class="memitem:a34b71f0b30442e14008a95941337f153"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles.html#a34b71f0b30442e14008a95941337f153">apply</a> (t_Visitor &amp;visitor, t_Left &amp;left, t_Right &amp;right, const typename t_Visitor::Parameters &amp;param, <a class="el" href="helpers_8h.html#ac5d10ec7cb004317ac60fd949e026df3">ARILES_IS_BASE_ENABLER</a>(<a class="el" href="classariles_1_1visitor_1_1Visitor.html">ariles::visitor::Visitor</a>, t_Visitor))</td></tr>
 <tr class="separator:a34b71f0b30442e14008a95941337f153"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:abaef415347b314c11dea24353e3fdd6f"><td class="memTemplParams" colspan="2">template&lt;class t_Pointer &gt; </td></tr>
+<tr class="memitem:abaef415347b314c11dea24353e3fdd6f"><td class="memTemplItemLeft" align="right" valign="top">class <a class="el" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles.html#abaef415347b314c11dea24353e3fdd6f">PointerHandler</a></td></tr>
+<tr class="separator:abaef415347b314c11dea24353e3fdd6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="a5d2da456c325f53c615a5a0a3c702ef8"></a>
@@ -415,7 +420,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00282">282</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00285">285</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -447,7 +452,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00160">160</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00165">165</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -1149,6 +1154,25 @@ template&lt;class t_Visitor , class t_Left , class t_Right &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="include_2ariles_2visitors_2common_8h_source.html#l00284">284</a> of file <a class="el" href="include_2ariles_2visitors_2common_8h_source.html">common.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="abaef415347b314c11dea24353e3fdd6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abaef415347b314c11dea24353e3fdd6f">&#9670;&nbsp;</a></span>PointerHandler</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class t_Pointer &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">class <a class="el" href="helpers_8h.html#ad0ff9c31b0413994fc91d82e251e98f0">ARILES_VISIBILITY_ATTRIBUTE</a> ariles::PointerHandler</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="helpers_8h_source.html#l00115">115</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
 
 </div>
 </div>
