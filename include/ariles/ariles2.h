@@ -48,15 +48,15 @@
 
 // ----------------------------
 
-#        include "adapters/basic.h"
-#        define ARILES_DEFAULT_VISITORS                                                                                \
-            ARILES_VISITOR(count)                                                                                      \
-            ARILES_VISITOR(postprocess)                                                                                \
-            ARILES_VISITOR(preprocess)                                                                                 \
-            ARILES_VISITOR(defaults)                                                                                   \
-            ARILES_VISITOR(read)                                                                                       \
-            ARILES_VISITOR(write)                                                                                      \
-            ARILES_VISITOR(compare)
+#    include "adapters/basic.h"
+#    define ARILES_DEFAULT_VISITORS                                                                                    \
+        ARILES_VISITOR(count)                                                                                          \
+        ARILES_VISITOR(postprocess)                                                                                    \
+        ARILES_VISITOR(preprocess)                                                                                     \
+        ARILES_VISITOR(defaults)                                                                                       \
+        ARILES_VISITOR(read)                                                                                           \
+        ARILES_VISITOR(write)                                                                                          \
+        ARILES_VISITOR(compare)
 
 namespace ariles
 {

@@ -11,6 +11,7 @@
 #pragma once
 
 #include "../internal/helpers.h"
+#include "../visitors/count.h"
 
 namespace ariles
 {

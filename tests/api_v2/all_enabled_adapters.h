@@ -16,14 +16,14 @@
 #include <ariles/adapters/pointer.h>
 
 #ifdef ARILES_ADAPTER_EIGEN
-    #include <ariles/adapters/eigen.h>
+#    include <ariles/adapters/eigen.h>
 #endif
 #ifdef ARILES_ADAPTER_BOOST_POINTER
-    #include <ariles/adapters/boost_pointer.h>
+#    include <ariles/adapters/boost_pointer.h>
 #endif
 #ifdef ARILES_ADAPTER_BOOST_OPTIONAL
-    #include <ariles/adapters/boost_optional.h>
+#    include <ariles/adapters/boost_optional.h>
 #endif
 #ifdef ARILES_ADAPTER_BETTER_ENUMS
-    #include <ariles/adapters/better_enums.h>
+#    include <ariles/adapters/better_enums.h>
 #endif
