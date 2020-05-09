@@ -14,7 +14,7 @@ namespace ariles_tests
 {
     class Base : public ariles::DefaultBase
     {
-#define ARILES_ENTRIES ARILES_TYPED_ENTRY_(v, real, double)
+#define ARILES_ENTRIES(v) ARILES_TYPED_ENTRY_(v, real, double)
 #include ARILES_INITIALIZE
 
     public:
@@ -40,7 +40,7 @@ namespace ariles_tests
     class Derived1 : public Base
     {
 #define ARILES_DEFAULT_ID "Derived1"  // Needed for cast<Derived1>("Derived1"));
-#define ARILES_ENTRIES                                                                                                 \
+#define ARILES_ENTRIES(v)                                                                                              \
     ARILES_PARENT(v, Base)                                                                                             \
     ARILES_TYPED_ENTRY_(v, real1, double)
 #include ARILES_INITIALIZE
@@ -65,7 +65,7 @@ namespace ariles_tests
     class Derived2 : public Base
     {
 #define ARILES_DEFAULT_ID "Derived2"  // Needed for cast<Derived2>("Derived2"));
-#define ARILES_ENTRIES                                                                                                 \
+#define ARILES_ENTRIES(v)                                                                                              \
     ARILES_PARENT(v, Base)                                                                                             \
     ARILES_TYPED_ENTRY_(v, real2, double)
 #include ARILES_INITIALIZE
@@ -182,30 +182,30 @@ namespace ariles_tests
     class ConfigurableAny : public ariles::DefaultBase
     {
     public:
-#define ARILES_ENTRIES_0
+#define ARILES_ENTRIES_0(v)
 
 #if __cplusplus >= 201103L
         CommonAny<std::shared_ptr, StdPtrInstantiator> std_any_;
 
-#    define ARILES_ENTRIES_1                                                                                           \
-        ARILES_ENTRIES_0                                                                                               \
+#    define ARILES_ENTRIES_1(v)                                                                                        \
+        ARILES_ENTRIES_0(v)                                                                                            \
         ARILES_ENTRY_(v, std_any)
 #else
-#    define ARILES_ENTRIES_1 ARILES_ENTRIES_0
+#    define ARILES_ENTRIES_1(v) ARILES_ENTRIES_0(v)
 #endif
 
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
         CommonAny<boost::shared_ptr, BoostPtrInstantiator> boost_any_;
-#    define ARILES_ENTRIES_2                                                                                           \
-        ARILES_ENTRIES_1                                                                                               \
+#    define ARILES_ENTRIES_2(v)                                                                                        \
+        ARILES_ENTRIES_1(v)                                                                                            \
         ARILES_ENTRY_(v, boost_any)
 #else
-#    define ARILES_ENTRIES_2 ARILES_ENTRIES_1
+#    define ARILES_ENTRIES_2(v) ARILES_ENTRIES_1(v)
 #endif
 
 
-#define ARILES_ENTRIES ARILES_ENTRIES_2
+#define ARILES_ENTRIES(v) ARILES_ENTRIES_2(v)
 #include ARILES_INITIALIZE
 
 #undef ARILES_ENTRIES_0

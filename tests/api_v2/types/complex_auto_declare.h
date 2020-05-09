@@ -16,7 +16,7 @@ namespace ariles_tests
 {
     class ConfigurableComplex : public ariles::DefaultBase, public ConfigurableComplexBase<ConfigurableComplex>
     {
-#define ARILES_ENTRIES_STANDARD_TYPES                                                                                  \
+#define ARILES_ENTRIES_STANDARD_TYPES(v)                                                                               \
     ARILES_TYPED_ENTRY_(v, integer, int)                                                                               \
     ARILES_TYPED_ENTRY_(v, unsigned_integer, std::size_t)                                                              \
     ARILES_TYPED_ENTRY_(v, real, double)                                                                               \
@@ -31,8 +31,8 @@ namespace ariles_tests
 
 
 #ifdef ARILES_ADAPTER_EIGEN
-#    define ARILES_ENTRIES_0                                                                                           \
-        ARILES_ENTRIES_STANDARD_TYPES                                                                                  \
+#    define ARILES_ENTRIES_0(v)                                                                                        \
+        ARILES_ENTRIES_STANDARD_TYPES(v)                                                                               \
         ARILES_TYPED_ENTRY_(v, vector, Eigen::Vector3d)                                                                \
         ARILES_TYPED_ENTRY_(v, matrix, Eigen::Matrix3d)                                                                \
         ARILES_TYPED_ENTRY_(v, matrix_x, Eigen::MatrixXd)                                                              \
@@ -41,18 +41,18 @@ namespace ariles_tests
         ARILES_TYPED_ENTRY_(v, isometry, Eigen::Isometry3d)                                                            \
         ARILES_TYPED_ENTRY_(v, quaternion, Eigen::Quaterniond)
 #else
-#    define ARILES_ENTRIES_0 ARILES_ENTRIES_STANDARD_TYPES
+#    define ARILES_ENTRIES_0(v) ARILES_ENTRIES_STANDARD_TYPES(v)
 #endif
 
 #ifdef ARILES_ADAPTER_BETTER_ENUMS
-#    define ARILES_ENTRIES_1                                                                                           \
-        ARILES_ENTRIES_0                                                                                               \
+#    define ARILES_ENTRIES_1(v)                                                                                        \
+        ARILES_ENTRIES_0(v)                                                                                            \
         ARILES_TYPED_ENTRY_(v, better_enum, BetterEnum)
 #else
-#    define ARILES_ENTRIES_1 ARILES_ENTRIES_STANDARD_TYPES
+#    define ARILES_ENTRIES_1(v) ARILES_ENTRIES_STANDARD_TYPES(v)
 #endif
 
-#define ARILES_ENTRIES ARILES_ENTRIES_1
+#define ARILES_ENTRIES(v) ARILES_ENTRIES_1(v)
 #include ARILES_INITIALIZE
 
 #undef ARILES_ENTRIES_STANDARD_TYPES

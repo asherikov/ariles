@@ -19,7 +19,7 @@ public:
 #        define ARILES_PARENT(v, entry)
 #        define ARILES_TYPED_NAMED_ENTRY(v, type, entry, name) type entry;
 
-ARILES_ENTRIES
+ARILES_ENTRIES("")
 
 #        undef ARILES_NAMED_ENTRY
 #        undef ARILES_PARENT

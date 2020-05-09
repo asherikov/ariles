@@ -17,7 +17,7 @@ namespace ariles_tests
     {
 // optional, but what is the point in omitting it?
 // members can be defined manually, see ConfigurableVerbose
-#define ARILES_ENTRIES                                                                                                 \
+#define ARILES_ENTRIES(v)                                                                                              \
     ARILES_TYPED_ENTRY_(v, integer, int)                                                                               \
     ARILES_TYPED_ENTRY_(v, real, double)
 // mandatory

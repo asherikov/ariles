@@ -15,7 +15,7 @@ namespace ariles
     template <template <class> class t_Pointer, class t_Base, class t_Instantiator>
     class ARILES_VISIBILITY_ATTRIBUTE Any : public ariles::DefaultBase
     {
-#define ARILES_ENTRIES                                                                                                 \
+#define ARILES_ENTRIES(v)                                                                                              \
     ARILES_TYPED_ENTRY_(v, id, std::string)                                                                            \
     ARILES_TYPED_ENTRY_(v, value, t_Pointer<t_Base>)
 #include ARILES_INITIALIZE

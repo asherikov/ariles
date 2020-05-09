@@ -28,7 +28,7 @@ void arilesVisitParents(t_Visitor &visitor, const typename t_Visitor::Parameters
     ARILES_UNUSED_ARG(visitor);
     ARILES_UNUSED_ARG(parameters);
     ARILES_TRACE_FUNCTION;
-    ARILES_ENTRIES
+    ARILES_ENTRIES("")
 }
 
 
@@ -38,7 +38,7 @@ void arilesVisitParents(t_Visitor &visitor, const typename t_Visitor::Parameters
     ARILES_UNUSED_ARG(visitor);
     ARILES_UNUSED_ARG(parameters);
     ARILES_TRACE_FUNCTION;
-    ARILES_ENTRIES
+    ARILES_ENTRIES("")
 }
 
 #            undef ARILES_PARENT
@@ -55,7 +55,7 @@ void arilesVisit(t_Visitor &visitor, const typename t_Visitor::Parameters &param
     ARILES_UNUSED_ARG(parameters);
     ARILES_TRACE_FUNCTION;
     arilesVisitParents(visitor, parameters);
-    ARILES_ENTRIES
+    ARILES_ENTRIES("")
 }
 
 
@@ -66,7 +66,7 @@ void arilesVisit(t_Visitor &visitor, const typename t_Visitor::Parameters &param
     ARILES_UNUSED_ARG(parameters);
     ARILES_TRACE_FUNCTION;
     arilesVisitParents(visitor, parameters);
-    ARILES_ENTRIES
+    ARILES_ENTRIES("")
 }
 
 #            undef ARILES_PARENT
@@ -84,7 +84,7 @@ void arilesVisit(t_Visitor &visitor, const t_Other &other, const typename t_Visi
     ARILES_UNUSED_ARG(other);
     ARILES_UNUSED_ARG(parameters);
     ARILES_TRACE_FUNCTION;
-    ARILES_ENTRIES
+    ARILES_ENTRIES("")
 }
 
 #            undef ARILES_PARENT
