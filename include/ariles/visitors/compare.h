@@ -157,14 +157,29 @@ namespace ariles
         }
 
 
-#ifndef ARILES_METHODS_compare
-#    define ARILES_METHODS_compare                                                                                     \
-        const ariles::compare::Visitor::Parameters &arilesGetParameters(const ariles::compare::Visitor &visitor) const \
-        {                                                                                                              \
-            ARILES_TRACE_FUNCTION;                                                                                     \
-            return (visitor.getDefaultParameters());                                                                   \
-        }
-#endif
+#define ARILES_NAMED_ENTRY_compare(v, entry, name) visitor(entry, other.entry, name, parameters);
+#define ARILES_PARENT_compare(v, entry) entry::arilesVisit(visitor, other, parameters);
+
+#define ARILES_VISIT_compare                                                                                           \
+    template <class t_Other>                                                                                           \
+    void arilesVisit(                                                                                                  \
+            ariles::compare::Visitor &visitor,                                                                         \
+            const t_Other &other,                                                                                      \
+            const typename ariles::compare::Visitor::Parameters &parameters) const                                     \
+    {                                                                                                                  \
+        ARILES_UNUSED_ARG(visitor);                                                                                    \
+        ARILES_UNUSED_ARG(other);                                                                                      \
+        ARILES_UNUSED_ARG(parameters);                                                                                 \
+        ARILES_TRACE_FUNCTION;                                                                                         \
+        ARILES_ENTRIES(compare)                                                                                        \
+    }
+
+#define ARILES_METHODS_compare                                                                                         \
+    const ariles::compare::Visitor::Parameters &arilesGetParameters(const ariles::compare::Visitor &visitor) const     \
+    {                                                                                                                  \
+        ARILES_TRACE_FUNCTION;                                                                                         \
+        return (visitor.getDefaultParameters());                                                                       \
+    }
     }  // namespace compare
 
 

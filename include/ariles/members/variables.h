@@ -15,16 +15,14 @@
 #ifndef ARILES_DOXYGEN_PROCESSING
 public:
 #    ifdef ARILES_ENTRIES
-#        define ARILES_NAMED_ENTRY(v, entry, name)
-#        define ARILES_PARENT(v, entry)
-#        define ARILES_TYPED_NAMED_ENTRY(v, type, entry, name) type entry;
+#        define ARILES_TYPED_NAMED_ENTRY(v, type, entry, name) ARILES_TYPED_NAMED_ENTRY_##v(v, type, entry, name)
 
-ARILES_ENTRIES("")
+#        define ARILES_NAMED_ENTRY_members(v, entry, name)
+#        define ARILES_PARENT_members(v, entry)
+#        define ARILES_TYPED_NAMED_ENTRY_members(v, type, entry, name) type entry;
 
-#        undef ARILES_NAMED_ENTRY
-#        undef ARILES_PARENT
+ARILES_ENTRIES(members)
+
 #        undef ARILES_TYPED_NAMED_ENTRY
-
-#        define ARILES_TYPED_NAMED_ENTRY(v, type, entry, name) ARILES_NAMED_ENTRY(v, entry, name)
 #    endif
 #endif

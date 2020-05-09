@@ -42,9 +42,11 @@
 #ifdef ARILES_ENABLED
 #    define ARILES_INITIALIZE "ariles/members/all.h"
 
+#    define ARILES_PARENT(v, entry) ARILES_PARENT_##v(v, entry)
+#    define ARILES_NAMED_ENTRY(v, entry, name) ARILES_NAMED_ENTRY_##v(v, entry, name)
+
 #    define ARILES_ENTRY_(v, entry) ARILES_NAMED_ENTRY(v, entry##_, #    entry)
 #    define ARILES_ENTRY(v, entry) ARILES_NAMED_ENTRY(v, entry, #    entry)
-
 
 // ----------------------------
 

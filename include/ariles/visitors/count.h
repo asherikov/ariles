@@ -109,9 +109,8 @@ namespace ariles
         public:
         };
 
-#ifndef ARILES_METHODS_count
-#    define ARILES_METHODS_count ARILES_METHODS(count, ARILES_EMPTY_MACRO, const)
-#endif
+#define ARILES_VISIT_count
+#define ARILES_METHODS_count ARILES_METHODS(count, ARILES_EMPTY_MACRO, const)
     }  // namespace count
 
 

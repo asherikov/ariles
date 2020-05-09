@@ -156,9 +156,8 @@ namespace ariles
         {
         };
 
-#ifndef ARILES_METHODS_write
-#    define ARILES_METHODS_write ARILES_METHODS(write, ARILES_EMPTY_MACRO, const)
-#endif
+#define ARILES_VISIT_write
+#define ARILES_METHODS_write ARILES_METHODS(write, ARILES_EMPTY_MACRO, const)
     }  // namespace write
 
 
