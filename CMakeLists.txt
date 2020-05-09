@@ -16,11 +16,10 @@ set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
 option (ARILES_ENABLE_CORE              "Install core (if disabled only selected visitors are installed)." ON)
 
+# extra visitors
 set    (ARILES_VISITORS_DEFAULT_MODE    "ON" CACHE STRING "ON = enable, OFF = disable")
 
-# extra adapters & options
-set (ARILES_DEFAULT_CONFIGURABLE_FLAGS  "" CACHE STRING "Override default flags")
-
+# extra adapters
 option (ARILES_ADAPTER_EIGEN            "Enable eigen support." ON)
 option (ARILES_ADAPTER_BOOST_POINTER    "Enable boost pointer support." ON)
 option (ARILES_ADAPTER_BOOST_OPTIONAL   "Enable boost optional support." ON)
@@ -342,12 +341,6 @@ set(ARILES_BUILD_CONFIG
 #cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNC_
 // __FUNCTION__ ?
 #cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNCTION_\n")
-
-if (ARILES_DEFAULT_CONFIGURABLE_FLAGS)
-    set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#ifndef ARILES_DEFAULT_CONFIGURABLE_FLAGS\n")
-    set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_DEFAULT_CONFIGURABLE_FLAGS ${ARILES_DEFAULT_CONFIGURABLE_FLAGS}\n")
-    set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#endif\n")
-endif(ARILES_DEFAULT_CONFIGURABLE_FLAGS)
 
 string(CONFIGURE "${ARILES_BUILD_CONFIG}" ARILES_BUILD_CONFIG)
 file(WRITE "${ARILES_INCLUDE_DIR}/core/ariles/internal/build_config.h" "${ARILES_BUILD_CONFIG}")

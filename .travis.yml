@@ -130,18 +130,6 @@ jobs:
           - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_${TRAVIS_DIST} TARGETS="all" ARGS=-V
 
 
-      - name: "gcc_cpp11_noros_sloppy"
-        dist: trusty
-        compiler: gcc
-        before_install:
-          - sudo apt update
-          - sudo apt install -y cmake libboost-all-dev libeigen3-dev
-          - sudo apt install -y octave libpugixml-dev libyaml-cpp-dev
-        script:
-          - sudo make install-jsonnet
-          - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_${TRAVIS_DIST}_sloppy TARGETS="all" ARGS=-V
-
-
     # based on https://github.com/felixduvallet/ros-travis-integration/blob/master/.travis.yml
       - name: "gcc_cpp11_ros"
         dist: trusty

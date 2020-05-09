@@ -10,3 +10,5 @@ Removed
 * `ARILES_DEFAULT_FLOAT_VALUE` and `ARILES_DEFAULT_DOUBLE_VALUE` cmake
   parameter. These parameters can still be changed with a preprocessor
   definition.
+* `ARILES_DEFAULT_CONFIGURABLE_FLAGS` cmake parameter, can still be set using
+  preprocessor. Corresponding test cases have also been dropped.
