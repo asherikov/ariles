@@ -16,8 +16,8 @@ namespace ariles_tests
     class ConfigurableSimpleFloats : public ariles::DefaultBase
     {
 #define ARILES_ENTRIES                                                                                                 \
-    ARILES_TYPED_ENTRY_(float_member, float)                                                                           \
-    ARILES_TYPED_ENTRY_(double_member, double)
+    ARILES_TYPED_ENTRY_(v, float_member, float)                                                                        \
+    ARILES_TYPED_ENTRY_(v, double_member, double)
 #include ARILES_INITIALIZE
 
 

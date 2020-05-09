@@ -15,9 +15,9 @@
 #ifndef ARILES_DOXYGEN_PROCESSING
 public:
 #    ifdef ARILES_ENTRIES
-#        define ARILES_NAMED_ENTRY(entry, name)
-#        define ARILES_PARENT(entry)
-#        define ARILES_TYPED_NAMED_ENTRY(type, entry, name) type entry;
+#        define ARILES_NAMED_ENTRY(v, entry, name)
+#        define ARILES_PARENT(v, entry)
+#        define ARILES_TYPED_NAMED_ENTRY(v, type, entry, name) type entry;
 
 ARILES_ENTRIES
 
@@ -25,6 +25,6 @@ ARILES_ENTRIES
 #        undef ARILES_PARENT
 #        undef ARILES_TYPED_NAMED_ENTRY
 
-#        define ARILES_TYPED_NAMED_ENTRY(type, entry, name) ARILES_NAMED_ENTRY(entry, name)
+#        define ARILES_TYPED_NAMED_ENTRY(v, type, entry, name) ARILES_NAMED_ENTRY(v, entry, name)
 #    endif
 #endif

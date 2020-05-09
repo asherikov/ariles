@@ -17,8 +17,8 @@ namespace ariles_tests
     class ConfigurableMember : virtual public ariles::DefaultBase
     {
 #define ARILES_ENTRIES                                                                                                 \
-    ARILES_TYPED_ENTRY_(integer, t_Scalar)                                                                             \
-    ARILES_TYPED_ENTRY_(real, double)
+    ARILES_TYPED_ENTRY_(v, integer, t_Scalar)                                                                          \
+    ARILES_TYPED_ENTRY_(v, real, double)
 #include ARILES_INITIALIZE
 
 
@@ -55,7 +55,7 @@ namespace ariles_tests
     template <class t_Scalar>
     class ConfigurableMember1 : public ConfigurableMember<t_Scalar>
     {
-#define ARILES_ENTRIES ARILES_TYPED_ENTRY_(member, ConfigurableMember<t_Scalar>)
+#define ARILES_ENTRIES ARILES_TYPED_ENTRY_(v, member, ConfigurableMember<t_Scalar>)
 #include ARILES_INITIALIZE
 
 
@@ -89,7 +89,7 @@ namespace ariles_tests
 
     class ConfigurableBase : virtual public ariles::DefaultBase
     {
-#define ARILES_ENTRIES ARILES_TYPED_ENTRY_(member, ConfigurableMember<int>)
+#define ARILES_ENTRIES ARILES_TYPED_ENTRY_(v, member, ConfigurableMember<int>)
 #include ARILES_INITIALIZE
 
 
@@ -124,10 +124,10 @@ namespace ariles_tests
     class ConfigurableDerived : public ConfigurableBase, public ConfigurableMember<int>
     {
 #define ARILES_ENTRIES                                                                                                 \
-    ARILES_PARENT(ConfigurableBase)                                                                                    \
-    ARILES_PARENT(ConfigurableMember<int>)                                                                             \
-    ARILES_TYPED_ENTRY_(another_member, ConfigurableMember<int>)                                                       \
-    ARILES_TYPED_ENTRY_(another_member1, ConfigurableMember1<int>)
+    ARILES_PARENT(v, ConfigurableBase)                                                                                 \
+    ARILES_PARENT(v, ConfigurableMember<int>)                                                                          \
+    ARILES_TYPED_ENTRY_(v, another_member, ConfigurableMember<int>)                                                    \
+    ARILES_TYPED_ENTRY_(v, another_member1, ConfigurableMember1<int>)
 #include ARILES_INITIALIZE
 
 

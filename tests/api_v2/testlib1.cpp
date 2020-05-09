@@ -26,8 +26,8 @@ namespace testlib1
     class ConfigurableVerbose : public ariles::DefaultBase
     {
 #define ARILES_ENTRIES                                                                                                 \
-    ARILES_ENTRY_(integer)                                                                                             \
-    ARILES_ENTRY_(real)
+    ARILES_ENTRY_(v, integer)                                                                                          \
+    ARILES_ENTRY_(v, real)
 #include ARILES_INITIALIZE
 
 

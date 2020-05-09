@@ -18,8 +18,8 @@ namespace ariles_tests
 #if __cplusplus >= 201103L
 #    define ARILES_ENTRIES_1                                                                                           \
         ARILES_ENTRIES_0                                                                                               \
-        ARILES_TYPED_ENTRY_(std_shared_ptr_real, std::shared_ptr<double>)                                              \
-        ARILES_TYPED_ENTRY_(std_unique_ptr_real, std::unique_ptr<double>)
+        ARILES_TYPED_ENTRY_(v, std_shared_ptr_real, std::shared_ptr<double>)                                           \
+        ARILES_TYPED_ENTRY_(v, std_unique_ptr_real, std::unique_ptr<double>)
 #else
 #    define ARILES_ENTRIES_1 ARILES_ENTRIES_0
 #endif
@@ -29,14 +29,14 @@ namespace ariles_tests
 #    if BOOST_VERSION >= 105800
 #        define ARILES_ENTRIES_2                                                                                       \
             ARILES_ENTRIES_1                                                                                           \
-            ARILES_TYPED_ENTRY_(shared_ptr_real, boost::shared_ptr<double>)                                            \
-            ARILES_TYPED_ENTRY_(shared_ptr_real_null, boost::shared_ptr<double>)                                       \
-            ARILES_TYPED_ENTRY_(unique_ptr_real, boost::movelib::unique_ptr<double>)
+            ARILES_TYPED_ENTRY_(v, shared_ptr_real, boost::shared_ptr<double>)                                         \
+            ARILES_TYPED_ENTRY_(v, shared_ptr_real_null, boost::shared_ptr<double>)                                    \
+            ARILES_TYPED_ENTRY_(v, unique_ptr_real, boost::movelib::unique_ptr<double>)
 #    else
 #        define ARILES_ENTRIES_2                                                                                       \
             ARILES_ENTRIES_1                                                                                           \
-            ARILES_TYPED_ENTRY_(shared_ptr_real, boost::shared_ptr<double>)                                            \
-            ARILES_TYPED_ENTRY_(shared_ptr_real_null, boost::shared_ptr<double>)
+            ARILES_TYPED_ENTRY_(v, shared_ptr_real, boost::shared_ptr<double>)                                         \
+            ARILES_TYPED_ENTRY_(v, shared_ptr_real_null, boost::shared_ptr<double>)
 #    endif
 #else
 #    define ARILES_ENTRIES_2 ARILES_ENTRIES_1
@@ -46,8 +46,8 @@ namespace ariles_tests
 #ifdef ARILES_ADAPTER_BOOST_OPTIONAL
 #    define ARILES_ENTRIES_3                                                                                           \
         ARILES_ENTRIES_2                                                                                               \
-        ARILES_TYPED_ENTRY_(optional_real, boost::optional<double>)                                                    \
-        ARILES_TYPED_ENTRY_(optional_real_null, boost::optional<double>)
+        ARILES_TYPED_ENTRY_(v, optional_real, boost::optional<double>)                                                 \
+        ARILES_TYPED_ENTRY_(v, optional_real_null, boost::optional<double>)
 #else
 #    define ARILES_ENTRIES_3 ARILES_ENTRIES_2
 #endif

@@ -14,8 +14,8 @@ namespace ariles_tests
     class ConfigurableNoSetDefaults : public ariles::DefaultBase
     {
 #define ARILES_ENTRIES                                                                                                 \
-    ARILES_TYPED_ENTRY_(integer, int)                                                                                  \
-    ARILES_TYPED_ENTRY_(real, double)
+    ARILES_TYPED_ENTRY_(v, integer, int)                                                                               \
+    ARILES_TYPED_ENTRY_(v, real, double)
 #include ARILES_INITIALIZE
 
     public:

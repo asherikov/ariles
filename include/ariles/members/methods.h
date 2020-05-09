@@ -19,8 +19,8 @@
 public:
 #        ifdef ARILES_ENTRIES
 
-#            define ARILES_NAMED_ENTRY(entry, name)
-#            define ARILES_PARENT(entry) entry::arilesVisit(visitor, parameters);
+#            define ARILES_NAMED_ENTRY(v, entry, name)
+#            define ARILES_PARENT(v, entry) entry::arilesVisit(visitor, parameters);
 
 template <class t_Visitor>
 void arilesVisitParents(t_Visitor &visitor, const typename t_Visitor::Parameters &parameters)
@@ -45,8 +45,8 @@ void arilesVisitParents(t_Visitor &visitor, const typename t_Visitor::Parameters
 #            undef ARILES_NAMED_ENTRY
 
 
-#            define ARILES_NAMED_ENTRY(entry, name) visitor(entry, name, parameters);
-#            define ARILES_PARENT(entry)
+#            define ARILES_NAMED_ENTRY(v, entry, name) visitor(entry, name, parameters);
+#            define ARILES_PARENT(v, entry)
 
 template <class t_Visitor>
 void arilesVisit(t_Visitor &visitor, const typename t_Visitor::Parameters &parameters)
@@ -74,8 +74,8 @@ void arilesVisit(t_Visitor &visitor, const typename t_Visitor::Parameters &param
 
 
 
-#            define ARILES_NAMED_ENTRY(entry, name) visitor(entry, other.entry, name, parameters);
-#            define ARILES_PARENT(entry) entry::arilesVisit(visitor, other, parameters);
+#            define ARILES_NAMED_ENTRY(v, entry, name) visitor(entry, other.entry, name, parameters);
+#            define ARILES_PARENT(v, entry) entry::arilesVisit(visitor, other, parameters);
 
 template <class t_Visitor, class t_Other>
 void arilesVisit(t_Visitor &visitor, const t_Other &other, const typename t_Visitor::Parameters &parameters) const

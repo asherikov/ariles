@@ -17,29 +17,29 @@ namespace ariles_tests
     class ConfigurableComplex : public ariles::DefaultBase, public ConfigurableComplexBase<ConfigurableComplex>
     {
 #define ARILES_ENTRIES_STANDARD_TYPES                                                                                  \
-    ARILES_TYPED_ENTRY_(integer, int)                                                                                  \
-    ARILES_TYPED_ENTRY_(unsigned_integer, std::size_t)                                                                 \
-    ARILES_TYPED_ENTRY_(real, double)                                                                                  \
-    ARILES_TYPED_ENTRY_(string, std::string)                                                                           \
-    ARILES_TYPED_ENTRY_(std_vector, std::vector<double>)                                                               \
-    ARILES_TYPED_ENTRY_(std_nested_vector, std::vector<std::vector<double> >)                                          \
-    ARILES_TYPED_ENTRY_(enum, SomeEnum)                                                                                \
-    ARILES_TYPED_ENTRY_(boolean_true, bool)                                                                            \
-    ARILES_TYPED_ENTRY_(boolean_false, bool)                                                                           \
-    ARILES_ENTRY_(std_pair)                                                                                            \
-    ARILES_ENTRY_(std_map)
+    ARILES_TYPED_ENTRY_(v, integer, int)                                                                               \
+    ARILES_TYPED_ENTRY_(v, unsigned_integer, std::size_t)                                                              \
+    ARILES_TYPED_ENTRY_(v, real, double)                                                                               \
+    ARILES_TYPED_ENTRY_(v, string, std::string)                                                                        \
+    ARILES_TYPED_ENTRY_(v, std_vector, std::vector<double>)                                                            \
+    ARILES_TYPED_ENTRY_(v, std_nested_vector, std::vector<std::vector<double> >)                                       \
+    ARILES_TYPED_ENTRY_(v, enum, SomeEnum)                                                                             \
+    ARILES_TYPED_ENTRY_(v, boolean_true, bool)                                                                         \
+    ARILES_TYPED_ENTRY_(v, boolean_false, bool)                                                                        \
+    ARILES_ENTRY_(v, std_pair)                                                                                         \
+    ARILES_ENTRY_(v, std_map)
 
 
 #ifdef ARILES_ADAPTER_EIGEN
 #    define ARILES_ENTRIES_0                                                                                           \
         ARILES_ENTRIES_STANDARD_TYPES                                                                                  \
-        ARILES_TYPED_ENTRY_(vector, Eigen::Vector3d)                                                                   \
-        ARILES_TYPED_ENTRY_(matrix, Eigen::Matrix3d)                                                                   \
-        ARILES_TYPED_ENTRY_(matrix_x, Eigen::MatrixXd)                                                                 \
-        ARILES_TYPED_ENTRY_(std_vector_evector, std::vector<Eigen::Vector3d>)                                          \
-        ARILES_TYPED_ENTRY_(std_nested_vector_evector, std::vector<std::vector<Eigen::Vector3d> >)                     \
-        ARILES_TYPED_ENTRY_(isometry, Eigen::Isometry3d)                                                               \
-        ARILES_TYPED_ENTRY_(quaternion, Eigen::Quaterniond)
+        ARILES_TYPED_ENTRY_(v, vector, Eigen::Vector3d)                                                                \
+        ARILES_TYPED_ENTRY_(v, matrix, Eigen::Matrix3d)                                                                \
+        ARILES_TYPED_ENTRY_(v, matrix_x, Eigen::MatrixXd)                                                              \
+        ARILES_TYPED_ENTRY_(v, std_vector_evector, std::vector<Eigen::Vector3d>)                                       \
+        ARILES_TYPED_ENTRY_(v, std_nested_vector_evector, std::vector<std::vector<Eigen::Vector3d> >)                  \
+        ARILES_TYPED_ENTRY_(v, isometry, Eigen::Isometry3d)                                                            \
+        ARILES_TYPED_ENTRY_(v, quaternion, Eigen::Quaterniond)
 #else
 #    define ARILES_ENTRIES_0 ARILES_ENTRIES_STANDARD_TYPES
 #endif
@@ -47,7 +47,7 @@ namespace ariles_tests
 #ifdef ARILES_ADAPTER_BETTER_ENUMS
 #    define ARILES_ENTRIES_1                                                                                           \
         ARILES_ENTRIES_0                                                                                               \
-        ARILES_TYPED_ENTRY_(better_enum, BetterEnum)
+        ARILES_TYPED_ENTRY_(v, better_enum, BetterEnum)
 #else
 #    define ARILES_ENTRIES_1 ARILES_ENTRIES_STANDARD_TYPES
 #endif

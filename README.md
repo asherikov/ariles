@@ -93,7 +93,7 @@ Class [`./tests/api_v2/types/minimal.h`]:
 class Configurable : public ariles::DefaultBase
 {
     #define ARILES_ENTRIES \
-        ARILES_TYPED_ENTRY(integer_member, int)
+        ARILES_TYPED_ENTRY(v, integer_member, int)
     #include ARILES_INITIALIZE
 };
 ```

@@ -14,7 +14,7 @@ namespace ariles_tests
 {
     class Base : public ariles::DefaultBase
     {
-#define ARILES_ENTRIES ARILES_TYPED_ENTRY_(real, double)
+#define ARILES_ENTRIES ARILES_TYPED_ENTRY_(v, real, double)
 #include ARILES_INITIALIZE
 
     public:
@@ -41,8 +41,8 @@ namespace ariles_tests
     {
 #define ARILES_DEFAULT_ID "Derived1"  // Needed for cast<Derived1>("Derived1"));
 #define ARILES_ENTRIES                                                                                                 \
-    ARILES_PARENT(Base)                                                                                                \
-    ARILES_TYPED_ENTRY_(real1, double)
+    ARILES_PARENT(v, Base)                                                                                             \
+    ARILES_TYPED_ENTRY_(v, real1, double)
 #include ARILES_INITIALIZE
 
     public:
@@ -66,8 +66,8 @@ namespace ariles_tests
     {
 #define ARILES_DEFAULT_ID "Derived2"  // Needed for cast<Derived2>("Derived2"));
 #define ARILES_ENTRIES                                                                                                 \
-    ARILES_PARENT(Base)                                                                                                \
-    ARILES_TYPED_ENTRY_(real2, double)
+    ARILES_PARENT(v, Base)                                                                                             \
+    ARILES_TYPED_ENTRY_(v, real2, double)
 #include ARILES_INITIALIZE
 
     public:
@@ -189,7 +189,7 @@ namespace ariles_tests
 
 #    define ARILES_ENTRIES_1                                                                                           \
         ARILES_ENTRIES_0                                                                                               \
-        ARILES_ENTRY_(std_any)
+        ARILES_ENTRY_(v, std_any)
 #else
 #    define ARILES_ENTRIES_1 ARILES_ENTRIES_0
 #endif
@@ -199,7 +199,7 @@ namespace ariles_tests
         CommonAny<boost::shared_ptr, BoostPtrInstantiator> boost_any_;
 #    define ARILES_ENTRIES_2                                                                                           \
         ARILES_ENTRIES_1                                                                                               \
-        ARILES_ENTRY_(boost_any)
+        ARILES_ENTRY_(v, boost_any)
 #else
 #    define ARILES_ENTRIES_2 ARILES_ENTRIES_1
 #endif

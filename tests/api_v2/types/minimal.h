@@ -14,7 +14,7 @@ namespace ariles_tests
 {
     class ConfigurableMinimal : public ariles::DefaultBase
     {
-#define ARILES_ENTRIES ARILES_TYPED_ENTRY(integer_member, int)
+#define ARILES_ENTRIES ARILES_TYPED_ENTRY(v, integer_member, int)
 #include ARILES_INITIALIZE
     };
 }  // namespace ariles_tests

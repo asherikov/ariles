@@ -16,8 +16,8 @@ namespace ariles
     class ARILES_VISIBILITY_ATTRIBUTE Any : public ariles::DefaultBase
     {
 #define ARILES_ENTRIES                                                                                                 \
-    ARILES_TYPED_ENTRY_(id, std::string)                                                                               \
-    ARILES_TYPED_ENTRY_(value, t_Pointer<t_Base>)
+    ARILES_TYPED_ENTRY_(v, id, std::string)                                                                            \
+    ARILES_TYPED_ENTRY_(v, value, t_Pointer<t_Base>)
 #include ARILES_INITIALIZE
 
     protected:

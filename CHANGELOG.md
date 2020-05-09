@@ -1,6 +1,11 @@
 Unreleased
 ==========
 
+Changed
+-------
+* Ariles entry and parent class declaration API, refer to examples and tests.
+
+
 Removed
 -------
 

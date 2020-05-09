@@ -36,8 +36,8 @@ namespace ariles_tests
     struct SubstateParams : public ariles::DefaultBase
     {
 #define ARILES_ENTRIES                                                                                                 \
-    ARILES_ENTRY(type)                                                                                                 \
-    ARILES_ENTRY(remappings)
+    ARILES_ENTRY(v, type)                                                                                              \
+    ARILES_ENTRY(v, remappings)
 #include ARILES_INITIALIZE
 
         std::string type;
@@ -50,7 +50,7 @@ namespace ariles_tests
 
     struct StateMachineParams : public ariles::DefaultBase
     {
-#define ARILES_ENTRIES ARILES_ENTRY(substates)
+#define ARILES_ENTRIES ARILES_ENTRY(v, substates)
 #include ARILES_INITIALIZE
 
         std::map<std::string, SubstateParams> substates;

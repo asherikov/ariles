@@ -13,8 +13,8 @@ namespace ariles_tests
     class ConfigurablePostProcessBase : public ariles::DefaultBase
     {
 #define ARILES_ENTRIES                                                                                                 \
-    ARILES_TYPED_ENTRY_(integer, int)                                                                                  \
-    ARILES_TYPED_ENTRY_(real, double)
+    ARILES_TYPED_ENTRY_(v, integer, int)                                                                               \
+    ARILES_TYPED_ENTRY_(v, real, double)
 #include ARILES_INITIALIZE
 
     public:
@@ -62,8 +62,8 @@ namespace ariles_tests
     class ConfigurablePostProcess : public ConfigurablePostProcessBase
     {
 #define ARILES_ENTRIES                                                                                                 \
-    ARILES_PARENT(ConfigurablePostProcessBase)                                                                         \
-    ARILES_TYPED_ENTRY_(member, ConfigurablePostProcessBase)
+    ARILES_PARENT(v, ConfigurablePostProcessBase)                                                                      \
+    ARILES_TYPED_ENTRY_(v, member, ConfigurablePostProcessBase)
 #include ARILES_INITIALIZE
 
     public:
