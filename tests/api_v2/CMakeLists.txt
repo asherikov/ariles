@@ -41,7 +41,7 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "200" "" "${ARILES_TEST_ALL_
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "201" "" "${ARILES_TEST_ALL_VISITORS}") # complex
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "202" "" "${ARILES_TEST_ALL_VISITORS}") # inheritance, strictness
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "203" "" "${ARILES_TEST_ALL_VISITORS}") # postprocess
-ariles_define_regression_test(${CMAKE_PROJECT_NAME} "204" "" "${ARILES_TEST_ALL_VISITORS}") # no adapters_all.h
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "204" "" "${ARILES_TEST_ALL_VISITORS}") # no all_enabled_adapters.h
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "205" "" "${ARILES_TEST_ALL_VISITORS}") # disabled ariles
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "209" "" "${ARILES_TEST_ALL_VISITORS}") # pointers (scalar)
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "210" "rapidjson;jsonnet" "")           # jsonnet

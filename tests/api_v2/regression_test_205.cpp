@@ -8,8 +8,6 @@
     @brief
 */
 
-#define ARILES_API_VERSION 2
-
 #include "utility.h"
 
 #define ARILES_DISABLE

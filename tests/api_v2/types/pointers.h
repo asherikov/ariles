@@ -9,7 +9,7 @@
 #pragma once
 
 #include <iostream>
-#include "types.h"
+#include <ariles/types.h>
 
 namespace ariles_tests
 {

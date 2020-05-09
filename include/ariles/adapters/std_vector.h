@@ -11,6 +11,7 @@
 #pragma once
 
 #include <vector>
+#include "../internal/helpers.h"
 
 namespace ariles
 {

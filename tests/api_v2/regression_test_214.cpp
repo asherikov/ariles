@@ -8,8 +8,6 @@
     @brief
 */
 
-#define ARILES_API_VERSION 2
-
 #include "utility.h"
 
 #ifdef ARILES_VISITOR_yaml_cpp03
@@ -36,7 +34,8 @@
 #    include "ariles/visitors/pugixml.h"
 #endif
 
-#include "ariles/adapters_all.h"
+#include "all_enabled_adapters.h"
+
 #include "ariles/ariles2.h"
 
 

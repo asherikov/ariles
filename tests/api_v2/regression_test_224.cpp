@@ -8,7 +8,6 @@
     @brief
 */
 
-#define ARILES_API_VERSION 2
 #include "utility.h"
 
 #define ARILES_DEFAULT_CONFIGURABLE_FLAGS                                                                              \
@@ -23,7 +22,8 @@
 #    include "ariles/visitors/yaml_cpp.h"
 #endif
 
-#include "ariles/adapters_all.h"
+#include "all_enabled_adapters.h"
+
 #include "ariles/ariles2.h"
 
 
@@ -67,7 +67,7 @@ namespace ariles_tests
 // FIXTURES
 // ===============================================================
 
-#undef ARILES_BRIDGE_ros
+#undef ARILES_VISITOR_ros
 #include "fixtures/initializers.h"
 #include "fixtures/009_read.h"
 

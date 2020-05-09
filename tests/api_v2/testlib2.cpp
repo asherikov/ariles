@@ -9,7 +9,7 @@
 */
 
 
-#include "ariles/adapters_all.h"
+#include "all_enabled_adapters.h"
 #include "ariles/ariles2.h"
 
 

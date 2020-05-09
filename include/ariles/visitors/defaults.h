@@ -26,8 +26,17 @@ namespace ariles
         public:
             Parameters()
             {
+#ifdef ARILES_DEFAULT_DOUBLE_VALUE
                 default_double_value_ = ARILES_DEFAULT_DOUBLE_VALUE;
+#else
+                default_double_value_ = std::numeric_limits<double>::signaling_NaN();
+#endif
+
+#ifdef ARILES_DEFAULT_FLOAT_VALUE
                 default_float_value_ = ARILES_DEFAULT_FLOAT_VALUE;
+#else
+                default_float_value_ = std::numeric_limits<float>::signaling_NaN();
+#endif
             }
 
             template <typename t_Scalar>

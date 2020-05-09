@@ -9,15 +9,13 @@
 */
 
 
-#define ARILES_API_VERSION 2
-
 #include "utility.h"
 
 #ifdef ARILES_VISITOR_octave
 #    include "ariles/visitors/octave.h"
 #endif
+#include "all_enabled_adapters.h"
 
-#include "ariles/adapters_all.h"
 #include "ariles/ariles2.h"
 
 

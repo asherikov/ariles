@@ -4,7 +4,7 @@ Ariles
 <table>
   <tr>
     <th>branch</th>
-    <td align="center"><a href="https://github.com/asherikov/ariles/">master</a></td>
+    <td align="center"><a href="https://github.com/asherikov/ariles/tree/head_2">HEAD v2</a></td>
     <td align="center">
         <a href="https://github.com/asherikov/ariles/tree/pkg_ros">pkg_ros</a>
         (<a href="https://index.ros.org/p/ariles_ros/">ROS package</a>)
@@ -16,7 +16,7 @@ Ariles
   </tr>
   <tr>
     <th>CI status</th>
-    <td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=master" alt="Build Status"></a></td>
+    <td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=head_2" alt="Build Status"></a></td>
     <td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=pkg_ros" alt="Build Status"></a></td>
     <td align="center">X</td>
   </tr>
@@ -30,8 +30,6 @@ Contents
 * [Introduction](#intro)
     * [Use cases](#uses)
 * [Minimal example](#example)
-    * [APIv1](#apiv1)
-    * [APIv2](#apiv2)
 * [Supported formats](#formats)
 * [Supported types](#types)
 * [Dependencies and compilation](#compilation)
@@ -40,7 +38,7 @@ Contents
 <a name="links"></a>
 Links
 =====
-* Documentation (Doxygen): https://asherikov.github.io/ariles/1/
+* Documentation (Doxygen): https://asherikov.github.io/ariles/2/
 * GitHub: https://github.com/asherikov/ariles
 * Travis CI: https://travis-ci.org/asherikov/ariles
 
@@ -87,60 +85,7 @@ Use cases
 Minimal example
 ===============
 
-Currently `ariles` provides two API versions:
-- APIv1: to be deprecated in the next major release,
-- APIv2: new, unstable API.
-
-
-<a name="apiv1"></a>
-APIv1
------
-
-Demo: https://asherikov.github.io/ariles/1/DEMOv1.html [`./tests/api_v1/demo_api_v1.cpp`]
-
-
-Class [`./tests/api_v1/types/minimal.h`]:
-```
-class Configurable : public ariles::ConfigurableBase
-{
-    #define ARILES_SECTION_ID "ConfigurableEntryName"
-    #define ARILES_AUTO_DEFAULTS
-    #define ARILES_ENTRIES \
-        ARILES_TYPED_ENTRY(integer_member, int)
-    #include ARILES_INITIALIZE
-};
-```
-
-Serialization:
-```
-Configurable configurable;
-configurable.writeConfig<ariles::yaml_cpp>("config_file.yaml");
-configurable.writeConfig<ariles::yaml_cpp>(std::cout);
-```
-
-Result:
-```
-ConfigurableEntryName:
-    integer_member: 0
-```
-
-Deserialization:
-```
-configurable.readConfig<ariles::yaml_cpp>("config_file.yaml");
-```
-
-Conversion:
-```
-configurable.readConfig<ariles::yaml_cpp>("config_file.yaml");
-configurable.writeConfig<ariles::ros>(nh, "/some_namespace/");
-```
-
-
-<a name="apiv2"></a>
-APIv2
------
-
-Demo: https://asherikov.github.io/ariles/1/DEMOv2.html [`./tests/api_v2/demo_api_v2.cpp`]
+Demo: https://asherikov.github.io/ariles/2/DEMOv2.html [`./tests/api_v2/demo_api_v2.cpp`]
 
 
 Class [`./tests/api_v2/types/minimal.h`]:

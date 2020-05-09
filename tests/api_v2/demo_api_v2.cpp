@@ -13,8 +13,6 @@
 // HEADER INCLUSION
 // ============================================================================
 
-#define ARILES_API_VERSION 2
-
 /*
  * Version I: selective inclusion
  * ------------------------------
@@ -29,7 +27,9 @@
 
 // `adapter` is an Ariles component which adds support for serialization of
 // certain type(s), e.g. Eigen types or Boost pointers.
-#include "ariles/adapters_all.h"
+#include "ariles/adapters/basic.h"
+#include "ariles/adapters/eigen.h"
+#include "ariles/adapters/vector.h"
 #include "ariles/ariles2.h"
 
 

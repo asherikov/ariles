@@ -61,7 +61,6 @@ namespace ariles
 #include "./msgpack/writer_compact.h"
 
 
-#ifndef ARILES_BRIDGE_INCLUDED_msgpack
 namespace ariles
 {
     /**
@@ -73,7 +72,6 @@ namespace ariles
         typedef ariles::cfgwrite::Visitor<ns_msgpack::Writer> Writer;
     };
 }  // namespace ariles
-#endif
 
 namespace ariles
 {

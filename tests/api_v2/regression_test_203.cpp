@@ -8,12 +8,10 @@
     @brief
 */
 
-#define ARILES_API_VERSION 2
-
 #include "utility.h"
 #include "all_enabled_visitors.h"
+#include "all_enabled_adapters.h"
 
-#include "ariles/adapters_all.h"
 #include "ariles/ariles2.h"
 
 

@@ -93,7 +93,6 @@ namespace ariles
 #include "./rapidjson/writer.h"
 
 
-#ifndef ARILES_BRIDGE_INCLUDED_rapidjson
 namespace ariles
 {
     /**
@@ -110,4 +109,3 @@ namespace ariles
         typedef ariles::cfgwrite::Visitor<ns_rapidjson::Writer> Writer;
     };
 }  // namespace ariles
-#endif

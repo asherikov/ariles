@@ -11,6 +11,7 @@
 #pragma once
 
 #include <boost/optional.hpp>
+#include "../internal/helpers.h"
 
 namespace ariles
 {

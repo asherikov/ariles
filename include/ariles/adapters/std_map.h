@@ -11,6 +11,7 @@
 #pragma once
 
 #include <map>
+#include "../internal/helpers.h"
 #include "../visitors/serialization.h"
 
 namespace ariles

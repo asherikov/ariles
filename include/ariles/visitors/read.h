@@ -13,10 +13,6 @@
 #include <vector>
 
 #include "serialization.h"
-#if 1 == ARILES_API_VERSION
-#    include "defaults.h"
-#    include "postprocess.h"
-#endif
 
 
 namespace ariles
@@ -166,9 +162,6 @@ namespace ariles
 
                 Parameters param = parameters;  // local modifiable copy
 
-#if 1 == ARILES_API_VERSION
-                ariles::apply<ariles::defaults::Visitor>(entry);
-#endif
                 if (this->startRoot(name))
                 {
                     try

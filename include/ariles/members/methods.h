@@ -105,13 +105,11 @@ const std::string &arilesDefaultID() const
     return (name);
 }
 #    else
-#        if 2 == ARILES_API_VERSION
 const std::string &arilesDefaultID() const
 {
     static const std::string name("");
     return (name);
 }
-#        endif
 #    endif
 
 

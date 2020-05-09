@@ -10,6 +10,8 @@
 
 #pragma once
 
+#include "../internal/helpers.h"
+
 namespace ariles
 {
     namespace read
@@ -41,10 +43,6 @@ namespace ariles
             }
             entry.arilesVirtualVisit(visitor, param);
             visitor.endMap();
-
-#if 1 == ARILES_API_VERSION
-            entry.finalize();  /// @todo DEPRECATED
-#endif
         }
 
 
@@ -279,12 +277,6 @@ namespace ariles
         {
             ARILES_TRACE_FUNCTION;
             entry.arilesVirtualVisit(visitor, param);
-#if 1 == ARILES_API_VERSION
-            if (true == ARILES_IS_BASE_OF(ariles::postprocess::Base, t_Entry))
-            {
-                entry.finalize();  /// @todo DEPRECATED
-            }
-#endif
         }
 
 

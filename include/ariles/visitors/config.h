@@ -17,41 +17,11 @@
 #include "read.h"
 #include "write.h"
 
-#ifndef ARILES_API_VERSION
-#    define ARILES_API_VERSION 1
-#endif
 
 namespace ariles
 {
     namespace cfgread
     {
-#if 1 == ARILES_API_VERSION
-        template <class t_Reader>
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public t_Reader
-        {
-        public:
-            template <class t_Initializer>
-            Visitor(t_Initializer &initializer) : t_Reader(initializer)
-            {
-                ARILES_TRACE_FUNCTION;
-            }
-
-            template <class t_Initializer>
-            Visitor(const t_Initializer &initializer) : t_Reader(initializer)
-            {
-                ARILES_TRACE_FUNCTION;
-            }
-
-            template <class t_Initializer0, class t_Initializer1>
-            Visitor(t_Initializer0 &initializer0, const t_Initializer1 &initializer1)
-              : t_Reader(initializer0, initializer1)
-            {
-                ARILES_TRACE_FUNCTION;
-            }
-        };
-#endif
-
-#if 2 == ARILES_API_VERSION
         template <class t_Reader>
         class ARILES_VISIBILITY_ATTRIBUTE Parameters
         {
@@ -160,7 +130,6 @@ namespace ariles
                 return (reader_visitor_);
             }
         };
-#endif
     }  // namespace cfgread
 }  // namespace ariles
 
@@ -169,46 +138,6 @@ namespace ariles
 {
     namespace cfgwrite
     {
-#if 1 == ARILES_API_VERSION
-        template <class t_Writer>
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public t_Writer
-        {
-        public:
-            template <class t_Initializer>
-            Visitor(t_Initializer &initializer) : t_Writer(initializer)
-            {
-                ARILES_TRACE_FUNCTION;
-            }
-
-            template <class t_Initializer>
-            Visitor(const t_Initializer &initializer) : t_Writer(initializer)
-            {
-                ARILES_TRACE_FUNCTION;
-            }
-
-            template <class t_Initializer0, class t_Initializer1>
-            Visitor(t_Initializer0 *initializer0, const t_Initializer1 &initializer1)
-              : t_Writer(initializer0, initializer1)
-            {
-                ARILES_TRACE_FUNCTION;
-            }
-
-            template <class t_Initializer0, class t_Initializer1>
-            Visitor(t_Initializer0 &initializer0, const t_Initializer1 &initializer1)
-              : t_Writer(initializer0, initializer1)
-            {
-                ARILES_TRACE_FUNCTION;
-            }
-
-            const t_Writer &getWriter() const
-            {
-                return (*this);
-            }
-        };
-#endif
-
-
-#if 2 == ARILES_API_VERSION
         template <class t_Writer>
         class ARILES_VISIBILITY_ATTRIBUTE Parameters
         {
@@ -324,6 +253,5 @@ namespace ariles
                 return (writer_visitor_);
             }
         };
-#endif
     }  // namespace cfgwrite
 }  // namespace ariles

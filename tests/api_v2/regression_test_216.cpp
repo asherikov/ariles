@@ -8,14 +8,12 @@
     @brief
 */
 
-#define ARILES_API_VERSION 2
-
 
 #define ARILES_TESTS_BOOST_UTF_DISABLED
 
 #include <api_v2/tests_config.h>
+#include "all_enabled_adapters.h"
 
-#include "ariles/adapters_all.h"
 #include "ariles/ariles2.h"
 
 

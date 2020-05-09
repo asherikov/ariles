@@ -15,14 +15,11 @@ set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 #####################################
 
 option (ARILES_ENABLE_CORE              "Install core (if disabled only selected visitors are installed)." ON)
-option (ARILES_ENABLE_CORE_ALL_HEADER   "Generate ariles_all.h header (not suitable for packages)" ON)
 
 set    (ARILES_VISITORS_DEFAULT_MODE    "ON" CACHE STRING "ON = enable, OFF = disable")
 
 # extra adapters & options
 set (ARILES_DEFAULT_CONFIGURABLE_FLAGS  "" CACHE STRING "Override default flags")
-set (ARILES_DEFAULT_FLOAT_VALUE         "std::numeric_limits<float>::signaling_NaN()" CACHE STRING "Default value for floats")
-set (ARILES_DEFAULT_DOUBLE_VALUE        "std::numeric_limits<double>::signaling_NaN()" CACHE STRING "Default value for doubles")
 
 option (ARILES_ADAPTER_EIGEN            "Enable eigen support." ON)
 option (ARILES_ADAPTER_BOOST_POINTER    "Enable boost pointer support." ON)
@@ -30,7 +27,7 @@ option (ARILES_ADAPTER_BOOST_OPTIONAL   "Enable boost optional support." ON)
 option (ARILES_ADAPTER_BETTER_ENUMS     "Enable support for beter enums." ON)
 
 # build parameters
-set    (ARILES_CPP_STANDARD             "c++98" CACHE STRING "C++ standard version")
+set    (ARILES_CPP_STANDARD             "c++03" CACHE STRING "C++ standard version")
 option (ARILES_CPP_SANITIZERS           "Enable sanitizers"                 OFF)
 option (ARILES_VERBOSE                  "Verbose build"                     ON)
 option (ARILES_BUILD_REGRESSION_TESTS   "Build regression tests."           ON)
@@ -39,31 +36,6 @@ set    (ARILES_DEB_TARGETS              "" CACHE STRING "Enable debian package g
 # install parameters
 set    (ARILES_PKGCONFIG_INSTALL_PATH   "" CACHE STRING "pkg-config pc-file install path, not installed if empty")
 
-
-
-#####################################
-## Compatibility (deprecated)
-#####################################
-
-if (DEFINED ARILES_BRIDGES_DEFAULT_MODE)
-    set (ARILES_VISITORS_DEFAULT_MODE   "${ARILES_BRIDGES_DEFAULT_MODE}")
-    set (ARILES_VISITORS_DEFAULT_MODE   "${ARILES_BRIDGES_DEFAULT_MODE}" CACHE STRING "")
-endif()
-
-get_cmake_property(CMAKE_VARIABLES VARIABLES)
-foreach (CMAKE_VARIABLE ${CMAKE_VARIABLES})
-    if (CMAKE_VARIABLE MATCHES "ARILES_BRIDGE_.*")
-        string(REPLACE "ARILES_BRIDGE" "ARILES_VISITOR" ARILES_VISITOR_OPTION "${CMAKE_VARIABLE}")
-        set ("${ARILES_VISITOR_OPTION}" "${${CMAKE_VARIABLE}}" CACHE STRING "")
-    endif()
-endforeach()
-
-get_cmake_property(CACHED_VARIABLES CACHE_VARIABLES)
-foreach (CACHED_VARIABLE ${CACHED_VARIABLES})
-    if (CACHED_VARIABLE MATCHES "ARILES_BRIDGE_.*")
-        unset("${CACHED_VARIABLE}" CACHE)
-    endif()
-endforeach()
 
 
 #####################################
@@ -369,9 +341,7 @@ set(ARILES_BUILD_CONFIG
 // __func__ ?
 #cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNC_
 // __FUNCTION__ ?
-#cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNCTION_\n
-#cmakedefine ARILES_DEFAULT_FLOAT_VALUE ${ARILES_DEFAULT_FLOAT_VALUE}\n
-#cmakedefine ARILES_DEFAULT_DOUBLE_VALUE ${ARILES_DEFAULT_DOUBLE_VALUE}\n")
+#cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNCTION_\n")
 
 if (ARILES_DEFAULT_CONFIGURABLE_FLAGS)
     set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#ifndef ARILES_DEFAULT_CONFIGURABLE_FLAGS\n")
@@ -382,46 +352,6 @@ endif(ARILES_DEFAULT_CONFIGURABLE_FLAGS)
 string(CONFIGURE "${ARILES_BUILD_CONFIG}" ARILES_BUILD_CONFIG)
 file(WRITE "${ARILES_INCLUDE_DIR}/core/ariles/internal/build_config.h" "${ARILES_BUILD_CONFIG}")
 #---
-
-
-if (${ARILES_ENABLE_CORE})
-    # adapters_all.h TODO deprecated
-    #---
-    set(ARILES_ADAPTERS_ALL   "#pragma once\n")
-    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"internal/helpers.h\"\n")
-
-    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/std_vector.h\"\n")
-    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/std_pair.h\"\n")
-    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/std_map.h\"\n")
-    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/pointer.h\"\n")
-
-    foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
-        set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/${ARILES_EXTRA_ADAPTER}.h\"\n")
-    endforeach()
-
-    file(WRITE "${ARILES_INCLUDE_DIR}/core/ariles/adapters_all.h" "${ARILES_ADAPTERS_ALL}")
-    #---
-
-
-    # ariles_all.h TODO deprecated
-    #---
-    if (${ARILES_ENABLE_CORE_ALL_HEADER})
-        set(ARILES_HEADER_ALL   "#pragma once\n")
-        set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"internal/build_config.h\"\n")
-
-        foreach(ARILES_VISITOR ${ARILES_VISITORS})
-            if (NOT ${ARILES_VISITOR_${ARILES_VISITOR}} STREQUAL "OFF")
-                set(ARILES_HEADER_ALL "${ARILES_HEADER_ALL}#include <ariles/bridges/${ARILES_VISITOR}.h>\n")
-            endif()
-        endforeach(ARILES_VISITOR)
-
-        set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"ariles.h\"\n")
-        set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"adapters_all.h\"\n")
-
-        file(WRITE "${ARILES_INCLUDE_DIR}/core/ariles/ariles_all.h" "${ARILES_HEADER_ALL}")
-    endif()
-    #---
-endif()
 
 
 
@@ -510,7 +440,6 @@ if(ARILES_DEB_TARGETS)
 
     set(DEB_COMMON_CMAKE_ARGS
         "-DARILES_CPP_STANDARD=${ARILES_CPP_STANDARD} \
-         -DARILES_ENABLE_CORE_ALL_HEADER=${ARILES_ENABLE_CORE_ALL_HEADER} \
          -DARILES_BUILD_REGRESSION_TESTS=${ARILES_BUILD_REGRESSION_TESTS} \
          -DARILES_VISITORS_DEFAULT_MODE=OFF")
 

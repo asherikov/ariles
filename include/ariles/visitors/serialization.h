@@ -67,12 +67,6 @@ namespace ariles
 
 
             virtual const Features &getSerializationFeatures() const = 0;
-#if 1 == ARILES_API_VERSION
-            const Features &getBridgeFlags() const
-            {
-                return (getSerializationFeatures());
-            }
-#endif
         };
     }  // namespace serialization
 }  // namespace ariles

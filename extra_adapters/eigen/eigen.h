@@ -13,6 +13,7 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 #include "../visitors/serialization.h"
+#include "../internal/helpers.h"
 
 namespace ariles
 {
