@@ -9,9 +9,6 @@
 */
 
 
-#include "utility.h"
-
-
 #include "ariles/adapters_all.h"
 #include "ariles/ariles.h"
 
@@ -44,7 +41,7 @@ namespace testlib1
     public:
         ConfigurableVerbose()
         {
-            setDefaults();
+            ConfigurableVerbose::setDefaults();
         }
 
 

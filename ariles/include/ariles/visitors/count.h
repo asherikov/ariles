@@ -16,7 +16,7 @@ namespace ariles
 {
     namespace count
     {
-        class Parameters
+        class ARILES_VISIBILITY_ATTRIBUTE Parameters
         {
         };
 

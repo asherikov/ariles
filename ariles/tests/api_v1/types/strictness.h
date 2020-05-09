@@ -24,7 +24,7 @@ namespace ariles_tests
     public:
         ConfigurableStrictness1()
         {
-            setDefaults();
+            ConfigurableStrictness1::setDefaults();
         }
 
 
@@ -51,7 +51,7 @@ namespace ariles_tests
     public:
         ConfigurableStrictness2()
         {
-            setDefaults();
+            ConfigurableStrictness2::setDefaults();
         }
 
 

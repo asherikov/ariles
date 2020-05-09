@@ -20,14 +20,14 @@ namespace ariles
     {
         namespace impl
         {
-            class ARILES_LIB_LOCAL Writer;
+            class ARILES_VISIBILITY_ATTRIBUTE Writer;
         }
 
 
         /**
          * @brief Configuration writer class
          */
-        class ARILES_LIB_EXPORT Writer : public ns_yaml_cpp03::Base<ariles::write::Visitor, impl::Writer>
+        class ARILES_VISIBILITY_ATTRIBUTE Writer : public ns_yaml_cpp03::Base<ariles::write::Visitor, impl::Writer>
         {
         public:
             explicit Writer(const std::string &file_name);

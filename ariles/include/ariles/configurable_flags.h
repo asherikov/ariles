@@ -13,7 +13,7 @@
 
 namespace ariles
 {
-    class ConfigurableFlags : public ariles::Flags<unsigned int, ConfigurableFlags>
+    class ARILES_VISIBILITY_ATTRIBUTE ConfigurableFlags : public ariles::Flags<unsigned int, ConfigurableFlags>
     {
     public:
         enum Flags

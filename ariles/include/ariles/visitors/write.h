@@ -18,6 +18,11 @@ namespace ariles
     {
         class ARILES_VISIBILITY_ATTRIBUTE Visitor : public serialization::Base
         {
+        protected:
+            Visitor(){};
+            ~Visitor(){};
+
+
         public:
             /**
              * @brief open configuration file

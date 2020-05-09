@@ -28,7 +28,7 @@ namespace ariles_tests
     public:
         ConfigurableNoConstructors()
         {
-            setDefaults();
+            ConfigurableNoConstructors::setDefaults();
         }
 
 

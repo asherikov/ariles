@@ -15,7 +15,7 @@
 namespace ariles
 {
     template <class t_Value>
-    class PointerHandler<std::shared_ptr<t_Value> >
+    class ARILES_VISIBILITY_ATTRIBUTE PointerHandler<std::shared_ptr<t_Value> >
     {
     public:
         typedef std::shared_ptr<t_Value> Pointer;
@@ -41,7 +41,7 @@ namespace ariles
 
 
     template <class t_Value>
-    class PointerHandler<std::unique_ptr<t_Value> >
+    class ARILES_VISIBILITY_ATTRIBUTE PointerHandler<std::unique_ptr<t_Value> >
     {
     public:
         typedef std::unique_ptr<t_Value> Pointer;

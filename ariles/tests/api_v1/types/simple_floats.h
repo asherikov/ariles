@@ -25,7 +25,7 @@ namespace ariles_tests
     public:
         ConfigurableSimpleFloats()
         {
-            setDefaults();
+            ConfigurableSimpleFloats::setDefaults();
         }
 
 

@@ -49,11 +49,11 @@ namespace ariles
         */
 
         template <typename StreamType>
-        class BasicIStreamWrapper
+        class ARILES_LIB_LOCAL BasicIStreamWrapper
         {
         public:
             typedef typename StreamType::char_type Ch;
-            BasicIStreamWrapper(StreamType &stream) : stream_(stream), count_(), peekBuffer_()
+            explicit BasicIStreamWrapper(StreamType &stream) : stream_(stream), count_(), peekBuffer_()
             {
             }
 

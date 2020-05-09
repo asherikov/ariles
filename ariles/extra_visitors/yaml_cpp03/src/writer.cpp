@@ -22,8 +22,12 @@ namespace ariles
     {
         namespace impl
         {
-            class Writer
+            class ARILES_VISIBILITY_ATTRIBUTE Writer
             {
+            public:
+                typedef ARILES_SHARED_PTR<YAML::Emitter> EmitterPtr;
+
+
             public:
                 /// output file stream
                 std::ofstream config_ofs_;
@@ -32,7 +36,7 @@ namespace ariles
                 std::ostream *output_stream_;
 
                 /// instance of YAML emitter, is destroyed and reinitialized by flush()
-                YAML::Emitter *emitter_;
+                EmitterPtr emitter_;
 
                 std::size_t map_depth_;
                 bool skip_root_map_;
@@ -41,7 +45,7 @@ namespace ariles
             protected:
                 void initEmitter()
                 {
-                    emitter_ = new YAML::Emitter;
+                    emitter_ = EmitterPtr(new YAML::Emitter);
                     emitter_->SetDoublePrecision(std::numeric_limits<double>::digits10);
                     if (output_stream_->tellp() != 0)
                     {
@@ -57,12 +61,12 @@ namespace ariles
                 {
                     *emitter_ << YAML::EndMap;
                     *output_stream_ << emitter_->c_str();
-                    delete emitter_;
+                    emitter_.reset();
                 }
 
 
             public:
-                Writer(const std::string &file_name)
+                explicit Writer(const std::string &file_name)
                 {
                     ariles::write::Visitor::openFile(config_ofs_, file_name);
                     output_stream_ = &config_ofs_;
@@ -70,16 +74,10 @@ namespace ariles
                 }
 
 
-                Writer(std::ostream &output_stream)
+                explicit Writer(std::ostream &output_stream)
                 {
                     output_stream_ = &output_stream;
                     initEmitter();
-                }
-
-
-                Writer()
-                {
-                    delete emitter_;
                 }
 
 

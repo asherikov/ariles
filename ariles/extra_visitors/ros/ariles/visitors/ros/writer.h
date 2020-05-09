@@ -17,7 +17,7 @@ namespace ariles
     {
         namespace impl
         {
-            class ARILES_LIB_LOCAL Writer;
+            class ARILES_VISIBILITY_ATTRIBUTE Writer;
         }
 
 
@@ -25,7 +25,7 @@ namespace ariles
         /**
          * @brief Configuration writer class
          */
-        class ARILES_LIB_EXPORT Writer : public ns_ros::Base<ariles::write::Visitor, impl::Writer>
+        class ARILES_VISIBILITY_ATTRIBUTE Writer : public ns_ros::Base<ariles::write::Visitor, impl::Writer>
         {
         public:
             explicit Writer(const ::ros::NodeHandle &nh);

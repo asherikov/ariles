@@ -20,10 +20,10 @@ namespace ariles
     {
         namespace impl
         {
-            class ARILES_LIB_LOCAL Reader : public ariles::ns_ros::ImplBase
+            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ns_ros::ImplBase
             {
             public:
-                Reader(const ::ros::NodeHandle &nh)
+                explicit Reader(const ::ros::NodeHandle &nh)
                 {
                     nh_ = nh;
                 }

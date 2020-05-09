@@ -24,7 +24,7 @@ namespace ariles
     {
         namespace impl
         {
-            class ARILES_LIB_LOCAL Writer : public ariles::ns_rapidjson::ImplBase< ::rapidjson::Value>
+            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::ns_rapidjson::ImplBase< ::rapidjson::Value>
             {
             public:
                 /// output file stream
@@ -34,7 +34,7 @@ namespace ariles
                 std::ostream *output_stream_;
 
             public:
-                Writer(const std::string &file_name)
+                explicit Writer(const std::string &file_name)
                 {
                     ariles::write::Visitor::openFile(config_ofs_, file_name);
                     output_stream_ = &config_ofs_;
@@ -42,7 +42,7 @@ namespace ariles
                 }
 
 
-                Writer(std::ostream &output_stream)
+                explicit Writer(std::ostream &output_stream)
                 {
                     output_stream_ = &output_stream;
                     document_.SetObject();

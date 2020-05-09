@@ -25,7 +25,7 @@ namespace ariles
         typedef ariles::Node<XmlRpc::XmlRpcValue *> NodeWrapper;
 
 
-        class ImplBase
+        class ARILES_LIB_LOCAL ImplBase
         {
         public:
             /// Stack of nodes.

@@ -35,7 +35,7 @@ namespace ariles_tests
     public:
         ConfigurableVerbose()
         {
-            setDefaults();
+            ConfigurableVerbose::setDefaults();
         }
 
 

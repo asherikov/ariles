@@ -62,6 +62,9 @@ namespace ariles
                 return (size);
             }
 
+            Visitor(){};
+            ~Visitor(){};
+
 
         public:
             /**

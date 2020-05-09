@@ -21,7 +21,7 @@ namespace ariles
     namespace ns_yaml_cpp
     {
         template <class t_Base, class t_Implementation>
-        class Base : public t_Base
+        class ARILES_VISIBILITY_ATTRIBUTE Base : public t_Base
         {
         protected:
             typedef t_Implementation Impl;

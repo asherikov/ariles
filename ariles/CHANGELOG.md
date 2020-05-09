@@ -1,6 +1,33 @@
 Unreleased
 ==========
 
+1.6.5
+=====
+
+Added
+-----
+
+* Added `ARILES_CPP_SANITIZERS` cmake option to control gcc/clang sanitizers.
+* Enabled sanitizers in CI.
+
+
+Fixed
+-----
+
+* Inconsistent visibility attributes.
+
+
+
+1.6.4
+=====
+
+Added
+-----
+
+* cppcheck and scan-build checks in CI, corresponding fixes.
+
+
+
 1.6.3
 =====
 

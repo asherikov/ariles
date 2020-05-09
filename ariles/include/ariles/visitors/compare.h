@@ -16,7 +16,7 @@ namespace ariles
 {
     namespace compare
     {
-        class Parameters
+        class ARILES_VISIBILITY_ATTRIBUTE Parameters
         {
         public:
             double float_tolerance_;

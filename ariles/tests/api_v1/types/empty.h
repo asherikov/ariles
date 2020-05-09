@@ -27,7 +27,7 @@ namespace ariles_tests
     public:
         ConfigurableEmpty()
         {
-            setDefaults();
+            ConfigurableEmpty::setDefaults();
         }
 
 

@@ -13,7 +13,7 @@
 namespace ariles
 {
     template <template <class> class t_Pointer, class t_Base, class t_Instantiator>
-    class Any : public ariles::DefaultBase
+    class ARILES_VISIBILITY_ATTRIBUTE Any : public ariles::DefaultBase
     {
 #define ARILES_ENTRIES                                                                                                 \
     ARILES_TYPED_ENTRY_(id, std::string)                                                                               \
@@ -44,7 +44,7 @@ namespace ariles
         }
 
 
-        Any(const std::string &id)
+        explicit Any(const std::string &id)
         {
             build(id);
         }
@@ -149,16 +149,16 @@ namespace ariles
 
         // Ariles methods
 
-        void arilesVisit(ariles::Write &writer, const ariles::Write::Parameters &param) const
+        void arilesVisit(ariles::Write &visitor, const ariles::Write::Parameters &param) const
         {
             ARILES_ASSERT(
                     true == isConsistent(),
                     "Could not write config: entry is in an inconsistent (partially initialized) state.");
 
-            writer(id_, "id", param);
+            visitor(id_, "id", param);
             if (true == isInitialized())
             {
-                writer(*value_, "value", param);
+                visitor(*value_, "value", param);
             }
         }
 
@@ -208,7 +208,7 @@ namespace ariles
 namespace ariles
 {
     template <class t_Pointer>
-    class NonNullPointer : public ariles::DefaultBase
+    class ARILES_VISIBILITY_ATTRIBUTE NonNullPointer : public ariles::DefaultBase
     {
 #include ARILES_INITIALIZE
 

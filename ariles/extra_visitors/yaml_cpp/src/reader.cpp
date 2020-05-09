@@ -27,7 +27,7 @@ namespace ariles
     {
         namespace impl
         {
-            class Reader
+            class ARILES_VISIBILITY_ATTRIBUTE Reader
             {
             public:
                 /// Stack of nodes.

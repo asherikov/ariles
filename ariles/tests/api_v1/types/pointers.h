@@ -93,7 +93,7 @@ namespace ariles_tests
     public:
         ConfigurablePointers()
         {
-            setDefaults();
+            ConfigurablePointers::setDefaults();
         }
 
         virtual void setDefaults()

@@ -36,7 +36,7 @@ namespace ariles_tests
     public:
         ConfigurableAutoDeclare()
         {
-            setDefaults();
+            ConfigurableAutoDeclare::setDefaults();
         }
 
 

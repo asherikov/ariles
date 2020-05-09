@@ -24,8 +24,8 @@ namespace ariles_tests
     public:
         ConfigurableFinalizeBase()
         {
-            setDefaults();
-            finalize();
+            ConfigurableFinalizeBase::setDefaults();
+            ConfigurableFinalizeBase::finalize();
         }
 
         virtual ~ConfigurableFinalizeBase()
@@ -70,8 +70,8 @@ namespace ariles_tests
     public:
         ConfigurableFinalize()
         {
-            setDefaults();
-            arilesFinalize();
+            ConfigurableFinalize::setDefaults();
+            ConfigurableFinalize::arilesFinalize();
         }
 
         virtual ~ConfigurableFinalize()

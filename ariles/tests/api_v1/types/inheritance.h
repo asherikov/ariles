@@ -26,7 +26,7 @@ namespace ariles_tests
     public:
         ConfigurableMember()
         {
-            setDefaults();
+            ConfigurableMember::setDefaults();
         }
 
         virtual ~ConfigurableMember()
@@ -64,7 +64,7 @@ namespace ariles_tests
     public:
         ConfigurableMember1()
         {
-            setDefaults();
+            ConfigurableMember1::setDefaults();
         }
 
         virtual ~ConfigurableMember1()
@@ -99,7 +99,7 @@ namespace ariles_tests
     public:
         ConfigurableBase()
         {
-            setDefaults();
+            ConfigurableBase::setDefaults();
         }
 
         virtual ~ConfigurableBase()
@@ -138,7 +138,7 @@ namespace ariles_tests
     public:
         ConfigurableDerived()
         {
-            setDefaults();
+            ConfigurableDerived::setDefaults();
         }
 
 

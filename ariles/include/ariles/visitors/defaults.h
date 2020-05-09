@@ -17,7 +17,7 @@ namespace ariles
 {
     namespace defaults
     {
-        class Parameters
+        class ARILES_VISIBILITY_ATTRIBUTE Parameters
         {
         public:
             double default_double_value_;

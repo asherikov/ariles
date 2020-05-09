@@ -30,7 +30,7 @@ namespace ariles
     {
         namespace impl
         {
-            class ARILES_LIB_LOCAL Writer
+            class ARILES_VISIBILITY_ATTRIBUTE Writer
             {
             public:
                 std::vector<NodeWrapper> node_stack_;
@@ -53,14 +53,14 @@ namespace ariles
 
 
             public:
-                Writer(const std::string &file_name)
+                explicit Writer(const std::string &file_name)
                 {
                     ariles::write::Visitor::openFile(config_ofs_, file_name);
                     output_stream_ = &config_ofs_;
                     initEmitter();
                 }
 
-                Writer(std::ostream &output_stream)
+                explicit Writer(std::ostream &output_stream)
                 {
                     output_stream_ = &output_stream;
                     initEmitter();

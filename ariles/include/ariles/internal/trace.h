@@ -21,7 +21,7 @@ namespace ariles
 {
     namespace debug
     {
-        class Tracer
+        class ARILES_VISIBILITY_ATTRIBUTE Tracer
         {
         public:
             std::string tabulation_;

@@ -20,12 +20,12 @@ namespace ariles_tests
             {
             }
 
-            const std::string getReaderInitializer(const std::string &string_id)
+            const std::string getReaderInitializer(const std::string &string_id) const
             {
                 return (string_id);
             }
 
-            const std::string getWriterInitializer(const std::string &string_id)
+            const std::string getWriterInitializer(const std::string &string_id) const
             {
                 return (string_id);
             }
@@ -39,12 +39,12 @@ namespace ariles_tests
             {
             }
 
-            std::size_t getReaderInitializer(const std::string & /*string_id*/)
+            std::size_t getReaderInitializer(const std::string & /*string_id*/) const
             {
                 return (0);
             }
 
-            std::size_t getWriterInitializer(const std::string & /*string_id*/)
+            std::size_t getWriterInitializer(const std::string & /*string_id*/) const
             {
                 return (0);
             }
@@ -59,12 +59,12 @@ namespace ariles_tests
             {
             }
 
-            const std::string getReaderInitializer(const std::string & /*string_id*/)
+            const std::string getReaderInitializer(const std::string & /*string_id*/) const
             {
                 return (t_Base::string_id_);
             }
 
-            const std::string getWriterInitializer(const std::string & /*string_id*/)
+            const std::string getWriterInitializer(const std::string & /*string_id*/) const
             {
                 return (t_Base::string_id_);
             }
@@ -117,6 +117,11 @@ namespace ariles_tests
 
         class ROSInitializer
         {
+        private:
+            ROSInitializer(const ROSInitializer &);
+            void operator=(const ROSInitializer &);
+
+
         public:
             ros::NodeHandle *nh_;
             pid_t pid_;

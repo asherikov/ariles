@@ -21,7 +21,7 @@ namespace ariles
     {
         namespace impl
         {
-            class JsonnetPreprocessor
+            class ARILES_VISIBILITY_ATTRIBUTE JsonnetPreprocessor
             {
             public:
                 JsonnetVm *vm_;
