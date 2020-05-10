@@ -23,8 +23,16 @@ namespace ariles
         };
 
 
-        template <class t_Parameters>
-        class ARILES_VISIBILITY_ATTRIBUTE Base : public Visitor
+        class ARILES_VISIBILITY_ATTRIBUTE GenericVisitor : public Visitor
+        {
+        protected:
+            GenericVisitor(){};
+            ~GenericVisitor(){};
+        };
+
+
+        template <class t_Visitor, class t_Parameters>
+        class ARILES_VISIBILITY_ATTRIBUTE Base : public t_Visitor
         {
         protected:
             Base(){};

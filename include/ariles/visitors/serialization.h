@@ -51,13 +51,14 @@ namespace ariles
         };
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Base : public visitor::Base<ariles::ConfigurableFlags>
+        class ARILES_VISIBILITY_ATTRIBUTE Base
+          : public visitor::Base<visitor::GenericVisitor, ariles::ConfigurableFlags>
         {
         public:
             typedef ariles::ConfigurableFlags Parameters;
 
         public:
-            using visitor::Base<Parameters>::getDefaultParameters;
+            using visitor::Base<visitor::GenericVisitor, Parameters>::getDefaultParameters;
 
             template <class t_Ariles>
             const Parameters &getParameters(const t_Ariles &ariles_class) const

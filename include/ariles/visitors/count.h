@@ -21,26 +21,14 @@ namespace ariles
         };
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Base<count::Parameters>
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Base<visitor::Visitor, count::Parameters>
         {
         public:
             typedef count::Parameters Parameters;
 
 
         public:
-            std::size_t counter_;
-            bool descend_;
-
-
-        public:
-            Visitor()
-            {
-                counter_ = 0;
-                descend_ = false;
-            }
-
-
-            using visitor::Base<Parameters>::getDefaultParameters;
+            using visitor::Base<visitor::Visitor, Parameters>::getDefaultParameters;
 
             template <class t_Ariles>
             const Parameters &getParameters(const t_Ariles &ariles_class) const
@@ -50,67 +38,58 @@ namespace ariles
 
 
             template <class t_Entry>
-            void start(
-                    const t_Entry &entry,
-                    const std::string &name,
-                    const Parameters &param,
-                    ARILES_IS_BASE_ENABLER(entry::ConstBase<count::Visitor>, t_Entry))
+            std::size_t operator()(const t_Entry &entry, const Parameters &param)
             {
                 ARILES_TRACE_FUNCTION;
-                counter_ = 0;
-                descend_ = true;
-                this->operator()(entry, name, param);
+                ARILES_TRACE_TYPE(entry);
+                return (entry.arilesVirtualVisit(*this, param));
             }
 
 
             template <class t_Entry>
-            void operator()(
-                    const t_Entry &entry,
-                    const std::string &name,
-                    const Parameters & /*param*/,
-                    ARILES_IS_BASE_DISABLER(entry::ConstBase<count::Visitor>, t_Entry))
+            std::size_t operator()(const t_Entry &entry)
             {
-                ARILES_UNUSED_ARG(name);
-                ARILES_UNUSED_ARG(entry);
                 ARILES_TRACE_FUNCTION;
-                ARILES_TRACE_ENTRY(name);
                 ARILES_TRACE_TYPE(entry);
-                ++this->counter_;
-            }
-
-
-            template <class t_Entry>
-            void operator()(
-                    const t_Entry &entry,
-                    const std::string &name,
-                    const Parameters &param,
-                    ARILES_IS_BASE_ENABLER(entry::ConstBase<count::Visitor>, t_Entry))
-            {
-                ARILES_UNUSED_ARG(name);
-                ARILES_TRACE_FUNCTION;
-                ARILES_TRACE_ENTRY(name);
-                ARILES_TRACE_TYPE(entry);
-                if (true == this->descend_)
-                {
-                    this->descend_ = false;
-                    entry.arilesVirtualVisit(*this, param);
-                }
-                else
-                {
-                    ++this->counter_;
-                }
+                return (entry.arilesVirtualVisit(*this, entry.arilesGetParameters(*this)));
             }
         };
 
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Base : public entry::ConstBase<count::Visitor>
+        class ARILES_VISIBILITY_ATTRIBUTE Base
         {
         public:
+            virtual std::size_t arilesVirtualVisit(Visitor &, const Visitor::Parameters &) const = 0;
+
+            virtual const Visitor::Parameters &arilesGetParameters(const Visitor &visitor) const
+            {
+                ARILES_TRACE_FUNCTION;
+                return (visitor.getDefaultParameters());
+            }
         };
 
-#define ARILES_VISIT_count
-#define ARILES_METHODS_count ARILES_METHODS(count, ARILES_EMPTY_MACRO, const)
+#define ARILES_NAMED_ENTRY_count(v, entry, name) +1
+#define ARILES_PARENT_count(v, entry) +entry::arilesVisit(visitor, parameters)
+
+#define ARILES_VISIT_count                                                                                             \
+    std::size_t arilesVisit(ariles::count::Visitor &visitor, const ariles::count::Visitor::Parameters &parameters)     \
+            const                                                                                                      \
+    {                                                                                                                  \
+        ARILES_UNUSED_ARG(visitor);                                                                                    \
+        ARILES_UNUSED_ARG(parameters);                                                                                 \
+        ARILES_TRACE_FUNCTION;                                                                                         \
+        return (0 ARILES_ENTRIES(count));                                                                              \
+    }
+
+#define ARILES_METHODS_count                                                                                           \
+    virtual std::size_t arilesVirtualVisit(                                                                            \
+            ariles::count::Visitor &visitor, const ariles::count::Visitor::Parameters &param) const                    \
+    {                                                                                                                  \
+        ARILES_TRACE_FUNCTION;                                                                                         \
+        return (this->arilesVisit(visitor, param));                                                                    \
+    }                                                                                                                  \
+    using ariles::count::Base::arilesGetParameters;
     }  // namespace count
 
 

@@ -59,7 +59,7 @@ namespace ariles
 
 
         template <class t_Reader>
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<Parameters<t_Reader> >
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::GenericVisitor, Parameters<t_Reader> >
         {
         public:
             typedef cfgread::Parameters<t_Reader> Parameters;
@@ -92,7 +92,7 @@ namespace ariles
             }
 
 
-            using visitor::Base<Parameters>::getDefaultParameters;
+            using visitor::Base<visitor::GenericVisitor, Parameters>::getDefaultParameters;
 
             template <class t_Ariles>
             const Parameters getParameters(const t_Ariles &ariles_class) const
@@ -172,7 +172,7 @@ namespace ariles
 
 
         template <class t_Writer>
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<Parameters<t_Writer> >
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::GenericVisitor, Parameters<t_Writer> >
         {
         public:
             typedef cfgwrite::Parameters<t_Writer> Parameters;
@@ -211,7 +211,7 @@ namespace ariles
             }
 
 
-            using visitor::Base<Parameters>::getDefaultParameters;
+            using visitor::Base<visitor::GenericVisitor, Parameters>::getDefaultParameters;
 
             template <class t_Ariles>
             const Parameters getParameters(const t_Ariles &ariles_class) const

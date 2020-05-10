@@ -306,10 +306,10 @@ namespace ariles
         }
 
 
-        void arilesVisit(ariles::Count &visitor, const ariles::Count::Parameters &param) const
+        std::size_t arilesVisit(ariles::Count &visitor, const ariles::Count::Parameters &param) const
         {
             ARILES_ASSERT(false == isNull(), "Not initialized");
-            value_->arilesVisit(visitor, param);
+            return (value_->arilesVisit(visitor, param));
         }
 
 

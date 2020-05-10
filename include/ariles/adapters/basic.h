@@ -33,14 +33,13 @@ namespace ariles
             }
 
             ariles::count::Visitor counter;
-            ariles::apply(counter, entry);
             if (true == param.isSet(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES))
             {
-                visitor.template startMap<t_Visitor::SIZE_LIMIT_NONE>(counter.counter_);
+                visitor.template startMap<t_Visitor::SIZE_LIMIT_NONE>(counter(entry));
             }
             else
             {
-                visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(counter.counter_);
+                visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(counter(entry));
             }
             entry.arilesVirtualVisit(visitor, param);
             visitor.endMap();
@@ -96,8 +95,7 @@ namespace ariles
         {
             ARILES_TRACE_FUNCTION;
             ariles::count::Visitor counter;
-            ariles::apply(counter, entry);
-            writer.startMap(counter.counter_);
+            writer.startMap(counter(entry));
             entry.arilesVirtualVisit(writer, param);
             writer.endMap();
         }
@@ -152,12 +150,9 @@ namespace ariles
             if (true == param.compare_number_of_entries_)
             {
                 ariles::count::Visitor counter;
-                ariles::apply(counter, left);
 
-                const std::size_t left_counter = counter.counter_;
-                ariles::apply(counter, right);
-
-                visitor.equal_ &= (left_counter == counter.counter_);
+                const std::size_t left_counter = counter(left);
+                visitor.equal_ &= (left_counter == counter(right));
             }
             left.arilesVisit(visitor, right, param);
         }

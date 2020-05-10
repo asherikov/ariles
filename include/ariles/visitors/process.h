@@ -17,14 +17,14 @@ namespace ariles
     namespace process
     {
         template <class t_Derived, class t_Parameters>
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Base<t_Parameters>
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Base<visitor::GenericVisitor, t_Parameters>
         {
         public:
             typedef t_Parameters Parameters;
 
 
         public:
-            using visitor::Base<t_Parameters>::getDefaultParameters;
+            using visitor::Base<visitor::GenericVisitor, t_Parameters>::getDefaultParameters;
 
             template <class t_Ariles>
             const t_Parameters &getParameters(const t_Ariles &ariles_class) const

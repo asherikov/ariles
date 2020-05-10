@@ -52,7 +52,7 @@ namespace ariles
         };
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<compare::Parameters>
+        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::Visitor, compare::Parameters>
         {
         public:
             typedef compare::Parameters Parameters;
@@ -70,7 +70,7 @@ namespace ariles
                 return (equal_);
             }
 
-            using visitor::Base<Parameters>::getDefaultParameters;
+            using visitor::Base<visitor::Visitor, Parameters>::getDefaultParameters;
 
             template <class t_Ariles>
             const Parameters &getParameters(const t_Ariles &ariles_class) const
