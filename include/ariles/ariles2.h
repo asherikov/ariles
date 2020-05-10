@@ -33,8 +33,8 @@
 #include "visitors/config.h"
 
 // These defines are always necessary
-#define ARILES_TYPED_ENTRY_(v, entry, type) ARILES_TYPED_NAMED_ENTRY(v, type, entry##_, #entry)
-#define ARILES_TYPED_ENTRY(v, entry, type) ARILES_TYPED_NAMED_ENTRY(v, type, entry, #entry)
+#define ARILES_TYPED_ENTRY_(v, entry, type) ARILES_TYPED_NAMED_ENTRY(v, type, entry##_, entry)
+#define ARILES_TYPED_ENTRY(v, entry, type) ARILES_TYPED_NAMED_ENTRY(v, type, entry, entry)
 
 
 #include "base.h"
@@ -45,8 +45,8 @@
 #    define ARILES_PARENT(v, entry) ARILES_PARENT_##v(v, entry)
 #    define ARILES_NAMED_ENTRY(v, entry, name) ARILES_NAMED_ENTRY_##v(v, entry, name)
 
-#    define ARILES_ENTRY_(v, entry) ARILES_NAMED_ENTRY(v, entry##_, #    entry)
-#    define ARILES_ENTRY(v, entry) ARILES_NAMED_ENTRY(v, entry, #    entry)
+#    define ARILES_ENTRY_(v, entry) ARILES_NAMED_ENTRY(v, entry##_, entry)
+#    define ARILES_ENTRY(v, entry) ARILES_NAMED_ENTRY(v, entry, entry)
 
 // ----------------------------
 

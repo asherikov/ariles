@@ -7,7 +7,7 @@
 
 
 
-#define ARILES_NAMED_ENTRY_generic_all(v, entry, name) visitor(entry, name, parameters);
+#define ARILES_NAMED_ENTRY_generic_all(v, entry, name) visitor(entry, #name, parameters);
 #define ARILES_PARENT_generic_all(v, entry)
 
 #define ARILES_VISIT_generic_all                                                                                       \

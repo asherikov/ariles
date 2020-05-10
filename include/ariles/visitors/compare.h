@@ -157,7 +157,7 @@ namespace ariles
         }
 
 
-#define ARILES_NAMED_ENTRY_compare(v, entry, name) visitor(entry, other.entry, name, parameters);
+#define ARILES_NAMED_ENTRY_compare(v, entry, name) visitor(entry, other.entry, #name, parameters);
 #define ARILES_PARENT_compare(v, entry) entry::arilesVisit(visitor, other, parameters);
 
 #define ARILES_VISIT_compare                                                                                           \
