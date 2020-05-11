@@ -11,39 +11,39 @@
 #pragma once
 
 #ifdef ARILES_VISITOR_yaml_cpp03
-#    include "ariles/visitors/yaml_cpp03.h"
+#    include <ariles2/visitors/yaml_cpp03.h>
 #endif
 
 #ifdef ARILES_VISITOR_yaml_cpp
-#    include "ariles/visitors/yaml_cpp.h"
+#    include <ariles2/visitors/yaml_cpp.h>
 #endif
 
 #ifdef ARILES_VISITOR_msgpack
-#    include "ariles/visitors/msgpack.h"
+#    include <ariles2/visitors/msgpack.h>
 #endif
 
 #ifdef ARILES_VISITOR_ros
-#    include "ariles/visitors/ros.h"
+#    include <ariles2/visitors/ros.h>
 #endif
 
 #ifdef ARILES_VISITOR_jsonnet
-#    include "ariles/visitors/jsonnet.h"
+#    include <ariles2/visitors/jsonnet.h>
 #endif
 
 #ifdef ARILES_VISITOR_rapidjson
-#    include "ariles/visitors/rapidjson.h"
+#    include <ariles2/visitors/rapidjson.h>
 #endif
 
 #ifdef ARILES_VISITOR_pugixml
-#    include "ariles/visitors/pugixml.h"
+#    include <ariles2/visitors/pugixml.h>
 #endif
 
 // Do not have Reader and therefore are excluded from most of the tests
 //
 //#ifdef ARILES_VISITOR_octave
-//#include "ariles/visitors/octave.h"
+//#include <ariles2/visitors/octave.h>
 //#endif
 //
 //#ifdef ARILES_VISITOR_array
-//#include "ariles/visitors/array.h"
+//#include <ariles2/visitors/array.h>
 //#endif

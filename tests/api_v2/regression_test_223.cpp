@@ -10,11 +10,11 @@
 
 #include "utility.h"
 
-#include "ariles/visitors/rapidjson.h"
+#include <ariles2/visitors/rapidjson.h>
 
 // If no format header is included, ariles is disabled, and
 // ariles::ConfigurableBase is just a dummy class.
-#include "ariles/ariles2.h"
+#include <ariles2/ariles.h>
 
 
 // ===============================================================

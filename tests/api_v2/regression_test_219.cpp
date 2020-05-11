@@ -11,7 +11,7 @@
 #include "utility.h"
 #include "all_enabled_adapters.h"
 
-#include "ariles/ariles2.h"
+#include <ariles2/ariles.h>
 
 // ===============================================================
 // TYPES

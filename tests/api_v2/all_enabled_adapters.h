@@ -10,20 +10,20 @@
 
 #pragma once
 
-#include <ariles/adapters/std_vector.h>
-#include <ariles/adapters/std_pair.h>
-#include <ariles/adapters/std_map.h>
-#include <ariles/adapters/pointer.h>
+#include <ariles2/adapters/std_vector.h>
+#include <ariles2/adapters/std_pair.h>
+#include <ariles2/adapters/std_map.h>
+#include <ariles2/adapters/pointer.h>
 
 #ifdef ARILES_ADAPTER_EIGEN
-#    include <ariles/adapters/eigen.h>
+#    include <ariles2/adapters/eigen.h>
 #endif
 #ifdef ARILES_ADAPTER_BOOST_POINTER
-#    include <ariles/adapters/boost_pointer.h>
+#    include <ariles2/adapters/boost_pointer.h>
 #endif
 #ifdef ARILES_ADAPTER_BOOST_OPTIONAL
-#    include <ariles/adapters/boost_optional.h>
+#    include <ariles2/adapters/boost_optional.h>
 #endif
 #ifdef ARILES_ADAPTER_BETTER_ENUMS
-#    include <ariles/adapters/better_enums.h>
+#    include <ariles2/adapters/better_enums.h>
 #endif

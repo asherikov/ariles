@@ -12,11 +12,11 @@
 #include "utility.h"
 
 #ifdef ARILES_VISITOR_octave
-#    include "ariles/visitors/octave.h"
+#    include <ariles2/visitors/octave.h>
 #endif
 #include "all_enabled_adapters.h"
 
-#include "ariles/ariles2.h"
+#include <ariles2/ariles.h>
 
 
 // ===============================================================

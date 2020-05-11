@@ -43,7 +43,7 @@ namespace ariles
 }  // namespace ariles
 #define ARILES_POINTER_TYPE boost::shared_ptr
 #define ARILES_POINTER_HANDLER BoostSharedPtrHandler
-#include <ariles/adapters/generic_pointer.h>
+#include <ariles2/adapters/generic_pointer.h>
 
 
 // this version is known to work
@@ -80,5 +80,5 @@ namespace ariles
 }  // namespace ariles
 
 #    define ARILES_POINTER_TYPE boost::movelib::unique_ptr
-#    include <ariles/adapters/generic_pointer.h>
+#    include <ariles2/adapters/generic_pointer.h>
 #endif

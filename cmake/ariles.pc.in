@@ -1,4 +1,4 @@
-Name: ariles
+Name: @CMAKE_PROJECT_NAME@
 Description: C++ serialization / configuration library.
 Version: @PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@
 URL: @ARILES_HOMEPAGE@

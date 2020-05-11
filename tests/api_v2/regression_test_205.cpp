@@ -11,7 +11,7 @@
 #include "utility.h"
 
 #define ARILES_DISABLE
-#include "ariles/ariles2.h"
+#include <ariles2/ariles.h>
 
 
 // ===============================================================

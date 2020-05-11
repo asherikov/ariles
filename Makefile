@@ -25,6 +25,7 @@ TEST_ENV=UBSAN_OPTIONS=print_stacktrace=1 \
 		 LSAN_OPTIONS=suppressions=../../../cmake/sanitizer_leak.supp \
 		 UBSAN_OPTIONS=suppressions=../../../cmake/sanitizer_undefined.supp
 
+PKG_NAME=ariles2
 
 #----------------------------------------------
 # Cleaning
@@ -32,7 +33,7 @@ TEST_ENV=UBSAN_OPTIONS=print_stacktrace=1 \
 
 clean:
 	rm -Rf build;
-	rm -Rf include/ariles/internal/cpput_*.h
+	rm -Rf include/${PKG_NAME}/internal/cpput_*.h
 	#git submodule update --init doc/dox/; cd doc/dox/; git clean -f; git reset --hard
 
 
@@ -98,14 +99,14 @@ deb: clean
 deb-build: clean
 	${MAKE} build TC=${TC} TYPE=Release OPTIONS=deb_packages_${DEB_TARGET} TARGETS="pkg_deb" \
 		EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM} -DDEB_BUILDPACKAGE_FLAGS='-us;-uc'"
-	cd build/generic-Release-OPTIONS_deb_packages_${DEB_TARGET}/Debian/${DEB_TARGET}/ariles-*-source; \
+	cd build/generic-Release-OPTIONS_deb_packages_${DEB_TARGET}/Debian/${DEB_TARGET}/${PKG_NAME}-*-source; \
 		dpkg-buildpackage -us -uc -F
 
 deb-install:
-	sudo dpkg -i build/generic-Release-OPTIONS_deb_packages_${DEB_TARGET}/Debian/${DEB_TARGET}/ariles-*.deb
+	sudo dpkg -i build/generic-Release-OPTIONS_deb_packages_${DEB_TARGET}/Debian/${DEB_TARGET}/${PKG_NAME}-*.deb
 
 deb-uninstall:
-	dpkg --get-selections ariles* | awk '{print $1}' | xargs sudo dpkg -P
+	dpkg --get-selections ${PKG_NAME}* | awk '{print $1}' | xargs sudo dpkg -P
 
 cmake_dependency: clean
 	mkdir -p build/cmake_dependency_test
@@ -115,10 +116,10 @@ cmake_dependency: clean
 ppa-upload:
 	cd build/generic-Release-OPTIONS_deb_packages_trusty/Debian/trusty/; \
 		ftp -au ppa.launchpad.net:~asherikov/ubuntu/ppa/ \
-			ariles_*~${DEB_TARGET}.dsc \
-			ariles_*~${DEB_TARGET}.tar.xz \
-			ariles_*~${DEB_TARGET}_source.buildinfo \
-			ariles_*~${DEB_TARGET}_source.changes
+			${PKG_NAME}_*~${DEB_TARGET}.dsc \
+			${PKG_NAME}_*~${DEB_TARGET}.tar.xz \
+			${PKG_NAME}_*~${DEB_TARGET}_source.buildinfo \
+			${PKG_NAME}_*~${DEB_TARGET}_source.changes
 
 
 #----------------------------------------------

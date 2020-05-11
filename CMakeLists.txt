@@ -1,10 +1,10 @@
 # General parameters
 cmake_minimum_required (VERSION 2.8.12)
-project (ariles CXX)
-set(ARILES_HOMEPAGE http://asherikov.github.com/ariles/)
-set(PROJECT_VERSION_MAJOR 1)
-set(PROJECT_VERSION_MINOR 6)
-set(PROJECT_VERSION_PATCH 5)
+project (ariles2 CXX)
+set(ARILES_HOMEPAGE http://asherikov.github.com/ariles/2)
+set(PROJECT_VERSION_MAJOR 2)
+set(PROJECT_VERSION_MINOR 0)
+set(PROJECT_VERSION_PATCH 0)
 
 set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
@@ -83,7 +83,7 @@ set(CPACK_COMPONENTS_GROUPING ONE_PER_GROUP)
 set(CPACK_GENERATOR "DEB")
 
 
-set(CPACK_DEBIAN_PACKAGE_HOMEPAGE   "https://asherikov.github.io/ariles/")
+set(CPACK_DEBIAN_PACKAGE_HOMEPAGE   "https://asherikov.github.io/ariles/2")
 set(CPACK_DEBIAN_PACKAGE_PRIORITY   "optional")
 set(CPACK_DEBIAN_PACKAGE_SECTION    "devel")
 
@@ -231,7 +231,7 @@ set(DEB_ARCHIVE_FILES
 # --------------
 option(CPPUT_EMBEDDED "" ON)
 set(CPPUT_EMBEDDED_ID "ARILES"  CACHE STRING "")
-set(CPPUT_EMBEDDED_COPY_TO_DIR "${PROJECT_SOURCE_DIR}/include/ariles/internal/"  CACHE STRING "")
+set(CPPUT_EMBEDDED_COPY_TO_DIR "${PROJECT_SOURCE_DIR}/include/${CMAKE_PROJECT_NAME}/internal/"  CACHE STRING "")
 set(CPPUT_SELECT_HEADERS "config.h;;exception.h;floating_point_utils.h;visibility.h;misc.h;flags.h"  CACHE STRING "")
 add_subdirectory(cpput)
 # --------------
@@ -241,14 +241,14 @@ add_custom_target( TGT_ariles_copy_headers ALL )
 
 # core & adapters headers
 cmakeut_copy_dir_if_exists(TGT_ariles_copy_headers          "ariles"
-                          "${PROJECT_SOURCE_DIR}/include"  "${ARILES_INCLUDE_DIR}/core/")
+                          "${PROJECT_SOURCE_DIR}/include"   "${ARILES_INCLUDE_DIR}/core/")
 set(ARILES_CORE_BUILD_INCLUDES "${ARILES_INCLUDE_DIR}/core/")
 
 if (${ARILES_ENABLE_CORE})
     foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
         cmakeut_copy_dir_if_exists(
             TGT_ariles_copy_headers                                         "adapter_${ARILES_EXTRA_ADAPTER}"
-            "${PROJECT_SOURCE_DIR}/extra_adapters/${ARILES_EXTRA_ADAPTER}"  "${ARILES_INCLUDE_DIR}/core/ariles/adapters/")
+            "${PROJECT_SOURCE_DIR}/extra_adapters/${ARILES_EXTRA_ADAPTER}"  "${ARILES_INCLUDE_DIR}/core/${CMAKE_PROJECT_NAME}/adapters/")
     endforeach()
 
     list(APPEND DEB_ARCHIVE_FILES "./include" "./extra_adapters")
@@ -343,7 +343,7 @@ set(ARILES_BUILD_CONFIG
 #cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNCTION_\n")
 
 string(CONFIGURE "${ARILES_BUILD_CONFIG}" ARILES_BUILD_CONFIG)
-file(WRITE "${ARILES_INCLUDE_DIR}/core/ariles/internal/build_config.h" "${ARILES_BUILD_CONFIG}")
+file(WRITE "${ARILES_INCLUDE_DIR}/core/${CMAKE_PROJECT_NAME}/internal/build_config.h" "${ARILES_BUILD_CONFIG}")
 #---
 
 
@@ -360,9 +360,9 @@ if (${ARILES_ENABLE_CORE})
 
 
     set(ARILES_COMPONENT_NAME "core")
-    set(ariles_LIBRARIES "ariles-${ARILES_COMPONENT_NAME}_LIBRARIES")
-    set(ariles_INCLUDE_DIRS "ariles-${ARILES_COMPONENT_NAME}_INCLUDE_DIRS")
-    set(ariles_LIBRARY_DIRS "ariles-${ARILES_COMPONENT_NAME}_LIBRARY_DIRS")
+    set(ariles_LIBRARIES "${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}_LIBRARIES")
+    set(ariles_INCLUDE_DIRS "${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}_INCLUDE_DIRS")
+    set(ariles_LIBRARY_DIRS "${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}_LIBRARY_DIRS")
 
     set(ARILES_LIBRARIES            "")
     set(ARILES_INCLUDES             "${ARILES_CORE_INCLUDES}")
@@ -378,21 +378,21 @@ if (${ARILES_ENABLE_CORE})
     list(REMOVE_ITEM ARILES_LIBRARIES "")
 
     configure_package_config_file(  "cmake/arilesConfig.cmake.in"
-                                    "${PROJECT_BINARY_DIR}/ariles-${ARILES_COMPONENT_NAME}Config.cmake"
-                                    INSTALL_DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles-${ARILES_COMPONENT_NAME}/"
+                                    "${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}Config.cmake"
+                                    INSTALL_DESTINATION "${CMAKE_INSTALL_PREFIX}/share/${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}/"
                                     PATH_VARS ARILES_INCLUDES
                                     NO_SET_AND_CHECK_MACRO
                                     NO_CHECK_REQUIRED_COMPONENTS_MACRO)
-    install (FILES "${PROJECT_BINARY_DIR}/ariles-${ARILES_COMPONENT_NAME}Config.cmake"
-             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles-${ARILES_COMPONENT_NAME}/"
+    install (FILES "${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}Config.cmake"
+             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}/"
              COMPONENT ${ARILES_COMPONENT_NAME})
 
     write_basic_package_version_file(
-        ${PROJECT_BINARY_DIR}/ariles-${ARILES_COMPONENT_NAME}ConfigVersion.cmake
+        ${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}ConfigVersion.cmake
         VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}
         COMPATIBILITY SameMajorVersion)
-    install (FILES "${PROJECT_BINARY_DIR}/ariles-${ARILES_COMPONENT_NAME}ConfigVersion.cmake"
-             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles-${ARILES_COMPONENT_NAME}/"
+    install (FILES "${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}ConfigVersion.cmake"
+             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}/"
              COMPONENT ${ARILES_COMPONENT_NAME})
 
 
@@ -401,9 +401,9 @@ if (${ARILES_ENABLE_CORE})
         set(ARILES_INCLUDES_FLAGS "-I${ARILES_INCLUDES_FLAGS}")
         string(REPLACE ";" " -l" ARILES_LIBRARIES_FLAGS "${ARILES_LIBRARIES}")
         set(ARILES_LIBRARIES_FLAGS "-l${ARILES_LIBRARIES_FLAGS}")
-        configure_file("cmake/ariles.pc.in"             "${PROJECT_BINARY_DIR}/ariles.pc" @ONLY)
+        configure_file("cmake/ariles.pc.in"             "${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.pc" @ONLY)
 
-        install(FILES "${PROJECT_BINARY_DIR}/ariles.pc"
+        install(FILES "${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.pc"
                 DESTINATION "${ARILES_PKGCONFIG_INSTALL_PATH}"
                 COMPONENT ${ARILES_COMPONENT_NAME})
     endif()

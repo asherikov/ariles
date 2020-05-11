@@ -15,16 +15,16 @@
 
 // `visitor` is an Ariles component which provides integration with a particular
 // 3rd party library.
-#include <ariles/visitors/yaml_cpp.h>
-#include <ariles/visitors/ros.h>
-#include <ariles/visitors/octave.h>
+#include <ariles2/visitors/yaml_cpp.h>
+#include <ariles2/visitors/ros.h>
+#include <ariles2/visitors/octave.h>
 
 // `adapter` is an Ariles component which adds support for serialization of
 // certain type(s), e.g. Eigen types or Boost pointers.
-#include <ariles/adapters/basic.h>
-#include <ariles/adapters/eigen.h>
-#include <ariles/adapters/std_vector.h>
-#include <ariles/ariles2.h>
+#include <ariles2/adapters/basic.h>
+#include <ariles2/adapters/eigen.h>
+#include <ariles2/adapters/std_vector.h>
+#include <ariles2/ariles.h>
 
 
 

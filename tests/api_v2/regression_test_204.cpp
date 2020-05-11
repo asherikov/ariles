@@ -15,7 +15,7 @@
 // #include "all_enabled_adapters.h"
 // only basic adapters
 // definition of ariles::ConfigurableBase
-#include "ariles/ariles2.h"
+#include <ariles2/ariles.h>
 
 
 // ===============================================================

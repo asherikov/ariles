@@ -8,7 +8,7 @@
     @brief
 */
 
-#include <ariles/visitors/jsonnet.h>
+#include <ariles2/visitors/jsonnet.h>
 
 extern "C"
 {

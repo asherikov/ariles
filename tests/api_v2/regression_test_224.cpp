@@ -15,16 +15,16 @@
             | ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES
 
 #ifdef ARILES_VISITOR_yaml_cpp03
-#    include "ariles/visitors/yaml_cpp03.h"
+#    include <ariles2/visitors/yaml_cpp03.h>
 #endif
 
 #ifdef ARILES_VISITOR_yaml_cpp
-#    include "ariles/visitors/yaml_cpp.h"
+#    include <ariles2/visitors/yaml_cpp.h>
 #endif
 
 #include "all_enabled_adapters.h"
 
-#include "ariles/ariles2.h"
+#include <ariles2/ariles.h>
 
 
 // ===============================================================

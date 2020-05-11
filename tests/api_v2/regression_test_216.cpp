@@ -14,7 +14,7 @@
 #include <api_v2/tests_config.h>
 #include "all_enabled_adapters.h"
 
-#include "ariles/ariles2.h"
+#include <ariles2/ariles.h>
 
 
 // ===============================================================

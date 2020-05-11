@@ -11,11 +11,11 @@
 #include "utility.h"
 
 
-#include "ariles/visitors/pugixml.h"
+#include <ariles2/visitors/pugixml.h>
 
 // If no format header is included, ariles is disabled, and
 // ariles::ConfigurableBase is just a dummy class.
-#include "ariles/ariles2.h"
+#include <ariles2/ariles.h>
 
 
 // ===============================================================

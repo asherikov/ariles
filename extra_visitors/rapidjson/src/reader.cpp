@@ -8,7 +8,7 @@
     @brief
 */
 
-#include <ariles/visitors/rapidjson.h>
+#include <ariles2/visitors/rapidjson.h>
 #include "common.h"
 
 
