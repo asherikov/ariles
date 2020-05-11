@@ -15,13 +15,13 @@ extern "C"
 #include "libjsonnet.h"
 }
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_jsonnet
     {
         namespace impl
         {
-            class ARILES_VISIBILITY_ATTRIBUTE JsonnetPreprocessor
+            class ARILES2_VISIBILITY_ATTRIBUTE JsonnetPreprocessor
             {
             public:
                 JsonnetVm *vm_;
@@ -32,7 +32,7 @@ namespace ariles
             {
                 preprocessor_ = JsonnetPreprocessorPtr(new JsonnetPreprocessor());
                 preprocessor_->vm_ = static_cast<struct JsonnetVm *>(::jsonnet_make());
-                ARILES_ASSERT(NULL != preprocessor_->vm_, "Could not initialize jsonnet preprocessor.");
+                ARILES2_ASSERT(NULL != preprocessor_->vm_, "Could not initialize jsonnet preprocessor.");
             }
 
 
@@ -46,7 +46,7 @@ namespace ariles
             {
                 int error = 0;
                 const char *jsonnet_output = ::jsonnet_evaluate_file(preprocessor_->vm_, file_name.c_str(), &error);
-                ARILES_ASSERT(0 == error, jsonnet_output);
+                ARILES2_ASSERT(0 == error, jsonnet_output);
                 return (jsonnet_output);
             }
 
@@ -56,9 +56,9 @@ namespace ariles
                 int error = 0;
                 const char *jsonnet_output =
                         ::jsonnet_evaluate_snippet(preprocessor_->vm_, "<input steam>", input_string.c_str(), &error);
-                ARILES_ASSERT(0 == error, jsonnet_output);
+                ARILES2_ASSERT(0 == error, jsonnet_output);
                 return (jsonnet_output);
             }
         }  // namespace impl
     }      // namespace ns_jsonnet
-}  // namespace ariles
+}  // namespace ariles2

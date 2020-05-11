@@ -8,12 +8,12 @@
     @brief
 */
 
-namespace ariles
+namespace ariles2
 {
     namespace read
     {
         template <class t_Visitor, typename t_Entry>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
                 ARILES_POINTER_TYPE<t_Entry> &entry,
                 const typename t_Visitor::Parameters &parameters)
@@ -21,7 +21,7 @@ namespace ariles
             ARILES_TRACE_FUNCTION;
             bool is_null = true;
 
-            ariles::ConfigurableFlags param = parameters;
+            ariles2::ConfigurableFlags param = parameters;
             param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
 
             visitor.template startMap<t_Visitor::SIZE_LIMIT_RANGE>(1, 2);
@@ -39,15 +39,15 @@ namespace ariles
             visitor.endMap();
         }
     }  // namespace read
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace write
     {
         template <class t_Visitor, typename t_Entry>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
                 t_Visitor &writer,
                 const ARILES_POINTER_TYPE<t_Entry> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -72,15 +72,15 @@ namespace ariles
             }
         }
     }  // namespace write
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace compare
     {
         template <class t_Visitor, typename t_Entry>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
                 t_Visitor &visitor,
                 const ARILES_POINTER_TYPE<t_Entry> &left,
                 const ARILES_POINTER_TYPE<t_Entry> &right,
@@ -107,15 +107,15 @@ namespace ariles
             }
         }
     }  // namespace compare
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace defaults
     {
         template <class t_Visitor, typename t_Entry>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
                 const t_Visitor & /*visitor*/,
                 ARILES_POINTER_TYPE<t_Entry> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
@@ -124,15 +124,15 @@ namespace ariles
             PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::reset(entry);
         }
     }  // namespace defaults
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace process
     {
         template <class t_Visitor, typename t_Entry>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_process(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_process(
                 const t_Visitor &visitor,
                 ARILES_POINTER_TYPE<t_Entry> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -144,7 +144,7 @@ namespace ariles
             }
         }
     }  // namespace process
-}  // namespace ariles
+}  // namespace ariles2
 
 
 #undef ARILES_POINTER_HANDLER

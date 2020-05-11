@@ -12,7 +12,7 @@
 
 namespace ariles_tests
 {
-    class ConfigurableMinimal : public ariles::DefaultBase
+    class ConfigurableMinimal : public ariles2::DefaultBase
     {
 #define ARILES_ENTRIES(v) ARILES_TYPED_ENTRY(v, integer_member, int)
 #include ARILES_INITIALIZE

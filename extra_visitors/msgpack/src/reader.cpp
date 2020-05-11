@@ -16,22 +16,22 @@
 
 #include <ariles2/visitors/msgpack.h>
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_msgpack
     {
-        typedef ariles::Node<const ::msgpack::object *> NodeWrapper;
+        typedef ariles2::Node<const ::msgpack::object *> NodeWrapper;
     }
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_msgpack
     {
         namespace impl
         {
-            class ARILES_VISIBILITY_ATTRIBUTE Reader
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader
             {
             public:
                 std::string buffer_;
@@ -73,7 +73,7 @@ namespace ariles
                     }
                     catch (const std::exception &e)
                     {
-                        ARILES_THROW(std::string("Failed to parse the configuration file: ") + e.what());
+                        ARILES2_THROW(std::string("Failed to parse the configuration file: ") + e.what());
                     }
 
                     nameless_counter_ = 0;
@@ -107,10 +107,10 @@ namespace ariles
             };
         }  // namespace impl
     }      // namespace ns_msgpack
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_msgpack
     {
@@ -206,8 +206,8 @@ namespace ariles
         void Reader::shiftArray()
         {
             ARILES_TRACE_FUNCTION;
-            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ARILES_ASSERT(
+            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
             ++impl_->node_stack_.back().index_;
@@ -219,7 +219,7 @@ namespace ariles
             ARILES_TRACE_FUNCTION;
             if (true == name.empty())
             {
-                ARILES_ASSERT(
+                ARILES2_ASSERT(
                         0 == impl_->nameless_counter_,
                         "Multiple nameless root entries are not supported, specify root names explicitly.");
                 ++impl_->nameless_counter_;
@@ -245,8 +245,8 @@ namespace ariles
         impl_->getRawNode() >> element;                                                                                \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
 #undef ARILES_BASIC_TYPE
     }  // namespace ns_msgpack
-}  // namespace ariles
+}  // namespace ariles2

@@ -14,11 +14,11 @@
 
 #include "../configurable_flags.h"
 
-namespace ariles
+namespace ariles2
 {
     namespace serialization
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Features : public ariles::Flags<unsigned int, serialization::Features>
+        class ARILES2_VISIBILITY_ATTRIBUTE Features : public ariles2::Flags<unsigned int, serialization::Features>
         {
         public:
             enum Flags
@@ -51,11 +51,11 @@ namespace ariles
         };
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Base
-          : public visitor::Base<visitor::GenericVisitor, ariles::ConfigurableFlags>
+        class ARILES2_VISIBILITY_ATTRIBUTE Base
+          : public visitor::Base<visitor::GenericVisitor, ariles2::ConfigurableFlags>
         {
         public:
-            typedef ariles::ConfigurableFlags Parameters;
+            typedef ariles2::ConfigurableFlags Parameters;
 
         public:
             using visitor::Base<visitor::GenericVisitor, Parameters>::getDefaultParameters;
@@ -70,4 +70,4 @@ namespace ariles
             virtual const Features &getSerializationFeatures() const = 0;
         };
     }  // namespace serialization
-}  // namespace ariles
+}  // namespace ariles2

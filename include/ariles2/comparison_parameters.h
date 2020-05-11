@@ -10,9 +10,9 @@
 
 #pragma once
 
-namespace ariles
+namespace ariles2
 {
-    class ARILES_VISIBILITY_ATTRIBUTE ComparisonParameters
+    class ARILES2_VISIBILITY_ATTRIBUTE ComparisonParameters
     {
     public:
         double float_tolerance_;
@@ -58,4 +58,4 @@ namespace ariles
     {
         return (float_tolerance_);
     }
-}  // namespace ariles
+}  // namespace ariles2

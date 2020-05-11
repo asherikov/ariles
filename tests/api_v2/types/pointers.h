@@ -13,10 +13,10 @@
 
 namespace ariles_tests
 {
-    class ConfigurablePointers : public ariles::DefaultBase
+    class ConfigurablePointers : public ariles2::DefaultBase
     {
     public:
-        class Minimal : public ariles::DefaultBase
+        class Minimal : public ariles2::DefaultBase
         {
 #define ARILES_ENTRIES(v) ARILES_TYPED_ENTRY_(v, integer_member, int)
 #include ARILES_INITIALIZE
@@ -40,7 +40,7 @@ namespace ariles_tests
 #    define ARILES_ENTRIES_1(v)                                                                                        \
         ARILES_ENTRIES_0(v)                                                                                            \
         ARILES_TYPED_ENTRY_(v, std_shared_ptr_test, std::shared_ptr<Minimal>)                                          \
-        ARILES_TYPED_ENTRY_(v, std_shared_ptr_test_non_null, ariles::NonNullPointer<std::shared_ptr<Minimal> >)        \
+        ARILES_TYPED_ENTRY_(v, std_shared_ptr_test_non_null, ariles2::NonNullPointer<std::shared_ptr<Minimal> >)        \
         ARILES_TYPED_ENTRY_(v, std_unique_ptr_test, std::unique_ptr<Minimal>)
 #else
 #    define ARILES_ENTRIES_1(v) ARILES_ENTRIES_0(v)
@@ -53,13 +53,13 @@ namespace ariles_tests
             ARILES_ENTRIES_1(v)                                                                                        \
             ARILES_TYPED_ENTRY_(v, shared_ptr_test, boost::shared_ptr<Minimal>)                                        \
             ARILES_TYPED_ENTRY_(v, shared_ptr_test_null, boost::shared_ptr<Minimal>)                                   \
-            ARILES_TYPED_ENTRY_(v, shared_ptr_test_non_null, ariles::NonNullPointer<boost::shared_ptr<Minimal> >)      \
+            ARILES_TYPED_ENTRY_(v, shared_ptr_test_non_null, ariles2::NonNullPointer<boost::shared_ptr<Minimal> >)      \
             ARILES_TYPED_ENTRY_(v, unique_ptr_test, boost::movelib::unique_ptr<Minimal>)
 #    else
 #        define ARILES_ENTRIES_2(v)                                                                                    \
             ARILES_ENTRIES_1(v)                                                                                        \
             ARILES_TYPED_ENTRY_(v, shared_ptr_test, boost::shared_ptr<Minimal>)                                        \
-            ARILES_TYPED_ENTRY_(v, shared_ptr_test_non_null, ariles::NonNullPointer<boost::shared_ptr<Minimal> >)      \
+            ARILES_TYPED_ENTRY_(v, shared_ptr_test_non_null, ariles2::NonNullPointer<boost::shared_ptr<Minimal> >)      \
             ARILES_TYPED_ENTRY_(v, shared_ptr_test_null, boost::shared_ptr<Minimal>)
 #    endif
 #else
@@ -88,10 +88,10 @@ namespace ariles_tests
     public:
         ConfigurablePointers()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
-        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
 #if __cplusplus >= 201103L
             std_shared_ptr_test_.reset();

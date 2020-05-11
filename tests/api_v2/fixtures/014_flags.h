@@ -30,7 +30,7 @@ namespace ariles_tests
             BOOST_CHECK_EQUAL(
                     configurable.getExpectedConfigurableFlags().flags_,
                     configurable.arilesGetParameters(writer.getWriter()).flags_);
-            ariles::apply(writer, configurable);
+            ariles2::apply(writer, configurable);
 
             typename t_Visitor::Reader reader(getReaderInitializer("configurable.cfg"));
             BOOST_CHECK_EQUAL(

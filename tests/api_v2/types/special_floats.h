@@ -11,7 +11,7 @@
 
 namespace ariles_tests
 {
-    class ConfigurableSpecialFloats : virtual public ariles::DefaultBase
+    class ConfigurableSpecialFloats : virtual public ariles2::DefaultBase
     {
 #define ARILES_ENTRIES(v)                                                                                              \
     ARILES_TYPED_ENTRY_(v, float_quiet_nan, float)                                                                     \
@@ -31,7 +31,7 @@ namespace ariles_tests
     public:
         ConfigurableSpecialFloats()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
         virtual ~ConfigurableSpecialFloats()
@@ -39,7 +39,7 @@ namespace ariles_tests
         }
 
 
-        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
             postprocessd_ = false;
 
@@ -73,7 +73,7 @@ namespace ariles_tests
         }
 #endif
 
-        void arilesVisit(const ariles::PostProcess & /*visitor*/, const ariles::PostProcess::Parameters & /*param*/)
+        void arilesVisit(const ariles2::PostProcess & /*visitor*/, const ariles2::PostProcess::Parameters & /*param*/)
         {
             postprocessd_ = true;
         }
@@ -86,17 +86,17 @@ namespace ariles_tests
     {
         BOOST_CHECK(true == configurable.postprocessd_);
 
-        BOOST_CHECK(true == ariles::isNaN(configurable.double_quiet_nan_));
-        BOOST_CHECK(true == ariles::isNaN(configurable.double_signaling_nan_));
-        BOOST_CHECK(true == ariles::isInfinity(configurable.double_positive_infinity_));
-        BOOST_CHECK(true == ariles::isInfinity(configurable.double_negative_infinity_));
+        BOOST_CHECK(true == ariles2::isNaN(configurable.double_quiet_nan_));
+        BOOST_CHECK(true == ariles2::isNaN(configurable.double_signaling_nan_));
+        BOOST_CHECK(true == ariles2::isInfinity(configurable.double_positive_infinity_));
+        BOOST_CHECK(true == ariles2::isInfinity(configurable.double_negative_infinity_));
         BOOST_CHECK(configurable.double_positive_infinity_ > 0.0);
         BOOST_CHECK(configurable.double_negative_infinity_ < 0.0);
 
-        BOOST_CHECK(true == ariles::isNaN(configurable.double_quiet_nan_));
-        BOOST_CHECK(true == ariles::isNaN(configurable.double_signaling_nan_));
-        BOOST_CHECK(true == ariles::isInfinity(configurable.double_positive_infinity_));
-        BOOST_CHECK(true == ariles::isInfinity(configurable.double_negative_infinity_));
+        BOOST_CHECK(true == ariles2::isNaN(configurable.double_quiet_nan_));
+        BOOST_CHECK(true == ariles2::isNaN(configurable.double_signaling_nan_));
+        BOOST_CHECK(true == ariles2::isInfinity(configurable.double_positive_infinity_));
+        BOOST_CHECK(true == ariles2::isInfinity(configurable.double_negative_infinity_));
         BOOST_CHECK(configurable.double_positive_infinity_ > 0.0);
         BOOST_CHECK(configurable.double_negative_infinity_ < 0.0);
     }

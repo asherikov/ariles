@@ -13,22 +13,22 @@
 #include "common.h"
 #include "process.h"
 
-namespace ariles
+namespace ariles2
 {
     namespace postprocess
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Parameters
+        class ARILES2_VISIBILITY_ATTRIBUTE Parameters
         {
         };
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor
-          : public ariles::process::Visitor<const postprocess::Visitor, postprocess::Parameters>
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor
+          : public ariles2::process::Visitor<const postprocess::Visitor, postprocess::Parameters>
         {
         };
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Base : public entry::Base<const postprocess::Visitor>
+        class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::Base<const postprocess::Visitor>
         {
         };
 
@@ -39,4 +39,4 @@ namespace ariles
 
 
     typedef postprocess::Visitor PostProcess;
-}  // namespace ariles
+}  // namespace ariles2

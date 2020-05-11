@@ -19,12 +19,12 @@
 #include <ariles2/internal/node.h>
 #include <ariles2/visitors/config.h>
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_msgpack
     {
         template <class t_Base, class t_Implementation>
-        class ARILES_VISIBILITY_ATTRIBUTE Base : public t_Base
+        class ARILES2_VISIBILITY_ATTRIBUTE Base : public t_Base
         {
         protected:
             typedef t_Implementation Impl;
@@ -51,7 +51,7 @@ namespace ariles
             }
         };
     }  // namespace ns_msgpack
-}  // namespace ariles
+}  // namespace ariles2
 
 
 
@@ -61,23 +61,23 @@ namespace ariles
 #include "./msgpack/writer_compact.h"
 
 
-namespace ariles
+namespace ariles2
 {
     /**
      * @brief MessagePack visitor.
      */
-    struct ARILES_VISIBILITY_ATTRIBUTE msgpack
+    struct ARILES2_VISIBILITY_ATTRIBUTE msgpack
     {
-        typedef ariles::cfgread::Visitor<ns_msgpack::Reader> Reader;
-        typedef ariles::cfgwrite::Visitor<ns_msgpack::Writer> Writer;
+        typedef ariles2::cfgread::Visitor<ns_msgpack::Reader> Reader;
+        typedef ariles2::cfgwrite::Visitor<ns_msgpack::Writer> Writer;
     };
-}  // namespace ariles
+}  // namespace ariles2
 
-namespace ariles
+namespace ariles2
 {
-    struct ARILES_VISIBILITY_ATTRIBUTE msgpack_compact
+    struct ARILES2_VISIBILITY_ATTRIBUTE msgpack_compact
     {
-        typedef ariles::cfgread::Visitor<ns_msgpack_compact::Reader> Reader;
-        typedef ariles::cfgwrite::Visitor<ns_msgpack_compact::Writer> Writer;
+        typedef ariles2::cfgread::Visitor<ns_msgpack_compact::Reader> Reader;
+        typedef ariles2::cfgwrite::Visitor<ns_msgpack_compact::Writer> Writer;
     };
-}  // namespace ariles
+}  // namespace ariles2

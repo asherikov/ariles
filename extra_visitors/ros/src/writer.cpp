@@ -12,13 +12,13 @@
 #include "common.h"
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_ros
     {
         namespace impl
         {
-            class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::ns_ros::ImplBase
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ariles2::ns_ros::ImplBase
             {
             public:
                 explicit Writer(const ::ros::NodeHandle &nh)
@@ -28,10 +28,10 @@ namespace ariles
             };
         }  // namespace impl
     }      // namespace ns_ros
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_ros
     {
@@ -81,8 +81,8 @@ namespace ariles
 
         void Writer::shiftArray()
         {
-            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ARILES_ASSERT(
+            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
             ++impl_->node_stack_.back().index_;
@@ -137,7 +137,7 @@ namespace ariles
         impl_->getRawNode() = element;                                                                                 \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
 
 #undef ARILES_BASIC_TYPE
 
@@ -146,14 +146,14 @@ namespace ariles
 #define ARILES_BASIC_TYPE(type)                                                                                        \
     void Writer::writeElement(const type &element)                                                                     \
     {                                                                                                                  \
-        ARILES_ASSERT(                                                                                                 \
+        ARILES2_ASSERT(                                                                                                 \
                 static_cast<int64_t>(element) <= std::numeric_limits<int>::max()                                       \
                         && static_cast<int64_t>(element) >= static_cast<int64_t>(std::numeric_limits<int>::min()),     \
                 "Value is out of range.");                                                                             \
         impl_->getRawNode() = static_cast<int>(element);                                                               \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
 #undef ARILES_BASIC_TYPE
 
@@ -161,14 +161,14 @@ namespace ariles
 #define ARILES_BASIC_TYPE(type)                                                                                        \
     void Writer::writeElement(const type &element)                                                                     \
     {                                                                                                                  \
-        ARILES_ASSERT(                                                                                                 \
+        ARILES2_ASSERT(                                                                                                 \
                 static_cast<uint64_t>(element) <= static_cast<uint64_t>(std::numeric_limits<int>::max()),              \
                 "Value is too large.");                                                                                \
         impl_->getRawNode() = static_cast<int>(element);                                                               \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
 
 #undef ARILES_BASIC_TYPE
     }  // namespace ns_ros
-}  // namespace ariles
+}  // namespace ariles2

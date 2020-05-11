@@ -34,8 +34,8 @@
 namespace demo
 {
     class ArilesBaseClass
-      // must inherit from ariles::DefaultBase
-      : public ariles::DefaultBase
+      // must inherit from ariles2::DefaultBase
+      : public ariles2::DefaultBase
     {
 // Declare entries, in this case two numbers
 #define ARILES_ENTRIES(v)                                                                                              \
@@ -53,7 +53,7 @@ namespace demo
 
         // This method is called every time you deserialize a class. If
         // omitted, the default automatically generated method is used.
-        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
             real_member = 0.0;
             integer_member_ = 12;
@@ -88,7 +88,7 @@ namespace demo
         virtual ~MyClass(){};  // added to suppress compiler warnings
 
 
-        void arilesVisit(const ariles::Defaults &visitor, const ariles::Defaults::Parameters &param)
+        void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
         {
             // If you use your own method to initialize member variables,
             // it is up to you to properly initialize all entries and
@@ -102,7 +102,7 @@ namespace demo
     };
 
 
-    class MyContainerClass : public ariles::DefaultBase
+    class MyContainerClass : public ariles2::DefaultBase
     {
         // Some of the standard containers can be used with Ariles types.
 #define ARILES_ENTRIES(v) ARILES_TYPED_ENTRY_(v, myclass_vector, std::vector<MyClass>)
@@ -124,7 +124,7 @@ int main()
     // access members as usual
     my_container_class.myclass_vector_.size();
     my_container_class.myclass_vector_.push_back(demo::MyClass());
-    ariles::apply<ariles::Defaults>(my_container_class.myclass_vector_[0]);
+    ariles2::apply<ariles2::Defaults>(my_container_class.myclass_vector_[0]);
 
 
     // YAML
@@ -142,20 +142,20 @@ int main()
      */
     {
         // You can read and write YAML configuration files as follows:
-        ariles::apply<ariles::yaml_cpp::Writer>("config.yaml", my_container_class);
-        ariles::apply<ariles::yaml_cpp::Reader>("config.yaml", my_container_class);
+        ariles2::apply<ariles2::yaml_cpp::Writer>("config.yaml", my_container_class);
+        ariles2::apply<ariles2::yaml_cpp::Reader>("config.yaml", my_container_class);
 
         // Sometimes it may be useful to dump configuration to std::cout
-        ariles::apply<ariles::yaml_cpp::Writer>(std::cout, my_container_class);
+        ariles2::apply<ariles2::yaml_cpp::Writer>(std::cout, my_container_class);
 
         // In some situations it is more convenient to instantiate Reader and
         // Writer classes explicitly, e.g., if you keep configurations of several
         // classses in the same file
-        ariles::yaml_cpp::Writer writer("config.yaml");
-        ariles::apply(writer, my_container_class);
+        ariles2::yaml_cpp::Writer writer("config.yaml");
+        ariles2::apply(writer, my_container_class);
 
-        ariles::yaml_cpp::Reader reader("config.yaml");
-        ariles::apply(reader, my_container_class);
+        ariles2::yaml_cpp::Reader reader("config.yaml");
+        ariles2::apply(reader, my_container_class);
     }
 
 
@@ -164,28 +164,28 @@ int main()
         ros::NodeHandle nh;
 
         // read/write
-        ariles::apply<ariles::ros::Writer>(nh, my_container_class);
-        ariles::apply<ariles::ros::Reader>(nh, my_container_class);
+        ariles2::apply<ariles2::ros::Writer>(nh, my_container_class);
+        ariles2::apply<ariles2::ros::Reader>(nh, my_container_class);
         // parameters can be uploaded to parameter server in advance using
         // roslaunch, see http://wiki.ros.org/roslaunch/XML/rosparam
 
         // read/write with namespace
-        ariles::apply<ariles::ros::Writer>(nh, my_container_class, "/some_namespace/");
-        ariles::apply<ariles::ros::Reader>(nh, my_container_class, "/some_namespace/");
+        ariles2::apply<ariles2::ros::Writer>(nh, my_container_class, "/some_namespace/");
+        ariles2::apply<ariles2::ros::Reader>(nh, my_container_class, "/some_namespace/");
 
         // Reader / Wrter classes
-        ariles::ros::Writer writer(nh);
-        ariles::apply(writer, my_container_class);
+        ariles2::ros::Writer writer(nh);
+        ariles2::apply(writer, my_container_class);
 
-        ariles::ros::Reader reader(nh);
-        ariles::apply(reader, my_container_class);
+        ariles2::ros::Reader reader(nh);
+        ariles2::apply(reader, my_container_class);
     }
 
 
     // Octave
     {
         // Octave visitor supports only writing
-        ariles::apply<ariles::octave::Writer>("debug.m", my_container_class);
+        ariles2::apply<ariles2::octave::Writer>("debug.m", my_container_class);
         // the generated file can later be loaded in Octave with
         // 'source debug.m' for debugging
     }

@@ -12,16 +12,16 @@
 
 #include "common.h"
 
-namespace ariles
+namespace ariles2
 {
     namespace count
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Parameters
+        class ARILES2_VISIBILITY_ATTRIBUTE Parameters
         {
         };
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Base<visitor::Visitor, count::Parameters>
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public ariles2::visitor::Base<visitor::Visitor, count::Parameters>
         {
         public:
             typedef count::Parameters Parameters;
@@ -57,7 +57,7 @@ namespace ariles
 
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Base
+        class ARILES2_VISIBILITY_ATTRIBUTE Base
         {
         public:
             virtual std::size_t arilesVirtualVisit(const Visitor &, const Visitor::Parameters &) const = 0;
@@ -76,24 +76,24 @@ namespace ariles
 
 #define ARILES_VISIT_count                                                                                             \
     std::size_t arilesVisit(                                                                                           \
-            const ariles::count::Visitor &visitor, const ariles::count::Visitor::Parameters &parameters) const         \
+            const ariles2::count::Visitor &visitor, const ariles2::count::Visitor::Parameters &parameters) const         \
     {                                                                                                                  \
-        ARILES_UNUSED_ARG(visitor);                                                                                    \
-        ARILES_UNUSED_ARG(parameters);                                                                                 \
+        ARILES2_UNUSED_ARG(visitor);                                                                                    \
+        ARILES2_UNUSED_ARG(parameters);                                                                                 \
         ARILES_TRACE_FUNCTION;                                                                                         \
         return (0 ARILES_ENTRIES(count));                                                                              \
     }
 
 #define ARILES_METHODS_count                                                                                           \
     virtual std::size_t arilesVirtualVisit(                                                                            \
-            const ariles::count::Visitor &visitor, const ariles::count::Visitor::Parameters &param) const              \
+            const ariles2::count::Visitor &visitor, const ariles2::count::Visitor::Parameters &param) const              \
     {                                                                                                                  \
         ARILES_TRACE_FUNCTION;                                                                                         \
         return (this->arilesVisit(visitor, param));                                                                    \
     }                                                                                                                  \
-    using ariles::count::Base::arilesGetParameters;
+    using ariles2::count::Base::arilesGetParameters;
     }  // namespace count
 
 
     typedef count::Visitor Count;
-}  // namespace ariles
+}  // namespace ariles2

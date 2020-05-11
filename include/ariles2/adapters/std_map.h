@@ -14,12 +14,12 @@
 #include "../internal/helpers.h"
 #include "../visitors/serialization.h"
 
-namespace ariles
+namespace ariles2
 {
     namespace read
     {
         template <class t_Visitor, typename t_Key, typename t_Value, class t_Compare, class t_Allocator>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
                 std::map<t_Key, t_Value, t_Compare, t_Allocator> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -42,7 +42,7 @@ namespace ariles
 
 
         template <class t_Visitor, typename t_Value, class t_Compare, class t_Allocator>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
                 std::map<std::string, t_Value, t_Compare, t_Allocator> &entry,
                 const typename t_Visitor::Parameters &parameters)
@@ -52,11 +52,11 @@ namespace ariles
                 && parameters.isSet(t_Visitor::Parameters::SLOPPY_MAPS_IF_SUPPORTED))
             {
                 std::vector<std::string> entry_names;
-                ARILES_ASSERT(true == visitor.getMapEntryNames(entry_names), "Could not read names of map entries.");
+                ARILES2_ASSERT(true == visitor.getMapEntryNames(entry_names), "Could not read names of map entries.");
                 entry.clear();
                 visitor.template startMap<t_Visitor::SIZE_LIMIT_NONE>();
 
-                ariles::ConfigurableFlags param = parameters;
+                ariles2::ConfigurableFlags param = parameters;
                 // if entry is in the map, we should be able to read it
                 param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
 
@@ -75,15 +75,15 @@ namespace ariles
             }
         }
     }  // namespace read
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace write
     {
         template <class t_Visitor, typename t_Key, typename t_Value, class t_Compare, class t_Allocator>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
                 t_Visitor &writer,
                 const std::map<t_Key, t_Value, t_Compare, t_Allocator> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -102,7 +102,7 @@ namespace ariles
 
 
         template <class t_Visitor, typename t_Value, class t_Compare, class t_Allocator>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
                 t_Visitor &writer,
                 const std::map<std::string, t_Value, t_Compare, t_Allocator> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -126,15 +126,15 @@ namespace ariles
             }
         }
     }  // namespace write
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace compare
     {
         template <class t_Visitor, typename t_Key, typename t_Value, class t_Compare, class t_Allocator>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
                 t_Visitor &visitor,
                 const std::map<t_Key, t_Value, t_Compare, t_Allocator> &left,
                 const std::map<t_Key, t_Value, t_Compare, t_Allocator> &right,
@@ -155,16 +155,16 @@ namespace ariles
             }
         }
     }  // namespace compare
-}  // namespace ariles
+}  // namespace ariles2
 
 
 
-namespace ariles
+namespace ariles2
 {
     namespace defaults
     {
         template <class t_Visitor, typename t_Key, typename t_Value, class t_Compare, class t_Allocator>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
                 const t_Visitor & /*visitor*/,
                 std::map<t_Key, t_Value, t_Compare, t_Allocator> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
@@ -173,15 +173,15 @@ namespace ariles
             entry.clear();
         }
     }  // namespace defaults
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace process
     {
         template <class t_Visitor, typename t_Key, typename t_Value, class t_Compare, class t_Allocator>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_process(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_process(
                 const t_Visitor &visitor,
                 std::map<t_Key, t_Value, t_Compare, t_Allocator> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -196,4 +196,4 @@ namespace ariles
             }
         }
     }  // namespace process
-}  // namespace ariles
+}  // namespace ariles2

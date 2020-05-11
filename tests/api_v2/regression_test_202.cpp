@@ -53,7 +53,7 @@
             ComparisonViaBaseFixture##_##VISITOR_ID##_##INITIALIZER,                                                   \
             ariles_tests::ComparisonViaBaseFixture<ariles_tests::initializers::INITIALIZER>)                           \
     {                                                                                                                  \
-        test<ariles_tests::ConfigurableBase, ariles_tests::ConfigurableDerived, ariles::NAMESPACE>();                  \
+        test<ariles_tests::ConfigurableBase, ariles_tests::ConfigurableDerived, ariles2::NAMESPACE>();                  \
     }
 
 

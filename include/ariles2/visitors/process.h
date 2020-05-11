@@ -12,12 +12,12 @@
 
 #include "common.h"
 
-namespace ariles
+namespace ariles2
 {
     namespace process
     {
         template <class t_Derived, class t_Parameters>
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public ariles::visitor::Base<visitor::GenericVisitor, t_Parameters>
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public ariles2::visitor::Base<visitor::GenericVisitor, t_Parameters>
         {
         public:
             typedef t_Parameters Parameters;
@@ -44,7 +44,7 @@ namespace ariles
             template <class t_Entry>
             void operator()(t_Entry &entry, const std::string &name, const Parameters &param) const
             {
-                ARILES_UNUSED_ARG(name);
+                ARILES2_UNUSED_ARG(name);
                 ARILES_TRACE_FUNCTION;
                 ARILES_TRACE_ENTRY(name);
                 ARILES_TRACE_TYPE(entry);
@@ -52,4 +52,4 @@ namespace ariles
             }
         };
     }  // namespace process
-}  // namespace ariles
+}  // namespace ariles2

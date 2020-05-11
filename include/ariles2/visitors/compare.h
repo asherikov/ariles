@@ -12,11 +12,11 @@
 
 #include "common.h"
 
-namespace ariles
+namespace ariles2
 {
     namespace compare
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Parameters
+        class ARILES2_VISIBILITY_ATTRIBUTE Parameters
         {
         public:
             double float_tolerance_;
@@ -52,7 +52,7 @@ namespace ariles
         };
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::Visitor, compare::Parameters>
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::Visitor, compare::Parameters>
         {
         public:
             typedef compare::Parameters Parameters;
@@ -66,7 +66,7 @@ namespace ariles
             template <class t_Left, class t_Right>
             bool compare(const t_Left &left, const t_Right &right, const Parameters &param)
             {
-                ariles::apply(*this, left, right, param);
+                ariles2::apply(*this, left, right, param);
                 return (equal_);
             }
 
@@ -133,12 +133,12 @@ namespace ariles
                     apply_compare(*this, left, right, param);
                     if (false == this->equal_ and true == param.throw_on_error_)
                     {
-                        ARILES_THROW("");
+                        ARILES2_THROW("");
                     }
                 }
                 catch (const std::exception &e)
                 {
-                    ARILES_THROW("entry: " + name + " // " + std::string(e.what()));
+                    ARILES2_THROW("entry: " + name + " // " + std::string(e.what()));
                 }
             }
         };
@@ -163,19 +163,19 @@ namespace ariles
 #define ARILES_VISIT_compare                                                                                           \
     template <class t_Other>                                                                                           \
     void arilesVisit(                                                                                                  \
-            ariles::compare::Visitor &visitor,                                                                         \
+            ariles2::compare::Visitor &visitor,                                                                         \
             const t_Other &other,                                                                                      \
-            const typename ariles::compare::Visitor::Parameters &parameters) const                                     \
+            const typename ariles2::compare::Visitor::Parameters &parameters) const                                     \
     {                                                                                                                  \
-        ARILES_UNUSED_ARG(visitor);                                                                                    \
-        ARILES_UNUSED_ARG(other);                                                                                      \
-        ARILES_UNUSED_ARG(parameters);                                                                                 \
+        ARILES2_UNUSED_ARG(visitor);                                                                                    \
+        ARILES2_UNUSED_ARG(other);                                                                                      \
+        ARILES2_UNUSED_ARG(parameters);                                                                                 \
         ARILES_TRACE_FUNCTION;                                                                                         \
         ARILES_ENTRIES(compare)                                                                                        \
     }
 
 #define ARILES_METHODS_compare                                                                                         \
-    const ariles::compare::Visitor::Parameters &arilesGetParameters(const ariles::compare::Visitor &visitor) const     \
+    const ariles2::compare::Visitor::Parameters &arilesGetParameters(const ariles2::compare::Visitor &visitor) const     \
     {                                                                                                                  \
         ARILES_TRACE_FUNCTION;                                                                                         \
         return (visitor.getDefaultParameters());                                                                       \
@@ -184,4 +184,4 @@ namespace ariles
 
 
     typedef compare::Visitor Compare;
-}  // namespace ariles
+}  // namespace ariles2

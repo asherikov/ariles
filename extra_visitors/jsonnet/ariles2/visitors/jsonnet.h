@@ -17,12 +17,12 @@
 #include "./jsonnet/reader.h"
 
 
-namespace ariles
+namespace ariles2
 {
     template <class t_ParentVisitor>
-    struct ARILES_VISIBILITY_ATTRIBUTE jsonnet
+    struct ARILES2_VISIBILITY_ATTRIBUTE jsonnet
     {
-        typedef ariles::cfgread::Visitor<ns_jsonnet::Reader<typename t_ParentVisitor::ReaderBase> > Reader;
-        typedef ariles::cfgwrite::Visitor<typename t_ParentVisitor::WriterBase> Writer;
+        typedef ariles2::cfgread::Visitor<ns_jsonnet::Reader<typename t_ParentVisitor::ReaderBase> > Reader;
+        typedef ariles2::cfgwrite::Visitor<typename t_ParentVisitor::WriterBase> Writer;
     };
-}  // namespace ariles
+}  // namespace ariles2

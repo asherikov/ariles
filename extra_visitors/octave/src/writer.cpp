@@ -16,21 +16,21 @@
 #include <boost/lexical_cast.hpp>
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_octave
     {
-        typedef ariles::Node<std::string> NodeWrapper;
+        typedef ariles2::Node<std::string> NodeWrapper;
     }
-}  // namespace ariles
+}  // namespace ariles2
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_octave
     {
         namespace impl
         {
-            class ARILES_VISIBILITY_ATTRIBUTE Writer
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer
             {
             public:
                 std::vector<NodeWrapper> node_stack_;
@@ -55,7 +55,7 @@ namespace ariles
             public:
                 explicit Writer(const std::string &file_name)
                 {
-                    ariles::write::Visitor::openFile(config_ofs_, file_name);
+                    ariles2::write::Visitor::openFile(config_ofs_, file_name);
                     output_stream_ = &config_ofs_;
                     initEmitter();
                 }
@@ -68,9 +68,9 @@ namespace ariles
             };
         }  // namespace impl
     }      // namespace ns_octave
-}  // namespace ariles
+}  // namespace ariles2
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_octave
     {
@@ -148,7 +148,7 @@ namespace ariles
 
         void Writer::shiftArray()
         {
-            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: array expected.");
+            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: array expected.");
             ++impl_->node_stack_.back().index_;
         }
 
@@ -221,7 +221,7 @@ namespace ariles
         }                                                                                                              \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
 
 #undef ARILES_BASIC_TYPE
 
@@ -236,4 +236,4 @@ namespace ariles
             *impl_->output_stream_ << " = '" << element << "';\n";
         }
     }  // namespace ns_octave
-}  // namespace ariles
+}  // namespace ariles2

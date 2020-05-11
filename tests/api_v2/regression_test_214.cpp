@@ -90,6 +90,6 @@ ARILES_TESTS_SHORTCUT(rapidjson, FilenameInitializer)
 #ifdef ARILES_VISITOR_INCLUDED_jsonnet
 // A dirty hack to avoid fixture, which is known to fail for JSON.
 #    define ComparisonMultiFixture ComparisonSimpleFixture
-ARILES_TESTS(rapidjson_jsonnet, jsonnet<ariles::rapidjson>, FilenameInitializer)
+ARILES_TESTS(rapidjson_jsonnet, jsonnet<ariles2::rapidjson>, FilenameInitializer)
 #    undef ComparisonMultiFixture
 #endif

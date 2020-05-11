@@ -17,20 +17,20 @@
 #include <ariles2/visitors/config.h>
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_octave
     {
         namespace impl
         {
-            class ARILES_VISIBILITY_ATTRIBUTE Writer;
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer;
         }
 
 
         /**
          * @brief Configuration writer class
          */
-        class ARILES_VISIBILITY_ATTRIBUTE Writer : public ariles::write::Visitor
+        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ariles2::write::Visitor
         {
         protected:
             typedef impl::Writer Impl;
@@ -74,21 +74,21 @@ namespace ariles
 
 #define ARILES_BASIC_TYPE(type) void writeElement(const type &element);
 
-            ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+            ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
 #undef ARILES_BASIC_TYPE
         };
     }  // namespace ns_octave
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     /**
      * @brief Octave visitor.
      */
-    struct ARILES_VISIBILITY_ATTRIBUTE octave
+    struct ARILES2_VISIBILITY_ATTRIBUTE octave
     {
-        typedef ariles::cfgwrite::Visitor<ns_octave::Writer> Writer;
+        typedef ariles2::cfgwrite::Visitor<ns_octave::Writer> Writer;
     };
-}  // namespace ariles
+}  // namespace ariles2

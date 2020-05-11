@@ -11,13 +11,13 @@
 
 #include "common.h"
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_pugixml
     {
         namespace impl
         {
-            class ARILES_VISIBILITY_ATTRIBUTE Reader
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader
             {
             public:
                 pugi::xml_document document_;
@@ -38,10 +38,10 @@ namespace ariles
             };
         }  // namespace impl
     }      // namespace ns_pugixml
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_pugixml
     {
@@ -50,7 +50,7 @@ namespace ariles
             impl_ = ImplPtr(new Impl());
 
             pugi::xml_parse_result result = impl_->document_.load_file(file_name.c_str(), pugi::parse_minimal);
-            ARILES_ASSERT(
+            ARILES2_ASSERT(
                     true == result, std::string("Parsing of '") + file_name + "' failed: " + result.description());
             impl_->node_stack_.push_back(impl_->document_);
         }
@@ -61,7 +61,7 @@ namespace ariles
             impl_ = ImplPtr(new Impl());
 
             pugi::xml_parse_result result = impl_->document_.load(input_stream, pugi::parse_minimal);
-            ARILES_ASSERT(true == result, std::string("Parsing failed: ") + result.description());
+            ARILES2_ASSERT(true == result, std::string("Parsing failed: ") + result.description());
             impl_->node_stack_.push_back(impl_->document_);
         }
 
@@ -152,8 +152,8 @@ namespace ariles
 
         void Reader::shiftArray()
         {
-            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ARILES_ASSERT(
+            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
             impl_->node_stack_.back().node_ = impl_->getRawNode().next_sibling(impl_->getRawNode().name());
@@ -196,12 +196,12 @@ namespace ariles
 #define ARILES_BASIC_TYPE(type)                                                                                        \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
-        ARILES_ASSERT(false == impl_->getRawNode().text().empty(), "Empty integer elements are not allowed.");         \
+        ARILES2_ASSERT(false == impl_->getRawNode().text().empty(), "Empty integer elements are not allowed.");         \
         element = boost::lexical_cast<type>(impl_->getRawNode().text().as_string());                                   \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
 
 #undef ARILES_BASIC_TYPE
     }  // namespace ns_pugixml
-}  // namespace ariles
+}  // namespace ariles2

@@ -10,20 +10,20 @@
 
 #pragma once
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_pugixml
     {
         namespace impl
         {
-            class ARILES_VISIBILITY_ATTRIBUTE Writer;
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer;
         }
 
 
         /**
          * @brief Configuration writer class
          */
-        class ARILES_VISIBILITY_ATTRIBUTE Writer : public ns_pugixml::Base<ariles::write::Visitor, impl::Writer>
+        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ns_pugixml::Base<ariles2::write::Visitor, impl::Writer>
         {
         public:
             explicit Writer(const std::string &file_name);
@@ -53,9 +53,9 @@ namespace ariles
 
 #define ARILES_BASIC_TYPE(type) void writeElement(const type &element);
 
-            ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+            ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
 #undef ARILES_BASIC_TYPE
         };
     }  // namespace ns_pugixml
-}  // namespace ariles
+}  // namespace ariles2

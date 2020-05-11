@@ -13,11 +13,11 @@
 #include <limits>
 #include "common.h"
 
-namespace ariles
+namespace ariles2
 {
     namespace defaults
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Parameters
+        class ARILES2_VISIBILITY_ATTRIBUTE Parameters
         {
         public:
             double default_double_value_;
@@ -47,8 +47,8 @@ namespace ariles
         };
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor
-          : public ariles::visitor::Base<visitor::GenericVisitor, defaults::Parameters>
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor
+          : public ariles2::visitor::Base<visitor::GenericVisitor, defaults::Parameters>
         {
         public:
             typedef defaults::Parameters Parameters;
@@ -74,7 +74,7 @@ namespace ariles
             template <class t_Entry>
             void operator()(t_Entry &entry, const std::string &name, const Parameters &param) const
             {
-                ARILES_UNUSED_ARG(name);
+                ARILES2_UNUSED_ARG(name);
                 ARILES_TRACE_FUNCTION;
                 ARILES_TRACE_ENTRY(name);
                 ARILES_TRACE_TYPE(entry);
@@ -107,7 +107,7 @@ namespace ariles
         }
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Base : public entry::Base<const defaults::Visitor>
+        class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::Base<const defaults::Visitor>
         {
         public:
         };
@@ -119,4 +119,4 @@ namespace ariles
 
 
     typedef defaults::Visitor Defaults;
-}  // namespace ariles
+}  // namespace ariles2

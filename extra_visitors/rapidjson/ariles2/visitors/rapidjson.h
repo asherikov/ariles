@@ -17,11 +17,11 @@
 #include <ariles2/visitors/config.h>
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_rapidjson
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Flags : public ariles::Flags<unsigned int, Flags>
+        class ARILES2_VISIBILITY_ATTRIBUTE Flags : public ariles2::Flags<unsigned int, Flags>
         {
         public:
             enum Enum
@@ -55,7 +55,7 @@ namespace ariles
 
 
         template <class t_Base, class t_Implementation>
-        class ARILES_VISIBILITY_ATTRIBUTE Base : public t_Base
+        class ARILES2_VISIBILITY_ATTRIBUTE Base : public t_Base
         {
         protected:
             typedef t_Implementation Impl;
@@ -86,26 +86,26 @@ namespace ariles
             }
         };
     }  // namespace ns_rapidjson
-}  // namespace ariles
+}  // namespace ariles2
 
 
 #include "./rapidjson/reader.h"
 #include "./rapidjson/writer.h"
 
 
-namespace ariles
+namespace ariles2
 {
     /**
      * @brief JSON visitor.
      */
-    struct ARILES_VISIBILITY_ATTRIBUTE rapidjson
+    struct ARILES2_VISIBILITY_ATTRIBUTE rapidjson
     {
-        typedef ariles::ns_rapidjson::Flags Flags;
+        typedef ariles2::ns_rapidjson::Flags Flags;
 
         typedef ns_rapidjson::Reader ReaderBase;
         typedef ns_rapidjson::Writer WriterBase;
 
-        typedef ariles::cfgread::Visitor<ns_rapidjson::Reader> Reader;
-        typedef ariles::cfgwrite::Visitor<ns_rapidjson::Writer> Writer;
+        typedef ariles2::cfgread::Visitor<ns_rapidjson::Reader> Reader;
+        typedef ariles2::cfgwrite::Visitor<ns_rapidjson::Writer> Writer;
     };
-}  // namespace ariles
+}  // namespace ariles2

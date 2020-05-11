@@ -13,7 +13,7 @@
 #include <ariles2/visitors/rapidjson.h>
 
 // If no format header is included, ariles is disabled, and
-// ariles::ConfigurableBase is just a dummy class.
+// ariles2::ConfigurableBase is just a dummy class.
 #include <ariles2/ariles.h>
 
 
@@ -80,23 +80,23 @@ namespace ariles_tests
 
             BOOST_CHECK_NO_THROW(std::ofstream output_file_stream; output_file_stream.open("configurable.cfg");
                                  typename t_Visitor::Writer visitor(
-                                         output_file_stream, ariles::rapidjson::Flags::DISABLE_STRING_FLOATS););
+                                         output_file_stream, ariles2::rapidjson::Flags::DISABLE_STRING_FLOATS););
 
             BOOST_CHECK_NO_THROW(std::ifstream input_file_stream;
                                  input_file_stream.open("regression_test_223_float.json");
                                  typename t_Visitor::Reader visitor(
-                                         input_file_stream, ariles::rapidjson::Flags::DISABLE_STRING_FLOATS););
+                                         input_file_stream, ariles2::rapidjson::Flags::DISABLE_STRING_FLOATS););
 
 
             BOOST_CHECK_NO_THROW(typename t_Visitor::Writer writer(
-                                         "configurable.cfg", ariles::rapidjson::Flags::DISABLE_STRING_FLOATS);
-                                 ariles::apply(writer, configurable););
+                                         "configurable.cfg", ariles2::rapidjson::Flags::DISABLE_STRING_FLOATS);
+                                 ariles2::apply(writer, configurable););
 
             BOOST_CHECK_EQUAL(0, system("cmp configurable.cfg regression_test_223_float.json"));
 
 
             BOOST_CHECK_NO_THROW(typename t_Visitor::Writer writer("configurable.cfg");
-                                 ariles::apply(writer, configurable););
+                                 ariles2::apply(writer, configurable););
 
             BOOST_CHECK_EQUAL(0, system("cmp configurable.cfg regression_test_223_string.json"));
         }

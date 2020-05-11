@@ -11,7 +11,7 @@
 
 namespace ariles_tests
 {
-    class ConfigurableNoSetDefaults : public ariles::DefaultBase
+    class ConfigurableNoSetDefaults : public ariles2::DefaultBase
     {
 #define ARILES_ENTRIES(v)                                                                                              \
     ARILES_TYPED_ENTRY_(v, integer, int)                                                                               \
@@ -24,8 +24,8 @@ namespace ariles_tests
     public:
         ConfigurableNoSetDefaults()
         {
-            ariles::apply<ariles::Defaults>(*this);
-            ariles::apply<ariles::PostProcess>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
+            ariles2::apply<ariles2::PostProcess>(*this);
         }
 
 
@@ -35,7 +35,7 @@ namespace ariles_tests
             boost::random::random_device random_generator;
             integer_ = GET_RANDOM_INT;
             real_ = GET_RANDOM_REAL;
-            ariles::apply<ariles::PostProcess>(*this);
+            ariles2::apply<ariles2::PostProcess>(*this);
         }
 #endif
     };

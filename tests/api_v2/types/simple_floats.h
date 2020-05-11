@@ -13,7 +13,7 @@
 
 namespace ariles_tests
 {
-    class ConfigurableSimpleFloats : public ariles::DefaultBase
+    class ConfigurableSimpleFloats : public ariles2::DefaultBase
     {
 #define ARILES_ENTRIES(v)                                                                                              \
     ARILES_TYPED_ENTRY_(v, float_member, float)                                                                        \
@@ -24,11 +24,11 @@ namespace ariles_tests
     public:
         ConfigurableSimpleFloats()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
 
-        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
             float_member_ = 1;
             double_member_ = 1;
@@ -38,8 +38,8 @@ namespace ariles_tests
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
         void randomize()
         {
-            ariles::apply<ariles::Defaults>(*this);
-            ariles::apply<ariles::PostProcess>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
+            ariles2::apply<ariles2::PostProcess>(*this);
         }
 #endif
     };

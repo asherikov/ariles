@@ -19,13 +19,13 @@
 #include "./array/writer.h"
 
 
-namespace ariles
+namespace ariles2
 {
     /**
      * @brief Array visitor.
      */
-    struct ARILES_VISIBILITY_ATTRIBUTE array
+    struct ARILES2_VISIBILITY_ATTRIBUTE array
     {
-        typedef ariles::cfgwrite::Visitor<ns_array::Writer> Writer;
+        typedef ariles2::cfgwrite::Visitor<ns_array::Writer> Writer;
     };
-}  // namespace ariles
+}  // namespace ariles2

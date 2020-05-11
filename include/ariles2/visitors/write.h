@@ -12,11 +12,11 @@
 
 #include "serialization.h"
 
-namespace ariles
+namespace ariles2
 {
     namespace write
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public serialization::Base
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public serialization::Base
         {
         protected:
             Visitor(){};
@@ -34,7 +34,7 @@ namespace ariles
             {
                 config_ofs.open(file_name.c_str());
 
-                ARILES_PERSISTENT_ASSERT(
+                ARILES2_PERSISTENT_ASSERT(
                         true == config_ofs.good(),
                         std::string("Could not open configuration file for writing: ") + file_name.c_str());
             }
@@ -53,7 +53,7 @@ namespace ariles
              */
             virtual void descend(const std::string &map_name)
             {
-                ARILES_UNUSED_ARG(map_name)
+                ARILES2_UNUSED_ARG(map_name)
             }
             virtual void ascend()
             {
@@ -67,7 +67,7 @@ namespace ariles
              */
             virtual void startMap(const std::size_t num_entries)
             {
-                ARILES_UNUSED_ARG(num_entries)
+                ARILES2_UNUSED_ARG(num_entries)
             }
 
             /**
@@ -88,7 +88,7 @@ namespace ariles
 
             virtual void startMatrix(const bool compact = false)
             {
-                ARILES_UNUSED_ARG(compact)
+                ARILES2_UNUSED_ARG(compact)
             }
             virtual void startMatrixRow()
             {
@@ -152,7 +152,7 @@ namespace ariles
 
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Base : public entry::ConstBase<write::Visitor>
+        class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::ConstBase<write::Visitor>
         {
         };
 
@@ -162,4 +162,4 @@ namespace ariles
 
 
     typedef write::Visitor Write;
-}  // namespace ariles
+}  // namespace ariles2

@@ -13,7 +13,7 @@
 #include <boost/optional.hpp>
 #include "../internal/helpers.h"
 
-namespace ariles
+namespace ariles2
 {
     template <class t_Value>
     class PointerHandler<boost::optional<t_Value> >
@@ -39,7 +39,7 @@ namespace ariles
             return (boost::none == ptr);
         }
     };
-}  // namespace ariles
+}  // namespace ariles2
 
 #define ARILES_POINTER_TYPE boost::optional
 #include <ariles2/adapters/generic_pointer.h>

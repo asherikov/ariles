@@ -11,9 +11,9 @@
 #pragma once
 
 
-namespace ariles
+namespace ariles2
 {
-    class ARILES_VISIBILITY_ATTRIBUTE ConfigurableFlags : public ariles::Flags<unsigned int, ConfigurableFlags>
+    class ARILES2_VISIBILITY_ATTRIBUTE ConfigurableFlags : public ariles2::Flags<unsigned int, ConfigurableFlags>
     {
     public:
         enum Flags
@@ -53,4 +53,4 @@ namespace ariles
             flags_ = DEFAULT;
         }
     };
-}  // namespace ariles
+}  // namespace ariles2

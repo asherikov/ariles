@@ -102,20 +102,20 @@
     ARILES_BASIC_TYPE(std::string)
 
 
-#ifndef ARILES_VISIBILITY_ATTRIBUTE
+#ifndef ARILES2_VISIBILITY_ATTRIBUTE
 #    include "cpput_visibility.h"
-#    define ARILES_VISIBILITY_ATTRIBUTE ARILES_LIB_EXPORT
+#    define ARILES2_VISIBILITY_ATTRIBUTE ARILES2_LIB_EXPORT
 #endif
 
 
-namespace ariles
+namespace ariles2
 {
     // intentionally not defined
     template <class t_Pointer>
-    class ARILES_VISIBILITY_ATTRIBUTE PointerHandler;
+    class ARILES2_VISIBILITY_ATTRIBUTE PointerHandler;
 
 
-    class ARILES_VISIBILITY_ATTRIBUTE Ariles
+    class ARILES2_VISIBILITY_ATTRIBUTE Ariles
     {
     protected:
         ~Ariles()
@@ -128,4 +128,4 @@ namespace ariles
     public:
         virtual const std::string &arilesDefaultID() const = 0;
     };
-}  // namespace ariles
+}  // namespace ariles2

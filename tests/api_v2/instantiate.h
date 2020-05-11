@@ -34,8 +34,8 @@ ARILES_TESTS_SHORTCUT(rapidjson, FilenameInitializer)
 ARILES_TESTS_SHORTCUT(rapidjson, StreamInitializer)
 
 #    ifdef ARILES_VISITOR_INCLUDED_jsonnet
-ARILES_TESTS(rapidjson_jsonnet, jsonnet<ariles::rapidjson>, FilenameInitializer)
-ARILES_TESTS(rapidjson_jsonnet, jsonnet<ariles::rapidjson>, StreamInitializer)
+ARILES_TESTS(rapidjson_jsonnet, jsonnet<ariles2::rapidjson>, FilenameInitializer)
+ARILES_TESTS(rapidjson_jsonnet, jsonnet<ariles2::rapidjson>, StreamInitializer)
 #    endif
 #    undef ComparisonMultiFixture
 #endif

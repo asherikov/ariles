@@ -13,7 +13,7 @@
 
 namespace ariles_tests
 {
-    class ConfigurableAutoDeclare : public ariles::DefaultBase
+    class ConfigurableAutoDeclare : public ariles2::DefaultBase
     {
 // optional, but what is the point in omitting it?
 // members can be defined manually, see ConfigurableVerbose
@@ -27,11 +27,11 @@ namespace ariles_tests
     public:
         ConfigurableAutoDeclare()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
 
-        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
             integer_ = 10;
             real_ = 1.33;
@@ -44,7 +44,7 @@ namespace ariles_tests
             boost::random::random_device random_generator;
             integer_ = GET_RANDOM_INT;
             real_ = GET_RANDOM_REAL;
-            ariles::apply<ariles::PostProcess>(*this);
+            ariles2::apply<ariles2::PostProcess>(*this);
         }
 #endif
     };

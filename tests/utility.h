@@ -57,7 +57,7 @@ namespace ariles_tests
             FIXTURE_NAME##_##VISITOR_ID##_##CONFIGURABLE_TYPE##_##INITIALIZER_TYPE,                                    \
             ariles_tests::FIXTURE_NAME<ariles_tests::initializers::INITIALIZER_TYPE>)                                  \
     {                                                                                                                  \
-        test<ariles_tests::CONFIGURABLE_TYPE, ariles::FORMAT_NAMESPACE>();                                             \
+        test<ariles_tests::CONFIGURABLE_TYPE, ariles2::FORMAT_NAMESPACE>();                                             \
     }
 
 #define ARILES_FIXTURE_TEST_CASE_2CLASSES(                                                                             \
@@ -66,7 +66,7 @@ namespace ariles_tests
             FIXTURE_NAME##_##VISITOR_ID##_##CONFIGURABLE_TYPE1##_##CONFIGURABLE_TYPE2##_##INITIALIZER_TYPE,            \
             ariles_tests::FIXTURE_NAME<ariles_tests::initializers::INITIALIZER_TYPE>)                                  \
     {                                                                                                                  \
-        test<ariles_tests::CONFIGURABLE_TYPE1, ariles_tests::CONFIGURABLE_TYPE2, ariles::FORMAT_NAMESPACE>();          \
+        test<ariles_tests::CONFIGURABLE_TYPE1, ariles_tests::CONFIGURABLE_TYPE2, ariles2::FORMAT_NAMESPACE>();          \
     }
 
 // -----

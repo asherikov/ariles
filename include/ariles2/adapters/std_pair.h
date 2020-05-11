@@ -14,12 +14,12 @@
 #include "../internal/helpers.h"
 #include "../visitors/serialization.h"
 
-namespace ariles
+namespace ariles2
 {
     namespace read
     {
         template <class t_Visitor, typename t_First, typename t_Second>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
                 std::pair<t_First, t_Second> &entry,
                 const typename t_Visitor::Parameters &parameters)
@@ -27,7 +27,7 @@ namespace ariles
             ARILES_TRACE_FUNCTION;
             visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(2);
 
-            ariles::ConfigurableFlags param = parameters;
+            ariles2::ConfigurableFlags param = parameters;
             param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
 
             visitor(entry.first, "first", param);
@@ -37,7 +37,7 @@ namespace ariles
 
 
         template <class t_Visitor, typename t_Second>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
                 std::pair<std::string, t_Second> &entry,
                 const typename t_Visitor::Parameters &parameters)
@@ -47,10 +47,10 @@ namespace ariles
                 && parameters.isSet(t_Visitor::Parameters::SLOPPY_PAIRS_IF_SUPPORTED))
             {
                 std::vector<std::string> entry_names;
-                ARILES_ASSERT(true == visitor.getMapEntryNames(entry_names), "Could not read names of map entries.");
+                ARILES2_ASSERT(true == visitor.getMapEntryNames(entry_names), "Could not read names of map entries.");
                 if (1 == entry_names.size())
                 {
-                    ariles::ConfigurableFlags param = parameters;
+                    ariles2::ConfigurableFlags param = parameters;
                     // if entry is in the map, we should be able to read it
                     param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
 
@@ -67,7 +67,7 @@ namespace ariles
                 {
                     // size = 0 is ok if missing entries are allowed.
                     // size > 1 is never ok, due to ambiguity.
-                    ARILES_ASSERT(
+                    ARILES2_ASSERT(
                             0 == entry_names.size()
                                     and true == parameters.isSet(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES),
                             "Wrong number of pair entries for a sloppy pair.");
@@ -79,15 +79,15 @@ namespace ariles
             }
         }
     }  // namespace read
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace write
     {
         template <class t_Visitor, typename t_First, typename t_Second>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
                 t_Visitor &writer,
                 const std::pair<t_First, t_Second> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -102,7 +102,7 @@ namespace ariles
 
 
         template <class t_Visitor, typename t_Second>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
                 t_Visitor &writer,
                 const std::pair<std::string, t_Second> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -126,15 +126,15 @@ namespace ariles
             }
         }
     }  // namespace write
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace compare
     {
         template <class t_Visitor, typename t_First, typename t_Second>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
                 t_Visitor &visitor,
                 const std::pair<t_First, t_Second> &left,
                 const std::pair<t_First, t_Second> &right,
@@ -146,16 +146,16 @@ namespace ariles
             apply_compare(visitor, left.second, right.second, param);
         }
     }  // namespace compare
-}  // namespace ariles
+}  // namespace ariles2
 
 
 
-namespace ariles
+namespace ariles2
 {
     namespace defaults
     {
         template <class t_Visitor, typename t_First, typename t_Second>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
                 const t_Visitor &visitor,
                 std::pair<t_First, t_Second> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -165,16 +165,16 @@ namespace ariles
             apply_defaults(visitor, entry.second, param);
         }
     }  // namespace defaults
-}  // namespace ariles
+}  // namespace ariles2
 
 
 
-namespace ariles
+namespace ariles2
 {
     namespace process
     {
         template <class t_Visitor, typename t_First, typename t_Second>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_process(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_process(
                 const t_Visitor &visitor,
                 std::pair<t_First, t_Second> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -184,4 +184,4 @@ namespace ariles
             apply_process(visitor, entry.second, param);
         }
     }  // namespace process
-}  // namespace ariles
+}  // namespace ariles2

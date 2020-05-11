@@ -230,7 +230,7 @@ set(DEB_ARCHIVE_FILES
 # cpput
 # --------------
 option(CPPUT_EMBEDDED "" ON)
-set(CPPUT_EMBEDDED_ID "ARILES"  CACHE STRING "")
+set(CPPUT_EMBEDDED_ID "ARILES2"  CACHE STRING "")
 set(CPPUT_EMBEDDED_COPY_TO_DIR "${PROJECT_SOURCE_DIR}/include/${CMAKE_PROJECT_NAME}/internal/"  CACHE STRING "")
 set(CPPUT_SELECT_HEADERS "config.h;;exception.h;floating_point_utils.h;visibility.h;misc.h;flags.h"  CACHE STRING "")
 add_subdirectory(cpput)

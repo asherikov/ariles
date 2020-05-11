@@ -11,10 +11,10 @@
 #pragma once
 
 
-namespace ariles
+namespace ariles2
 {
     template <class t_RawNode>
-    class ARILES_VISIBILITY_ATTRIBUTE Node
+    class ARILES2_VISIBILITY_ATTRIBUTE Node
     {
     public:
         enum Type
@@ -76,4 +76,4 @@ namespace ariles
             return (index_ == size_);
         }
     };
-}  // namespace ariles
+}  // namespace ariles2

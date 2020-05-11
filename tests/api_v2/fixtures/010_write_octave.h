@@ -30,7 +30,7 @@ namespace ariles_tests
                 configurable.randomize();
 
                 typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
-                ariles::apply(writer, configurable);
+                ariles2::apply(writer, configurable);
 
                 std::string octave_cmd = std::string("octave --no-gui --no-history --silent --eval 'source ")
                                          + getWriterInitializer("configurable.cfg") + "'";
@@ -43,7 +43,7 @@ namespace ariles_tests
             {
                 t_Configurable configurable;
                 configurable.randomize();
-                ariles::apply<typename t_Visitor::Writer>(getWriterInitializer("configurable2.cfg"), configurable);
+                ariles2::apply<typename t_Visitor::Writer>(getWriterInitializer("configurable2.cfg"), configurable);
 
                 std::string octave_cmd = std::string("octave --no-gui --no-history --silent --eval 'source ")
                                          + getWriterInitializer("configurable2.cfg") + "'";

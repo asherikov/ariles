@@ -13,20 +13,20 @@
 
 #pragma once
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_msgpack
     {
         namespace impl
         {
-            class ARILES_VISIBILITY_ATTRIBUTE Reader;
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader;
         }
 
 
         /**
          * @brief Configuration reader class
          */
-        class ARILES_VISIBILITY_ATTRIBUTE Reader : public ns_msgpack::Base<ariles::read::Visitor, impl::Reader>
+        class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ns_msgpack::Base<ariles2::read::Visitor, impl::Reader>
         {
         protected:
             std::size_t getMapSize(const bool /*expect_empty*/);
@@ -64,9 +64,9 @@ namespace ariles
 
 #define ARILES_BASIC_TYPE(type) void readElement(type &element);
 
-            ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+            ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
 #undef ARILES_BASIC_TYPE
         };
     }  // namespace ns_msgpack
-}  // namespace ariles
+}  // namespace ariles2

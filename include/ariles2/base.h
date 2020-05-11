@@ -15,7 +15,7 @@
 
 
 #ifdef ARILES_ENABLED
-namespace ariles
+namespace ariles2
 {
 #    define ARILES_USE_BASE(Base)                                                                                      \
         using Base::arilesVirtualVisit;                                                                                \
@@ -33,7 +33,7 @@ namespace ariles
             class t_B7 = void,
             class t_B8 = void,
             class t_B9 = void>
-    class ARILES_VISIBILITY_ATTRIBUTE Base : public ariles::Ariles,
+    class ARILES2_VISIBILITY_ATTRIBUTE Base : public ariles2::Ariles,
                                              public t_B0,
                                              public t_B1,
                                              public t_B2,
@@ -68,8 +68,8 @@ namespace ariles
 
     // 9
     template <class t_B0, class t_B1, class t_B2, class t_B3, class t_B4, class t_B5, class t_B6, class t_B7, class t_B8>
-    class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5, t_B6, t_B7, t_B8>
-      : public ariles::Ariles,
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5, t_B6, t_B7, t_B8>
+      : public ariles2::Ariles,
         public t_B0,
         public t_B1,
         public t_B2,
@@ -102,7 +102,7 @@ namespace ariles
 
     // 8
     template <class t_B0, class t_B1, class t_B2, class t_B3, class t_B4, class t_B5, class t_B6, class t_B7>
-    class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5, t_B6, t_B7> : public ariles::Ariles,
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5, t_B6, t_B7> : public ariles2::Ariles,
                                                                                              public t_B0,
                                                                                              public t_B1,
                                                                                              public t_B2,
@@ -133,8 +133,8 @@ namespace ariles
 
     // 7
     template <class t_B0, class t_B1, class t_B2, class t_B3, class t_B4, class t_B5, class t_B6>
-    class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5, t_B6>
-      : public ariles::Ariles, public t_B0, public t_B1, public t_B2, public t_B3, public t_B4, public t_B5, public t_B6
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5, t_B6>
+      : public ariles2::Ariles, public t_B0, public t_B1, public t_B2, public t_B3, public t_B4, public t_B5, public t_B6
     {
     protected:
         Base()
@@ -156,8 +156,8 @@ namespace ariles
 
     // 6
     template <class t_B0, class t_B1, class t_B2, class t_B3, class t_B4, class t_B5>
-    class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5>
-      : public ariles::Ariles, public t_B0, public t_B1, public t_B2, public t_B3, public t_B4, public t_B5
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5>
+      : public ariles2::Ariles, public t_B0, public t_B1, public t_B2, public t_B3, public t_B4, public t_B5
     {
     protected:
         Base()
@@ -178,8 +178,8 @@ namespace ariles
 
     // 5
     template <class t_B0, class t_B1, class t_B2, class t_B3, class t_B4>
-    class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4>
-      : public ariles::Ariles, public t_B0, public t_B1, public t_B2, public t_B3, public t_B4
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4>
+      : public ariles2::Ariles, public t_B0, public t_B1, public t_B2, public t_B3, public t_B4
     {
     protected:
         Base()
@@ -199,8 +199,8 @@ namespace ariles
 
     // 4
     template <class t_B0, class t_B1, class t_B2, class t_B3>
-    class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3>
-      : public ariles::Ariles, public t_B0, public t_B1, public t_B2, public t_B3
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3>
+      : public ariles2::Ariles, public t_B0, public t_B1, public t_B2, public t_B3
     {
     protected:
         Base()
@@ -219,8 +219,8 @@ namespace ariles
 
     // 3
     template <class t_B0, class t_B1, class t_B2>
-    class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2>
-      : public ariles::Ariles, public t_B0, public t_B1, public t_B2
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2>
+      : public ariles2::Ariles, public t_B0, public t_B1, public t_B2
     {
     protected:
         Base()
@@ -238,7 +238,7 @@ namespace ariles
 
     // 2
     template <class t_B0, class t_B1>
-    class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1> : public ariles::Ariles, public t_B0, public t_B1
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1> : public ariles2::Ariles, public t_B0, public t_B1
     {
     protected:
         Base()
@@ -255,7 +255,7 @@ namespace ariles
 
     // 1
     template <class t_B0>
-    class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0> : public ariles::Ariles, public t_B0
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0> : public ariles2::Ariles, public t_B0
     {
     protected:
         Base()
@@ -270,11 +270,11 @@ namespace ariles
     };
 
 #    undef ARILES_USE_BASE
-}  // namespace ariles
+}  // namespace ariles2
 
 #else
 
-namespace ariles
+namespace ariles2
 {
     // 10
     template <
@@ -288,7 +288,7 @@ namespace ariles
             class t_B7 = void,
             class t_B8 = void,
             class t_B9 = void>
-    class ARILES_VISIBILITY_ATTRIBUTE Base
+    class ARILES2_VISIBILITY_ATTRIBUTE Base
     {
     protected:
         Base()
@@ -301,7 +301,7 @@ namespace ariles
 
     // 9
     template <class t_B0, class t_B1, class t_B2, class t_B3, class t_B4, class t_B5, class t_B6, class t_B7, class t_B8>
-    class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5, t_B6, t_B7, t_B8>
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5, t_B6, t_B7, t_B8>
     {
     protected:
         Base()
@@ -314,7 +314,7 @@ namespace ariles
 
     // 8
     template <class t_B0, class t_B1, class t_B2, class t_B3, class t_B4, class t_B5, class t_B6, class t_B7>
-    class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5, t_B6, t_B7>
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5, t_B6, t_B7>
     {
     protected:
         Base()
@@ -327,7 +327,7 @@ namespace ariles
 
     // 7
     template <class t_B0, class t_B1, class t_B2, class t_B3, class t_B4, class t_B5, class t_B6>
-    class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5, t_B6>
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5, t_B6>
     {
     protected:
         Base()
@@ -340,7 +340,7 @@ namespace ariles
 
     // 6
     template <class t_B0, class t_B1, class t_B2, class t_B3, class t_B4, class t_B5>
-    class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5>
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5>
     {
     protected:
         Base()
@@ -353,7 +353,7 @@ namespace ariles
 
     // 5
     template <class t_B0, class t_B1, class t_B2, class t_B3, class t_B4>
-    class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4>
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4>
     {
     protected:
         Base()
@@ -366,7 +366,7 @@ namespace ariles
 
     // 4
     template <class t_B0, class t_B1, class t_B2, class t_B3>
-    class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3>
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3>
     {
     protected:
         Base()
@@ -379,7 +379,7 @@ namespace ariles
 
     // 3
     template <class t_B0, class t_B1, class t_B2>
-    class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2>
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2>
     {
     protected:
         Base()
@@ -392,7 +392,7 @@ namespace ariles
 
     // 2
     template <class t_B0, class t_B1>
-    class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1>
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1>
     {
     protected:
         Base()
@@ -405,7 +405,7 @@ namespace ariles
 
     // 1
     template <class t_B0>
-    class ARILES_VISIBILITY_ATTRIBUTE Base<t_B0>
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0>
     {
     protected:
         Base()
@@ -415,6 +415,6 @@ namespace ariles
         {
         }
     };
-}  // namespace ariles
+}  // namespace ariles2
 
 #endif

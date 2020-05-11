@@ -16,7 +16,7 @@
 #include <boost/lexical_cast.hpp>
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_array
     {
@@ -24,13 +24,13 @@ namespace ariles
 
 
         template <class t_NameValuePair>
-        class ARILES_VISIBILITY_ATTRIBUTE NameValuePairHandler
+        class ARILES2_VISIBILITY_ATTRIBUTE NameValuePairHandler
         {
         };
 
 
         template <>
-        class ARILES_VISIBILITY_ATTRIBUTE NameValuePairHandler<NameValuePair>
+        class ARILES2_VISIBILITY_ATTRIBUTE NameValuePairHandler<NameValuePair>
         {
         public:
             static inline std::string &name(NameValuePair &pair)
@@ -49,10 +49,10 @@ namespace ariles
          * @brief Configuration writer class
          */
         template <class t_NameValuePair>
-        class ARILES_VISIBILITY_ATTRIBUTE GenericWriter : public ariles::write::Visitor
+        class ARILES2_VISIBILITY_ATTRIBUTE GenericWriter : public ariles2::write::Visitor
         {
         protected:
-            typedef ariles::Node<std::string> NodeWrapper;
+            typedef ariles2::Node<std::string> NodeWrapper;
 
 
         protected:
@@ -211,7 +211,7 @@ namespace ariles
             {
                 if (true == initialize_structure_)
                 {
-                    ARILES_ASSERT(true == node_stack_.back().isArray(), "Internal error: array expected.");
+                    ARILES2_ASSERT(true == node_stack_.back().isArray(), "Internal error: array expected.");
                     ++node_stack_.back().index_;
                 }
             }
@@ -243,7 +243,7 @@ namespace ariles
         ++index_;                                                                                                      \
     }
 
-            ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
+            ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
 
 #undef ARILES_BASIC_TYPE
 
@@ -256,4 +256,4 @@ namespace ariles
 
         typedef GenericWriter<NameValuePair> Writer;
     }  // namespace ns_array
-}  // namespace ariles
+}  // namespace ariles2

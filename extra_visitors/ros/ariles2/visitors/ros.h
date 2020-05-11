@@ -19,12 +19,12 @@
 #include <ros/ros.h>
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_ros
     {
         template <class t_Base, class t_Implementation>
-        class ARILES_VISIBILITY_ATTRIBUTE Base : public t_Base
+        class ARILES2_VISIBILITY_ATTRIBUTE Base : public t_Base
         {
         protected:
             typedef t_Implementation Impl;
@@ -53,20 +53,20 @@ namespace ariles
             }
         };
     }  // namespace ns_ros
-}  // namespace ariles
+}  // namespace ariles2
 
 
 #include "./ros/reader.h"
 #include "./ros/writer.h"
 
-namespace ariles
+namespace ariles2
 {
     /**
      * @brief ROS parameter server visitor.
      */
-    struct ARILES_VISIBILITY_ATTRIBUTE ros
+    struct ARILES2_VISIBILITY_ATTRIBUTE ros
     {
-        typedef ariles::cfgread::Visitor<ns_ros::Reader> Reader;
-        typedef ariles::cfgwrite::Visitor<ns_ros::Writer> Writer;
+        typedef ariles2::cfgread::Visitor<ns_ros::Reader> Reader;
+        typedef ariles2::cfgwrite::Visitor<ns_ros::Writer> Writer;
     };
-}  // namespace ariles
+}  // namespace ariles2

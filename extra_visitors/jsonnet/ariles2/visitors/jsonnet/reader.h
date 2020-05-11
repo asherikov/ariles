@@ -11,15 +11,15 @@
 #pragma once
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_jsonnet
     {
         namespace impl
         {
-            class ARILES_VISIBILITY_ATTRIBUTE JsonnetPreprocessor;
+            class ARILES2_VISIBILITY_ATTRIBUTE JsonnetPreprocessor;
 
-            class ARILES_VISIBILITY_ATTRIBUTE Reader
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader
             {
             protected:
                 typedef ARILES_SHARED_PTR<JsonnetPreprocessor> JsonnetPreprocessorPtr;
@@ -40,7 +40,7 @@ namespace ariles
 
 
         template <class t_ParentVisitor>
-        class ARILES_VISIBILITY_ATTRIBUTE Reader : public t_ParentVisitor
+        class ARILES2_VISIBILITY_ATTRIBUTE Reader : public t_ParentVisitor
         {
         protected:
             impl::Reader impl_;
@@ -93,4 +93,4 @@ namespace ariles
             }
         };
     }  // namespace ns_jsonnet
-}  // namespace ariles
+}  // namespace ariles2

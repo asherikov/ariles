@@ -20,12 +20,12 @@
 #include <ariles2/internal/node.h>
 #include <ariles2/visitors/config.h>
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_yaml_cpp03
     {
         template <class t_Base, class t_Implementation>
-        class ARILES_VISIBILITY_ATTRIBUTE Base : public t_Base
+        class ARILES2_VISIBILITY_ATTRIBUTE Base : public t_Base
         {
         protected:
             typedef t_Implementation Impl;
@@ -54,21 +54,21 @@ namespace ariles
             }
         };
     }  // namespace ns_yaml_cpp03
-}  // namespace ariles
+}  // namespace ariles2
 
 
 #include "./yaml_cpp03/reader.h"
 #include "./yaml_cpp03/writer.h"
 
 
-namespace ariles
+namespace ariles2
 {
     /**
      * @brief YAML (C++03) visitor.
      */
-    struct ARILES_VISIBILITY_ATTRIBUTE yaml_cpp03
+    struct ARILES2_VISIBILITY_ATTRIBUTE yaml_cpp03
     {
-        typedef ariles::cfgread::Visitor<ns_yaml_cpp03::Reader> Reader;
-        typedef ariles::cfgwrite::Visitor<ns_yaml_cpp03::Writer> Writer;
+        typedef ariles2::cfgread::Visitor<ns_yaml_cpp03::Reader> Reader;
+        typedef ariles2::cfgwrite::Visitor<ns_yaml_cpp03::Writer> Writer;
     };
-}  // namespace ariles
+}  // namespace ariles2

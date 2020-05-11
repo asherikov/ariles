@@ -38,8 +38,8 @@ BOOST_FIXTURE_TEST_CASE(CompareInheritance, ariles_tests::DummyFixture)
     ariles_tests::ConfigurableDerived configurable1, configurable2;
 
 
-    ariles::Compare visitor;
-    ariles::Compare::Parameters param;
+    ariles2::Compare visitor;
+    ariles2::Compare::Parameters param;
     param.double_tolerance_ = g_tolerance;
     param.compare_number_of_entries_ = true;
     param.throw_on_error_ = false;

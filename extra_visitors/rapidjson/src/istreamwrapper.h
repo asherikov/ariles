@@ -28,7 +28,7 @@
 #include <iosfwd>
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_rapidjson
     {
@@ -49,7 +49,7 @@ namespace ariles
         */
 
         template <typename StreamType>
-        class ARILES_LIB_LOCAL BasicIStreamWrapper
+        class ARILES2_LIB_LOCAL BasicIStreamWrapper
         {
         public:
             typedef typename StreamType::char_type Ch;
@@ -135,4 +135,4 @@ namespace ariles
         typedef BasicIStreamWrapper<std::wistream> WIStreamWrapper;
 
     }  // namespace ns_rapidjson
-}  // namespace ariles
+}  // namespace ariles2

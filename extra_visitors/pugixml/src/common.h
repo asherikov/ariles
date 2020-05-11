@@ -15,10 +15,10 @@
 #include <boost/lexical_cast.hpp>
 #include <pugixml.hpp>
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_pugixml
     {
-        typedef ariles::Node<pugi::xml_node> NodeWrapper;
+        typedef ariles2::Node<pugi::xml_node> NodeWrapper;
     }
-}  // namespace ariles
+}  // namespace ariles2

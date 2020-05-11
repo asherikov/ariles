@@ -10,10 +10,10 @@
 
 #pragma once
 
-namespace ariles
+namespace ariles2
 {
     template <template <class> class t_Pointer, class t_Base, class t_Instantiator>
-    class ARILES_VISIBILITY_ATTRIBUTE Any : public ariles::DefaultBase
+    class ARILES2_VISIBILITY_ATTRIBUTE Any : public ariles2::DefaultBase
     {
 #define ARILES_ENTRIES(v)                                                                                              \
     ARILES_TYPED_ENTRY_(v, id, std::string)                                                                            \
@@ -40,7 +40,7 @@ namespace ariles
     public:
         Any()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
 
@@ -54,7 +54,7 @@ namespace ariles
         {
             id_ = id;
             value_ = t_Instantiator::instantiate(id_);
-            ARILES_ASSERT(NULL != value_.get(), "Could not instantiate class.");
+            ARILES2_ASSERT(NULL != value_.get(), "Could not instantiate class.");
         }
 
 
@@ -121,37 +121,37 @@ namespace ariles
 
         t_Base *operator->()
         {
-            ARILES_ASSERT(true == isInitialized(), "Not initialized");
+            ARILES2_ASSERT(true == isInitialized(), "Not initialized");
             return (value_.get());
         }
 
 
         const t_Base *operator->() const
         {
-            ARILES_ASSERT(true == isInitialized(), "Not initialized");
+            ARILES2_ASSERT(true == isInitialized(), "Not initialized");
             return (value_.get());
         }
 
 
         t_Base &operator*()
         {
-            ARILES_ASSERT(true == isInitialized(), "Not initialized");
+            ARILES2_ASSERT(true == isInitialized(), "Not initialized");
             return (*value_);
         }
 
 
         const t_Base &operator*() const
         {
-            ARILES_ASSERT(true == isInitialized(), "Not initialized");
+            ARILES2_ASSERT(true == isInitialized(), "Not initialized");
             return (*value_);
         }
 
 
         // Ariles methods
 
-        void arilesVisit(ariles::Write &visitor, const ariles::Write::Parameters &param) const
+        void arilesVisit(ariles2::Write &visitor, const ariles2::Write::Parameters &param) const
         {
-            ARILES_ASSERT(
+            ARILES2_ASSERT(
                     true == isConsistent(),
                     "Could not write config: entry is in an inconsistent (partially initialized) state.");
 
@@ -163,18 +163,18 @@ namespace ariles
         }
 
 
-        void arilesVisit(ariles::Read &visitor, const ariles::Read::Parameters &parameters)
+        void arilesVisit(ariles2::Read &visitor, const ariles2::Read::Parameters &parameters)
         {
             ARILES_TRACE_FUNCTION;
 
-            ariles::Read::Parameters param = parameters;
-            param.unset(ariles::Read::Parameters::ALLOW_MISSING_ENTRIES);
+            ariles2::Read::Parameters param = parameters;
+            param.unset(ariles2::Read::Parameters::ALLOW_MISSING_ENTRIES);
 
             visitor(id_, "id", param);
             if ("" == id_)
             {
-                ARILES_ASSERT(
-                        true == parameters.isSet(ariles::Read::Parameters::ALLOW_MISSING_ENTRIES),
+                ARILES2_ASSERT(
+                        true == parameters.isSet(ariles2::Read::Parameters::ALLOW_MISSING_ENTRIES),
                         "Id is empty, value cannot be read.");
             }
             else
@@ -185,7 +185,7 @@ namespace ariles
         }
 
 
-        void arilesVisit(const ariles::PostProcess &visitor, const ariles::PostProcess::Parameters &param)
+        void arilesVisit(const ariles2::PostProcess &visitor, const ariles2::PostProcess::Parameters &param)
         {
             if (true == isInitialized())
             {
@@ -194,7 +194,7 @@ namespace ariles
         }
 
 
-        void arilesVisit(const ariles::PreProcess &visitor, const ariles::PreProcess::Parameters &param)
+        void arilesVisit(const ariles2::PreProcess &visitor, const ariles2::PreProcess::Parameters &param)
         {
             if (true == isInitialized())
             {
@@ -202,13 +202,13 @@ namespace ariles
             }
         }
     };
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     template <class t_Pointer>
-    class ARILES_VISIBILITY_ATTRIBUTE NonNullPointer : public ariles::DefaultBase
+    class ARILES2_VISIBILITY_ATTRIBUTE NonNullPointer : public ariles2::DefaultBase
     {
 #include ARILES_INITIALIZE
 
@@ -224,7 +224,7 @@ namespace ariles
     public:
         NonNullPointer()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
 
@@ -259,39 +259,39 @@ namespace ariles
 
         typename Handler::Value *operator->() const
         {
-            ARILES_ASSERT(false == isNull(), "Not initialized");
+            ARILES2_ASSERT(false == isNull(), "Not initialized");
             return (value_.get());
         }
 
 
         typename Handler::Value &operator*() const
         {
-            ARILES_ASSERT(false == isNull(), "Not initialized");
+            ARILES2_ASSERT(false == isNull(), "Not initialized");
             return (*value_);
         }
 
 
-        void arilesVisit(ariles::Write &writer, const ariles::Write::Parameters &parameters) const
+        void arilesVisit(ariles2::Write &writer, const ariles2::Write::Parameters &parameters) const
         {
-            ARILES_ASSERT(false == isNull(), "Could not write config: entry is not initialized");
+            ARILES2_ASSERT(false == isNull(), "Could not write config: entry is not initialized");
             value_->arilesVisit(writer, parameters);
         }
 
 
-        void arilesVisit(ariles::Read &reader, const ariles::Read::Parameters &parameters)
+        void arilesVisit(ariles2::Read &reader, const ariles2::Read::Parameters &parameters)
         {
-            ARILES_ASSERT(false == isNull(), "Not initialized");
+            ARILES2_ASSERT(false == isNull(), "Not initialized");
             value_->arilesVisit(reader, parameters);
         }
 
 
-        void arilesVisit(const ariles::PostProcess &visitor, const ariles::PostProcess::Parameters &param)
+        void arilesVisit(const ariles2::PostProcess &visitor, const ariles2::PostProcess::Parameters &param)
         {
-            ARILES_ASSERT(false == isNull(), "Not initialized");
+            ARILES2_ASSERT(false == isNull(), "Not initialized");
             value_->arilesVisit(visitor, param);
         }
 
-        void arilesVisit(const ariles::PreProcess &visitor, const ariles::PreProcess::Parameters &param)
+        void arilesVisit(const ariles2::PreProcess &visitor, const ariles2::PreProcess::Parameters &param)
         {
             if (false == isNull())
             {
@@ -299,16 +299,16 @@ namespace ariles
             }
         }
 
-        void arilesVisit(const ariles::Defaults &visitor, const ariles::Defaults::Parameters &param)
+        void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
         {
             Handler::allocate(value_);
             value_->arilesVisit(visitor, param);
         }
 
 
-        std::size_t arilesVisit(const ariles::Count &visitor, const ariles::Count::Parameters &param) const
+        std::size_t arilesVisit(const ariles2::Count &visitor, const ariles2::Count::Parameters &param) const
         {
-            ARILES_ASSERT(false == isNull(), "Not initialized");
+            ARILES2_ASSERT(false == isNull(), "Not initialized");
             return (value_->arilesVisit(visitor, param));
         }
 
@@ -320,10 +320,10 @@ namespace ariles
 
 
         template <class t_Other>
-        void arilesVisit(ariles::Compare &visitor, const t_Other &other, const ariles::Compare::Parameters &param) const
+        void arilesVisit(ariles2::Compare &visitor, const t_Other &other, const ariles2::Compare::Parameters &param) const
         {
             ARILES_TRACE_FUNCTION;
             value_->arilesVisit(visitor, *other.value_, param);
         }
     };
-}  // namespace ariles
+}  // namespace ariles2

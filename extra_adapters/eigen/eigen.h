@@ -15,12 +15,12 @@
 #include "../visitors/serialization.h"
 #include "../internal/helpers.h"
 
-namespace ariles
+namespace ariles2
 {
     namespace read
     {
         template <class t_Visitor, typename t_Scalar, int t_rows, int t_flags>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
                 Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -34,7 +34,7 @@ namespace ariles
             }
             else
             {
-                ARILES_ASSERT((static_cast<int>(size) == t_rows), "Wrong entry size.");
+                ARILES2_ASSERT((static_cast<int>(size) == t_rows), "Wrong entry size.");
             }
 
             for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows); ++i)
@@ -48,7 +48,7 @@ namespace ariles
 
 
         template <class t_Visitor, typename t_Scalar, int t_rows, int t_cols, int t_flags>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
                 Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
                 const typename t_Visitor::Parameters &parameters)
@@ -61,21 +61,21 @@ namespace ariles
                 EIGEN_DEFAULT_DENSE_INDEX_TYPE num_cols;
 
 
-                ariles::ConfigurableFlags param = parameters;
+                ariles2::ConfigurableFlags param = parameters;
                 param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
 
                 visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(3);
                 visitor(num_cols, "cols", param);
-                ARILES_ASSERT(Eigen::Dynamic == t_cols || t_cols == num_cols, "Wrong number of columns.");
+                ARILES2_ASSERT(Eigen::Dynamic == t_cols || t_cols == num_cols, "Wrong number of columns.");
                 visitor(num_rows, "rows", param);
-                ARILES_ASSERT(Eigen::Dynamic == t_rows || t_rows == num_rows, "Wrong number of rows.");
+                ARILES2_ASSERT(Eigen::Dynamic == t_rows || t_rows == num_rows, "Wrong number of rows.");
 
 
                 Eigen::Matrix<t_Scalar, Eigen::Dynamic, 1> v;
                 visitor(v, "data", param);
                 visitor.endMap();
 
-                ARILES_ASSERT(v.rows() == num_rows * num_cols, "Wrong entry size.");
+                ARILES2_ASSERT(v.rows() == num_rows * num_cols, "Wrong entry size.");
 
                 Eigen::Map<Eigen::Matrix<t_Scalar, t_rows, t_cols, Eigen::RowMajor> > map(v.data(), num_rows, num_cols);
                 entry = map;
@@ -93,7 +93,7 @@ namespace ariles
 
 
         template <class t_Visitor, typename t_Scalar, int t_dim, int t_mode, int t_options>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
                 Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -110,14 +110,14 @@ namespace ariles
 
 
         template <class t_Visitor, typename t_Scalar, int t_options>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
                 Eigen::Quaternion<t_Scalar, t_options> &entry,
                 const typename t_Visitor::Parameters &parameters)
         {
             ARILES_TRACE_FUNCTION;
 
-            ariles::ConfigurableFlags param = parameters;
+            ariles2::ConfigurableFlags param = parameters;
             param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
 
             visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(4);
@@ -128,15 +128,15 @@ namespace ariles
             visitor.endMap();
         }
     }  // namespace read
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace write
     {
         template <class t_Visitor, typename t_Scalar, int t_rows, int t_flags>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
                 t_Visitor &writer,
                 const Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
@@ -168,7 +168,7 @@ namespace ariles
 
 
         template <class t_Visitor, typename t_Scalar, int t_rows, int t_cols, int t_flags>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
                 t_Visitor &writer,
                 const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -233,7 +233,7 @@ namespace ariles
 
 
         template <class t_Visitor, typename t_Scalar, int t_dim, int t_mode, int t_options>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
                 t_Visitor &writer,
                 const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -244,7 +244,7 @@ namespace ariles
 
 
         template <class t_Visitor, typename t_Scalar, int t_options, class t_Flags>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
                 t_Visitor &writer,
                 const Eigen::Quaternion<t_Scalar, t_options> &entry,
                 const t_Flags &param)
@@ -261,16 +261,16 @@ namespace ariles
             writer.endMap();
         }
     }  // namespace write
-}  // namespace ariles
+}  // namespace ariles2
 
 
 
-namespace ariles
+namespace ariles2
 {
     namespace compare
     {
         template <class t_Visitor, typename t_Scalar, int t_dim, int t_mode, int t_options>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
                 t_Visitor &visitor,
                 const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &left,
                 const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &right,
@@ -282,7 +282,7 @@ namespace ariles
 
 
         template <class t_Visitor, typename t_Scalar, int t_options>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
                 t_Visitor &visitor,
                 const Eigen::Quaternion<t_Scalar, t_options> &left,
                 const Eigen::Quaternion<t_Scalar, t_options> &right,
@@ -294,7 +294,7 @@ namespace ariles
 
 
         template <class t_Visitor, typename t_Scalar, int t_rows, int t_cols, int t_flags>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
                 t_Visitor &visitor,
                 const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &left,
                 const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &right,
@@ -304,16 +304,16 @@ namespace ariles
             visitor.equal_ &= (left.isApprox(right, param.template getTolerance<t_Scalar>()));
         }
     }  // namespace compare
-}  // namespace ariles
+}  // namespace ariles2
 
 
 
-namespace ariles
+namespace ariles2
 {
     namespace defaults
     {
         template <class t_Visitor, typename t_Scalar, int t_rows, int t_cols, int t_flags>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
                 const t_Visitor & /*visitor*/,
                 Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -345,7 +345,7 @@ namespace ariles
 
 
         template <class t_Visitor, typename t_Scalar, int t_dim, int t_mode, int t_options>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
                 const t_Visitor & /*visitor*/,
                 Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
@@ -356,7 +356,7 @@ namespace ariles
 
 
         template <class t_Visitor, typename t_Scalar, int t_options>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
                 const t_Visitor & /*visitor*/,
                 Eigen::Quaternion<t_Scalar, t_options> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
@@ -365,4 +365,4 @@ namespace ariles
             entry.setIdentity();
         }
     }  // namespace defaults
-}  // namespace ariles
+}  // namespace ariles2

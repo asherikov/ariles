@@ -12,13 +12,13 @@
 #include <yaml-cpp/yaml.h>
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_yaml_cpp
     {
         namespace impl
         {
-            class ARILES_VISIBILITY_ATTRIBUTE Writer
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer
             {
             public:
                 typedef ARILES_SHARED_PTR<YAML::Emitter> EmitterPtr;
@@ -65,7 +65,7 @@ namespace ariles
             public:
                 explicit Writer(const std::string &file_name)
                 {
-                    ariles::write::Visitor::openFile(config_ofs_, file_name);
+                    ariles2::write::Visitor::openFile(config_ofs_, file_name);
                     output_stream_ = &config_ofs_;
                     initEmitter();
                 }
@@ -88,10 +88,10 @@ namespace ariles
             };
         }  // namespace impl
     }      // namespace ns_yaml_cpp
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_yaml_cpp
     {
@@ -131,7 +131,7 @@ namespace ariles
         void Writer::endMap()
         {
             ARILES_TRACE_FUNCTION;
-            ARILES_ASSERT(impl_->map_depth_ > 0, "Internal logic error.");
+            ARILES2_ASSERT(impl_->map_depth_ > 0, "Internal logic error.");
             --impl_->map_depth_;
             if (impl_->map_depth_ > 0 or false == impl_->skip_root_map_)
             {
@@ -197,7 +197,7 @@ namespace ariles
         *impl_->emitter_ << element;                                                                                   \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_INTEGER_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_INTEGER_TYPES_LIST)
 
 #undef ARILES_BASIC_TYPE
 
@@ -205,13 +205,13 @@ namespace ariles
 #define ARILES_BASIC_TYPE(type)                                                                                        \
     void Writer::writeElement(const type &element)                                                                     \
     {                                                                                                                  \
-        if (true == ariles::isNaN(element))                                                                            \
+        if (true == ariles2::isNaN(element))                                                                            \
         {                                                                                                              \
             *impl_->emitter_ << ".nan";                                                                                \
         }                                                                                                              \
         else                                                                                                           \
         {                                                                                                              \
-            if (true == ariles::isInfinity(element))                                                                   \
+            if (true == ariles2::isInfinity(element))                                                                   \
             {                                                                                                          \
                 if (element < 0.0)                                                                                     \
                 {                                                                                                      \
@@ -229,7 +229,7 @@ namespace ariles
         }                                                                                                              \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
 
 #undef ARILES_BASIC_TYPE
 
@@ -245,4 +245,4 @@ namespace ariles
             *impl_->emitter_ << element;
         }
     }  // namespace ns_yaml_cpp
-}  // namespace ariles
+}  // namespace ariles2

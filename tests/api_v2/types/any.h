@@ -12,7 +12,7 @@
 
 namespace ariles_tests
 {
-    class Base : public ariles::DefaultBase
+    class Base : public ariles2::DefaultBase
     {
 #define ARILES_ENTRIES(v) ARILES_TYPED_ENTRY_(v, real, double)
 #include ARILES_INITIALIZE
@@ -28,7 +28,7 @@ namespace ariles_tests
 
         Base()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
         virtual ~Base()
@@ -57,7 +57,7 @@ namespace ariles_tests
 
         Derived1()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
     };
 
@@ -82,13 +82,13 @@ namespace ariles_tests
 
         Derived2()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
     };
 
 
     template <template <class> class t_Pointer, class t_Instantiator>
-    class CommonAny : public ariles::Any<t_Pointer, Base, t_Instantiator>
+    class CommonAny : public ariles2::Any<t_Pointer, Base, t_Instantiator>
     {
     public:
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
@@ -179,7 +179,7 @@ namespace ariles_tests
 #endif
 
 
-    class ConfigurableAny : public ariles::DefaultBase
+    class ConfigurableAny : public ariles2::DefaultBase
     {
     public:
 #define ARILES_ENTRIES_0(v)
@@ -216,7 +216,7 @@ namespace ariles_tests
     public:
         ConfigurableAny()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED

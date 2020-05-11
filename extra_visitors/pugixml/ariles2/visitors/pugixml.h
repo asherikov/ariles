@@ -17,12 +17,12 @@
 #include <ariles2/visitors/config.h>
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_pugixml
     {
         template <class t_Base, class t_Implementation>
-        class ARILES_VISIBILITY_ATTRIBUTE Base : public t_Base
+        class ARILES2_VISIBILITY_ATTRIBUTE Base : public t_Base
         {
         protected:
             typedef t_Implementation Impl;
@@ -53,7 +53,7 @@ namespace ariles
             }
         };
     }  // namespace ns_pugixml
-}  // namespace ariles
+}  // namespace ariles2
 
 
 
@@ -61,14 +61,14 @@ namespace ariles
 #include "./pugixml/writer.h"
 
 
-namespace ariles
+namespace ariles2
 {
     /**
      * @brief pugixml visitor.
      */
-    struct ARILES_VISIBILITY_ATTRIBUTE pugixml
+    struct ARILES2_VISIBILITY_ATTRIBUTE pugixml
     {
-        typedef ariles::cfgread::Visitor<ns_pugixml::Reader> Reader;
-        typedef ariles::cfgwrite::Visitor<ns_pugixml::Writer> Writer;
+        typedef ariles2::cfgread::Visitor<ns_pugixml::Reader> Reader;
+        typedef ariles2::cfgwrite::Visitor<ns_pugixml::Writer> Writer;
     };
-}  // namespace ariles
+}  // namespace ariles2

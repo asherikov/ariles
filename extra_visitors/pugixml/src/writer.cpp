@@ -10,13 +10,13 @@
 
 #include "common.h"
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_pugixml
     {
         namespace impl
         {
-            class ARILES_VISIBILITY_ATTRIBUTE Writer
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer
             {
             public:
                 pugi::xml_document document_;
@@ -35,7 +35,7 @@ namespace ariles
             public:
                 explicit Writer(const std::string &file_name)
                 {
-                    ariles::write::Visitor::openFile(config_ofs_, file_name);
+                    ariles2::write::Visitor::openFile(config_ofs_, file_name);
                     output_stream_ = &config_ofs_;
                     node_stack_.push_back(document_);
                 }
@@ -60,10 +60,10 @@ namespace ariles
             };
         }  // namespace impl
     }      // namespace ns_pugixml
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_pugixml
     {
@@ -110,8 +110,8 @@ namespace ariles
         void Writer::shiftArray()
         {
             impl_->node_stack_.pop_back();
-            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ARILES_ASSERT(
+            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
             ++impl_->node_stack_.back().index_;
@@ -159,8 +159,8 @@ namespace ariles
         impl_->getRawNode().text() = (boost::lexical_cast<std::string>(element)).c_str();                              \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
 
 #undef ARILES_BASIC_TYPE
     }  // namespace ns_pugixml
-}  // namespace ariles
+}  // namespace ariles2

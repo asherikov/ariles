@@ -15,10 +15,10 @@
     void arilesVisit(                                                                                                  \
             t_Visitor &visitor,                                                                                        \
             const typename t_Visitor::Parameters &parameters,                                                          \
-            ARILES_IS_BASE_ENABLER(ariles::visitor::GenericVisitor, t_Visitor))                                        \
+            ARILES_IS_BASE_ENABLER(ariles2::visitor::GenericVisitor, t_Visitor))                                        \
     {                                                                                                                  \
-        ARILES_UNUSED_ARG(visitor);                                                                                    \
-        ARILES_UNUSED_ARG(parameters);                                                                                 \
+        ARILES2_UNUSED_ARG(visitor);                                                                                    \
+        ARILES2_UNUSED_ARG(parameters);                                                                                 \
         ARILES_TRACE_FUNCTION;                                                                                         \
         arilesVisitParents(visitor, parameters);                                                                       \
         ARILES_ENTRIES(generic_all)                                                                                    \
@@ -27,10 +27,10 @@
     void arilesVisit(                                                                                                  \
             t_Visitor &visitor,                                                                                        \
             const typename t_Visitor::Parameters &parameters,                                                          \
-            ARILES_IS_BASE_ENABLER(ariles::visitor::GenericVisitor, t_Visitor)) const                                  \
+            ARILES_IS_BASE_ENABLER(ariles2::visitor::GenericVisitor, t_Visitor)) const                                  \
     {                                                                                                                  \
-        ARILES_UNUSED_ARG(visitor);                                                                                    \
-        ARILES_UNUSED_ARG(parameters);                                                                                 \
+        ARILES2_UNUSED_ARG(visitor);                                                                                    \
+        ARILES2_UNUSED_ARG(parameters);                                                                                 \
         ARILES_TRACE_FUNCTION;                                                                                         \
         arilesVisitParents(visitor, parameters);                                                                       \
         ARILES_ENTRIES(generic_all)                                                                                    \

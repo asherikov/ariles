@@ -28,7 +28,7 @@ namespace ariles_tests
             {
                 t_Configurable1 configurable_out;
                 configurable_out.randomize();
-                BOOST_CHECK_NO_THROW(ariles::apply<typename t_Visitor::Writer>(
+                BOOST_CHECK_NO_THROW(ariles2::apply<typename t_Visitor::Writer>(
                                              getWriterInitializer("configurable_match_member_definitions.cfg"),
                                              configurable_out,
                                              "Configurable"););
@@ -36,7 +36,7 @@ namespace ariles_tests
                 // -------
 
                 t_Configurable2 configurable_in;
-                BOOST_CHECK_NO_THROW(ariles::apply<typename t_Visitor::Reader>(
+                BOOST_CHECK_NO_THROW(ariles2::apply<typename t_Visitor::Reader>(
                                              getReaderInitializer("configurable_match_member_definitions.cfg"),
                                              configurable_in,
                                              "Configurable"););
@@ -45,8 +45,8 @@ namespace ariles_tests
 
                 compare(configurable_out, configurable_in);
 
-                ariles::Compare visitor;
-                ariles::Compare::Parameters param;
+                ariles2::Compare visitor;
+                ariles2::Compare::Parameters param;
                 param.double_tolerance_ = g_tolerance;
                 param.compare_number_of_entries_ = true;
                 param.throw_on_error_ = true;
@@ -60,7 +60,7 @@ namespace ariles_tests
             {
                 t_Configurable2 configurable_out;
                 configurable_out.randomize();
-                BOOST_CHECK_NO_THROW(ariles::apply<typename t_Visitor::Writer>(
+                BOOST_CHECK_NO_THROW(ariles2::apply<typename t_Visitor::Writer>(
                                              getWriterInitializer("configurable_match_member_definitions.cfg"),
                                              configurable_out,
                                              "Configurable"););
@@ -68,7 +68,7 @@ namespace ariles_tests
                 // -------
 
                 t_Configurable1 configurable_in;
-                BOOST_CHECK_NO_THROW(ariles::apply<typename t_Visitor::Reader>(
+                BOOST_CHECK_NO_THROW(ariles2::apply<typename t_Visitor::Reader>(
                                              getReaderInitializer("configurable_match_member_definitions.cfg"),
                                              configurable_in,
                                              "Configurable"););
@@ -77,8 +77,8 @@ namespace ariles_tests
 
                 compare(configurable_out, configurable_in);
 
-                ariles::Compare visitor;
-                ariles::Compare::Parameters param;
+                ariles2::Compare visitor;
+                ariles2::Compare::Parameters param;
                 param.double_tolerance_ = g_tolerance;
                 param.compare_number_of_entries_ = true;
                 param.throw_on_error_ = true;

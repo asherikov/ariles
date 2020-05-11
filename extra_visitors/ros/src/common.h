@@ -18,14 +18,14 @@
 #include <XmlRpcValue.h>
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_ros
     {
-        typedef ariles::Node<XmlRpc::XmlRpcValue *> NodeWrapper;
+        typedef ariles2::Node<XmlRpc::XmlRpcValue *> NodeWrapper;
 
 
-        class ARILES_LIB_LOCAL ImplBase
+        class ARILES2_LIB_LOCAL ImplBase
         {
         public:
             /// Stack of nodes.
@@ -62,4 +62,4 @@ namespace ariles
             }
         };
     }  // namespace ns_ros
-}  // namespace ariles
+}  // namespace ariles2

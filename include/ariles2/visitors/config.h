@@ -18,17 +18,17 @@
 #include "write.h"
 
 
-namespace ariles
+namespace ariles2
 {
     namespace cfgread
     {
         template <class t_Reader>
-        class ARILES_VISIBILITY_ATTRIBUTE Parameters
+        class ARILES2_VISIBILITY_ATTRIBUTE Parameters
         {
         public:
-            ariles::defaults::Visitor::Parameters defaults_parameters_;
+            ariles2::defaults::Visitor::Parameters defaults_parameters_;
             typename t_Reader::Parameters reader_parameters_;
-            ariles::postprocess::Visitor::Parameters postprocess_parameters_;
+            ariles2::postprocess::Visitor::Parameters postprocess_parameters_;
 
 
         public:
@@ -47,9 +47,9 @@ namespace ariles
             }
 
             Parameters(
-                    const ariles::defaults::Visitor::Parameters &defaults_parameters,
+                    const ariles2::defaults::Visitor::Parameters &defaults_parameters,
                     const typename t_Reader::Parameters &reader_parameters,
-                    const ariles::postprocess::Visitor::Parameters &postprocess_parameters)
+                    const ariles2::postprocess::Visitor::Parameters &postprocess_parameters)
             {
                 this->defaults_parameters_ = defaults_parameters;
                 this->reader_parameters_ = reader_parameters;
@@ -59,16 +59,16 @@ namespace ariles
 
 
         template <class t_Reader>
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::GenericVisitor, Parameters<t_Reader> >
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::GenericVisitor, Parameters<t_Reader> >
         {
         public:
             typedef cfgread::Parameters<t_Reader> Parameters;
 
 
         public:
-            ariles::defaults::Visitor defaults_visitor_;
+            ariles2::defaults::Visitor defaults_visitor_;
             t_Reader reader_visitor_;
-            ariles::postprocess::Visitor postprocess_visitor_;
+            ariles2::postprocess::Visitor postprocess_visitor_;
 
 
         public:
@@ -119,9 +119,9 @@ namespace ariles
                 ARILES_TRACE_FUNCTION;
                 ARILES_TRACE_ENTRY(name);
                 ARILES_TRACE_TYPE(entry);
-                ariles::apply(defaults_visitor_, entry, name, param.defaults_parameters_);
-                ariles::apply(reader_visitor_, entry, name, param.reader_parameters_);
-                ariles::apply(postprocess_visitor_, entry, name, param.postprocess_parameters_);
+                ariles2::apply(defaults_visitor_, entry, name, param.defaults_parameters_);
+                ariles2::apply(reader_visitor_, entry, name, param.reader_parameters_);
+                ariles2::apply(postprocess_visitor_, entry, name, param.postprocess_parameters_);
             }
 
 
@@ -131,18 +131,18 @@ namespace ariles
             }
         };
     }  // namespace cfgread
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace cfgwrite
     {
         template <class t_Writer>
-        class ARILES_VISIBILITY_ATTRIBUTE Parameters
+        class ARILES2_VISIBILITY_ATTRIBUTE Parameters
         {
         public:
-            ariles::preprocess::Visitor::Parameters preprocess_parameters_;
+            ariles2::preprocess::Visitor::Parameters preprocess_parameters_;
             typename t_Writer::Parameters writer_parameters_;
 
 
@@ -162,7 +162,7 @@ namespace ariles
             }
 
             Parameters(
-                    const ariles::preprocess::Visitor::Parameters &preprocess_parameters,
+                    const ariles2::preprocess::Visitor::Parameters &preprocess_parameters,
                     const typename t_Writer::Parameters &writer_parameters)
             {
                 this->preprocess_parameters_ = preprocess_parameters;
@@ -172,14 +172,14 @@ namespace ariles
 
 
         template <class t_Writer>
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::GenericVisitor, Parameters<t_Writer> >
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::GenericVisitor, Parameters<t_Writer> >
         {
         public:
             typedef cfgwrite::Parameters<t_Writer> Parameters;
 
 
         public:
-            ariles::preprocess::Visitor preprocess_visitor_;
+            ariles2::preprocess::Visitor preprocess_visitor_;
             t_Writer writer_visitor_;
 
 
@@ -237,8 +237,8 @@ namespace ariles
                 ARILES_TRACE_FUNCTION;
                 ARILES_TRACE_ENTRY(name);
                 ARILES_TRACE_TYPE(entry);
-                ariles::apply(preprocess_visitor_, entry, name, param.preprocess_parameters_);
-                ariles::apply(writer_visitor_, entry, name, param.writer_parameters_);
+                ariles2::apply(preprocess_visitor_, entry, name, param.preprocess_parameters_);
+                ariles2::apply(writer_visitor_, entry, name, param.writer_parameters_);
             }
 
 
@@ -254,4 +254,4 @@ namespace ariles
             }
         };
     }  // namespace cfgwrite
-}  // namespace ariles
+}  // namespace ariles2

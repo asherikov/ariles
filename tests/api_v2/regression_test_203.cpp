@@ -51,7 +51,7 @@
 BOOST_FIXTURE_TEST_CASE(Complex_arilesPostProcess, ariles_tests::DummyFixture)
 {
     ariles_tests::ConfigurableComplex configurable;
-    ariles::apply<ariles::PostProcess>(configurable);
+    ariles2::apply<ariles2::PostProcess>(configurable);
 }
 
 

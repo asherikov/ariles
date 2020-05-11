@@ -13,7 +13,7 @@
 
 namespace ariles_tests
 {
-    class ConfigurableFlags1 : public ariles::DefaultBase
+    class ConfigurableFlags1 : public ariles2::DefaultBase
     {
 #define ARILES_ENTRIES(v)                                                                                              \
     ARILES_TYPED_ENTRY_(v, integer, int)                                                                               \
@@ -22,32 +22,32 @@ namespace ariles_tests
 
 
     public:
-        ariles::ConfigurableFlags getExpectedConfigurableFlags() const
+        ariles2::ConfigurableFlags getExpectedConfigurableFlags() const
         {
-            return (ariles::ConfigurableFlags(
-                    ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
-                    | ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED));
+            return (ariles2::ConfigurableFlags(
+                    ariles2::ConfigurableFlags::DEFAULT | ariles2::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
+                    | ariles2::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED));
         }
 
-        virtual const ariles::Read::Parameters &arilesGetParameters(const ariles::Read &) const
+        virtual const ariles2::Read::Parameters &arilesGetParameters(const ariles2::Read &) const
         {
-            static ariles::Read::Parameters flags(
-                    ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
-                    | ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED);
+            static ariles2::Read::Parameters flags(
+                    ariles2::ConfigurableFlags::DEFAULT | ariles2::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
+                    | ariles2::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED);
             return (flags);
         }
 
-        virtual const ariles::Write::Parameters &arilesGetParameters(const ariles::Write &) const
+        virtual const ariles2::Write::Parameters &arilesGetParameters(const ariles2::Write &) const
         {
-            static ariles::Write::Parameters flags(
-                    ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
-                    | ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED);
+            static ariles2::Write::Parameters flags(
+                    ariles2::ConfigurableFlags::DEFAULT | ariles2::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
+                    | ariles2::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED);
             return (flags);
         }
     };
 
 
-    class ConfigurableFlags2 : public ariles::DefaultBase
+    class ConfigurableFlags2 : public ariles2::DefaultBase
     {
 #define ARILES_DEFAULT_ID "ConfigurableFlags2"
 #define ARILES_ENTRIES(v)                                                                                              \
@@ -58,26 +58,26 @@ namespace ariles_tests
 
 
     public:
-        ariles::ConfigurableFlags getExpectedConfigurableFlags() const
+        ariles2::ConfigurableFlags getExpectedConfigurableFlags() const
         {
-            return (ariles::ConfigurableFlags(
-                    ariles::ConfigurableFlags::DEFAULT & ~ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
-                    & ~ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED));
+            return (ariles2::ConfigurableFlags(
+                    ariles2::ConfigurableFlags::DEFAULT & ~ariles2::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
+                    & ~ariles2::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED));
         }
 
-        virtual const ariles::Read::Parameters &arilesGetParameters(const ariles::Read &) const
+        virtual const ariles2::Read::Parameters &arilesGetParameters(const ariles2::Read &) const
         {
-            static ariles::Read::Parameters flags(
-                    ariles::ConfigurableFlags::DEFAULT & ~ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
-                    & ~ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED);
+            static ariles2::Read::Parameters flags(
+                    ariles2::ConfigurableFlags::DEFAULT & ~ariles2::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
+                    & ~ariles2::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED);
             return (flags);
         }
 
-        virtual const ariles::Write::Parameters &arilesGetParameters(const ariles::Write &) const
+        virtual const ariles2::Write::Parameters &arilesGetParameters(const ariles2::Write &) const
         {
-            static ariles::Write::Parameters flags(
-                    ariles::ConfigurableFlags::DEFAULT & ~ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
-                    & ~ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED);
+            static ariles2::Write::Parameters flags(
+                    ariles2::ConfigurableFlags::DEFAULT & ~ariles2::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
+                    & ~ariles2::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED);
             return (flags);
         }
     };

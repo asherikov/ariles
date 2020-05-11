@@ -13,16 +13,16 @@
 #include "../internal/helpers.h"
 #include "../visitors/count.h"
 
-namespace ariles
+namespace ariles2
 {
     namespace read
     {
         template <class t_Visitor, class t_Entry>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
                 t_Entry &entry,
                 const typename t_Visitor::Parameters &parameters,
-                ARILES_IS_BASE_ENABLER(ariles::read::Base, t_Entry))
+                ARILES_IS_BASE_ENABLER(ariles2::read::Base, t_Entry))
         {
             ARILES_TRACE_FUNCTION;
 
@@ -32,7 +32,7 @@ namespace ariles
                 param.set(t_Visitor::Parameters::DEFAULT & t_Visitor::Parameters::ALLOW_MISSING_ENTRIES);
             }
 
-            ariles::count::Visitor counter;
+            ariles2::count::Visitor counter;
             if (true == param.isSet(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES))
             {
                 visitor.template startMap<t_Visitor::SIZE_LIMIT_NONE>(counter(entry));
@@ -51,7 +51,7 @@ namespace ariles
          * This function is necessary since an explicit casting to integer is needed.
          */
         template <class t_Visitor, typename t_Enumeration>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_read(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
                 t_Enumeration &entry,
                 const typename t_Visitor::Parameters & /*param*/,
@@ -67,11 +67,11 @@ namespace ariles
 
 #define ARILES_BASIC_TYPE(type)                                                                                        \
     template <class t_Visitor>                                                                                         \
-    void ARILES_VISIBILITY_ATTRIBUTE apply_read(                                                                       \
+    void ARILES2_VISIBILITY_ATTRIBUTE apply_read(                                                                       \
             t_Visitor &visitor, type &entry, const typename t_Visitor::Parameters &param)                              \
     {                                                                                                                  \
         ARILES_TRACE_FUNCTION;                                                                                         \
-        ARILES_UNUSED_ARG(param);                                                                                      \
+        ARILES2_UNUSED_ARG(param);                                                                                      \
         visitor.readElement(entry);                                                                                    \
     }
 
@@ -79,22 +79,22 @@ namespace ariles
 
 #undef ARILES_BASIC_TYPE
     }  // namespace read
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace write
     {
         template <class t_Visitor, class t_Entry>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
                 t_Visitor &writer,
                 const t_Entry &entry,
                 const typename t_Visitor::Parameters &param,
-                ARILES_IS_BASE_ENABLER(ariles::write::Base, t_Entry))
+                ARILES_IS_BASE_ENABLER(ariles2::write::Base, t_Entry))
         {
             ARILES_TRACE_FUNCTION;
-            ariles::count::Visitor counter;
+            ariles2::count::Visitor counter;
             writer.startMap(counter(entry));
             entry.arilesVirtualVisit(writer, param);
             writer.endMap();
@@ -103,7 +103,7 @@ namespace ariles
 
 
         template <class t_Visitor, typename t_Enumeration>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_write(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
                 t_Visitor &writer,
                 const t_Enumeration entry,
                 const typename t_Visitor::Parameters & /*param*/,
@@ -117,7 +117,7 @@ namespace ariles
 
 #define ARILES_BASIC_TYPE(type)                                                                                        \
     template <class t_Visitor>                                                                                         \
-    void ARILES_VISIBILITY_ATTRIBUTE apply_write(                                                                      \
+    void ARILES2_VISIBILITY_ATTRIBUTE apply_write(                                                                      \
             t_Visitor &writer, const type &entry, const typename t_Visitor::Parameters &)                              \
     {                                                                                                                  \
         ARILES_TRACE_FUNCTION;                                                                                         \
@@ -131,25 +131,25 @@ namespace ariles
 
 #undef ARILES_BASIC_TYPE
     }  // namespace write
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace compare
     {
         template <class t_Visitor, class t_Left, class t_Right>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
                 t_Visitor &visitor,
                 const t_Left &left,
                 const t_Right &right,
                 const typename t_Visitor::Parameters &param,
-                ARILES_IS_BASE_ENABLER(ariles::Ariles, t_Left))
+                ARILES_IS_BASE_ENABLER(ariles2::Ariles, t_Left))
         {
             ARILES_TRACE_FUNCTION;
             if (true == param.compare_number_of_entries_)
             {
-                ariles::count::Visitor counter;
+                ariles2::count::Visitor counter;
 
                 const std::size_t left_counter = counter(left);
                 visitor.equal_ &= (left_counter == counter(right));
@@ -159,7 +159,7 @@ namespace ariles
 
 
         template <class t_Visitor, typename t_Enumeration>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
                 t_Visitor &visitor,
                 const t_Enumeration &left,
                 const t_Enumeration &right,
@@ -172,7 +172,7 @@ namespace ariles
 
 #define ARILES_BASIC_TYPE(type)                                                                                        \
     template <class t_Visitor>                                                                                         \
-    inline void ARILES_VISIBILITY_ATTRIBUTE apply_compare(                                                             \
+    inline void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(                                                             \
             t_Visitor &visitor, const type &left, const type &right, const typename t_Visitor::Parameters &)           \
     {                                                                                                                  \
         visitor.equal_ &= (left == right);                                                                             \
@@ -193,7 +193,7 @@ namespace ariles
 
 
         template <class t_Visitor>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
                 t_Visitor &visitor,
                 const float &left,
                 const float &right,
@@ -204,7 +204,7 @@ namespace ariles
 
 
         template <class t_Visitor>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_compare(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
                 t_Visitor &visitor,
                 const double &left,
                 const double &right,
@@ -213,19 +213,19 @@ namespace ariles
             visitor.equal_ &= visitor.compareFloats(left, right, param);
         }
     }  // namespace compare
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace defaults
     {
         template <class t_Visitor, class t_Entry>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
                 const t_Visitor &visitor,
                 t_Entry &entry,
                 const typename t_Visitor::Parameters &param,
-                ARILES_IS_BASE_ENABLER(ariles::defaults::Base, t_Entry))
+                ARILES_IS_BASE_ENABLER(ariles2::defaults::Base, t_Entry))
         {
             ARILES_TRACE_FUNCTION;
             entry.arilesVirtualVisit(visitor, param);
@@ -233,7 +233,7 @@ namespace ariles
 
 
         template <class t_Visitor, typename t_Enumeration>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
                 const t_Visitor & /*visitor*/,
                 t_Enumeration & /*entry*/,
                 const typename t_Visitor::Parameters & /*param*/,
@@ -245,7 +245,7 @@ namespace ariles
 
 #define ARILES_BASIC_TYPE(type)                                                                                        \
     template <class t_Visitor>                                                                                         \
-    void ARILES_VISIBILITY_ATTRIBUTE apply_defaults(                                                                   \
+    void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(                                                                   \
             const t_Visitor &, type &entry, const typename t_Visitor::Parameters &param)                               \
     {                                                                                                                  \
         ARILES_TRACE_FUNCTION;                                                                                         \
@@ -256,20 +256,20 @@ namespace ariles
 
 #undef ARILES_BASIC_TYPE
     }  // namespace defaults
-}  // namespace ariles
+}  // namespace ariles2
 
 
 
-namespace ariles
+namespace ariles2
 {
     namespace process
     {
         template <class t_Visitor, class t_Entry>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_process(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_process(
                 const t_Visitor &visitor,
                 t_Entry &entry,
                 const typename t_Visitor::Parameters &param,
-                ARILES_IS_BASE_ENABLER(ariles::Ariles, t_Entry))
+                ARILES_IS_BASE_ENABLER(ariles2::Ariles, t_Entry))
         {
             ARILES_TRACE_FUNCTION;
             entry.arilesVirtualVisit(visitor, param);
@@ -277,13 +277,13 @@ namespace ariles
 
 
         template <class t_Visitor, class t_Entry>
-        void ARILES_VISIBILITY_ATTRIBUTE apply_process(
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_process(
                 const t_Visitor &,
                 t_Entry &,
                 const typename t_Visitor::Parameters &,
-                ARILES_IS_BASE_DISABLER(ariles::Ariles, t_Entry))
+                ARILES_IS_BASE_DISABLER(ariles2::Ariles, t_Entry))
         {
             ARILES_TRACE_FUNCTION;
         }
     }  // namespace process
-}  // namespace ariles
+}  // namespace ariles2

@@ -15,11 +15,11 @@
 #include "serialization.h"
 
 
-namespace ariles
+namespace ariles2
 {
     namespace read
     {
-        class ARILES_VISIBILITY_ATTRIBUTE Visitor : public serialization::Base
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public serialization::Base
         {
         public:
             enum SizeLimitEnforcementType
@@ -39,7 +39,7 @@ namespace ariles
                     const std::size_t & /*min*/ = 0,
                     const std::size_t & /*max*/ = 0) const
             {
-                ARILES_THROW("Internal logic error.");
+                ARILES2_THROW("Internal logic error.");
             }
 
             template <int t_size_limit_type>
@@ -77,7 +77,7 @@ namespace ariles
                     std::string file_name_default = file_name;
                     config_ifs.open(file_name_default.c_str());
                 }
-                ARILES_PERSISTENT_ASSERT(
+                ARILES2_PERSISTENT_ASSERT(
                         true == config_ifs.good(),
                         std::string("Could not open configuration file: ") + file_name.c_str());
             }
@@ -93,7 +93,7 @@ namespace ariles
             virtual bool descend(const std::string &child_name)
             {
                 ARILES_TRACE_FUNCTION;
-                ARILES_UNUSED_ARG(child_name)
+                ARILES2_UNUSED_ARG(child_name)
                 return (true);
             }
 
@@ -170,14 +170,14 @@ namespace ariles
                     }
                     catch (const std::exception &e)
                     {
-                        ARILES_THROW(std::string("Failed to parse entry <") + name + "> ||  " + e.what());
+                        ARILES2_THROW(std::string("Failed to parse entry <") + name + "> ||  " + e.what());
                     }
 
                     this->endRoot(name);
                 }
                 else
                 {
-                    ARILES_PERSISTENT_ASSERT(
+                    ARILES2_PERSISTENT_ASSERT(
                             true == param.isSet(Parameters::ALLOW_MISSING_ENTRIES),
                             std::string("Configuration file does not contain entry '") + name + "'.");
                 }
@@ -202,7 +202,7 @@ namespace ariles
                     }
                     catch (const std::exception &e)
                     {
-                        ARILES_THROW(std::string("Failed to parse entry <") + name + "> ||  " + e.what());
+                        ARILES2_THROW(std::string("Failed to parse entry <") + name + "> ||  " + e.what());
                     }
 
                     this->ascend();
@@ -210,7 +210,7 @@ namespace ariles
                 }
                 else
                 {
-                    ARILES_PERSISTENT_ASSERT(
+                    ARILES2_PERSISTENT_ASSERT(
                             false == param.isSet(Parameters::DISABLE_ALLOW_MISSING_ENTRIES)
                                     and true == param.isSet(Parameters::ALLOW_MISSING_ENTRIES),
                             std::string("Configuration file does not contain entry '") + name + "'.");
@@ -236,7 +236,7 @@ namespace ariles
                 const std::size_t &expected_size,
                 const std::size_t & /*max*/) const
         {
-            ARILES_ASSERT(expected_size == size, "Actual number of entries is not the same as expected.");
+            ARILES2_ASSERT(expected_size == size, "Actual number of entries is not the same as expected.");
             return (size);
         }
 
@@ -247,8 +247,8 @@ namespace ariles
                 const std::size_t &min,
                 const std::size_t &max) const
         {
-            ARILES_ASSERT(min <= size, "Actual number of entries is lower than expected.");
-            ARILES_ASSERT(max >= size, "Actual number of entries is larger than expected.");
+            ARILES2_ASSERT(min <= size, "Actual number of entries is lower than expected.");
+            ARILES2_ASSERT(max >= size, "Actual number of entries is larger than expected.");
             return (size);
         }
 
@@ -259,12 +259,12 @@ namespace ariles
                 const std::size_t &min,
                 const std::size_t & /*max*/) const
         {
-            ARILES_ASSERT(min <= size, "Actual number of entries is lower than expected.");
+            ARILES2_ASSERT(min <= size, "Actual number of entries is lower than expected.");
             return (size);
         }
 
 
-        class ARILES_VISIBILITY_ATTRIBUTE Base : public entry::Base<read::Visitor>
+        class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::Base<read::Visitor>
         {
         };
 
@@ -275,4 +275,4 @@ namespace ariles
 
 
     typedef read::Visitor Read;
-}  // namespace ariles
+}  // namespace ariles2

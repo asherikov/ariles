@@ -60,15 +60,15 @@
         ARILES_VISITOR(write)                                                                                          \
         ARILES_VISITOR(compare)
 
-namespace ariles
+namespace ariles2
 {
     typedef Base<
-            ariles::defaults::Base,
-            ariles::postprocess::Base,
-            ariles::preprocess::Base,
-            ariles::count::Base,
-            ariles::read::Base,
-            ariles::write::Base>
+            ariles2::defaults::Base,
+            ariles2::postprocess::Base,
+            ariles2::preprocess::Base,
+            ariles2::count::Base,
+            ariles2::read::Base,
+            ariles2::write::Base>
             DefaultBase;
 }
 
@@ -77,10 +77,10 @@ namespace ariles
 #    define ARILES_DISABLED
 #    define ARILES_INITIALIZE <ariles2/members/variables.h>
 
-namespace ariles
+namespace ariles2
 {
     // Some classes may inherit from this
-    class ARILES_VISIBILITY_ATTRIBUTE DefaultBase
+    class ARILES2_VISIBILITY_ATTRIBUTE DefaultBase
     {
     protected:
         /**
@@ -96,6 +96,6 @@ namespace ariles
 
     public:
     };
-}  // namespace ariles
+}  // namespace ariles2
 
 #endif

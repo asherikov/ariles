@@ -16,22 +16,22 @@
 #include "common.h"
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_yaml_cpp03
     {
-        typedef ariles::Node<const YAML::Node *> NodeWrapper;
+        typedef ariles2::Node<const YAML::Node *> NodeWrapper;
     }
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_yaml_cpp03
     {
         namespace impl
         {
-            class ARILES_VISIBILITY_ATTRIBUTE Reader
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader
             {
             public:
                 /// instance of YAML parser
@@ -65,9 +65,9 @@ namespace ariles
             };
         }  // namespace impl
     }      // namespace ns_yaml_cpp03
-}  // namespace ariles
+}  // namespace ariles2
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_yaml_cpp03
     {
@@ -156,8 +156,8 @@ namespace ariles
 
         void Reader::shiftArray()
         {
-            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ARILES_ASSERT(
+            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
             ++impl_->node_stack_.back().index_;
@@ -176,8 +176,8 @@ namespace ariles
         impl_->getRawNode() >> element;                                                                                \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
 
 #undef ARILES_BASIC_TYPE
     }  // namespace ns_yaml_cpp03
-}  // namespace ariles
+}  // namespace ariles2
