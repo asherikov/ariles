@@ -109,7 +109,7 @@ namespace ariles2
 
         void Writer::startRoot(const std::string &name)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
 
             impl_->root_name_ = "";
             impl_->root_value_.clear();
@@ -126,49 +126,49 @@ namespace ariles2
 
         void Writer::endRoot(const std::string & /*name*/)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             ascend();
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element)                                                                     \
     {                                                                                                                  \
         impl_->getRawNode() = element;                                                                                 \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_REAL_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element)                                                                     \
     {                                                                                                                  \
-        ARILES2_ASSERT(                                                                                                 \
+        ARILES2_ASSERT(                                                                                                \
                 static_cast<int64_t>(element) <= std::numeric_limits<int>::max()                                       \
                         && static_cast<int64_t>(element) >= static_cast<int64_t>(std::numeric_limits<int>::min()),     \
                 "Value is out of range.");                                                                             \
         impl_->getRawNode() = static_cast<int>(element);                                                               \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element)                                                                     \
     {                                                                                                                  \
-        ARILES2_ASSERT(                                                                                                 \
+        ARILES2_ASSERT(                                                                                                \
                 static_cast<uint64_t>(element) <= static_cast<uint64_t>(std::numeric_limits<int>::max()),              \
                 "Value is too large.");                                                                                \
         impl_->getRawNode() = static_cast<int>(element);                                                               \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
     }  // namespace ns_ros
 }  // namespace ariles2

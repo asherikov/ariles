@@ -15,8 +15,8 @@ namespace ariles_tests
 {
     class ConfigurableStrictness1 : public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES(v) ARILES_TYPED_ENTRY_(v, real, double)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v) ARILES2_TYPED_ENTRY_(v, real, double)
+#include ARILES2_INITIALIZE
 
 
     public:
@@ -38,10 +38,10 @@ namespace ariles_tests
 
     class ConfigurableStrictness2 : public ConfigurableStrictness1
     {
-#define ARILES_ENTRIES(v)                                                                                              \
-    ARILES_TYPED_ENTRY_(v, integer, int)                                                                               \
-    ARILES_PARENT(v, ConfigurableStrictness1)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_TYPED_ENTRY_(v, integer, int)                                                                              \
+    ARILES2_PARENT(v, ConfigurableStrictness1)
+#include ARILES2_INITIALIZE
 
 
     public:

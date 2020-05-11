@@ -181,25 +181,25 @@ namespace ariles2
 
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element)                                                                     \
     {                                                                                                                  \
         impl_->getRawNode().SetInt64(element);                                                                         \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element)                                                                     \
     {                                                                                                                  \
         impl_->getRawNode().SetUint64(element);                                                                        \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
     }  // namespace ns_rapidjson
 }  // namespace ariles2

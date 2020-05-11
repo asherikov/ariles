@@ -24,7 +24,7 @@ namespace ariles2
                 std::pair<t_First, t_Second> &entry,
                 const typename t_Visitor::Parameters &parameters)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(2);
 
             ariles2::ConfigurableFlags param = parameters;
@@ -42,7 +42,7 @@ namespace ariles2
                 std::pair<std::string, t_Second> &entry,
                 const typename t_Visitor::Parameters &parameters)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (visitor.getSerializationFeatures().isSet(serialization::Features::SLOPPY_PAIRS_SUPPORTED)
                 && parameters.isSet(t_Visitor::Parameters::SLOPPY_PAIRS_IF_SUPPORTED))
             {
@@ -92,7 +92,7 @@ namespace ariles2
                 const std::pair<t_First, t_Second> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             writer.startMap(2);
             writer(entry.first, "first", param);
             writer(entry.second, "second", param);
@@ -107,7 +107,7 @@ namespace ariles2
                 const std::pair<std::string, t_Second> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (writer.getSerializationFeatures().isSet(serialization::Features::SLOPPY_PAIRS_SUPPORTED)
                 && param.isSet(t_Visitor::Parameters::SLOPPY_PAIRS_IF_SUPPORTED))
             {
@@ -140,7 +140,7 @@ namespace ariles2
                 const std::pair<t_First, t_Second> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
 
             apply_compare(visitor, left.first, right.first, param);
             apply_compare(visitor, left.second, right.second, param);
@@ -160,7 +160,7 @@ namespace ariles2
                 std::pair<t_First, t_Second> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             apply_defaults(visitor, entry.first, param);
             apply_defaults(visitor, entry.second, param);
         }
@@ -179,7 +179,7 @@ namespace ariles2
                 std::pair<t_First, t_Second> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             apply_process(visitor, entry.first, param);
             apply_process(visitor, entry.second, param);
         }

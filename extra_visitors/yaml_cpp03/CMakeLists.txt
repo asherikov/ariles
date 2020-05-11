@@ -1,4 +1,4 @@
-list (FIND ARILES_ENABLED_VISITORS "yaml_cpp" INDEX)
+list (FIND ARILES2_ENABLED_VISITORS "yaml_cpp" INDEX)
 if (${INDEX} GREATER -1)
     message(FATAL_ERROR "Conflict between the visitors detected (yaml_cpp -- yaml_cpp03).")
 endif()

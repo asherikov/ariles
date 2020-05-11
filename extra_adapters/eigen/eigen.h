@@ -25,7 +25,7 @@ namespace ariles2
                 Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             std::size_t size = visitor.startArray();
 
             if (Eigen::Dynamic == t_rows)
@@ -53,7 +53,7 @@ namespace ariles2
                 Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
                 const typename t_Visitor::Parameters &parameters)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols
                 || parameters.isSet(ConfigurableFlags::FORCE_EXPLICIT_MATRIX_SIZE))
             {
@@ -98,7 +98,7 @@ namespace ariles2
                 Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             Eigen::Matrix<
                     t_Scalar,
                     Eigen::Dynamic == t_dim ? Eigen::Dynamic : t_dim + 1,
@@ -115,7 +115,7 @@ namespace ariles2
                 Eigen::Quaternion<t_Scalar, t_options> &entry,
                 const typename t_Visitor::Parameters &parameters)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
 
             ariles2::ConfigurableFlags param = parameters;
             param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
@@ -141,7 +141,7 @@ namespace ariles2
                 const Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (writer.getSerializationFeatures().isSet(serialization::Features::NATIVE_MATRIX_SUPPORTED))
             {
                 writer.startMatrix(true);
@@ -173,7 +173,7 @@ namespace ariles2
                 const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (writer.getSerializationFeatures().isSet(serialization::Features::NATIVE_MATRIX_SUPPORTED))
             {
                 writer.startMatrix();
@@ -238,7 +238,7 @@ namespace ariles2
                 const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             apply_write(writer, entry.matrix(), param);
         }
 
@@ -249,7 +249,7 @@ namespace ariles2
                 const Eigen::Quaternion<t_Scalar, t_options> &entry,
                 const t_Flags &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
 
             writer.startMap(4);
 
@@ -276,7 +276,7 @@ namespace ariles2
                 const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             visitor.equal_ &= (left.isApprox(right, param.template getTolerance<t_Scalar>()));
         }
 
@@ -288,7 +288,7 @@ namespace ariles2
                 const Eigen::Quaternion<t_Scalar, t_options> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             visitor.equal_ &= (left.isApprox(right, param.template getTolerance<t_Scalar>()));
         }
 
@@ -300,7 +300,7 @@ namespace ariles2
                 const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             visitor.equal_ &= (left.isApprox(right, param.template getTolerance<t_Scalar>()));
         }
     }  // namespace compare
@@ -318,7 +318,7 @@ namespace ariles2
                 Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (Eigen::Dynamic == t_rows)
             {
                 if (Eigen::Dynamic == t_cols)
@@ -350,7 +350,7 @@ namespace ariles2
                 Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             entry.setIdentity();
         }
 
@@ -361,7 +361,7 @@ namespace ariles2
                 Eigen::Quaternion<t_Scalar, t_options> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             entry.setIdentity();
         }
     }  // namespace defaults

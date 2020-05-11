@@ -41,5 +41,5 @@ namespace ariles2
     };
 }  // namespace ariles2
 
-#define ARILES_POINTER_TYPE boost::optional
+#define ARILES2_POINTER_TYPE boost::optional
 #include <ariles2/adapters/generic_pointer.h>

@@ -15,10 +15,10 @@ namespace ariles2
     template <template <class> class t_Pointer, class t_Base, class t_Instantiator>
     class ARILES2_VISIBILITY_ATTRIBUTE Any : public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES(v)                                                                                              \
-    ARILES_TYPED_ENTRY_(v, id, std::string)                                                                            \
-    ARILES_TYPED_ENTRY_(v, value, t_Pointer<t_Base>)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_TYPED_ENTRY_(v, id, std::string)                                                                           \
+    ARILES2_TYPED_ENTRY_(v, value, t_Pointer<t_Base>)
+#include ARILES2_INITIALIZE
 
     protected:
         bool isConsistent() const
@@ -165,7 +165,7 @@ namespace ariles2
 
         void arilesVisit(ariles2::Read &visitor, const ariles2::Read::Parameters &parameters)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
 
             ariles2::Read::Parameters param = parameters;
             param.unset(ariles2::Read::Parameters::ALLOW_MISSING_ENTRIES);
@@ -210,7 +210,7 @@ namespace ariles2
     template <class t_Pointer>
     class ARILES2_VISIBILITY_ATTRIBUTE NonNullPointer : public ariles2::DefaultBase
     {
-#include ARILES_INITIALIZE
+#include ARILES2_INITIALIZE
 
     public:
         typedef t_Pointer BasePointer;
@@ -320,9 +320,10 @@ namespace ariles2
 
 
         template <class t_Other>
-        void arilesVisit(ariles2::Compare &visitor, const t_Other &other, const ariles2::Compare::Parameters &param) const
+        void arilesVisit(ariles2::Compare &visitor, const t_Other &other, const ariles2::Compare::Parameters &param)
+                const
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             value_->arilesVisit(visitor, *other.value_, param);
         }
     };

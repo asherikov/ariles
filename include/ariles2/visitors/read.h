@@ -92,7 +92,7 @@ namespace ariles2
              */
             virtual bool descend(const std::string &child_name)
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
                 ARILES2_UNUSED_ARG(child_name)
                 return (true);
             }
@@ -127,8 +127,8 @@ namespace ariles2
 
             virtual bool startRoot(const std::string &name)
             {
-                ARILES_TRACE_FUNCTION;
-                ARILES_TRACE_ENTRY(name);
+                ARILES2_TRACE_FUNCTION;
+                ARILES2_TRACE_ENTRY(name);
                 if (false == name.empty())
                 {
                     return (descend(name));
@@ -138,7 +138,7 @@ namespace ariles2
 
             virtual void endRoot(const std::string &name)
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
                 if (false == name.empty())
                 {
                     ascend();
@@ -146,19 +146,19 @@ namespace ariles2
             }
 
 
-#define ARILES_BASIC_TYPE(type) virtual void readElement(type &entry) = 0;
+#define ARILES2_BASIC_TYPE(type) virtual void readElement(type &entry) = 0;
 
-            ARILES_BASIC_TYPES_LIST
+            ARILES2_BASIC_TYPES_LIST
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
             template <class t_Entry>
             void start(t_Entry &entry, const std::string &name, const Parameters &parameters)
             {
-                ARILES_TRACE_FUNCTION;
-                ARILES_TRACE_ENTRY(name);
-                ARILES_TRACE_TYPE(entry);
+                ARILES2_TRACE_FUNCTION;
+                ARILES2_TRACE_ENTRY(name);
+                ARILES2_TRACE_TYPE(entry);
 
                 Parameters param = parameters;  // local modifiable copy
 
@@ -187,9 +187,9 @@ namespace ariles2
             template <class t_Entry>
             bool operator()(t_Entry &entry, const std::string &name, const Parameters &parameters)
             {
-                ARILES_TRACE_FUNCTION;
-                ARILES_TRACE_ENTRY(name);
-                ARILES_TRACE_TYPE(entry);
+                ARILES2_TRACE_FUNCTION;
+                ARILES2_TRACE_ENTRY(name);
+                ARILES2_TRACE_TYPE(entry);
                 Parameters param = parameters;  // local modifiable copy
 
                 if (this->descend(name))
@@ -269,8 +269,8 @@ namespace ariles2
         };
 
 
-#define ARILES_VISIT_read
-#define ARILES_METHODS_read ARILES_METHODS(read, ARILES_EMPTY_MACRO, ARILES_EMPTY_MACRO)
+#define ARILES2_VISIT_read
+#define ARILES2_METHODS_read ARILES2_METHODS(read, ARILES2_EMPTY_MACRO, ARILES2_EMPTY_MACRO)
     }  // namespace read
 
 

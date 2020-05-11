@@ -17,48 +17,48 @@ namespace ariles_tests
     class ConfigurableComplexVerbose : public ariles2::DefaultBase,
                                        public ConfigurableComplexBase<ConfigurableComplexVerbose>
     {
-#define ARILES_ENTRIES_STANDARD_TYPES(v)                                                                               \
-    ARILES_ENTRY_(v, integer)                                                                                          \
-    ARILES_ENTRY_(v, unsigned_integer)                                                                                 \
-    ARILES_ENTRY_(v, real)                                                                                             \
-    ARILES_ENTRY_(v, string)                                                                                           \
-    ARILES_ENTRY_(v, std_vector)                                                                                       \
-    ARILES_ENTRY_(v, std_nested_vector)                                                                                \
-    ARILES_ENTRY_(v, enum)                                                                                             \
-    ARILES_ENTRY_(v, boolean_true)                                                                                     \
-    ARILES_ENTRY_(v, boolean_false)                                                                                    \
-    ARILES_ENTRY_(v, std_pair)                                                                                         \
-    ARILES_ENTRY_(v, std_map)
+#define ARILES2_ENTRIES_STANDARD_TYPES(v)                                                                              \
+    ARILES2_ENTRY_(v, integer)                                                                                         \
+    ARILES2_ENTRY_(v, unsigned_integer)                                                                                \
+    ARILES2_ENTRY_(v, real)                                                                                            \
+    ARILES2_ENTRY_(v, string)                                                                                          \
+    ARILES2_ENTRY_(v, std_vector)                                                                                      \
+    ARILES2_ENTRY_(v, std_nested_vector)                                                                               \
+    ARILES2_ENTRY_(v, enum)                                                                                            \
+    ARILES2_ENTRY_(v, boolean_true)                                                                                    \
+    ARILES2_ENTRY_(v, boolean_false)                                                                                   \
+    ARILES2_ENTRY_(v, std_pair)                                                                                        \
+    ARILES2_ENTRY_(v, std_map)
 
 #ifdef ARILES_ADAPTER_EIGEN
-#    define ARILES_ENTRIES_0(v)                                                                                        \
-        ARILES_ENTRIES_STANDARD_TYPES(v)                                                                               \
-        ARILES_ENTRY_(v, vector)                                                                                       \
-        ARILES_ENTRY_(v, matrix)                                                                                       \
-        ARILES_ENTRY_(v, matrix_x)                                                                                     \
-        ARILES_ENTRY_(v, std_vector_evector)                                                                           \
-        ARILES_ENTRY_(v, std_nested_vector_evector)                                                                    \
-        ARILES_ENTRY_(v, isometry)                                                                                     \
-        ARILES_ENTRY_(v, quaternion)
+#    define ARILES2_ENTRIES_0(v)                                                                                       \
+        ARILES2_ENTRIES_STANDARD_TYPES(v)                                                                              \
+        ARILES2_ENTRY_(v, vector)                                                                                      \
+        ARILES2_ENTRY_(v, matrix)                                                                                      \
+        ARILES2_ENTRY_(v, matrix_x)                                                                                    \
+        ARILES2_ENTRY_(v, std_vector_evector)                                                                          \
+        ARILES2_ENTRY_(v, std_nested_vector_evector)                                                                   \
+        ARILES2_ENTRY_(v, isometry)                                                                                    \
+        ARILES2_ENTRY_(v, quaternion)
 #else
-#    define ARILES_ENTRIES_0(v) ARILES_ENTRIES_STANDARD_TYPES(v)
+#    define ARILES2_ENTRIES_0(v) ARILES2_ENTRIES_STANDARD_TYPES(v)
 #endif
 
 #ifdef ARILES_ADAPTER_BETTER_ENUMS
-#    define ARILES_ENTRIES_1(v)                                                                                        \
-        ARILES_ENTRIES_0(v)                                                                                            \
-        ARILES_ENTRY_(v, better_enum)
+#    define ARILES2_ENTRIES_1(v)                                                                                       \
+        ARILES2_ENTRIES_0(v)                                                                                           \
+        ARILES2_ENTRY_(v, better_enum)
 #else
-#    define ARILES_ENTRIES_1(v) ARILES_ENTRIES_STANDARD_TYPES(v)
+#    define ARILES2_ENTRIES_1(v) ARILES2_ENTRIES_STANDARD_TYPES(v)
 #endif
 
 
-#define ARILES_ENTRIES(v) ARILES_ENTRIES_1(v)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v) ARILES2_ENTRIES_1(v)
+#include ARILES2_INITIALIZE
 
-#undef ARILES_ENTRIES_STANDARD_TYPES
-#undef ARILES_ENTRIES_0
-#undef ARILES_ENTRIES_1
+#undef ARILES2_ENTRIES_STANDARD_TYPES
+#undef ARILES2_ENTRIES_0
+#undef ARILES2_ENTRIES_1
 
 
     public:

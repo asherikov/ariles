@@ -65,29 +65,29 @@
 
 #define ARILES_TESTS_SHORTCUT(NAMESPACE, INITIALIZER) ARILES_TESTS(NAMESPACE, NAMESPACE, INITIALIZER)
 
-#ifdef ARILES_VISITOR_INCLUDED_msgpack
+#ifdef ARILES2_VISITOR_INCLUDED_msgpack
 ARILES_TESTS_SHORTCUT(msgpack, FilenameInitializer)
 #    define ComparisonMultiFixture ComparisonSimpleFixture
 ARILES_TESTS_SHORTCUT(msgpack_compact, FilenameInitializer)
 #    undef ComparisonMultiFixture
 #endif
 
-#ifdef ARILES_VISITOR_INCLUDED_yaml_cpp03
+#ifdef ARILES2_VISITOR_INCLUDED_yaml_cpp03
 ARILES_TESTS_SHORTCUT(yaml_cpp03, FilenameInitializer)
 #endif
 
-#ifdef ARILES_VISITOR_INCLUDED_yaml_cpp
+#ifdef ARILES2_VISITOR_INCLUDED_yaml_cpp
 ARILES_TESTS_SHORTCUT(yaml_cpp, FilenameInitializer)
 #endif
 
-#ifdef ARILES_VISITOR_INCLUDED_rapidjson
+#ifdef ARILES2_VISITOR_INCLUDED_rapidjson
 // A dirty hack to avoid fixture, which is known to fail for JSON.
 #    define ComparisonMultiFixture ComparisonSimpleFixture
 ARILES_TESTS_SHORTCUT(rapidjson, FilenameInitializer)
 #    undef ComparisonMultiFixture
 #endif
 
-#ifdef ARILES_VISITOR_INCLUDED_jsonnet
+#ifdef ARILES2_VISITOR_INCLUDED_jsonnet
 // A dirty hack to avoid fixture, which is known to fail for JSON.
 #    define ComparisonMultiFixture ComparisonSimpleFixture
 ARILES_TESTS(rapidjson_jsonnet, jsonnet<ariles2::rapidjson>, FilenameInitializer)

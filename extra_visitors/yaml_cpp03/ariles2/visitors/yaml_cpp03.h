@@ -14,7 +14,7 @@
 
 #pragma once
 
-#define ARILES_VISITOR_INCLUDED_yaml_cpp03
+#define ARILES2_VISITOR_INCLUDED_yaml_cpp03
 
 #include <ariles2/internal/helpers.h>
 #include <ariles2/internal/node.h>
@@ -29,7 +29,7 @@ namespace ariles2
         {
         protected:
             typedef t_Implementation Impl;
-            typedef ARILES_SHARED_PTR<t_Implementation> ImplPtr;
+            typedef ARILES2_SHARED_PTR<t_Implementation> ImplPtr;
 
         protected:
             ImplPtr impl_;

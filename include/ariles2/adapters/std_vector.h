@@ -23,7 +23,7 @@ namespace ariles2
                 std::vector<t_VectorEntryType, t_Allocator> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             entry.resize(visitor.startArray());
             for (std::size_t i = 0; i < entry.size(); ++i)
             {
@@ -46,7 +46,7 @@ namespace ariles2
                 const std::vector<t_VectorEntryType, t_Allocator> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             writer.startArray(entry.size(), param.isSet(t_Visitor::Parameters::COMPACT_ARRAYS_IF_SUPPORTED));
             for (std::size_t i = 0; i < entry.size(); ++i)
             {
@@ -70,7 +70,7 @@ namespace ariles2
                 const std::vector<t_VectorEntryType, t_Allocator> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
 
             visitor.equal_ &= (left.size() == right.size());
 
@@ -93,7 +93,7 @@ namespace ariles2
                 std::vector<t_VectorEntryType, t_Allocator> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             entry.clear();
         }
     }  // namespace defaults
@@ -111,7 +111,7 @@ namespace ariles2
                 std::vector<t_VectorEntryType, t_Allocator> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             for (std::size_t i = 0; i < entry.size(); ++i)
             {
                 apply_process(visitor, entry[i], param);

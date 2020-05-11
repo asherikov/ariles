@@ -15,10 +15,10 @@ namespace ariles_tests
 {
     class ConfigurableFlags1 : public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES(v)                                                                                              \
-    ARILES_TYPED_ENTRY_(v, integer, int)                                                                               \
-    ARILES_TYPED_ENTRY_(v, real, double)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_TYPED_ENTRY_(v, integer, int)                                                                              \
+    ARILES2_TYPED_ENTRY_(v, real, double)
+#include ARILES2_INITIALIZE
 
 
     public:
@@ -49,12 +49,12 @@ namespace ariles_tests
 
     class ConfigurableFlags2 : public ariles2::DefaultBase
     {
-#define ARILES_DEFAULT_ID "ConfigurableFlags2"
-#define ARILES_ENTRIES(v)                                                                                              \
-    ARILES_TYPED_ENTRY_(v, integer, int)                                                                               \
-    ARILES_TYPED_ENTRY_(v, real, double)
+#define ARILES2_DEFAULT_ID "ConfigurableFlags2"
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_TYPED_ENTRY_(v, integer, int)                                                                              \
+    ARILES2_TYPED_ENTRY_(v, real, double)
 #define ARILES_AUTO_DEFAULTS
-#include ARILES_INITIALIZE
+#include ARILES2_INITIALIZE
 
 
     public:

@@ -49,12 +49,12 @@ namespace ariles2
 
     namespace entry
     {
-#define ARILES_METHODS(Namespace, VisitorQualifier, MethodQualifier)                                                   \
+#define ARILES2_METHODS(Namespace, VisitorQualifier, MethodQualifier)                                                  \
     virtual void arilesVirtualVisit(                                                                                   \
-            VisitorQualifier ariles2::Namespace::Visitor &visitor, const ariles2::Namespace::Visitor::Parameters &param) \
-            MethodQualifier                                                                                            \
+            VisitorQualifier ariles2::Namespace::Visitor &visitor,                                                     \
+            const ariles2::Namespace::Visitor::Parameters &param) MethodQualifier                                      \
     {                                                                                                                  \
-        ARILES_TRACE_FUNCTION;                                                                                         \
+        ARILES2_TRACE_FUNCTION;                                                                                        \
         this->arilesVisit(visitor, param);                                                                             \
     }                                                                                                                  \
     using ariles2::Namespace::Base::arilesGetParameters;
@@ -68,7 +68,7 @@ namespace ariles2
 
             virtual const typename t_Visitor::Parameters &arilesGetParameters(const t_Visitor &visitor) const
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
                 return (visitor.getDefaultParameters());
             }
         };
@@ -82,20 +82,20 @@ namespace ariles2
 
             virtual const typename t_Visitor::Parameters &arilesGetParameters(const t_Visitor &visitor) const
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
                 return (visitor.getDefaultParameters());
             }
         };
     }  // namespace entry
 }  // namespace ariles2
 
-#ifndef ARILES_DISABLE
-#    ifndef ARILES_ENABLED
-#        define ARILES_ENABLED
+#ifndef ARILES2_DISABLE
+#    ifndef ARILES2_ENABLED
+#        define ARILES2_ENABLED
 #    endif
 #endif
 
-#ifdef ARILES_ENABLED
+#ifdef ARILES2_ENABLED
 
 namespace ariles2
 {
@@ -106,9 +106,9 @@ namespace ariles2
             t_Ariles &ariles_class,
             const std::string &name,
             const typename t_Visitor::Parameters &param,
-            ARILES_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
-        ARILES_TRACE_FUNCTION;
+        ARILES2_TRACE_FUNCTION;
         visitor.start(ariles_class, name, param);
     }
 
@@ -119,9 +119,9 @@ namespace ariles2
             t_Ariles &ariles_class,
             const char *name,
             const typename t_Visitor::Parameters &param,
-            ARILES_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
-        ARILES_TRACE_FUNCTION;
+        ARILES2_TRACE_FUNCTION;
         visitor.start(ariles_class, name, param);
     }
 
@@ -131,9 +131,9 @@ namespace ariles2
             t_Visitor &visitor,
             t_Ariles &ariles_class,
             const typename t_Visitor::Parameters &param,
-            ARILES_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
-        ARILES_TRACE_FUNCTION;
+        ARILES2_TRACE_FUNCTION;
         ariles2::apply(visitor, ariles_class, ariles_class.arilesDefaultID(), param);
     }
 
@@ -143,9 +143,9 @@ namespace ariles2
             t_Visitor &visitor,
             t_Ariles &ariles_class,
             const std::string &name,
-            ARILES_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
-        ARILES_TRACE_FUNCTION;
+        ARILES2_TRACE_FUNCTION;
         ariles2::apply(visitor, ariles_class, name, visitor.getParameters(ariles_class));
     }
 
@@ -155,25 +155,28 @@ namespace ariles2
             t_Visitor &visitor,
             t_Ariles &ariles_class,
             const char *name,
-            ARILES_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
-        ARILES_TRACE_FUNCTION;
+        ARILES2_TRACE_FUNCTION;
         ariles2::apply(visitor, ariles_class, name, visitor.getParameters(ariles_class));
     }
 
 
     template <class t_Visitor, class t_Ariles>
-    void apply(t_Visitor &visitor, t_Ariles &ariles_class, ARILES_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+    void apply(
+            t_Visitor &visitor,
+            t_Ariles &ariles_class,
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
-        ARILES_TRACE_FUNCTION;
+        ARILES2_TRACE_FUNCTION;
         ariles2::apply(visitor, ariles_class, ariles_class.arilesDefaultID());
     }
 
 
     template <class t_Visitor, class t_Ariles>
-    void apply(t_Ariles &ariles_class, ARILES_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+    void apply(t_Ariles &ariles_class, ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
-        ARILES_TRACE_FUNCTION;
+        ARILES2_TRACE_FUNCTION;
         t_Visitor visitor;
         ariles2::apply(visitor, ariles_class);
     }
@@ -186,10 +189,10 @@ namespace ariles2
     void apply(
             t_Arg &arg,
             t_Ariles &ariles_class,
-            ARILES_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
-            ARILES_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
-        ARILES_TRACE_FUNCTION;
+        ARILES2_TRACE_FUNCTION;
         t_Visitor visitor(arg);
         ariles2::apply(visitor, ariles_class);
     }
@@ -200,10 +203,10 @@ namespace ariles2
             t_Arg &arg,
             t_Ariles &ariles_class,
             const char *name,
-            ARILES_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
-            ARILES_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
-        ARILES_TRACE_FUNCTION;
+        ARILES2_TRACE_FUNCTION;
         t_Visitor visitor(arg);
         ariles2::apply(visitor, ariles_class, name);
     }
@@ -213,10 +216,10 @@ namespace ariles2
     void apply(
             const t_Arg &arg,
             t_Ariles &ariles_class,
-            ARILES_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
-            ARILES_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
-        ARILES_TRACE_FUNCTION;
+        ARILES2_TRACE_FUNCTION;
         t_Visitor visitor(arg);
         ariles2::apply(visitor, ariles_class);
     }
@@ -227,10 +230,10 @@ namespace ariles2
             t_Arg &arg,
             t_Ariles &ariles_class,
             const typename t_Visitor::Parameters &param,
-            ARILES_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
-            ARILES_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
-        ARILES_TRACE_FUNCTION;
+        ARILES2_TRACE_FUNCTION;
         t_Visitor visitor(arg);
         ariles2::apply(visitor, ariles_class, param);
     }
@@ -241,9 +244,9 @@ namespace ariles2
             const std::string &arg,
             t_Ariles &ariles_class,
             const unsigned int flags,
-            ARILES_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
-        ARILES_TRACE_FUNCTION;
+        ARILES2_TRACE_FUNCTION;
         t_Visitor visitor(arg);
         ariles2::apply(visitor, ariles_class, typename t_Visitor::Parameters(flags));
     }
@@ -258,9 +261,9 @@ namespace ariles2
             t_Right &right,
             const std::string &name,
             const typename t_Visitor::Parameters &param,
-            ARILES_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
-        ARILES_TRACE_FUNCTION;
+        ARILES2_TRACE_FUNCTION;
         try
         {
             visitor.start(left, right, name, param);
@@ -281,9 +284,9 @@ namespace ariles2
             t_Visitor &visitor,
             t_Left &left,
             t_Right &right,
-            ARILES_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
-        ARILES_TRACE_FUNCTION;
+        ARILES2_TRACE_FUNCTION;
         ariles2::apply(visitor, left, right, left.arilesDefaultID(), visitor.getParameters(left));
     }
 
@@ -294,9 +297,9 @@ namespace ariles2
             t_Left &left,
             t_Right &right,
             const typename t_Visitor::Parameters &param,
-            ARILES_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
-        ARILES_TRACE_FUNCTION;
+        ARILES2_TRACE_FUNCTION;
         ariles2::apply(visitor, left, right, left.arilesDefaultID(), param);
     }
     // -----

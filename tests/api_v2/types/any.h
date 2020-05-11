@@ -14,8 +14,8 @@ namespace ariles_tests
 {
     class Base : public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES(v) ARILES_TYPED_ENTRY_(v, real, double)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v) ARILES2_TYPED_ENTRY_(v, real, double)
+#include ARILES2_INITIALIZE
 
     public:
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
@@ -39,11 +39,11 @@ namespace ariles_tests
 
     class Derived1 : public Base
     {
-#define ARILES_DEFAULT_ID "Derived1"  // Needed for cast<Derived1>("Derived1"));
-#define ARILES_ENTRIES(v)                                                                                              \
-    ARILES_PARENT(v, Base)                                                                                             \
-    ARILES_TYPED_ENTRY_(v, real1, double)
-#include ARILES_INITIALIZE
+#define ARILES2_DEFAULT_ID "Derived1"  // Needed for cast<Derived1>("Derived1"));
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_PARENT(v, Base)                                                                                            \
+    ARILES2_TYPED_ENTRY_(v, real1, double)
+#include ARILES2_INITIALIZE
 
     public:
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
@@ -64,11 +64,11 @@ namespace ariles_tests
 
     class Derived2 : public Base
     {
-#define ARILES_DEFAULT_ID "Derived2"  // Needed for cast<Derived2>("Derived2"));
-#define ARILES_ENTRIES(v)                                                                                              \
-    ARILES_PARENT(v, Base)                                                                                             \
-    ARILES_TYPED_ENTRY_(v, real2, double)
-#include ARILES_INITIALIZE
+#define ARILES2_DEFAULT_ID "Derived2"  // Needed for cast<Derived2>("Derived2"));
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_PARENT(v, Base)                                                                                            \
+    ARILES2_TYPED_ENTRY_(v, real2, double)
+#include ARILES2_INITIALIZE
 
     public:
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
@@ -182,35 +182,35 @@ namespace ariles_tests
     class ConfigurableAny : public ariles2::DefaultBase
     {
     public:
-#define ARILES_ENTRIES_0(v)
+#define ARILES2_ENTRIES_0(v)
 
 #if __cplusplus >= 201103L
         CommonAny<std::shared_ptr, StdPtrInstantiator> std_any_;
 
-#    define ARILES_ENTRIES_1(v)                                                                                        \
-        ARILES_ENTRIES_0(v)                                                                                            \
-        ARILES_ENTRY_(v, std_any)
+#    define ARILES2_ENTRIES_1(v)                                                                                       \
+        ARILES2_ENTRIES_0(v)                                                                                           \
+        ARILES2_ENTRY_(v, std_any)
 #else
-#    define ARILES_ENTRIES_1(v) ARILES_ENTRIES_0(v)
+#    define ARILES2_ENTRIES_1(v) ARILES2_ENTRIES_0(v)
 #endif
 
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
         CommonAny<boost::shared_ptr, BoostPtrInstantiator> boost_any_;
-#    define ARILES_ENTRIES_2(v)                                                                                        \
-        ARILES_ENTRIES_1(v)                                                                                            \
-        ARILES_ENTRY_(v, boost_any)
+#    define ARILES2_ENTRIES_2(v)                                                                                       \
+        ARILES2_ENTRIES_1(v)                                                                                           \
+        ARILES2_ENTRY_(v, boost_any)
 #else
-#    define ARILES_ENTRIES_2(v) ARILES_ENTRIES_1(v)
+#    define ARILES2_ENTRIES_2(v) ARILES2_ENTRIES_1(v)
 #endif
 
 
-#define ARILES_ENTRIES(v) ARILES_ENTRIES_2(v)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v) ARILES2_ENTRIES_2(v)
+#include ARILES2_INITIALIZE
 
-#undef ARILES_ENTRIES_0
-#undef ARILES_ENTRIES_1
-#undef ARILES_ENTRIES_2
+#undef ARILES2_ENTRIES_0
+#undef ARILES2_ENTRIES_1
+#undef ARILES2_ENTRIES_2
 
 
     public:

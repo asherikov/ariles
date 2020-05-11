@@ -33,8 +33,8 @@ namespace ariles2
         };
 
 
-#define ARILES_VISIT_preprocess
-#define ARILES_METHODS_preprocess ARILES_METHODS(preprocess, const, ARILES_EMPTY_MACRO)
+#define ARILES2_VISIT_preprocess
+#define ARILES2_METHODS_preprocess ARILES2_METHODS(preprocess, const, ARILES2_EMPTY_MACRO)
     }  // namespace preprocess
 
 

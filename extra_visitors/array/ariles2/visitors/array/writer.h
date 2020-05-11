@@ -225,7 +225,7 @@ namespace ariles2
             }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void writeElement(const type &element)                                                                             \
     {                                                                                                                  \
         expand();                                                                                                      \
@@ -243,9 +243,9 @@ namespace ariles2
         ++index_;                                                                                                      \
     }
 
-            ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
+            ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_NUMERIC_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
             void writeElement(const std::string & /*element*/)

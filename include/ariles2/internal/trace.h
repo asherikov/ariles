@@ -11,7 +11,7 @@
 #pragma once
 
 
-#ifdef ARILES_TRACE_ENABLE
+#ifdef ARILES2_TRACE_ENABLE
 #    include <iostream>
 #    include <libgen.h>
 #    include <typeinfo>
@@ -108,14 +108,14 @@ namespace ariles2
     }  // namespace debug
 }  // namespace ariles2
 
-#    define ARILES_TRACE_FUNCTION                                                                                      \
+#    define ARILES2_TRACE_FUNCTION                                                                                     \
         char trace_path[] = __FILE__;                                                                                  \
         ariles2::debug::Tracer tracer(__func__, basename(trace_path), __LINE__);
    // ariles2::debug::Tracer tracer(__PRETTY_FUNCTION__, basename(trace_path), __LINE__);
-#    define ARILES_TRACE_ENTRY(entry_name) tracer.output("Processing entry: ", entry_name);
-#    define ARILES_TRACE_TYPE(entry) tracer.output("Type: ", tracer.demangle(typeid(entry).name()));
+#    define ARILES2_TRACE_ENTRY(entry_name) tracer.output("Processing entry: ", entry_name);
+#    define ARILES2_TRACE_TYPE(entry) tracer.output("Type: ", tracer.demangle(typeid(entry).name()));
 #else
-#    define ARILES_TRACE_FUNCTION
-#    define ARILES_TRACE_ENTRY(entry_name)
-#    define ARILES_TRACE_TYPE(entry)
+#    define ARILES2_TRACE_FUNCTION
+#    define ARILES2_TRACE_ENTRY(entry_name)
+#    define ARILES2_TRACE_TYPE(entry)
 #endif

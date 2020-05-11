@@ -22,9 +22,9 @@ namespace ariles2
                 t_Visitor &visitor,
                 t_Entry &entry,
                 const typename t_Visitor::Parameters &parameters,
-                ARILES_IS_BASE_ENABLER(ariles2::read::Base, t_Entry))
+                ARILES2_IS_BASE_ENABLER(ariles2::read::Base, t_Entry))
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
 
             typename t_Visitor::Parameters param = parameters;
             if (false == param.isSet(t_Visitor::Parameters::PROPAGATE_ALLOW_MISSING_ENTRIES))
@@ -56,28 +56,28 @@ namespace ariles2
                 t_Enumeration &entry,
                 const typename t_Visitor::Parameters & /*param*/,
                 // ENABLE this function for enums
-                ARILES_IS_ENUM_ENABLER(t_Enumeration))
+                ARILES2_IS_ENUM_ENABLER(t_Enumeration))
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             int tmp_value = 0;
             visitor.readElement(tmp_value);
             entry = static_cast<t_Enumeration>(tmp_value);
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     template <class t_Visitor>                                                                                         \
-    void ARILES2_VISIBILITY_ATTRIBUTE apply_read(                                                                       \
+    void ARILES2_VISIBILITY_ATTRIBUTE apply_read(                                                                      \
             t_Visitor &visitor, type &entry, const typename t_Visitor::Parameters &param)                              \
     {                                                                                                                  \
-        ARILES_TRACE_FUNCTION;                                                                                         \
-        ARILES2_UNUSED_ARG(param);                                                                                      \
+        ARILES2_TRACE_FUNCTION;                                                                                        \
+        ARILES2_UNUSED_ARG(param);                                                                                     \
         visitor.readElement(entry);                                                                                    \
     }
 
-        ARILES_BASIC_TYPES_LIST
+        ARILES2_BASIC_TYPES_LIST
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
     }  // namespace read
 }  // namespace ariles2
 
@@ -91,9 +91,9 @@ namespace ariles2
                 t_Visitor &writer,
                 const t_Entry &entry,
                 const typename t_Visitor::Parameters &param,
-                ARILES_IS_BASE_ENABLER(ariles2::write::Base, t_Entry))
+                ARILES2_IS_BASE_ENABLER(ariles2::write::Base, t_Entry))
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             ariles2::count::Visitor counter;
             writer.startMap(counter(entry));
             entry.arilesVirtualVisit(writer, param);
@@ -107,29 +107,29 @@ namespace ariles2
                 t_Visitor &writer,
                 const t_Enumeration entry,
                 const typename t_Visitor::Parameters & /*param*/,
-                ARILES_IS_ENUM_ENABLER(t_Enumeration))
+                ARILES2_IS_ENUM_ENABLER(t_Enumeration))
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             int tmp_value = entry;
             writer.writeElement(tmp_value);
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     template <class t_Visitor>                                                                                         \
-    void ARILES2_VISIBILITY_ATTRIBUTE apply_write(                                                                      \
+    void ARILES2_VISIBILITY_ATTRIBUTE apply_write(                                                                     \
             t_Visitor &writer, const type &entry, const typename t_Visitor::Parameters &)                              \
     {                                                                                                                  \
-        ARILES_TRACE_FUNCTION;                                                                                         \
+        ARILES2_TRACE_FUNCTION;                                                                                        \
         writer.writeElement(entry);                                                                                    \
     }
 
         /**
          * @brief Generate apply methods for basic types.
          */
-        ARILES_BASIC_TYPES_LIST
+        ARILES2_BASIC_TYPES_LIST
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
     }  // namespace write
 }  // namespace ariles2
 
@@ -144,9 +144,9 @@ namespace ariles2
                 const t_Left &left,
                 const t_Right &right,
                 const typename t_Visitor::Parameters &param,
-                ARILES_IS_BASE_ENABLER(ariles2::Ariles, t_Left))
+                ARILES2_IS_BASE_ENABLER(ariles2::Ariles, t_Left))
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (true == param.compare_number_of_entries_)
             {
                 ariles2::count::Visitor counter;
@@ -164,15 +164,15 @@ namespace ariles2
                 const t_Enumeration &left,
                 const t_Enumeration &right,
                 const typename t_Visitor::Parameters & /*param*/,
-                ARILES_IS_ENUM_ENABLER(t_Enumeration))
+                ARILES2_IS_ENUM_ENABLER(t_Enumeration))
         {
             visitor.equal_ &= (left == right);
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     template <class t_Visitor>                                                                                         \
-    inline void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(                                                             \
+    inline void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(                                                            \
             t_Visitor &visitor, const type &left, const type &right, const typename t_Visitor::Parameters &)           \
     {                                                                                                                  \
         visitor.equal_ &= (left == right);                                                                             \
@@ -181,14 +181,14 @@ namespace ariles2
 /**
  * @brief Generate compare methods for basic types.
  */
-#define ARILES_COMPARE_TYPES_LIST                                                                                      \
-    ARILES_BASIC_INTEGER_TYPES_LIST                                                                                    \
-    ARILES_BASIC_TYPE(bool)                                                                                            \
-    ARILES_BASIC_TYPE(std::string)
+#define ARILES2_COMPARE_TYPES_LIST                                                                                     \
+    ARILES2_BASIC_INTEGER_TYPES_LIST                                                                                   \
+    ARILES2_BASIC_TYPE(bool)                                                                                           \
+    ARILES2_BASIC_TYPE(std::string)
 
-        ARILES_COMPARE_TYPES_LIST
+        ARILES2_COMPARE_TYPES_LIST
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
 
@@ -225,9 +225,9 @@ namespace ariles2
                 const t_Visitor &visitor,
                 t_Entry &entry,
                 const typename t_Visitor::Parameters &param,
-                ARILES_IS_BASE_ENABLER(ariles2::defaults::Base, t_Entry))
+                ARILES2_IS_BASE_ENABLER(ariles2::defaults::Base, t_Entry))
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             entry.arilesVirtualVisit(visitor, param);
         }
 
@@ -237,24 +237,24 @@ namespace ariles2
                 const t_Visitor & /*visitor*/,
                 t_Enumeration & /*entry*/,
                 const typename t_Visitor::Parameters & /*param*/,
-                ARILES_IS_ENUM_ENABLER(t_Enumeration))
+                ARILES2_IS_ENUM_ENABLER(t_Enumeration))
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     template <class t_Visitor>                                                                                         \
-    void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(                                                                   \
+    void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(                                                                  \
             const t_Visitor &, type &entry, const typename t_Visitor::Parameters &param)                               \
     {                                                                                                                  \
-        ARILES_TRACE_FUNCTION;                                                                                         \
+        ARILES2_TRACE_FUNCTION;                                                                                        \
         entry = param.template getDefault<type>();                                                                     \
     }
 
-        ARILES_BASIC_TYPES_LIST
+        ARILES2_BASIC_TYPES_LIST
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
     }  // namespace defaults
 }  // namespace ariles2
 
@@ -269,9 +269,9 @@ namespace ariles2
                 const t_Visitor &visitor,
                 t_Entry &entry,
                 const typename t_Visitor::Parameters &param,
-                ARILES_IS_BASE_ENABLER(ariles2::Ariles, t_Entry))
+                ARILES2_IS_BASE_ENABLER(ariles2::Ariles, t_Entry))
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             entry.arilesVirtualVisit(visitor, param);
         }
 
@@ -281,9 +281,9 @@ namespace ariles2
                 const t_Visitor &,
                 t_Entry &,
                 const typename t_Visitor::Parameters &,
-                ARILES_IS_BASE_DISABLER(ariles2::Ariles, t_Entry))
+                ARILES2_IS_BASE_DISABLER(ariles2::Ariles, t_Entry))
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
         }
     }  // namespace process
 }  // namespace ariles2

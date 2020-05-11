@@ -169,7 +169,7 @@ namespace ariles2
 
         bool Reader::startRoot(const std::string &name)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (true == name.empty())
             {
                 return (descend("ariles"));
@@ -182,7 +182,7 @@ namespace ariles2
 
         void Reader::endRoot(const std::string & /*name*/)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             ascend();
         }
 
@@ -193,15 +193,15 @@ namespace ariles2
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
-        ARILES2_ASSERT(false == impl_->getRawNode().text().empty(), "Empty integer elements are not allowed.");         \
+        ARILES2_ASSERT(false == impl_->getRawNode().text().empty(), "Empty integer elements are not allowed.");        \
         element = boost::lexical_cast<type>(impl_->getRawNode().text().as_string());                                   \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_NUMERIC_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
     }  // namespace ns_pugixml
 }  // namespace ariles2

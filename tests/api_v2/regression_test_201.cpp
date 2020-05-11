@@ -54,7 +54,7 @@
             ComparisonEquivalenceFixture##_##VISITOR_ID##_##Equivalence##_##INITIALIZER,                               \
             ariles_tests::ComparisonEquivalenceFixture<ariles_tests::initializers::INITIALIZER>)                       \
     {                                                                                                                  \
-        test<ariles_tests::ConfigurableComplexVerbose, ariles_tests::ConfigurableComplex, ariles2::NAMESPACE>();        \
+        test<ariles_tests::ConfigurableComplexVerbose, ariles_tests::ConfigurableComplex, ariles2::NAMESPACE>();       \
     }
 
 

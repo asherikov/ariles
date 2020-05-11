@@ -13,10 +13,10 @@ namespace ariles_tests
 {
     class ConfigurableNoSetDefaults : public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES(v)                                                                                              \
-    ARILES_TYPED_ENTRY_(v, integer, int)                                                                               \
-    ARILES_TYPED_ENTRY_(v, real, double)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_TYPED_ENTRY_(v, integer, int)                                                                              \
+    ARILES2_TYPED_ENTRY_(v, real, double)
+#include ARILES2_INITIALIZE
 
     public:
         double another_real_;

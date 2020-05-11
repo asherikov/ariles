@@ -13,16 +13,16 @@ namespace ariles_tests
 {
     class ConfigurableSpecialFloats : virtual public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES(v)                                                                                              \
-    ARILES_TYPED_ENTRY_(v, float_quiet_nan, float)                                                                     \
-    ARILES_TYPED_ENTRY_(v, float_signaling_nan, float)                                                                 \
-    ARILES_TYPED_ENTRY_(v, float_positive_infinity, float)                                                             \
-    ARILES_TYPED_ENTRY_(v, float_negative_infinity, float)                                                             \
-    ARILES_TYPED_ENTRY_(v, double_quiet_nan, double)                                                                   \
-    ARILES_TYPED_ENTRY_(v, double_signaling_nan, double)                                                               \
-    ARILES_TYPED_ENTRY_(v, double_positive_infinity, double)                                                           \
-    ARILES_TYPED_ENTRY_(v, double_negative_infinity, double)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_TYPED_ENTRY_(v, float_quiet_nan, float)                                                                    \
+    ARILES2_TYPED_ENTRY_(v, float_signaling_nan, float)                                                                \
+    ARILES2_TYPED_ENTRY_(v, float_positive_infinity, float)                                                            \
+    ARILES2_TYPED_ENTRY_(v, float_negative_infinity, float)                                                            \
+    ARILES2_TYPED_ENTRY_(v, double_quiet_nan, double)                                                                  \
+    ARILES2_TYPED_ENTRY_(v, double_signaling_nan, double)                                                              \
+    ARILES2_TYPED_ENTRY_(v, double_positive_infinity, double)                                                          \
+    ARILES2_TYPED_ENTRY_(v, double_negative_infinity, double)
+#include ARILES2_INITIALIZE
 
     public:
         bool postprocessd_;

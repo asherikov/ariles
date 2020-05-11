@@ -10,7 +10,7 @@
 
 #pragma once
 
-#define ARILES_VISITOR_INCLUDED_octave
+#define ARILES2_VISITOR_INCLUDED_octave
 
 #include <ariles2/internal/helpers.h>
 #include <ariles2/internal/node.h>
@@ -34,7 +34,7 @@ namespace ariles2
         {
         protected:
             typedef impl::Writer Impl;
-            typedef ARILES_SHARED_PTR<impl::Writer> ImplPtr;
+            typedef ARILES2_SHARED_PTR<impl::Writer> ImplPtr;
             ImplPtr impl_;
 
 
@@ -72,11 +72,11 @@ namespace ariles2
             void endMatrix();
 
 
-#define ARILES_BASIC_TYPE(type) void writeElement(const type &element);
+#define ARILES2_BASIC_TYPE(type) void writeElement(const type &element);
 
-            ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+            ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
         };
     }  // namespace ns_octave
 }  // namespace ariles2

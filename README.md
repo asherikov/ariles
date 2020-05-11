@@ -90,19 +90,19 @@ Demo: https://asherikov.github.io/ariles/2/DEMOv2.html [`./tests/api_v2/demo_api
 
 Class [`./tests/api_v2/types/minimal.h`]:
 ```
-class Configurable : public ariles::DefaultBase
+class Configurable : public ariles2::DefaultBase
 {
-    #define ARILES_ENTRIES(v) \
-        ARILES_TYPED_ENTRY(v, integer_member, int)
-    #include ARILES_INITIALIZE
+    #define ARILES2_ENTRIES(v) \
+        ARILES2_TYPED_ENTRY(v, integer_member, int)
+    #include ARILES2_INITIALIZE
 };
 ```
 
 Serialization:
 ```
 Configurable configurable;
-ariles::apply<ariles::yaml_cpp::Writer>("config.yaml", configurable);
-ariles::apply<ariles::yaml_cpp::Writer>(std::cout, configurable);
+ariles2::apply<ariles2::yaml_cpp::Writer>("config.yaml", configurable);
+ariles2::apply<ariles2::yaml_cpp::Writer>(std::cout, configurable);
 ```
 
 Result:
@@ -113,13 +113,13 @@ ConfigurableEntryName:
 
 Deserialization:
 ```
-ariles::apply<ariles::yaml_cpp::Reader>("config.yaml", configurable);
+ariles2::apply<ariles2::yaml_cpp::Reader>("config.yaml", configurable);
 ```
 
 Conversion:
 ```
-ariles::apply<ariles::yaml_cpp::Reader>("config.yaml", configurable);
-ariles::apply<ariles::ros::Writer>(nh, configurable, "/some_namespace/");
+ariles2::apply<ariles2::yaml_cpp::Reader>("config.yaml", configurable);
+ariles2::apply<ariles2::ros::Writer>(nh, configurable, "/some_namespace/");
 ```
 
 

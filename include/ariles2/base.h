@@ -14,10 +14,10 @@
 #pragma once
 
 
-#ifdef ARILES_ENABLED
+#ifdef ARILES2_ENABLED
 namespace ariles2
 {
-#    define ARILES_USE_BASE(Base)                                                                                      \
+#    define ARILES2_USE_BASE(Base)                                                                                     \
         using Base::arilesVirtualVisit;                                                                                \
         using Base::arilesGetParameters;
 
@@ -34,16 +34,16 @@ namespace ariles2
             class t_B8 = void,
             class t_B9 = void>
     class ARILES2_VISIBILITY_ATTRIBUTE Base : public ariles2::Ariles,
-                                             public t_B0,
-                                             public t_B1,
-                                             public t_B2,
-                                             public t_B3,
-                                             public t_B4,
-                                             public t_B5,
-                                             public t_B6,
-                                             public t_B7,
-                                             public t_B8,
-                                             public t_B9
+                                              public t_B0,
+                                              public t_B1,
+                                              public t_B2,
+                                              public t_B3,
+                                              public t_B4,
+                                              public t_B5,
+                                              public t_B6,
+                                              public t_B7,
+                                              public t_B8,
+                                              public t_B9
     {
     protected:
         Base()
@@ -54,16 +54,16 @@ namespace ariles2
         }
 
     public:
-        ARILES_USE_BASE(t_B0)
-        ARILES_USE_BASE(t_B1)
-        ARILES_USE_BASE(t_B2)
-        ARILES_USE_BASE(t_B3)
-        ARILES_USE_BASE(t_B4)
-        ARILES_USE_BASE(t_B5)
-        ARILES_USE_BASE(t_B6)
-        ARILES_USE_BASE(t_B7)
-        ARILES_USE_BASE(t_B8)
-        ARILES_USE_BASE(t_B9)
+        ARILES2_USE_BASE(t_B0)
+        ARILES2_USE_BASE(t_B1)
+        ARILES2_USE_BASE(t_B2)
+        ARILES2_USE_BASE(t_B3)
+        ARILES2_USE_BASE(t_B4)
+        ARILES2_USE_BASE(t_B5)
+        ARILES2_USE_BASE(t_B6)
+        ARILES2_USE_BASE(t_B7)
+        ARILES2_USE_BASE(t_B8)
+        ARILES2_USE_BASE(t_B9)
     };
 
     // 9
@@ -89,28 +89,28 @@ namespace ariles2
         }
 
     public:
-        ARILES_USE_BASE(t_B0)
-        ARILES_USE_BASE(t_B1)
-        ARILES_USE_BASE(t_B2)
-        ARILES_USE_BASE(t_B3)
-        ARILES_USE_BASE(t_B4)
-        ARILES_USE_BASE(t_B5)
-        ARILES_USE_BASE(t_B6)
-        ARILES_USE_BASE(t_B7)
-        ARILES_USE_BASE(t_B8)
+        ARILES2_USE_BASE(t_B0)
+        ARILES2_USE_BASE(t_B1)
+        ARILES2_USE_BASE(t_B2)
+        ARILES2_USE_BASE(t_B3)
+        ARILES2_USE_BASE(t_B4)
+        ARILES2_USE_BASE(t_B5)
+        ARILES2_USE_BASE(t_B6)
+        ARILES2_USE_BASE(t_B7)
+        ARILES2_USE_BASE(t_B8)
     };
 
     // 8
     template <class t_B0, class t_B1, class t_B2, class t_B3, class t_B4, class t_B5, class t_B6, class t_B7>
     class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5, t_B6, t_B7> : public ariles2::Ariles,
-                                                                                             public t_B0,
-                                                                                             public t_B1,
-                                                                                             public t_B2,
-                                                                                             public t_B3,
-                                                                                             public t_B4,
-                                                                                             public t_B5,
-                                                                                             public t_B6,
-                                                                                             public t_B7
+                                                                                              public t_B0,
+                                                                                              public t_B1,
+                                                                                              public t_B2,
+                                                                                              public t_B3,
+                                                                                              public t_B4,
+                                                                                              public t_B5,
+                                                                                              public t_B6,
+                                                                                              public t_B7
     {
     protected:
         Base()
@@ -121,20 +121,26 @@ namespace ariles2
         }
 
     public:
-        ARILES_USE_BASE(t_B0)
-        ARILES_USE_BASE(t_B1)
-        ARILES_USE_BASE(t_B2)
-        ARILES_USE_BASE(t_B3)
-        ARILES_USE_BASE(t_B4)
-        ARILES_USE_BASE(t_B5)
-        ARILES_USE_BASE(t_B6)
-        ARILES_USE_BASE(t_B7)
+        ARILES2_USE_BASE(t_B0)
+        ARILES2_USE_BASE(t_B1)
+        ARILES2_USE_BASE(t_B2)
+        ARILES2_USE_BASE(t_B3)
+        ARILES2_USE_BASE(t_B4)
+        ARILES2_USE_BASE(t_B5)
+        ARILES2_USE_BASE(t_B6)
+        ARILES2_USE_BASE(t_B7)
     };
 
     // 7
     template <class t_B0, class t_B1, class t_B2, class t_B3, class t_B4, class t_B5, class t_B6>
-    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5, t_B6>
-      : public ariles2::Ariles, public t_B0, public t_B1, public t_B2, public t_B3, public t_B4, public t_B5, public t_B6
+    class ARILES2_VISIBILITY_ATTRIBUTE Base<t_B0, t_B1, t_B2, t_B3, t_B4, t_B5, t_B6> : public ariles2::Ariles,
+                                                                                        public t_B0,
+                                                                                        public t_B1,
+                                                                                        public t_B2,
+                                                                                        public t_B3,
+                                                                                        public t_B4,
+                                                                                        public t_B5,
+                                                                                        public t_B6
     {
     protected:
         Base()
@@ -145,13 +151,13 @@ namespace ariles2
         }
 
     public:
-        ARILES_USE_BASE(t_B0)
-        ARILES_USE_BASE(t_B1)
-        ARILES_USE_BASE(t_B2)
-        ARILES_USE_BASE(t_B3)
-        ARILES_USE_BASE(t_B4)
-        ARILES_USE_BASE(t_B5)
-        ARILES_USE_BASE(t_B6)
+        ARILES2_USE_BASE(t_B0)
+        ARILES2_USE_BASE(t_B1)
+        ARILES2_USE_BASE(t_B2)
+        ARILES2_USE_BASE(t_B3)
+        ARILES2_USE_BASE(t_B4)
+        ARILES2_USE_BASE(t_B5)
+        ARILES2_USE_BASE(t_B6)
     };
 
     // 6
@@ -168,12 +174,12 @@ namespace ariles2
         }
 
     public:
-        ARILES_USE_BASE(t_B0)
-        ARILES_USE_BASE(t_B1)
-        ARILES_USE_BASE(t_B2)
-        ARILES_USE_BASE(t_B3)
-        ARILES_USE_BASE(t_B4)
-        ARILES_USE_BASE(t_B5)
+        ARILES2_USE_BASE(t_B0)
+        ARILES2_USE_BASE(t_B1)
+        ARILES2_USE_BASE(t_B2)
+        ARILES2_USE_BASE(t_B3)
+        ARILES2_USE_BASE(t_B4)
+        ARILES2_USE_BASE(t_B5)
     };
 
     // 5
@@ -190,11 +196,11 @@ namespace ariles2
         }
 
     public:
-        ARILES_USE_BASE(t_B0)
-        ARILES_USE_BASE(t_B1)
-        ARILES_USE_BASE(t_B2)
-        ARILES_USE_BASE(t_B3)
-        ARILES_USE_BASE(t_B4)
+        ARILES2_USE_BASE(t_B0)
+        ARILES2_USE_BASE(t_B1)
+        ARILES2_USE_BASE(t_B2)
+        ARILES2_USE_BASE(t_B3)
+        ARILES2_USE_BASE(t_B4)
     };
 
     // 4
@@ -211,10 +217,10 @@ namespace ariles2
         }
 
     public:
-        ARILES_USE_BASE(t_B0)
-        ARILES_USE_BASE(t_B1)
-        ARILES_USE_BASE(t_B2)
-        ARILES_USE_BASE(t_B3)
+        ARILES2_USE_BASE(t_B0)
+        ARILES2_USE_BASE(t_B1)
+        ARILES2_USE_BASE(t_B2)
+        ARILES2_USE_BASE(t_B3)
     };
 
     // 3
@@ -231,9 +237,9 @@ namespace ariles2
         }
 
     public:
-        ARILES_USE_BASE(t_B0)
-        ARILES_USE_BASE(t_B1)
-        ARILES_USE_BASE(t_B2)
+        ARILES2_USE_BASE(t_B0)
+        ARILES2_USE_BASE(t_B1)
+        ARILES2_USE_BASE(t_B2)
     };
 
     // 2
@@ -249,8 +255,8 @@ namespace ariles2
         }
 
     public:
-        ARILES_USE_BASE(t_B0)
-        ARILES_USE_BASE(t_B1)
+        ARILES2_USE_BASE(t_B0)
+        ARILES2_USE_BASE(t_B1)
     };
 
     // 1
@@ -266,10 +272,10 @@ namespace ariles2
         }
 
     public:
-        ARILES_USE_BASE(t_B0)
+        ARILES2_USE_BASE(t_B0)
     };
 
-#    undef ARILES_USE_BASE
+#    undef ARILES2_USE_BASE
 }  // namespace ariles2
 
 #else

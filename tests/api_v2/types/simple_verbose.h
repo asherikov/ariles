@@ -19,10 +19,10 @@ namespace ariles_tests
      */
     class ConfigurableVerbose : public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES(v)                                                                                              \
-    ARILES_ENTRY_(v, integer)                                                                                          \
-    ARILES_ENTRY_(v, real)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_ENTRY_(v, integer)                                                                                         \
+    ARILES2_ENTRY_(v, real)
+#include ARILES2_INITIALIZE
 
 
     public:

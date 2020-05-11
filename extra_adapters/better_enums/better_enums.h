@@ -27,7 +27,7 @@ namespace ariles2
                 const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
                 const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             std::string enum_value;
             visitor.readElement(enum_value);
             entry = t_BetterEnum::_from_string(enum_value.c_str());
@@ -51,7 +51,7 @@ namespace ariles2
                 const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
                 const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             writer.writeElement(std::string(entry._to_string()));
         }
     }  // namespace write
@@ -74,7 +74,7 @@ namespace ariles2
                 const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
                 const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             visitor.equal_ &= (left == right);
         }
     }  // namespace compare
@@ -97,7 +97,7 @@ namespace ariles2
                 const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
                 const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (t_BetterEnum::_size() > 0)
             {
                 entry = t_BetterEnum::_values()[0];

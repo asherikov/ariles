@@ -198,7 +198,7 @@ namespace ariles2
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element)                                                                     \
     {                                                                                                                  \
         if (true == impl_->node_stack_.back().isMatrix())                                                              \
@@ -221,9 +221,9 @@ namespace ariles2
         }                                                                                                              \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_NUMERIC_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
         void Writer::writeElement(const std::string &element)

@@ -55,11 +55,11 @@ namespace ariles2
             void startArray(const std::size_t size, const bool /*compact*/ = false);
 
 
-#define ARILES_BASIC_TYPE(type) void writeElement(const type &element);
+#define ARILES2_BASIC_TYPE(type) void writeElement(const type &element);
 
-            ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+            ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
         };
     }  // namespace ns_msgpack_compact
 }  // namespace ariles2

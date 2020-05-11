@@ -59,7 +59,8 @@ namespace ariles2
 
 
         template <class t_Reader>
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::GenericVisitor, Parameters<t_Reader> >
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor
+          : public visitor::Base<visitor::GenericVisitor, Parameters<t_Reader> >
         {
         public:
             typedef cfgread::Parameters<t_Reader> Parameters;
@@ -75,20 +76,20 @@ namespace ariles2
             template <class t_Initializer>
             Visitor(t_Initializer &initializer) : reader_visitor_(initializer)
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
             }
 
             template <class t_Initializer>
             Visitor(const t_Initializer &initializer) : reader_visitor_(initializer)
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
             }
 
             template <class t_Initializer0, class t_Initializer1>
             Visitor(t_Initializer0 &initializer0, const t_Initializer1 &initializer1)
               : reader_visitor_(initializer0, initializer1)
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
             }
 
 
@@ -108,7 +109,7 @@ namespace ariles2
             template <class t_Entry>
             void start(t_Entry &entry, const std::string &name, const Parameters &param)
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
                 this->operator()(entry, name, param);
             }
 
@@ -116,9 +117,9 @@ namespace ariles2
             template <class t_Entry>
             void operator()(t_Entry &entry, const std::string &name, const Parameters &param)
             {
-                ARILES_TRACE_FUNCTION;
-                ARILES_TRACE_ENTRY(name);
-                ARILES_TRACE_TYPE(entry);
+                ARILES2_TRACE_FUNCTION;
+                ARILES2_TRACE_ENTRY(name);
+                ARILES2_TRACE_TYPE(entry);
                 ariles2::apply(defaults_visitor_, entry, name, param.defaults_parameters_);
                 ariles2::apply(reader_visitor_, entry, name, param.reader_parameters_);
                 ariles2::apply(postprocess_visitor_, entry, name, param.postprocess_parameters_);
@@ -172,7 +173,8 @@ namespace ariles2
 
 
         template <class t_Writer>
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::GenericVisitor, Parameters<t_Writer> >
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor
+          : public visitor::Base<visitor::GenericVisitor, Parameters<t_Writer> >
         {
         public:
             typedef cfgwrite::Parameters<t_Writer> Parameters;
@@ -187,27 +189,27 @@ namespace ariles2
             template <class t_Initializer>
             Visitor(t_Initializer &initializer) : writer_visitor_(initializer)
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
             }
 
             template <class t_Initializer>
             Visitor(const t_Initializer &initializer) : writer_visitor_(initializer)
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
             }
 
             template <class t_Initializer0, class t_Initializer1>
             Visitor(t_Initializer0 *initializer0, const t_Initializer1 &initializer1)
               : writer_visitor_(initializer0, initializer1)
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
             }
 
             template <class t_Initializer0, class t_Initializer1>
             Visitor(t_Initializer0 &initializer0, const t_Initializer1 &initializer1)
               : writer_visitor_(initializer0, initializer1)
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
             }
 
 
@@ -226,7 +228,7 @@ namespace ariles2
             template <class t_Entry>
             void start(t_Entry &entry, const std::string &name, const Parameters &param)
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
                 this->operator()(entry, name, param);
             }
 
@@ -234,9 +236,9 @@ namespace ariles2
             template <class t_Entry>
             void operator()(t_Entry &entry, const std::string &name, const Parameters &param)
             {
-                ARILES_TRACE_FUNCTION;
-                ARILES_TRACE_ENTRY(name);
-                ARILES_TRACE_TYPE(entry);
+                ARILES2_TRACE_FUNCTION;
+                ARILES2_TRACE_ENTRY(name);
+                ARILES2_TRACE_TYPE(entry);
                 ariles2::apply(preprocess_visitor_, entry, name, param.preprocess_parameters_);
                 ariles2::apply(writer_visitor_, entry, name, param.writer_parameters_);
             }

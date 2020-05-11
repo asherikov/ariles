@@ -36,7 +36,7 @@ namespace ariles2
             public:
                 std::string buffer_;
 
-                std::vector<ARILES_SHARED_PTR< ::msgpack::object_handle> > handles_;
+                std::vector<ARILES2_SHARED_PTR< ::msgpack::object_handle> > handles_;
 
                 /// Stack of nodes.
                 std::vector<NodeWrapper> node_stack_;
@@ -52,7 +52,7 @@ namespace ariles2
                  */
                 void initialize(std::istream &input_stream)
                 {
-                    ARILES_TRACE_FUNCTION;
+                    ARILES2_TRACE_FUNCTION;
                     std::stringstream str_stream;
                     str_stream << input_stream.rdbuf();
                     buffer_ = str_stream.str();
@@ -66,7 +66,7 @@ namespace ariles2
                         while (buffer_offset != buffer_.size())
                         {
                             handles_.push_back(
-                                    ARILES_SHARED_PTR< ::msgpack::object_handle>(new ::msgpack::object_handle));
+                                    ARILES2_SHARED_PTR< ::msgpack::object_handle>(new ::msgpack::object_handle));
 
                             unpack(*handles_[handles_.size() - 1], buffer_.data(), buffer_.size(), buffer_offset);
                         }
@@ -87,7 +87,7 @@ namespace ariles2
                  */
                 const ::msgpack::object &getRawNode(const std::size_t depth)
                 {
-                    ARILES_TRACE_FUNCTION;
+                    ARILES2_TRACE_FUNCTION;
                     if (node_stack_[depth].isArray())
                     {
                         return (getRawNode(depth - 1).via.array.ptr[node_stack_[depth].index_]);
@@ -101,7 +101,7 @@ namespace ariles2
 
                 const ::msgpack::object &getRawNode()
                 {
-                    ARILES_TRACE_FUNCTION;
+                    ARILES2_TRACE_FUNCTION;
                     return (getRawNode(node_stack_.size() - 1));
                 }
             };
@@ -132,7 +132,7 @@ namespace ariles2
 
         std::size_t Reader::getMapSize(const bool /*expect_empty*/)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             return (impl_->getRawNode().via.map.size);
         }
 
@@ -140,8 +140,8 @@ namespace ariles2
 
         bool Reader::descend(const std::string &child_name)
         {
-            ARILES_TRACE_FUNCTION;
-            ARILES_TRACE_ENTRY(child_name);
+            ARILES2_TRACE_FUNCTION;
+            ARILES2_TRACE_ENTRY(child_name);
             if (impl_->node_stack_.size() == 0)
             {
                 for (std::size_t i = 0; i < impl_->handles_.size(); ++i)
@@ -181,14 +181,14 @@ namespace ariles2
 
         void Reader::ascend()
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             impl_->node_stack_.pop_back();
         }
 
 
         std::size_t Reader::startArray()
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             std::size_t size = impl_->getRawNode().via.array.size;
             impl_->node_stack_.push_back(NodeWrapper(0, size));
 
@@ -198,14 +198,14 @@ namespace ariles2
 
         void Reader::endArray()
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             impl_->node_stack_.pop_back();
         }
 
 
         void Reader::shiftArray()
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
@@ -216,7 +216,7 @@ namespace ariles2
 
         bool Reader::startRoot(const std::string &name)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (true == name.empty())
             {
                 ARILES2_ASSERT(
@@ -233,20 +233,20 @@ namespace ariles2
 
         void Reader::endRoot(const std::string & /*name*/)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             ascend();
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
-        ARILES_TRACE_FUNCTION;                                                                                         \
+        ARILES2_TRACE_FUNCTION;                                                                                        \
         impl_->getRawNode() >> element;                                                                                \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
     }  // namespace ns_msgpack
 }  // namespace ariles2

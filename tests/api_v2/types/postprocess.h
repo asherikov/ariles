@@ -12,10 +12,10 @@ namespace ariles_tests
 {
     class ConfigurablePostProcessBase : public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES(v)                                                                                              \
-    ARILES_TYPED_ENTRY_(v, integer, int)                                                                               \
-    ARILES_TYPED_ENTRY_(v, real, double)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_TYPED_ENTRY_(v, integer, int)                                                                              \
+    ARILES2_TYPED_ENTRY_(v, real, double)
+#include ARILES2_INITIALIZE
 
     public:
         double another_real_;
@@ -34,7 +34,7 @@ namespace ariles_tests
 
         void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             integer_ = 10;
             real_ = 1.33;
         }
@@ -42,7 +42,7 @@ namespace ariles_tests
 
         void arilesVisit(const ariles2::PostProcess & /*visitor*/, const ariles2::PostProcess::Parameters & /*param*/)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             another_real_ = integer_ * real_;
         }
 
@@ -61,10 +61,10 @@ namespace ariles_tests
 
     class ConfigurablePostProcess : public ConfigurablePostProcessBase
     {
-#define ARILES_ENTRIES(v)                                                                                              \
-    ARILES_PARENT(v, ConfigurablePostProcessBase)                                                                      \
-    ARILES_TYPED_ENTRY_(v, member, ConfigurablePostProcessBase)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_PARENT(v, ConfigurablePostProcessBase)                                                                     \
+    ARILES2_TYPED_ENTRY_(v, member, ConfigurablePostProcessBase)
+#include ARILES2_INITIALIZE
 
     public:
         ConfigurablePostProcess()
@@ -82,7 +82,7 @@ namespace ariles_tests
 #ifndef ARILES_TESTS_BOOST_UTF_DISABLED
         void randomize()
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             boost::random::random_device random_generator;
             ConfigurablePostProcessBase::randomize();
             member_.randomize();

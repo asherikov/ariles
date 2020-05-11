@@ -19,8 +19,8 @@ namespace ariles_tests
      */
     class ConfigurableEmpty : public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES(v)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)
+#include ARILES2_INITIALIZE
 
 
     public:

@@ -26,14 +26,14 @@ namespace ariles2
         public:
             Parameters()
             {
-#ifdef ARILES_DEFAULT_DOUBLE_VALUE
-                default_double_value_ = ARILES_DEFAULT_DOUBLE_VALUE;
+#ifdef ARILES2_DEFAULT_DOUBLE_VALUE
+                default_double_value_ = ARILES2_DEFAULT_DOUBLE_VALUE;
 #else
                 default_double_value_ = std::numeric_limits<double>::signaling_NaN();
 #endif
 
-#ifdef ARILES_DEFAULT_FLOAT_VALUE
-                default_float_value_ = ARILES_DEFAULT_FLOAT_VALUE;
+#ifdef ARILES2_DEFAULT_FLOAT_VALUE
+                default_float_value_ = ARILES2_DEFAULT_FLOAT_VALUE;
 #else
                 default_float_value_ = std::numeric_limits<float>::signaling_NaN();
 #endif
@@ -66,7 +66,7 @@ namespace ariles2
             template <class t_Entry>
             void start(t_Entry &entry, const std::string &name, const Parameters &param) const
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
                 this->operator()(entry, name, param);
             }
 
@@ -75,9 +75,9 @@ namespace ariles2
             void operator()(t_Entry &entry, const std::string &name, const Parameters &param) const
             {
                 ARILES2_UNUSED_ARG(name);
-                ARILES_TRACE_FUNCTION;
-                ARILES_TRACE_ENTRY(name);
-                ARILES_TRACE_TYPE(entry);
+                ARILES2_TRACE_FUNCTION;
+                ARILES2_TRACE_ENTRY(name);
+                ARILES2_TRACE_TYPE(entry);
                 apply_defaults(*this, entry, param);
             }
         };
@@ -113,8 +113,8 @@ namespace ariles2
         };
 
 
-#define ARILES_VISIT_defaults
-#define ARILES_METHODS_defaults ARILES_METHODS(defaults, const, ARILES_EMPTY_MACRO)
+#define ARILES2_VISIT_defaults
+#define ARILES2_METHODS_defaults ARILES2_METHODS(defaults, const, ARILES2_EMPTY_MACRO)
     }  // namespace defaults
 
 

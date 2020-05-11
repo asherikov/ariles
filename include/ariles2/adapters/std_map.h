@@ -24,7 +24,7 @@ namespace ariles2
                 std::map<t_Key, t_Value, t_Compare, t_Allocator> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             std::size_t size = visitor.startArray();
             entry.clear();
             for (std::size_t i = 0; i < size; ++i)
@@ -47,7 +47,7 @@ namespace ariles2
                 std::map<std::string, t_Value, t_Compare, t_Allocator> &entry,
                 const typename t_Visitor::Parameters &parameters)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (visitor.getSerializationFeatures().isSet(serialization::Features::SLOPPY_MAPS_SUPPORTED)
                 && parameters.isSet(t_Visitor::Parameters::SLOPPY_MAPS_IF_SUPPORTED))
             {
@@ -88,7 +88,7 @@ namespace ariles2
                 const std::map<t_Key, t_Value, t_Compare, t_Allocator> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             writer.startArray(entry.size(), param.isSet(t_Visitor::Parameters::COMPACT_ARRAYS_IF_SUPPORTED));
             for (typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator it = entry.begin();
                  it != entry.end();
@@ -107,7 +107,7 @@ namespace ariles2
                 const std::map<std::string, t_Value, t_Compare, t_Allocator> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (writer.getSerializationFeatures().isSet(serialization::Features::SLOPPY_MAPS_SUPPORTED)
                 && param.isSet(t_Visitor::Parameters::SLOPPY_MAPS_IF_SUPPORTED))
             {
@@ -140,7 +140,7 @@ namespace ariles2
                 const std::map<t_Key, t_Value, t_Compare, t_Allocator> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
 
             visitor.equal_ &= (left.size() == right.size());
 
@@ -169,7 +169,7 @@ namespace ariles2
                 std::map<t_Key, t_Value, t_Compare, t_Allocator> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             entry.clear();
         }
     }  // namespace defaults
@@ -186,7 +186,7 @@ namespace ariles2
                 std::map<t_Key, t_Value, t_Compare, t_Allocator> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             for (typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::iterator it = entry.begin();
                  it != entry.end();
                  ++it)

@@ -8,7 +8,7 @@
 
 #pragma once
 
-#define ARILES_VISITOR_INCLUDED_jsonnet
+#define ARILES2_VISITOR_INCLUDED_jsonnet
 
 
 #include <ariles2/internal/helpers.h>

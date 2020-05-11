@@ -103,7 +103,7 @@ namespace ariles2
 
             virtual void startRoot(const std::string &name)
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
                 if (false == name.empty())
                 {
                     descend(name);
@@ -111,7 +111,7 @@ namespace ariles2
             }
             virtual void endRoot(const std::string &name)
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
                 if (false == name.empty())
                 {
                     ascend();
@@ -119,17 +119,17 @@ namespace ariles2
             }
 
 
-#define ARILES_BASIC_TYPE(type) virtual void writeElement(const type &entry) = 0;
+#define ARILES2_BASIC_TYPE(type) virtual void writeElement(const type &entry) = 0;
 
-            ARILES_BASIC_TYPES_LIST
+            ARILES2_BASIC_TYPES_LIST
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
             template <typename t_Entry>
             void start(const t_Entry &entry, const std::string &entry_name, const Parameters &param)
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
                 this->startRoot(entry_name);
                 apply_write(*this, entry, param);
                 this->endRoot(entry_name);
@@ -140,9 +140,9 @@ namespace ariles2
             template <typename t_Entry>
             void operator()(const t_Entry &entry, const std::string &entry_name, const Parameters &param)
             {
-                ARILES_TRACE_FUNCTION;
-                ARILES_TRACE_ENTRY(entry_name);
-                ARILES_TRACE_TYPE(entry);
+                ARILES2_TRACE_FUNCTION;
+                ARILES2_TRACE_ENTRY(entry_name);
+                ARILES2_TRACE_TYPE(entry);
 
                 this->descend(entry_name);
                 apply_write(*this, entry, param);
@@ -156,8 +156,8 @@ namespace ariles2
         {
         };
 
-#define ARILES_VISIT_write
-#define ARILES_METHODS_write ARILES_METHODS(write, ARILES_EMPTY_MACRO, const)
+#define ARILES2_VISIT_write
+#define ARILES2_METHODS_write ARILES2_METHODS(write, ARILES2_EMPTY_MACRO, const)
     }  // namespace write
 
 

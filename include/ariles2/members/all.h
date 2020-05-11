@@ -7,7 +7,7 @@
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
 
     @brief Inclusion of this file results in generation of functions which
-    read and write entries 'ARILES_ENTRIES' defined in the including
+    read and write entries 'ARILES2_ENTRIES' defined in the including
     header from / to a configuration file.
 */
 
@@ -15,4 +15,4 @@
 #include "variables.h"
 #include "methods.h"
 
-#undef ARILES_ENTRIES
+#undef ARILES2_ENTRIES

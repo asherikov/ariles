@@ -10,7 +10,7 @@
 
 #include "utility.h"
 
-#define ARILES_DISABLE
+#define ARILES2_DISABLE
 #include <ariles2/ariles.h>
 
 

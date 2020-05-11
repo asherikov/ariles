@@ -6,29 +6,29 @@
 */
 
 
-#define ARILES_NAMED_ENTRY_generic_parent(v, entry, name)
-#define ARILES_PARENT_generic_parent(v, entry) entry::arilesVisit(visitor, parameters);
+#define ARILES2_NAMED_ENTRY_generic_parent(v, entry, name)
+#define ARILES2_PARENT_generic_parent(v, entry) entry::arilesVisit(visitor, parameters);
 
-#define ARILES_VISIT_generic_parent                                                                                    \
+#define ARILES2_VISIT_generic_parent                                                                                   \
     template <class t_Visitor>                                                                                         \
     void arilesVisitParents(                                                                                           \
             t_Visitor &visitor,                                                                                        \
             const typename t_Visitor::Parameters &parameters,                                                          \
-            ARILES_IS_BASE_ENABLER(ariles2::visitor::GenericVisitor, t_Visitor))                                        \
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::GenericVisitor, t_Visitor))                                      \
     {                                                                                                                  \
-        ARILES2_UNUSED_ARG(visitor);                                                                                    \
-        ARILES2_UNUSED_ARG(parameters);                                                                                 \
-        ARILES_TRACE_FUNCTION;                                                                                         \
-        ARILES_ENTRIES(generic_parent)                                                                                 \
+        ARILES2_UNUSED_ARG(visitor);                                                                                   \
+        ARILES2_UNUSED_ARG(parameters);                                                                                \
+        ARILES2_TRACE_FUNCTION;                                                                                        \
+        ARILES2_ENTRIES(generic_parent)                                                                                \
     }                                                                                                                  \
     template <class t_Visitor>                                                                                         \
     void arilesVisitParents(                                                                                           \
             t_Visitor &visitor,                                                                                        \
             const typename t_Visitor::Parameters &parameters,                                                          \
-            ARILES_IS_BASE_ENABLER(ariles2::visitor::GenericVisitor, t_Visitor)) const                                  \
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::GenericVisitor, t_Visitor)) const                                \
     {                                                                                                                  \
-        ARILES2_UNUSED_ARG(visitor);                                                                                    \
-        ARILES2_UNUSED_ARG(parameters);                                                                                 \
-        ARILES_TRACE_FUNCTION;                                                                                         \
-        ARILES_ENTRIES(generic_parent)                                                                                 \
+        ARILES2_UNUSED_ARG(visitor);                                                                                   \
+        ARILES2_UNUSED_ARG(parameters);                                                                                \
+        ARILES2_TRACE_FUNCTION;                                                                                        \
+        ARILES2_ENTRIES(generic_parent)                                                                                \
     }

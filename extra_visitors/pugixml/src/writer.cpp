@@ -129,7 +129,7 @@ namespace ariles2
 
         void Writer::startRoot(const std::string &name)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (true == name.empty())
             {
                 descend("ariles");
@@ -142,7 +142,7 @@ namespace ariles2
 
         void Writer::endRoot(const std::string & /*name*/)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             ascend();
         }
 
@@ -153,14 +153,14 @@ namespace ariles2
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element)                                                                     \
     {                                                                                                                  \
         impl_->getRawNode().text() = (boost::lexical_cast<std::string>(element)).c_str();                              \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_NUMERIC_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
     }  // namespace ns_pugixml
 }  // namespace ariles2

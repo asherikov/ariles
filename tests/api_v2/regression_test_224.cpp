@@ -10,8 +10,8 @@
 
 #include "utility.h"
 
-#define ARILES_DEFAULT_CONFIGURABLE_FLAGS                                                                              \
-    ariles2::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED | ariles2::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED         \
+#define ARILES2_DEFAULT_CONFIGURABLE_FLAGS                                                                             \
+    ariles2::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED | ariles2::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED       \
             | ariles2::ConfigurableFlags::ALLOW_MISSING_ENTRIES
 
 #ifdef ARILES_VISITOR_yaml_cpp03
@@ -35,10 +35,10 @@ namespace ariles_tests
 {
     struct SubstateParams : public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES(v)                                                                                              \
-    ARILES_ENTRY(v, type)                                                                                              \
-    ARILES_ENTRY(v, remappings)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_ENTRY(v, type)                                                                                             \
+    ARILES2_ENTRY(v, remappings)
+#include ARILES2_INITIALIZE
 
         std::string type;
         std::map<std::string, std::string> remappings;
@@ -50,8 +50,8 @@ namespace ariles_tests
 
     struct StateMachineParams : public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES(v) ARILES_ENTRY(v, substates)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v) ARILES2_ENTRY(v, substates)
+#include ARILES2_INITIALIZE
 
         std::map<std::string, SubstateParams> substates;
 
@@ -99,10 +99,10 @@ namespace ariles_tests
 #define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                                               \
     ARILES_FIXTURE_TEST_CASE(ReadFixture, VISITOR_ID, NAMESPACE, StateMachineParams, INITIALIZER)
 
-#ifdef ARILES_VISITOR_INCLUDED_yaml_cpp03
+#ifdef ARILES2_VISITOR_INCLUDED_yaml_cpp03
 ARILES_TESTS(yaml_cpp03, yaml_cpp03, FilenameReaderInitializer224)
 #endif
 
-#ifdef ARILES_VISITOR_INCLUDED_yaml_cpp
+#ifdef ARILES2_VISITOR_INCLUDED_yaml_cpp
 ARILES_TESTS(yaml_cpp, yaml_cpp, FilenameReaderInitializer224)
 #endif

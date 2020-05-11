@@ -66,11 +66,11 @@ namespace ariles2
             void endArray();
 
 
-#define ARILES_BASIC_TYPE(type) void readElement(type &element);
+#define ARILES2_BASIC_TYPE(type) void readElement(type &element);
 
-            ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+            ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
         };
     }  // namespace ns_rapidjson
 }  // namespace ariles2

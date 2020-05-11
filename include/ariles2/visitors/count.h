@@ -40,8 +40,8 @@ namespace ariles2
             template <class t_Entry>
             std::size_t operator()(const t_Entry &entry, const Parameters &param) const
             {
-                ARILES_TRACE_FUNCTION;
-                ARILES_TRACE_TYPE(entry);
+                ARILES2_TRACE_FUNCTION;
+                ARILES2_TRACE_TYPE(entry);
                 return (entry.arilesVirtualVisit(*this, param));
             }
 
@@ -49,8 +49,8 @@ namespace ariles2
             template <class t_Entry>
             std::size_t operator()(const t_Entry &entry) const
             {
-                ARILES_TRACE_FUNCTION;
-                ARILES_TRACE_TYPE(entry);
+                ARILES2_TRACE_FUNCTION;
+                ARILES2_TRACE_TYPE(entry);
                 return (entry.arilesVirtualVisit(*this, entry.arilesGetParameters(*this)));
             }
         };
@@ -64,31 +64,31 @@ namespace ariles2
 
             virtual const Visitor::Parameters &arilesGetParameters(const Visitor &visitor) const
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
                 return (visitor.getDefaultParameters());
             }
         };
 
 
 
-#define ARILES_NAMED_ENTRY_count(v, entry, name) +1
-#define ARILES_PARENT_count(v, entry) +entry::arilesVisit(visitor, parameters)
+#define ARILES2_NAMED_ENTRY_count(v, entry, name) +1
+#define ARILES2_PARENT_count(v, entry) +entry::arilesVisit(visitor, parameters)
 
-#define ARILES_VISIT_count                                                                                             \
+#define ARILES2_VISIT_count                                                                                            \
     std::size_t arilesVisit(                                                                                           \
-            const ariles2::count::Visitor &visitor, const ariles2::count::Visitor::Parameters &parameters) const         \
+            const ariles2::count::Visitor &visitor, const ariles2::count::Visitor::Parameters &parameters) const       \
     {                                                                                                                  \
-        ARILES2_UNUSED_ARG(visitor);                                                                                    \
-        ARILES2_UNUSED_ARG(parameters);                                                                                 \
-        ARILES_TRACE_FUNCTION;                                                                                         \
-        return (0 ARILES_ENTRIES(count));                                                                              \
+        ARILES2_UNUSED_ARG(visitor);                                                                                   \
+        ARILES2_UNUSED_ARG(parameters);                                                                                \
+        ARILES2_TRACE_FUNCTION;                                                                                        \
+        return (0 ARILES2_ENTRIES(count));                                                                             \
     }
 
-#define ARILES_METHODS_count                                                                                           \
+#define ARILES2_METHODS_count                                                                                          \
     virtual std::size_t arilesVirtualVisit(                                                                            \
-            const ariles2::count::Visitor &visitor, const ariles2::count::Visitor::Parameters &param) const              \
+            const ariles2::count::Visitor &visitor, const ariles2::count::Visitor::Parameters &param) const            \
     {                                                                                                                  \
-        ARILES_TRACE_FUNCTION;                                                                                         \
+        ARILES2_TRACE_FUNCTION;                                                                                        \
         return (this->arilesVisit(visitor, param));                                                                    \
     }                                                                                                                  \
     using ariles2::count::Base::arilesGetParameters;

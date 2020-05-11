@@ -38,15 +38,15 @@ namespace demo
       : public ariles2::DefaultBase
     {
 // Declare entries, in this case two numbers
-#define ARILES_ENTRIES(v)                                                                                              \
-    ARILES_TYPED_ENTRY(v, real_member, double)                                                                         \
-    ARILES_TYPED_ENTRY_(v, integer_member, int)
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_TYPED_ENTRY(v, real_member, double)                                                                        \
+    ARILES2_TYPED_ENTRY_(v, integer_member, int)
 //         underscore ^ indicates that the name of the entry must be
 // 'integer_member_' instead of 'integer_member', this is useful if your
 // naming convention requires trailining underscores for member variables.
 
 // Initialize ariles
-#include ARILES_INITIALIZE
+#include ARILES2_INITIALIZE
 
     public:
         virtual ~ArilesBaseClass(){};  // added to suppress compiler warnings
@@ -75,13 +75,13 @@ namespace demo
 // Declare entries, in this case we indicate inheritance from another
 // Ariles class (ArilesBaseClass) and a member from a non-Ariles class
 // (NonArilesBaseClass)
-#define ARILES_ENTRIES(v)                                                                                              \
-    ARILES_PARENT(v, ArilesBaseClass)                                                                                  \
-    ARILES_ENTRY_(v, eigen_vector)
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_PARENT(v, ArilesBaseClass)                                                                                 \
+    ARILES2_ENTRY_(v, eigen_vector)
         //              In this case ^ Ariles should not declare the inherited
-        // member, therefore we use 'ARILES_ENTRY_' instead of 'ARILES_TYPED_ENTRY_'.
+        // member, therefore we use 'ARILES2_ENTRY_' instead of 'ARILES2_TYPED_ENTRY_'.
 
-#include ARILES_INITIALIZE
+#include ARILES2_INITIALIZE
 
 
     public:
@@ -105,8 +105,8 @@ namespace demo
     class MyContainerClass : public ariles2::DefaultBase
     {
         // Some of the standard containers can be used with Ariles types.
-#define ARILES_ENTRIES(v) ARILES_TYPED_ENTRY_(v, myclass_vector, std::vector<MyClass>)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v) ARILES2_TYPED_ENTRY_(v, myclass_vector, std::vector<MyClass>)
+#include ARILES2_INITIALIZE
     };
 }  // namespace demo
 

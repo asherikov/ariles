@@ -15,10 +15,10 @@ namespace ariles2
         template <class t_Visitor, typename t_Entry>
         void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
-                ARILES_POINTER_TYPE<t_Entry> &entry,
+                ARILES2_POINTER_TYPE<t_Entry> &entry,
                 const typename t_Visitor::Parameters &parameters)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             bool is_null = true;
 
             ariles2::ConfigurableFlags param = parameters;
@@ -29,11 +29,11 @@ namespace ariles2
 
             if (true == is_null)
             {
-                PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::reset(entry);
+                PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::reset(entry);
             }
             else
             {
-                PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::allocate(entry);
+                PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::allocate(entry);
                 visitor(*entry, "value", param);
             }
             visitor.endMap();
@@ -49,13 +49,13 @@ namespace ariles2
         template <class t_Visitor, typename t_Entry>
         void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
                 t_Visitor &writer,
-                const ARILES_POINTER_TYPE<t_Entry> &entry,
+                const ARILES2_POINTER_TYPE<t_Entry> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             bool is_null = true;
 
-            if (PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(entry))
+            if (PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(entry))
             {
                 is_null = true;
                 writer.startMap(1);
@@ -82,21 +82,21 @@ namespace ariles2
         template <class t_Visitor, typename t_Entry>
         void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
                 t_Visitor &visitor,
-                const ARILES_POINTER_TYPE<t_Entry> &left,
-                const ARILES_POINTER_TYPE<t_Entry> &right,
+                const ARILES2_POINTER_TYPE<t_Entry> &left,
+                const ARILES2_POINTER_TYPE<t_Entry> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
-            if (true == PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(left))
+            ARILES2_TRACE_FUNCTION;
+            if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(left))
             {
-                if (false == PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(right))
+                if (false == PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(right))
                 {
                     visitor.equal_ = false;
                 }
             }
             else
             {
-                if (true == PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(right))
+                if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(right))
                 {
                     visitor.equal_ = false;
                 }
@@ -117,11 +117,11 @@ namespace ariles2
         template <class t_Visitor, typename t_Entry>
         void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
                 const t_Visitor & /*visitor*/,
-                ARILES_POINTER_TYPE<t_Entry> &entry,
+                ARILES2_POINTER_TYPE<t_Entry> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
         {
-            ARILES_TRACE_FUNCTION;
-            PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::reset(entry);
+            ARILES2_TRACE_FUNCTION;
+            PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::reset(entry);
         }
     }  // namespace defaults
 }  // namespace ariles2
@@ -134,11 +134,11 @@ namespace ariles2
         template <class t_Visitor, typename t_Entry>
         void ARILES2_VISIBILITY_ATTRIBUTE apply_process(
                 const t_Visitor &visitor,
-                ARILES_POINTER_TYPE<t_Entry> &entry,
+                ARILES2_POINTER_TYPE<t_Entry> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES_TRACE_FUNCTION;
-            if (false == (PointerHandler<ARILES_POINTER_TYPE<t_Entry> >::isNull(entry)))
+            ARILES2_TRACE_FUNCTION;
+            if (false == (PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(entry)))
             {
                 apply_process(visitor, *entry, param);
             }
@@ -147,5 +147,5 @@ namespace ariles2
 }  // namespace ariles2
 
 
-#undef ARILES_POINTER_HANDLER
-#undef ARILES_POINTER_TYPE
+#undef ARILES2_POINTER_HANDLER
+#undef ARILES2_POINTER_TYPE

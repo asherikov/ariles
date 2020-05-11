@@ -97,14 +97,14 @@ namespace ariles2
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element)                                                                     \
     {                                                                                                                  \
         impl_->packer_->pack(element);                                                                                 \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
     }  // namespace ns_msgpack_compact
 }  // namespace ariles2

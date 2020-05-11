@@ -25,7 +25,7 @@ namespace ariles2
             class ARILES2_VISIBILITY_ATTRIBUTE Writer
             {
             public:
-                typedef ARILES_SHARED_PTR<YAML::Emitter> EmitterPtr;
+                typedef ARILES2_SHARED_PTR<YAML::Emitter> EmitterPtr;
 
 
             public:
@@ -164,7 +164,7 @@ namespace ariles2
 
         void Writer::startRoot(const std::string &name)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (true == name.empty())
             {
                 impl_->skip_root_map_ = true;
@@ -177,7 +177,7 @@ namespace ariles2
 
         void Writer::endRoot(const std::string &name)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (false == name.empty())
             {
                 ascend();
@@ -186,27 +186,27 @@ namespace ariles2
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element)                                                                     \
     {                                                                                                                  \
         *impl_->emitter_ << element;                                                                                   \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_INTEGER_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_INTEGER_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element)                                                                     \
     {                                                                                                                  \
-        if (true == ariles2::isNaN(element))                                                                            \
+        if (true == ariles2::isNaN(element))                                                                           \
         {                                                                                                              \
             *impl_->emitter_ << ".nan";                                                                                \
         }                                                                                                              \
         else                                                                                                           \
         {                                                                                                              \
-            if (true == ariles2::isInfinity(element))                                                                   \
+            if (true == ariles2::isInfinity(element))                                                                  \
             {                                                                                                          \
                 if (element < 0.0)                                                                                     \
                 {                                                                                                      \
@@ -224,9 +224,9 @@ namespace ariles2
         }                                                                                                              \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_REAL_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
 

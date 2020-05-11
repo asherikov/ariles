@@ -16,8 +16,8 @@ namespace ariles_tests
     template <class t_Configurable>
     class ConfigurableVector : public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES(v) ARILES_ENTRY_(v, vector)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v) ARILES2_ENTRY_(v, vector)
+#include ARILES2_INITIALIZE
 
     public:
         std::vector<t_Configurable> vector_;

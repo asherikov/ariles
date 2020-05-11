@@ -8,20 +8,20 @@
 */
 
 
-#ifdef ARILES_ENABLED
-#    define ARILES_TYPED_NAMED_ENTRY(v, type, entry, name) ARILES_NAMED_ENTRY(v, entry, name)
+#ifdef ARILES2_ENABLED
+#    define ARILES2_TYPED_NAMED_ENTRY(v, type, entry, name) ARILES2_NAMED_ENTRY(v, entry, name)
 
 public:
 // -----
 // generic (templated) visitors
 #    ifndef ARILES_DOXYGEN_PROCESSING
-#        ifdef ARILES_ENTRIES
+#        ifdef ARILES2_ENTRIES
 #            include "visit_generic_parent.h"
 #            include "visit_generic_all.h"
 
 // clang-format off
-            ARILES_VISIT_generic_parent
-            ARILES_VISIT_generic_all
+            ARILES2_VISIT_generic_parent
+            ARILES2_VISIT_generic_all
 // clang-format on
 
 #        endif
@@ -31,11 +31,11 @@ public:
 
 // -----
 // Define node name
-#    ifdef ARILES_DEFAULT_ID
+#    ifdef ARILES2_DEFAULT_ID
         const std::string &
         arilesDefaultID() const
 {
-    static const std::string name(ARILES_DEFAULT_ID);
+    static const std::string name(ARILES2_DEFAULT_ID);
     return (name);
 }
 #    else
@@ -50,25 +50,25 @@ const std::string &arilesDefaultID() const
 
 // -----
 // visitor-specific methods
-#    ifndef ARILES_VISITORS
-#        define ARILES_VISITORS ARILES_DEFAULT_VISITORS
+#    ifndef ARILES2_VISITORS
+#        define ARILES2_VISITORS ARILES2_DEFAULT_VISITORS
 #    endif
 
-#    define ARILES_VISITOR(visitor) ARILES_METHODS_##visitor
-ARILES_VISITORS
-#    undef ARILES_VISITOR
+#    define ARILES2_VISITOR(visitor) ARILES2_METHODS_##visitor
+ARILES2_VISITORS
+#    undef ARILES2_VISITOR
 
-#    ifdef ARILES_ENTRIES
-#        define ARILES_VISITOR(visitor) ARILES_VISIT_##visitor
-ARILES_VISITORS
-#        undef ARILES_VISITOR
+#    ifdef ARILES2_ENTRIES
+#        define ARILES2_VISITOR(visitor) ARILES2_VISIT_##visitor
+ARILES2_VISITORS
+#        undef ARILES2_VISITOR
 #    endif
 
-#    undef ARILES_VISITORS
+#    undef ARILES2_VISITORS
 // -----
 
 
-#    undef ARILES_TYPED_NAMED_ENTRY
-#endif  // ARILES_ENABLED
+#    undef ARILES2_TYPED_NAMED_ENTRY
+#endif  // ARILES2_ENABLED
 
-#undef ARILES_DEFAULT_ID
+#undef ARILES2_DEFAULT_ID

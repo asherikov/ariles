@@ -139,7 +139,7 @@ namespace ariles2
 
         bool Reader::startRoot(const std::string &name)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (true == name.empty())
             {
                 return (descend("ariles"));
@@ -152,44 +152,44 @@ namespace ariles2
 
         void Reader::endRoot(const std::string & /*name*/)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             ascend();
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
-        ARILES2_ASSERT(impl_->getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt, "Integer type expected.");        \
+        ARILES2_ASSERT(impl_->getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt, "Integer type expected.");       \
         int tmp_value = static_cast<int>(impl_->getRawNode());                                                         \
-        ARILES2_ASSERT(                                                                                                 \
+        ARILES2_ASSERT(                                                                                                \
                 static_cast<int64_t>(tmp_value) <= std::numeric_limits<type>::max()                                    \
                         && static_cast<int64_t>(tmp_value) >= std::numeric_limits<type>::min(),                        \
                 "Value is out of range.");                                                                             \
         element = static_cast<type>(tmp_value);                                                                        \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
-        ARILES2_ASSERT(impl_->getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt, "Integer type expected.");        \
+        ARILES2_ASSERT(impl_->getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt, "Integer type expected.");       \
         int tmp_value = static_cast<int>(impl_->getRawNode());                                                         \
-        ARILES2_ASSERT(tmp_value >= 0, "Expected positive value.");                                                     \
-        ARILES2_ASSERT(static_cast<uint64_t>(tmp_value) <= std::numeric_limits<type>::max(), "Value is too large.");    \
+        ARILES2_ASSERT(tmp_value >= 0, "Expected positive value.");                                                    \
+        ARILES2_ASSERT(static_cast<uint64_t>(tmp_value) <= std::numeric_limits<type>::max(), "Value is too large.");   \
         element = static_cast<type>(tmp_value);                                                                        \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
         switch (impl_->getRawNode().getType())                                                                         \
@@ -204,14 +204,14 @@ namespace ariles2
                 element = static_cast<int>(impl_->getRawNode());                                                       \
                 break;                                                                                                 \
             default:                                                                                                   \
-                ARILES2_THROW("Could not convert value to type.");                                                      \
+                ARILES2_THROW("Could not convert value to type.");                                                     \
                 break;                                                                                                 \
         }                                                                                                              \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_REAL_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
         void Reader::readElement(std::string &element)

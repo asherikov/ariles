@@ -69,11 +69,11 @@ namespace ariles2
     };
 }  // namespace ariles2
 
-#    define ARILES_POINTER_TYPE std::shared_ptr
+#    define ARILES2_POINTER_TYPE std::shared_ptr
 #    include <ariles2/adapters/generic_pointer.h>
 
 
-#    define ARILES_POINTER_TYPE std::unique_ptr
+#    define ARILES2_POINTER_TYPE std::unique_ptr
 #    include <ariles2/adapters/generic_pointer.h>
 
 #endif

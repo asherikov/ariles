@@ -17,7 +17,8 @@ namespace ariles2
     namespace process
     {
         template <class t_Derived, class t_Parameters>
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public ariles2::visitor::Base<visitor::GenericVisitor, t_Parameters>
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor
+          : public ariles2::visitor::Base<visitor::GenericVisitor, t_Parameters>
         {
         public:
             typedef t_Parameters Parameters;
@@ -36,7 +37,7 @@ namespace ariles2
             template <class t_Entry>
             void start(t_Entry &entry, const std::string &name, const Parameters &param) const
             {
-                ARILES_TRACE_FUNCTION;
+                ARILES2_TRACE_FUNCTION;
                 this->operator()(entry, name, param);
             }
 
@@ -45,9 +46,9 @@ namespace ariles2
             void operator()(t_Entry &entry, const std::string &name, const Parameters &param) const
             {
                 ARILES2_UNUSED_ARG(name);
-                ARILES_TRACE_FUNCTION;
-                ARILES_TRACE_ENTRY(name);
-                ARILES_TRACE_TYPE(entry);
+                ARILES2_TRACE_FUNCTION;
+                ARILES2_TRACE_ENTRY(name);
+                ARILES2_TRACE_TYPE(entry);
                 apply_process(*(static_cast<t_Derived *>(this)), entry, param);
             }
         };

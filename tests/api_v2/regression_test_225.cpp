@@ -11,8 +11,8 @@
 
 #include "utility.h"
 
-#define ARILES_DEFAULT_CONFIGURABLE_FLAGS                                                                              \
-    ariles2::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED | ariles2::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED         \
+#define ARILES2_DEFAULT_CONFIGURABLE_FLAGS                                                                             \
+    ariles2::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED | ariles2::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED       \
             | ariles2::ConfigurableFlags::ALLOW_MISSING_ENTRIES
 
 #include "all_enabled_visitors.h"
@@ -59,7 +59,7 @@
             ComparisonEquivalenceFixture##_##VISITOR_ID##_##Equivalence##_##INITIALIZER,                               \
             ariles_tests::ComparisonEquivalenceFixture<ariles_tests::initializers::INITIALIZER>)                       \
     {                                                                                                                  \
-        test<ariles_tests::ConfigurableComplexVerbose, ariles_tests::ConfigurableComplex, ariles2::NAMESPACE>();        \
+        test<ariles_tests::ConfigurableComplexVerbose, ariles_tests::ConfigurableComplex, ariles2::NAMESPACE>();       \
     }
 
 

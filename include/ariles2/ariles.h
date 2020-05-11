@@ -15,8 +15,8 @@
 
 #define ARILES_API_VERSION 2
 
-#ifndef ARILES_DISABLE
-#    define ARILES_ENABLED
+#ifndef ARILES2_DISABLE
+#    define ARILES2_ENABLED
 #endif
 
 
@@ -33,32 +33,32 @@
 #include "visitors/config.h"
 
 // These defines are always necessary
-#define ARILES_TYPED_ENTRY_(v, entry, type) ARILES_TYPED_NAMED_ENTRY(v, type, entry##_, entry)
-#define ARILES_TYPED_ENTRY(v, entry, type) ARILES_TYPED_NAMED_ENTRY(v, type, entry, entry)
+#define ARILES2_TYPED_ENTRY_(v, entry, type) ARILES2_TYPED_NAMED_ENTRY(v, type, entry##_, entry)
+#define ARILES2_TYPED_ENTRY(v, entry, type) ARILES2_TYPED_NAMED_ENTRY(v, type, entry, entry)
 
 
 #include "base.h"
 
-#ifdef ARILES_ENABLED
-#    define ARILES_INITIALIZE <ariles2/members/all.h>
+#ifdef ARILES2_ENABLED
+#    define ARILES2_INITIALIZE <ariles2/members/all.h>
 
-#    define ARILES_PARENT(v, entry) ARILES_PARENT_##v(v, entry)
-#    define ARILES_NAMED_ENTRY(v, entry, name) ARILES_NAMED_ENTRY_##v(v, entry, name)
+#    define ARILES2_PARENT(v, entry) ARILES2_PARENT_##v(v, entry)
+#    define ARILES2_NAMED_ENTRY(v, entry, name) ARILES2_NAMED_ENTRY_##v(v, entry, name)
 
-#    define ARILES_ENTRY_(v, entry) ARILES_NAMED_ENTRY(v, entry##_, entry)
-#    define ARILES_ENTRY(v, entry) ARILES_NAMED_ENTRY(v, entry, entry)
+#    define ARILES2_ENTRY_(v, entry) ARILES2_NAMED_ENTRY(v, entry##_, entry)
+#    define ARILES2_ENTRY(v, entry) ARILES2_NAMED_ENTRY(v, entry, entry)
 
 // ----------------------------
 
 #    include "adapters/basic.h"
-#    define ARILES_DEFAULT_VISITORS                                                                                    \
-        ARILES_VISITOR(count)                                                                                          \
-        ARILES_VISITOR(postprocess)                                                                                    \
-        ARILES_VISITOR(preprocess)                                                                                     \
-        ARILES_VISITOR(defaults)                                                                                       \
-        ARILES_VISITOR(read)                                                                                           \
-        ARILES_VISITOR(write)                                                                                          \
-        ARILES_VISITOR(compare)
+#    define ARILES2_DEFAULT_VISITORS                                                                                   \
+        ARILES2_VISITOR(count)                                                                                         \
+        ARILES2_VISITOR(postprocess)                                                                                   \
+        ARILES2_VISITOR(preprocess)                                                                                    \
+        ARILES2_VISITOR(defaults)                                                                                      \
+        ARILES2_VISITOR(read)                                                                                          \
+        ARILES2_VISITOR(write)                                                                                         \
+        ARILES2_VISITOR(compare)
 
 namespace ariles2
 {
@@ -74,8 +74,8 @@ namespace ariles2
 
 #else
 
-#    define ARILES_DISABLED
-#    define ARILES_INITIALIZE <ariles2/members/variables.h>
+#    define ARILES2_DISABLED
+#    define ARILES2_INITIALIZE <ariles2/members/variables.h>
 
 namespace ariles2
 {

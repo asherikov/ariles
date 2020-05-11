@@ -18,8 +18,8 @@ namespace ariles_tests
     public:
         class Minimal : public ariles2::DefaultBase
         {
-#define ARILES_ENTRIES(v) ARILES_TYPED_ENTRY_(v, integer_member, int)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v) ARILES2_TYPED_ENTRY_(v, integer_member, int)
+#include ARILES2_INITIALIZE
 
         public:
             virtual ~Minimal()
@@ -34,56 +34,56 @@ namespace ariles_tests
 
 
 
-#define ARILES_ENTRIES_0(v)
+#define ARILES2_ENTRIES_0(v)
 
 #if __cplusplus >= 201103L
-#    define ARILES_ENTRIES_1(v)                                                                                        \
-        ARILES_ENTRIES_0(v)                                                                                            \
-        ARILES_TYPED_ENTRY_(v, std_shared_ptr_test, std::shared_ptr<Minimal>)                                          \
-        ARILES_TYPED_ENTRY_(v, std_shared_ptr_test_non_null, ariles2::NonNullPointer<std::shared_ptr<Minimal> >)        \
-        ARILES_TYPED_ENTRY_(v, std_unique_ptr_test, std::unique_ptr<Minimal>)
+#    define ARILES2_ENTRIES_1(v)                                                                                       \
+        ARILES2_ENTRIES_0(v)                                                                                           \
+        ARILES2_TYPED_ENTRY_(v, std_shared_ptr_test, std::shared_ptr<Minimal>)                                         \
+        ARILES2_TYPED_ENTRY_(v, std_shared_ptr_test_non_null, ariles2::NonNullPointer<std::shared_ptr<Minimal> >)      \
+        ARILES2_TYPED_ENTRY_(v, std_unique_ptr_test, std::unique_ptr<Minimal>)
 #else
-#    define ARILES_ENTRIES_1(v) ARILES_ENTRIES_0(v)
+#    define ARILES2_ENTRIES_1(v) ARILES2_ENTRIES_0(v)
 #endif
 
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
 #    if BOOST_VERSION >= 105800
-#        define ARILES_ENTRIES_2(v)                                                                                    \
-            ARILES_ENTRIES_1(v)                                                                                        \
-            ARILES_TYPED_ENTRY_(v, shared_ptr_test, boost::shared_ptr<Minimal>)                                        \
-            ARILES_TYPED_ENTRY_(v, shared_ptr_test_null, boost::shared_ptr<Minimal>)                                   \
-            ARILES_TYPED_ENTRY_(v, shared_ptr_test_non_null, ariles2::NonNullPointer<boost::shared_ptr<Minimal> >)      \
-            ARILES_TYPED_ENTRY_(v, unique_ptr_test, boost::movelib::unique_ptr<Minimal>)
+#        define ARILES2_ENTRIES_2(v)                                                                                   \
+            ARILES2_ENTRIES_1(v)                                                                                       \
+            ARILES2_TYPED_ENTRY_(v, shared_ptr_test, boost::shared_ptr<Minimal>)                                       \
+            ARILES2_TYPED_ENTRY_(v, shared_ptr_test_null, boost::shared_ptr<Minimal>)                                  \
+            ARILES2_TYPED_ENTRY_(v, shared_ptr_test_non_null, ariles2::NonNullPointer<boost::shared_ptr<Minimal> >)    \
+            ARILES2_TYPED_ENTRY_(v, unique_ptr_test, boost::movelib::unique_ptr<Minimal>)
 #    else
-#        define ARILES_ENTRIES_2(v)                                                                                    \
-            ARILES_ENTRIES_1(v)                                                                                        \
-            ARILES_TYPED_ENTRY_(v, shared_ptr_test, boost::shared_ptr<Minimal>)                                        \
-            ARILES_TYPED_ENTRY_(v, shared_ptr_test_non_null, ariles2::NonNullPointer<boost::shared_ptr<Minimal> >)      \
-            ARILES_TYPED_ENTRY_(v, shared_ptr_test_null, boost::shared_ptr<Minimal>)
+#        define ARILES2_ENTRIES_2(v)                                                                                   \
+            ARILES2_ENTRIES_1(v)                                                                                       \
+            ARILES2_TYPED_ENTRY_(v, shared_ptr_test, boost::shared_ptr<Minimal>)                                       \
+            ARILES2_TYPED_ENTRY_(v, shared_ptr_test_non_null, ariles2::NonNullPointer<boost::shared_ptr<Minimal> >)    \
+            ARILES2_TYPED_ENTRY_(v, shared_ptr_test_null, boost::shared_ptr<Minimal>)
 #    endif
 #else
-#    define ARILES_ENTRIES_2(v) ARILES_ENTRIES_1(v)
+#    define ARILES2_ENTRIES_2(v) ARILES2_ENTRIES_1(v)
 #endif
 
 
 #ifdef ARILES_ADAPTER_BOOST_OPTIONAL
-#    define ARILES_ENTRIES_3(v)                                                                                        \
-        ARILES_ENTRIES_2(v)                                                                                            \
-        ARILES_TYPED_ENTRY_(v, optional_test, boost::optional<Minimal>)                                                \
-        ARILES_TYPED_ENTRY_(v, optional_test_null, boost::optional<Minimal>)
+#    define ARILES2_ENTRIES_3(v)                                                                                       \
+        ARILES2_ENTRIES_2(v)                                                                                           \
+        ARILES2_TYPED_ENTRY_(v, optional_test, boost::optional<Minimal>)                                               \
+        ARILES2_TYPED_ENTRY_(v, optional_test_null, boost::optional<Minimal>)
 #else
-#    define ARILES_ENTRIES_3(v) ARILES_ENTRIES_2(v)
+#    define ARILES2_ENTRIES_3(v) ARILES2_ENTRIES_2(v)
 #endif
 
 
-#define ARILES_ENTRIES(v) ARILES_ENTRIES_3(v)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v) ARILES2_ENTRIES_3(v)
+#include ARILES2_INITIALIZE
 
-#undef ARILES_ENTRIES_0
-#undef ARILES_ENTRIES_1
-#undef ARILES_ENTRIES_2
-#undef ARILES_ENTRIES_3
+#undef ARILES2_ENTRIES_0
+#undef ARILES2_ENTRIES_1
+#undef ARILES2_ENTRIES_2
+#undef ARILES2_ENTRIES_3
 
     public:
         ConfigurablePointers()

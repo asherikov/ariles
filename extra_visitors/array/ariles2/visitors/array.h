@@ -10,7 +10,7 @@
 
 #pragma once
 
-#define ARILES_VISITOR_INCLUDED_array
+#define ARILES2_VISITOR_INCLUDED_array
 
 #include <ariles2/internal/helpers.h>
 #include <ariles2/internal/node.h>

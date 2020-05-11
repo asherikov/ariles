@@ -208,31 +208,31 @@ namespace ariles2
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
         int64_t tmp_value = impl_->getRawNode().GetInt64();                                                            \
-        ARILES2_ASSERT(                                                                                                 \
+        ARILES2_ASSERT(                                                                                                \
                 tmp_value <= std::numeric_limits<type>::max() && tmp_value >= std::numeric_limits<type>::min(),        \
                 "Value is out of range.");                                                                             \
         element = static_cast<type>(tmp_value);                                                                        \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
         uint64_t tmp_value = impl_->getRawNode().GetUint64();                                                          \
-        ARILES2_ASSERT(tmp_value <= std::numeric_limits<type>::max(), "Value is too large.");                           \
+        ARILES2_ASSERT(tmp_value <= std::numeric_limits<type>::max(), "Value is too large.");                          \
         element = static_cast<type>(tmp_value);                                                                        \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
     }  // namespace ns_rapidjson
 }  // namespace ariles2

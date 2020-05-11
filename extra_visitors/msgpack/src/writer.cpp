@@ -88,29 +88,29 @@ namespace ariles2
 
         void Writer::descend(const std::string &map_name)
         {
-            ARILES_TRACE_FUNCTION;
-            ARILES_TRACE_ENTRY(map_name);
+            ARILES2_TRACE_FUNCTION;
+            ARILES2_TRACE_ENTRY(map_name);
             impl_->packer_->pack(map_name);
         }
 
 
         void Writer::startMap(const std::size_t num_entries)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             impl_->packer_->pack_map(num_entries);
         }
 
 
         void Writer::flush()
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             impl_->output_stream_->flush();
         }
 
 
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             ARILES2_ASSERT(size <= std::numeric_limits<uint32_t>::max(), "Vector is too long.");
 
             impl_->packer_->pack_array(size);
@@ -119,7 +119,7 @@ namespace ariles2
 
         void Writer::startRoot(const std::string &name)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (true == name.empty())
             {
                 ARILES2_ASSERT(
@@ -138,20 +138,20 @@ namespace ariles2
 
         void Writer::endRoot(const std::string & /*name*/)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             ascend();
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element)                                                                     \
     {                                                                                                                  \
-        ARILES_TRACE_FUNCTION;                                                                                         \
+        ARILES2_TRACE_FUNCTION;                                                                                        \
         impl_->packer_->pack(element);                                                                                 \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
     }  // namespace ns_msgpack
 }  // namespace ariles2
