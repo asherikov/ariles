@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(ariles_ros VERSION 1.6.3)
+project(ariles_ros VERSION 1.6.5)
 
 
 option(ARILES_ROS_ENABLE_TESTS "Enable tests." OFF)
