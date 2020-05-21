@@ -20,10 +20,9 @@ ARGS?=
 
 DEB_TARGET?=xenial
 
-TEST_ENV=UBSAN_OPTIONS=print_stacktrace=1 \
+TEST_ENV=UBSAN_OPTIONS=print_stacktrace=1:halt_on_error=1:suppressions=../../../cmake/sanitizer_undefined.supp \
 		 ASAN_OPTIONS=suppressions=../../../cmake/sanitizer_address.supp \
 		 LSAN_OPTIONS=suppressions=../../../cmake/sanitizer_leak.supp \
-		 UBSAN_OPTIONS=suppressions=../../../cmake/sanitizer_undefined.supp
 
 
 #----------------------------------------------
