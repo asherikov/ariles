@@ -30,6 +30,7 @@ set    (ARILES_CPP_STANDARD             "c++03" CACHE STRING "C++ standard versi
 option (ARILES_CPP_SANITIZERS           "Enable sanitizers"                 OFF)
 option (ARILES_VERBOSE                  "Verbose build"                     ON)
 option (ARILES_BUILD_REGRESSION_TESTS   "Build regression tests."           ON)
+option (ARILES_CCACHE                   "Enable ccache if available"        ON)
 set    (ARILES_DEB_TARGETS              "" CACHE STRING "Enable debian package generation.")
 
 # install parameters
@@ -90,10 +91,12 @@ set(CPACK_DEBIAN_PACKAGE_SECTION    "devel")
 
 #####################################
 
-find_program(CCACHE_FOUND ccache)
-if(CCACHE_FOUND)
-    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
-endif(CCACHE_FOUND)
+if(ARILES_CCACHE)
+    find_program(CCACHE_FOUND ccache)
+    if(CCACHE_FOUND)
+        set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+    endif(CCACHE_FOUND)
+endif()
 
 
 if (NOT ${ARILES_ENABLE_CORE})
