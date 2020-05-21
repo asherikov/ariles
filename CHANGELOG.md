@@ -1,6 +1,16 @@
 Unreleased
 ==========
 
+1.6.6
+=====
+
+Added
+-----
+
+* Added `ARILES_CCACHE` cmake option to control usage of ccache.
+
+
+
 1.6.5
 =====
 
