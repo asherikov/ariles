@@ -157,6 +157,11 @@ namespace ariles2
         }
 
 
+        class ARILES2_VISIBILITY_ATTRIBUTE Base
+        {
+        };
+
+
 #define ARILES2_NAMED_ENTRY_compare(v, entry, name) visitor(entry, other.entry, #name, parameters);
 #define ARILES2_PARENT_compare(v, entry) entry::arilesVisit(visitor, other, parameters);
 
@@ -180,6 +185,7 @@ namespace ariles2
         ARILES2_TRACE_FUNCTION;                                                                                        \
         return (visitor.getDefaultParameters());                                                                       \
     }
+#define ARILES2_BASE_METHODS_compare
     }  // namespace compare
 
 

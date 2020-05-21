@@ -47,8 +47,10 @@ namespace ariles2
     }  // namespace visitor
 
 
-    namespace entry
-    {
+#define ARILES2_BASE_METHODS(Namespace)                                                                                \
+    using Namespace::Base::arilesVirtualVisit;                                                                         \
+    using Namespace::Base::arilesGetParameters;
+
 #define ARILES2_METHODS(Namespace, VisitorQualifier, MethodQualifier)                                                  \
     virtual void arilesVirtualVisit(                                                                                   \
             VisitorQualifier ariles2::Namespace::Visitor &visitor,                                                     \
@@ -60,6 +62,8 @@ namespace ariles2
     using ariles2::Namespace::Base::arilesGetParameters;
 
 
+    namespace entry
+    {
         template <class t_Visitor>
         class ARILES2_VISIBILITY_ATTRIBUTE Base
         {

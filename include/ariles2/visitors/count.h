@@ -92,6 +92,8 @@ namespace ariles2
         return (this->arilesVisit(visitor, param));                                                                    \
     }                                                                                                                  \
     using ariles2::count::Base::arilesGetParameters;
+
+#define ARILES2_BASE_METHODS_count ARILES2_BASE_METHODS(count)
     }  // namespace count
 
 

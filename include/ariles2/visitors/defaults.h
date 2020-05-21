@@ -115,6 +115,7 @@ namespace ariles2
 
 #define ARILES2_VISIT_defaults
 #define ARILES2_METHODS_defaults ARILES2_METHODS(defaults, const, ARILES2_EMPTY_MACRO)
+#define ARILES2_BASE_METHODS_defaults ARILES2_BASE_METHODS(defaults)
     }  // namespace defaults
 
 

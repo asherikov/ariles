@@ -35,6 +35,7 @@ namespace ariles2
 
 #define ARILES2_VISIT_preprocess
 #define ARILES2_METHODS_preprocess ARILES2_METHODS(preprocess, const, ARILES2_EMPTY_MACRO)
+#define ARILES2_BASE_METHODS_preprocess ARILES2_BASE_METHODS(preprocess)
     }  // namespace preprocess
 
 

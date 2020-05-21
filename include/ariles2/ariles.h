@@ -37,8 +37,6 @@
 #define ARILES2_TYPED_ENTRY(v, entry, type) ARILES2_TYPED_NAMED_ENTRY(v, type, entry, entry)
 
 
-#include "base.h"
-
 #ifdef ARILES2_ENABLED
 #    define ARILES2_INITIALIZE <ariles2/members/all.h>
 
@@ -51,26 +49,39 @@
 // ----------------------------
 
 #    include "adapters/basic.h"
-#    define ARILES2_DEFAULT_VISITORS                                                                                   \
-        ARILES2_VISITOR(count)                                                                                         \
-        ARILES2_VISITOR(postprocess)                                                                                   \
-        ARILES2_VISITOR(preprocess)                                                                                    \
-        ARILES2_VISITOR(defaults)                                                                                      \
-        ARILES2_VISITOR(read)                                                                                          \
-        ARILES2_VISITOR(write)                                                                                         \
-        ARILES2_VISITOR(compare)
+
+#    ifndef ARILES2_DEFAULT_VISITORS
+#        define ARILES2_DEFAULT_VISITORS                                                                               \
+            ARILES2_VISITOR(count)                                                                                     \
+            ARILES2_VISITOR(postprocess)                                                                               \
+            ARILES2_VISITOR(preprocess)                                                                                \
+            ARILES2_VISITOR(defaults)                                                                                  \
+            ARILES2_VISITOR(read)                                                                                      \
+            ARILES2_VISITOR(write)                                                                                     \
+            ARILES2_VISITOR(compare)
+#    endif
 
 namespace ariles2
 {
-    typedef Base<
-            ariles2::defaults::Base,
-            ariles2::postprocess::Base,
-            ariles2::preprocess::Base,
-            ariles2::count::Base,
-            ariles2::read::Base,
-            ariles2::write::Base>
-            DefaultBase;
-}
+    class ARILES2_VISIBILITY_ATTRIBUTE DefaultBase : public ariles2::Ariles
+#    define ARILES2_VISITOR(visitor) , public ariles2::visitor::Base
+                                                             ARILES2_DEFAULT_VISITORS
+#    undef ARILES2_VISITOR
+    {
+    protected:
+        DefaultBase()
+        {
+        }
+        ~DefaultBase()
+        {
+        }
+
+    public:
+#    define ARILES2_VISITOR(visitor) ARILES2_BASE_METHODS_##visitor
+        ARILES2_DEFAULT_VISITORS
+#    undef ARILES2_VISITOR
+    };
+}  // namespace ariles2
 
 #else
 

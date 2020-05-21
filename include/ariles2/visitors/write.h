@@ -158,6 +158,7 @@ namespace ariles2
 
 #define ARILES2_VISIT_write
 #define ARILES2_METHODS_write ARILES2_METHODS(write, ARILES2_EMPTY_MACRO, const)
+#define ARILES2_BASE_METHODS_write ARILES2_BASE_METHODS(write)
     }  // namespace write
 
 

@@ -271,6 +271,7 @@ namespace ariles2
 
 #define ARILES2_VISIT_read
 #define ARILES2_METHODS_read ARILES2_METHODS(read, ARILES2_EMPTY_MACRO, ARILES2_EMPTY_MACRO)
+#define ARILES2_BASE_METHODS_read ARILES2_BASE_METHODS(read)
     }  // namespace read
 
 

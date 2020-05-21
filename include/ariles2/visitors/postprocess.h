@@ -35,6 +35,7 @@ namespace ariles2
 
 #define ARILES2_VISIT_postprocess
 #define ARILES2_METHODS_postprocess ARILES2_METHODS(postprocess, const, ARILES2_EMPTY_MACRO)
+#define ARILES2_BASE_METHODS_postprocess ARILES2_BASE_METHODS(postprocess)
     }  // namespace postprocess
 
 
