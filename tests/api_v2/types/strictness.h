@@ -15,7 +15,6 @@ namespace ariles_tests
 {
     class ConfigurableStrictness1 : public ariles::DefaultBase
     {
-#define ARILES_CONSTRUCTOR ConfigurableStrictness1
 #define ARILES_ENTRIES ARILES_TYPED_ENTRY_(real, double)
 #include ARILES_INITIALIZE
 
