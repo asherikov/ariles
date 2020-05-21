@@ -49,6 +49,8 @@ Links
 Introduction
 ============
 
+**Note: this is a legacy branch, the main development branch is https://github.com/asherikov/ariles/tree/head_2**
+
 `ariles` is a C++ reflection library with focus on serialization/configuration.
 It relies on other open-source libraries for parsing and emission of data in
 different formats, in particular: `YAML`, `JSON`, `XML`, `ROS` parameter
