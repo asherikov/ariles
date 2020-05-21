@@ -17,21 +17,6 @@
 #ifdef ARILES_ENABLED
 namespace ariles
 {
-    class ARILES_VISIBILITY_ATTRIBUTE Ariles
-    {
-    protected:
-        ~Ariles()
-        {
-        }
-        Ariles()
-        {
-        }
-
-    public:
-        virtual const std::string &arilesDefaultID() const = 0;
-    };
-
-
 #    define ARILES_USE_BASE(Base)                                                                                      \
         using Base::arilesVirtualVisit;                                                                                \
         using Base::arilesGetParameters;

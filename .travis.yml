@@ -30,4 +30,5 @@ jobs:
     # prerelease
       - sudo: required
         script:
+          - make travis-trusty-apt-clean
           - make ros_prerelease ROS_DISTRO=melodic UBUNTU_DISTRO=bionic BRANCH=${TRAVIS_BRANCH}

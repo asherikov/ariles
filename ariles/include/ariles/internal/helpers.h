@@ -113,4 +113,19 @@ namespace ariles
     // intentionally not defined
     template <class t_Pointer>
     class ARILES_VISIBILITY_ATTRIBUTE PointerHandler;
+
+
+    class ARILES_VISIBILITY_ATTRIBUTE Ariles
+    {
+    protected:
+        ~Ariles()
+        {
+        }
+        Ariles()
+        {
+        }
+
+    public:
+        virtual const std::string &arilesDefaultID() const = 0;
+    };
 }  // namespace ariles

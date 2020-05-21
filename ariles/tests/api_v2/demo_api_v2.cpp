@@ -15,22 +15,16 @@
 
 #define ARILES_API_VERSION 2
 
-/*
- * Version I: selective inclusion
- * ------------------------------
- */
-#include <ariles/internal/build_config.h>
-
 // `visitor` is an Ariles component which provides integration with a particular
 // 3rd party library.
-#include "ariles/visitors/yaml_cpp.h"
-#include "ariles/visitors/ros.h"
-#include "ariles/visitors/octave.h"
+#include <ariles/visitors/yaml_cpp.h>
+#include <ariles/visitors/ros.h>
+#include <ariles/visitors/octave.h>
 
 // `adapter` is an Ariles component which adds support for serialization of
 // certain type(s), e.g. Eigen types or Boost pointers.
-#include "ariles/adapters_all.h"
-#include "ariles/ariles2.h"
+#include <ariles/adapters_all.h>
+#include <ariles/ariles2.h>
 
 
 

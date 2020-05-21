@@ -40,7 +40,7 @@ Contents
 <a name="links"></a>
 Links
 =====
-* Documentation (Doxygen): https://asherikov.github.io/ariles/
+* Documentation (Doxygen): https://asherikov.github.io/ariles/1/
 * GitHub: https://github.com/asherikov/ariles
 * Travis CI: https://travis-ci.org/asherikov/ariles
 
@@ -48,6 +48,8 @@ Links
 <a name="intro"></a>
 Introduction
 ============
+
+**Note: this is a legacy branch, the main development branch is https://github.com/asherikov/ariles/tree/head_2**
 
 `ariles` is a C++ reflection library with focus on serialization/configuration.
 It relies on other open-source libraries for parsing and emission of data in
@@ -96,7 +98,7 @@ Currently `ariles` provides two API versions:
 APIv1
 -----
 
-Demo: https://asherikov.github.io/ariles/DEMOv1.html [`./tests/api_v1/demo_api_v1.cpp`]
+Demo: https://asherikov.github.io/ariles/1/DEMOv1.html [`./tests/api_v1/demo_api_v1.cpp`]
 
 
 Class [`./tests/api_v1/types/minimal.h`]:
@@ -140,7 +142,7 @@ configurable.writeConfig<ariles::ros>(nh, "/some_namespace/");
 APIv2
 -----
 
-Demo: https://asherikov.github.io/ariles/DEMOv2.html [`./tests/api_v2/demo_api_v2.cpp`]
+Demo: https://asherikov.github.io/ariles/1/DEMOv2.html [`./tests/api_v2/demo_api_v2.cpp`]
 
 
 Class [`./tests/api_v2/types/minimal.h`]:

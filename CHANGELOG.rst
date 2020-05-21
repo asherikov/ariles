@@ -2,6 +2,12 @@
 Changelog for package ariles_ros
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
+* Sync to 1.6.6 (minor fixes)
+
+
 1.6.5 (2020-05-14)
 ------------------
 
