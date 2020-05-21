@@ -26,7 +26,6 @@
 #include "visitors/defaults.h"
 #include "visitors/preprocess.h"
 #include "visitors/postprocess.h"
-#include "visitors/compare.h"
 #include "visitors/count.h"
 #include "visitors/read.h"
 #include "visitors/write.h"
@@ -57,8 +56,7 @@
             ARILES2_VISITOR(preprocess)                                                                                \
             ARILES2_VISITOR(defaults)                                                                                  \
             ARILES2_VISITOR(read)                                                                                      \
-            ARILES2_VISITOR(write)                                                                                     \
-            ARILES2_VISITOR(compare)
+            ARILES2_VISITOR(write)
 #    endif
 
 namespace ariles2

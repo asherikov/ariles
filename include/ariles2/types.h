@@ -319,6 +319,7 @@ namespace ariles2
         }
 
 
+#ifdef ARILES2_METHODS_compare
         template <class t_Other>
         void arilesVisit(ariles2::Compare &visitor, const t_Other &other, const ariles2::Compare::Parameters &param)
                 const
@@ -326,5 +327,6 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             value_->arilesVisit(visitor, *other.value_, param);
         }
+#endif
     };
 }  // namespace ariles2
