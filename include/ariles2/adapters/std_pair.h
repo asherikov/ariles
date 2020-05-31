@@ -93,7 +93,7 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            writer.startMap(2);
+            writer.startMap("", 2);
             writer(entry.first, "first", param);
             writer(entry.second, "second", param);
             writer.endMap();
@@ -111,7 +111,7 @@ namespace ariles2
             if (writer.getSerializationFeatures().isSet(serialization::Features::SLOPPY_PAIRS_SUPPORTED)
                 && param.isSet(t_Visitor::Parameters::SLOPPY_PAIRS_IF_SUPPORTED))
             {
-                writer.startMap(1);
+                writer.startMap("", 1);
                 writer(entry.second, entry.first, param);
                 writer.endMap();
             }
@@ -119,7 +119,7 @@ namespace ariles2
             {
                 // ? Gets mixed up with vector and fails.
                 // apply<t_Visitor, std::string, t_Second>(writer, entry, param);
-                writer.startMap(2);
+                writer.startMap("", 2);
                 writer(entry.first, "first", param);
                 writer(entry.second, "second", param);
                 writer.endMap();

@@ -55,14 +55,6 @@ namespace ariles2
             void ascend();
 
 
-            void startMap(const std::size_t /*num_entries*/)
-            {
-            }
-            void endMap()
-            {
-            }
-
-
             void startArray(const std::size_t size, const bool compact = false);
             void shiftArray();
             void endArray();

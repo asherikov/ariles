@@ -63,9 +63,10 @@ namespace ariles2
             /**
              * @brief Starts a nested map in the configuration file
              *
+             * @param[in] instance_id instace id
              * @param[in] num_entries number of child entries
              */
-            virtual void startMap(const std::size_t num_entries)
+            virtual void startMap(const std::string & /*instance_id*/, const std::size_t num_entries)
             {
                 ARILES2_UNUSED_ARG(num_entries)
             }

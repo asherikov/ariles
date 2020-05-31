@@ -175,7 +175,7 @@ namespace ariles2
             }
 
 
-            virtual void startMap(const std::size_t num_entries)
+            virtual void startMap(const std::string & /*id*/, const std::size_t num_entries)
             {
                 if (true == initialize_structure_)
                 {

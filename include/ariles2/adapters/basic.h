@@ -95,7 +95,7 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
             ariles2::count::Visitor counter;
-            writer.startMap(counter(entry));
+            writer.startMap(entry.arilesInstanceID(), counter(entry));
             entry.arilesVirtualVisit(writer, param);
             writer.endMap();
         }

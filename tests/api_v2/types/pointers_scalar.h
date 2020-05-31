@@ -13,6 +13,7 @@ namespace ariles_tests
 {
     class ConfigurablePointersScalar : public ariles2::DefaultBase
     {
+#define ARILES2_DEFAULT_ID "ConfigurablePointersScalar"
 #define ARILES2_ENTRIES_0(v)
 
 #if __cplusplus >= 201103L

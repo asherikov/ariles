@@ -73,7 +73,7 @@ namespace ariles2
                 }
 
 
-                void writeNodeAndConnection()
+                void writeNodeAndConnection(const std::string &name)
                 {
                     ARILES2_TRACE_FUNCTION;
 
@@ -92,7 +92,7 @@ namespace ariles2
                     *output_stream_                                          //
                             << node_stack_.back().node_ << node_name_suffix  //
                             << "[label = \""                                 //
-                            << node_stack_.back().name_ << node_name_suffix  //
+                            << name << node_name_suffix                      //
                             << "\"];\n";
 
 
@@ -112,6 +112,30 @@ namespace ariles2
                                 << "->"                                                          //
                                 << node_stack_.back().node_ << node_name_suffix << ";\n";
                     }
+                }
+
+                void writeMap(const std::string &id)
+                {
+                    if (true == id.empty())
+                    {
+                        writeNodeAndConnection(node_stack_.back().name_);
+                    }
+                    else
+                    {
+                        writeNodeAndConnection(id);
+                    }
+                }
+
+
+                void writeArray()
+                {
+                    writeNodeAndConnection(node_stack_.back().name_);
+                }
+
+
+                void writeElement()
+                {
+                    writeNodeAndConnection(node_stack_.back().name_);
                 }
             };
         }  // namespace impl
@@ -183,7 +207,7 @@ namespace ariles2
             {
                 std::string node = impl_->node_stack_.back().node_;
                 node += "_";
-                node += boost::lexical_cast<std::string>(impl_->node_stack_.back().index_ + 1);
+                node += boost::lexical_cast<std::string>(impl_->node_stack_.back().index_);
                 node += "_";
                 node += name;
                 impl_->node_stack_.push_back(NodeWrapper(node));
@@ -203,10 +227,10 @@ namespace ariles2
         }
 
 
-        void Writer::startMap(const std::size_t /*num_entries*/)
+        void Writer::startMap(const std::string &id, const std::size_t /*num_entries*/)
         {
             ARILES2_TRACE_FUNCTION;
-            impl_->writeNodeAndConnection();
+            impl_->writeMap(id);
         }
 
         void Writer::endMap()
@@ -220,14 +244,16 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             ARILES2_ASSERT(false == impl_->node_stack_.empty(), "Internal error: empty stack.");
 
-            impl_->writeNodeAndConnection();
+            impl_->writeArray();
 
-            const std::string name = impl_->node_stack_.back().name_;
+            std::string name = impl_->node_stack_.back().name_;
             if (true == impl_->node_stack_.back().isArray())
             {
                 std::string node = impl_->node_stack_.back().node_;
                 node += "_";
-                node += boost::lexical_cast<std::string>(impl_->node_stack_.back().index_ + 1);
+                node += boost::lexical_cast<std::string>(impl_->node_stack_.back().index_);
+                name += "_";
+                name += boost::lexical_cast<std::string>(impl_->node_stack_.back().index_);
                 impl_->node_stack_.push_back(NodeWrapper(node, 0, size, compact));
             }
             else
@@ -254,7 +280,7 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &)                                                                            \
     {                                                                                                                  \
-        impl_->writeNodeAndConnection();                                                                               \
+        impl_->writeElement();                                                                                         \
     }
 
         ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)

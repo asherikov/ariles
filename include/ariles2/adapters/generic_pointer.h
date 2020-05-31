@@ -58,14 +58,14 @@ namespace ariles2
             if (PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(entry))
             {
                 is_null = true;
-                writer.startMap(1);
+                writer.startMap("", 1);
                 writer(is_null, "is_null", param);
                 writer.endMap();
             }
             else
             {
                 is_null = false;
-                writer.startMap(2);
+                writer.startMap("", 2);
                 writer(is_null, "is_null", param);
                 writer(*entry, "value", param);
                 writer.endMap();

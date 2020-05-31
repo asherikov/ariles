@@ -117,7 +117,7 @@ namespace ariles2
         }
 
 
-        void Writer::startMap(const std::size_t /*num_entries*/)
+        void Writer::startMap(const std::string & /*id*/, const std::size_t /*num_entries*/)
         {
             ARILES2_TRACE_FUNCTION;
             if (impl_->map_depth_ > 0 or false == impl_->skip_root_map_)

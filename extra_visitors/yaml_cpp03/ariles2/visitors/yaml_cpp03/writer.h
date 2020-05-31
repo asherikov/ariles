@@ -43,7 +43,7 @@ namespace ariles2
             void descend(const std::string &map_name);
 
 
-            void startMap(const std::size_t /*num_entries*/);
+            void startMap(const std::string & /*id*/, const std::size_t /*num_entries*/);
             void endMap();
 
 

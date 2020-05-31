@@ -111,7 +111,7 @@ namespace ariles2
             if (writer.getSerializationFeatures().isSet(serialization::Features::SLOPPY_MAPS_SUPPORTED)
                 && param.isSet(t_Visitor::Parameters::SLOPPY_MAPS_IF_SUPPORTED))
             {
-                writer.startMap(entry.size());
+                writer.startMap("", entry.size());
                 for (typename std::map<std::string, t_Value, t_Compare, t_Allocator>::const_iterator it = entry.begin();
                      it != entry.end();
                      ++it)

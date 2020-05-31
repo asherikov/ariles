@@ -30,10 +30,17 @@ namespace ariles_tests
             {
                 return (this->integer_member_ == other.integer_member_);
             }
+
+            const std::string &arilesInstanceID() const
+            {
+                static std::string instace_id("Minimal");
+                return (instace_id);
+            }
         };
 
 
 
+#define ARILES2_DEFAULT_ID "ConfigurablePointers"
 #define ARILES2_ENTRIES_0(v)
 
 #if __cplusplus >= 201103L

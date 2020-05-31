@@ -128,5 +128,9 @@ namespace ariles2
 
     public:
         virtual const std::string &arilesDefaultID() const = 0;
+        virtual const std::string &arilesInstanceID() const
+        {
+            return arilesDefaultID();
+        }
     };
 }  // namespace ariles2

@@ -29,11 +29,12 @@ namespace ariles_tests
                 t_Configurable configurable;
                 configurable.randomize();
 
-                typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
+                const std::string filename =
+                        std::string("graphviz_") + configurable.arilesDefaultID() + "_configurable.cfg";
+                typename t_Visitor::Writer writer(getWriterInitializer(filename));
                 ariles2::apply(writer, configurable);
 
-                std::string dot_cmd = std::string("dot -Tjpg -o configurable.jpg ")
-                                         + getWriterInitializer("configurable.cfg");
+                std::string dot_cmd = std::string("dot -Tjpg -O ") + getWriterInitializer(filename);
                 BOOST_CHECK_EQUAL(0, std::system(dot_cmd.c_str()));
             }
 
@@ -43,10 +44,12 @@ namespace ariles_tests
             {
                 t_Configurable configurable;
                 configurable.randomize();
-                ariles2::apply<typename t_Visitor::Writer>(getWriterInitializer("configurable2.cfg"), configurable);
 
-                std::string dot_cmd = std::string("dot -Tjpg -o configurable2.jpg ")
-                                         + getWriterInitializer("configurable.cfg");
+                const std::string filename =
+                        std::string("graphviz_") + configurable.arilesDefaultID() + "_configurable2.cfg";
+                ariles2::apply<typename t_Visitor::Writer>(getWriterInitializer(filename), configurable);
+
+                std::string dot_cmd = std::string("dot -Tjpg -O ") + getWriterInitializer(filename);
                 BOOST_CHECK_EQUAL(0, std::system(dot_cmd.c_str()));
             }
         }

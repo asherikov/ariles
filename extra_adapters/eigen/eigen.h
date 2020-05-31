@@ -194,7 +194,7 @@ namespace ariles2
                 if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols
                     || param.isSet(ConfigurableFlags::FORCE_EXPLICIT_MATRIX_SIZE))
                 {
-                    writer.startMap(3);
+                    writer.startMap("", 3);
 
                     writer(entry.cols(), "cols", param);
                     writer(entry.rows(), "rows", param);
@@ -251,7 +251,7 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
 
-            writer.startMap(4);
+            writer.startMap("", 4);
 
             writer(entry.x(), "x", param);
             writer(entry.y(), "y", param);

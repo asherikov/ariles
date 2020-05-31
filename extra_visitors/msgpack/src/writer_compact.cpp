@@ -78,7 +78,7 @@ namespace ariles2
         }
 
 
-        void Writer::startMap(const std::size_t num_entries)
+        void Writer::startMap(const std::string & /*id*/, const std::size_t num_entries)
         {
             impl_->packer_->pack_array(num_entries);
         }
