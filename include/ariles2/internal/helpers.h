@@ -65,10 +65,6 @@
 #include "cpput_misc.h"
 #include "cpput_flags.h"
 
-// #define ARILES2_TRACE_ENABLE
-#include "trace.h"
-
-
 
 #define ARILES2_EMPTY_MACRO
 
@@ -107,6 +103,10 @@
 #    include "cpput_visibility.h"
 #    define ARILES2_VISIBILITY_ATTRIBUTE ARILES2_LIB_EXPORT
 #endif
+
+
+// #define ARILES2_TRACE_ENABLE
+#include "trace.h"
 
 
 namespace ariles2

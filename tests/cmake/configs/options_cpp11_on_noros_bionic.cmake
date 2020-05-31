@@ -1,6 +1,7 @@
 set(ARILES_CPP_STANDARD         "c++11" CACHE STRING "")
 set(ARILES_CPP_SANITIZERS       "ON"    CACHE STRING "")
 
+set(ARILES_VISITOR_graphviz      "ON"    CACHE STRING "")
 set(ARILES_VISITOR_pugixml       "ON"    CACHE STRING "")
 set(ARILES_VISITOR_rapidjson     "ON"    CACHE STRING "")
 set(ARILES_VISITOR_jsonnet       "ON"    CACHE STRING "")

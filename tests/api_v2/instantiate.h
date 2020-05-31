@@ -59,3 +59,7 @@ ARILES_TESTS_SHORTCUT(pugixml, FilenameInitializer)
 ARILES_TESTS_SHORTCUT(pugixml, StreamInitializer)
 #    undef ComparisonMultiFixture
 #endif
+
+#ifdef ARILES2_VISITOR_INCLUDED_graphviz
+ARILES_TESTS_SHORTCUT(graphviz, FilenameInitializer)
+#endif

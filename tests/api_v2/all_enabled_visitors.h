@@ -47,3 +47,7 @@
 //#ifdef ARILES_VISITOR_array
 //#include <ariles2/visitors/array.h>
 //#endif
+//
+//#ifdef ARILES_VISITOR_graphviz
+//#include <ariles2/visitors/array.h>
+//#endif
