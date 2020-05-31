@@ -1,6 +1,13 @@
 Unreleased
 ==========
 
+Changed
+-------
+
+* cmake: disable ccache if `CMAKE_CXX_COMPILER_LAUNCHER` is set.
+
+
+
 1.6.6
 =====
 
