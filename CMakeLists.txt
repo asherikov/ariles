@@ -91,11 +91,13 @@ set(CPACK_DEBIAN_PACKAGE_SECTION    "devel")
 
 #####################################
 
-if(ARILES_CCACHE)
-    find_program(CCACHE_FOUND ccache)
-    if(CCACHE_FOUND)
-        set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
-    endif(CCACHE_FOUND)
+if(NOT CMAKE_CXX_COMPILER_LAUNCHER)
+    if(ARILES_CCACHE)
+        find_program(CCACHE_FOUND ccache)
+        if(CCACHE_FOUND)
+            set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+        endif(CCACHE_FOUND)
+    endif()
 endif()
 
 
