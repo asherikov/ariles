@@ -20,25 +20,32 @@ namespace ariles2
 {
     namespace ns_graphviz
     {
-        template <class t_RawNode>
-        class Node : public ariles2::Node<t_RawNode>
+        class NodeWrapper : public ariles2::Node<std::string>
         {
+        public:
+            typedef ariles2::Node<std::string> Base;
+
         public:
             std::string name_;
 
+
         public:
-            Node(t_RawNode node,
-                 const typename ariles2::Node<t_RawNode>::Type type = ariles2::Node<t_RawNode>::GENERIC,
-                 const bool compact = false)
-              : ariles2::Node<t_RawNode>(node, type, compact){};
-            Node(const std::size_t index, const std::size_t size, const bool compact = false)
-              : ariles2::Node<t_RawNode>(index, size, compact){};
-            Node(t_RawNode node, const std::size_t index, const std::size_t size, const bool compact = false)
-              : ariles2::Node<t_RawNode>(node, index, size, compact){};
+            explicit NodeWrapper(
+                    const std::string &node,
+                    const Base::Type type = Base::GENERIC,
+                    const bool compact = false)
+              : Base(node, type, compact){};
+
+            NodeWrapper(const std::size_t index, const std::size_t size, const bool compact = false)
+              : Base(index, size, compact){};
+
+            NodeWrapper(
+                    const std::string &node,
+                    const std::size_t index,
+                    const std::size_t size,
+                    const bool compact = false)
+              : Base(node, index, size, compact){};
         };
-
-
-        typedef Node<std::string> NodeWrapper;
     }  // namespace ns_graphviz
 }  // namespace ariles2
 
@@ -178,11 +185,11 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             if (true == name.empty())
             {
-                impl_->node_stack_.push_back(std::string("ariles"));
+                impl_->node_stack_.push_back(NodeWrapper("ariles"));
             }
             else
             {
-                impl_->node_stack_.push_back(name);
+                impl_->node_stack_.push_back(NodeWrapper(name));
             }
             impl_->node_stack_.back().name_ = impl_->node_stack_.back().node_;
             *impl_->output_stream_                                          //
@@ -214,7 +221,7 @@ namespace ariles2
             }
             else
             {
-                impl_->node_stack_.push_back(impl_->node_stack_.back().node_ + "_" + name);
+                impl_->node_stack_.push_back(NodeWrapper(impl_->node_stack_.back().node_ + "_" + name));
             }
             impl_->node_stack_.back().name_ = name;
         }

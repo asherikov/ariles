@@ -105,7 +105,7 @@ jobs:
           - make travis-apt-clean
           - sudo apt update
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
-          - sudo apt install -y octave libpugixml-dev libyaml-cpp-dev
+          - sudo apt install -y octave libpugixml-dev libyaml-cpp-dev graphviz
         script:
           - sudo make install-jsonnet
           - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_${TRAVIS_DIST} TARGETS="all" ARGS=-V
@@ -117,7 +117,7 @@ jobs:
           - make travis-apt-clean
           - sudo apt update
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
-          - sudo apt install -y octave libpugixml-dev libyaml-cpp-dev
+          - sudo apt install -y octave libpugixml-dev libyaml-cpp-dev graphviz
         script:
           - sudo make install-jsonnet
           - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_${TRAVIS_DIST} TARGETS="all" ARGS=-V
@@ -128,7 +128,7 @@ jobs:
         before_install:
           - sudo apt update
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
-          - sudo apt install -y octave libpugixml-dev libyaml-cpp-dev rapidjson-dev libmsgpack-dev
+          - sudo apt install -y octave libpugixml-dev libyaml-cpp-dev rapidjson-dev libmsgpack-dev graphviz
 
         script:
           - sudo make install-jsonnet
@@ -157,7 +157,7 @@ jobs:
           - source /opt/ros/${ROS_DISTRO}/setup.bash
           - rosdep update
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
-          - sudo apt install -y libyaml-cpp-dev octave
+          - sudo apt install -y libyaml-cpp-dev octave graphviz
 
         script:
           - sudo make install-jsonnet
@@ -184,7 +184,7 @@ jobs:
           - source /opt/ros/${ROS_DISTRO}/setup.bash
           - rosdep update
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
-          - sudo apt install -y libyaml-cpp-dev octave
+          - sudo apt install -y libyaml-cpp-dev octave graphviz
 
         script:
           - sudo make install-jsonnet
@@ -210,7 +210,7 @@ jobs:
           - source /opt/ros/${ROS_DISTRO}/setup.bash
           - rosdep update
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
-          - sudo apt install -y libyaml-cpp-dev octave
+          - sudo apt install -y libyaml-cpp-dev octave graphviz
 
         script:
           - sudo make install-jsonnet

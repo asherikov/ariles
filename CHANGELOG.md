@@ -3,7 +3,14 @@ Unreleased
 
 Changed
 -------
+* Ariles namespace (`ariles` -> `ariles2`).
 * Ariles entry and parent class declaration API, refer to examples and tests.
+
+
+Added
+-----
+
+* `graphviz` vizitor.
 
 
 Removed
