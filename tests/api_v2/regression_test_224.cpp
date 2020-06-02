@@ -10,9 +10,6 @@
 
 #include "utility.h"
 
-#define ARILES2_DEFAULT_CONFIGURABLE_FLAGS                                                                             \
-    ariles2::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED | ariles2::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED       \
-            | ariles2::ConfigurableFlags::ALLOW_MISSING_ENTRIES
 
 #ifdef ARILES_VISITOR_yaml_cpp03
 #    include <ariles2/visitors/yaml_cpp03.h>
@@ -25,6 +22,7 @@
 #include "all_enabled_adapters.h"
 
 #include <ariles2/ariles.h>
+#include <ariles2/extra.h>
 
 
 // ===============================================================
@@ -33,7 +31,7 @@
 
 namespace ariles_tests
 {
-    struct SubstateParams : public ariles2::DefaultBase
+    struct SubstateParams : public ariles2::RelaxedSloppyBase
     {
 #define ARILES2_ENTRIES(v)                                                                                             \
     ARILES2_ENTRY(v, type)                                                                                             \
@@ -48,7 +46,7 @@ namespace ariles_tests
         }
     };
 
-    struct StateMachineParams : public ariles2::DefaultBase
+    struct StateMachineParams : public ariles2::RelaxedSloppyBase
     {
 #define ARILES2_ENTRIES(v) ARILES2_ENTRY(v, substates)
 #include ARILES2_INITIALIZE

@@ -33,7 +33,7 @@ namespace ariles2
         class ARILES2_LIB_LOCAL ImplBase
         {
         public:
-            typedef ariles2::Node<t_Node *> NodeWrapper;
+            typedef serialization::Node<t_Node *> NodeWrapper;
 
 
         public:

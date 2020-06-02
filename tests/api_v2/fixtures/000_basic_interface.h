@@ -72,11 +72,10 @@ namespace ariles_tests
             {
                 t_Configurable configurable;
 
+                typename t_Visitor::Reader::Parameters parameters;
+                parameters.reader_parameters_.missing_entries_ = ariles2::read::Parameters::MISSING_ENTRIES_ENABLE;
                 typename t_Visitor::Reader reader(getReaderInitializer("configurable.cfg"));
-                ariles2::apply(
-                        reader,
-                        configurable,
-                        ariles2::ConfigurableFlags::DEFAULT | ariles2::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
+                ariles2::apply(reader, configurable, parameters);
             }
 
             // --------------------------------
@@ -91,10 +90,10 @@ namespace ariles_tests
 
             {
                 t_Configurable configurable;
+                ariles2::read::Parameters parameters;
+                parameters.missing_entries_ = ariles2::read::Parameters::MISSING_ENTRIES_ENABLE;
                 ariles2::apply<typename t_Visitor::Reader>(
-                        getReaderInitializer("configurable2.cfg"),
-                        configurable,
-                        ariles2::ConfigurableFlags::DEFAULT | ariles2::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
+                        getReaderInitializer("configurable2.cfg"), configurable, parameters);
             }
         }
     };

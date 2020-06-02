@@ -26,20 +26,20 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
 
-            typename t_Visitor::Parameters param = parameters;
-            if (false == param.isSet(t_Visitor::Parameters::PROPAGATE_ALLOW_MISSING_ENTRIES))
+            typename t_Visitor::Parameters param = entry.arilesGetParameters(visitor);
+            if (t_Visitor::Parameters::MISSING_ENTRIES_ENABLE_OVERRIDE == parameters.missing_entries_)
             {
-                param.set(t_Visitor::Parameters::DEFAULT & t_Visitor::Parameters::ALLOW_MISSING_ENTRIES);
+                param.missing_entries_ = t_Visitor::Parameters::MISSING_ENTRIES_ENABLE_OVERRIDE;
             }
 
             ariles2::count::Visitor counter;
-            if (true == param.isSet(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES))
+            if (t_Visitor::Parameters::MISSING_ENTRIES_DISABLE == param.missing_entries_)
             {
-                visitor.template startMap<t_Visitor::SIZE_LIMIT_NONE>(counter(entry));
+                visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(counter(entry));
             }
             else
             {
-                visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(counter(entry));
+                visitor.template startMap<t_Visitor::SIZE_LIMIT_NONE>(counter(entry));
             }
             entry.arilesVirtualVisit(visitor, param);
             visitor.endMap();

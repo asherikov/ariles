@@ -36,11 +36,6 @@ namespace ariles2
             {
             }
 
-            Parameters(const int &param)
-            {
-                this->reader_parameters_ = param;
-            }
-
             Parameters(const typename t_Reader::Parameters &param)
             {
                 this->reader_parameters_ = param;
@@ -150,11 +145,6 @@ namespace ariles2
         public:
             Parameters()
             {
-            }
-
-            Parameters(const int &param)
-            {
-                this->writer_parameters_ = param;
             }
 
             Parameters(const typename t_Writer::Parameters &param)

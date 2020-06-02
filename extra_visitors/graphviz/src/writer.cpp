@@ -20,31 +20,22 @@ namespace ariles2
 {
     namespace ns_graphviz
     {
-        class NodeWrapper : public ariles2::Node<std::string>
+        class NodeWrapper : public serialization::Node<std::string>
         {
         public:
-            typedef ariles2::Node<std::string> Base;
+            typedef serialization::Node<std::string> Base;
 
         public:
             std::string name_;
 
 
         public:
-            explicit NodeWrapper(
-                    const std::string &node,
-                    const Base::Type type = Base::GENERIC,
-                    const bool compact = false)
-              : Base(node, type, compact){};
+            explicit NodeWrapper(const std::string &node, const Base::Type type = Base::GENERIC) : Base(node, type){};
 
-            NodeWrapper(const std::size_t index, const std::size_t size, const bool compact = false)
-              : Base(index, size, compact){};
+            NodeWrapper(const std::size_t index, const std::size_t size) : Base(index, size){};
 
-            NodeWrapper(
-                    const std::string &node,
-                    const std::size_t index,
-                    const std::size_t size,
-                    const bool compact = false)
-              : Base(node, index, size, compact){};
+            NodeWrapper(const std::string &node, const std::size_t index, const std::size_t size)
+              : Base(node, index, size){};
         };
     }  // namespace ns_graphviz
 }  // namespace ariles2
@@ -246,7 +237,7 @@ namespace ariles2
         }
 
 
-        void Writer::startArray(const std::size_t size, const bool compact)
+        void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
             ARILES2_TRACE_FUNCTION;
             ARILES2_ASSERT(false == impl_->node_stack_.empty(), "Internal error: empty stack.");
@@ -261,7 +252,7 @@ namespace ariles2
                 node += boost::lexical_cast<std::string>(impl_->node_stack_.back().index_);
                 name += "_";
                 name += boost::lexical_cast<std::string>(impl_->node_stack_.back().index_);
-                impl_->node_stack_.push_back(NodeWrapper(node, 0, size, compact));
+                impl_->node_stack_.push_back(NodeWrapper(node, 0, size));
             }
             else
             {

@@ -49,20 +49,19 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
             if (visitor.getSerializationFeatures().isSet(serialization::Features::SLOPPY_MAPS_SUPPORTED)
-                && parameters.isSet(t_Visitor::Parameters::SLOPPY_MAPS_IF_SUPPORTED))
+                and true == parameters.sloppy_maps_)
             {
                 std::vector<std::string> entry_names;
                 ARILES2_ASSERT(true == visitor.getMapEntryNames(entry_names), "Could not read names of map entries.");
                 entry.clear();
                 visitor.template startMap<t_Visitor::SIZE_LIMIT_NONE>();
 
-                ariles2::ConfigurableFlags param = parameters;
-                // if entry is in the map, we should be able to read it
-                param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
-
                 for (std::size_t i = 0; i < entry_names.size(); ++i)
                 {
-                    if (false == visitor(entry[entry_names[i]], entry_names[i], param))
+                    // if entry is in the map, we should be able to read it
+                    visitor.override_missing_entries_locally_ = true;
+
+                    if (false == visitor(entry[entry_names[i]], entry_names[i], parameters))
                     {
                         entry.erase(entry_names[i]);
                     }
@@ -89,7 +88,7 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            writer.startArray(entry.size(), param.isSet(t_Visitor::Parameters::COMPACT_ARRAYS_IF_SUPPORTED));
+            writer.startArray(entry.size(), param.compact_arrays_);
             for (typename std::map<t_Key, t_Value, t_Compare, t_Allocator>::const_iterator it = entry.begin();
                  it != entry.end();
                  ++it)
@@ -109,7 +108,7 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
             if (writer.getSerializationFeatures().isSet(serialization::Features::SLOPPY_MAPS_SUPPORTED)
-                && param.isSet(t_Visitor::Parameters::SLOPPY_MAPS_IF_SUPPORTED))
+                and true == param.sloppy_maps_)
             {
                 writer.startMap("", entry.size());
                 for (typename std::map<std::string, t_Value, t_Compare, t_Allocator>::const_iterator it = entry.begin();

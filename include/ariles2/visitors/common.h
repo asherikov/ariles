@@ -234,6 +234,7 @@ namespace ariles2
             t_Arg &arg,
             t_Ariles &ariles_class,
             const typename t_Visitor::Parameters &param,
+            ARILES2_IS_BASE_DISABLER(std::string, t_Arg),
             ARILES2_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
@@ -247,12 +248,12 @@ namespace ariles2
     void apply(
             const std::string &arg,
             t_Ariles &ariles_class,
-            const unsigned int flags,
+            const typename t_Visitor::Parameters &param,
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
         t_Visitor visitor(arg);
-        ariles2::apply(visitor, ariles_class, typename t_Visitor::Parameters(flags));
+        ariles2::apply(visitor, ariles_class, param);
     }
     // -----
 
@@ -288,6 +289,7 @@ namespace ariles2
             t_Visitor &visitor,
             t_Left &left,
             t_Right &right,
+            ARILES2_IS_BASE_DISABLER(typename t_Visitor::Parameters, t_Right),
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;

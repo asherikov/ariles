@@ -20,7 +20,7 @@ namespace ariles2
 {
     namespace ns_yaml_cpp03
     {
-        typedef ariles2::Node<const YAML::Node *> NodeWrapper;
+        typedef serialization::Node<const YAML::Node *> NodeWrapper;
     }
 }  // namespace ariles2
 

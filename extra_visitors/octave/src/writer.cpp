@@ -20,9 +20,46 @@ namespace ariles2
 {
     namespace ns_octave
     {
-        typedef ariles2::Node<std::string> NodeWrapper;
-    }
+        class ARILES2_VISIBILITY_ATTRIBUTE NodeWrapper : public serialization::Node<std::string>
+        {
+        public:
+            typedef serialization::Node<std::string> Base;
+
+
+        public:
+            bool compact_;
+
+
+        public:
+            explicit NodeWrapper(const std::string &node, const Type type = GENERIC, const bool compact = false)
+              : Base(node, type)
+            {
+                compact_ = compact;
+            }
+
+            NodeWrapper(const std::size_t index, const std::size_t size, const bool compact = false) : Base(index, size)
+            {
+                compact_ = compact;
+            }
+
+            NodeWrapper(
+                    const std::string &node,
+                    const std::size_t index,
+                    const std::size_t size,
+                    const bool compact = false)
+              : Base(node, index, size)
+            {
+                compact_ = compact;
+            }
+
+            bool isCompact() const
+            {
+                return (compact_);
+            }
+        };
+    }  // namespace ns_octave
 }  // namespace ariles2
+
 
 namespace ariles2
 {
@@ -104,7 +141,7 @@ namespace ariles2
         {
             if (0 == impl_->node_stack_.size())
             {
-                impl_->node_stack_.push_back(map_name);
+                impl_->node_stack_.push_back(NodeWrapper(map_name));
             }
             else
             {
@@ -119,7 +156,7 @@ namespace ariles2
                 }
                 else
                 {
-                    impl_->node_stack_.push_back(impl_->node_stack_.back().node_ + "." + map_name);
+                    impl_->node_stack_.push_back(NodeWrapper(impl_->node_stack_.back().node_ + "." + map_name));
                 }
             }
         }

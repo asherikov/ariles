@@ -52,7 +52,7 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE GenericWriter : public ariles2::write::Visitor
         {
         protected:
-            typedef ariles2::Node<std::string> NodeWrapper;
+            typedef serialization::Node<std::string> NodeWrapper;
 
 
         protected:
@@ -188,7 +188,7 @@ namespace ariles2
             }
 
 
-            virtual void startArray(const std::size_t size, const bool compact = false)
+            virtual void startArray(const std::size_t size, const bool /*compact*/ = false)
             {
                 if (true == initialize_structure_)
                 {
@@ -198,7 +198,7 @@ namespace ariles2
                         std::string node = node_stack_.back().node_;
                         node += "_";
                         node += boost::lexical_cast<std::string>(node_stack_.back().index_);
-                        node_stack_.push_back(NodeWrapper(node, 0, size, compact));
+                        node_stack_.push_back(NodeWrapper(node, 0, size));
                     }
                     else
                     {

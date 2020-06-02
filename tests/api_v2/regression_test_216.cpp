@@ -21,6 +21,8 @@
 // TYPES
 // ===============================================================
 
+#define ARILES_TEST_DEFAULT_BASE ariles2::DefaultBase
+
 #include "types/any.h"
 #include "types/complex_auto_declare.h"
 #include "types/complex_base.h"

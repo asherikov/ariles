@@ -54,15 +54,14 @@ namespace ariles2
                 const typename t_Visitor::Parameters &parameters)
         {
             ARILES2_TRACE_FUNCTION;
-            if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols
-                || parameters.isSet(ConfigurableFlags::FORCE_EXPLICIT_MATRIX_SIZE))
+            if (Eigen::Dynamic == t_rows or Eigen::Dynamic == t_cols or true == parameters.explicit_matrix_size_)
             {
                 EIGEN_DEFAULT_DENSE_INDEX_TYPE num_rows;
                 EIGEN_DEFAULT_DENSE_INDEX_TYPE num_cols;
 
 
-                ariles2::ConfigurableFlags param = parameters;
-                param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
+                typename t_Visitor::Parameters param = parameters;
+                param.missing_entries_ = t_Visitor::Parameters::MISSING_ENTRIES_DISABLE;
 
                 visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(3);
                 visitor(num_cols, "cols", param);
@@ -117,8 +116,8 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
 
-            ariles2::ConfigurableFlags param = parameters;
-            param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
+            typename t_Visitor::Parameters param = parameters;
+            param.missing_entries_ = t_Visitor::Parameters::MISSING_ENTRIES_DISABLE;
 
             visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(4);
             visitor(entry.x(), "x", param);
@@ -191,8 +190,7 @@ namespace ariles2
             }
             else
             {
-                if (Eigen::Dynamic == t_rows || Eigen::Dynamic == t_cols
-                    || param.isSet(ConfigurableFlags::FORCE_EXPLICIT_MATRIX_SIZE))
+                if (Eigen::Dynamic == t_rows or Eigen::Dynamic == t_cols or true == param.explicit_matrix_size_)
                 {
                     writer.startMap("", 3);
 

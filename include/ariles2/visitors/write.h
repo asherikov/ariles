@@ -16,7 +16,21 @@ namespace ariles2
 {
     namespace write
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public serialization::Base
+        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public serialization::Parameters
+        {
+        public:
+            bool compact_arrays_;
+
+
+        public:
+            Parameters()
+            {
+                compact_arrays_ = false;
+            }
+        };
+
+
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public serialization::Base<Parameters>
         {
         protected:
             Visitor(){};

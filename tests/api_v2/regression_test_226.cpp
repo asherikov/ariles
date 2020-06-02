@@ -11,12 +11,12 @@
 
 #include "utility.h"
 
+#include <ariles2/ariles.h>
+
 #ifdef ARILES_VISITOR_graphviz
 #    include <ariles2/visitors/graphviz.h>
 #endif
 #include "all_enabled_adapters.h"
-
-#include <ariles2/ariles.h>
 
 
 // ===============================================================

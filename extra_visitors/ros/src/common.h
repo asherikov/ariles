@@ -22,7 +22,7 @@ namespace ariles2
 {
     namespace ns_ros
     {
-        typedef ariles2::Node<XmlRpc::XmlRpcValue *> NodeWrapper;
+        typedef serialization::Node<XmlRpc::XmlRpcValue *> NodeWrapper;
 
 
         class ARILES2_LIB_LOCAL ImplBase

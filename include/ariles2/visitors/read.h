@@ -19,7 +19,26 @@ namespace ariles2
 {
     namespace read
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public serialization::Base
+        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public serialization::Parameters
+        {
+        public:
+            enum MissingEntries
+            {
+                MISSING_ENTRIES_DISABLE = 0,
+                MISSING_ENTRIES_ENABLE = 1,
+                MISSING_ENTRIES_ENABLE_OVERRIDE = 2
+            } missing_entries_;
+
+
+        public:
+            Parameters()
+            {
+                missing_entries_ = MISSING_ENTRIES_DISABLE;
+            }
+        };
+
+
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public serialization::Base<Parameters>
         {
         public:
             enum SizeLimitEnforcementType
@@ -30,6 +49,10 @@ namespace ariles2
                 SIZE_LIMIT_RANGE = 3,
                 SIZE_LIMIT_MIN = 4
             };
+
+
+        public:
+            bool override_missing_entries_locally_;
 
 
         protected:
@@ -129,6 +152,8 @@ namespace ariles2
             {
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_ENTRY(name);
+
+                override_missing_entries_locally_ = false;
                 if (false == name.empty())
                 {
                     return (descend(name));
@@ -178,7 +203,7 @@ namespace ariles2
                 else
                 {
                     ARILES2_PERSISTENT_ASSERT(
-                            true == param.isSet(Parameters::ALLOW_MISSING_ENTRIES),
+                            Parameters::MISSING_ENTRIES_DISABLE != param.missing_entries_,
                             std::string("Configuration file does not contain entry '") + name + "'.");
                 }
             }
@@ -194,7 +219,7 @@ namespace ariles2
 
                 if (this->descend(name))
                 {
-                    param.unset(Parameters::DISABLE_ALLOW_MISSING_ENTRIES);
+                    override_missing_entries_locally_ = false;
 
                     try
                     {
@@ -211,8 +236,8 @@ namespace ariles2
                 else
                 {
                     ARILES2_PERSISTENT_ASSERT(
-                            false == param.isSet(Parameters::DISABLE_ALLOW_MISSING_ENTRIES)
-                                    and true == param.isSet(Parameters::ALLOW_MISSING_ENTRIES),
+                            false == override_missing_entries_locally_
+                                    and Parameters::MISSING_ENTRIES_DISABLE != param.missing_entries_,
                             std::string("Configuration file does not contain entry '") + name + "'.");
                     return (false);
                 }

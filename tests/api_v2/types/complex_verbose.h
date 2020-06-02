@@ -14,7 +14,7 @@
 
 namespace ariles_tests
 {
-    class ConfigurableComplexVerbose : public ariles2::DefaultBase,
+    class ConfigurableComplexVerbose : public ARILES_TEST_DEFAULT_BASE,
                                        public ConfigurableComplexBase<ConfigurableComplexVerbose>
     {
 #define ARILES2_ENTRIES_STANDARD_TYPES(v)                                                                              \

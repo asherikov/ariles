@@ -21,11 +21,9 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             bool is_null = true;
 
-            ariles2::ConfigurableFlags param = parameters;
-            param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
-
             visitor.template startMap<t_Visitor::SIZE_LIMIT_RANGE>(1, 2);
-            visitor(is_null, "is_null", param);
+            visitor.override_missing_entries_locally_ = true;
+            visitor(is_null, "is_null", parameters);
 
             if (true == is_null)
             {
@@ -34,7 +32,8 @@ namespace ariles2
             else
             {
                 PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::allocate(entry);
-                visitor(*entry, "value", param);
+                visitor.override_missing_entries_locally_ = true;
+                visitor(*entry, "value", parameters);
             }
             visitor.endMap();
         }

@@ -27,11 +27,11 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(2);
 
-            ariles2::ConfigurableFlags param = parameters;
-            param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
+            visitor.override_missing_entries_locally_ = true;
+            visitor(entry.first, "first", parameters);
 
-            visitor(entry.first, "first", param);
-            visitor(entry.second, "second", param);
+            visitor.override_missing_entries_locally_ = true;
+            visitor(entry.second, "second", parameters);
             visitor.endMap();
         }
 
@@ -44,19 +44,17 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
             if (visitor.getSerializationFeatures().isSet(serialization::Features::SLOPPY_PAIRS_SUPPORTED)
-                && parameters.isSet(t_Visitor::Parameters::SLOPPY_PAIRS_IF_SUPPORTED))
+                and true == parameters.sloppy_pairs_)
             {
                 std::vector<std::string> entry_names;
                 ARILES2_ASSERT(true == visitor.getMapEntryNames(entry_names), "Could not read names of map entries.");
                 if (1 == entry_names.size())
                 {
-                    ariles2::ConfigurableFlags param = parameters;
-                    // if entry is in the map, we should be able to read it
-                    param.set(ConfigurableFlags::DISABLE_ALLOW_MISSING_ENTRIES);
-
                     visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(1);
 
-                    if (true == visitor(entry.second, entry_names[0], param))
+                    // if entry is in the map, we should be able to read it
+                    visitor.override_missing_entries_locally_ = true;
+                    if (true == visitor(entry.second, entry_names[0], parameters))
                     {
                         entry.first = entry_names[0];
                     }
@@ -69,7 +67,7 @@ namespace ariles2
                     // size > 1 is never ok, due to ambiguity.
                     ARILES2_ASSERT(
                             0 == entry_names.size()
-                                    and true == parameters.isSet(t_Visitor::Parameters::ALLOW_MISSING_ENTRIES),
+                                    and t_Visitor::Parameters::MISSING_ENTRIES_DISABLE != parameters.missing_entries_,
                             "Wrong number of pair entries for a sloppy pair.");
                 }
             }
@@ -109,7 +107,7 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
             if (writer.getSerializationFeatures().isSet(serialization::Features::SLOPPY_PAIRS_SUPPORTED)
-                && param.isSet(t_Visitor::Parameters::SLOPPY_PAIRS_IF_SUPPORTED))
+                and true == param.sloppy_pairs_)
             {
                 writer.startMap("", 1);
                 writer(entry.second, entry.first, param);

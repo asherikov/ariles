@@ -19,6 +19,6 @@ namespace ariles2
 {
     namespace ns_pugixml
     {
-        typedef ariles2::Node<pugi::xml_node> NodeWrapper;
+        typedef serialization::Node<pugi::xml_node> NodeWrapper;
     }
 }  // namespace ariles2

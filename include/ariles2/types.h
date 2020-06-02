@@ -167,20 +167,20 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
 
-            ariles2::Read::Parameters param = parameters;
-            param.unset(ariles2::Read::Parameters::ALLOW_MISSING_ENTRIES);
-
-            visitor(id_, "id", param);
-            if ("" == id_)
+            if (true == visitor(id_, "id", parameters))
             {
-                ARILES2_ASSERT(
-                        true == parameters.isSet(ariles2::Read::Parameters::ALLOW_MISSING_ENTRIES),
-                        "Id is empty, value cannot be read.");
-            }
-            else
-            {
-                build(id_);
-                visitor(*value_, "value", param);
+                if ("" == id_)
+                {
+                    ARILES2_ASSERT(
+                            ariles2::Read::Parameters::MISSING_ENTRIES_DISABLE != parameters.missing_entries_,
+                            "Id is empty, value cannot be read.");
+                }
+                else
+                {
+                    build(id_);
+                    visitor.override_missing_entries_locally_ = true;
+                    visitor(*value_, "value", parameters);
+                }
             }
         }
 

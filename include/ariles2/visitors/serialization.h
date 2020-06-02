@@ -12,12 +12,28 @@
 
 #include "common.h"
 
-#include "../configurable_flags.h"
-
 namespace ariles2
 {
     namespace serialization
     {
+        class ARILES2_VISIBILITY_ATTRIBUTE Parameters
+        {
+        public:
+            bool sloppy_maps_;
+            bool sloppy_pairs_;
+            bool explicit_matrix_size_;
+
+
+        public:
+            Parameters()
+            {
+                sloppy_maps_ = false;
+                sloppy_pairs_ = false;
+                explicit_matrix_size_ = false;
+            }
+        };
+
+
         class ARILES2_VISIBILITY_ATTRIBUTE Features : public ariles2::Flags<unsigned int, serialization::Features>
         {
         public:
@@ -51,21 +67,77 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Base
-          : public visitor::Base<visitor::GenericVisitor, ariles2::ConfigurableFlags>
+        template <class t_RawNode>
+        class ARILES2_VISIBILITY_ATTRIBUTE Node
         {
         public:
-            typedef ariles2::ConfigurableFlags Parameters;
+            enum Type
+            {
+                UNDEFINED = 0,
+                GENERIC = 1,
+                ARRAY = 2,
+                MATRIX = 3
+            };
+
 
         public:
-            using visitor::Base<visitor::GenericVisitor, Parameters>::getDefaultParameters;
+            t_RawNode node_;
+            std::size_t index_;
+            std::size_t size_;
+            Type type_;
+
+
+        public:
+            Node(t_RawNode node, const Type type = GENERIC) : node_(node)
+            {
+                type_ = type;
+                index_ = 0;
+                size_ = 0;
+            }
+
+            Node(const std::size_t index, const std::size_t size) : index_(index), size_(size)
+            {
+                type_ = ARRAY;
+            }
+
+            Node(t_RawNode node, const std::size_t index, const std::size_t size)
+              : node_(node), index_(index), size_(size)
+            {
+                type_ = ARRAY;
+            }
+
+            bool isMatrix() const
+            {
+                return (MATRIX == type_);
+            }
+
+            bool isArray() const
+            {
+                return (ARRAY == type_);
+            }
+
+            bool isAllParsed() const
+            {
+                return (index_ == size_);
+            }
+        };
+
+
+        template <class t_Parameters>
+        class ARILES2_VISIBILITY_ATTRIBUTE Base : public visitor::Base<visitor::GenericVisitor, t_Parameters>
+        {
+        public:
+            typedef t_Parameters Parameters;
+
+
+        public:
+            using visitor::Base<visitor::GenericVisitor, t_Parameters>::getDefaultParameters;
 
             template <class t_Ariles>
-            const Parameters &getParameters(const t_Ariles &ariles_class) const
+            const t_Parameters &getParameters(const t_Ariles &ariles_class) const
             {
                 return (ariles_class.arilesGetParameters(*this));
             }
-
 
             virtual const Features &getSerializationFeatures() const = 0;
         };

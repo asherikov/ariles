@@ -22,7 +22,7 @@ namespace ariles2
 {
     namespace ns_msgpack_compact
     {
-        typedef ariles2::Node<const ::msgpack::object *> NodeWrapper;
+        typedef serialization::Node<const ::msgpack::object *> NodeWrapper;
     }
 }  // namespace ariles2
 

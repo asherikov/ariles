@@ -16,7 +16,6 @@
 #define ARILES2_VISITOR_INCLUDED_msgpack
 
 #include <ariles2/internal/helpers.h>
-#include <ariles2/internal/node.h>
 #include <ariles2/visitors/config.h>
 
 namespace ariles2

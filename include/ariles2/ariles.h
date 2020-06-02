@@ -13,7 +13,9 @@
 
 #pragma once
 
-#define ARILES_API_VERSION 2
+#ifndef ARILES2_INCLUDED
+#    define ARILES2_INCLUDED
+#endif
 
 #ifndef ARILES2_DISABLE
 #    define ARILES2_ENABLED

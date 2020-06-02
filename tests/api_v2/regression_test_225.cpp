@@ -11,9 +11,9 @@
 
 #include "utility.h"
 
-#define ARILES2_DEFAULT_CONFIGURABLE_FLAGS                                                                             \
-    ariles2::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED | ariles2::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED       \
-            | ariles2::ConfigurableFlags::ALLOW_MISSING_ENTRIES
+#undef ARILES_TEST_DEFAULT_BASE
+#define ARILES_TEST_DEFAULT_BASE ariles2::RelaxedSloppyBase
+
 
 #include "all_enabled_visitors.h"
 #include "all_enabled_adapters.h"
@@ -29,6 +29,7 @@
 
 #include <ariles2/visitors/compare.h>
 #include <ariles2/ariles.h>
+#include <ariles2/extra.h>
 
 
 // ===============================================================

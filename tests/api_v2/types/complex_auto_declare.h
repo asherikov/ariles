@@ -14,7 +14,7 @@
 
 namespace ariles_tests
 {
-    class ConfigurableComplex : public ariles2::DefaultBase, public ConfigurableComplexBase<ConfigurableComplex>
+    class ConfigurableComplex : public ARILES_TEST_DEFAULT_BASE, public ConfigurableComplexBase<ConfigurableComplex>
     {
 #define ARILES2_ENTRIES_STANDARD_TYPES(v)                                                                              \
     ARILES2_TYPED_ENTRY_(v, integer, int)                                                                              \

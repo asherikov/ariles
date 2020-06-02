@@ -24,6 +24,8 @@
 #include <boost/random/uniform_real_distribution.hpp>
 
 
+#define ARILES_TEST_DEFAULT_BASE ariles2::DefaultBase
+
 namespace ariles_tests
 {
     struct GlobalFixtureConfig

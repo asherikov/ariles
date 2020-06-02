@@ -36,8 +36,7 @@
 // ===============================================================
 
 #define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                                               \
-    ARILES_FIXTURE_TEST_CASE(FlagsFixture, VISITOR_ID, NAMESPACE, ConfigurableFlags1, INITIALIZER)                     \
-    ARILES_FIXTURE_TEST_CASE(FlagsFixture, VISITOR_ID, NAMESPACE, ConfigurableFlags2, INITIALIZER)
+    ARILES_FIXTURE_TEST_CASE(FlagsFixture, VISITOR_ID, NAMESPACE, ConfigurableFlags1, INITIALIZER)
 
 
 #include "instantiate.h"
