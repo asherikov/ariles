@@ -6,8 +6,7 @@ set(PROJECT_VERSION_MAJOR 1)
 set(PROJECT_VERSION_MINOR 6)
 set(PROJECT_VERSION_PATCH 6)
 
-set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
-
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
 
 #####################################
