@@ -38,7 +38,8 @@ namespace ariles2
             void startMap(const std::string & /*id*/, const std::size_t /*num_entries*/);
             void startArray(const std::size_t size, const bool /*compact*/ = false);
 
-            void shiftArray();
+            void startArrayElement();
+            void endArrayElement();
             void endArray();
 
 

@@ -101,24 +101,21 @@ namespace ariles2
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
             impl_->node_stack_.push_back(NodeWrapper(impl_->getRawNode(), 0, size));
-            if (size > 0)
-            {
-                impl_->node_stack_.push_back(impl_->getRawNode().append_child("item"));
-            }
         }
 
-        void Writer::shiftArray()
+        void Writer::startArrayElement()
         {
-            impl_->node_stack_.pop_back();
-            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
+            impl_->node_stack_.push_back(impl_->getRawNode().append_child("item"));
+        }
+
+        void Writer::endArrayElement()
+        {
+            impl_->node_stack_.pop_back();
+            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ++impl_->node_stack_.back().index_;
-            if (impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_)
-            {
-                impl_->node_stack_.push_back(impl_->getRawNode().append_child("item"));
-            }
         }
 
         void Writer::endArray()

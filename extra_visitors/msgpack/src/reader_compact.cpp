@@ -117,15 +117,11 @@ namespace ariles2
         }
 
 
-        std::size_t Reader::getMapSize(const bool /*expect_empty*/)
+        void Reader::startMap(const SizeLimitEnforcementType limit_type, const std::size_t min, const std::size_t max)
         {
-            return (impl_->getRawNode().via.array.size);
-        }
-
-        std::size_t Reader::startMapImpl(const std::size_t size)
-        {
+            const std::size_t size = impl_->getRawNode().via.array.size;
+            checkSize(limit_type, size, min, max);
             impl_->node_stack_.push_back(NodeWrapper(0, size));
-            return (size);
         }
 
 
@@ -138,11 +134,21 @@ namespace ariles2
         }
 
 
+        bool Reader::descend(const std::string &)
+        {
+            if (true == impl_->node_stack_.back().isArray())
+            {
+                startArrayElement();
+            }
+            return (true);
+        }
+
+
         void Reader::ascend()
         {
             if (true == impl_->node_stack_.back().isArray())
             {
-                shiftArray();
+                endArrayElement();
             }
         }
 
@@ -162,12 +168,17 @@ namespace ariles2
         }
 
 
-        void Reader::shiftArray()
+        void Reader::startArrayElement()
         {
-            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
+        }
+
+
+        void Reader::endArrayElement()
+        {
+            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ++impl_->node_stack_.back().index_;
         }
 

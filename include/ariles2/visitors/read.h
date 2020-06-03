@@ -56,33 +56,35 @@ namespace ariles2
 
 
         protected:
-            template <int t_size_limit_type>
-            std::size_t checkSize(
-                    const std::size_t & /*size*/,
-                    const std::size_t & /*min*/ = 0,
-                    const std::size_t & /*max*/ = 0) const
-            {
-                ARILES2_THROW("Internal logic error.");
-            }
-
-            template <int t_size_limit_type>
-            struct RelaxedSizeLimitType
-            {
-                static const int value =
-                        SIZE_LIMIT_EQUAL == t_size_limit_type || SIZE_LIMIT_RANGE == t_size_limit_type ?
-                                SIZE_LIMIT_MIN :
-                                t_size_limit_type;
-            };
-
-
-            virtual std::size_t getMapSize(const bool expect_empty) = 0;
-            virtual std::size_t startMapImpl(const std::size_t size)
-            {
-                return (size);
-            }
-
             Visitor(){};
             ~Visitor(){};
+
+
+            void checkSize(
+                    const SizeLimitEnforcementType limit_type,
+                    const std::size_t size = 0,
+                    const std::size_t min = 0,
+                    const std::size_t max = 0) const
+            {
+                switch (limit_type)
+                {
+                    case SIZE_LIMIT_NONE:
+                        return;
+                    case SIZE_LIMIT_EQUAL:
+                        ARILES2_ASSERT(size == min, "Actual number of entries is not the same as expected.");
+                        return;
+                    case SIZE_LIMIT_RANGE:
+                        ARILES2_ASSERT(min <= size, "Actual number of entries is lower than expected.");
+                        ARILES2_ASSERT(max >= size, "Actual number of entries is larger than expected.");
+                        return;
+                    case SIZE_LIMIT_MIN:
+                        ARILES2_ASSERT(min <= size, "Actual number of entries is lower than expected.");
+                        return;
+                    default:
+                        ARILES2_THROW("Internal logic error.");
+                        return;
+                }
+            }
 
 
         public:
@@ -127,11 +129,12 @@ namespace ariles2
             virtual void ascend() = 0;
 
 
-            template <int t_size_limit_type>
-            std::size_t startMap(const std::size_t &min = 0, const std::size_t &max = 0)
+            virtual void startMap(
+                    const SizeLimitEnforcementType /*limit_type*/ = SIZE_LIMIT_NONE,
+                    const std::size_t /*min*/ = 0,
+                    const std::size_t /*max*/ = 0)
             {
-                return (startMapImpl(
-                        checkSize<RelaxedSizeLimitType<t_size_limit_type>::value>(getMapSize(0 == max), min, max)));
+                return;
             }
 
             virtual bool getMapEntryNames(std::vector<std::string> &)
@@ -145,7 +148,8 @@ namespace ariles2
 
 
             virtual std::size_t startArray() = 0;
-            virtual void shiftArray() = 0;
+            virtual void startArrayElement(){};
+            virtual void endArrayElement() = 0;
             virtual void endArray() = 0;
 
             virtual bool startRoot(const std::string &name)
@@ -243,50 +247,6 @@ namespace ariles2
                 }
             }
         };
-
-
-        template <>
-        inline std::size_t Visitor::checkSize<Visitor::SIZE_LIMIT_NONE>(
-                const std::size_t &size,
-                const std::size_t & /*min*/,
-                const std::size_t & /*max*/) const
-        {
-            return (size);
-        }
-
-
-        template <>
-        inline std::size_t Visitor::checkSize<Visitor::SIZE_LIMIT_EQUAL>(
-                const std::size_t &size,
-                const std::size_t &expected_size,
-                const std::size_t & /*max*/) const
-        {
-            ARILES2_ASSERT(expected_size == size, "Actual number of entries is not the same as expected.");
-            return (size);
-        }
-
-
-        template <>
-        inline std::size_t Visitor::checkSize<Visitor::SIZE_LIMIT_RANGE>(
-                const std::size_t &size,
-                const std::size_t &min,
-                const std::size_t &max) const
-        {
-            ARILES2_ASSERT(min <= size, "Actual number of entries is lower than expected.");
-            ARILES2_ASSERT(max >= size, "Actual number of entries is larger than expected.");
-            return (size);
-        }
-
-
-        template <>
-        inline std::size_t Visitor::checkSize<Visitor::SIZE_LIMIT_MIN>(
-                const std::size_t &size,
-                const std::size_t &min,
-                const std::size_t & /*max*/) const
-        {
-            ARILES2_ASSERT(min <= size, "Actual number of entries is lower than expected.");
-            return (size);
-        }
 
 
         class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::Base<read::Visitor>

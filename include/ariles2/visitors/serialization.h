@@ -41,8 +41,6 @@ namespace ariles2
             {
                 RESET = 0,
                 SLOPPY_MAPS_SUPPORTED = 1,
-                NATIVE_MATRIX_SUPPORTED = 2,
-                SLOPPY_PAIRS_SUPPORTED = 4,
 
                 DEFAULT = RESET
             };
@@ -76,7 +74,8 @@ namespace ariles2
                 UNDEFINED = 0,
                 GENERIC = 1,
                 ARRAY = 2,
-                MATRIX = 3
+                MATRIX = 3,
+                VECTOR = 4
             };
 
 
@@ -111,6 +110,11 @@ namespace ariles2
                 return (MATRIX == type_);
             }
 
+            bool isVector() const
+            {
+                return (VECTOR == type_);
+            }
+
             bool isArray() const
             {
                 return (ARRAY == type_);
@@ -139,7 +143,11 @@ namespace ariles2
                 return (ariles_class.arilesGetParameters(*this));
             }
 
-            virtual const Features &getSerializationFeatures() const = 0;
+            virtual const Features &getSerializationFeatures() const
+            {
+                static serialization::Features parameters;
+                return (parameters);
+            }
         };
     }  // namespace serialization
 }  // namespace ariles2

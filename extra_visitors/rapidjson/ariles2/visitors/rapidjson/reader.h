@@ -26,8 +26,6 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ns_rapidjson::Base<ariles2::read::Visitor, impl::Reader>
         {
         protected:
-            std::size_t getMapSize(const bool /*expect_empty*/);
-
             // needed for jsonnet Reader
             Reader(const Flags &flags = Flags::DEFAULT) : Base(flags)
             {
@@ -53,16 +51,20 @@ namespace ariles2
             explicit Reader(std::istream &input_stream, const Flags &flags = Flags::DEFAULT);
 
 
-
             bool descend(const std::string &child_name);
             void ascend();
 
 
+            void startMap(
+                    const SizeLimitEnforcementType limit_type = SIZE_LIMIT_NONE,
+                    const std::size_t min = 0,
+                    const std::size_t max = 0);
             bool getMapEntryNames(std::vector<std::string> &child_names);
 
 
             std::size_t startArray();
-            void shiftArray();
+            void startArrayElement();
+            void endArrayElement();
             void endArray();
 
 

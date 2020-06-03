@@ -59,7 +59,7 @@ namespace ariles2
             void endMap();
 
             void startArray(const std::size_t size, const bool compact = false);
-            void shiftArray();
+            void endArrayElement();
             void endArray();
 
 

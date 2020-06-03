@@ -32,14 +32,14 @@ namespace ariles2
                 param.missing_entries_ = t_Visitor::Parameters::MISSING_ENTRIES_ENABLE_OVERRIDE;
             }
 
-            ariles2::count::Visitor counter;
             if (t_Visitor::Parameters::MISSING_ENTRIES_DISABLE == param.missing_entries_)
             {
-                visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(counter(entry));
+                ariles2::count::Visitor counter;
+                visitor.startMap(t_Visitor::SIZE_LIMIT_EQUAL, counter(entry));
             }
             else
             {
-                visitor.template startMap<t_Visitor::SIZE_LIMIT_NONE>(counter(entry));
+                visitor.startMap();
             }
             entry.arilesVirtualVisit(visitor, param);
             visitor.endMap();

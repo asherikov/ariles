@@ -39,8 +39,9 @@ namespace ariles2
 
             for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows); ++i)
             {
+                visitor.startArrayElement();
                 apply_read(visitor, entry[i], param);
-                visitor.shiftArray();
+                visitor.endArrayElement();
             }
             visitor.endArray();
         }
@@ -63,7 +64,7 @@ namespace ariles2
                 typename t_Visitor::Parameters param = parameters;
                 param.missing_entries_ = t_Visitor::Parameters::MISSING_ENTRIES_DISABLE;
 
-                visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(3);
+                visitor.startMap(t_Visitor::SIZE_LIMIT_EQUAL, 3);
                 visitor(num_cols, "cols", param);
                 ARILES2_ASSERT(Eigen::Dynamic == t_cols || t_cols == num_cols, "Wrong number of columns.");
                 visitor(num_rows, "rows", param);
@@ -119,7 +120,7 @@ namespace ariles2
             typename t_Visitor::Parameters param = parameters;
             param.missing_entries_ = t_Visitor::Parameters::MISSING_ENTRIES_DISABLE;
 
-            visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(4);
+            visitor.startMap(t_Visitor::SIZE_LIMIT_EQUAL, 4);
             visitor(entry.x(), "x", param);
             visitor(entry.y(), "y", param);
             visitor(entry.z(), "z", param);
@@ -141,27 +142,14 @@ namespace ariles2
                 const typename t_Visitor::Parameters & /*param*/)
         {
             ARILES2_TRACE_FUNCTION;
-            if (writer.getSerializationFeatures().isSet(serialization::Features::NATIVE_MATRIX_SUPPORTED))
+            writer.startVector(entry.rows());
+            for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows); ++i)
             {
-                writer.startMatrix(true);
-                for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows); ++i)
-                {
-                    writer.startMatrixRow();
-                    writer.writeElement(entry(i));
-                    writer.endMatrixRow();
-                }
-                writer.endMatrix();
+                writer.startVectorElement();
+                writer.writeElement(entry[i]);
+                writer.endVectorElement();
             }
-            else
-            {
-                writer.startArray(entry.rows(), true);
-                for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < entry.rows(); ++i)
-                {
-                    writer.writeElement(entry[i]);
-                    writer.shiftArray();
-                }
-                writer.endArray();
-            }
+            writer.endVector();
         }
 
 
@@ -173,59 +161,40 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            if (writer.getSerializationFeatures().isSet(serialization::Features::NATIVE_MATRIX_SUPPORTED))
+            const bool dynamic =
+                    Eigen::Dynamic == t_rows or Eigen::Dynamic == t_cols or true == param.explicit_matrix_size_;
+            const EIGEN_DEFAULT_DENSE_INDEX_TYPE rows = Eigen::Dynamic == t_rows ? entry.rows() : t_rows;
+            const EIGEN_DEFAULT_DENSE_INDEX_TYPE cols = Eigen::Dynamic == t_cols ? entry.cols() : t_cols;
+
+
+            if (true == dynamic)
             {
-                writer.startMatrix();
-                for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows); ++i)
-                {
-                    writer.startMatrixRow();
-                    for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < (Eigen::Dynamic == t_cols ? entry.cols() : t_cols);
-                         ++j)
-                    {
-                        writer.writeElement(entry(i, j));
-                    }
-                    writer.endMatrixRow();
-                }
-                writer.endMatrix();
+                writer.startMap("", 3);
+
+                writer(cols, "cols", param);
+                writer(rows, "rows", param);
+
+                writer.descend("data");
             }
-            else
+
+            writer.startMatrix(rows, cols);
+            for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < rows; ++i)
             {
-                if (Eigen::Dynamic == t_rows or Eigen::Dynamic == t_cols or true == param.explicit_matrix_size_)
+                writer.startMatrixRow();
+                for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < cols; ++j)
                 {
-                    writer.startMap("", 3);
-
-                    writer(entry.cols(), "cols", param);
-                    writer(entry.rows(), "rows", param);
-
-
-                    writer.descend("data");
-                    writer.startArray(entry.size(), true);
-                    for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < entry.rows(); ++i)
-                    {
-                        for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < entry.cols(); ++j)
-                        {
-                            writer.writeElement(entry(i, j));
-                            writer.shiftArray();
-                        }
-                    }
-                    writer.endArray();
-                    writer.ascend();
-
-                    writer.endMap();
+                    writer.startMatrixElement();
+                    writer.writeElement(entry(i, j));
+                    writer.endMatrixElement();
                 }
-                else
-                {
-                    writer.startArray(entry.size(), true);
-                    for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < t_rows; ++i)
-                    {
-                        for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < t_cols; ++j)
-                        {
-                            writer.writeElement(entry(i, j));
-                            writer.shiftArray();
-                        }
-                    }
-                    writer.endArray();
-                }
+                writer.endMatrixRow();
+            }
+            writer.endMatrix();
+
+            if (true == dynamic)
+            {
+                writer.ascend();
+                writer.endMap();
             }
         }
 

@@ -79,12 +79,16 @@ namespace ariles2
             impl_->node_stack_.push_back(NodeWrapper(0, size));
         }
 
-        void Writer::shiftArray()
+        void Writer::startArrayElement()
         {
-            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
+        }
+
+        void Writer::endArrayElement()
+        {
+            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ++impl_->node_stack_.back().index_;
         }
 

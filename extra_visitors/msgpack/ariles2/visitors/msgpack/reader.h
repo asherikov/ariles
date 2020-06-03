@@ -28,10 +28,6 @@ namespace ariles2
          */
         class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ns_msgpack::Base<ariles2::read::Visitor, impl::Reader>
         {
-        protected:
-            std::size_t getMapSize(const bool /*expect_empty*/);
-
-
         public:
             /**
              * @brief Constructor
@@ -52,10 +48,15 @@ namespace ariles2
             bool descend(const std::string &child_name);
             void ascend();
 
+            void startMap(
+                    const SizeLimitEnforcementType limit_type = SIZE_LIMIT_NONE,
+                    const std::size_t min = 0,
+                    const std::size_t max = 0);
 
             std::size_t startArray();
             void endArray();
-            void shiftArray();
+            void startArrayElement();
+            void endArrayElement();
 
 
             bool startRoot(const std::string &name);

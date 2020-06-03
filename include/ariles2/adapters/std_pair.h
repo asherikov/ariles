@@ -25,7 +25,7 @@ namespace ariles2
                 const typename t_Visitor::Parameters &parameters)
         {
             ARILES2_TRACE_FUNCTION;
-            visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(2);
+            visitor.startMap(t_Visitor::SIZE_LIMIT_EQUAL, 2);
 
             visitor.override_missing_entries_locally_ = true;
             visitor(entry.first, "first", parameters);
@@ -43,14 +43,14 @@ namespace ariles2
                 const typename t_Visitor::Parameters &parameters)
         {
             ARILES2_TRACE_FUNCTION;
-            if (visitor.getSerializationFeatures().isSet(serialization::Features::SLOPPY_PAIRS_SUPPORTED)
+            if (visitor.getSerializationFeatures().isSet(serialization::Features::SLOPPY_MAPS_SUPPORTED)
                 and true == parameters.sloppy_pairs_)
             {
                 std::vector<std::string> entry_names;
                 ARILES2_ASSERT(true == visitor.getMapEntryNames(entry_names), "Could not read names of map entries.");
                 if (1 == entry_names.size())
                 {
-                    visitor.template startMap<t_Visitor::SIZE_LIMIT_EQUAL>(1);
+                    visitor.startMap(t_Visitor::SIZE_LIMIT_EQUAL, 1);
 
                     // if entry is in the map, we should be able to read it
                     visitor.override_missing_entries_locally_ = true;
@@ -106,7 +106,7 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            if (writer.getSerializationFeatures().isSet(serialization::Features::SLOPPY_PAIRS_SUPPORTED)
+            if (writer.getSerializationFeatures().isSet(serialization::Features::SLOPPY_MAPS_SUPPORTED)
                 and true == param.sloppy_pairs_)
             {
                 writer.startMap("", 1);

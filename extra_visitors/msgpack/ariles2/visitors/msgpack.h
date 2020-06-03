@@ -40,14 +40,6 @@ namespace ariles2
         protected:
             Base(){};
             ~Base(){};
-
-
-        public:
-            const serialization::Features &getSerializationFeatures() const
-            {
-                static const serialization::Features parameters;  // all disabled
-                return (parameters);
-            }
         };
     }  // namespace ns_msgpack
 }  // namespace ariles2

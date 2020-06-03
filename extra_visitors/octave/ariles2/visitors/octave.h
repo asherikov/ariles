@@ -44,9 +44,6 @@ namespace ariles2
             explicit Writer(std::ostream &output_stream);
 
 
-            const serialization::Features &getSerializationFeatures() const;
-
-
             void flush();
 
 
@@ -55,12 +52,20 @@ namespace ariles2
 
 
             void startArray(const std::size_t size, const bool compact = false);
-            void shiftArray();
+            void endArrayElement();
             void endArray();
 
 
-            void startMatrix(const bool compact = false);
+            void startVector(const std::size_t size);
+            void startVectorElement();
+            void endVectorElement();
+            void endVector();
+
+
+            void startMatrix(const std::size_t rows, const std::size_t cols);
             void startMatrixRow();
+            void startMatrixElement();
+            void endMatrixElement();
             void endMatrixRow();
             void endMatrix();
 

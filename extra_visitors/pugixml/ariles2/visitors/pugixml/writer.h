@@ -43,7 +43,8 @@ namespace ariles2
 
 
             void startArray(const std::size_t size, const bool /*compact*/ = false);
-            void shiftArray();
+            void startArrayElement();
+            void endArrayElement();
             void endArray();
 
 

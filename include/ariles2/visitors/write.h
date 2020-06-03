@@ -94,25 +94,56 @@ namespace ariles2
 
 
             virtual void startArray(const std::size_t size, const bool compact = false) = 0;
-            virtual void shiftArray()
+            virtual void startArrayElement()
+            {
+            }
+            virtual void endArrayElement()
             {
             }
             virtual void endArray()
             {
             }
 
-            virtual void startMatrix(const bool compact = false)
+
+            virtual void startVector(const std::size_t size)
             {
-                ARILES2_UNUSED_ARG(compact)
+                startArray(size, /*compact*/ true);
+            }
+            virtual void startVectorElement()
+            {
+                startArrayElement();
+            }
+            virtual void endVectorElement()
+            {
+                endArrayElement();
+            }
+            virtual void endVector()
+            {
+                endArray();
+            }
+
+
+            virtual void startMatrix(const std::size_t rows, const std::size_t cols)
+            {
+                startArray(cols * rows, true);
             }
             virtual void startMatrixRow()
             {
+            }
+            virtual void startMatrixElement()
+            {
+                startArrayElement();
+            }
+            virtual void endMatrixElement()
+            {
+                endArrayElement();
             }
             virtual void endMatrixRow()
             {
             }
             virtual void endMatrix()
             {
+                endArray();
             }
 
 

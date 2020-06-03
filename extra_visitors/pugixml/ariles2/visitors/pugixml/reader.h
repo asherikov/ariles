@@ -26,10 +26,6 @@ namespace ariles2
          */
         class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ns_pugixml::Base<ariles2::read::Visitor, impl::Reader>
         {
-        protected:
-            std::size_t getMapSize(const bool /*expect_empty*/);
-
-
         public:
             /**
              * @brief Constructor
@@ -55,7 +51,8 @@ namespace ariles2
 
 
             std::size_t startArray();
-            void shiftArray();
+            void startArrayElement();
+            void endArrayElement();
             void endArray();
 
             bool startRoot(const std::string &name);

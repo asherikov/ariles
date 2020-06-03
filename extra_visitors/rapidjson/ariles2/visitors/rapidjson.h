@@ -78,9 +78,7 @@ namespace ariles2
         public:
             const serialization::Features &getSerializationFeatures() const
             {
-                static serialization::Features parameters(
-                        serialization::Features::SLOPPY_MAPS_SUPPORTED
-                        | serialization::Features::SLOPPY_PAIRS_SUPPORTED);
+                static serialization::Features parameters(serialization::Features::SLOPPY_MAPS_SUPPORTED);
                 return (parameters);
             }
         };

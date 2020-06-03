@@ -21,7 +21,7 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             bool is_null = true;
 
-            visitor.template startMap<t_Visitor::SIZE_LIMIT_RANGE>(1, 2);
+            visitor.startMap(t_Visitor::SIZE_LIMIT_RANGE, 1, 2);
             visitor.override_missing_entries_locally_ = true;
             visitor(is_null, "is_null", parameters);
 

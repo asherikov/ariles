@@ -27,10 +27,6 @@ namespace ariles2
          */
         class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ns_ros::Base<ariles2::read::Visitor, impl::Reader>
         {
-        protected:
-            std::size_t getMapSize(const bool expect_empty);
-
-
         public:
             /**
              * @brief Constructor
@@ -44,11 +40,16 @@ namespace ariles2
             void ascend();
 
 
+            void startMap(
+                    const SizeLimitEnforcementType limit_type = SIZE_LIMIT_NONE,
+                    const std::size_t min = 0,
+                    const std::size_t max = 0);
             bool getMapEntryNames(std::vector<std::string> &child_names);
 
 
             std::size_t startArray();
-            void shiftArray();
+            void startArrayElement();
+            void endArrayElement();
             void endArray();
 
             bool startRoot(const std::string &name);

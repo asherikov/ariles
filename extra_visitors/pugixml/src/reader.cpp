@@ -66,19 +66,6 @@ namespace ariles2
         }
 
 
-        std::size_t Reader::getMapSize(const bool /*expect_empty*/)
-        {
-            std::size_t size = 0;
-            for (pugi::xml_node_iterator it = impl_->getRawNode().begin(); it != impl_->getRawNode().end();
-                 ++it, ++size)
-                ;
-            for (pugi::xml_attribute attribute = impl_->getRawNode().first_attribute(); attribute;
-                 attribute = attribute.next_attribute(), ++size)
-                ;
-            return (size);
-        }
-
-
         bool Reader::descend(const std::string &child_name)
         {
             const pugi::xml_node child = impl_->getRawNode().child(child_name.c_str());
@@ -150,12 +137,17 @@ namespace ariles2
         }
 
 
-        void Reader::shiftArray()
+        void Reader::startArrayElement()
         {
-            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
+        }
+
+
+        void Reader::endArrayElement()
+        {
+            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             impl_->node_stack_.back().node_ = impl_->getRawNode().next_sibling(impl_->getRawNode().name());
             ++impl_->node_stack_.back().index_;
         }

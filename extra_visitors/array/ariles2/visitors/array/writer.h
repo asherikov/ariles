@@ -115,13 +115,6 @@ namespace ariles2
             }
 
 
-            const serialization::Features &getSerializationFeatures() const
-            {
-                static serialization::Features parameters;
-                return (parameters);
-            }
-
-
             void flush()
             {
             }
@@ -207,7 +200,7 @@ namespace ariles2
                 }
             }
 
-            virtual void shiftArray()
+            virtual void endArrayElement()
             {
                 if (true == initialize_structure_)
                 {

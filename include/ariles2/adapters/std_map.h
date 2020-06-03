@@ -31,11 +31,10 @@ namespace ariles2
             {
                 std::pair<t_Key, t_Value> map_entry;
 
+                visitor.startArrayElement();
                 apply_read(visitor, map_entry, param);
-
                 entry.insert(map_entry);
-
-                visitor.shiftArray();
+                visitor.endArrayElement();
             }
             visitor.endArray();
         }
@@ -54,8 +53,8 @@ namespace ariles2
                 std::vector<std::string> entry_names;
                 ARILES2_ASSERT(true == visitor.getMapEntryNames(entry_names), "Could not read names of map entries.");
                 entry.clear();
-                visitor.template startMap<t_Visitor::SIZE_LIMIT_NONE>();
 
+                visitor.startMap();
                 for (std::size_t i = 0; i < entry_names.size(); ++i)
                 {
                     // if entry is in the map, we should be able to read it
@@ -93,8 +92,9 @@ namespace ariles2
                  it != entry.end();
                  ++it)
             {
+                writer.startArrayElement();
                 apply_write(writer, *it, param);
-                writer.shiftArray();
+                writer.endArrayElement();
             }
             writer.endArray();
         }

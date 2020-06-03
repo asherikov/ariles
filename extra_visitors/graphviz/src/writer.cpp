@@ -159,8 +159,7 @@ namespace ariles2
 
         const serialization::Features &Writer::getSerializationFeatures() const
         {
-            static serialization::Features parameters(
-                    serialization::Features::SLOPPY_MAPS_SUPPORTED | serialization::Features::SLOPPY_PAIRS_SUPPORTED);
+            static serialization::Features parameters(serialization::Features::SLOPPY_MAPS_SUPPORTED);
             return (parameters);
         }
 
@@ -261,7 +260,7 @@ namespace ariles2
             impl_->node_stack_.back().name_ = name;
         }
 
-        void Writer::shiftArray()
+        void Writer::endArrayElement()
         {
             ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: array expected.");
             ++impl_->node_stack_.back().index_;

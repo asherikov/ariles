@@ -43,16 +43,16 @@ namespace ariles2
         }
 
 
-        std::size_t Reader::getMapSize(const bool expect_empty)
+        void Reader::startMap(const SizeLimitEnforcementType limit_type, const std::size_t min, const std::size_t max)
         {
+            ARILES2_TRACE_FUNCTION;
             if (XmlRpc::XmlRpcValue::TypeStruct == impl_->getRawNode().getType())
             {
-                return (impl_->getRawNode().size());
+                checkSize(limit_type, impl_->getRawNode().size(), min, max);
             }
             else
             {
-                ARILES2_PERSISTENT_ASSERT(true == expect_empty, "Expected struct.");
-                return (0);
+                ARILES2_PERSISTENT_ASSERT(0 == min and min == max, "Expected struct.");
             }
         }
 
@@ -121,12 +121,17 @@ namespace ariles2
         }
 
 
-        void Reader::shiftArray()
+        void Reader::startArrayElement()
         {
-            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
+        }
+
+
+        void Reader::endArrayElement()
+        {
+            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ++impl_->node_stack_.back().index_;
         }
 
