@@ -110,7 +110,7 @@ cmakeut_list_filenames("${CPPUT_HEADER_DIR}/" "CPPUT_HEADERS")
 foreach (CPPUT_HEADER ${CPPUT_HEADERS})
     if (${CPPUT_HEADER} MATCHES ".h.in\$")
         string(REPLACE ".h.in" ".h" CPPUT_HEADER_NO_SUFFIX "${CPPUT_HEADER}")
-        message("Configuring header ${CPPUT_HEADER} -> ${CPPUT_HEADER_NO_SUFFIX}")
+        message(STATUS "Configuring header ${CPPUT_HEADER} -> ${CPPUT_HEADER_NO_SUFFIX}")
         configure_file( "${CPPUT_HEADER_DIR}/${CPPUT_HEADER}"
                         "${CPPUT_HEADER_DIR}/${CPPUT_HEADER_NO_SUFFIX}")
     endif()

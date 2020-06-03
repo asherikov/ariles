@@ -4,6 +4,7 @@ Unreleased
 Changed
 -------
 
+* cmake: clean message() calls.
 * cmake: disable ccache if `CMAKE_CXX_COMPILER_LAUNCHER` is set.
 
 
