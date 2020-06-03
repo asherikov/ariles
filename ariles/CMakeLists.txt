@@ -1,10 +1,9 @@
 # General parameters
-cmake_minimum_required (VERSION 2.8.12)
-project (ariles CXX)
+cmake_minimum_required(VERSION 3.0)
+cmake_policy(SET CMP0048 NEW)
+project(ariles LANGUAGES CXX VERSION 1.6.6)
+
 set(ARILES_HOMEPAGE http://asherikov.github.com/ariles/)
-set(PROJECT_VERSION_MAJOR 1)
-set(PROJECT_VERSION_MINOR 6)
-set(PROJECT_VERSION_PATCH 6)
 
 set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 

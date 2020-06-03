@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
+cmake_policy(SET CMP0048 NEW)
 project(ariles_ros VERSION 1.6.6)
 
 
