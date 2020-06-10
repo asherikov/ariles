@@ -2,8 +2,8 @@
 Changelog for package ariles_ros
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.6.7 (2020-06-10)
+------------------
 
 * Sync to 1.6.7 (cmake fixes)
 
