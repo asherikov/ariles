@@ -1,11 +1,22 @@
 # General parameters
 cmake_minimum_required (VERSION 2.8.12)
-project (ariles CXX)
-set(ARILES_HOMEPAGE http://asherikov.github.com/ariles/)
-set(PROJECT_VERSION_MAJOR 1)
-set(PROJECT_VERSION_MINOR 6)
-set(PROJECT_VERSION_PATCH 6)
+set(ARILES_VERSION_MAJOR 1)
+set(ARILES_VERSION_MINOR 6)
+set(ARILES_VERSION_PATCH 6)
 
+if(CMAKE_VERSION VERSION_LESS 3)
+    project (ariles CXX)
+    set(PROJECT_VERSION_MAJOR ${ARILES_VERSION_MAJOR})
+    set(PROJECT_VERSION_MINOR ${ARILES_VERSION_MINOR})
+    set(PROJECT_VERSION_PATCH ${ARILES_VERSION_PATCH})
+else()
+    if(POLICY CMP0048)
+        cmake_policy(SET CMP0048 NEW)
+    endif()
+    project(ariles VERSION ${ARILES_VERSION_MAJOR}.${ARILES_VERSION_MINOR}.${ARILES_VERSION_PATCH})
+endif()
+
+set(ARILES_HOMEPAGE http://asherikov.github.com/ariles/)
 set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
 
