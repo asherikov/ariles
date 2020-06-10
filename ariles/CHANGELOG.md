@@ -1,6 +1,19 @@
 Unreleased
 ==========
 
+
+1.6.7
+==========
+
+Changed
+-------
+
+* cmake: fix CMP0048 policy warning.
+* cmake: clean message() calls.
+* cmake: disable ccache if `CMAKE_CXX_COMPILER_LAUNCHER` is set.
+
+
+
 1.6.6
 =====
 

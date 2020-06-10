@@ -1,11 +1,22 @@
 # General parameters
 cmake_minimum_required (VERSION 2.8.12)
-project (ariles CXX)
-set(ARILES_HOMEPAGE http://asherikov.github.com/ariles/)
-set(PROJECT_VERSION_MAJOR 1)
-set(PROJECT_VERSION_MINOR 6)
-set(PROJECT_VERSION_PATCH 6)
+set(ARILES_VERSION_MAJOR 1)
+set(ARILES_VERSION_MINOR 6)
+set(ARILES_VERSION_PATCH 7)
 
+if(CMAKE_VERSION VERSION_LESS 3)
+    project (ariles CXX)
+    set(PROJECT_VERSION_MAJOR ${ARILES_VERSION_MAJOR})
+    set(PROJECT_VERSION_MINOR ${ARILES_VERSION_MINOR})
+    set(PROJECT_VERSION_PATCH ${ARILES_VERSION_PATCH})
+else()
+    if(POLICY CMP0048)
+        cmake_policy(SET CMP0048 NEW)
+    endif()
+    project(ariles VERSION ${ARILES_VERSION_MAJOR}.${ARILES_VERSION_MINOR}.${ARILES_VERSION_PATCH})
+endif()
+
+set(ARILES_HOMEPAGE http://asherikov.github.com/ariles/)
 set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
 
@@ -120,11 +131,13 @@ set(CPACK_DEBIAN_PACKAGE_SECTION    "devel")
 
 #####################################
 
-if(ARILES_CCACHE)
-    find_program(CCACHE_FOUND ccache)
-    if(CCACHE_FOUND)
-        set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
-    endif(CCACHE_FOUND)
+if(NOT CMAKE_CXX_COMPILER_LAUNCHER)
+    if(ARILES_CCACHE)
+        find_program(CCACHE_FOUND ccache)
+        if(CCACHE_FOUND)
+            set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+        endif(CCACHE_FOUND)
+    endif()
 endif()
 
 
@@ -169,12 +182,12 @@ foreach (ARILES_VISITORS_DIR ${ARILES_VISITORS_DIRS})
 
 
         if (ARILES_VERBOSE)
-            message("----------------------VISITOR----------------------")
-            message("Name: ${ARILES_VISITOR}")
-            message("Path: ${ARILES_VISITOR_${ARILES_VISITOR}_DIR}")
-            message("Enabled: ${ARILES_VISITOR_${ARILES_VISITOR}}")
-            message("Enable/disable option name: ARILES_VISITOR_${ARILES_VISITOR}")
-            message("--------------------------------------------------")
+            message(STATUS "----------------------VISITOR----------------------")
+            message(STATUS "Name: ${ARILES_VISITOR}")
+            message(STATUS "Path: ${ARILES_VISITOR_${ARILES_VISITOR}_DIR}")
+            message(STATUS "Enabled: ${ARILES_VISITOR_${ARILES_VISITOR}}")
+            message(STATUS "Enable/disable option name: ARILES_VISITOR_${ARILES_VISITOR}")
+            message(STATUS "--------------------------------------------------")
         endif(ARILES_VERBOSE)
     endforeach(ARILES_VISITOR)
 endforeach(ARILES_VISITORS_DIR)

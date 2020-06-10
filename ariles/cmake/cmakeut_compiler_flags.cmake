@@ -40,7 +40,7 @@ function(cmakeut_compiler_flags STANDARD)
         elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 
             if (NOT CMAKE_CXX_COMPILER_VERSION OR CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.9)
-                message("GCC version is unknown or too old. Disabling sanitizers.")
+                message(WARNING "GCC version is unknown or too old. Disabling sanitizers.")
             else()
                 set(CXX_SANITIZERS "-fsanitize=address -fsanitize=undefined -fsanitize-undefined-trap-on-error")
             endif()
