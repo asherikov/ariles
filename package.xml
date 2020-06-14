@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>cmakeut</name>
-  <version>0.0.0</version>
+  <version>1.0.2</version>
   <description>cmake utilities</description>
 
   <maintainer email="asherikov@yandex.com">Alexander Sherikov</maintainer>
