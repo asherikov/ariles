@@ -25,7 +25,7 @@ namespace ariles_tests
         template <class t_Configurable, class t_Visitor>
         void test()
         {
-            // Exlicit instantiation of reader and writer classes
+            // Explicit instantiation of reader and writer classes
             {
                 t_Configurable configurable;
                 configurable.randomize();

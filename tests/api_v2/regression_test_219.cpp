@@ -81,7 +81,7 @@ BOOST_FIXTURE_TEST_CASE(CompareComplex, ariles_tests::DummyFixture)
     configurable1 = configurable2;
 
 
-    configurable1.string_ = "blahblah1";
+    configurable1.string_ = configurable2.string_ + "x";
     BOOST_CHECK(false == visitor.compare(configurable1, configurable2, param));
     configurable1 = configurable2;
 
@@ -121,7 +121,7 @@ BOOST_FIXTURE_TEST_CASE(CompareComplex, ariles_tests::DummyFixture)
     configurable1 = configurable2;
 
 
-    configurable1.std_pair_.first = "testtt1";
+    configurable1.std_pair_.first = configurable2.std_pair_.first + "x";
     BOOST_CHECK(false == visitor.compare(configurable1, configurable2, param));
     configurable1 = configurable2;
 

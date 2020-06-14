@@ -4,7 +4,7 @@
 
     @copyright See below
 
-    @brief Copied from a newer version of RapidJSON to addd this functionality to older versions.
+    @brief Copied from a newer version of RapidJSON to add this functionality to older versions.
 */
 
 #pragma once

@@ -33,8 +33,8 @@ namespace ariles_tests
 
             const std::string &arilesInstanceID() const
             {
-                static std::string instace_id("Minimal");
-                return (instace_id);
+                static std::string instance_id("Minimal");
+                return (instance_id);
             }
         };
 

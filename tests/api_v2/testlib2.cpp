@@ -17,7 +17,7 @@
 // TYPES
 // ===============================================================
 
-namespace testlib2
+namespace testlib_2
 {
     /**
      * @brief Verbose definition of a configurable class (with explicit declaration
@@ -49,4 +49,4 @@ namespace testlib2
             real_ = 1.33;
         }
     };
-}  // namespace testlib2
+}  // namespace testlib_2

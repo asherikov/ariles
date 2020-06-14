@@ -20,11 +20,15 @@ ARGS?=
 
 DEB_TARGET?=xenial
 
-TEST_ENV=UBSAN_OPTIONS=print_stacktrace=1:halt_on_error=1:suppressions=../../../cmake/sanitizer_undefined.supp \
-		 ASAN_OPTIONS=suppressions=../../../cmake/sanitizer_address.supp \
-		 LSAN_OPTIONS=suppressions=../../../cmake/sanitizer_leak.supp
+SUPP_PATH=../../../qa/sanitizers/
+TEST_ENV=UBSAN_OPTIONS=print_stacktrace=1:halt_on_error=1:suppressions=${SUPP_PATH}/undefined.supp \
+		 ASAN_OPTIONS=suppressions=${SUPP_PATH}/address.supp \
+		 LSAN_OPTIONS=suppressions=${SUPP_PATH}/leak.supp
 
 PKG_NAME=ariles2
+
+FIND_ARILES_SOURCES=find ./extra_* ./tests/ ./include/ -iname "*.h" -or -iname "*.cpp"
+
 
 #----------------------------------------------
 # Cleaning
@@ -194,7 +198,7 @@ install-jsonnet:
 	cd ./jsonnet/build/; make install
 
 format:
-	find ./extra_visitors/ extra_adapters/ tests/ include/ -iname "*.h" -or -iname "*.cpp" | grep -v "better_enum.h" | xargs clang-format80 -verbose -i
+	${FIND_ARILES_SOURCES} | grep -v "better_enum.h" | xargs clang-format80 -verbose -i
 
 cppcheck:
 	# --inconclusive
@@ -281,6 +285,16 @@ clangcheck:
 		-enable-checker valist.Uninitialized \
 		-enable-checker valist.Unterminated \
 		${MAKE} build build TC=${TC} TYPE=${TYPE} OPTIONS=${OPTIONS} TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+
+spell_interactive:
+	${MAKE} spell SPELL_XARGS_ARG=-o
+
+# https://github.com/myint/scspell
+spell:
+	${FIND_ARILES_SOURCES} \
+		| grep -v "./tests/common/better_enum.h" \
+		| grep -v "./extra_visitors/rapidjson/src/istreamwrapper.h" \
+		| xargs ${SPELL_XARGS_ARG} scspell --use-builtin-base-dict --override-dictionary ./qa/scspell.dict
 
 travis-apt-clean:
 	sudo rm \

@@ -217,16 +217,19 @@ jobs:
           - make build-tests TYPE=Debug OPTIONS=ros TARGETS="all" ARGS=-V
 
 
-      - name: "bionic_cppcheck"
+      - name: "bionic_static_checks"
         dist: bionic
         compiler: gcc
 
         before_install:
           - sudo apt update
-          - sudo apt install -y cppcheck
+          - sudo apt install -y cppcheck 
+          - sudo apt install -y python3-pip python3-setuptools
+          - sudo pip3 install scspell3k
 
         script:
           - make cppcheck
+          - make spell
 
       - name: "bionic_gcc_cpp11_ros_scanbuild"
         dist: bionic

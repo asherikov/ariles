@@ -35,7 +35,7 @@ namespace ariles_tests
             impl.integer_ = 10;
             impl.unsigned_integer_ = 100;
             impl.real_ = 1.33;
-            impl.string_ = "blahblah";
+            impl.string_ = "test_string";
 
             impl.std_vector_.resize(5);
             for (std::size_t i = 0; i < impl.std_vector_.size(); ++i)
@@ -111,7 +111,7 @@ namespace ariles_tests
             impl.integer_ = GET_RANDOM_INT;
             impl.unsigned_integer_ = GET_RANDOM_UINT;
             impl.real_ = GET_RANDOM_REAL;
-            impl.string_ = "blahblah";
+            impl.string_ = "test_string";
 
             impl.std_vector_.resize(5);
             for (std::size_t i = 0; i < impl.std_vector_.size(); ++i)
@@ -136,7 +136,7 @@ namespace ariles_tests
             impl.enum_ = ANOTHER_VALUE;
             impl.better_enum_ = BetterEnum::DEFINED_2;
 
-            impl.std_pair_.first = "testtt";
+            impl.std_pair_.first = "test_string_2";
             impl.std_pair_.second = GET_RANDOM_REAL;
 
             impl.std_map_.clear();

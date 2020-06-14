@@ -43,7 +43,7 @@ namespace demo
     ARILES2_TYPED_ENTRY_(v, integer_member, int)
 //         underscore ^ indicates that the name of the entry must be
 // 'integer_member_' instead of 'integer_member', this is useful if your
-// naming convention requires trailining underscores for member variables.
+// naming convention requires trailing underscores for member variables.
 
 // Initialize ariles
 #include ARILES2_INITIALIZE
@@ -105,7 +105,7 @@ namespace demo
     class MyContainerClass : public ariles2::DefaultBase
     {
         // Some of the standard containers can be used with Ariles types.
-#define ARILES2_ENTRIES(v) ARILES2_TYPED_ENTRY_(v, myclass_vector, std::vector<MyClass>)
+#define ARILES2_ENTRIES(v) ARILES2_TYPED_ENTRY_(v, my_class_vector, std::vector<MyClass>)
 #include ARILES2_INITIALIZE
     };
 }  // namespace demo
@@ -122,9 +122,9 @@ int main()
     demo::MyContainerClass my_container_class;
 
     // access members as usual
-    my_container_class.myclass_vector_.size();
-    my_container_class.myclass_vector_.push_back(demo::MyClass());
-    ariles2::apply<ariles2::Defaults>(my_container_class.myclass_vector_[0]);
+    my_container_class.my_class_vector_.size();
+    my_container_class.my_class_vector_.push_back(demo::MyClass());
+    ariles2::apply<ariles2::Defaults>(my_container_class.my_class_vector_[0]);
 
 
     // YAML
@@ -132,7 +132,7 @@ int main()
      * When you serialize `my_container_class` to YAML you get the following:
      * -----
         MyContainerClass:
-          myclass_vector:
+          my_class_vector:
             - real_member: 100
               integer_member: 12
               eigen_vector: [0, 0, 0]
@@ -150,7 +150,7 @@ int main()
 
         // In some situations it is more convenient to instantiate Reader and
         // Writer classes explicitly, e.g., if you keep configurations of several
-        // classses in the same file
+        // classes in the same file
         ariles2::yaml_cpp::Writer writer("config.yaml");
         ariles2::apply(writer, my_container_class);
 
@@ -173,7 +173,7 @@ int main()
         ariles2::apply<ariles2::ros::Writer>(nh, my_container_class, "/some_namespace/");
         ariles2::apply<ariles2::ros::Reader>(nh, my_container_class, "/some_namespace/");
 
-        // Reader / Wrter classes
+        // Reader / Writer classes
         ariles2::ros::Writer writer(nh);
         ariles2::apply(writer, my_container_class);
 

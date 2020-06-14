@@ -25,7 +25,7 @@ namespace ariles_tests
         template <class t_Configurable1, class t_Configurable2, class t_Visitor>
         void test()
         {
-            // Exlicit instantiation of reader and writer classes
+            // Explicit instantiation of reader and writer classes
             BOOST_CHECK_NO_THROW(t_Configurable1 configurable;
 
                                  typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
