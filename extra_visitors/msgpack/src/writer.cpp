@@ -89,7 +89,7 @@ namespace ariles2
         void Writer::descend(const std::string &map_name)
         {
             ARILES2_TRACE_FUNCTION;
-            ARILES2_TRACE_ENTRY(map_name);
+            ARILES2_TRACE_VALUE(map_name);
             impl_->packer_->pack(map_name);
         }
 

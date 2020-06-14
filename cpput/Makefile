@@ -25,8 +25,9 @@ addutils:
 	git remote add better_enums https://github.com/aantron/better-enums
 	git remote add popl https://github.com/badaix/popl
 	git remote add safe_int https://github.com/dcleblanc/SafeInt
+	git remote add backward https://github.com/bombela/backward-cpp
 
-3rdparty:
+updateutils:
 	git fetch --all
 	git show remotes/cmakeut/master:cmake/cmakeut_add_cpp_test.cmake        > cmake/cmakeut_add_cpp_test.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_compiler_flags.cmake      > cmake/cmakeut_compiler_flags.cmake
@@ -35,6 +36,7 @@ addutils:
 	git show remotes/better_enums/master:enum.h    > ${INCLUDE_DIR}/better_enum.h
 	git show remotes/popl/master:include/popl.hpp  > ${INCLUDE_DIR}/popl.h
 	git show remotes/safe_int/master:SafeInt.hpp   > ${INCLUDE_DIR}/safe_int.h
+	git show remotes/backward/master:backward.hpp  > ${INCLUDE_DIR}/backward.h
 	${MAKE} allheader
 
 allheader:

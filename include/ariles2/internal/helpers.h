@@ -106,7 +106,7 @@
 
 
 // #define ARILES2_TRACE_ENABLE
-#include "trace.h"
+#include "cpput_trace.h"
 
 
 namespace ariles2

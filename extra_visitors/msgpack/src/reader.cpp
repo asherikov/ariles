@@ -141,7 +141,7 @@ namespace ariles2
         bool Reader::descend(const std::string &child_name)
         {
             ARILES2_TRACE_FUNCTION;
-            ARILES2_TRACE_ENTRY(child_name);
+            ARILES2_TRACE_VALUE(child_name);
             if (impl_->node_stack_.size() == 0)
             {
                 for (std::size_t i = 0; i < impl_->handles_.size(); ++i)

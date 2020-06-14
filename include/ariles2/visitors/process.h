@@ -47,7 +47,7 @@ namespace ariles2
             {
                 ARILES2_UNUSED_ARG(name);
                 ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_ENTRY(name);
+                ARILES2_TRACE_VALUE(name);
                 ARILES2_TRACE_TYPE(entry);
                 apply_process(*(static_cast<t_Derived *>(this)), entry, param);
             }

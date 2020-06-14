@@ -155,7 +155,7 @@ namespace ariles2
             virtual bool startRoot(const std::string &name)
             {
                 ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_ENTRY(name);
+                ARILES2_TRACE_VALUE(name);
 
                 override_missing_entries_locally_ = false;
                 if (false == name.empty())
@@ -186,7 +186,7 @@ namespace ariles2
             void start(t_Entry &entry, const std::string &name, const Parameters &parameters)
             {
                 ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_ENTRY(name);
+                ARILES2_TRACE_VALUE(name);
                 ARILES2_TRACE_TYPE(entry);
 
                 Parameters param = parameters;  // local modifiable copy
@@ -217,7 +217,7 @@ namespace ariles2
             bool operator()(t_Entry &entry, const std::string &name, const Parameters &parameters)
             {
                 ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_ENTRY(name);
+                ARILES2_TRACE_VALUE(name);
                 ARILES2_TRACE_TYPE(entry);
                 Parameters param = parameters;  // local modifiable copy
 

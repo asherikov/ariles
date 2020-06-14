@@ -187,7 +187,7 @@ namespace ariles2
             void operator()(const t_Entry &entry, const std::string &entry_name, const Parameters &param)
             {
                 ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_ENTRY(entry_name);
+                ARILES2_TRACE_VALUE(entry_name);
                 ARILES2_TRACE_TYPE(entry);
 
                 this->descend(entry_name);

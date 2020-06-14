@@ -11,17 +11,31 @@
 #pragma once
 
 
-#ifdef ARILES2_TRACE_ENABLE
+#ifndef H_@CPPUT_ID@_TRACE
+#define H_@CPPUT_ID@_TRACE
+
+
+#ifdef @CPPUT_ID@_TRACE_ENABLE
 #    include <iostream>
 #    include <libgen.h>
 #    include <typeinfo>
 #    include <cxxabi.h>
 
-namespace ariles2
+#    ifndef @CPPUT_ID@_TRACE_FUNCTION_NAME
+// __PRETTY_FUNCTION__
+#        define @CPPUT_ID@_TRACE_FUNCTION_NAME __func__
+#    endif
+
+#    ifndef @CPPUT_ID@_VISIBILITY_ATTRIBUTE
+#        include "visibility.h"
+#        define @CPPUT_ID@_VISIBILITY_ATTRIBUTE @CPPUT_ID@_LIB_LOCAL
+#    endif
+
+namespace @CPPUT_ID_LOWER_CASE@
 {
-    namespace debug
+    namespace trace
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Tracer
+        class @CPPUT_ID@_VISIBILITY_ATTRIBUTE Tracer
         {
         public:
             std::string tabulation_;
@@ -105,17 +119,18 @@ namespace ariles2
                 }
             }
         };
-    }  // namespace debug
-}  // namespace ariles2
+    }  // namespace trace
+}
 
-#    define ARILES2_TRACE_FUNCTION                                                                                     \
-        char trace_path[] = __FILE__;                                                                                  \
-        ariles2::debug::Tracer tracer(__func__, basename(trace_path), __LINE__);
-   // ariles2::debug::Tracer tracer(__PRETTY_FUNCTION__, basename(trace_path), __LINE__);
-#    define ARILES2_TRACE_ENTRY(entry_name) tracer.output("Processing entry: ", entry_name);
-#    define ARILES2_TRACE_TYPE(entry) tracer.output("Type: ", tracer.demangle(typeid(entry).name()));
+#    define @CPPUT_ID@_TRACE_FUNCTION                                                                                   \
+        char trace_path[] = __FILE__;                                                                                   \
+        ariles2::trace::Tracer tracer(@CPPUT_ID@_TRACE_FUNCTION_NAME, basename(trace_path), __LINE__);
+#    define @CPPUT_ID@_TRACE_VALUE(variable) tracer.output("Value: ", #variable, " = ", variable);
+#    define @CPPUT_ID@_TRACE_TYPE(variable) tracer.output("Type: ", tracer.demangle(typeid(variable).name()));
 #else
-#    define ARILES2_TRACE_FUNCTION
-#    define ARILES2_TRACE_ENTRY(entry_name)
-#    define ARILES2_TRACE_TYPE(entry)
+#    define @CPPUT_ID@_TRACE_FUNCTION
+#    define @CPPUT_ID@_TRACE_VALUE(value)
+#    define @CPPUT_ID@_TRACE_TYPE(type)
+#endif
+
 #endif

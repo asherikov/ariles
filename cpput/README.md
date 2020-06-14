@@ -8,3 +8,10 @@ following conditions:
 - no external dependencies.
 
 Utilities may require C++11 support.
+
+Third party utils (likely to be outdated):
+- `backward-cpp` -- https://github.com/bombela/backward-cpp
+- `better_enums` -- http://github.com/aantron/better-enums
+- `popl` -- https://github.com/badaix/popl
+- `print_backtrace` -- https://panthema.net/2008/0901-stacktrace-demangled/
+- `SafeInt` -- https://github.com/dcleblanc/SafeInt

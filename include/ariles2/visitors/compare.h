@@ -124,7 +124,7 @@ namespace ariles2
             void operator()(const t_Left &left, const t_Right &right, const std::string &name, const Parameters &param)
             {
                 ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_ENTRY(name);
+                ARILES2_TRACE_VALUE(name);
                 ARILES2_TRACE_TYPE(left);
                 ARILES2_TRACE_TYPE(right);
 

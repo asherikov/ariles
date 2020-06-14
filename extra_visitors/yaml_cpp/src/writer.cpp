@@ -111,7 +111,7 @@ namespace ariles2
         void Writer::descend(const std::string &map_name)
         {
             ARILES2_TRACE_FUNCTION;
-            ARILES2_TRACE_ENTRY(map_name);
+            ARILES2_TRACE_VALUE(map_name);
             *impl_->emitter_ << YAML::Key << map_name;
             *impl_->emitter_ << YAML::Value;
         }
@@ -169,7 +169,7 @@ namespace ariles2
         void Writer::startRoot(const std::string &name)
         {
             ARILES2_TRACE_FUNCTION;
-            ARILES2_TRACE_ENTRY(name);
+            ARILES2_TRACE_VALUE(name);
             if (true == name.empty())
             {
                 impl_->skip_root_map_ = true;

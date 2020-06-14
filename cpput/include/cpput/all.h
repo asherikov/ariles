@@ -1,5 +1,6 @@
 #ifndef H_CPPUT_ALL
 #define H_CPPUT_ALL
+#include "backward.h"
 #include "better_enum.h"
 #include "popl.h"
 #include "safe_int.h"
@@ -13,5 +14,7 @@
 #include "misc.h"
 #include "print_backtrace.h"
 #include "timer.h"
+#include "trace.h"
+#include "traits.h"
 #include "visibility.h"
 #endif

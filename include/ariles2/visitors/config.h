@@ -113,7 +113,7 @@ namespace ariles2
             void operator()(t_Entry &entry, const std::string &name, const Parameters &param)
             {
                 ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_ENTRY(name);
+                ARILES2_TRACE_VALUE(name);
                 ARILES2_TRACE_TYPE(entry);
                 ariles2::apply(defaults_visitor_, entry, name, param.defaults_parameters_);
                 ariles2::apply(reader_visitor_, entry, name, param.reader_parameters_);
@@ -227,7 +227,7 @@ namespace ariles2
             void operator()(t_Entry &entry, const std::string &name, const Parameters &param)
             {
                 ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_ENTRY(name);
+                ARILES2_TRACE_VALUE(name);
                 ARILES2_TRACE_TYPE(entry);
                 ariles2::apply(preprocess_visitor_, entry, name, param.preprocess_parameters_);
                 ariles2::apply(writer_visitor_, entry, name, param.writer_parameters_);
