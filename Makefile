@@ -148,8 +148,8 @@ test-cmake:
 #----------------------------------------------
 
 addutils:
-	git remote add cmakeut https://github.com/asherikov/cmakeut
-	git remote add cpput https://github.com/asherikov/cpput
+	git remote add --no-tags cmakeut https://github.com/asherikov/cmakeut
+	git remote add --no-tags cpput https://github.com/asherikov/cpput
 
 updateutils:
 	git fetch --all
