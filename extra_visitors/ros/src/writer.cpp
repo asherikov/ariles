@@ -53,7 +53,7 @@ namespace ariles2
 
 
 
-        void Writer::descend(const std::string &map_name)
+        void Writer::startMapElement(const std::string &map_name)
         {
             if (0 == impl_->node_stack_.size())
             {
@@ -66,8 +66,7 @@ namespace ariles2
             }
         }
 
-
-        void Writer::ascend()
+        void Writer::endMapElement()
         {
             impl_->node_stack_.pop_back();
         }
@@ -99,13 +98,13 @@ namespace ariles2
 
 
 
-        void Writer::writeElement(const bool &element)
+        void Writer::writeElement(const bool &element, const Parameters &)
         {
             impl_->getRawNode() = element;
         }
 
 
-        void Writer::writeElement(const std::string &element)
+        void Writer::writeElement(const std::string &element, const Parameters &)
         {
             impl_->getRawNode() = element;
         }
@@ -120,23 +119,23 @@ namespace ariles2
 
             if (true == name.empty())
             {
-                descend("ariles");
+                startMapElement("ariles");
             }
             else
             {
-                descend(name);
+                startMapElement(name);
             }
         }
 
         void Writer::endRoot(const std::string & /*name*/)
         {
             ARILES2_TRACE_FUNCTION;
-            ascend();
+            endMapElement();
         }
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
-    void Writer::writeElement(const type &element)                                                                     \
+    void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
         impl_->getRawNode() = element;                                                                                 \
     }
@@ -148,7 +147,7 @@ namespace ariles2
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
-    void Writer::writeElement(const type &element)                                                                     \
+    void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
         ARILES2_ASSERT(                                                                                                \
                 static_cast<int64_t>(element) <= std::numeric_limits<int>::max()                                       \
@@ -163,7 +162,7 @@ namespace ariles2
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
-    void Writer::writeElement(const type &element)                                                                     \
+    void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
         ARILES2_ASSERT(                                                                                                \
                 static_cast<uint64_t>(element) <= static_cast<uint64_t>(std::numeric_limits<int>::max()),              \

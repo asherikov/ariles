@@ -38,6 +38,7 @@ namespace ariles2
         };
 
 
+
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public serialization::Base<Parameters>
         {
         public:
@@ -87,7 +88,6 @@ namespace ariles2
             }
 
 
-        public:
             /**
              * @brief open configuration file
              *
@@ -108,59 +108,14 @@ namespace ariles2
             }
 
 
-            /**
-             * @brief Descend to the entry with the given name
-             *
-             * @param[in] child_name child node name
-             *
-             * @return true if successful.
-             */
-            virtual bool descend(const std::string &child_name)
-            {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_UNUSED_ARG(child_name)
-                return (true);
-            }
-
-
-            /**
-             * @brief Ascend from the current entry to its parent.
-             */
-            virtual void ascend() = 0;
-
-
-            virtual void startMap(
-                    const SizeLimitEnforcementType /*limit_type*/ = SIZE_LIMIT_NONE,
-                    const std::size_t /*min*/ = 0,
-                    const std::size_t /*max*/ = 0)
-            {
-                return;
-            }
-
-            virtual bool getMapEntryNames(std::vector<std::string> &)
-            {
-                return (false);
-            }
-
-            virtual void endMap()
-            {
-            }
-
-
-            virtual std::size_t startArray() = 0;
-            virtual void startArrayElement(){};
-            virtual void endArrayElement() = 0;
-            virtual void endArray() = 0;
-
             virtual bool startRoot(const std::string &name)
             {
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_VALUE(name);
 
-                override_missing_entries_locally_ = false;
                 if (false == name.empty())
                 {
-                    return (descend(name));
+                    return (startMapElement(name));
                 }
                 return (true);
             }
@@ -170,10 +125,67 @@ namespace ariles2
                 ARILES2_TRACE_FUNCTION;
                 if (false == name.empty())
                 {
-                    ascend();
+                    endMapElement();
                 }
             }
 
+
+        public:
+            virtual void startMap(
+                    const SizeLimitEnforcementType /*limit_type*/ = SIZE_LIMIT_NONE,
+                    const std::size_t /*min*/ = 0,
+                    const std::size_t /*max*/ = 0)
+            {
+            }
+
+            /**
+             * @brief startMapElement to the entry with the given name
+             *
+             * @param[in] child_name child node name
+             *
+             * @return true if successful.
+             */
+            virtual bool startMapElement(const std::string &child_name)
+            {
+                ARILES2_TRACE_FUNCTION;
+                ARILES2_UNUSED_ARG(child_name)
+                return (true);
+            }
+
+            /**
+             * @brief endMapElement from the current entry to its parent.
+             */
+            virtual void endMapElement() = 0;
+
+            virtual void endMap()
+            {
+            }
+
+
+            virtual bool startIteratedMap(
+                    const SizeLimitEnforcementType /*limit_type*/ = SIZE_LIMIT_NONE,
+                    const std::size_t /*min*/ = 0,
+                    const std::size_t /*max*/ = 0)
+            {
+                return (false);
+            }
+            virtual bool startIteratedMapElement(std::string &/*entry_name*/)
+            {
+                ARILES2_THROW("startIteratedMapElement() is not supported.");
+                return (false);
+            }
+            virtual void endIteratedMapElement()
+            {
+            }
+            virtual void endIteratedMap()
+            {
+            }
+
+
+            virtual std::size_t startArray() = 0;
+            virtual void startArrayElement(){};
+            virtual void endArrayElement() = 0;
+            virtual void endArray() = 0;
 
 #define ARILES2_BASIC_TYPE(type) virtual void readElement(type &entry) = 0;
 
@@ -183,13 +195,14 @@ namespace ariles2
 
 
             template <class t_Entry>
-            void start(t_Entry &entry, const std::string &name, const Parameters &parameters)
+            void start(t_Entry &entry, const std::string &name, const Parameters &param)
             {
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_VALUE(name);
                 ARILES2_TRACE_TYPE(entry);
 
-                Parameters param = parameters;  // local modifiable copy
+                override_missing_entries_locally_ = false;
+
 
                 if (this->startRoot(name))
                 {
@@ -214,14 +227,13 @@ namespace ariles2
 
 
             template <class t_Entry>
-            bool operator()(t_Entry &entry, const std::string &name, const Parameters &parameters)
+            bool operator()(t_Entry &entry, const std::string &name, const Parameters &param)
             {
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_VALUE(name);
                 ARILES2_TRACE_TYPE(entry);
-                Parameters param = parameters;  // local modifiable copy
 
-                if (this->descend(name))
+                if (this->startMapElement(name))
                 {
                     override_missing_entries_locally_ = false;
 
@@ -234,7 +246,7 @@ namespace ariles2
                         ARILES2_THROW(std::string("Failed to parse entry <") + name + "> ||  " + e.what());
                     }
 
-                    this->ascend();
+                    this->endMapElement();
                     return (true);
                 }
                 else

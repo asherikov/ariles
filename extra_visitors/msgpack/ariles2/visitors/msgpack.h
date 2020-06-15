@@ -18,33 +18,6 @@
 #include <ariles2/internal/helpers.h>
 #include <ariles2/visitors/config.h>
 
-namespace ariles2
-{
-    namespace ns_msgpack
-    {
-        template <class t_Base, class t_Implementation>
-        class ARILES2_VISIBILITY_ATTRIBUTE Base : public t_Base
-        {
-        protected:
-            typedef t_Implementation Impl;
-            typedef ARILES2_SHARED_PTR<t_Implementation> ImplPtr;
-
-        protected:
-            ImplPtr impl_;
-
-
-        private:
-            Base(const Base &);
-            Base &operator=(const Base &);
-
-        protected:
-            Base(){};
-            ~Base(){};
-        };
-    }  // namespace ns_msgpack
-}  // namespace ariles2
-
-
 
 #include "./msgpack/reader.h"
 #include "./msgpack/writer.h"

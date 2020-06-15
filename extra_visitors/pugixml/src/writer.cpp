@@ -69,13 +69,13 @@ namespace ariles2
     {
         Writer::Writer(const std::string &file_name)
         {
-            impl_ = ImplPtr(new Impl(file_name));
+            impl_ = ImplPtr(new impl::Writer(file_name));
         }
 
 
         Writer::Writer(std::ostream &output_stream)
         {
-            impl_ = ImplPtr(new Impl(output_stream));
+            impl_ = ImplPtr(new impl::Writer(output_stream));
         }
 
 
@@ -87,12 +87,12 @@ namespace ariles2
         }
 
 
-        void Writer::descend(const std::string &map_name)
+        void Writer::startMapElement(const std::string &map_name)
         {
             impl_->node_stack_.push_back(impl_->getRawNode().append_child(map_name.c_str()));
         }
 
-        void Writer::ascend()
+        void Writer::endMapElement()
         {
             impl_->node_stack_.pop_back();
         }
@@ -129,29 +129,29 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             if (true == name.empty())
             {
-                descend("ariles");
+                startMapElement("ariles");
             }
             else
             {
-                descend(name);
+                startMapElement(name);
             }
         }
 
         void Writer::endRoot(const std::string & /*name*/)
         {
             ARILES2_TRACE_FUNCTION;
-            ascend();
+            endMapElement();
         }
 
 
-        void Writer::writeElement(const std::string &element)
+        void Writer::writeElement(const std::string &element, const Parameters &)
         {
             impl_->getRawNode().text() = element.c_str();
         }
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
-    void Writer::writeElement(const type &element)                                                                     \
+    void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
         impl_->getRawNode().text() = (boost::lexical_cast<std::string>(element)).c_str();                              \
     }

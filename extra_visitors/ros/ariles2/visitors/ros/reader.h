@@ -25,8 +25,12 @@ namespace ariles2
         /**
          * @brief Configuration reader class
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ns_ros::Base<ariles2::read::Visitor, impl::Reader>
+        class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::PIMPLVisitor<read::Visitor, impl::Reader>
         {
+        protected:
+            bool startRoot(const std::string &name);
+            void endRoot(const std::string &name);
+
         public:
             /**
              * @brief Constructor
@@ -36,24 +40,27 @@ namespace ariles2
             explicit Reader(const ::ros::NodeHandle &nh);
 
 
-            bool descend(const std::string &child_name);
-            void ascend();
-
-
             void startMap(
                     const SizeLimitEnforcementType limit_type = SIZE_LIMIT_NONE,
                     const std::size_t min = 0,
                     const std::size_t max = 0);
-            bool getMapEntryNames(std::vector<std::string> &child_names);
+            bool startMapElement(const std::string &child_name);
+            void endMapElement();
+
+
+            bool startIteratedMap(
+                    const SizeLimitEnforcementType /*limit_type*/ = SIZE_LIMIT_NONE,
+                    const std::size_t /*min*/ = 0,
+                    const std::size_t /*max*/ = 0);
+            bool startIteratedMapElement(std::string &entry_name);
+            void endIteratedMapElement();
+            void endIteratedMap();
 
 
             std::size_t startArray();
             void startArrayElement();
             void endArrayElement();
             void endArray();
-
-            bool startRoot(const std::string &name);
-            void endRoot(const std::string &name);
 
 
 #define ARILES2_BASIC_TYPE(type) void readElement(type &element);

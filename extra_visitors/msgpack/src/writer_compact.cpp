@@ -98,7 +98,7 @@ namespace ariles2
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
-    void Writer::writeElement(const type &element)                                                                     \
+    void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
         impl_->packer_->pack(element);                                                                                 \
     }

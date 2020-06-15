@@ -132,7 +132,15 @@ namespace ariles2
             }
 
 
-            virtual void descend(const std::string &map_name)
+            virtual void startMap(const std::string & /*id*/, const std::size_t num_entries)
+            {
+                if (true == initialize_structure_)
+                {
+                    expandReserve(num_entries);
+                }
+            }
+
+            virtual void startMapElement(const std::string &map_name)
             {
                 if (true == initialize_structure_)
                 {
@@ -159,7 +167,7 @@ namespace ariles2
                 }
             }
 
-            virtual void ascend()
+            virtual void endMapElement()
             {
                 if (true == initialize_structure_)
                 {
@@ -167,19 +175,15 @@ namespace ariles2
                 }
             }
 
-
-            virtual void startMap(const std::string & /*id*/, const std::size_t num_entries)
-            {
-                if (true == initialize_structure_)
-                {
-                    expandReserve(num_entries);
-                }
-            }
-
             virtual void endMap()
             {
             }
 
+
+            virtual bool startIteratedMap(const std::string & /*id*/, const std::size_t /*num_entries*/)
+            {
+                return (false);
+            }
 
             virtual void startArray(const std::size_t size, const bool /*compact*/ = false)
             {
@@ -219,7 +223,7 @@ namespace ariles2
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
-    void writeElement(const type &element)                                                                             \
+    void writeElement(const type &element, const Parameters &)                                                         \
     {                                                                                                                  \
         expand();                                                                                                      \
         if (true == initialize_structure_)                                                                             \
@@ -241,7 +245,7 @@ namespace ariles2
 #undef ARILES2_BASIC_TYPE
 
 
-            void writeElement(const std::string & /*element*/)
+            void writeElement(const std::string & /*element*/, const Parameters &)
             {
             }
         };

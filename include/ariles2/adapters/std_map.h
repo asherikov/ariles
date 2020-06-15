@@ -47,25 +47,16 @@ namespace ariles2
                 const typename t_Visitor::Parameters &parameters)
         {
             ARILES2_TRACE_FUNCTION;
-            if (visitor.getSerializationFeatures().isSet(serialization::Features::SLOPPY_MAPS_SUPPORTED)
-                and true == parameters.sloppy_maps_)
+            if (true == parameters.sloppy_maps_ and true == visitor.startIteratedMap(t_Visitor::SIZE_LIMIT_MIN, 1))
             {
-                std::vector<std::string> entry_names;
-                ARILES2_ASSERT(true == visitor.getMapEntryNames(entry_names), "Could not read names of map entries.");
                 entry.clear();
-
-                visitor.startMap();
-                for (std::size_t i = 0; i < entry_names.size(); ++i)
+                std::string entry_name;
+                while (true == visitor.startIteratedMapElement(entry_name))
                 {
-                    // if entry is in the map, we should be able to read it
-                    visitor.override_missing_entries_locally_ = true;
-
-                    if (false == visitor(entry[entry_names[i]], entry_names[i], parameters))
-                    {
-                        entry.erase(entry_names[i]);
-                    }
+                    apply_read(visitor, entry[entry_name], parameters);
+                    visitor.endIteratedMapElement();
                 }
-                visitor.endMap();
+                visitor.endIteratedMap();
             }
             else
             {
@@ -107,17 +98,15 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            if (writer.getSerializationFeatures().isSet(serialization::Features::SLOPPY_MAPS_SUPPORTED)
-                and true == param.sloppy_maps_)
+            if (true == param.sloppy_maps_ and true == writer.startIteratedMap("", entry.size()))
             {
-                writer.startMap("", entry.size());
                 for (typename std::map<std::string, t_Value, t_Compare, t_Allocator>::const_iterator it = entry.begin();
                      it != entry.end();
                      ++it)
                 {
                     writer(it->second, it->first, param);
                 }
-                writer.endMap();
+                writer.endIteratedMap();
             }
             else
             {

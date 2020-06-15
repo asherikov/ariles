@@ -42,6 +42,7 @@ namespace ariles2
 
                 /// Stack of nodes.
                 std::vector<NodeWrapper> node_stack_;
+                std::vector<YAML::Iterator> iterator_stack_;
 
 
             public:
@@ -76,7 +77,7 @@ namespace ariles2
             std::ifstream config_ifs;
             read::Visitor::openFile(config_ifs, file_name);
 
-            impl_ = ImplPtr(new Impl());
+            impl_ = ImplPtr(new impl::Reader());
             impl_->parser_.Load(config_ifs);
             impl_->parser_.GetNextDocument(impl_->root_node_);
             impl_->node_stack_.push_back(NodeWrapper(&impl_->root_node_));
@@ -85,7 +86,7 @@ namespace ariles2
 
         Reader::Reader(std::istream &input_stream)
         {
-            impl_ = ImplPtr(new Impl());
+            impl_ = ImplPtr(new impl::Reader());
             impl_->parser_.Load(input_stream);
             impl_->parser_.GetNextDocument(impl_->root_node_);
             impl_->node_stack_.push_back(NodeWrapper(&impl_->root_node_));
@@ -99,9 +100,7 @@ namespace ariles2
             checkSize(limit_type, impl_->getRawNode().size(), min, max);
         }
 
-
-
-        bool Reader::descend(const std::string &child_name)
+        bool Reader::startMapElement(const std::string &child_name)
         {
             const YAML::Node *child = impl_->getRawNode().FindValue(child_name);
 
@@ -116,33 +115,53 @@ namespace ariles2
             }
         }
 
-
-
-        void Reader::ascend()
+        void Reader::endMapElement()
         {
             impl_->node_stack_.pop_back();
         }
 
 
-        bool Reader::getMapEntryNames(std::vector<std::string> &child_names)
+        bool Reader::startIteratedMap(
+                const SizeLimitEnforcementType limit_type,
+                const std::size_t min,
+                const std::size_t max)
         {
+            ARILES2_TRACE_FUNCTION;
+            checkSize(limit_type, impl_->getRawNode().size(), min, max);
+
             const YAML::Node *selected_node = &impl_->getRawNode();
 
-            if (YAML::NodeType::Map != selected_node->Type())
+            if (YAML::NodeType::Map == selected_node->Type())
             {
-                return (false);
-            }
-            else
-            {
-                child_names.resize(selected_node->size());
-
-                std::size_t i = 0;
-                for (YAML::Iterator it = selected_node->begin(); it != selected_node->end(); ++it, ++i)
-                {
-                    it.first() >> child_names[i];
-                }
+                impl_->iterator_stack_.push_back(selected_node->begin());
                 return (true);
             }
+            return (false);
+        }
+
+        bool Reader::startIteratedMapElement(std::string &entry_name)
+        {
+            if (impl_->iterator_stack_.back() != impl_->getRawNode().end())
+            {
+                impl_->node_stack_.push_back(&(impl_->iterator_stack_.back().second()));
+                impl_->iterator_stack_.back().first() >> entry_name;
+                return (true);
+            }
+            return (false);
+        }
+
+        void Reader::endIteratedMapElement()
+        {
+            ++impl_->iterator_stack_.back();
+            impl_->node_stack_.pop_back();
+        }
+
+        void Reader::endIteratedMap()
+        {
+            ARILES2_ASSERT(
+                    impl_->iterator_stack_.back() == impl_->getRawNode().end(),
+                    "End of iterated map has not been reached.");
+            impl_->iterator_stack_.pop_back();
         }
 
 
@@ -154,7 +173,6 @@ namespace ariles2
             return (size);
         }
 
-
         void Reader::startArrayElement()
         {
             ARILES2_ASSERT(
@@ -162,13 +180,11 @@ namespace ariles2
                     "Internal error: array has more elements than expected.");
         }
 
-
         void Reader::endArrayElement()
         {
             ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ++impl_->node_stack_.back().index_;
         }
-
 
         void Reader::endArray()
         {

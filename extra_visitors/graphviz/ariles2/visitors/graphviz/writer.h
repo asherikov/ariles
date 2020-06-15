@@ -27,23 +27,11 @@ namespace ariles2
         /**
          * @brief Configuration writer class
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ariles2::write::Visitor
+        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::PIMPLVisitor<write::Visitor, impl::Writer>
         {
-        protected:
-            typedef impl::Writer Impl;
-            typedef ARILES2_SHARED_PTR<impl::Writer> ImplPtr;
-
-
-        protected:
-            ImplPtr impl_;
-
-
         public:
             explicit Writer(const std::string &file_name);
             explicit Writer(std::ostream &output_stream);
-
-
-            const serialization::Features &getSerializationFeatures() const;
 
 
             void flush();
@@ -51,19 +39,16 @@ namespace ariles2
             void startRoot(const std::string &name);
             void endRoot(const std::string &name);
 
-            void descend(const std::string &map_name);
-            void ascend();
-
-
             void startMap(const std::string & /*id*/, const std::size_t num_entries);
-            void endMap();
+            void startMapElement(const std::string &map_name);
+            void endMapElement();
 
             void startArray(const std::size_t size, const bool compact = false);
             void endArrayElement();
             void endArray();
 
 
-#define ARILES2_BASIC_TYPE(type) void writeElement(const type &element);
+#define ARILES2_BASIC_TYPE(type) void writeElement(const type &element, const Parameters &param);
 
             ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 

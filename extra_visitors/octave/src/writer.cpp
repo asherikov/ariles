@@ -94,7 +94,7 @@ namespace ariles2
 
 
 
-        void Writer::descend(const std::string &map_name)
+        void Writer::startMapElement(const std::string &map_name)
         {
             if (0 == impl_->node_stack_.size())
             {
@@ -118,7 +118,7 @@ namespace ariles2
             }
         }
 
-        void Writer::ascend()
+        void Writer::endMapElement()
         {
             impl_->node_stack_.pop_back();
         }
@@ -212,7 +212,7 @@ namespace ariles2
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
-    void Writer::writeElement(const type &element)                                                                     \
+    void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
         if (true == impl_->node_stack_.back().isMatrix())                                                              \
         {                                                                                                              \
@@ -234,7 +234,7 @@ namespace ariles2
 #undef ARILES2_BASIC_TYPE
 
 
-        void Writer::writeElement(const std::string &element)
+        void Writer::writeElement(const std::string &element, const Parameters &)
         {
             *impl_->output_stream_ << impl_->node_stack_.back().node_;
             if (true == impl_->node_stack_.back().isArray())

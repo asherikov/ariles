@@ -23,15 +23,14 @@ namespace ariles2
         /**
          * @brief Configuration reader class
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ns_rapidjson::Base<ariles2::read::Visitor, impl::Reader>
+        class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::PIMPLVisitor<read::Visitor, impl::Reader>
         {
         protected:
             // needed for jsonnet Reader
-            Reader(const Flags &flags = Flags::DEFAULT) : Base(flags)
+            Reader()
             {
             }
             void constructFromString(const char *);
-
 
 
         public:
@@ -40,7 +39,7 @@ namespace ariles2
              *
              * @param[in] file_name
              */
-            explicit Reader(const std::string &file_name, const Flags &flags = Flags::DEFAULT);
+            explicit Reader(const std::string &file_name);
 
 
             /**
@@ -48,18 +47,24 @@ namespace ariles2
              *
              * @param[in] input_stream
              */
-            explicit Reader(std::istream &input_stream, const Flags &flags = Flags::DEFAULT);
-
-
-            bool descend(const std::string &child_name);
-            void ascend();
+            explicit Reader(std::istream &input_stream);
 
 
             void startMap(
                     const SizeLimitEnforcementType limit_type = SIZE_LIMIT_NONE,
                     const std::size_t min = 0,
                     const std::size_t max = 0);
-            bool getMapEntryNames(std::vector<std::string> &child_names);
+            bool startMapElement(const std::string &child_name);
+            void endMapElement();
+
+
+            bool startIteratedMap(
+                    const SizeLimitEnforcementType /*limit_type*/ = SIZE_LIMIT_NONE,
+                    const std::size_t /*min*/ = 0,
+                    const std::size_t /*max*/ = 0);
+            bool startIteratedMapElement(std::string &entry_name);
+            void endIteratedMapElement();
+            void endIteratedMap();
 
 
             std::size_t startArray();

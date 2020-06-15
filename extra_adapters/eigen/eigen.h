@@ -139,14 +139,14 @@ namespace ariles2
         void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
                 t_Visitor &writer,
                 const Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
-                const typename t_Visitor::Parameters & /*param*/)
+                const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
             writer.startVector(entry.rows());
             for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows); ++i)
             {
                 writer.startVectorElement();
-                writer.writeElement(entry[i]);
+                writer.writeElement(entry[i], param);
                 writer.endVectorElement();
             }
             writer.endVector();
@@ -174,7 +174,7 @@ namespace ariles2
                 writer(cols, "cols", param);
                 writer(rows, "rows", param);
 
-                writer.descend("data");
+                writer.startMapElement("data");
             }
 
             writer.startMatrix(rows, cols);
@@ -184,7 +184,7 @@ namespace ariles2
                 for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < cols; ++j)
                 {
                     writer.startMatrixElement();
-                    writer.writeElement(entry(i, j));
+                    writer.writeElement(entry(i, j), param);
                     writer.endMatrixElement();
                 }
                 writer.endMatrixRow();
@@ -193,7 +193,7 @@ namespace ariles2
 
             if (true == dynamic)
             {
-                writer.ascend();
+                writer.endMapElement();
                 writer.endMap();
             }
         }

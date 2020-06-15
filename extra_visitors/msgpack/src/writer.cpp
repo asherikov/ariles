@@ -86,18 +86,17 @@ namespace ariles2
         }
 
 
-        void Writer::descend(const std::string &map_name)
-        {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_TRACE_VALUE(map_name);
-            impl_->packer_->pack(map_name);
-        }
-
-
         void Writer::startMap(const std::string & /*id*/, const std::size_t num_entries)
         {
             ARILES2_TRACE_FUNCTION;
             impl_->packer_->pack_map(num_entries);
+        }
+
+        void Writer::startMapElement(const std::string &map_name)
+        {
+            ARILES2_TRACE_FUNCTION;
+            ARILES2_TRACE_VALUE(map_name);
+            impl_->packer_->pack(map_name);
         }
 
 
@@ -127,24 +126,24 @@ namespace ariles2
                         "Multiple nameless root entries are not supported, specify root names explicitly.");
                 ++impl_->nameless_counter_;
                 impl_->packer_->pack_map(1);
-                descend("ariles");
+                startMapElement("ariles");
             }
             else
             {
                 impl_->packer_->pack_map(1);
-                descend(name);
+                startMapElement(name);
             }
         }
 
         void Writer::endRoot(const std::string & /*name*/)
         {
             ARILES2_TRACE_FUNCTION;
-            ascend();
+            endMapElement();
         }
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
-    void Writer::writeElement(const type &element)                                                                     \
+    void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
         ARILES2_TRACE_FUNCTION;                                                                                        \
         impl_->packer_->pack(element);                                                                                 \

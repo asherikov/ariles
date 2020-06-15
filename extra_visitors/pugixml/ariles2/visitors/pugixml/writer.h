@@ -23,7 +23,7 @@ namespace ariles2
         /**
          * @brief Configuration writer class
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ns_pugixml::Base<ariles2::write::Visitor, impl::Writer>
+        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::PIMPLVisitor<write::Visitor, impl::Writer>
         {
         public:
             explicit Writer(const std::string &file_name);
@@ -33,13 +33,8 @@ namespace ariles2
             void flush();
 
 
-            /**
-             * @brief Starts a nested map in the configuration file
-             *
-             * @param[in] map_name name of the map
-             */
-            void descend(const std::string &map_name);
-            void ascend();
+            void startMapElement(const std::string &map_name);
+            void endMapElement();
 
 
             void startArray(const std::size_t size, const bool /*compact*/ = false);
@@ -52,7 +47,7 @@ namespace ariles2
             void endRoot(const std::string &name);
 
 
-#define ARILES2_BASIC_TYPE(type) void writeElement(const type &element);
+#define ARILES2_BASIC_TYPE(type) void writeElement(const type &element, const Parameters &param);
 
             ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 

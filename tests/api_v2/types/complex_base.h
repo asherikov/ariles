@@ -239,7 +239,11 @@ namespace ariles_tests
         {
             std::map<std::string, std::vector<std::string> >::const_iterator search =
                     configurable_out.std_map_.find(it->first);
-            BOOST_REQUIRE(search != configurable_out.std_map_.end());
+            BOOST_CHECK(search != configurable_out.std_map_.end());
+            if (search == configurable_out.std_map_.end())
+            {
+                break;
+            }
 
             BOOST_CHECK_EQUAL(it->second.size(), search->second.size());
             for (std::size_t i = 0; i < it->second.size(); ++i)

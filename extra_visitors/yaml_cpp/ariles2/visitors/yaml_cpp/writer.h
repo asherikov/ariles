@@ -23,17 +23,15 @@ namespace ariles2
         /**
          * @brief Configuration reader class
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ns_yaml_cpp::Base<ariles2::write::Visitor, impl::Writer>
+        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::PIMPLVisitor<write::Visitor, impl::Writer>
         {
         public:
             explicit Writer(const std::string &file_name);
             explicit Writer(std::ostream &output_stream);
 
 
-            void descend(const std::string &map_name);
-
-
             void startMap(const std::string & /*id*/, const std::size_t /*num_entries*/);
+            void startMapElement(const std::string &map_name);
             void endMap();
 
 
@@ -47,7 +45,7 @@ namespace ariles2
             void endRoot(const std::string &name);
 
 
-#define ARILES2_BASIC_TYPE(type) void writeElement(const type &element);
+#define ARILES2_BASIC_TYPE(type) void writeElement(const type &element, const Parameters &param);
 
             ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 

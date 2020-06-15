@@ -32,11 +32,13 @@ namespace ariles2
             public:
                 /// Stack of nodes.
                 std::vector<NodeWrapper> node_stack_;
+                std::vector<YAML::const_iterator> iterator_stack_;
 
 
             public:
                 const YAML::Node getRawNode(const std::size_t depth)
                 {
+                    ARILES2_TRACE_FUNCTION;
                     if (node_stack_[depth].isArray())
                     {
                         return (getRawNode(depth - 1)[node_stack_[depth].index_]);
@@ -50,6 +52,7 @@ namespace ariles2
 
                 const YAML::Node getRawNode()
                 {
+                    ARILES2_TRACE_FUNCTION;
                     return (getRawNode(node_stack_.size() - 1));
                 }
             };
@@ -64,14 +67,14 @@ namespace ariles2
     {
         Reader::Reader(const std::string &file_name)
         {
-            impl_ = ImplPtr(new Impl());
+            impl_ = ImplPtr(new impl::Reader());
             impl_->node_stack_.push_back(NodeWrapper(YAML::LoadFile(file_name)));
         }
 
 
         Reader::Reader(std::istream &input_stream)
         {
-            impl_ = ImplPtr(new Impl());
+            impl_ = ImplPtr(new impl::Reader());
             impl_->node_stack_.push_back(NodeWrapper(YAML::Load(input_stream)));
         }
 
@@ -83,8 +86,7 @@ namespace ariles2
             checkSize(limit_type, impl_->getRawNode().size(), min, max);
         }
 
-
-        bool Reader::descend(const std::string &child_name)
+        bool Reader::startMapElement(const std::string &child_name)
         {
             ARILES2_TRACE_FUNCTION;
             YAML::Node child = impl_->getRawNode()[child_name];
@@ -100,35 +102,58 @@ namespace ariles2
             }
         }
 
-
-
-        void Reader::ascend()
+        void Reader::endMapElement()
         {
             ARILES2_TRACE_FUNCTION;
             impl_->node_stack_.pop_back();
         }
 
 
-        bool Reader::getMapEntryNames(std::vector<std::string> &child_names)
+
+        bool Reader::startIteratedMap(
+                const SizeLimitEnforcementType limit_type,
+                const std::size_t min,
+                const std::size_t max)
         {
             ARILES2_TRACE_FUNCTION;
+            checkSize(limit_type, impl_->getRawNode().size(), min, max);
+
             YAML::Node selected_node = impl_->getRawNode();
 
-            if (false == selected_node.IsMap())
+            if (true == selected_node.IsMap())
             {
-                return (false);
-            }
-            else
-            {
-                child_names.resize(selected_node.size());
-
-                std::size_t i = 0;
-                for (YAML::const_iterator it = selected_node.begin(); it != selected_node.end(); ++it, ++i)
-                {
-                    child_names[i] = it->first.as<std::string>();
-                }
+                impl_->iterator_stack_.push_back(selected_node.begin());
                 return (true);
             }
+            return (false);
+        }
+
+        bool Reader::startIteratedMapElement(std::string &entry_name)
+        {
+            ARILES2_TRACE_FUNCTION;
+            if (impl_->iterator_stack_.back() != impl_->getRawNode().end())
+            {
+                impl_->node_stack_.push_back(impl_->iterator_stack_.back()->second);
+                entry_name = impl_->iterator_stack_.back()->first.as<std::string>();
+                return (true);
+            }
+            return (false);
+        }
+
+        void Reader::endIteratedMapElement()
+        {
+            ARILES2_TRACE_FUNCTION;
+            ++impl_->iterator_stack_.back();
+            impl_->node_stack_.pop_back();
+        }
+
+        void Reader::endIteratedMap()
+        {
+            ARILES2_TRACE_FUNCTION;
+            ARILES2_ASSERT(
+                    impl_->iterator_stack_.back() == impl_->getRawNode().end(),
+                    "End of iterated map has not been reached.");
+            impl_->iterator_stack_.pop_back();
         }
 
 
@@ -146,6 +171,7 @@ namespace ariles2
 
         void Reader::startArrayElement()
         {
+            ARILES2_TRACE_FUNCTION;
             ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");

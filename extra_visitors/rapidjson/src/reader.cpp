@@ -21,6 +21,9 @@ namespace ariles2
             class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ariles2::ns_rapidjson::ImplBase<const ::rapidjson::Value>
             {
             public:
+                std::vector< ::rapidjson::Value::ConstMemberIterator> iterator_stack_;
+
+            public:
                 void initialize(std::istream &input_stream)
                 {
                     ariles2::ns_rapidjson::IStreamWrapper isw(input_stream);
@@ -38,25 +41,25 @@ namespace ariles2
 {
     namespace ns_rapidjson
     {
-        Reader::Reader(const std::string &file_name, const Flags &flags) : Base(flags)
+        Reader::Reader(const std::string &file_name)
         {
             std::ifstream config_ifs;
             read::Visitor::openFile(config_ifs, file_name);
-            impl_ = ImplPtr(new Impl());
+            impl_ = ImplPtr(new impl::Reader());
             impl_->initialize(config_ifs);
         }
 
 
-        Reader::Reader(std::istream &input_stream, const Flags &flags) : Base(flags)
+        Reader::Reader(std::istream &input_stream)
         {
-            impl_ = ImplPtr(new Impl());
+            impl_ = ImplPtr(new impl::Reader());
             impl_->initialize(input_stream);
         }
 
 
         void Reader::constructFromString(const char *input_string)
         {
-            impl_ = ImplPtr(new Impl());
+            impl_ = ImplPtr(new impl::Reader());
             impl_->document_.Parse(input_string);
         }
 
@@ -67,8 +70,7 @@ namespace ariles2
             checkSize(limit_type, impl_->getRawNode().MemberCount(), min, max);
         }
 
-
-        bool Reader::descend(const std::string &child_name)
+        bool Reader::startMapElement(const std::string &child_name)
         {
             const ::rapidjson::Value::ConstMemberIterator child = impl_->getRawNode().FindMember(child_name.c_str());
 
@@ -83,34 +85,54 @@ namespace ariles2
             }
         }
 
-
-        void Reader::ascend()
+        void Reader::endMapElement()
         {
             impl_->node_stack_.pop_back();
         }
 
 
-        bool Reader::getMapEntryNames(std::vector<std::string> &child_names)
+        bool Reader::startIteratedMap(
+                const SizeLimitEnforcementType limit_type,
+                const std::size_t min,
+                const std::size_t max)
         {
+            ARILES2_TRACE_FUNCTION;
+            checkSize(limit_type, impl_->getRawNode().MemberCount(), min, max);
+
+
             const ::rapidjson::Value &selected_node = impl_->getRawNode();
 
-            if (false == selected_node.IsObject())
+            if (true == selected_node.IsObject())
             {
-                return (false);
-            }
-            else
-            {
-                child_names.resize(selected_node.MemberCount());
-
-                std::size_t i = 0;
-                for (::rapidjson::Value::ConstMemberIterator it = selected_node.MemberBegin();
-                     it != selected_node.MemberEnd();
-                     ++it, ++i)
-                {
-                    child_names[i] = it->name.GetString();
-                }
+                impl_->iterator_stack_.push_back(selected_node.MemberBegin());
                 return (true);
             }
+            return (false);
+        }
+
+        bool Reader::startIteratedMapElement(std::string &entry_name)
+        {
+            if (impl_->iterator_stack_.back() != impl_->getRawNode().MemberEnd())
+            {
+                impl_->node_stack_.push_back(impl::Reader::NodeWrapper(&(impl_->iterator_stack_.back()->value)));
+                entry_name = impl_->iterator_stack_.back()->name.GetString();
+                return (true);
+            }
+            return (false);
+        }
+
+        void Reader::endIteratedMapElement()
+        {
+            ++impl_->iterator_stack_.back();
+            impl_->node_stack_.pop_back();
+        }
+
+        void Reader::endIteratedMap()
+        {
+            ARILES2_ASSERT(
+                    impl_->iterator_stack_.back() == impl_->getRawNode().MemberEnd(),
+                    "End of iterated map has not been reached.");
+            impl_->iterator_stack_.pop_back();
         }
 
 

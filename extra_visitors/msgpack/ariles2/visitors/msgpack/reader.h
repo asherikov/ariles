@@ -26,8 +26,13 @@ namespace ariles2
         /**
          * @brief Configuration reader class
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ns_msgpack::Base<ariles2::read::Visitor, impl::Reader>
+        class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::PIMPLVisitor<read::Visitor, impl::Reader>
         {
+        protected:
+            bool startRoot(const std::string &name);
+            void endRoot(const std::string &name);
+
+
         public:
             /**
              * @brief Constructor
@@ -45,22 +50,18 @@ namespace ariles2
             explicit Reader(std::istream &input_stream);
 
 
-            bool descend(const std::string &child_name);
-            void ascend();
-
             void startMap(
                     const SizeLimitEnforcementType limit_type = SIZE_LIMIT_NONE,
                     const std::size_t min = 0,
                     const std::size_t max = 0);
+            bool startMapElement(const std::string &child_name);
+            void endMapElement();
+
 
             std::size_t startArray();
-            void endArray();
             void startArrayElement();
             void endArrayElement();
-
-
-            bool startRoot(const std::string &name);
-            void endRoot(const std::string &name);
+            void endArray();
 
 
 #define ARILES2_BASIC_TYPE(type) void readElement(type &element);

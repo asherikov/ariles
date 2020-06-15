@@ -25,7 +25,7 @@ namespace ariles2
         /**
          * @brief Configuration writer class
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ns_ros::Base<ariles2::write::Visitor, impl::Writer>
+        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::PIMPLVisitor<write::Visitor, impl::Writer>
         {
         public:
             explicit Writer(const ::ros::NodeHandle &nh);
@@ -34,21 +34,19 @@ namespace ariles2
             void flush();
 
 
-
-            void descend(const std::string &map_name);
-            void ascend();
+            void startMapElement(const std::string &map_name);
+            void endMapElement();
 
             void startArray(const std::size_t size, const bool /*compact*/ = false);
             void startArrayElement();
             void endArrayElement();
             void endArray();
 
-
             void startRoot(const std::string &name);
             void endRoot(const std::string &name);
 
 
-#define ARILES2_BASIC_TYPE(type) void writeElement(const type &element);
+#define ARILES2_BASIC_TYPE(type) void writeElement(const type &element, const Parameters &param);
 
             ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 

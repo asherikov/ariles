@@ -216,8 +216,6 @@ cppcheck:
 		--suppress=syntaxError \
 		--suppress=useInitializationList \
 		--suppress=functionStatic \
-		--suppress=redundantAssignment:tests/api_v1/types/any.h \
-		--suppress=unreadVariable:tests/api_v1/regression_test_019.cpp \
 		--suppress=noExplicitConstructor:tests/api_v2/types/types.h \
 		--suppress=constParameter:tests/api_v2/types/types.h \
 		--suppress=redundantAssignment:tests/api_v2/types/any.h \

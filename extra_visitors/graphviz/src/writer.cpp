@@ -157,13 +157,6 @@ namespace ariles2
         }
 
 
-        const serialization::Features &Writer::getSerializationFeatures() const
-        {
-            static serialization::Features parameters(serialization::Features::SLOPPY_MAPS_SUPPORTED);
-            return (parameters);
-        }
-
-
         void Writer::flush()
         {
             impl_->output_stream_->flush();
@@ -197,7 +190,13 @@ namespace ariles2
         }
 
 
-        void Writer::descend(const std::string &name)
+        void Writer::startMap(const std::string &id, const std::size_t /*num_entries*/)
+        {
+            ARILES2_TRACE_FUNCTION;
+            impl_->writeMap(id);
+        }
+
+        void Writer::startMapElement(const std::string &name)
         {
             ARILES2_TRACE_FUNCTION;
             if (true == impl_->node_stack_.back().isArray())
@@ -216,23 +215,10 @@ namespace ariles2
             impl_->node_stack_.back().name_ = name;
         }
 
-
-        void Writer::ascend()
+        void Writer::endMapElement()
         {
             ARILES2_TRACE_FUNCTION;
             impl_->node_stack_.pop_back();
-        }
-
-
-        void Writer::startMap(const std::string &id, const std::size_t /*num_entries*/)
-        {
-            ARILES2_TRACE_FUNCTION;
-            impl_->writeMap(id);
-        }
-
-        void Writer::endMap()
-        {
-            ARILES2_TRACE_FUNCTION;
         }
 
 
@@ -275,7 +261,7 @@ namespace ariles2
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
-    void Writer::writeElement(const type &)                                                                            \
+    void Writer::writeElement(const type &, const Parameters &)                                                        \
     {                                                                                                                  \
         impl_->writeElement();                                                                                         \
     }

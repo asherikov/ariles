@@ -80,6 +80,10 @@ ARILES_TESTS_SHORTCUT(yaml_cpp03, FilenameInitializer)
 ARILES_TESTS_SHORTCUT(yaml_cpp, FilenameInitializer)
 #endif
 
+#ifdef ARILES2_VISITOR_INCLUDED_pugixml
+ARILES_TESTS_SHORTCUT(pugixml, FilenameInitializer)
+#endif
+
 #ifdef ARILES2_VISITOR_INCLUDED_rapidjson
 // A dirty hack to avoid fixture, which is known to fail for JSON.
 #    define ComparisonMultiFixture ComparisonSimpleFixture

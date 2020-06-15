@@ -18,41 +18,6 @@
 #include <ros/ros.h>
 
 
-namespace ariles2
-{
-    namespace ns_ros
-    {
-        template <class t_Base, class t_Implementation>
-        class ARILES2_VISIBILITY_ATTRIBUTE Base : public t_Base
-        {
-        protected:
-            typedef t_Implementation Impl;
-            typedef ARILES2_SHARED_PTR<t_Implementation> ImplPtr;
-
-        protected:
-            ImplPtr impl_;
-
-
-        private:
-            Base(const Base &);
-            Base &operator=(const Base &);
-
-        protected:
-            Base(){};
-            ~Base(){};
-
-
-        public:
-            const serialization::Features &getSerializationFeatures() const
-            {
-                static serialization::Features parameters(serialization::Features::SLOPPY_MAPS_SUPPORTED);
-                return (parameters);
-            }
-        };
-    }  // namespace ns_ros
-}  // namespace ariles2
-
-
 #include "./ros/reader.h"
 #include "./ros/writer.h"
 

@@ -100,22 +100,15 @@ namespace ariles2
     {
         Writer::Writer(const std::string &file_name)
         {
-            impl_ = ImplPtr(new Impl(file_name));
+            impl_ = ImplPtr(new impl::Writer(file_name));
         }
 
 
         Writer::Writer(std::ostream &output_stream)
         {
-            impl_ = ImplPtr(new Impl(output_stream));
+            impl_ = ImplPtr(new impl::Writer(output_stream));
         }
 
-
-
-        void Writer::descend(const std::string &map_name)
-        {
-            *impl_->emitter_ << YAML::Key << map_name;
-            *impl_->emitter_ << YAML::Value;
-        }
 
 
         void Writer::startMap(const std::string & /*id*/, const std::size_t /*num_entries*/)
@@ -127,6 +120,11 @@ namespace ariles2
             ++impl_->map_depth_;
         }
 
+        void Writer::startMapElement(const std::string &map_name)
+        {
+            *impl_->emitter_ << YAML::Key << map_name;
+            *impl_->emitter_ << YAML::Value;
+        }
 
         void Writer::endMap()
         {
@@ -139,12 +137,10 @@ namespace ariles2
         }
 
 
-
         void Writer::flush()
         {
             impl_->flush();
         }
-
 
 
         void Writer::startArray(const std::size_t /*size*/, const bool compact)
@@ -171,7 +167,7 @@ namespace ariles2
             }
             else
             {
-                descend(name);
+                startMapElement(name);
             }
         }
 
@@ -180,14 +176,14 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             if (false == name.empty())
             {
-                ascend();
+                endMapElement();
             }
             impl_->skip_root_map_ = false;
         }
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
-    void Writer::writeElement(const type &element)                                                                     \
+    void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
         *impl_->emitter_ << element;                                                                                   \
     }
@@ -198,7 +194,7 @@ namespace ariles2
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
-    void Writer::writeElement(const type &element)                                                                     \
+    void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
         if (true == ariles2::isNaN(element))                                                                           \
         {                                                                                                              \
@@ -230,12 +226,12 @@ namespace ariles2
 
 
 
-        void Writer::writeElement(const std::string &element)
+        void Writer::writeElement(const std::string &element, const Parameters &)
         {
             *impl_->emitter_ << element;
         }
 
-        void Writer::writeElement(const bool &element)
+        void Writer::writeElement(const bool &element, const Parameters &)
         {
             *impl_->emitter_ << element;
         }

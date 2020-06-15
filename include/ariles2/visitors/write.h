@@ -63,26 +63,24 @@ namespace ariles2
             /**
              * @brief Starts a nested map in the configuration file
              *
-             * @param[in] map_name name of the map
+             * @param[in] instance_id instance id
+             * @param[in] num_entries number of child entries
              */
-            virtual void descend(const std::string &map_name)
-            {
-                ARILES2_UNUSED_ARG(map_name)
-            }
-            virtual void ascend()
+            virtual void startMap(const std::string & /*instance_id*/, const std::size_t /*num_entries*/)
             {
             }
-
 
             /**
              * @brief Starts a nested map in the configuration file
              *
-             * @param[in] instance_id instance id
-             * @param[in] num_entries number of child entries
+             * @param[in] map_name name of the map
              */
-            virtual void startMap(const std::string & /*instance_id*/, const std::size_t num_entries)
+            virtual void startMapElement(const std::string &map_name)
             {
-                ARILES2_UNUSED_ARG(num_entries)
+                ARILES2_UNUSED_ARG(map_name)
+            }
+            virtual void endMapElement()
+            {
             }
 
             /**
@@ -90,6 +88,18 @@ namespace ariles2
              */
             virtual void endMap()
             {
+            }
+
+
+            virtual bool startIteratedMap(const std::string & instance_id, const std::size_t num_entries)
+            {
+                startMap(instance_id, num_entries);
+                return (true);
+            }
+
+            virtual void endIteratedMap()
+            {
+                endMap();
             }
 
 
@@ -152,7 +162,7 @@ namespace ariles2
                 ARILES2_TRACE_FUNCTION;
                 if (false == name.empty())
                 {
-                    descend(name);
+                    startMapElement(name);
                 }
             }
             virtual void endRoot(const std::string &name)
@@ -160,12 +170,12 @@ namespace ariles2
                 ARILES2_TRACE_FUNCTION;
                 if (false == name.empty())
                 {
-                    ascend();
+                    endMapElement();
                 }
             }
 
 
-#define ARILES2_BASIC_TYPE(type) virtual void writeElement(const type &entry) = 0;
+#define ARILES2_BASIC_TYPE(type) virtual void writeElement(const type &entry, const Parameters &param) = 0;
 
             ARILES2_BASIC_TYPES_LIST
 
@@ -190,12 +200,11 @@ namespace ariles2
                 ARILES2_TRACE_VALUE(entry_name);
                 ARILES2_TRACE_TYPE(entry);
 
-                this->descend(entry_name);
+                this->startMapElement(entry_name);
                 apply_write(*this, entry, param);
-                this->ascend();
+                this->endMapElement();
             }
         };
-
 
 
         class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::ConstBase<write::Visitor>

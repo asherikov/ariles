@@ -47,8 +47,14 @@ namespace ariles2
             void flush();
 
 
-            void descend(const std::string &map_name);
-            void ascend();
+            void startMapElement(const std::string &map_name);
+            void endMapElement();
+
+
+            bool startIteratedMap(const std::string & /*id*/, const std::size_t /*num_entries*/)
+            {
+                return (false);
+            }
 
 
             void startArray(const std::size_t size, const bool compact = false);
@@ -70,7 +76,7 @@ namespace ariles2
             void endMatrix();
 
 
-#define ARILES2_BASIC_TYPE(type) void writeElement(const type &element);
+#define ARILES2_BASIC_TYPE(type) void writeElement(const type &element, const Parameters &param);
 
             ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 

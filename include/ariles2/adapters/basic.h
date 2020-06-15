@@ -106,22 +106,22 @@ namespace ariles2
         void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
                 t_Visitor &writer,
                 const t_Enumeration entry,
-                const typename t_Visitor::Parameters & /*param*/,
+                const typename t_Visitor::Parameters &param,
                 ARILES2_IS_ENUM_ENABLER(t_Enumeration))
         {
             ARILES2_TRACE_FUNCTION;
             int tmp_value = entry;
-            writer.writeElement(tmp_value);
+            writer.writeElement(tmp_value, param);
         }
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     template <class t_Visitor>                                                                                         \
     void ARILES2_VISIBILITY_ATTRIBUTE apply_write(                                                                     \
-            t_Visitor &writer, const type &entry, const typename t_Visitor::Parameters &)                              \
+            t_Visitor &writer, const type &entry, const typename t_Visitor::Parameters &param)                         \
     {                                                                                                                  \
         ARILES2_TRACE_FUNCTION;                                                                                        \
-        writer.writeElement(entry);                                                                                    \
+        writer.writeElement(entry, param);                                                                             \
     }
 
         /**

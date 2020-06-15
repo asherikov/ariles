@@ -44,7 +44,7 @@ namespace ariles2
         void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
                 t_Visitor &writer,
                 const t_BetterEnum &entry,
-                const t_Flags & /*param*/,
+                const t_Flags &param,
                 const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
                 const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
                 const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
@@ -52,7 +52,7 @@ namespace ariles2
                 const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
         {
             ARILES2_TRACE_FUNCTION;
-            writer.writeElement(std::string(entry._to_string()));
+            writer.writeElement(std::string(entry._to_string()), param);
         }
     }  // namespace write
 }  // namespace ariles2

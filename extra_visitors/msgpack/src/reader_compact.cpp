@@ -124,17 +124,7 @@ namespace ariles2
             impl_->node_stack_.push_back(NodeWrapper(0, size));
         }
 
-
-        void Reader::endMap()
-        {
-            ARILES2_ASSERT(
-                    true == impl_->node_stack_.back().isAllParsed(),
-                    "Some entries were not parsed, which is not allowed by this visitor.");
-            impl_->node_stack_.pop_back();
-        }
-
-
-        bool Reader::descend(const std::string &)
+        bool Reader::startMapElement(const std::string &)
         {
             if (true == impl_->node_stack_.back().isArray())
             {
@@ -143,13 +133,20 @@ namespace ariles2
             return (true);
         }
 
-
-        void Reader::ascend()
+        void Reader::endMapElement()
         {
             if (true == impl_->node_stack_.back().isArray())
             {
                 endArrayElement();
             }
+        }
+
+        void Reader::endMap()
+        {
+            ARILES2_ASSERT(
+                    true == impl_->node_stack_.back().isAllParsed(),
+                    "Some entries were not parsed, which is not allowed by this visitor.");
+            impl_->node_stack_.pop_back();
         }
 
 

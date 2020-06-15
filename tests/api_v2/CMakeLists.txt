@@ -58,7 +58,11 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "220" "" "")                
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "221" "array" "")                       # array
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "222" "" "${ARILES_TEST_ALL_VISITORS}") # flags
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "223" "rapidjson" "")                   # json floats, flags
-ariles_define_regression_test(${CMAKE_PROJECT_NAME} "224" "" "yaml_cpp03;yaml_cpp")         # missing entries
+if (NOT ${ARILES_VISITOR_yaml_cpp} STREQUAL "OFF")
+    ariles_define_regression_test(${CMAKE_PROJECT_NAME} "224" "yaml_cpp" "")                # missing entries
+elseif (NOT ${ARILES_VISITOR_yaml_cpp03} STREQUAL "OFF")
+    ariles_define_regression_test(${CMAKE_PROJECT_NAME} "224" "yaml_cpp03" "")              # missing entries
+endif()
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "225" "" "${ARILES_TEST_ALL_VISITORS}") # 201, but with sloppy pairs and maps
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "226" "graphviz" "")                    # complex
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "227" "graphviz" "")                    # pointers

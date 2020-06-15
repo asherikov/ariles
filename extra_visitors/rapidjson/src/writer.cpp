@@ -57,17 +57,16 @@ namespace ariles2
 {
     namespace ns_rapidjson
     {
-        Writer::Writer(const std::string &file_name, const Flags &flags) : Base(flags)
+        Writer::Writer(const std::string &file_name)
         {
-            impl_ = ImplPtr(new Impl(file_name));
+            impl_ = ImplPtr(new impl::Writer(file_name));
         }
 
 
-        Writer::Writer(std::ostream &output_stream, const Flags &flags) : Base(flags)
+        Writer::Writer(std::ostream &output_stream)
         {
-            impl_ = ImplPtr(new Impl(output_stream));
+            impl_ = ImplPtr(new impl::Writer(output_stream));
         }
-
 
 
         void Writer::flush()
@@ -80,8 +79,14 @@ namespace ariles2
         }
 
 
+        void Writer::startMap(const std::string & /*id*/, const std::size_t /*num_entries*/)
+        {
+            impl_->getRawNode().SetObject();
+            // not provided in older versions
+            // impl_->getRawNode().MemberReserve(num_entries, impl_->document_.GetAllocator());
+        }
 
-        void Writer::descend(const std::string &map_name)
+        void Writer::startMapElement(const std::string &map_name)
         {
             ::rapidjson::Value key(map_name.c_str(), impl_->document_.GetAllocator());
             ::rapidjson::Value value;
@@ -93,19 +98,10 @@ namespace ariles2
             impl_->node_stack_.push_back(impl::Writer::NodeWrapper(&(child->value)));
         }
 
-        void Writer::ascend()
+        void Writer::endMapElement()
         {
             impl_->node_stack_.pop_back();
         }
-
-
-        void Writer::startMap(const std::string & /*id*/, const std::size_t /*num_entries*/)
-        {
-            impl_->getRawNode().SetObject();
-            // not provided in older versions
-            // impl_->getRawNode().MemberReserve(num_entries, impl_->document_.GetAllocator());
-        }
-
 
 
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
@@ -144,49 +140,49 @@ namespace ariles2
          *
          * @param[in] element data
          */
-        void Writer::writeElement(const std::string &element)
+        void Writer::writeElement(const std::string &element, const Parameters &)
         {
             impl_->getRawNode().SetString(element.c_str(), impl_->document_.GetAllocator());
         }
 
-        void Writer::writeElement(const bool &element)
+        void Writer::writeElement(const bool &element, const Parameters &)
         {
             impl_->getRawNode().SetBool(element);
         }
 
 
-        void Writer::writeElement(const float &element)
+        void Writer::writeElement(const float &element, const Parameters &param)
         {
-            if (true == flags_.isSet(Flags::DISABLE_STRING_FLOATS))
+            if (true == param.fallback_to_string_floats_)
+            {
+                impl_->getRawNode().SetString(
+                        boost::lexical_cast<std::string>(element).c_str(), impl_->document_.GetAllocator());
+            }
+            else
             {
                 impl_->getRawNode().SetDouble(element);  // old API compatibility
                 // impl_->getRawNode().SetFloat(element);
             }
-            else
-            {
-                impl_->getRawNode().SetString(
-                        boost::lexical_cast<std::string>(element).c_str(), impl_->document_.GetAllocator());
-            }
         }
 
 
-        void Writer::writeElement(const double &element)
+        void Writer::writeElement(const double &element, const Parameters &param)
         {
-            if (true == flags_.isSet(Flags::DISABLE_STRING_FLOATS))
-            {
-                impl_->getRawNode().SetDouble(element);
-            }
-            else
+            if (true == param.fallback_to_string_floats_)
             {
                 impl_->getRawNode().SetString(
                         boost::lexical_cast<std::string>(element).c_str(), impl_->document_.GetAllocator());
+            }
+            else
+            {
+                impl_->getRawNode().SetDouble(element);
             }
         }
 
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
-    void Writer::writeElement(const type &element)                                                                     \
+    void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
         impl_->getRawNode().SetInt64(element);                                                                         \
     }
@@ -197,7 +193,7 @@ namespace ariles2
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
-    void Writer::writeElement(const type &element)                                                                     \
+    void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
         impl_->getRawNode().SetUint64(element);                                                                        \
     }

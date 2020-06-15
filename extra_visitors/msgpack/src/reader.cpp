@@ -138,7 +138,7 @@ namespace ariles2
 
 
 
-        bool Reader::descend(const std::string &child_name)
+        bool Reader::startMapElement(const std::string &child_name)
         {
             ARILES2_TRACE_FUNCTION;
             ARILES2_TRACE_VALUE(child_name);
@@ -179,7 +179,7 @@ namespace ariles2
         }
 
 
-        void Reader::ascend()
+        void Reader::endMapElement()
         {
             ARILES2_TRACE_FUNCTION;
             impl_->node_stack_.pop_back();
@@ -228,18 +228,18 @@ namespace ariles2
                         0 == impl_->nameless_counter_,
                         "Multiple nameless root entries are not supported, specify root names explicitly.");
                 ++impl_->nameless_counter_;
-                return (descend("ariles"));
+                return (startMapElement("ariles"));
             }
             else
             {
-                return (descend(name));
+                return (startMapElement(name));
             }
         }
 
         void Reader::endRoot(const std::string & /*name*/)
         {
             ARILES2_TRACE_FUNCTION;
-            ascend();
+            endMapElement();
         }
 
 

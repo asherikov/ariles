@@ -47,7 +47,7 @@ namespace ariles2
     {
         Reader::Reader(const std::string &file_name)
         {
-            impl_ = ImplPtr(new Impl());
+            impl_ = ImplPtr(new impl::Reader());
 
             pugi::xml_parse_result result = impl_->document_.load_file(file_name.c_str(), pugi::parse_minimal);
             ARILES2_ASSERT(
@@ -58,7 +58,7 @@ namespace ariles2
 
         Reader::Reader(std::istream &input_stream)
         {
-            impl_ = ImplPtr(new Impl());
+            impl_ = ImplPtr(new impl::Reader());
 
             pugi::xml_parse_result result = impl_->document_.load(input_stream, pugi::parse_minimal);
             ARILES2_ASSERT(true == result, std::string("Parsing failed: ") + result.description());
@@ -66,7 +66,7 @@ namespace ariles2
         }
 
 
-        bool Reader::descend(const std::string &child_name)
+        bool Reader::startMapElement(const std::string &child_name)
         {
             const pugi::xml_node child = impl_->getRawNode().child(child_name.c_str());
 
@@ -93,21 +93,49 @@ namespace ariles2
         }
 
 
-        void Reader::ascend()
+        void Reader::endMapElement()
         {
             impl_->node_stack_.pop_back();
         }
 
 
-        bool Reader::getMapEntryNames(std::vector<std::string> &child_names)
+        bool Reader::startIteratedMap(
+                const SizeLimitEnforcementType /*limit_type*/,
+                const std::size_t /*min*/,
+                const std::size_t /*max*/)
+        {
+            pugi::xml_node child = impl_->getRawNode().first_child();
+            if (child)
+            {
+                impl_->node_stack_.push_back(NodeWrapper(child, NodeWrapper::ITERATED_MAP));
+                return (true);
+            }
+            return (false);
+        }
+
+        bool Reader::startIteratedMapElement(std::string &entry_name)
+        {
+            if (impl_->getRawNode())
+            {
+                entry_name = impl_->getRawNode().name();
+                return (true);
+            }
+            return (false);
+        }
+
+        void Reader::endIteratedMapElement()
         {
             const pugi::xml_node node = impl_->getRawNode();
-            child_names.clear();
-            for (pugi::xml_node_iterator it = node.begin(); it != node.end(); ++it)
+            if (node)
             {
-                child_names.push_back(it->name());
+                impl_->getRawNode() = node.next_sibling();
             }
-            return (true);
+        }
+
+        void Reader::endIteratedMap()
+        {
+            ARILES2_ASSERT(!impl_->getRawNode(), "End of iterated map has not been reached.");
+            impl_->node_stack_.pop_back();
         }
 
 
@@ -164,18 +192,18 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             if (true == name.empty())
             {
-                return (descend("ariles"));
+                return (startMapElement("ariles"));
             }
             else
             {
-                return (descend(name));
+                return (startMapElement(name));
             }
         }
 
         void Reader::endRoot(const std::string & /*name*/)
         {
             ARILES2_TRACE_FUNCTION;
-            ascend();
+            endMapElement();
         }
 
 

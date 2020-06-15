@@ -43,33 +43,16 @@ namespace ariles2
                 const typename t_Visitor::Parameters &parameters)
         {
             ARILES2_TRACE_FUNCTION;
-            if (visitor.getSerializationFeatures().isSet(serialization::Features::SLOPPY_MAPS_SUPPORTED)
-                and true == parameters.sloppy_pairs_)
+            // size = 0 is ok if missing entries are allowed (fallback to standard logic which is going to fail)
+            // size > 1 is never ok, due to ambiguity.
+            if (true == parameters.sloppy_pairs_ and true == visitor.startIteratedMap(t_Visitor::SIZE_LIMIT_EQUAL, 1))
             {
-                std::vector<std::string> entry_names;
-                ARILES2_ASSERT(true == visitor.getMapEntryNames(entry_names), "Could not read names of map entries.");
-                if (1 == entry_names.size())
-                {
-                    visitor.startMap(t_Visitor::SIZE_LIMIT_EQUAL, 1);
-
-                    // if entry is in the map, we should be able to read it
-                    visitor.override_missing_entries_locally_ = true;
-                    if (true == visitor(entry.second, entry_names[0], parameters))
-                    {
-                        entry.first = entry_names[0];
-                    }
-
-                    visitor.endMap();
-                }
-                else
-                {
-                    // size = 0 is ok if missing entries are allowed.
-                    // size > 1 is never ok, due to ambiguity.
-                    ARILES2_ASSERT(
-                            0 == entry_names.size()
-                                    and t_Visitor::Parameters::MISSING_ENTRIES_DISABLE != parameters.missing_entries_,
-                            "Wrong number of pair entries for a sloppy pair.");
-                }
+                ARILES2_ASSERT(
+                        true == visitor.startIteratedMapElement(entry.first),
+                        "Could not read first element of a sloppy pair.");
+                apply_read(visitor, entry.second, parameters);
+                visitor.endIteratedMapElement();
+                visitor.endIteratedMap();
             }
             else
             {
@@ -106,12 +89,10 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            if (writer.getSerializationFeatures().isSet(serialization::Features::SLOPPY_MAPS_SUPPORTED)
-                and true == param.sloppy_pairs_)
+            if (true == param.sloppy_pairs_ and true == writer.startIteratedMap("", 1))
             {
-                writer.startMap("", 1);
                 writer(entry.second, entry.first, param);
-                writer.endMap();
+                writer.endIteratedMap();
             }
             else
             {

@@ -22,6 +22,7 @@ namespace ariles2
             bool sloppy_maps_;
             bool sloppy_pairs_;
             bool explicit_matrix_size_;
+            bool fallback_to_string_floats_;
 
 
         public:
@@ -30,37 +31,7 @@ namespace ariles2
                 sloppy_maps_ = false;
                 sloppy_pairs_ = false;
                 explicit_matrix_size_ = false;
-            }
-        };
-
-
-        class ARILES2_VISIBILITY_ATTRIBUTE Features : public ariles2::Flags<unsigned int, serialization::Features>
-        {
-        public:
-            enum Flags
-            {
-                RESET = 0,
-                SLOPPY_MAPS_SUPPORTED = 1,
-
-                DEFAULT = RESET
-            };
-
-
-        public:
-            Features()
-            {
-                setDefaults();
-            }
-
-            Features(const unsigned int flags, const Action action_type = REPLACE)
-            {
-                initialize(flags, action_type);
-            }
-
-
-            void setDefaults()
-            {
-                flags_ = DEFAULT;
+                fallback_to_string_floats_ = true;
             }
         };
 
@@ -75,7 +46,8 @@ namespace ariles2
                 GENERIC = 1,
                 ARRAY = 2,
                 MATRIX = 3,
-                VECTOR = 4
+                VECTOR = 4,
+                ITERATED_MAP = 5
             };
 
 
@@ -87,8 +59,15 @@ namespace ariles2
 
 
         public:
+            Node(const Type type = GENERIC)
+            {
+                ARILES2_TRACE_FUNCTION
+                type_ = type;
+            }
+
             Node(t_RawNode node, const Type type = GENERIC) : node_(node)
             {
+                ARILES2_TRACE_FUNCTION
                 type_ = type;
                 index_ = 0;
                 size_ = 0;
@@ -96,12 +75,14 @@ namespace ariles2
 
             Node(const std::size_t index, const std::size_t size) : index_(index), size_(size)
             {
+                ARILES2_TRACE_FUNCTION
                 type_ = ARRAY;
             }
 
             Node(t_RawNode node, const std::size_t index, const std::size_t size)
               : node_(node), index_(index), size_(size)
             {
+                ARILES2_TRACE_FUNCTION
                 type_ = ARRAY;
             }
 
@@ -127,6 +108,26 @@ namespace ariles2
         };
 
 
+        template <class t_Visitor, class t_Implementation>
+        class ARILES2_VISIBILITY_ATTRIBUTE PIMPLVisitor : public t_Visitor
+        {
+        protected:
+            typedef t_Implementation Impl;
+            typedef ARILES2_SHARED_PTR<t_Implementation> ImplPtr;
+
+        protected:
+            ImplPtr impl_;
+
+        private:
+            PIMPLVisitor(const PIMPLVisitor &);
+            PIMPLVisitor &operator=(const PIMPLVisitor &);
+
+        protected:
+            PIMPLVisitor(){};
+            ~PIMPLVisitor(){};
+        };
+
+
         template <class t_Parameters>
         class ARILES2_VISIBILITY_ATTRIBUTE Base : public visitor::Base<visitor::GenericVisitor, t_Parameters>
         {
@@ -141,12 +142,6 @@ namespace ariles2
             const t_Parameters &getParameters(const t_Ariles &ariles_class) const
             {
                 return (ariles_class.arilesGetParameters(*this));
-            }
-
-            virtual const Features &getSerializationFeatures() const
-            {
-                static serialization::Features parameters;
-                return (parameters);
             }
         };
     }  // namespace serialization

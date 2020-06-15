@@ -28,7 +28,7 @@ namespace ariles2
         /**
          * @brief Configuration reader class
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ns_msgpack::Base<ariles2::read::Visitor, impl::Reader>
+        class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::PIMPLVisitor<read::Visitor, impl::Reader>
         {
         public:
             /**
@@ -51,16 +51,15 @@ namespace ariles2
                     const SizeLimitEnforcementType limit_type = SIZE_LIMIT_NONE,
                     const std::size_t min = 0,
                     const std::size_t max = 0);
+            bool startMapElement(const std::string &);
+            void endMapElement();
             void endMap();
-
-            void ascend();
-            bool descend(const std::string &);
 
 
             std::size_t startArray();
-            void endArray();
             void startArrayElement();
             void endArrayElement();
+            void endArray();
 
 
 #define ARILES2_BASIC_TYPE(type) void readElement(type &element);

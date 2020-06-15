@@ -23,6 +23,9 @@ namespace ariles2
             class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ariles2::ns_ros::ImplBase
             {
             public:
+                std::vector<XmlRpc::XmlRpcValue::iterator> iterator_stack_;
+
+            public:
                 explicit Reader(const ::ros::NodeHandle &nh)
                 {
                     nh_ = nh;
@@ -56,8 +59,7 @@ namespace ariles2
             }
         }
 
-
-        bool Reader::descend(const std::string &child_name)
+        bool Reader::startMapElement(const std::string &child_name)
         {
             if (0 == impl_->node_stack_.size())
             {
@@ -81,32 +83,52 @@ namespace ariles2
             }
         }
 
-
-        void Reader::ascend()
+        void Reader::endMapElement()
         {
             impl_->node_stack_.pop_back();
         }
 
 
-        bool Reader::getMapEntryNames(std::vector<std::string> &child_names)
+
+        bool Reader::startIteratedMap(
+                const SizeLimitEnforcementType limit_type,
+                const std::size_t min,
+                const std::size_t max)
         {
-            XmlRpc::XmlRpcValue selected_node = impl_->getRawNode();
-
-            if (XmlRpc::XmlRpcValue::TypeStruct != selected_node.getType())
+            ARILES2_TRACE_FUNCTION;
+            if (XmlRpc::XmlRpcValue::TypeStruct == impl_->getRawNode().getType())
             {
-                return (false);
-            }
-            else
-            {
-                child_names.resize(selected_node.size());
-
-                std::size_t i = 0;
-                for (XmlRpc::XmlRpcValue::iterator it = selected_node.begin(); it != selected_node.end(); ++it, ++i)
-                {
-                    child_names[i] = it->first;
-                }
+                checkSize(limit_type, impl_->getRawNode().size(), min, max);
+                impl_->iterator_stack_.push_back(impl_->getRawNode().begin());
                 return (true);
             }
+            ARILES2_PERSISTENT_ASSERT(0 == min and min == max, "Expected struct.");
+            return (false);
+        }
+
+        bool Reader::startIteratedMapElement(std::string &entry_name)
+        {
+            if (impl_->iterator_stack_.back() != impl_->getRawNode().end())
+            {
+                impl_->node_stack_.push_back(&impl_->iterator_stack_.back()->second);
+                entry_name = impl_->iterator_stack_.back()->first;
+                return (true);
+            }
+            return (false);
+        }
+
+        void Reader::endIteratedMapElement()
+        {
+            ++impl_->iterator_stack_.back();
+            impl_->node_stack_.pop_back();
+        }
+
+        void Reader::endIteratedMap()
+        {
+            ARILES2_ASSERT(
+                    impl_->iterator_stack_.back() == impl_->getRawNode().end(),
+                    "End of iterated map has not been reached.");
+            impl_->iterator_stack_.pop_back();
         }
 
 
@@ -120,7 +142,6 @@ namespace ariles2
             return (size);
         }
 
-
         void Reader::startArrayElement()
         {
             ARILES2_ASSERT(
@@ -128,13 +149,11 @@ namespace ariles2
                     "Internal error: array has more elements than expected.");
         }
 
-
         void Reader::endArrayElement()
         {
             ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ++impl_->node_stack_.back().index_;
         }
-
 
         void Reader::endArray()
         {
@@ -147,18 +166,18 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             if (true == name.empty())
             {
-                return (descend("ariles"));
+                return (startMapElement("ariles"));
             }
             else
             {
-                return (descend(name));
+                return (startMapElement(name));
             }
         }
 
         void Reader::endRoot(const std::string & /*name*/)
         {
             ARILES2_TRACE_FUNCTION;
-            ascend();
+            endMapElement();
         }
 
 

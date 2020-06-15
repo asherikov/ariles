@@ -19,40 +19,6 @@
 #include <ariles2/internal/helpers.h>
 #include <ariles2/visitors/config.h>
 
-namespace ariles2
-{
-    namespace ns_yaml_cpp03
-    {
-        template <class t_Base, class t_Implementation>
-        class ARILES2_VISIBILITY_ATTRIBUTE Base : public t_Base
-        {
-        protected:
-            typedef t_Implementation Impl;
-            typedef ARILES2_SHARED_PTR<t_Implementation> ImplPtr;
-
-        protected:
-            ImplPtr impl_;
-
-
-        private:
-            Base(const Base &);
-            Base &operator=(const Base &);
-
-        protected:
-            Base(){};
-            ~Base(){};
-
-
-        public:
-            const serialization::Features &getSerializationFeatures() const
-            {
-                static serialization::Features parameters(serialization::Features::SLOPPY_MAPS_SUPPORTED);
-                return (parameters);
-            }
-        };
-    }  // namespace ns_yaml_cpp03
-}  // namespace ariles2
-
 
 #include "./yaml_cpp03/reader.h"
 #include "./yaml_cpp03/writer.h"
