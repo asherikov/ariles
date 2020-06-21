@@ -53,7 +53,7 @@ namespace ariles2
 
 
 
-        void Writer::startMapElement(const std::string &map_name)
+        void Writer::startMapEntry(const std::string &map_name)
         {
             if (0 == impl_->node_stack_.size())
             {
@@ -66,7 +66,7 @@ namespace ariles2
             }
         }
 
-        void Writer::endMapElement()
+        void Writer::endMapEntry()
         {
             impl_->node_stack_.pop_back();
         }
@@ -110,7 +110,7 @@ namespace ariles2
         }
 
 
-        void Writer::startRoot(const std::string &name)
+        void Writer::startRoot(const std::string &name, const Parameters &)
         {
             ARILES2_TRACE_FUNCTION;
 
@@ -119,18 +119,18 @@ namespace ariles2
 
             if (true == name.empty())
             {
-                startMapElement("ariles");
+                startMapEntry("ariles");
             }
             else
             {
-                startMapElement(name);
+                startMapEntry(name);
             }
         }
 
         void Writer::endRoot(const std::string & /*name*/)
         {
             ARILES2_TRACE_FUNCTION;
-            endMapElement();
+            endMapEntry();
         }
 
 

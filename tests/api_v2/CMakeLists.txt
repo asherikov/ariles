@@ -46,7 +46,7 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "205" "" "${ARILES_TEST_ALL_
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "209" "" "${ARILES_TEST_ALL_VISITORS}") # pointers (scalar)
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "210" "rapidjson;jsonnet" "")           # jsonnet
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "211" "rapidjson;yaml_cpp" "")          # visitor inclusion order # TODO
-ariles_define_regression_test(${CMAKE_PROJECT_NAME} "212" "octave" "")                      # octave
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "212" "octave" "")                      # octave: complex, pointers
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "213" "" "${ARILES_TEST_ALL_VISITORS}") # special floats
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "214" "" "${ARILES_TEST_FILE_VISITORS}")# filenames
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "215" "pugixml" "")                     # XML childs vs attributes
@@ -64,5 +64,5 @@ elseif (NOT ${ARILES_VISITOR_yaml_cpp03} STREQUAL "OFF")
     ariles_define_regression_test(${CMAKE_PROJECT_NAME} "224" "yaml_cpp03" "")              # missing entries
 endif()
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "225" "" "${ARILES_TEST_ALL_VISITORS}") # 201, but with sloppy pairs and maps
-ariles_define_regression_test(${CMAKE_PROJECT_NAME} "226" "graphviz" "")                    # complex
-ariles_define_regression_test(${CMAKE_PROJECT_NAME} "227" "graphviz" "")                    # pointers
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "226" "graphviz" "")                    # graphviz: complex, pointers
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "229" "graphviz" "")                    # graphviz: ariles_diagram

@@ -16,7 +16,7 @@ namespace ariles2
 {
     namespace serialization
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters
+        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
         {
         public:
             bool sloppy_maps_;
@@ -26,7 +26,7 @@ namespace ariles2
 
 
         public:
-            Parameters()
+            Parameters(const bool override_parameters = true) : visitor::Parameters(override_parameters)
             {
                 sloppy_maps_ = false;
                 sloppy_pairs_ = false;

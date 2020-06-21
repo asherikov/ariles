@@ -26,7 +26,7 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            std::size_t size = visitor.startArray();
+            std::size_t size = visitor.startVector();
 
             if (Eigen::Dynamic == t_rows)
             {
@@ -39,11 +39,9 @@ namespace ariles2
 
             for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows); ++i)
             {
-                visitor.startArrayElement();
-                apply_read(visitor, entry[i], param);
-                visitor.endArrayElement();
+                visitor.visitVectorElement(entry[i], param);
             }
-            visitor.endArray();
+            visitor.endVector();
         }
 
 
@@ -55,40 +53,26 @@ namespace ariles2
                 const typename t_Visitor::Parameters &parameters)
         {
             ARILES2_TRACE_FUNCTION;
-            if (Eigen::Dynamic == t_rows or Eigen::Dynamic == t_cols or true == parameters.explicit_matrix_size_)
-            {
-                EIGEN_DEFAULT_DENSE_INDEX_TYPE num_rows;
-                EIGEN_DEFAULT_DENSE_INDEX_TYPE num_cols;
+            const bool dynamic = Eigen::Dynamic == t_rows or Eigen::Dynamic == t_cols;
+            std::size_t num_rows = Eigen::Dynamic == t_rows ? 0 : static_cast<std::size_t>(t_cols);
+            std::size_t num_cols = Eigen::Dynamic == t_cols ? 0 : static_cast<std::size_t>(t_rows);
 
+            visitor.startMatrix(num_cols, num_rows, dynamic, parameters);
 
-                typename t_Visitor::Parameters param = parameters;
-                param.missing_entries_ = t_Visitor::Parameters::MISSING_ENTRIES_DISABLE;
+            ARILES2_ASSERT(
+                    Eigen::Dynamic == t_cols || static_cast<std::size_t>(t_cols) == num_cols,
+                    "Wrong number of columns.");
+            ARILES2_ASSERT(
+                    Eigen::Dynamic == t_rows || static_cast<std::size_t>(t_rows) == num_rows, "Wrong number of rows.");
 
-                visitor.startMap(t_Visitor::SIZE_LIMIT_EQUAL, 3);
-                visitor(num_cols, "cols", param);
-                ARILES2_ASSERT(Eigen::Dynamic == t_cols || t_cols == num_cols, "Wrong number of columns.");
-                visitor(num_rows, "rows", param);
-                ARILES2_ASSERT(Eigen::Dynamic == t_rows || t_rows == num_rows, "Wrong number of rows.");
+            Eigen::Matrix<t_Scalar, Eigen::Dynamic, 1> v;
+            apply_read(visitor, v, parameters);
 
+            ARILES2_ASSERT(static_cast<std::size_t>(v.rows()) == num_rows * num_cols, "Wrong entry size.");
+            Eigen::Map<Eigen::Matrix<t_Scalar, t_rows, t_cols, Eigen::RowMajor> > map(v.data(), num_rows, num_cols);
+            entry = map;
 
-                Eigen::Matrix<t_Scalar, Eigen::Dynamic, 1> v;
-                visitor(v, "data", param);
-                visitor.endMap();
-
-                ARILES2_ASSERT(v.rows() == num_rows * num_cols, "Wrong entry size.");
-
-                Eigen::Map<Eigen::Matrix<t_Scalar, t_rows, t_cols, Eigen::RowMajor> > map(v.data(), num_rows, num_cols);
-                entry = map;
-            }
-            else
-            {
-                Eigen::Matrix<t_Scalar, t_rows * t_cols, 1> v;
-
-                apply_read(visitor, v, parameters);
-
-                Eigen::Map<Eigen::Matrix<double, t_rows, t_cols, Eigen::RowMajor> > map(v.data(), t_rows, t_cols);
-                entry = map;
-            }
+            visitor.endMatrix(dynamic);
         }
 
 
@@ -118,13 +102,13 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
 
             typename t_Visitor::Parameters param = parameters;
-            param.missing_entries_ = t_Visitor::Parameters::MISSING_ENTRIES_DISABLE;
+            param.allow_missing_entries_ = false;
 
             visitor.startMap(t_Visitor::SIZE_LIMIT_EQUAL, 4);
-            visitor(entry.x(), "x", param);
-            visitor(entry.y(), "y", param);
-            visitor(entry.z(), "z", param);
-            visitor(entry.w(), "w", param);
+            visitor.visitMapEntry(entry.x(), "x", param, true);
+            visitor.visitMapEntry(entry.y(), "y", param, true);
+            visitor.visitMapEntry(entry.z(), "z", param, true);
+            visitor.visitMapEntry(entry.w(), "w", param, true);
             visitor.endMap();
         }
     }  // namespace read
@@ -145,13 +129,10 @@ namespace ariles2
             writer.startVector(entry.rows());
             for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < (Eigen::Dynamic == t_rows ? entry.rows() : t_rows); ++i)
             {
-                writer.startVectorElement();
-                writer.writeElement(entry[i], param);
-                writer.endVectorElement();
+                writer.visitVectorElement(entry[i], param);
             }
             writer.endVector();
         }
-
 
 
         template <class t_Visitor, typename t_Scalar, int t_rows, int t_cols, int t_flags>
@@ -160,42 +141,21 @@ namespace ariles2
                 const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
-            const bool dynamic =
-                    Eigen::Dynamic == t_rows or Eigen::Dynamic == t_cols or true == param.explicit_matrix_size_;
-            const EIGEN_DEFAULT_DENSE_INDEX_TYPE rows = Eigen::Dynamic == t_rows ? entry.rows() : t_rows;
-            const EIGEN_DEFAULT_DENSE_INDEX_TYPE cols = Eigen::Dynamic == t_cols ? entry.cols() : t_cols;
+            const EIGEN_DEFAULT_DENSE_INDEX_TYPE rows = entry.rows();
+            const EIGEN_DEFAULT_DENSE_INDEX_TYPE cols = entry.cols();
 
-
-            if (true == dynamic)
-            {
-                writer.startMap("", 3);
-
-                writer(cols, "cols", param);
-                writer(rows, "rows", param);
-
-                writer.startMapElement("data");
-            }
-
-            writer.startMatrix(rows, cols);
+            const bool dynamic = Eigen::Dynamic == t_rows or Eigen::Dynamic == t_cols;
+            writer.startMatrix(dynamic, cols, rows, param);
             for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < rows; ++i)
             {
                 writer.startMatrixRow();
                 for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < cols; ++j)
                 {
-                    writer.startMatrixElement();
-                    writer.writeElement(entry(i, j), param);
-                    writer.endMatrixElement();
+                    writer.visitMatrixElement(entry(i, j), param);
                 }
                 writer.endMatrixRow();
             }
-            writer.endMatrix();
-
-            if (true == dynamic)
-            {
-                writer.endMapElement();
-                writer.endMap();
-            }
+            writer.endMatrix(dynamic);
         }
 
 
@@ -218,12 +178,12 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
 
-            writer.startMap("", 4);
+            writer.startMap(param, 4);
 
-            writer(entry.x(), "x", param);
-            writer(entry.y(), "y", param);
-            writer(entry.z(), "z", param);
-            writer(entry.w(), "w", param);
+            writer.visitMapEntry(entry.x(), "x", param);
+            writer.visitMapEntry(entry.y(), "y", param);
+            writer.visitMapEntry(entry.z(), "z", param);
+            writer.visitMapEntry(entry.w(), "w", param);
 
             writer.endMap();
         }

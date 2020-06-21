@@ -34,7 +34,7 @@ namespace ariles2
         public:
             RelaxedSloppyParameters()
             {
-                missing_entries_ = Parameters::MISSING_ENTRIES_ENABLE;
+                allow_missing_entries_ = true;
             }
         };
     }  // namespace read

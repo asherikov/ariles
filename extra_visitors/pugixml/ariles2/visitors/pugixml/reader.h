@@ -47,8 +47,8 @@ namespace ariles2
             explicit Reader(std::istream &input_stream);
 
 
-            bool startMapElement(const std::string &child_name);
-            void endMapElement();
+            bool startMapEntry(const std::string &child_name);
+            void endMapEntry();
 
 
             std::size_t startArray();

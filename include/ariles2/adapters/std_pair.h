@@ -26,12 +26,8 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
             visitor.startMap(t_Visitor::SIZE_LIMIT_EQUAL, 2);
-
-            visitor.override_missing_entries_locally_ = true;
-            visitor(entry.first, "first", parameters);
-
-            visitor.override_missing_entries_locally_ = true;
-            visitor(entry.second, "second", parameters);
+            visitor.visitMapEntry(entry.first, "first", parameters, true);
+            visitor.visitMapEntry(entry.second, "second", parameters, true);
             visitor.endMap();
         }
 
@@ -74,9 +70,9 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            writer.startMap("", 2);
-            writer(entry.first, "first", param);
-            writer(entry.second, "second", param);
+            writer.startMap(param, 2);
+            writer.visitMapEntry(entry.first, "first", param);
+            writer.visitMapEntry(entry.second, "second", param);
             writer.endMap();
         }
 
@@ -89,20 +85,24 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            if (true == param.sloppy_pairs_ and true == writer.startIteratedMap("", 1))
+            if (true == param.sloppy_pairs_)
             {
-                writer(entry.second, entry.first, param);
-                writer.endIteratedMap();
+                if (true == writer.startIteratedMap(1, param))
+                {
+                    writer.startIteratedMapElement(entry.first);
+                    apply_write(writer, entry.second, param);
+                    writer.endIteratedMapElement();
+                    writer.endIteratedMap();
+                    return;
+                }
             }
-            else
-            {
-                // ? Gets mixed up with vector and fails.
-                // apply<t_Visitor, std::string, t_Second>(writer, entry, param);
-                writer.startMap("", 2);
-                writer(entry.first, "first", param);
-                writer(entry.second, "second", param);
-                writer.endMap();
-            }
+
+            // ? Gets mixed up with vector and fails.
+            // apply_write<t_Visitor, std::string, t_Second>(writer, entry, param);
+            writer.startMap(param, 2);
+            writer.visitMapEntry(entry.first, "first", param);
+            writer.visitMapEntry(entry.second, "second", param);
+            writer.endMap();
         }
     }  // namespace write
 }  // namespace ariles2

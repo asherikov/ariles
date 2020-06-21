@@ -30,8 +30,8 @@ namespace ariles2
             explicit Writer(std::ostream &output_stream);
 
 
-            void startMap(const std::string & /*id*/, const std::size_t /*num_entries*/);
-            void startMapElement(const std::string &map_name);
+            void startMap(const Parameters &, const std::size_t /*num_entries*/);
+            void startMapEntry(const std::string &map_name);
             void endMap();
 
 
@@ -41,7 +41,7 @@ namespace ariles2
             void startArray(const std::size_t /*size*/, const bool compact = false);
             void endArray();
 
-            void startRoot(const std::string &name);
+            void startRoot(const std::string &name, const Parameters &);
             void endRoot(const std::string &name);
 
 

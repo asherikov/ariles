@@ -32,11 +32,15 @@ namespace ariles2
 
 
         public:
-            Parameters()
+            Parameters(const bool override_parameters = true)
+              : defaults_parameters_(override_parameters)
+              , reader_parameters_(override_parameters)
+              , postprocess_parameters_(override_parameters)
             {
             }
 
-            Parameters(const typename t_Reader::Parameters &param)
+            Parameters(const typename t_Reader::Parameters &param, const bool override_parameters = true)
+              : defaults_parameters_(override_parameters), postprocess_parameters_(override_parameters)
             {
                 this->reader_parameters_ = param;
             }
@@ -102,15 +106,7 @@ namespace ariles2
 
 
             template <class t_Entry>
-            void start(t_Entry &entry, const std::string &name, const Parameters &param)
-            {
-                ARILES2_TRACE_FUNCTION;
-                this->operator()(entry, name, param);
-            }
-
-
-            template <class t_Entry>
-            void operator()(t_Entry &entry, const std::string &name, const Parameters &param)
+            void visit(t_Entry &entry, const std::string &name, const Parameters &param)
             {
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_VALUE(name);
@@ -216,15 +212,7 @@ namespace ariles2
 
 
             template <class t_Entry>
-            void start(t_Entry &entry, const std::string &name, const Parameters &param)
-            {
-                ARILES2_TRACE_FUNCTION;
-                this->operator()(entry, name, param);
-            }
-
-
-            template <class t_Entry>
-            void operator()(t_Entry &entry, const std::string &name, const Parameters &param)
+            void visit(t_Entry &entry, const std::string &name, const Parameters &param)
             {
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_VALUE(name);

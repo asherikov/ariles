@@ -17,11 +17,9 @@ public:
 #    ifndef ARILES_DOXYGEN_PROCESSING
 #        ifdef ARILES2_ENTRIES
 #            include "visit_generic_parent.h"
-#            include "visit_generic_all.h"
 
 // clang-format off
             ARILES2_VISIT_generic_parent
-            ARILES2_VISIT_generic_all
 // clang-format on
 
 #        endif

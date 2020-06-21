@@ -8,6 +8,16 @@
     @brief
 */
 
+/**
+@defgroup rapidjson RapidJSON
+
+@brief JSON serialization via https://rapidjson.org/.
+
+@note NaN's and infinities, which are not allowed by \c JSON specification, are
+optionally parsed / emitted using \c boost::lexical_cast.
+*/
+
+
 #pragma once
 
 #define ARILES2_VISITOR_INCLUDED_rapidjson
@@ -24,6 +34,7 @@ namespace ariles2
 {
     /**
      * @brief JSON visitor.
+     * @ingroup rapidjson
      */
     struct ARILES2_VISIBILITY_ATTRIBUTE rapidjson
     {

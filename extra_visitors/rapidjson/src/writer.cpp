@@ -79,14 +79,14 @@ namespace ariles2
         }
 
 
-        void Writer::startMap(const std::string & /*id*/, const std::size_t /*num_entries*/)
+        void Writer::startMap(const Parameters &, const std::size_t /*num_entries*/)
         {
             impl_->getRawNode().SetObject();
             // not provided in older versions
             // impl_->getRawNode().MemberReserve(num_entries, impl_->document_.GetAllocator());
         }
 
-        void Writer::startMapElement(const std::string &map_name)
+        void Writer::startMapEntry(const std::string &map_name)
         {
             ::rapidjson::Value key(map_name.c_str(), impl_->document_.GetAllocator());
             ::rapidjson::Value value;
@@ -98,7 +98,7 @@ namespace ariles2
             impl_->node_stack_.push_back(impl::Writer::NodeWrapper(&(child->value)));
         }
 
-        void Writer::endMapElement()
+        void Writer::endMapEntry()
         {
             impl_->node_stack_.pop_back();
         }

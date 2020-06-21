@@ -45,9 +45,9 @@ namespace ariles2
             explicit Writer(std::ostream &output_stream);
 
 
-            void startMap(const std::string & /*id*/, const std::size_t num_entries);
+            void startMap(const Parameters &, const std::size_t num_entries);
 
-            bool startIteratedMap(const std::string & /*id*/, const std::size_t /*num_entries*/)
+            bool startIteratedMap(const std::size_t /*num_entries*/, const Parameters &)
             {
                 return (false);
             }

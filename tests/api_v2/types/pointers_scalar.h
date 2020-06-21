@@ -91,7 +91,7 @@ namespace ariles_tests
         }
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         void randomize()
         {
             boost::random::random_device random_generator;
@@ -124,7 +124,7 @@ namespace ariles_tests
     };
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_COMPARE_DISABLED
     template <class t_Configurable_out, class t_Configurable_in>
     void compare(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)
     {

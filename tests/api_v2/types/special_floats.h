@@ -55,7 +55,7 @@ namespace ariles_tests
         }
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         virtual void randomize()
         {
             boost::random::random_device random_generator;
@@ -81,7 +81,7 @@ namespace ariles_tests
 
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_COMPARE_DISABLED
     void check(class ConfigurableSpecialFloats &configurable)
     {
         BOOST_CHECK(true == configurable.postprocessed_);

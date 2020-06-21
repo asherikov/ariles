@@ -85,7 +85,7 @@ Use cases
 Minimal example
 ===============
 
-Demo: https://asherikov.github.io/ariles/2/DEMOv2.html [`./tests/api_v2/demo_api_v2.cpp`]
+Demo: https://asherikov.github.io/ariles/2/DEMO.html [`./tests/api_v2/demo_api_v2.cpp`]
 
 
 Class [`./tests/api_v2/types/minimal.h`]:
@@ -124,39 +124,37 @@ ariles2::apply<ariles2::ros::Writer>(nh, configurable, "/some_namespace/");
 
 
 <a name="formats"></a>
-Supported data formats
-======================
+Supported data representation formats
+=====================================
 
-Currently supported formats are (all are optional):
+`ariles` includes a number of optional modules that allow to work with
+specific data representation formats, for example:
 
-* `YAML` via `yaml-cpp`, both old C++03 and new API supported.
-    - `yaml-cpp` does not comply with the specification when it emits NaN's and
-      infinities, see https://github.com/jbeder/yaml-cpp/issues/507. `ariles`
-      includes a workaround for this issue.
+* `YAML` via `yaml-cpp`:
+  https://asherikov.github.io/ariles/2/group__yaml__cpp.html.
 
-* `msgpack` via `msgpack-c`.
+* `msgpack` via `msgpack-c`:
+  https://asherikov.github.io/ariles/2/group__msgpack.html.
 
-* `JSON` via `RapidJSON`, with optional Jsonnet (https://jsonnet.org/)
-  preprocessing:
-    - NaN's and infinities, which are not allowed by `JSON` specification, are
-      optionally parsed / emitted using `boost::lexical_cast`.
+* `JSON` via `RapidJSON`, with optional Jsonnet preprocessing:
+  https://asherikov.github.io/ariles/2/group__rapidjson.html and
+  https://asherikov.github.io/ariles/2/group__jsonnet.html.
 
 * `XML` via `PugiXML`:
-    - Attributes are treated as childs while parsing and are never used for
-      emission.
+  https://asherikov.github.io/ariles/2/group__pugixml.html
 
 * `Octave` script, output only, no dependencies:
-    - Eigen matrices are written in the 'native' format, so they can be used
-      directly, no reshaping is necessary.
+  https://asherikov.github.io/ariles/2/group__octave.html
 
-    - Matlab might be supported, but has not been tested.
-
-* `ROS` parameter server, via standard `ROS` libs.
+* `ROS` parameter server, via standard `ROS` libs:
+  https://asherikov.github.io/ariles/2/group__ros.html
 
 * A set of key-value pairs, output only, no dependencies:
-    - A vector of string-double pairs with flattened member names, e.g.,
-      `<class.member_class.member, value>`.
+  https://asherikov.github.io/ariles/2/group__array.html
 
+
+The complete list of modules is available at
+https://asherikov.github.io/ariles/2/modules.html
 
 
 <a name="types"></a>

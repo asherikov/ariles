@@ -86,7 +86,7 @@ namespace ariles2
             checkSize(limit_type, impl_->getRawNode().size(), min, max);
         }
 
-        bool Reader::startMapElement(const std::string &child_name)
+        bool Reader::startMapEntry(const std::string &child_name)
         {
             ARILES2_TRACE_FUNCTION;
             YAML::Node child = impl_->getRawNode()[child_name];
@@ -102,7 +102,7 @@ namespace ariles2
             }
         }
 
-        void Reader::endMapElement()
+        void Reader::endMapEntry()
         {
             ARILES2_TRACE_FUNCTION;
             impl_->node_stack_.pop_back();

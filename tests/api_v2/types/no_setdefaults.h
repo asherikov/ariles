@@ -29,7 +29,7 @@ namespace ariles_tests
         }
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         void randomize()
         {
             boost::random::random_device random_generator;

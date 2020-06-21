@@ -23,7 +23,10 @@
 // TYPES
 // ===============================================================
 
+#define ARILES_TESTS_COMPARE_DISABLED
 #include "types/complex_auto_declare.h"
+#include "types/pointers.h"
+#undef ARILES_TESTS_COMPARE_DISABLED
 
 
 // ===============================================================
@@ -40,6 +43,7 @@
 // ===============================================================
 
 #define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                                               \
-    ARILES_FIXTURE_TEST_CASE(OctaveFixture, VISITOR_ID, NAMESPACE, ConfigurableComplex, INITIALIZER)
+    ARILES_FIXTURE_TEST_CASE(OctaveFixture, VISITOR_ID, NAMESPACE, ConfigurableComplex, INITIALIZER)                   \
+    ARILES_FIXTURE_TEST_CASE(OctaveFixture, VISITOR_ID, NAMESPACE, ConfigurablePointers, INITIALIZER)
 
 #include "instantiate.h"

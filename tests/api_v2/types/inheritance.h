@@ -40,7 +40,7 @@ namespace ariles_tests
         }
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         void randomize()
         {
             boost::random::random_device random_generator;
@@ -72,11 +72,11 @@ namespace ariles_tests
 
         void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
         {
-            visitor(member_, "member", param);
+            visitor.visitMapEntry(member_, "member", param);
         }
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         void randomize()
         {
             boost::random::random_device random_generator;
@@ -106,11 +106,11 @@ namespace ariles_tests
 
         void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
         {
-            visitor(member_, "member", param);
+            visitor.visitMapEntry(member_, "member", param);
         }
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         void randomize()
         {
             boost::random::random_device random_generator;
@@ -140,14 +140,14 @@ namespace ariles_tests
 
         void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
         {
-            visitor(another_member_, "another_member", param);
-            visitor(another_member1_, "another_member1", param);
+            visitor.visitMapEntry(another_member_, "another_member", param);
+            visitor.visitMapEntry(another_member1_, "another_member1", param);
             ConfigurableBase::arilesVisit(visitor, param);
             ConfigurableMember<int>::arilesVisit(visitor, param);
         }
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         void randomize()
         {
             boost::random::random_device random_generator;
@@ -161,7 +161,7 @@ namespace ariles_tests
     };
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_COMPARE_DISABLED
     // comparison
     template <class t_Configurable_out, class t_Configurable_in>
     void compare(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)

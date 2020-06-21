@@ -35,15 +35,15 @@ namespace ariles2
 
 
             template <class t_Entry>
-            void start(t_Entry &entry, const std::string &name, const Parameters &param) const
+            void visit(t_Entry &entry, const std::string &name, const Parameters &param) const
             {
                 ARILES2_TRACE_FUNCTION;
-                this->operator()(entry, name, param);
+                this->visitMapEntry(entry, name, param);
             }
 
 
             template <class t_Entry>
-            void operator()(t_Entry &entry, const std::string &name, const Parameters &param) const
+            void visitMapEntry(t_Entry &entry, const std::string &name, const Parameters &param) const
             {
                 ARILES2_UNUSED_ARG(name);
                 ARILES2_TRACE_FUNCTION;

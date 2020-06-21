@@ -155,10 +155,10 @@ namespace ariles2
                     true == isConsistent(),
                     "Could not write config: entry is in an inconsistent (partially initialized) state.");
 
-            visitor(id_, "id", param);
+            visitor.visitMapEntry(id_, "id", param);
             if (true == isInitialized())
             {
-                visitor(*value_, "value", param);
+                visitor.visitMapEntry(*value_, "value", param);
             }
         }
 
@@ -167,19 +167,16 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
 
-            if (true == visitor(id_, "id", parameters))
+            if (true == visitor.visitMapEntry(id_, "id", parameters))
             {
                 if ("" == id_)
                 {
-                    ARILES2_ASSERT(
-                            ariles2::Read::Parameters::MISSING_ENTRIES_DISABLE != parameters.missing_entries_,
-                            "Id is empty, value cannot be read.");
+                    ARILES2_ASSERT(true == parameters.allow_missing_entries_, "Id is empty, value cannot be read.");
                 }
                 else
                 {
                     build(id_);
-                    visitor.override_missing_entries_locally_ = true;
-                    visitor(*value_, "value", parameters);
+                    visitor.visitMapEntry(*value_, "value", parameters, true);
                 }
             }
         }
@@ -326,6 +323,14 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
             value_->arilesVisit(visitor, *other.value_, param);
+        }
+#endif
+
+#ifdef ARILES2_METHODS_graphviz
+        void arilesVisit(ariles2::Graphviz &writer, const ariles2::Graphviz::Parameters &parameters) const
+        {
+            ARILES2_ASSERT(false == isNull(), "Could not write config: entry is not initialized");
+            value_->arilesVisit(writer, parameters);
         }
 #endif
     };

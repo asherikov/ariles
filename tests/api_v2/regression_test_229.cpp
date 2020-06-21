@@ -35,8 +35,7 @@
 // ===============================================================
 
 #define ARILES_TESTS_COMPARE_DISABLED
-#include "types/complex_auto_declare.h"
-#include "types/pointers.h"
+#include "types/ariles_diagram.h"
 #undef ARILES_TESTS_COMPARE_DISABLED
 
 
@@ -44,7 +43,7 @@
 // FIXTURES
 // ===============================================================
 
-#define ARILES_TESTS_TEST_NAME "regression_test_226"
+#define ARILES_TESTS_TEST_NAME "regression_test_229"
 #include "fixtures/initializers.h"
 #include "fixtures/016_write_graphviz.h"
 #include "fixtures/017_diff.h"
@@ -55,8 +54,7 @@
 // ===============================================================
 
 #define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                                               \
-    ARILES_FIXTURE_TEST_CASE(GraphvizFixture, VISITOR_ID, NAMESPACE, ConfigurableComplex, INITIALIZER)                 \
-    ARILES_FIXTURE_TEST_CASE(DiffFixture, VISITOR_ID, NAMESPACE, ConfigurableComplex, INITIALIZER)                     \
-    ARILES_FIXTURE_TEST_CASE(GraphvizFixture, VISITOR_ID, NAMESPACE, ConfigurablePointers, INITIALIZER)
+    ARILES_FIXTURE_TEST_CASE(DiffFixture, VISITOR_ID, NAMESPACE, ArilesDiagram, INITIALIZER)                           \
+    ARILES_FIXTURE_TEST_CASE(GraphvizFixture, VISITOR_ID, NAMESPACE, ArilesDiagram, INITIALIZER)
 
 #include "instantiate.h"

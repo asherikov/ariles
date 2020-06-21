@@ -6,6 +6,13 @@
     @brief
 */
 
+/**
+@defgroup jsonnet Jsonnet
+
+@brief Preprocessing wrapper for json visitors, see https://jsonnet.org/.
+*/
+
+
 #pragma once
 
 #define ARILES2_VISITOR_INCLUDED_jsonnet
@@ -19,6 +26,10 @@
 
 namespace ariles2
 {
+    /**
+     * @brief Jsonnet visitor wrapper.
+     * @ingroup jsonnet
+     */
     template <class t_ParentVisitor>
     struct ARILES2_VISIBILITY_ATTRIBUTE jsonnet
     {

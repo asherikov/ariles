@@ -34,15 +34,15 @@ namespace ariles2
             void flush();
 
 
-            void startMapElement(const std::string &map_name);
-            void endMapElement();
+            void startMapEntry(const std::string &map_name);
+            void endMapEntry();
 
             void startArray(const std::size_t size, const bool /*compact*/ = false);
             void startArrayElement();
             void endArrayElement();
             void endArray();
 
-            void startRoot(const std::string &name);
+            void startRoot(const std::string &name, const Parameters &);
             void endRoot(const std::string &name);
 
 

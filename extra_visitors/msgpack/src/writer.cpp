@@ -86,13 +86,13 @@ namespace ariles2
         }
 
 
-        void Writer::startMap(const std::string & /*id*/, const std::size_t num_entries)
+        void Writer::startMap(const Parameters &, const std::size_t num_entries)
         {
             ARILES2_TRACE_FUNCTION;
             impl_->packer_->pack_map(num_entries);
         }
 
-        void Writer::startMapElement(const std::string &map_name)
+        void Writer::startMapEntry(const std::string &map_name)
         {
             ARILES2_TRACE_FUNCTION;
             ARILES2_TRACE_VALUE(map_name);
@@ -116,7 +116,7 @@ namespace ariles2
         }
 
 
-        void Writer::startRoot(const std::string &name)
+        void Writer::startRoot(const std::string &name, const Parameters &)
         {
             ARILES2_TRACE_FUNCTION;
             if (true == name.empty())
@@ -126,19 +126,19 @@ namespace ariles2
                         "Multiple nameless root entries are not supported, specify root names explicitly.");
                 ++impl_->nameless_counter_;
                 impl_->packer_->pack_map(1);
-                startMapElement("ariles");
+                startMapEntry("ariles");
             }
             else
             {
                 impl_->packer_->pack_map(1);
-                startMapElement(name);
+                startMapEntry(name);
             }
         }
 
         void Writer::endRoot(const std::string & /*name*/)
         {
             ARILES2_TRACE_FUNCTION;
-            endMapElement();
+            endMapEntry();
         }
 
 

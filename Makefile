@@ -170,7 +170,7 @@ update:
 
 doxclean:
 	cd doc/dox; git fetch --all; git checkout gh-pages; git pull
-	rm -Rf ./doc/dox/1
+	rm -Rf ./doc/dox/2
 
 dox: doxclean clean
 	cd doc; doxygen

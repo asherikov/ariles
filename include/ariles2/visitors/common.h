@@ -15,6 +15,19 @@ namespace ariles2
 {
     namespace visitor
     {
+        class Parameters
+        {
+        public:
+            bool override_parameters_;
+
+        public:
+            Parameters(const bool override_parameters = true)
+            {
+                override_parameters_ = override_parameters;
+            }
+        };
+
+
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor
         {
         protected:
@@ -40,7 +53,7 @@ namespace ariles2
 
             const t_Parameters &getDefaultParameters() const
             {
-                const static t_Parameters parameters;
+                const static t_Parameters parameters(false);
                 return parameters;
             }
         };
@@ -113,7 +126,7 @@ namespace ariles2
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
-        visitor.start(ariles_class, name, param);
+        visitor.visit(ariles_class, name, param);
     }
 
 
@@ -126,7 +139,7 @@ namespace ariles2
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
-        visitor.start(ariles_class, name, param);
+        visitor.visit(ariles_class, name, param);
     }
 
 
@@ -150,7 +163,7 @@ namespace ariles2
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
-        ariles2::apply(visitor, ariles_class, name, visitor.getParameters(ariles_class));
+        visitor.visit(ariles_class, name, visitor.getParameters(ariles_class));
     }
 
 
@@ -162,7 +175,7 @@ namespace ariles2
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
-        ariles2::apply(visitor, ariles_class, name, visitor.getParameters(ariles_class));
+        visitor.visit(ariles_class, name, visitor.getParameters(ariles_class));
     }
 
 
@@ -269,18 +282,7 @@ namespace ariles2
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
-        try
-        {
-            visitor.start(left, right, name, param);
-        }
-        catch (std::exception &e)
-        {
-            if (true == param.throw_on_error_)
-            {
-                ARILES2_THROW(std::string("Comparison failed: ") + e.what());
-            }
-            visitor.equal_ = false;
-        }
+        visitor.visit(left, right, name, param);
     }
 
 
@@ -293,7 +295,7 @@ namespace ariles2
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
-        ariles2::apply(visitor, left, right, left.arilesDefaultID(), visitor.getParameters(left));
+        visitor.visit(left, right, left.arilesDefaultID(), visitor.getParameters(left));
     }
 
 

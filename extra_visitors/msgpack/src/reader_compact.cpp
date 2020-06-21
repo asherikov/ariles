@@ -124,7 +124,7 @@ namespace ariles2
             impl_->node_stack_.push_back(NodeWrapper(0, size));
         }
 
-        bool Reader::startMapElement(const std::string &)
+        bool Reader::startMapEntry(const std::string &)
         {
             if (true == impl_->node_stack_.back().isArray())
             {
@@ -133,7 +133,7 @@ namespace ariles2
             return (true);
         }
 
-        void Reader::endMapElement()
+        void Reader::endMapEntry()
         {
             if (true == impl_->node_stack_.back().isArray())
             {

@@ -83,9 +83,7 @@ namespace ariles2
                  it != entry.end();
                  ++it)
             {
-                writer.startArrayElement();
-                apply_write(writer, *it, param);
-                writer.endArrayElement();
+                writer.visitArrayElement(*it, param);
             }
             writer.endArray();
         }
@@ -98,20 +96,24 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            if (true == param.sloppy_maps_ and true == writer.startIteratedMap("", entry.size()))
+            if (true == param.sloppy_maps_)
             {
-                for (typename std::map<std::string, t_Value, t_Compare, t_Allocator>::const_iterator it = entry.begin();
-                     it != entry.end();
-                     ++it)
+                if (true == writer.startIteratedMap(entry.size(), param))
                 {
-                    writer(it->second, it->first, param);
+                    for (typename std::map<std::string, t_Value, t_Compare, t_Allocator>::const_iterator it =
+                                 entry.begin();
+                         it != entry.end();
+                         ++it)
+                    {
+                        writer.startIteratedMapElement(it->first);
+                        apply_write(writer, it->second, param);
+                        writer.endIteratedMapElement();
+                    }
+                    writer.endIteratedMap();
+                    return;
                 }
-                writer.endIteratedMap();
             }
-            else
-            {
-                apply_write<t_Visitor, std::string, t_Value, t_Compare, t_Allocator>(writer, entry, param);
-            }
+            apply_write<t_Visitor, std::string, t_Value, t_Compare, t_Allocator>(writer, entry, param);
         }
     }  // namespace write
 }  // namespace ariles2

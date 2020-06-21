@@ -111,7 +111,7 @@ namespace ariles2
 
 
 
-        void Writer::startMap(const std::string & /*id*/, const std::size_t /*num_entries*/)
+        void Writer::startMap(const Parameters &, const std::size_t /*num_entries*/)
         {
             if (impl_->map_depth_ > 0 or false == impl_->skip_root_map_)
             {
@@ -120,7 +120,7 @@ namespace ariles2
             ++impl_->map_depth_;
         }
 
-        void Writer::startMapElement(const std::string &map_name)
+        void Writer::startMapEntry(const std::string &map_name)
         {
             *impl_->emitter_ << YAML::Key << map_name;
             *impl_->emitter_ << YAML::Value;
@@ -158,7 +158,7 @@ namespace ariles2
         }
 
 
-        void Writer::startRoot(const std::string &name)
+        void Writer::startRoot(const std::string &name, const Parameters &)
         {
             ARILES2_TRACE_FUNCTION;
             if (true == name.empty())
@@ -167,7 +167,7 @@ namespace ariles2
             }
             else
             {
-                startMapElement(name);
+                startMapEntry(name);
             }
         }
 
@@ -176,7 +176,7 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             if (false == name.empty())
             {
-                endMapElement();
+                endMapEntry();
             }
             impl_->skip_root_map_ = false;
         }

@@ -2,11 +2,18 @@
     @file
     @author Alexander Sherikov
 
-    @copyright 2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
+    @copyright 2018-2020 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
 
     @brief
 */
+
+/**
+@defgroup ros ROS
+
+@brief ROS parameter server serialization.
+*/
+
 
 #pragma once
 
@@ -25,6 +32,7 @@ namespace ariles2
 {
     /**
      * @brief ROS parameter server visitor.
+     * @ingroup ros
      */
     struct ARILES2_VISIBILITY_ATTRIBUTE ros
     {

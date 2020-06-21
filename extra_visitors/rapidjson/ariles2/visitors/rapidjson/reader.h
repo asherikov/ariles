@@ -54,8 +54,8 @@ namespace ariles2
                     const SizeLimitEnforcementType limit_type = SIZE_LIMIT_NONE,
                     const std::size_t min = 0,
                     const std::size_t max = 0);
-            bool startMapElement(const std::string &child_name);
-            void endMapElement();
+            bool startMapEntry(const std::string &child_name);
+            void endMapEntry();
 
 
             bool startIteratedMap(

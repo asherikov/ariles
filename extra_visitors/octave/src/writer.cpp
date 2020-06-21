@@ -94,7 +94,7 @@ namespace ariles2
 
 
 
-        void Writer::startMapElement(const std::string &map_name)
+        void Writer::startMapEntry(const std::string &map_name)
         {
             if (0 == impl_->node_stack_.size())
             {
@@ -118,7 +118,7 @@ namespace ariles2
             }
         }
 
-        void Writer::endMapElement()
+        void Writer::endMapEntry()
         {
             impl_->node_stack_.pop_back();
         }
@@ -174,7 +174,11 @@ namespace ariles2
         }
 
 
-        void Writer::startMatrix(const std::size_t /*rows*/, const std::size_t /*cols*/)
+        void Writer::startMatrix(
+                const bool /*dynamic*/,
+                const std::size_t /*cols*/,
+                const std::size_t /*rows*/,
+                const Parameters & /*param*/)
         {
             impl_->node_stack_.push_back(
                     NodeWrapper(impl_->node_stack_.back().node_ + " = [...\n", NodeWrapper::MATRIX));
@@ -204,7 +208,7 @@ namespace ariles2
             *impl_->output_stream_ << "; ...\n";
         }
 
-        void Writer::endMatrix()
+        void Writer::endMatrix(const bool /*dynamic*/)
         {
             *impl_->output_stream_ << "];\n";
             impl_->node_stack_.pop_back();

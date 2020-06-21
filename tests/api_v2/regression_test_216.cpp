@@ -9,7 +9,8 @@
 */
 
 
-#define ARILES_TESTS_BOOST_UTF_DISABLED
+#define ARILES_TESTS_RANDOMIZE_DISABLED
+#define ARILES_TESTS_COMPARE_DISABLED
 
 #include <api_v2/tests_config.h>
 #include "all_enabled_adapters.h"

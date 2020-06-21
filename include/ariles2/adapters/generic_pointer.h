@@ -14,17 +14,12 @@ namespace ariles2
     {
         template <class t_Visitor, typename t_Entry>
         void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
-                t_Visitor &visitor,
+                t_Visitor &reader,
                 ARILES2_POINTER_TYPE<t_Entry> &entry,
                 const typename t_Visitor::Parameters &parameters)
         {
             ARILES2_TRACE_FUNCTION;
-            bool is_null = true;
-
-            visitor.startMap(t_Visitor::SIZE_LIMIT_RANGE, 1, 2);
-            visitor.override_missing_entries_locally_ = true;
-            visitor(is_null, "is_null", parameters);
-
+            const bool is_null = reader.startPointer(parameters);
             if (true == is_null)
             {
                 PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::reset(entry);
@@ -32,10 +27,9 @@ namespace ariles2
             else
             {
                 PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::allocate(entry);
-                visitor.override_missing_entries_locally_ = true;
-                visitor(*entry, "value", parameters);
+                apply_read(reader, *entry, parameters);
             }
-            visitor.endMap();
+            reader.endPointer(is_null);
         }
     }  // namespace read
 }  // namespace ariles2
@@ -52,23 +46,15 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            bool is_null = true;
 
-            if (PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(entry))
+            const bool is_null = PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(entry);
+
+            writer.startPointer(is_null, param);
+            if (false == is_null)
             {
-                is_null = true;
-                writer.startMap("", 1);
-                writer(is_null, "is_null", param);
-                writer.endMap();
+                apply_write(writer, *entry, param);
             }
-            else
-            {
-                is_null = false;
-                writer.startMap("", 2);
-                writer(is_null, "is_null", param);
-                writer(*entry, "value", param);
-                writer.endMap();
-            }
+            writer.endPointer(is_null);
         }
     }  // namespace write
 }  // namespace ariles2

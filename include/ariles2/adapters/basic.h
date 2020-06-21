@@ -26,22 +26,16 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
 
-            typename t_Visitor::Parameters param = entry.arilesGetParameters(visitor);
-            if (t_Visitor::Parameters::MISSING_ENTRIES_ENABLE_OVERRIDE == parameters.missing_entries_)
+            if (true == parameters.override_parameters_)
             {
-                param.missing_entries_ = t_Visitor::Parameters::MISSING_ENTRIES_ENABLE_OVERRIDE;
-            }
-
-            if (t_Visitor::Parameters::MISSING_ENTRIES_DISABLE == param.missing_entries_)
-            {
-                ariles2::count::Visitor counter;
-                visitor.startMap(t_Visitor::SIZE_LIMIT_EQUAL, counter(entry));
+                visitor.startMap(entry, parameters);
+                entry.arilesVirtualVisit(visitor, parameters);
             }
             else
             {
-                visitor.startMap();
+                visitor.startMap(entry, entry.arilesGetParameters(visitor));
+                entry.arilesVirtualVisit(visitor, entry.arilesGetParameters(visitor));
             }
-            entry.arilesVirtualVisit(visitor, param);
             visitor.endMap();
         }
 
@@ -90,13 +84,21 @@ namespace ariles2
         void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
                 t_Visitor &writer,
                 const t_Entry &entry,
-                const typename t_Visitor::Parameters &param,
+                const typename t_Visitor::Parameters &parameters,
                 ARILES2_IS_BASE_ENABLER(ariles2::write::Base, t_Entry))
         {
             ARILES2_TRACE_FUNCTION;
-            ariles2::count::Visitor counter;
-            writer.startMap(entry.arilesInstanceID(), counter(entry));
-            entry.arilesVirtualVisit(writer, param);
+
+            if (true == parameters.override_parameters_)
+            {
+                writer.startMap(entry, parameters);
+                entry.arilesVirtualVisit(writer, parameters);
+            }
+            else
+            {
+                writer.startMap(entry, entry.arilesGetParameters(writer));
+                entry.arilesVirtualVisit(writer, entry.arilesGetParameters(writer));
+            }
             writer.endMap();
         }
 
@@ -149,10 +151,7 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             if (true == param.compare_number_of_entries_)
             {
-                ariles2::count::Visitor counter;
-
-                const std::size_t left_counter = counter(left);
-                visitor.equal_ &= (left_counter == counter(right));
+                visitor.equal_ &= (ariles2::count::Visitor().count(left) == ariles2::count::Visitor().count(right));
             }
             left.arilesVisit(visitor, right, param);
         }

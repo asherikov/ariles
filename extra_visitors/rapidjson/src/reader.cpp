@@ -70,7 +70,7 @@ namespace ariles2
             checkSize(limit_type, impl_->getRawNode().MemberCount(), min, max);
         }
 
-        bool Reader::startMapElement(const std::string &child_name)
+        bool Reader::startMapEntry(const std::string &child_name)
         {
             const ::rapidjson::Value::ConstMemberIterator child = impl_->getRawNode().FindMember(child_name.c_str());
 
@@ -85,7 +85,7 @@ namespace ariles2
             }
         }
 
-        void Reader::endMapElement()
+        void Reader::endMapEntry()
         {
             impl_->node_stack_.pop_back();
         }

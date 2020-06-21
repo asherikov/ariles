@@ -16,7 +16,7 @@ namespace ariles2
 {
     namespace compare
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters
+        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
         {
         public:
             double float_tolerance_;
@@ -29,7 +29,7 @@ namespace ariles2
 
 
         public:
-            Parameters()
+            Parameters(const bool override_parameters = true) : visitor::Parameters(override_parameters)
             {
                 setDefaults();
             }
@@ -80,11 +80,22 @@ namespace ariles2
 
 
             template <class t_Left, class t_Right>
-            void start(const t_Left &left, const t_Right &right, const std::string &name, const Parameters &param)
+            void visit(const t_Left &left, const t_Right &right, const std::string &name, const Parameters &param)
             {
                 ARILES2_TRACE_FUNCTION;
-                equal_ = true;
-                this->operator()(left, right, name, param);
+                try
+                {
+                    equal_ = true;
+                    this->visitMapEntry(left, right, name, param);
+                }
+                catch (std::exception &e)
+                {
+                    if (true == param.throw_on_error_)
+                    {
+                        ARILES2_THROW(std::string("Comparison failed: ") + e.what());
+                    }
+                    equal_ = false;
+                }
             }
 
 
@@ -121,7 +132,11 @@ namespace ariles2
 
 
             template <class t_Left, class t_Right>
-            void operator()(const t_Left &left, const t_Right &right, const std::string &name, const Parameters &param)
+            void visitMapEntry(
+                    const t_Left &left,
+                    const t_Right &right,
+                    const std::string &name,
+                    const Parameters &param)
             {
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_VALUE(name);
@@ -162,7 +177,7 @@ namespace ariles2
         };
 
 
-#define ARILES2_NAMED_ENTRY_compare(v, entry, name) visitor(entry, other.entry, #name, parameters);
+#define ARILES2_NAMED_ENTRY_compare(v, entry, name) visitor.visitMapEntry(entry, other.entry, #name, parameters);
 #define ARILES2_PARENT_compare(v, entry) entry::arilesVisit(visitor, other, parameters);
 
 #define ARILES2_VISIT_compare                                                                                          \

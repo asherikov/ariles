@@ -796,7 +796,7 @@ INPUT                  =    ../README.md \
                             ../include \
                             ../extra_adapters \
                             ../extra_visitors \
-                            ../tests/api_v1/demo_api_v1.cpp \
+                            ../tests/api_v2/types/ariles_diagram.h \
                             ../tests/api_v2/demo_api_v2.cpp \
                             ./doxygen_pages.dox \
                             ./advanced_features.md
@@ -938,7 +938,7 @@ EXAMPLE_RECURSIVE      = NO
 # that contain images that are to be included in the documentation (see the
 # \image command).
 
-IMAGE_PATH             =
+IMAGE_PATH             = ../extra_visitors/graphviz/examples/
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should
 # invoke to filter for each input file. Doxygen will invoke the filter program

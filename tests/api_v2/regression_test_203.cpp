@@ -30,10 +30,9 @@
 // ===============================================================
 
 #include "types/postprocess.h"
-
-#define ARILES_TESTS_BOOST_UTF_DISABLED
+#define ARILES_TESTS_COMPARE_DISABLED
 #include "types/complex_auto_declare.h"
-#undef ARILES_TESTS_BOOST_UTF_DISABLED
+#undef ARILES_TESTS_COMPARE_DISABLED
 
 
 // ===============================================================

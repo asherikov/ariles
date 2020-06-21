@@ -27,9 +27,7 @@ namespace ariles2
             entry.resize(visitor.startArray());
             for (std::size_t i = 0; i < entry.size(); ++i)
             {
-                visitor.startArrayElement();
-                apply_read(visitor, entry[i], param);
-                visitor.endArrayElement();
+                visitor.visitArrayElement(entry[i], param);
             }
             visitor.endArray();
         }
@@ -51,9 +49,7 @@ namespace ariles2
             writer.startArray(entry.size(), param.compact_arrays_);
             for (std::size_t i = 0; i < entry.size(); ++i)
             {
-                writer.startArrayElement();
-                apply_write(writer, entry[i], param);
-                writer.endArrayElement();
+                writer.visitArrayElement(entry[i], param);
             }
             writer.endArray();
         }

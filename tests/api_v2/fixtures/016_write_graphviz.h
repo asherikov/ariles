@@ -31,7 +31,7 @@ namespace ariles_tests
 
                 const std::string filename =
                         std::string("graphviz_") + configurable.arilesDefaultID() + "_configurable.cfg";
-                typename t_Visitor::Writer writer(getWriterInitializer(filename));
+                typename t_Visitor::Visitor writer(getWriterInitializer(filename));
                 ariles2::apply(writer, configurable);
 
                 std::string dot_cmd = std::string("dot -Tjpg -O ") + getWriterInitializer(filename);
@@ -47,7 +47,7 @@ namespace ariles_tests
 
                 const std::string filename =
                         std::string("graphviz_") + configurable.arilesDefaultID() + "_configurable2.cfg";
-                ariles2::apply<typename t_Visitor::Writer>(getWriterInitializer(filename), configurable);
+                ariles2::apply<typename t_Visitor::Visitor>(getWriterInitializer(filename), configurable);
 
                 std::string dot_cmd = std::string("dot -Tjpg -O ") + getWriterInitializer(filename);
                 BOOST_CHECK_EQUAL(0, std::system(dot_cmd.c_str()));

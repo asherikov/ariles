@@ -132,7 +132,7 @@ namespace ariles2
             }
 
 
-            virtual void startMap(const std::string & /*id*/, const std::size_t num_entries)
+            virtual void startMap(const Parameters &, const std::size_t num_entries)
             {
                 if (true == initialize_structure_)
                 {
@@ -140,7 +140,7 @@ namespace ariles2
                 }
             }
 
-            virtual void startMapElement(const std::string &map_name)
+            virtual void startMapEntry(const std::string &map_name)
             {
                 if (true == initialize_structure_)
                 {
@@ -167,7 +167,7 @@ namespace ariles2
                 }
             }
 
-            virtual void endMapElement()
+            virtual void endMapEntry()
             {
                 if (true == initialize_structure_)
                 {
@@ -180,7 +180,7 @@ namespace ariles2
             }
 
 
-            virtual bool startIteratedMap(const std::string & /*id*/, const std::size_t /*num_entries*/)
+            virtual bool startIteratedMap(const std::size_t /*num_entries*/, const Parameters &)
             {
                 return (false);
             }

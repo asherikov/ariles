@@ -59,7 +59,7 @@ namespace ariles2
             }
         }
 
-        bool Reader::startMapElement(const std::string &child_name)
+        bool Reader::startMapEntry(const std::string &child_name)
         {
             if (0 == impl_->node_stack_.size())
             {
@@ -83,7 +83,7 @@ namespace ariles2
             }
         }
 
-        void Reader::endMapElement()
+        void Reader::endMapEntry()
         {
             impl_->node_stack_.pop_back();
         }
@@ -166,18 +166,18 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             if (true == name.empty())
             {
-                return (startMapElement("ariles"));
+                return (startMapEntry("ariles"));
             }
             else
             {
-                return (startMapElement(name));
+                return (startMapEntry(name));
             }
         }
 
         void Reader::endRoot(const std::string & /*name*/)
         {
             ARILES2_TRACE_FUNCTION;
-            endMapElement();
+            endMapEntry();
         }
 
 

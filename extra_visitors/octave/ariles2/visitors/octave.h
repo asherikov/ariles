@@ -2,11 +2,23 @@
     @file
     @author Alexander Sherikov
 
-    @copyright 2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
+    @copyright 2018-2020 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
 
     @brief
 */
+
+/**
+@defgroup octave Octave
+
+@brief Serialize to Octave/MATLAB script.
+
+@note Eigen matrices are written in the 'native' format, so they can be used
+      directly, no reshaping is necessary.
+
+@note Matlab might be supported, but has not been tested.
+*/
+
 
 #pragma once
 
@@ -47,11 +59,11 @@ namespace ariles2
             void flush();
 
 
-            void startMapElement(const std::string &map_name);
-            void endMapElement();
+            void startMapEntry(const std::string &map_name);
+            void endMapEntry();
 
 
-            bool startIteratedMap(const std::string & /*id*/, const std::size_t /*num_entries*/)
+            bool startIteratedMap(const std::size_t /*num_entries*/, const Parameters &)
             {
                 return (false);
             }
@@ -68,12 +80,16 @@ namespace ariles2
             void endVector();
 
 
-            void startMatrix(const std::size_t rows, const std::size_t cols);
+            void startMatrix(
+                    const bool dynamic,
+                    const std::size_t cols,
+                    const std::size_t rows,
+                    const Parameters &param);
             void startMatrixRow();
             void startMatrixElement();
             void endMatrixElement();
             void endMatrixRow();
-            void endMatrix();
+            void endMatrix(const bool dynamic);
 
 
 #define ARILES2_BASIC_TYPE(type) void writeElement(const type &element, const Parameters &param);
@@ -90,6 +106,7 @@ namespace ariles2
 {
     /**
      * @brief Octave visitor.
+     * @ingroup octave
      */
     struct ARILES2_VISIBILITY_ATTRIBUTE octave
     {

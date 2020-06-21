@@ -16,8 +16,12 @@ namespace ariles2
 {
     namespace count
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters
+        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
         {
+        public:
+            Parameters(const bool override_parameters = true) : visitor::Parameters(override_parameters)
+            {
+            }
         };
 
 
@@ -38,7 +42,7 @@ namespace ariles2
 
 
             template <class t_Entry>
-            std::size_t operator()(const t_Entry &entry, const Parameters &param) const
+            std::size_t count(const t_Entry &entry, const Parameters &param) const
             {
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_TYPE(entry);
@@ -47,7 +51,7 @@ namespace ariles2
 
 
             template <class t_Entry>
-            std::size_t operator()(const t_Entry &entry) const
+            std::size_t count(const t_Entry &entry) const
             {
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_TYPE(entry);
@@ -75,8 +79,11 @@ namespace ariles2
 #define ARILES2_PARENT_count(v, entry) +entry::arilesVisit(visitor, parameters)
 
 #define ARILES2_VISIT_count                                                                                            \
+    template <class t_Visitor>                                                                                         \
     std::size_t arilesVisit(                                                                                           \
-            const ariles2::count::Visitor &visitor, const ariles2::count::Visitor::Parameters &parameters) const       \
+            const t_Visitor &visitor,                                                                                  \
+            const typename t_Visitor::Parameters &parameters,                                                          \
+            ARILES2_IS_BASE_ENABLER(ariles2::count::Visitor, t_Visitor)) const                                         \
     {                                                                                                                  \
         ARILES2_UNUSED_ARG(visitor);                                                                                   \
         ARILES2_UNUSED_ARG(parameters);                                                                                \
