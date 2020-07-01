@@ -64,6 +64,11 @@
 #include "cpput_misc.h"
 #include "cpput_flags.h"
 
+#ifndef ARILES_VISIBILITY_ATTRIBUTE
+#    include "cpput_visibility.h"
+#    define ARILES_VISIBILITY_ATTRIBUTE ARILES_LIB_EXPORT
+#endif
+
 // #define ARILES_TRACE_ENABLE
 #include "trace.h"
 
@@ -100,12 +105,6 @@
 #define ARILES_BASIC_TYPES_LIST                                                                                        \
     ARILES_BASIC_NUMERIC_TYPES_LIST                                                                                    \
     ARILES_BASIC_TYPE(std::string)
-
-
-#ifndef ARILES_VISIBILITY_ATTRIBUTE
-#    include "cpput_visibility.h"
-#    define ARILES_VISIBILITY_ATTRIBUTE ARILES_LIB_EXPORT
-#endif
 
 
 namespace ariles

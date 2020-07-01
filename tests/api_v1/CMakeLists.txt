@@ -58,4 +58,10 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "020" "" "")                
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "021" "array" "")                       # array
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "022" "" "${ARILES_TEST_ALL_VISITORS}") # flags
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "023" "rapidjson" "")                   # json floats, flags
-ariles_define_regression_test(${CMAKE_PROJECT_NAME} "024" "" "yaml_cpp03;yaml_cpp")         # missing entries
+if (NOT ${ARILES_VISITOR_yaml_cpp} STREQUAL "OFF")
+    ariles_define_regression_test(${CMAKE_PROJECT_NAME} "024" "yaml_cpp" "")                # missing entries
+elseif (NOT ${ARILES_VISITOR_yaml_cpp03} STREQUAL "OFF")
+    ariles_define_regression_test(${CMAKE_PROJECT_NAME} "024" "yaml_cpp03" "")              # missing entries
+endif()
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "025" "" "${ARILES_TEST_ALL_VISITORS}") # Eigen vector wrapper
+
