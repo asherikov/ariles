@@ -22,7 +22,6 @@ namespace ariles2
             double float_tolerance_;
             double double_tolerance_;
             bool compare_number_of_entries_;
-            bool throw_on_error_;  /// @todo DEPRECATED
             bool nan_equal_;
             bool inf_equal_;
             /// @todo continue on failure.
@@ -40,7 +39,6 @@ namespace ariles2
                 double_tolerance_ = 1e-12;
                 float_tolerance_ = 1e-8;
                 compare_number_of_entries_ = false;
-                throw_on_error_ = false;
 
                 nan_equal_ = true;
                 inf_equal_ = true;
@@ -60,6 +58,7 @@ namespace ariles2
 
         public:
             bool equal_;
+            std::vector<std::string> backtrace_;
 
 
         public:
@@ -87,13 +86,14 @@ namespace ariles2
                 {
                     equal_ = true;
                     this->visitMapEntry(left, right, name, param);
+                    if (false == equal_)
+                    {
+                        backtrace_.push_back(name);
+                    }
                 }
                 catch (std::exception &e)
                 {
-                    if (true == param.throw_on_error_)
-                    {
-                        ARILES2_THROW(std::string("Comparison failed: ") + e.what());
-                    }
+                    backtrace_.push_back(e.what());
                     equal_ = false;
                 }
             }
@@ -143,17 +143,10 @@ namespace ariles2
                 ARILES2_TRACE_TYPE(left);
                 ARILES2_TRACE_TYPE(right);
 
-                try
+                apply_compare(*this, left, right, param);
+                if (false == this->equal_)
                 {
-                    apply_compare(*this, left, right, param);
-                    if (false == this->equal_ and true == param.throw_on_error_)
-                    {
-                        ARILES2_THROW("");
-                    }
-                }
-                catch (const std::exception &e)
-                {
-                    ARILES2_THROW("entry: " + name + " // " + std::string(e.what()));
+                    backtrace_.push_back(name);
                 }
             }
         };

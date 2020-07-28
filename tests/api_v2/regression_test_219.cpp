@@ -53,7 +53,6 @@ BOOST_FIXTURE_TEST_CASE(CompareComplex, ariles_tests::DummyFixture)
     ariles2::Compare::Parameters param;
     param.double_tolerance_ = g_tolerance;
     param.compare_number_of_entries_ = true;
-    param.throw_on_error_ = false;
 
 
     configurable1.randomize();
@@ -189,7 +188,6 @@ BOOST_FIXTURE_TEST_CASE(SpecialFloats, ariles_tests::DummyFixture)
     ariles2::Compare::Parameters param;
     param.double_tolerance_ = g_tolerance;
     param.compare_number_of_entries_ = true;
-    param.throw_on_error_ = false;
 
 
     ariles2::apply<ariles2::Defaults>(configurable1);

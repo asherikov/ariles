@@ -49,7 +49,6 @@ namespace ariles_tests
                 ariles2::Compare::Parameters param;
                 param.double_tolerance_ = g_tolerance;
                 param.compare_number_of_entries_ = true;
-                param.throw_on_error_ = true;
                 BOOST_CHECK(visitor.compare(configurable_out, configurable_in, param));
             }
 
@@ -81,7 +80,6 @@ namespace ariles_tests
                 ariles2::Compare::Parameters param;
                 param.double_tolerance_ = g_tolerance;
                 param.compare_number_of_entries_ = true;
-                param.throw_on_error_ = true;
                 BOOST_CHECK(visitor.compare(configurable_out, configurable_in, param));
             }
         }
