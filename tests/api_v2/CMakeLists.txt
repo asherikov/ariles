@@ -66,3 +66,4 @@ endif()
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "225" "" "${ARILES_TEST_ALL_VISITORS}") # 201, but with sloppy pairs and maps
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "226" "graphviz" "")                    # graphviz: complex, pointers
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "229" "graphviz" "")                    # graphviz: ariles_diagram
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "230" "" "")                            # copyto, copyfrom

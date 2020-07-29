@@ -56,8 +56,8 @@ BOOST_FIXTURE_TEST_CASE(CompareInheritance, ariles_tests::DummyFixture)
 
     configurable1.randomize();
     configurable2 = configurable1;
-    BOOST_CHECK(visitor.compare(configurable1, configurable2, param));
+    BOOST_CHECK(true == ariles2::apply(visitor, configurable1, configurable2, param));
 
     configurable1.randomize();
-    BOOST_CHECK(false == visitor.compare(configurable1, configurable2, param));
+    BOOST_CHECK(false == ariles2::apply(visitor, configurable1, configurable2, param));
 }

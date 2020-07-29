@@ -117,3 +117,62 @@ namespace ariles2
         }
     }  // namespace process
 }  // namespace ariles2
+
+
+namespace ariles2
+{
+    namespace copyfrom
+    {
+        template <
+                class t_Visitor,
+                typename t_VectorEntryTypeLeft,
+                class t_AllocatorLeft,
+                typename t_VectorEntryTypeRight,
+                class t_AllocatorRight>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+                t_Visitor &visitor,
+                std::vector<t_VectorEntryTypeLeft, t_AllocatorLeft> &left,
+                const std::vector<t_VectorEntryTypeRight, t_AllocatorRight> &right,
+                const typename t_Visitor::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+
+            left.clear();
+            left.reserve(right.size());
+            for (std::size_t i = 0; i < right.size(); ++i)
+            {
+                t_VectorEntryTypeLeft value;
+                apply_copyfrom(visitor, value, right[i], param);
+                left.push_back(value);
+            }
+        }
+    }  // namespace copyfrom
+
+
+    namespace copyto
+    {
+        template <
+                class t_Visitor,
+                typename t_VectorEntryTypeLeft,
+                class t_AllocatorLeft,
+                typename t_VectorEntryTypeRight,
+                class t_AllocatorRight>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+                t_Visitor &visitor,
+                const std::vector<t_VectorEntryTypeLeft, t_AllocatorLeft> &left,
+                std::vector<t_VectorEntryTypeRight, t_AllocatorRight> &right,
+                const typename t_Visitor::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+
+            right.clear();
+            right.reserve(left.size());
+            for (std::size_t i = 0; i < left.size(); ++i)
+            {
+                t_VectorEntryTypeRight value;
+                apply_copyto(visitor, left[i], value, param);
+                right.push_back(value);
+            }
+        }
+    }  // namespace copyto
+}  // namespace ariles2

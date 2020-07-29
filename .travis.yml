@@ -223,7 +223,7 @@ jobs:
 
         before_install:
           - sudo apt update
-          - sudo apt install -y cppcheck 
+          - sudo apt install -y cppcheck
           - sudo apt install -y python3-pip python3-setuptools
           - sudo pip3 install scspell3k
 

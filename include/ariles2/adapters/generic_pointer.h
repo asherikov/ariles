@@ -132,5 +132,149 @@ namespace ariles2
 }  // namespace ariles2
 
 
+namespace ariles2
+{
+    namespace copyfrom
+    {
+        template <class t_Visitor, typename t_Entry>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+                t_Visitor &visitor,
+                ARILES2_POINTER_TYPE<t_Entry> &left,
+                const ARILES2_POINTER_TYPE<t_Entry> &right,
+                const typename t_Visitor::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+            if (true == param.deep_copy_)
+            {
+                if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(right))
+                {
+                    PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::reset(left);
+                }
+                else
+                {
+                    if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(left))
+                    {
+                        PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::allocate(left);
+                    }
+
+                    apply_copyfrom(visitor, *left, *right, param);
+                }
+            }
+            else
+            {
+                left = right;
+            }
+        }
+
+        template <class t_Visitor, typename t_Left, typename t_Right>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+                t_Visitor &visitor,
+                ARILES2_POINTER_TYPE<t_Left> &left,
+                const ARILES2_POINTER_TYPE<t_Right> &right,
+                const typename t_Visitor::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+            if (true == param.deep_copy_)
+            {
+                if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Right> >::isNull(right))
+                {
+                    PointerHandler<ARILES2_POINTER_TYPE<t_Left> >::reset(left);
+                }
+                else
+                {
+                    if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Left> >::isNull(left))
+                    {
+                        PointerHandler<ARILES2_POINTER_TYPE<t_Left> >::allocate(left);
+                    }
+
+                    apply_copyfrom(visitor, *left, *right, param);
+                }
+            }
+            else
+            {
+                if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Right> >::isNull(right))
+                {
+                    PointerHandler<ARILES2_POINTER_TYPE<t_Left> >::reset(left);
+                }
+                else
+                {
+                    ARILES2_THROW("Shallow copies of pointers of different types are not supported.");
+                }
+            }
+        }
+    }  // namespace copyfrom
+
+
+    namespace copyto
+    {
+        template <class t_Visitor, typename t_Entry>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+                t_Visitor &visitor,
+                const ARILES2_POINTER_TYPE<t_Entry> &left,
+                ARILES2_POINTER_TYPE<t_Entry> &right,
+                const typename t_Visitor::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+            if (true == param.deep_copy_)
+            {
+                if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(left))
+                {
+                    PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::reset(right);
+                }
+                else
+                {
+                    if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(right))
+                    {
+                        PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::allocate(right);
+                    }
+
+                    apply_copyto(visitor, *left, *right, param);
+                }
+            }
+            else
+            {
+                right = left;
+            }
+        }
+
+        template <class t_Visitor, typename t_Left, typename t_Right>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+                t_Visitor &visitor,
+                const ARILES2_POINTER_TYPE<t_Left> &left,
+                ARILES2_POINTER_TYPE<t_Right> &right,
+                const typename t_Visitor::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+            if (true == param.deep_copy_)
+            {
+                if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Left> >::isNull(left))
+                {
+                    PointerHandler<ARILES2_POINTER_TYPE<t_Right> >::reset(right);
+                }
+                else
+                {
+                    if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Right> >::isNull(right))
+                    {
+                        PointerHandler<ARILES2_POINTER_TYPE<t_Right> >::allocate(right);
+                    }
+
+                    apply_copyto(visitor, *left, *right, param);
+                }
+            }
+            else
+            {
+                if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Left> >::isNull(left))
+                {
+                    PointerHandler<ARILES2_POINTER_TYPE<t_Right> >::reset(right);
+                }
+                else
+                {
+                    ARILES2_THROW("Shallow copies of pointers of different types are not supported.");
+                }
+            }
+        }
+    }  // namespace copyto
+}  // namespace ariles2
+
 #undef ARILES2_POINTER_HANDLER
 #undef ARILES2_POINTER_TYPE

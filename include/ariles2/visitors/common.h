@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include "../internal/helpers.h"
 
 namespace ariles2
 {
@@ -44,9 +45,12 @@ namespace ariles2
         };
 
 
-        template <class t_Visitor, class t_Parameters>
+        template <class t_Visitor, class t_Parameters, class t_ReturnType = void>
         class ARILES2_VISIBILITY_ATTRIBUTE Base : public t_Visitor
         {
+        public:
+            typedef t_ReturnType ReturnType;
+
         protected:
             Base(){};
             ~Base(){};
@@ -118,7 +122,7 @@ namespace ariles2
 {
     // -----
     template <class t_Ariles, class t_Visitor>
-    void apply(
+    typename t_Visitor::ReturnType apply(
             t_Visitor &visitor,
             t_Ariles &ariles_class,
             const std::string &name,
@@ -126,12 +130,12 @@ namespace ariles2
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
-        visitor.visit(ariles_class, name, param);
+        return (visitor.visit(ariles_class, name, param));
     }
 
 
     template <class t_Ariles, class t_Visitor>
-    void apply(
+    typename t_Visitor::ReturnType apply(
             t_Visitor &visitor,
             t_Ariles &ariles_class,
             const char *name,
@@ -139,63 +143,65 @@ namespace ariles2
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
-        visitor.visit(ariles_class, name, param);
+        return (visitor.visit(ariles_class, name, param));
     }
 
 
     template <class t_Visitor, class t_Ariles>
-    void apply(
+    typename t_Visitor::ReturnType apply(
             t_Visitor &visitor,
             t_Ariles &ariles_class,
             const typename t_Visitor::Parameters &param,
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
-        ariles2::apply(visitor, ariles_class, ariles_class.arilesDefaultID(), param);
+        return (ariles2::apply(visitor, ariles_class, ariles_class.arilesDefaultID(), param));
     }
 
 
     template <class t_Visitor, class t_Ariles>
-    void apply(
+    typename t_Visitor::ReturnType apply(
             t_Visitor &visitor,
             t_Ariles &ariles_class,
             const std::string &name,
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
-        visitor.visit(ariles_class, name, visitor.getParameters(ariles_class));
+        return (visitor.visit(ariles_class, name, visitor.getParameters(ariles_class)));
     }
 
 
     template <class t_Visitor, class t_Ariles>
-    void apply(
+    typename t_Visitor::ReturnType apply(
             t_Visitor &visitor,
             t_Ariles &ariles_class,
             const char *name,
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
-        visitor.visit(ariles_class, name, visitor.getParameters(ariles_class));
+        return (visitor.visit(ariles_class, name, visitor.getParameters(ariles_class)));
     }
 
 
     template <class t_Visitor, class t_Ariles>
-    void apply(
+    typename t_Visitor::ReturnType apply(
             t_Visitor &visitor,
             t_Ariles &ariles_class,
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
-        ariles2::apply(visitor, ariles_class, ariles_class.arilesDefaultID());
+        return (ariles2::apply(visitor, ariles_class, ariles_class.arilesDefaultID()));
     }
 
 
     template <class t_Visitor, class t_Ariles>
-    void apply(t_Ariles &ariles_class, ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+    typename t_Visitor::ReturnType apply(
+            t_Ariles &ariles_class,
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
         t_Visitor visitor;
-        ariles2::apply(visitor, ariles_class);
+        return (ariles2::apply(visitor, ariles_class));
     }
     // -----
 
@@ -203,20 +209,21 @@ namespace ariles2
 
     // -----
     template <class t_Visitor, class t_Ariles, class t_Arg>
-    void apply(
+    typename t_Visitor::ReturnType apply(
             t_Arg &arg,
             t_Ariles &ariles_class,
+            ARILES2_IS_BASE_DISABLER(ariles2::Ariles, t_Arg),
             ARILES2_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
         t_Visitor visitor(arg);
-        ariles2::apply(visitor, ariles_class);
+        return (ariles2::apply(visitor, ariles_class));
     }
 
 
     template <class t_Visitor, class t_Ariles, class t_Arg>
-    void apply(
+    typename t_Visitor::ReturnType apply(
             t_Arg &arg,
             t_Ariles &ariles_class,
             const char *name,
@@ -225,12 +232,12 @@ namespace ariles2
     {
         ARILES2_TRACE_FUNCTION;
         t_Visitor visitor(arg);
-        ariles2::apply(visitor, ariles_class, name);
+        return (ariles2::apply(visitor, ariles_class, name));
     }
 
 
     template <class t_Visitor, class t_Ariles, class t_Arg>
-    void apply(
+    typename t_Visitor::ReturnType apply(
             const t_Arg &arg,
             t_Ariles &ariles_class,
             ARILES2_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
@@ -238,12 +245,12 @@ namespace ariles2
     {
         ARILES2_TRACE_FUNCTION;
         t_Visitor visitor(arg);
-        ariles2::apply(visitor, ariles_class);
+        return (ariles2::apply(visitor, ariles_class));
     }
 
 
     template <class t_Visitor, class t_Ariles, class t_Arg>
-    void apply(
+    typename t_Visitor::ReturnType apply(
             t_Arg &arg,
             t_Ariles &ariles_class,
             const typename t_Visitor::Parameters &param,
@@ -253,12 +260,12 @@ namespace ariles2
     {
         ARILES2_TRACE_FUNCTION;
         t_Visitor visitor(arg);
-        ariles2::apply(visitor, ariles_class, param);
+        return (ariles2::apply(visitor, ariles_class, param));
     }
 
 
     template <class t_Visitor, class t_Ariles>
-    void apply(
+    typename t_Visitor::ReturnType apply(
             const std::string &arg,
             t_Ariles &ariles_class,
             const typename t_Visitor::Parameters &param,
@@ -266,14 +273,27 @@ namespace ariles2
     {
         ARILES2_TRACE_FUNCTION;
         t_Visitor visitor(arg);
-        ariles2::apply(visitor, ariles_class, param);
+        return (ariles2::apply(visitor, ariles_class, param));
     }
     // -----
 
 
     // -----
     template <class t_Visitor, class t_Left, class t_Right>
-    void apply(
+    typename t_Visitor::ReturnType apply(
+            t_Left &left,
+            t_Right &right,
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor),
+            ARILES2_IS_BASE_ENABLER(ariles2::Ariles, t_Left))
+    {
+        ARILES2_TRACE_FUNCTION;
+        t_Visitor visitor;
+        return (visitor.visit(left, right, left.arilesDefaultID(), visitor.getParameters(left)));
+    }
+
+
+    template <class t_Visitor, class t_Left, class t_Right>
+    typename t_Visitor::ReturnType apply(
             t_Visitor &visitor,
             t_Left &left,
             t_Right &right,
@@ -282,12 +302,12 @@ namespace ariles2
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
-        visitor.visit(left, right, name, param);
+        return (visitor.visit(left, right, name, param));
     }
 
 
     template <class t_Visitor, class t_Left, class t_Right>
-    void apply(
+    typename t_Visitor::ReturnType apply(
             t_Visitor &visitor,
             t_Left &left,
             t_Right &right,
@@ -295,12 +315,12 @@ namespace ariles2
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
-        visitor.visit(left, right, left.arilesDefaultID(), visitor.getParameters(left));
+        return (visitor.visit(left, right, left.arilesDefaultID(), visitor.getParameters(left)));
     }
 
 
     template <class t_Visitor, class t_Left, class t_Right>
-    void apply(
+    typename t_Visitor::ReturnType apply(
             t_Visitor &visitor,
             t_Left &left,
             t_Right &right,
@@ -308,7 +328,7 @@ namespace ariles2
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
-        ariles2::apply(visitor, left, right, left.arilesDefaultID(), param);
+        return (ariles2::apply(visitor, left, right, left.arilesDefaultID(), param));
     }
     // -----
 }  // namespace ariles2

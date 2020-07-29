@@ -8,6 +8,8 @@ backtrace
 cfgread
 cfgwrite
 cmakeut
+copyfrom
+copyto
 cpput
 cstring
 cxxabi
@@ -55,6 +57,7 @@ matlab
 michalczyk
 movelib
 msgpack
+msgs
 npos
 nullptr
 ofstream
@@ -75,6 +78,7 @@ rdbuf
 remappings
 roscore
 roslaunch
+rosmsg
 rosparam
 setdefaults
 setprecision

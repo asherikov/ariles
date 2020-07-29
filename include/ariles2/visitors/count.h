@@ -25,14 +25,15 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public ariles2::visitor::Base<visitor::Visitor, count::Parameters>
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor
+          : public ariles2::visitor::Base<visitor::Visitor, count::Parameters, std::size_t>
         {
         public:
             typedef count::Parameters Parameters;
 
 
         public:
-            using visitor::Base<visitor::Visitor, Parameters>::getDefaultParameters;
+            using visitor::Base<visitor::Visitor, Parameters, std::size_t>::getDefaultParameters;
 
             template <class t_Ariles>
             const Parameters &getParameters(const t_Ariles &ariles_class) const
@@ -42,20 +43,11 @@ namespace ariles2
 
 
             template <class t_Entry>
-            std::size_t count(const t_Entry &entry, const Parameters &param) const
+            std::size_t visit(const t_Entry &entry, const std::string &, const Parameters &param) const
             {
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_TYPE(entry);
                 return (entry.arilesVirtualVisit(*this, param));
-            }
-
-
-            template <class t_Entry>
-            std::size_t count(const t_Entry &entry) const
-            {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_TYPE(entry);
-                return (entry.arilesVirtualVisit(*this, entry.arilesGetParameters(*this)));
             }
         };
 

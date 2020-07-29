@@ -105,3 +105,47 @@ namespace ariles2
         }
     }  // namespace defaults
 }  // namespace ariles2
+
+
+
+namespace ariles2
+{
+    namespace copyfrom
+    {
+        template <class t_Visitor, class t_BetterEnum>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+                t_Visitor & /*visitor*/,
+                t_BetterEnum &left,
+                const t_BetterEnum &right,
+                const typename t_Visitor::Parameters & /*param*/,
+                const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
+                const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
+                const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
+                const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
+                const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
+        {
+            ARILES2_TRACE_FUNCTION;
+            left = right;
+        }
+    }  // namespace copyfrom
+
+
+    namespace copyto
+    {
+        template <class t_Visitor, class t_BetterEnum>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+                t_Visitor & /*visitor*/,
+                const t_BetterEnum &left,
+                t_BetterEnum &right,
+                const typename t_Visitor::Parameters & /*param*/,
+                const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
+                const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
+                const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
+                const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
+                const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
+        {
+            ARILES2_TRACE_FUNCTION;
+            right = left;
+        }
+    }  // namespace copyto
+}  // namespace ariles2

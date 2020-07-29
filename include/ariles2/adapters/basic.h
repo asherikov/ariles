@@ -151,7 +151,7 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             if (true == param.compare_number_of_entries_)
             {
-                visitor.equal_ &= (ariles2::count::Visitor().count(left) == ariles2::count::Visitor().count(right));
+                visitor.equal_ &= (ariles2::apply<ariles2::Count>(left) == ariles2::apply<ariles2::Count>(right));
             }
             left.arilesVisit(visitor, right, param);
         }
@@ -285,4 +285,98 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
         }
     }  // namespace process
+}  // namespace ariles2
+
+
+
+namespace ariles2
+{
+    namespace copyfrom
+    {
+        template <class t_Visitor, class t_Left, class t_Right>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+                t_Visitor &visitor,
+                t_Left &left,
+                const t_Right &right,
+                const typename t_Visitor::Parameters &param,
+                ARILES2_IS_BASE_ENABLER(ariles2::Ariles, t_Left))
+        {
+            ARILES2_TRACE_FUNCTION;
+            ARILES2_TRACE_TYPE(left);
+            ARILES2_TRACE_TYPE(right);
+
+            left.arilesVisit(visitor, right, param);
+        }
+
+
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
+    template <class t_Visitor>                                                                                         \
+    void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(                                                                  \
+            t_Visitor &, type &left, const type &right, const typename t_Visitor::Parameters &)                        \
+    {                                                                                                                  \
+        ARILES2_TRACE_FUNCTION;                                                                                        \
+        left = right;                                                                                                  \
+    }
+
+        ARILES2_BASIC_TYPES_LIST
+
+#undef ARILES2_BASIC_TYPE
+
+        template <class t_Visitor, typename t_Enumeration>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+                t_Visitor &,
+                t_Enumeration &left,
+                const t_Enumeration &right,
+                const typename t_Visitor::Parameters &,
+                ARILES2_IS_ENUM_ENABLER(t_Enumeration))
+        {
+            ARILES2_TRACE_FUNCTION;
+            left = right;
+        }
+    }  // namespace copyfrom
+
+
+    namespace copyto
+    {
+        template <class t_Visitor, class t_Left, class t_Right>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+                t_Visitor &visitor,
+                const t_Left &left,
+                t_Right &right,
+                const typename t_Visitor::Parameters &param,
+                ARILES2_IS_BASE_ENABLER(ariles2::Ariles, t_Left))
+        {
+            ARILES2_TRACE_FUNCTION;
+            ARILES2_TRACE_TYPE(left);
+            ARILES2_TRACE_TYPE(right);
+
+            left.arilesVisit(visitor, right, param);
+        }
+
+
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
+    template <class t_Visitor>                                                                                         \
+    void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(                                                                    \
+            t_Visitor &, const type &left, type &right, const typename t_Visitor::Parameters &)                        \
+    {                                                                                                                  \
+        ARILES2_TRACE_FUNCTION;                                                                                        \
+        right = left;                                                                                                  \
+    }
+
+        ARILES2_BASIC_TYPES_LIST
+
+#undef ARILES2_BASIC_TYPE
+
+        template <class t_Visitor, typename t_Enumeration>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+                t_Visitor &,
+                const t_Enumeration &left,
+                t_Enumeration &right,
+                const typename t_Visitor::Parameters &,
+                ARILES2_IS_ENUM_ENABLER(t_Enumeration))
+        {
+            ARILES2_TRACE_FUNCTION;
+            right = left;
+        }
+    }  // namespace copyto
 }  // namespace ariles2

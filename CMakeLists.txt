@@ -35,6 +35,7 @@ option (ARILES_ADAPTER_EIGEN            "Enable eigen support." ON)
 option (ARILES_ADAPTER_BOOST_POINTER    "Enable boost pointer support." ON)
 option (ARILES_ADAPTER_BOOST_OPTIONAL   "Enable boost optional support." ON)
 option (ARILES_ADAPTER_BETTER_ENUMS     "Enable support for beter enums." ON)
+option (ARILES_ADAPTER_ROSMSG           "ROS message conversions." ON)
 
 # build parameters
 set    (ARILES_CPP_STANDARD             "c++03" CACHE STRING "C++ standard version")
@@ -121,6 +122,7 @@ if (NOT ${ARILES_ENABLE_CORE})
     set(ARILES_ADAPTER_BOOST_POINTER    OFF)
     set(ARILES_ADAPTER_BOOST_OPTIONAL   OFF)
     set(ARILES_ADAPTER_BETTER_ENUMS     OFF)
+    set(ARILES_ADAPTER_ROSMSG           OFF)
 endif()
 
 
@@ -177,6 +179,9 @@ endif(ARILES_ADAPTER_BOOST_OPTIONAL)
 if (ARILES_ADAPTER_BETTER_ENUMS)
     list(APPEND ARILES_EXTRA_ADAPTERS "better_enums")
 endif(ARILES_ADAPTER_BETTER_ENUMS)
+if (ARILES_ADAPTER_ROSMSG)
+    list(APPEND ARILES_EXTRA_ADAPTERS "rosmsg")
+endif(ARILES_ADAPTER_ROSMSG)
 
 
 #####################################

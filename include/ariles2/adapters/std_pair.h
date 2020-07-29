@@ -164,3 +164,49 @@ namespace ariles2
         }
     }  // namespace process
 }  // namespace ariles2
+
+
+namespace ariles2
+{
+    namespace copyfrom
+    {
+        template <
+                class t_Visitor,
+                typename t_FirstLeft,
+                typename t_SecondLeft,
+                typename t_FirstRight,
+                typename t_SecondRight>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+                t_Visitor &visitor,
+                std::pair<t_FirstLeft, t_SecondLeft> &left,
+                const std::pair<t_FirstRight, t_SecondRight> &right,
+                const typename t_Visitor::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+
+            apply_copyfrom(visitor, left.first, right.first, param);
+            apply_copyfrom(visitor, left.second, right.second, param);
+        }
+    }  // namespace copyfrom
+
+    namespace copyto
+    {
+        template <
+                class t_Visitor,
+                typename t_FirstLeft,
+                typename t_SecondLeft,
+                typename t_FirstRight,
+                typename t_SecondRight>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+                t_Visitor &visitor,
+                const std::pair<t_FirstLeft, t_SecondLeft> &left,
+                std::pair<t_FirstRight, t_SecondRight> &right,
+                const typename t_Visitor::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+
+            apply_copyto(visitor, left.first, right.first, param);
+            apply_copyto(visitor, left.second, right.second, param);
+        }
+    }  // namespace copyto
+}  // namespace ariles2

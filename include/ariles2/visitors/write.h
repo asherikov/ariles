@@ -310,7 +310,7 @@ namespace ariles2
             template <class t_Entry>
             void startMap(t_Entry &entry, const Parameters &parameters)
             {
-                startMap(parameters, ariles2::count::Visitor().count(entry));
+                startMap(parameters, ariles2::apply<ariles2::Count>(entry));
             }
 
             using write::VisitorBase<Visitor, Parameters>::startMap;

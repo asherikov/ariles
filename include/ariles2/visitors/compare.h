@@ -50,7 +50,7 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::Visitor, compare::Parameters>
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::Visitor, compare::Parameters, bool>
         {
         public:
             typedef compare::Parameters Parameters;
@@ -62,14 +62,7 @@ namespace ariles2
 
 
         public:
-            template <class t_Left, class t_Right>
-            bool compare(const t_Left &left, const t_Right &right, const Parameters &param)
-            {
-                ariles2::apply(*this, left, right, param);
-                return (equal_);
-            }
-
-            using visitor::Base<visitor::Visitor, Parameters>::getDefaultParameters;
+            using visitor::Base<visitor::Visitor, Parameters, bool>::getDefaultParameters;
 
             template <class t_Ariles>
             const Parameters &getParameters(const t_Ariles &ariles_class) const
@@ -79,7 +72,7 @@ namespace ariles2
 
 
             template <class t_Left, class t_Right>
-            void visit(const t_Left &left, const t_Right &right, const std::string &name, const Parameters &param)
+            bool visit(const t_Left &left, const t_Right &right, const std::string &name, const Parameters &param)
             {
                 ARILES2_TRACE_FUNCTION;
                 try
@@ -96,6 +89,7 @@ namespace ariles2
                     backtrace_.push_back(e.what());
                     equal_ = false;
                 }
+                return (equal_);
             }
 
 

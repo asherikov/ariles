@@ -127,7 +127,7 @@ namespace ariles2
             {
                 startMap(
                         parameters.allow_missing_entries_ ? SIZE_LIMIT_NONE : SIZE_LIMIT_EQUAL,
-                        ariles2::count::Visitor().count(entry));
+                        ariles2::apply<ariles2::Count>(entry));
             }
 
             virtual void startMap(

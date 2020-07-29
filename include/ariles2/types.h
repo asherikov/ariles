@@ -326,6 +326,24 @@ namespace ariles2
         }
 #endif
 
+#ifdef ARILES2_METHODS_copyto
+        template <class t_Other>
+        void arilesVisit(ariles2::CopyTo &visitor, t_Other &other, const ariles2::CopyTo::Parameters &param) const
+        {
+            ARILES2_TRACE_FUNCTION;
+            ariles2::copyto::apply_copyto(visitor, value_, other, param);
+        }
+#endif
+
+#ifdef ARILES2_METHODS_copyfrom
+        template <class t_Other>
+        void arilesVisit(ariles2::CopyFrom &visitor, const t_Other &other, const ariles2::CopyFrom::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+            ariles2::copyfrom::apply_copyfrom(visitor, value_, other, param);
+        }
+#endif
+
 #ifdef ARILES2_METHODS_graphviz
         void arilesVisit(ariles2::Graphviz &writer, const ariles2::Graphviz::Parameters &parameters) const
         {

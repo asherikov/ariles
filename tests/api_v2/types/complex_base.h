@@ -57,7 +57,7 @@ namespace ariles_tests
             impl.boolean_false_ = false;
             impl.boolean_true_ = true;
 
-            impl.enum_ = ANOTHER_VALUE;
+            impl.some_enum_ = ANOTHER_VALUE;
             impl.better_enum_ = BetterEnum::DEFINED_1;
 
             impl.std_pair_.first = "test";
@@ -133,7 +133,7 @@ namespace ariles_tests
             impl.boolean_false_ = false;
             impl.boolean_true_ = true;
 
-            impl.enum_ = ANOTHER_VALUE;
+            impl.some_enum_ = ANOTHER_VALUE;
             impl.better_enum_ = BetterEnum::DEFINED_2;
 
             impl.std_pair_.first = "test_string_2";
@@ -201,7 +201,7 @@ namespace ariles_tests
         BOOST_CHECK_EQUAL(configurable_out.boolean_false_, false);
         BOOST_CHECK_EQUAL(configurable_out.boolean_true_, configurable_in.boolean_true_);
         BOOST_CHECK_EQUAL(configurable_out.boolean_true_, true);
-        BOOST_CHECK_EQUAL(configurable_out.enum_, configurable_in.enum_);
+        BOOST_CHECK_EQUAL(configurable_out.some_enum_, configurable_in.some_enum_);
         BOOST_CHECK_EQUAL(configurable_out.better_enum_, configurable_in.better_enum_);
 
         BOOST_CHECK_EQUAL(configurable_out.std_vector_.size(), configurable_in.std_vector_.size());

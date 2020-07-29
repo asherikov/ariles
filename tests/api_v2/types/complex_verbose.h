@@ -24,7 +24,7 @@ namespace ariles_tests
     ARILES2_ENTRY_(v, string)                                                                                          \
     ARILES2_ENTRY_(v, std_vector)                                                                                      \
     ARILES2_ENTRY_(v, std_nested_vector)                                                                               \
-    ARILES2_ENTRY_(v, enum)                                                                                            \
+    ARILES2_ENTRY_(v, some_enum)                                                                                       \
     ARILES2_ENTRY_(v, boolean_true)                                                                                    \
     ARILES2_ENTRY_(v, boolean_false)                                                                                   \
     ARILES2_ENTRY_(v, std_pair)                                                                                        \
@@ -75,7 +75,7 @@ namespace ariles_tests
         bool boolean_true_;
         bool boolean_false_;
 
-        SomeEnum enum_;
+        SomeEnum some_enum_;
         BetterEnum better_enum_;
 
         std::pair<std::string, double> std_pair_;

@@ -187,3 +187,78 @@ namespace ariles2
         }
     }  // namespace process
 }  // namespace ariles2
+
+
+namespace ariles2
+{
+    namespace copyfrom
+    {
+        template <
+                class t_Visitor,
+                typename t_KeyLeft,
+                typename t_ValueLeft,
+                class t_CompareLeft,
+                class t_AllocatorLeft,
+                typename t_KeyRight,
+                typename t_ValueRight,
+                class t_CompareRight,
+                class t_AllocatorRight>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+                t_Visitor &visitor,
+                std::map<t_KeyLeft, t_ValueLeft, t_CompareLeft, t_AllocatorLeft> &left,
+                const std::map<t_KeyRight, t_ValueRight, t_CompareRight, t_AllocatorRight> &right,
+                const typename t_Visitor::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+
+            typename std::map<t_KeyRight, t_ValueRight, t_CompareRight, t_AllocatorRight>::const_iterator right_it =
+                    right.begin();
+
+            left.clear();
+
+            for (; right_it != right.end(); ++right_it)
+            {
+                t_KeyLeft left_key;
+
+                apply_copyfrom(visitor, left_key, right_it->first, param);
+                apply_copyfrom(visitor, left[left_key], right_it->second, param);
+            }
+        }
+    }  // namespace copyfrom
+
+
+    namespace copyto
+    {
+        template <
+                class t_Visitor,
+                typename t_KeyLeft,
+                typename t_ValueLeft,
+                class t_CompareLeft,
+                class t_AllocatorLeft,
+                typename t_KeyRight,
+                typename t_ValueRight,
+                class t_CompareRight,
+                class t_AllocatorRight>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+                t_Visitor &visitor,
+                const std::map<t_KeyLeft, t_ValueLeft, t_CompareLeft, t_AllocatorLeft> &left,
+                std::map<t_KeyRight, t_ValueRight, t_CompareRight, t_AllocatorRight> &right,
+                const typename t_Visitor::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+
+            typename std::map<t_KeyLeft, t_ValueLeft, t_CompareLeft, t_AllocatorLeft>::const_iterator left_it =
+                    left.begin();
+
+            right.clear();
+
+            for (; left_it != left.end(); ++left_it)
+            {
+                t_KeyRight right_key;
+
+                apply_copyto(visitor, left_it->first, right_key, param);
+                apply_copyto(visitor, left_it->second, right[right_key], param);
+            }
+        }
+    }  // namespace copyto
+}  // namespace ariles2

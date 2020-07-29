@@ -84,7 +84,7 @@ namespace ariles_tests
             ariles2::Compare::Parameters param;
             param.double_tolerance_ = g_tolerance;
             param.compare_number_of_entries_ = true;
-            BOOST_CHECK(visitor.compare(configurable_vector_out, configurable_vector_in, param));
+            BOOST_CHECK(ariles2::apply(visitor, configurable_vector_out, configurable_vector_in, param));
         }
     };
 }  // namespace ariles_tests
