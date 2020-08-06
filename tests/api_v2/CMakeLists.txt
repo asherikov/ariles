@@ -67,3 +67,12 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "225" "" "${ARILES_TEST_ALL_
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "226" "graphviz" "")                    # graphviz: complex, pointers
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "229" "graphviz" "")                    # graphviz: ariles_diagram
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "230" "" "")                            # copyto, copyfrom
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "231" "protobuf3" "")                   # protobuf
+if (${ARILES_VISITOR_protobuf3} STREQUAL "ON")
+    protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${CMAKE_CURRENT_LIST_DIR}/types/protobuf/test.proto)
+    add_library("protobuf_test" STATIC ${PROTO_SRCS} ${PROTO_HDRS})
+    set_property(TARGET "protobuf_test" APPEND_STRING PROPERTY COMPILE_FLAGS " -Wno-error=shadow -Wno-error=unused-parameter ")
+    set_property(TARGET ${TGT_TEST} APPEND_STRING PROPERTY COMPILE_FLAGS " -Wno-error=shadow -Wno-error=unused-parameter ")
+    set_property(TARGET ${TGT_TEST} APPEND PROPERTY INCLUDE_DIRECTORIES ${CMAKE_CURRENT_BINARY_DIR})
+    target_link_libraries(${TGT_TEST} protobuf_test)
+endif()

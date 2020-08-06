@@ -79,7 +79,7 @@
 #define ARILES_FIXTURE_TEST_CASE_COPY_COMPARE(ID, CONFIGURABLE_TYPE1, CONFIGURABLE_TYPE2)                              \
     BOOST_FIXTURE_TEST_CASE(CopyCompareFixture_##ID, ariles_tests::CopyCompareFixture)                                 \
     {                                                                                                                  \
-        test<ariles_tests::CONFIGURABLE_TYPE1, CONFIGURABLE_TYPE2>();                                                  \
+        test<ariles2::CopyTo, ariles2::CopyFrom, ariles_tests::CONFIGURABLE_TYPE1, CONFIGURABLE_TYPE2>();              \
     }
 
 

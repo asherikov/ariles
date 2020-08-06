@@ -15,8 +15,16 @@
 #include "serialization.h"
 #include "count.h"
 
+/**
+@defgroup read Read
+@ingroup serialization
+
+@brief Base for deserialization.
+*/
+
 namespace ariles2
 {
+    /// @ingroup read
     namespace read
     {
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public serialization::Parameters
@@ -388,5 +396,6 @@ namespace ariles2
     }  // namespace read
 
 
+    /// @ingroup read
     typedef read::Visitor Read;
 }  // namespace ariles2

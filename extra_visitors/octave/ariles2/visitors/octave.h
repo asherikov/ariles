@@ -10,6 +10,7 @@
 
 /**
 @defgroup octave Octave
+@ingroup config
 
 @brief Serialize to Octave/MATLAB script.
 

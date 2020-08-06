@@ -10,6 +10,7 @@
 
 /**
 @defgroup yaml_cpp yaml-cpp
+@ingroup config
 
 @brief YAML serialization via https://github.com/jbeder/yaml-cpp.
 

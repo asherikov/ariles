@@ -10,6 +10,7 @@
 
 /**
 @defgroup pugixml PugiXML
+@ingroup config
 
 @brief XML serialization via https://pugixml.org/.
 

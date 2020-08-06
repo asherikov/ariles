@@ -62,6 +62,7 @@ jobs:
           - rosdep update
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
           - sudo apt install -y devscripts build-essential octave libpugixml-dev libyaml-cpp-dev fakeroot
+          - sudo apt install -y libprotobuf-dev protobuf-compiler
 
         script:
           - sudo make install-jsonnet
@@ -90,6 +91,7 @@ jobs:
           - rosdep update
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
           - sudo apt install -y devscripts build-essential octave libpugixml-dev libyaml-cpp-dev fakeroot rapidjson-dev libmsgpack-dev
+          - sudo apt install -y libprotobuf-dev protobuf-compiler
 
         script:
           - sudo make install-jsonnet
@@ -106,6 +108,7 @@ jobs:
           - sudo apt update
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
           - sudo apt install -y octave libpugixml-dev libyaml-cpp-dev graphviz
+          - sudo apt install -y libprotobuf-dev protobuf-compiler
         script:
           - sudo make install-jsonnet
           - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_${TRAVIS_DIST} TARGETS="all" ARGS=-V
@@ -118,6 +121,7 @@ jobs:
           - sudo apt update
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
           - sudo apt install -y octave libpugixml-dev libyaml-cpp-dev graphviz
+          - sudo apt install -y libprotobuf-dev protobuf-compiler
         script:
           - sudo make install-jsonnet
           - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_${TRAVIS_DIST} TARGETS="all" ARGS=-V
@@ -129,6 +133,7 @@ jobs:
           - sudo apt update
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
           - sudo apt install -y octave libpugixml-dev libyaml-cpp-dev rapidjson-dev libmsgpack-dev graphviz
+          - sudo apt install -y libprotobuf-dev protobuf-compiler
 
         script:
           - sudo make install-jsonnet
@@ -158,6 +163,7 @@ jobs:
           - rosdep update
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
           - sudo apt install -y libyaml-cpp-dev octave graphviz
+          - sudo apt install -y libprotobuf-dev protobuf-compiler
 
         script:
           - sudo make install-jsonnet
@@ -185,6 +191,7 @@ jobs:
           - rosdep update
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
           - sudo apt install -y libyaml-cpp-dev octave graphviz
+          - sudo apt install -y libprotobuf-dev protobuf-compiler
 
         script:
           - sudo make install-jsonnet
@@ -211,6 +218,7 @@ jobs:
           - rosdep update
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
           - sudo apt install -y libyaml-cpp-dev octave graphviz
+          - sudo apt install -y libprotobuf-dev protobuf-compiler
 
         script:
           - sudo make install-jsonnet
@@ -253,6 +261,7 @@ jobs:
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
           - sudo apt install -y libyaml-cpp-dev octave
           - sudo apt install -y clang-tools-9
+          - sudo apt install -y libprotobuf-dev protobuf-compiler
 
         script:
           - sudo make install-jsonnet

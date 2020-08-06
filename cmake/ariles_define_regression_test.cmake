@@ -51,4 +51,6 @@ function(ariles_define_regression_test ARILES_MODULE REGRESSION_TEST_ID DEPENDEN
     ariles_copy_extra_test_files(${TGT_NAME} "copy_cfg" "${CMAKE_CURRENT_LIST_DIR}" "${TEST_NAME}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
     add_test(NAME ${TGT_NAME} COMMAND ${TEST_NAME} WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+
+    set(TGT_TEST "${TGT_NAME}" PARENT_SCOPE)
 endfunction()

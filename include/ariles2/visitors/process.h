@@ -12,6 +12,12 @@
 
 #include "common.h"
 
+/**
+@defgroup process Process
+
+@brief Process entries, base for @ref preprocess and @ref postprocess.
+*/
+
 namespace ariles2
 {
     namespace process

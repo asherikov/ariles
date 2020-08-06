@@ -10,6 +10,7 @@
 
 /**
 @defgroup rapidjson RapidJSON
+@ingroup config
 
 @brief JSON serialization via https://rapidjson.org/.
 

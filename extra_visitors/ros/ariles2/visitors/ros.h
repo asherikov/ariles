@@ -10,6 +10,7 @@
 
 /**
 @defgroup ros ROS
+@ingroup config
 
 @brief ROS parameter server serialization.
 */

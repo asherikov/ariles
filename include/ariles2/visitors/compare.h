@@ -12,8 +12,15 @@
 
 #include "common.h"
 
+/**
+@defgroup compare Compare
+
+@brief Class comparison.
+*/
+
 namespace ariles2
 {
+    /// @ingroup compare
     namespace compare
     {
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
@@ -191,5 +198,6 @@ namespace ariles2
     }  // namespace compare
 
 
+    /// @ingroup compare
     typedef compare::Visitor Compare;
 }  // namespace ariles2

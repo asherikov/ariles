@@ -17,9 +17,16 @@
 #include "read.h"
 #include "write.h"
 
+/**
+@defgroup config Configuration
+@ingroup serialization
+
+@brief Configuration visitors (perform pre- and post- processing during (de)serialization)
+*/
 
 namespace ariles2
 {
+    /// @ingroup config
     namespace cfgread
     {
         template <class t_Reader>
@@ -128,6 +135,7 @@ namespace ariles2
 
 namespace ariles2
 {
+    /// @ingroup config
     namespace cfgwrite
     {
         template <class t_Writer>

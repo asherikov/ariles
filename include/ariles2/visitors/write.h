@@ -13,8 +13,16 @@
 #include "serialization.h"
 #include "count.h"
 
+/**
+@defgroup write Write
+@ingroup serialization
+
+@brief Base for serialization.
+*/
+
 namespace ariles2
 {
+    /// @ingroup write
     namespace write
     {
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public serialization::Parameters
@@ -343,5 +351,6 @@ namespace ariles2
     }  // namespace write
 
 
+    /// @ingroup write
     typedef write::Visitor Write;
 }  // namespace ariles2

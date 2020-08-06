@@ -12,8 +12,15 @@
 
 #include "common.h"
 
+/**
+@defgroup serialization Serialization
+
+@brief Serialization.
+*/
+
 namespace ariles2
 {
+    /// @ingroup serialization
     namespace serialization
     {
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters

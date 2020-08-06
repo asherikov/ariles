@@ -13,6 +13,7 @@
 
 /**
 @defgroup msgpack msgpack
+@ingroup config
 
 @brief Serialization using msgpack format, see https://msgpack.org/.
 */

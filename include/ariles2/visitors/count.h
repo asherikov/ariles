@@ -12,8 +12,15 @@
 
 #include "common.h"
 
+/**
+@defgroup count Count
+
+@brief Counts number of entries.
+*/
+
 namespace ariles2
 {
+    /// @ingroup count
     namespace count
     {
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
@@ -96,5 +103,6 @@ namespace ariles2
     }  // namespace count
 
 
+    /// @ingroup count
     typedef count::Visitor Count;
 }  // namespace ariles2

@@ -12,8 +12,15 @@
 
 #include "common.h"
 
+/**
+@defgroup copyto CopyTo
+
+@brief Copy data to non-ariles classes.
+*/
+
 namespace ariles2
 {
+    /// @ingroup copyto
     namespace copyto
     {
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
@@ -112,5 +119,6 @@ namespace ariles2
     }  // namespace copyto
 
 
+    /// @ingroup copyto
     typedef copyto::Visitor CopyTo;
 }  // namespace ariles2

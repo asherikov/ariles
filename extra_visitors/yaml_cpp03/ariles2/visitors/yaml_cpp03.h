@@ -14,6 +14,7 @@
 
 /**
 @defgroup yaml_cpp03 yaml-cpp (C++03 API)
+@ingroup config
 
 @brief YAML serialization via https://github.com/jbeder/yaml-cpp.
 

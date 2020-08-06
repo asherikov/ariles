@@ -13,8 +13,16 @@
 #include "common.h"
 #include "process.h"
 
+/**
+@defgroup preprocess PreProcess
+@ingroup process
+
+@brief Preprocess entries, e.g., pack values before serialization.
+*/
+
 namespace ariles2
 {
+    /// @ingroup preprocess
     namespace preprocess
     {
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
@@ -58,5 +66,6 @@ namespace ariles2
     }  // namespace preprocess
 
 
+    /// @ingroup preprocess
     typedef preprocess::Visitor PreProcess;
 }  // namespace ariles2

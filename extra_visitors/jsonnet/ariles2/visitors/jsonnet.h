@@ -8,6 +8,7 @@
 
 /**
 @defgroup jsonnet Jsonnet
+@ingroup config
 
 @brief Preprocessing wrapper for json visitors, see https://jsonnet.org/.
 */

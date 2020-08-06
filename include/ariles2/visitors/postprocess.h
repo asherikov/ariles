@@ -13,8 +13,16 @@
 #include "common.h"
 #include "process.h"
 
+/**
+@defgroup postprocess PostProcess
+@ingroup process
+
+@brief Postprocess entries, e.g., validate after deserialization.
+*/
+
 namespace ariles2
 {
+    /// @ingroup postprocess
     namespace postprocess
     {
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
@@ -58,5 +66,6 @@ namespace ariles2
     }  // namespace postprocess
 
 
+    /// @ingroup postprocess
     typedef postprocess::Visitor PostProcess;
 }  // namespace ariles2

@@ -1,0 +1,83 @@
+//syntax = "proto3"; // works too
+syntax = "proto2";
+//import "google/protobuf/any.proto";
+
+message Scalars
+{
+    required string test_string = 1;
+    required double test_double = 2;
+    required float test_float = 3;
+    required int32 test_int32 = 4;
+    required int64 test_int64 = 5;
+    required uint64 test_uint64 = 6;
+    required uint32 test_uint32 = 7;
+    required sint32 test_sint32 = 8;
+    required sint64 test_sint64 = 9;
+    required fixed64 test_fixed64 = 10;
+    required fixed32 test_fixed32 = 11;
+    required sfixed32 test_sfixed32 = 12;
+    required sfixed64 test_sfixed64 = 13;
+    required bool test_bool = 14;
+    required bytes test_bytes = 15;
+
+    enum Corpus
+    {
+        UNIVERSAL = 0;
+        WEB = 1;
+        IMAGES = 2;
+        LOCAL = 3;
+        NEWS = 4;
+        PRODUCTS = 5;
+        VIDEO = 6;
+    }
+    required Corpus corpus = 16;
+}
+
+message RepeatedScalars
+{
+    repeated string test_string = 1;
+    repeated double test_double = 2;
+    repeated float test_float = 3;
+    repeated int32 test_int32 = 4;
+    repeated int64 test_int64 = 5;
+    repeated uint64 test_uint64 = 6;
+    repeated uint32 test_uint32 = 7;
+    repeated sint32 test_sint32 = 8;
+    repeated sint64 test_sint64 = 9;
+    repeated fixed64 test_fixed64 = 10;
+    repeated fixed32 test_fixed32 = 11;
+    repeated sfixed32 test_sfixed32 = 12;
+    repeated sfixed64 test_sfixed64 = 13;
+    repeated bool test_bool = 14;
+    repeated bytes test_bytes = 15;
+
+    enum Corpus
+    {
+        UNIVERSAL = 0;
+        WEB = 1;
+        IMAGES = 2;
+        LOCAL = 3;
+        NEWS = 4;
+        PRODUCTS = 5;
+        VIDEO = 6;
+    }
+    repeated Corpus corpus = 16;
+}
+
+
+message Compound
+{
+    required Scalars scalars = 1;
+    required RepeatedScalars repeated_scalars = 2;
+
+    repeated Scalars array_scalars = 3;
+    repeated RepeatedScalars array_repeated_scalars = 4;
+
+//    google.protobuf.Any any_scalars = 5;
+//    google.protobuf.Any any_repeated_scalars = 6;
+
+//    repeated google.protobuf.Any array_any_scalars = 7;
+//    repeated google.protobuf.Any array_any_repeated_scalars = 8;
+
+//    map<string, Scalars> map_scalars = 9;
+}

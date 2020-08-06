@@ -13,8 +13,15 @@
 #include <limits>
 #include "common.h"
 
+/**
+@defgroup defaults Defaults
+
+@brief Initializes entries to their default values.
+*/
+
 namespace ariles2
 {
+    /// @ingroup defaults
     namespace defaults
     {
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
@@ -134,5 +141,6 @@ namespace ariles2
     }  // namespace defaults
 
 
+    /// @ingroup defaults
     typedef defaults::Visitor Defaults;
 }  // namespace ariles2
