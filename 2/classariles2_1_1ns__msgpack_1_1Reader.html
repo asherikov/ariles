@@ -112,6 +112,8 @@ Public Types</h2></td></tr>
 <tr class="separator:acfe0a969b1b2a8866b52b97776753664"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f7bf3ad2a79a0e9a9b3ca86f5b0d648"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a></td></tr>
 <tr class="separator:a0f7bf3ad2a79a0e9a9b3ca86f5b0d648"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb9a7f4e9e644b4beae60c5a30266f49"><td class="memItemLeft" align="right" valign="top">typedef void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1visitor_1_1Base.html#adb9a7f4e9e644b4beae60c5a30266f49">ReturnType</a></td></tr>
+<tr class="separator:adb9a7f4e9e644b4beae60c5a30266f49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -166,6 +168,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae8ec5dec84050cfc0534fdd417529aa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51ed62cd8e4f5963f9adc65053e618af"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1read_1_1Visitor.html#a51ed62cd8e4f5963f9adc65053e618af">endMatrix</a> (const bool dynamic)</td></tr>
 <tr class="separator:a51ed62cd8e4f5963f9adc65053e618af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa41fe7977ee09b8e6bc85a9952a756c4"><td class="memTemplParams" colspan="2">template&lt;class t_Scalar &gt; </td></tr>
+<tr class="memitem:aa41fe7977ee09b8e6bc85a9952a756c4"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classariles2_1_1read_1_1Visitor.html#aa41fe7977ee09b8e6bc85a9952a756c4">readElement</a> (std::complex&lt; t_Scalar &gt; &amp;entry)</td></tr>
+<tr class="separator:aa41fe7977ee09b8e6bc85a9952a756c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93163223b0fb601aab87644c1f37347c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1read_1_1Visitor.html#a93163223b0fb601aab87644c1f37347c">readElement</a> (std::complex&lt; float &gt; &amp;entry)</td></tr>
+<tr class="separator:a93163223b0fb601aab87644c1f37347c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefa15224adc62056abe786e5b4fff7ea"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1read_1_1Visitor.html#aefa15224adc62056abe786e5b4fff7ea">readElement</a> (std::complex&lt; double &gt; &amp;entry)</td></tr>
+<tr class="separator:aefa15224adc62056abe786e5b4fff7ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ebf395c8afe08e664e10398863f2483"><td class="memTemplParams" colspan="2">template&lt;class t_Entry &gt; </td></tr>
 <tr class="memitem:a0ebf395c8afe08e664e10398863f2483"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="helpers_8h.html#afea64d1a6a535414a0043caf4820c393">ARILES2_BASIC_TYPES_LIST</a> void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classariles2_1_1read_1_1Visitor.html#a0ebf395c8afe08e664e10398863f2483">visit</a> (t_Entry &amp;entry, const std::string &amp;name, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;param)</td></tr>
 <tr class="separator:a0ebf395c8afe08e664e10398863f2483"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -196,8 +205,8 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a95f54c3c1617754b9099653db0ab1dee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d03deecc0c78fccb1b38206cfe597c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1read_1_1Visitor.html#a1d03deecc0c78fccb1b38206cfe597c9">checkSize</a> (const <a class="el" href="classariles2_1_1read_1_1Visitor.html#acfe0a969b1b2a8866b52b97776753664">SizeLimitEnforcementType</a> limit_type, const std::size_t size=0, const std::size_t min=0, const std::size_t max=0) const</td></tr>
 <tr class="separator:a1d03deecc0c78fccb1b38206cfe597c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad30a42a37791e07d955534e7ca534db1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1visitor_1_1Base.html#ad30a42a37791e07d955534e7ca534db1">getDefaultParameters</a> () const</td></tr>
-<tr class="separator:ad30a42a37791e07d955534e7ca534db1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1469cc56850102b74384c762a14519f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1visitor_1_1Base.html#ae1469cc56850102b74384c762a14519f">getDefaultParameters</a> () const</td></tr>
+<tr class="separator:ae1469cc56850102b74384c762a14519f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
@@ -231,7 +240,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00115">115</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00122">122</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
 
 </div>
 </div>
@@ -255,7 +264,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00116">116</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00123">123</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
 
 </div>
 </div>
@@ -279,7 +288,31 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00135">135</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00142">142</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
+
+</div>
+</div>
+<a id="adb9a7f4e9e644b4beae60c5a30266f49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb9a7f4e9e644b4beae60c5a30266f49">&#9670;&nbsp;</a></span>ReturnType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void  <a class="el" href="classariles2_1_1visitor_1_1Base.html">ariles2::visitor::Base</a>&lt; <a class="el" href="classariles2_1_1visitor_1_1GenericVisitor.html">visitor::GenericVisitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> , void  &gt;::<a class="el" href="classariles2_1_1visitor_1_1Base.html#adb9a7f4e9e644b4beae60c5a30266f49">ReturnType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="include_2ariles2_2visitors_2common_8h_source.html#l00053">53</a> of file <a class="el" href="include_2ariles2_2visitors_2common_8h_source.html">common.h</a>.</p>
 
 </div>
 </div>
@@ -311,7 +344,7 @@ Protected Attributes</h2></td></tr>
 <tr><td class="fieldname"><a id="acfe0a969b1b2a8866b52b97776753664a245312fa778a62314da8b5aa36d48b92"></a>SIZE_LIMIT_MIN&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00040">40</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00048">48</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -435,7 +468,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00055">55</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00063">63</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -522,7 +555,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__rapidjson_1_1Reader.html#ad85c7088356111aba9e934d393f54a97">ariles2::ns_rapidjson::Reader</a>, <a class="el" href="classariles2_1_1ns__pugixml_1_1Reader.html#a0f8d9b9d9c85116758235e8af21cda25">ariles2::ns_pugixml::Reader</a>, <a class="el" href="classariles2_1_1ns__yaml__cpp03_1_1Reader.html#a94ff596e3b9e6e268ce331d8cbe146b6">ariles2::ns_yaml_cpp03::Reader</a>, <a class="el" href="classariles2_1_1ns__yaml__cpp_1_1Reader.html#ac3f1e8a68ec034c0b89dbe35380c4240">ariles2::ns_yaml_cpp::Reader</a>, and <a class="el" href="classariles2_1_1ns__ros_1_1Reader.html#ab9c5573593739c5b1c9e2fa0f526bc93">ariles2::ns_ros::Reader</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00179">179</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00187">187</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -551,7 +584,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__rapidjson_1_1Reader.html#a5bbfc703d4d7fb4345e95c14e9fda6c6">ariles2::ns_rapidjson::Reader</a>, <a class="el" href="classariles2_1_1ns__pugixml_1_1Reader.html#a45a147e61225c250d88aed0db97f2ab5">ariles2::ns_pugixml::Reader</a>, <a class="el" href="classariles2_1_1ns__yaml__cpp03_1_1Reader.html#a399542c3cb1080c5b72169e1ae1ed7a0">ariles2::ns_yaml_cpp03::Reader</a>, <a class="el" href="classariles2_1_1ns__yaml__cpp_1_1Reader.html#a00735d21c3c3a3c7c58c7fc25f47b873">ariles2::ns_yaml_cpp::Reader</a>, and <a class="el" href="classariles2_1_1ns__ros_1_1Reader.html#a55445cf6ed967f6c765a5d87ce782136">ariles2::ns_ros::Reader</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00176">176</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00184">184</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -580,7 +613,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__msgpack__compact_1_1Reader.html#a51a2d1afb55f8d3156309cb4cd62713e">ariles2::ns_msgpack_compact::Reader</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00159">159</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00167">167</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -639,7 +672,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00261">261</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00269">269</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -667,7 +700,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00211">211</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00219">219</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -724,7 +757,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00238">238</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00246">246</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -751,12 +784,12 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00234">234</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00242">242</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
-<a id="ad30a42a37791e07d955534e7ca534db1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad30a42a37791e07d955534e7ca534db1">&#9670;&nbsp;</a></span>getDefaultParameters()</h2>
+<a id="ae1469cc56850102b74384c762a14519f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1469cc56850102b74384c762a14519f">&#9670;&nbsp;</a></span>getDefaultParameters()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -765,7 +798,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp; <a class="el" href="classariles2_1_1visitor_1_1Base.html">ariles2::visitor::Base</a>&lt; <a class="el" href="classariles2_1_1visitor_1_1GenericVisitor.html">visitor::GenericVisitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::getDefaultParameters </td>
+          <td class="memname">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp; <a class="el" href="classariles2_1_1visitor_1_1Base.html">ariles2::visitor::Base</a>&lt; <a class="el" href="classariles2_1_1visitor_1_1GenericVisitor.html">visitor::GenericVisitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> , void  &gt;::getDefaultParameters </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -778,7 +811,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="include_2ariles2_2visitors_2common_8h_source.html#l00054">54</a> of file <a class="el" href="include_2ariles2_2visitors_2common_8h_source.html">common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2ariles2_2visitors_2common_8h_source.html#l00059">59</a> of file <a class="el" href="include_2ariles2_2visitors_2common_8h_source.html">common.h</a>.</p>
 
 </div>
 </div>
@@ -806,7 +839,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00142">142</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00149">149</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
 
 </div>
 </div>
@@ -853,7 +886,93 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00088">88</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00096">96</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+
+</div>
+</div>
+<a id="aa41fe7977ee09b8e6bc85a9952a756c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa41fe7977ee09b8e6bc85a9952a756c4">&#9670;&nbsp;</a></span>readElement() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class t_Scalar &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ariles2::read::Visitor::readElement </td>
+          <td>(</td>
+          <td class="paramtype">std::complex&lt; t_Scalar &gt; &amp;&#160;</td>
+          <td class="paramname"><em>entry</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00280">280</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+
+</div>
+</div>
+<a id="a93163223b0fb601aab87644c1f37347c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93163223b0fb601aab87644c1f37347c">&#9670;&nbsp;</a></span>readElement() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ariles2::read::Visitor::readElement </td>
+          <td>(</td>
+          <td class="paramtype">std::complex&lt; float &gt; &amp;&#160;</td>
+          <td class="paramname"><em>entry</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00294">294</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+
+</div>
+</div>
+<a id="aefa15224adc62056abe786e5b4fff7ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefa15224adc62056abe786e5b4fff7ea">&#9670;&nbsp;</a></span>readElement() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ariles2::read::Visitor::readElement </td>
+          <td>(</td>
+          <td class="paramtype">std::complex&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>entry</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00298">298</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -957,7 +1076,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__rapidjson_1_1Reader.html#a843e44d262b763db594d565960bb308e">ariles2::ns_rapidjson::Reader</a>, <a class="el" href="classariles2_1_1ns__pugixml_1_1Reader.html#a1292af97c466782d62c0314f4a865f36">ariles2::ns_pugixml::Reader</a>, <a class="el" href="classariles2_1_1ns__yaml__cpp03_1_1Reader.html#a00994b133901aff83b16c73084272b65">ariles2::ns_yaml_cpp03::Reader</a>, <a class="el" href="classariles2_1_1ns__yaml__cpp_1_1Reader.html#ab655bbb29d531c2ddb62545e2962e294">ariles2::ns_yaml_cpp::Reader</a>, and <a class="el" href="classariles2_1_1ns__ros_1_1Reader.html#a878e7927f051c5fced13dda93e96f70f">ariles2::ns_ros::Reader</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00164">164</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00172">172</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -987,7 +1106,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__pugixml_1_1Reader.html#a551512ad3e75f2bc4c7f91c2ac509fdb">ariles2::ns_pugixml::Reader</a>, <a class="el" href="classariles2_1_1ns__rapidjson_1_1Reader.html#a44e569c28203edeeedcae7261fa38a18">ariles2::ns_rapidjson::Reader</a>, <a class="el" href="classariles2_1_1ns__yaml__cpp03_1_1Reader.html#aaf8c9773703a52fcec3fd7bf78ffebb9">ariles2::ns_yaml_cpp03::Reader</a>, <a class="el" href="classariles2_1_1ns__yaml__cpp_1_1Reader.html#a88cd6b5a0b780cea913d32ec4bcc5c4a">ariles2::ns_yaml_cpp::Reader</a>, and <a class="el" href="classariles2_1_1ns__ros_1_1Reader.html#a8b0fb5ecc8256b1f83107424b96f81ad">ariles2::ns_ros::Reader</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00171">171</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00179">179</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -1073,7 +1192,7 @@ template&lt;class t_Entry &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00126">126</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00134">134</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -1162,7 +1281,7 @@ template&lt;class t_Entry &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00244">244</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00252">252</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -1190,7 +1309,7 @@ template&lt;class t_Entry &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00184">184</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00192">192</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -1247,7 +1366,7 @@ template&lt;class t_Entry &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00226">226</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00234">234</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -1274,7 +1393,7 @@ template&lt;class t_Entry &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00230">230</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00238">238</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -1320,7 +1439,7 @@ template&lt;class t_Entry &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00278">278</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00312">312</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -1360,7 +1479,7 @@ template&lt;typename t_Element &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00342">342</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00376">376</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -1412,7 +1531,7 @@ template&lt;class t_Entry &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00308">308</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00342">342</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -1452,7 +1571,7 @@ template&lt;typename t_Element &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00353">353</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="read_8h_source.html#l00387">387</a> of file <a class="el" href="read_8h_source.html">read.h</a>.</p>
 
 </div>
 </div>
@@ -1477,7 +1596,7 @@ template&lt;typename t_Element &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00119">119</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00126">126</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
 
 </div>
 </div>

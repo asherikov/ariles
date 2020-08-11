@@ -103,6 +103,8 @@ Inheritance diagram for ariles2::ns_yaml_cpp::Writer:</div>
 Public Types</h2></td></tr>
 <tr class="memitem:a0f7bf3ad2a79a0e9a9b3ca86f5b0d648"><td class="memItemLeft" align="right" valign="top">typedef Parameters&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a></td></tr>
 <tr class="separator:a0f7bf3ad2a79a0e9a9b3ca86f5b0d648"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb9a7f4e9e644b4beae60c5a30266f49"><td class="memItemLeft" align="right" valign="top">typedef void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1visitor_1_1Base.html#adb9a7f4e9e644b4beae60c5a30266f49">ReturnType</a></td></tr>
+<tr class="separator:adb9a7f4e9e644b4beae60c5a30266f49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -171,6 +173,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa7d8bffcac18afafa86652acce6a6158"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5f9fc2ea4b59e50f7e15106f5947879"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#ac5f9fc2ea4b59e50f7e15106f5947879">endPointer</a> (const bool is_null)</td></tr>
 <tr class="separator:ac5f9fc2ea4b59e50f7e15106f5947879"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9b898ae0dc279a1fb2a2393c7df2e2e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#af9b898ae0dc279a1fb2a2393c7df2e2e">writeElement</a> (const std::complex&lt; t_Scalar &gt; &amp;entry, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;param)</td></tr>
+<tr class="separator:af9b898ae0dc279a1fb2a2393c7df2e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c6abbad52743356f3bbc2bad5bbcff7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a3c6abbad52743356f3bbc2bad5bbcff7">writeElement</a> (const std::complex&lt; float &gt; &amp;entry, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;param)</td></tr>
+<tr class="separator:a3c6abbad52743356f3bbc2bad5bbcff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0384d621c07d8371ea8edb9ccd83caef"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a0384d621c07d8371ea8edb9ccd83caef">writeElement</a> (const std::complex&lt; double &gt; &amp;entry, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;param)</td></tr>
+<tr class="separator:a0384d621c07d8371ea8edb9ccd83caef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f73e9626de450d4c80ddbfc96b28598"><td class="memItemLeft" align="right" valign="top"><a class="el" href="helpers_8h.html#afea64d1a6a535414a0043caf4820c393">ARILES2_BASIC_TYPES_LIST</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a6f73e9626de450d4c80ddbfc96b28598">visit</a> (const t_Entry &amp;entry, const std::string &amp;entry_name, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;param)</td></tr>
 <tr class="separator:a6f73e9626de450d4c80ddbfc96b28598"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40d1335d7385d4a268352f2e64c1893b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a40d1335d7385d4a268352f2e64c1893b">visitMapEntry</a> (const t_Entry &amp;entry, const std::string &amp;entry_name, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;param)</td></tr>
@@ -199,8 +207,8 @@ Protected Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ad30a42a37791e07d955534e7ca534db1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1visitor_1_1Base.html#ad30a42a37791e07d955534e7ca534db1">getDefaultParameters</a> () const</td></tr>
-<tr class="separator:ad30a42a37791e07d955534e7ca534db1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1469cc56850102b74384c762a14519f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1visitor_1_1Base.html#ae1469cc56850102b74384c762a14519f">getDefaultParameters</a> () const</td></tr>
+<tr class="separator:ae1469cc56850102b74384c762a14519f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -228,7 +236,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00115">115</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00122">122</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
 
 </div>
 </div>
@@ -252,7 +260,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00116">116</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00123">123</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
 
 </div>
 </div>
@@ -276,7 +284,31 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00135">135</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00142">142</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
+
+</div>
+</div>
+<a id="adb9a7f4e9e644b4beae60c5a30266f49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb9a7f4e9e644b4beae60c5a30266f49">&#9670;&nbsp;</a></span>ReturnType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void  <a class="el" href="classariles2_1_1visitor_1_1Base.html">ariles2::visitor::Base</a>&lt; <a class="el" href="classariles2_1_1visitor_1_1GenericVisitor.html">visitor::GenericVisitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> , void  &gt;::<a class="el" href="classariles2_1_1visitor_1_1Base.html#adb9a7f4e9e644b4beae60c5a30266f49">ReturnType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="include_2ariles2_2visitors_2common_8h_source.html#l00053">53</a> of file <a class="el" href="include_2ariles2_2visitors_2common_8h_source.html">common.h</a>.</p>
 
 </div>
 </div>
@@ -392,7 +424,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__array_1_1GenericWriter.html#a70256d1048e43e0da85386d401b112a2">ariles2::ns_array::GenericWriter&lt; t_NameValuePair &gt;</a>, <a class="el" href="classariles2_1_1ns__graphviz_1_1Visitor.html#acc83226b2c1ad45ff19f45a961997690">ariles2::ns_graphviz::Visitor</a>, <a class="el" href="classariles2_1_1ns__octave_1_1Writer.html#a553df5389d57e3ef5b2ea923ebff5f02">ariles2::ns_octave::Writer</a>, <a class="el" href="classariles2_1_1ns__pugixml_1_1Writer.html#abaad9097736561ce2073b8074decf861">ariles2::ns_pugixml::Writer</a>, <a class="el" href="classariles2_1_1ns__rapidjson_1_1Writer.html#a11c87ad264e047b7d307f398fd5436e6">ariles2::ns_rapidjson::Writer</a>, and <a class="el" href="classariles2_1_1ns__ros_1_1Writer.html#a344b8b98eba2822f4ce6ba53e584deb2">ariles2::ns_ros::Writer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00135">135</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00143">143</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -419,7 +451,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00125">125</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00133">133</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -446,7 +478,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00121">121</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00129">129</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -506,7 +538,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__array_1_1GenericWriter.html#a73c49a853c42b5cad1d09c3ad0254535">ariles2::ns_array::GenericWriter&lt; t_NameValuePair &gt;</a>, <a class="el" href="classariles2_1_1ns__graphviz_1_1Visitor.html#a8afe5f72b5af65fdb41af1d8092129de">ariles2::ns_graphviz::Visitor</a>, <a class="el" href="classariles2_1_1ns__octave_1_1Writer.html#a30061f12e1a01ce79103d7332f6ea187">ariles2::ns_octave::Writer</a>, <a class="el" href="classariles2_1_1ns__ros_1_1Writer.html#af30eb4a6ea439e709eab7bfbd24ff941">ariles2::ns_ros::Writer</a>, <a class="el" href="classariles2_1_1ns__pugixml_1_1Writer.html#ade7dd4f7b703a9ba13e61ffb30f37611">ariles2::ns_pugixml::Writer</a>, and <a class="el" href="classariles2_1_1ns__rapidjson_1_1Writer.html#a37f201ac2790605e9da34bb98ee2bf15">ariles2::ns_rapidjson::Writer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00101">101</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00109">109</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -536,7 +568,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__octave_1_1Writer.html#acd53b3537246351251c841ede1e39fbc">ariles2::ns_octave::Writer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00198">198</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00206">206</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -565,7 +597,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__octave_1_1Writer.html#aa4094134431e9f6e0bf5bef103d0d608">ariles2::ns_octave::Writer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00191">191</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00199">199</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -594,7 +626,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__octave_1_1Writer.html#a14a1ce19ffb447ea774a563788353f65">ariles2::ns_octave::Writer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00195">195</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00203">203</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -622,7 +654,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00228">228</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00236">236</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -681,7 +713,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__octave_1_1Writer.html#a71fd7e59ca3f3513ee639d3ba5db0577">ariles2::ns_octave::Writer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00155">155</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00163">163</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -710,7 +742,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__octave_1_1Writer.html#afe8aa534be47fc7fbb095e35657c3891">ariles2::ns_octave::Writer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00151">151</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00159">159</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -745,8 +777,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ad30a42a37791e07d955534e7ca534db1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad30a42a37791e07d955534e7ca534db1">&#9670;&nbsp;</a></span>getDefaultParameters()</h2>
+<a id="ae1469cc56850102b74384c762a14519f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1469cc56850102b74384c762a14519f">&#9670;&nbsp;</a></span>getDefaultParameters()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -755,7 +787,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp; <a class="el" href="classariles2_1_1visitor_1_1Base.html">ariles2::visitor::Base</a>&lt; <a class="el" href="classariles2_1_1visitor_1_1GenericVisitor.html">visitor::GenericVisitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::getDefaultParameters </td>
+          <td class="memname">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp; <a class="el" href="classariles2_1_1visitor_1_1Base.html">ariles2::visitor::Base</a>&lt; <a class="el" href="classariles2_1_1visitor_1_1GenericVisitor.html">visitor::GenericVisitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> , void  &gt;::getDefaultParameters </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -768,7 +800,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="include_2ariles2_2visitors_2common_8h_source.html#l00054">54</a> of file <a class="el" href="include_2ariles2_2visitors_2common_8h_source.html">common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2ariles2_2visitors_2common_8h_source.html#l00059">59</a> of file <a class="el" href="include_2ariles2_2visitors_2common_8h_source.html">common.h</a>.</p>
 
 </div>
 </div>
@@ -796,7 +828,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00142">142</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00149">149</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
 
 </div>
 </div>
@@ -843,7 +875,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00050">50</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00058">58</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -912,7 +944,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__pugixml_1_1Writer.html#a740804fd670b9609902280dfa1fbf60b">ariles2::ns_pugixml::Writer</a>, <a class="el" href="classariles2_1_1ns__rapidjson_1_1Writer.html#a8f73a519493ae45c789b1b466e1842a6">ariles2::ns_rapidjson::Writer</a>, and <a class="el" href="classariles2_1_1ns__ros_1_1Writer.html#a392983d36853bd40a5d29e5dd5785b79">ariles2::ns_ros::Writer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00132">132</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00140">140</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -952,7 +984,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__array_1_1GenericWriter.html#aa09dc9d501b2ebac770b357cb9b917c1">ariles2::ns_array::GenericWriter&lt; t_NameValuePair &gt;</a>, <a class="el" href="classariles2_1_1ns__octave_1_1Writer.html#ab93679ad944a7d7040b52638e5e50884">ariles2::ns_octave::Writer</a>, <a class="el" href="classariles2_1_1ns__msgpack_1_1Writer.html#a2f3495f32b3cd636ac8d415b5cb82fcc">ariles2::ns_msgpack::Writer</a>, and <a class="el" href="classariles2_1_1ns__msgpack__compact_1_1Writer.html#a4ae06f558d277dc68d277cce65c730f7">ariles2::ns_msgpack_compact::Writer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00112">112</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00120">120</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -980,7 +1012,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00117">117</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00125">125</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -1069,7 +1101,7 @@ template&lt;class t_Entry &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00311">311</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00341">341</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -1159,7 +1191,7 @@ template&lt;class t_Entry &gt; </div>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__octave_1_1Writer.html#a169d64a675a62aa4dc51d1e04de32313">ariles2::ns_octave::Writer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00161">161</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00169">169</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -1188,7 +1220,7 @@ template&lt;class t_Entry &gt; </div>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__octave_1_1Writer.html#a2ea92204af9487859722597f6f0465f1">ariles2::ns_octave::Writer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00187">187</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00195">195</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -1217,7 +1249,7 @@ template&lt;class t_Entry &gt; </div>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__octave_1_1Writer.html#a7084f165a2820fb55453021e0ff7ea40">ariles2::ns_octave::Writer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00184">184</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00192">192</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -1255,7 +1287,7 @@ template&lt;class t_Entry &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00210">210</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00218">218</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -1325,7 +1357,7 @@ template&lt;class t_Entry &gt; </div>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__octave_1_1Writer.html#a5f64da472ddef4fead026d3b9c80d7b4">ariles2::ns_octave::Writer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00143">143</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00151">151</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -1354,7 +1386,7 @@ template&lt;class t_Entry &gt; </div>
 
 <p>Reimplemented in <a class="el" href="classariles2_1_1ns__octave_1_1Writer.html#a8f2ee1274cc198f437bab0bb2313733d">ariles2::ns_octave::Writer</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00147">147</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00155">155</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -1398,7 +1430,7 @@ template&lt;class t_Entry &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00245">245</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00275">275</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -1436,7 +1468,7 @@ template&lt;class t_Entry &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00267">267</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00297">297</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -1480,7 +1512,7 @@ template&lt;class t_Entry &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00255">255</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00285">285</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -1518,7 +1550,7 @@ template&lt;class t_Entry &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00288">288</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00318">318</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -1556,7 +1588,121 @@ template&lt;class t_Entry &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00278">278</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00308">308</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+
+</div>
+</div>
+<a id="af9b898ae0dc279a1fb2a2393c7df2e2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9b898ae0dc279a1fb2a2393c7df2e2e">&#9670;&nbsp;</a></span>writeElement() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::writeElement </td>
+          <td>(</td>
+          <td class="paramtype">const std::complex&lt; t_Scalar &gt; &amp;&#160;</td>
+          <td class="paramname"><em>entry</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &amp;&#160;</td>
+          <td class="paramname"><em>param</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00247">247</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+
+</div>
+</div>
+<a id="a3c6abbad52743356f3bbc2bad5bbcff7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c6abbad52743356f3bbc2bad5bbcff7">&#9670;&nbsp;</a></span>writeElement() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::writeElement </td>
+          <td>(</td>
+          <td class="paramtype">const std::complex&lt; float &gt; &amp;&#160;</td>
+          <td class="paramname"><em>entry</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &amp;&#160;</td>
+          <td class="paramname"><em>param</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00258">258</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
+
+</div>
+</div>
+<a id="a0384d621c07d8371ea8edb9ccd83caef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0384d621c07d8371ea8edb9ccd83caef">&#9670;&nbsp;</a></span>writeElement() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::writeElement </td>
+          <td>(</td>
+          <td class="paramtype">const std::complex&lt; double &gt; &amp;&#160;</td>
+          <td class="paramname"><em>entry</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &amp;&#160;</td>
+          <td class="paramname"><em>param</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="write_8h_source.html#l00262">262</a> of file <a class="el" href="write_8h_source.html">write.h</a>.</p>
 
 </div>
 </div>
@@ -1581,7 +1727,7 @@ template&lt;class t_Entry &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00119">119</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serialization_8h_source.html#l00126">126</a> of file <a class="el" href="serialization_8h_source.html">serialization.h</a>.</p>
 
 </div>
 </div>

@@ -1,7 +1,8 @@
 var searchData=
 [
+  ['serialization',['Serialization',['../group__serialization.html',1,'']]],
   ['serialization_2eh',['serialization.h',['../serialization_8h.html',1,'']]],
-  ['setdefaults',['setDefaults',['../classariles2_1_1ComparisonParameters.html#aaa020c19b7aaacedbbcf33a66699ecf4',1,'ariles2::ComparisonParameters::setDefaults()'],['../classariles2_1_1compare_1_1Parameters.html#aa0864e99ae8ffc71f008a1a046517553',1,'ariles2::compare::Parameters::setDefaults()']]],
+  ['setdefaults',['setDefaults',['../classariles2_1_1compare_1_1Parameters.html#aa0864e99ae8ffc71f008a1a046517553',1,'ariles2::compare::Parameters']]],
   ['size_5f',['size_',['../classariles2_1_1serialization_1_1Node.html#a2da6376153247fbc47c6e983ee8dfc68',1,'ariles2::serialization::Node']]],
   ['size_5flimit_5fequal',['SIZE_LIMIT_EQUAL',['../classariles2_1_1read_1_1Visitor.html#acfe0a969b1b2a8866b52b97776753664a5e9fec1387435cb3df1dd2e4ba5b6952',1,'ariles2::read::Visitor']]],
   ['size_5flimit_5fmin',['SIZE_LIMIT_MIN',['../classariles2_1_1read_1_1Visitor.html#acfe0a969b1b2a8866b52b97776753664a245312fa778a62314da8b5aa36d48b92',1,'ariles2::read::Visitor']]],

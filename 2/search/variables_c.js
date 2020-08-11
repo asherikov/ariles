@@ -2,7 +2,7 @@ var searchData=
 [
   ['name_5fvalue_5fpairs_5f',['name_value_pairs_',['../classariles2_1_1ns__array_1_1GenericWriter.html#a074bcee85b9636078400fcb69b4ec672',1,'ariles2::ns_array::GenericWriter']]],
   ['nameless_5fcounter_5f',['nameless_counter_',['../classariles2_1_1ns__msgpack_1_1impl_1_1Reader.html#a166738fdea42456b5f6f4eea8536e1c0',1,'ariles2::ns_msgpack::impl::Reader::nameless_counter_()'],['../classariles2_1_1ns__msgpack_1_1impl_1_1Writer.html#ad86f1ea95da71ae750e71fb3e9669714',1,'ariles2::ns_msgpack::impl::Writer::nameless_counter_()']]],
-  ['nan_5fequal_5f',['nan_equal_',['../classariles2_1_1ComparisonParameters.html#a15851941284622684989cc80b7361d2d',1,'ariles2::ComparisonParameters::nan_equal_()'],['../classariles2_1_1compare_1_1Parameters.html#af6bfdd827a89b29e2070adad3237e65a',1,'ariles2::compare::Parameters::nan_equal_()']]],
+  ['nan_5fequal_5f',['nan_equal_',['../classariles2_1_1compare_1_1Parameters.html#af6bfdd827a89b29e2070adad3237e65a',1,'ariles2::compare::Parameters']]],
   ['nh_5f',['nh_',['../classariles2_1_1ns__ros_1_1ImplBase.html#a6c5a7341a2e7de763b3ee72cf20ecc40',1,'ariles2::ns_ros::ImplBase']]],
   ['node_5f',['node_',['../classariles2_1_1serialization_1_1Node.html#a169d97269b0b841270f061bd23524fb0',1,'ariles2::serialization::Node']]],
   ['node_5foptions_5f',['node_options_',['../classariles2_1_1ns__graphviz_1_1Parameters.html#a61fbe60d08f279c2e15084c8e101f387',1,'ariles2::ns_graphviz::Parameters']]],
