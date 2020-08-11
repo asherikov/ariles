@@ -243,6 +243,28 @@ namespace ariles2
             }
 
 
+            template <class t_Scalar>
+            void writeElement(const std::complex<t_Scalar> &entry, const t_Parameters &param)
+            {
+                this->startArray(2, /*compact=*/true);
+                this->startArrayElement();
+                this->writeElement(entry.real(), param);
+                this->endArrayElement();
+                this->startArrayElement();
+                this->writeElement(entry.imag(), param);
+                this->endArrayElement();
+                this->endArray();
+            }
+            virtual void writeElement(const std::complex<float> &entry, const t_Parameters &param)
+            {
+                writeElement<float>(entry, param);
+            }
+            virtual void writeElement(const std::complex<double> &entry, const t_Parameters &param)
+            {
+                writeElement<double>(entry, param);
+            }
+
+
 #define ARILES2_BASIC_TYPE(type) virtual void writeElement(const type &entry, const t_Parameters &param) = 0;
 
             ARILES2_BASIC_TYPES_LIST

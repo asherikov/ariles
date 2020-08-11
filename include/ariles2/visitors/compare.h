@@ -53,7 +53,13 @@ namespace ariles2
 
 
             template <typename t_Scalar>
-            t_Scalar getTolerance() const;
+            t_Scalar getTolerance(const typename ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(t_Scalar) = NULL) const;
+
+            template <class t_Complex>
+            typename t_Complex::value_type getTolerance() const
+            {
+                return (getTolerance<typename t_Complex::value_type>());
+            }
         };
 
 
@@ -126,9 +132,8 @@ namespace ariles2
                     }
                     return (false);
                 }
-                return (std::abs(left - right)
-                        <= ((std::abs(left) < std::abs(right) ? std::abs(right) : std::abs(left))
-                            * param.double_tolerance_));
+                return (std::abs(left - right) <= ((std::abs(left) < std::abs(right) ? std::abs(right) : std::abs(left))
+                                                   * param.double_tolerance_));
             }
 
 
@@ -154,13 +159,13 @@ namespace ariles2
 
 
         template <>
-        inline double Visitor::Parameters::getTolerance<double>() const
+        inline double Visitor::Parameters::getTolerance<double>(const ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(double)) const
         {
             return (double_tolerance_);
         }
 
         template <>
-        inline float Visitor::Parameters::getTolerance<float>() const
+        inline float Visitor::Parameters::getTolerance<float>(const ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(float)) const
         {
             return (float_tolerance_);
         }

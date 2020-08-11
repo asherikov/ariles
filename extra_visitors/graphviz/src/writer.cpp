@@ -314,6 +314,7 @@ namespace ariles2
     }
 
         ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_COMPLEX_NUMBER_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
     }  // namespace ns_graphviz

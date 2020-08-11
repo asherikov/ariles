@@ -31,7 +31,7 @@ namespace ariles2
 
 
             template <class t_Left, class t_Right>
-            void visit(const t_Left &left, t_Right &right, const std::string &/*name*/, const Parameters &param)
+            void visit(const t_Left &left, t_Right &right, const std::string & /*name*/, const Parameters &param)
             {
                 ARILES2_TRACE_FUNCTION;
                 try

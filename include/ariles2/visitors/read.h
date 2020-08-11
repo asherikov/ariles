@@ -275,6 +275,32 @@ namespace ariles2
                 }
             }
 
+
+            template <class t_Scalar>
+            void readElement(std::complex<t_Scalar> &entry)
+            {
+                ARILES2_PERSISTENT_ASSERT(2 == this->startArray(), "Wrong number of elements in a complex number");
+                t_Scalar value;
+                this->startArrayElement();
+                this->readElement(value);
+                entry.real(value);
+                this->endArrayElement();
+                this->startArrayElement();
+                this->readElement(value);
+                entry.imag(value);
+                this->endArrayElement();
+                this->endArray();
+            }
+            virtual void readElement(std::complex<float> &entry)
+            {
+                readElement<float>(entry);
+            }
+            virtual void readElement(std::complex<double> &entry)
+            {
+                readElement<double>(entry);
+            }
+
+
 #define ARILES2_BASIC_TYPE(type) virtual void readElement(type &entry) = 0;
 
             ARILES2_BASIC_TYPES_LIST

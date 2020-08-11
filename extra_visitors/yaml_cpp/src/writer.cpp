@@ -221,7 +221,7 @@ namespace ariles2
             }                                                                                                          \
             else                                                                                                       \
             {                                                                                                          \
-                *impl_->emitter_ << element;                                                                           \
+                *impl_->emitter_ << static_cast<double>(element);                                                      \
             }                                                                                                          \
         }                                                                                                              \
     }

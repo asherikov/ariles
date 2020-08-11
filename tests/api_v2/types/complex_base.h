@@ -36,6 +36,7 @@ namespace ariles_tests
             impl.unsigned_integer_ = 100;
             impl.real_ = 1.33;
             impl.string_ = "test_string";
+            impl.complex_float_ = std::complex<float>(4, 3);
 
             impl.std_vector_.resize(5);
             for (std::size_t i = 0; i < impl.std_vector_.size(); ++i)
@@ -78,6 +79,8 @@ namespace ariles_tests
             impl.matrix_x_.resize(2, 3);
             impl.matrix_x_ << 8, 7, 6, 3, 2, 1;
 
+            impl.matrix_complex_double_.setZero();
+
             impl.std_vector_evector_.resize(4);
             for (std::size_t i = 0; i < impl.std_vector_evector_.size(); ++i)
             {
@@ -111,6 +114,8 @@ namespace ariles_tests
             impl.integer_ = GET_RANDOM_INT;
             impl.unsigned_integer_ = GET_RANDOM_UINT;
             impl.real_ = GET_RANDOM_REAL;
+            impl.complex_float_.real(GET_RANDOM_REAL);
+            impl.complex_float_.imag(GET_RANDOM_REAL);
             impl.string_ = "test_string";
 
             impl.std_vector_.resize(5);
@@ -157,6 +162,8 @@ namespace ariles_tests
             impl.matrix_x_.resize(2, 3);
             impl.matrix_x_.setRandom();
 
+            impl.matrix_complex_double_.setRandom();
+
             impl.std_vector_evector_.resize(4);
             for (std::size_t i = 0; i < impl.std_vector_evector_.size(); ++i)
             {
@@ -196,6 +203,8 @@ namespace ariles_tests
         BOOST_CHECK_EQUAL(configurable_out.integer_, configurable_in.integer_);
         BOOST_CHECK_EQUAL(configurable_out.unsigned_integer_, configurable_in.unsigned_integer_);
         BOOST_CHECK_CLOSE(configurable_out.real_, configurable_in.real_, g_tolerance);
+        BOOST_CHECK_CLOSE(configurable_out.complex_float_.real(), configurable_in.complex_float_.real(), g_tolerance);
+        BOOST_CHECK_CLOSE(configurable_out.complex_float_.imag(), configurable_in.complex_float_.imag(), g_tolerance);
         BOOST_CHECK_EQUAL(configurable_out.string_, configurable_in.string_);
         BOOST_CHECK_EQUAL(configurable_out.boolean_false_, configurable_in.boolean_false_);
         BOOST_CHECK_EQUAL(configurable_out.boolean_false_, false);
@@ -257,6 +266,7 @@ namespace ariles_tests
         BOOST_CHECK(configurable_out.vector_.isApprox(configurable_in.vector_, g_tolerance));
         BOOST_CHECK(configurable_out.matrix_.isApprox(configurable_in.matrix_, g_tolerance));
         BOOST_CHECK(configurable_out.matrix_x_.isApprox(configurable_in.matrix_x_, g_tolerance));
+        BOOST_CHECK(configurable_out.matrix_complex_double_.isApprox(configurable_in.matrix_complex_double_, g_tolerance));
         BOOST_CHECK_EQUAL(configurable_out.std_vector_evector_.size(), configurable_in.std_vector_evector_.size());
         BOOST_CHECK_EQUAL(
                 configurable_out.std_nested_vector_evector_.size(), configurable_in.std_nested_vector_evector_.size());

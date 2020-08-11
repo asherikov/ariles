@@ -15,6 +15,7 @@
 #include <stdexcept>
 #include <cmath>
 #include <cstdlib>
+#include <complex>
 
 
 #if __cplusplus >= 201103L
@@ -23,6 +24,9 @@
 #    include <memory>
 
 #    define ARILES2_IS_ENUM_ENABLER(Enum) const typename std::enable_if<(std::is_enum<Enum>::value)>::type * = NULL
+
+#    define ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(Real)                                                                    \
+        std::enable_if<(std::is_floating_point<Real>::value)>::type *
 
 #    define ARILES2_IS_BASE_OF(Base, Derived) std::is_base_of<Base, Derived>::value
 
@@ -39,10 +43,14 @@
 #    include <boost/utility/enable_if.hpp>
 #    include <boost/type_traits/is_enum.hpp>
 #    include <boost/type_traits/is_base_of.hpp>
+#    include <boost/type_traits/is_floating_point.hpp>
 #    include <boost/smart_ptr/shared_ptr.hpp>
 
 #    define ARILES2_IS_ENUM_ENABLER(Enum)                                                                              \
         const typename boost::enable_if_c<(boost::is_enum<Enum>::value)>::type * = NULL
+
+#    define ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(Real)                                                                    \
+        boost::enable_if_c<(boost::is_floating_point<Real>::value)>::type *
 
 #    define ARILES2_IS_BASE_OF(Base, Derived) boost::is_base_of<Base, Derived>::value
 
@@ -92,6 +100,10 @@
     ARILES2_BASIC_INTEGER_TYPES_LIST                                                                                   \
     ARILES2_BASIC_REAL_TYPES_LIST                                                                                      \
     ARILES2_BASIC_TYPE(bool)
+
+#define ARILES2_COMPLEX_NUMBER_TYPES_LIST                                                                              \
+    ARILES2_BASIC_TYPE(std::complex<float>)                                                                            \
+    ARILES2_BASIC_TYPE(std::complex<double>)
 
 #define ARILES2_BASIC_TYPES_LIST                                                                                       \
     ARILES2_BASIC_NUMERIC_TYPES_LIST                                                                                   \

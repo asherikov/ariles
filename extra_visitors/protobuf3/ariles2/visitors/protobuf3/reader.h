@@ -14,8 +14,7 @@ namespace ariles2
 {
     namespace ns_protobuf3
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Reader
-          : public visitor::Base<visitor::Visitor, visitor::Parameters>
+        class ARILES2_VISIBILITY_ATTRIBUTE Reader : public visitor::Base<visitor::Visitor, visitor::Parameters>
         {
         public:
             typedef visitor::Parameters Parameters;

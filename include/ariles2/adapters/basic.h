@@ -70,6 +70,7 @@ namespace ariles2
     }
 
         ARILES2_BASIC_TYPES_LIST
+        ARILES2_COMPLEX_NUMBER_TYPES_LIST
 
 #undef ARILES2_BASIC_TYPE
     }  // namespace read
@@ -130,6 +131,7 @@ namespace ariles2
          * @brief Generate apply methods for basic types.
          */
         ARILES2_BASIC_TYPES_LIST
+        ARILES2_COMPLEX_NUMBER_TYPES_LIST
 
 #undef ARILES2_BASIC_TYPE
     }  // namespace write
@@ -191,6 +193,18 @@ namespace ariles2
 
 
 
+        template <class t_Visitor, class t_Scalar>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
+                t_Visitor &visitor,
+                const std::complex<t_Scalar> &left,
+                const std::complex<t_Scalar> &right,
+                const typename t_Visitor::Parameters &param)
+        {
+            apply_compare(visitor, left.real(), right.real(), param);
+            apply_compare(visitor, left.imag(), right.imag(), param);
+        }
+
+
         template <class t_Visitor>
         void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
                 t_Visitor &visitor,
@@ -239,6 +253,18 @@ namespace ariles2
                 ARILES2_IS_ENUM_ENABLER(t_Enumeration))
         {
             ARILES2_TRACE_FUNCTION;
+        }
+
+
+        template <class t_Visitor, typename t_Scalar>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
+                const t_Visitor & /*visitor*/,
+                std::complex<t_Scalar> &entry,
+                const typename t_Visitor::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+            entry.real(param.template getDefault<t_Scalar>());
+            entry.imag(param.template getDefault<t_Scalar>());
         }
 
 
@@ -319,6 +345,7 @@ namespace ariles2
     }
 
         ARILES2_BASIC_TYPES_LIST
+        ARILES2_COMPLEX_NUMBER_TYPES_LIST
 
 #undef ARILES2_BASIC_TYPE
 
@@ -364,6 +391,7 @@ namespace ariles2
     }
 
         ARILES2_BASIC_TYPES_LIST
+        ARILES2_COMPLEX_NUMBER_TYPES_LIST
 
 #undef ARILES2_BASIC_TYPE
 

@@ -21,6 +21,7 @@ namespace ariles_tests
     ARILES2_ENTRY_(v, integer)                                                                                         \
     ARILES2_ENTRY_(v, unsigned_integer)                                                                                \
     ARILES2_ENTRY_(v, real)                                                                                            \
+    ARILES2_ENTRY_(v, complex_float)                                                                                   \
     ARILES2_ENTRY_(v, string)                                                                                          \
     ARILES2_ENTRY_(v, std_vector)                                                                                      \
     ARILES2_ENTRY_(v, std_nested_vector)                                                                               \
@@ -36,6 +37,7 @@ namespace ariles_tests
         ARILES2_ENTRY_(v, vector)                                                                                      \
         ARILES2_ENTRY_(v, matrix)                                                                                      \
         ARILES2_ENTRY_(v, matrix_x)                                                                                    \
+        ARILES2_ENTRY_(v, matrix_complex_double)                                                                                    \
         ARILES2_ENTRY_(v, std_vector_evector)                                                                          \
         ARILES2_ENTRY_(v, std_nested_vector_evector)                                                                   \
         ARILES2_ENTRY_(v, isometry)                                                                                    \
@@ -65,6 +67,7 @@ namespace ariles_tests
         int integer_;
         std::size_t unsigned_integer_;
         double real_;
+        std::complex<float> complex_float_;
 
 
         std::vector<double> std_vector_;
@@ -86,6 +89,7 @@ namespace ariles_tests
         Eigen::Vector3d vector_;
         Eigen::Matrix3d matrix_;
         Eigen::MatrixXd matrix_x_;
+        Eigen::Matrix3cd matrix_complex_double_;
 
         std::vector<Eigen::Vector3d> std_vector_evector_;
         std::vector<std::vector<Eigen::Vector3d> > std_nested_vector_evector_;

@@ -87,9 +87,9 @@ boost::random::uniform_int_distribution<unsigned int> g_uint_uniform_distributio
 
 boost::random::uniform_real_distribution<> g_real_uniform_distribution(-1e5, 1e5);
 
-#define GET_RANDOM_UINT g_uint_uniform_distribution(random_generator);
-#define GET_RANDOM_INT g_int_uniform_distribution(random_generator);
-#define GET_RANDOM_REAL g_real_uniform_distribution(random_generator);
+#define GET_RANDOM_UINT g_uint_uniform_distribution(random_generator)
+#define GET_RANDOM_INT g_int_uniform_distribution(random_generator)
+#define GET_RANDOM_REAL g_real_uniform_distribution(random_generator)
 // -----
 
 

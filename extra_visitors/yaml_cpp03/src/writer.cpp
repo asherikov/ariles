@@ -193,6 +193,7 @@ namespace ariles2
 #undef ARILES2_BASIC_TYPE
 
 
+        // floats are written as doubles due to precision loss
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
@@ -215,7 +216,7 @@ namespace ariles2
             }                                                                                                          \
             else                                                                                                       \
             {                                                                                                          \
-                *impl_->emitter_ << element;                                                                           \
+                *impl_->emitter_ << static_cast<double>(element);                                                      \
             }                                                                                                          \
         }                                                                                                              \
     }

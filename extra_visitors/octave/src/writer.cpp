@@ -66,6 +66,25 @@ namespace ariles2
                     output_stream_ = &output_stream;
                     initEmitter();
                 }
+
+                template <typename t_Scalar>
+                void writeComplex(const std::complex<t_Scalar> &element)
+                {
+                    if (true == node_stack_.back().isMatrix())
+                    {
+                        *output_stream_ << element.real() << " + " << element.imag() << "i";
+                    }
+                    else
+                    {
+                        *output_stream_ << node_stack_.back().node_;
+                        if (true == node_stack_.back().isArray())
+                        {
+                            *output_stream_ << "{" << node_stack_.back().index_ + 1 << "}";
+                        }
+                        *output_stream_ << " = " << element.real() << " + " << element.imag() << "i"
+                                        << ";\n";
+                    }
+                }
             };
         }  // namespace impl
     }      // namespace ns_octave
@@ -246,6 +265,16 @@ namespace ariles2
                 *impl_->output_stream_ << "{" << impl_->node_stack_.back().index_ + 1 << "}";
             }
             *impl_->output_stream_ << " = '" << element << "';\n";
+        }
+
+        void Writer::writeElement(const std::complex<float> &element, const Parameters &)
+        {
+            impl_->writeComplex(element);
+        }
+
+        void Writer::writeElement(const std::complex<double> &element, const Parameters &)
+        {
+            impl_->writeComplex(element);
         }
     }  // namespace ns_octave
 }  // namespace ariles2

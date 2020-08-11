@@ -18,6 +18,7 @@ namespace ariles_tests
         int integer;
         std::size_t unsigned_integer;
         double real;
+        std::complex<float> complex_float;
 
 
         std::vector<double> std_vector;
@@ -39,6 +40,7 @@ namespace ariles_tests
         Eigen::Vector3d vector;
         Eigen::Matrix3d matrix;
         Eigen::MatrixXd matrix_x;
+        Eigen::Matrix3cd matrix_complex_double;
 
         std::vector<Eigen::Vector3d> std_vector_evector;
         std::vector<std::vector<Eigen::Vector3d> > std_nested_vector_evector;
