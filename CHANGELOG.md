@@ -13,6 +13,7 @@ Added
 * `graphviz` vizitor for diagram generation.
 * `copyto` & `copyfrom` vizitors to exchange data with arbitrary non-ariles
   classes, in particular ROS messages.
+* `std::complex` support.
 
 
 Removed
