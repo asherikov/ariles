@@ -84,15 +84,17 @@ $(function() {
 <li><a href="#formats">Supported formats</a></li>
 <li><a href="#types">Supported types</a></li>
 <li><a href="#compilation">Dependencies and compilation</a></li>
+<li><a href="#related">Related software</a></li>
 </ul>
 <p><a class="anchor" id="links"></a> </p><h1>Links </h1>
 <ul>
 <li>Documentation (Doxygen): <a href="https://asherikov.github.io/ariles/2/">https://asherikov.github.io/ariles/2/</a></li>
 <li>GitHub: <a href="https://github.com/asherikov/ariles">https://github.com/asherikov/ariles</a></li>
 <li>Travis CI: <a href="https://travis-ci.org/asherikov/ariles">https://travis-ci.org/asherikov/ariles</a></li>
+<li>Legacy 1.x.x version: <a href="https://github.com/asherikov/ariles/tree/head_1">https://github.com/asherikov/ariles/tree/head_1</a></li>
 </ul>
 <p><a class="anchor" id="intro"></a> </p><h1>Introduction </h1>
-<p><code>ariles</code> is a C++ reflection library with focus on serialization/configuration. It relies on other open-source libraries for parsing and emission of data in different formats, in particular: <code>YAML</code>, <code>JSON</code>, <code>XML</code>, <code>ROS</code> parameter server. The library also provides some predefined serialization wrappers for common types, e.g., some standard containers and smart pointers.</p>
+<p><code>ariles</code> is a C++ meta-programming (reflection?) library with focus on serialization and configuration. It employs preprocessor macro to automatically generate boilerplate code which facilitates implementation of generic processors (visitors) for classes. A number of visitors is included in the library, in particular parsers and emitters of data in various formats, such as <code>YAML</code>, <code>JSON</code>, <code>XML</code>, <code>ROS</code> parameter server. <code>ariles</code> also provides predefined serialization wrappers for some common types, e.g., standard containers, smart pointers, <code>Eigen</code> matrices.</p>
 <p><a class="anchor" id="uses"></a> </p><h2>Use cases </h2>
 <ol type="1">
 <li>Parsing and generation of configuration files. Unlike some common serialization libraries, e.g., <code>boost::serialization</code>, <code>ariles</code> tries to be flexible while parsing by:<ul>
@@ -103,13 +105,13 @@ $(function() {
 </ul>
 </li>
 <li>Conversion between different formats, for example, <code>YAML</code> &lt;-&gt; <code>ROS</code> parameter server. Note that the conversion is not data-agnostic, i.e., the complete structure of the data must be represented in C++ code.</li>
-<li><code>ariles</code> facilitates collection of time-series data by flattening a class hierarchy to a list of name-value pairs (string-double).</li>
+<li>Collection of time-series data by flattening a class hierarchy to a list of name-value pairs (string-double).</li>
 <li><code>ariles</code> can emit <code>Octave</code> script code containing all data, which is useful for debugging of numerical software.</li>
 <li>Due to flexibile parsing, <code>ariles</code> can be used to process generic file formats, e.g., <code>URDF</code>.</li>
 </ol>
 <p><a class="anchor" id="example"></a> </p><h1>Minimal example </h1>
 <p>Demo: <a href="https://asherikov.github.io/ariles/2/DEMO.html">https://asherikov.github.io/ariles/2/DEMO.html</a> [<code>./tests/api_v2/demo_api_v2.cpp</code>]</p>
-<p>Class [<code>./tests/api_v2/types/minimal.h</code>]: </p><div class="fragment"><div class="line">class Configurable : public ariles2::DefaultBase</div><div class="line">{</div><div class="line">    #define ARILES2_ENTRIES(v) \</div><div class="line">        ARILES2_TYPED_ENTRY(v, integer_member, int)</div><div class="line">    #include ARILES2_INITIALIZE</div><div class="line">};</div></div><!-- fragment --><p>Serialization: </p><div class="fragment"><div class="line">Configurable configurable;</div><div class="line">ariles2::apply&lt;ariles2::yaml_cpp::Writer&gt;(&quot;config.yaml&quot;, configurable);</div><div class="line">ariles2::apply&lt;ariles2::yaml_cpp::Writer&gt;(std::cout, configurable);</div></div><!-- fragment --><p>Result: </p><div class="fragment"><div class="line">ConfigurableEntryName:</div><div class="line">    integer_member: 0</div></div><!-- fragment --><p>Deserialization: </p><div class="fragment"><div class="line">ariles2::apply&lt;ariles2::yaml_cpp::Reader&gt;(&quot;config.yaml&quot;, configurable);</div></div><!-- fragment --><p>Conversion: </p><div class="fragment"><div class="line">ariles2::apply&lt;ariles2::yaml_cpp::Reader&gt;(&quot;config.yaml&quot;, configurable);</div><div class="line">ariles2::apply&lt;ariles2::ros::Writer&gt;(nh, configurable, &quot;/some_namespace/&quot;);</div></div><!-- fragment --><p><a class="anchor" id="formats"></a> </p><h1>Supported data representation formats </h1>
+<p>Class [<code>./tests/api_v2/types/minimal.h</code>]: </p><div class="fragment"><div class="line">class Configurable : public ariles2::DefaultBase</div><div class="line">{</div><div class="line">    #define ARILES2_ENTRIES(v) \</div><div class="line">        ARILES2_TYPED_ENTRY(v, integer_member, int)</div><div class="line">    #include ARILES2_INITIALIZE</div><div class="line">};</div></div><!-- fragment --><p>Serialization: </p><div class="fragment"><div class="line">Configurable configurable;</div><div class="line">ariles2::apply&lt;ariles2::yaml_cpp::Writer&gt;(&quot;config.yaml&quot;, configurable);</div><div class="line">ariles2::apply&lt;ariles2::yaml_cpp::Writer&gt;(std::cout, configurable);</div></div><!-- fragment --><p>Result: </p><div class="fragment"><div class="line">ConfigurableEntryName:</div><div class="line">    integer_member: 0</div></div><!-- fragment --><p>Deserialization: </p><div class="fragment"><div class="line">ariles2::apply&lt;ariles2::yaml_cpp::Reader&gt;(&quot;config.yaml&quot;, configurable);</div></div><!-- fragment --><p>Conversion: </p><div class="fragment"><div class="line">// read class from a file</div><div class="line">ariles2::apply&lt;ariles2::yaml_cpp::Reader&gt;(&quot;config.yaml&quot;, configurable);</div><div class="line">// dump class to ROS parameter server</div><div class="line">ariles2::apply&lt;ariles2::ros::Writer&gt;(nh, configurable, &quot;/some_namespace/&quot;);</div></div><!-- fragment --><p><a class="anchor" id="formats"></a> </p><h1>Supported data representation formats </h1>
 <p><code>ariles</code> includes a number of optional modules that allow to work with specific data representation formats, for example:</p>
 <ul>
 <li><code>YAML</code> via <code>yaml-cpp</code>: <a href="https://asherikov.github.io/ariles/2/group__yaml__cpp.html">https://asherikov.github.io/ariles/2/group__yaml__cpp.html</a>.</li>
@@ -119,6 +121,7 @@ $(function() {
 <li><code>Octave</code> script, output only, no dependencies: <a href="https://asherikov.github.io/ariles/2/group__octave.html">https://asherikov.github.io/ariles/2/group__octave.html</a></li>
 <li><code>ROS</code> parameter server, via standard <code>ROS</code> libs: <a href="https://asherikov.github.io/ariles/2/group__ros.html">https://asherikov.github.io/ariles/2/group__ros.html</a></li>
 <li>A set of key-value pairs, output only, no dependencies: <a href="https://asherikov.github.io/ariles/2/group__array.html">https://asherikov.github.io/ariles/2/group__array.html</a></li>
+<li><code>graphviz</code> dot files for diagram generation: <a href="https://asherikov.github.io/ariles/2/group__graphviz.html">https://asherikov.github.io/ariles/2/group__graphviz.html</a></li>
 </ul>
 <p>The complete list of modules is available at <a href="https://asherikov.github.io/ariles/2/modules.html">https://asherikov.github.io/ariles/2/modules.html</a></p>
 <p><a class="anchor" id="types"></a> </p><h1>Supported data types </h1>
@@ -134,7 +137,15 @@ $(function() {
 <p><code>ariles</code> does not depend on new C++ features and is C++03 compliant.</p>
 <p>Support of any data format, and corresponding dependency, can be enabled or disabled via cmake options. The same applies to data types which depend on external libraries. The only mandatory requirement is <code>Boost</code>.</p>
 <h2>Compilation with catkin </h2>
-<p>An example catkin package is provided in <code>pkg_ros</code> branch of the main repository -&gt; <a href="https://github.com/asherikov/ariles/tree/pkg_ros">https://github.com/asherikov/ariles/tree/pkg_ros</a>. </p>
+<p>An example catkin package is provided in <code>pkg_ros</code> branch of the main repository -&gt; <a href="https://github.com/asherikov/ariles/tree/pkg_ros">https://github.com/asherikov/ariles/tree/pkg_ros</a>.</p>
+<p><a class="anchor" id="related"></a> </p><h1>Related software </h1>
+<ul>
+<li><a href="https://github.com/PickNikRobotics/rosparam_shortcuts:">https://github.com/PickNikRobotics/rosparam_shortcuts:</a> a set of wrapper functions to read individual parameters from ROS parameter server. This tool serves pretty much the same purpose as <code>ariles2::ros::Reader</code>, but its functionality is more limited.</li>
+<li><a href="https://billyquith.github.io/ponder/:">https://billyquith.github.io/ponder/:</a> C++14 reflection library, supports serialization to XML and JSON. Unlike <code>ariles</code> it is more focused on reflection per se rather than applications, for example, it allows to set value by string name of a class member, handles class methods, etc. <code>Ponder</code> does not rely as much on preprocessor macro, but is more verbose.</li>
+<li><a href="https://github.com/bytemaster/boost_reflect:">https://github.com/bytemaster/boost_reflect:</a> discontinued C++ reflection library, similar to <code>ponder</code>. Partially inspired <code>ariles</code> 2.x.x API.</li>
+<li><a href="https://github.com/apolukhin/magic_get">https://github.com/apolukhin/magic_get</a> (aka <code>pfr</code>): C++14 library providing tuple like methods for aggregate initializable structures. Addresses a somewhat different but related problem.</li>
+<li>Serialization libraries, e.g., <code>boost::serialization</code>, <a href="https://github.com/USCiLab/cereal">https://github.com/USCiLab/cereal</a>. </li>
+</ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
