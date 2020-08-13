@@ -23,7 +23,6 @@ Ariles
 </table>
 
 
-
 Contents
 ========
 * [Links](#links)
@@ -33,6 +32,7 @@ Contents
 * [Supported formats](#formats)
 * [Supported types](#types)
 * [Dependencies and compilation](#compilation)
+* [Related software](#related)
 
 
 <a name="links"></a>
@@ -41,17 +41,21 @@ Links
 * Documentation (Doxygen): https://asherikov.github.io/ariles/2/
 * GitHub: https://github.com/asherikov/ariles
 * Travis CI: https://travis-ci.org/asherikov/ariles
+* Legacy 1.x.x version: https://github.com/asherikov/ariles/tree/head_1
 
 
 <a name="intro"></a>
 Introduction
 ============
 
-`ariles` is a C++ reflection library with focus on serialization/configuration.
-It relies on other open-source libraries for parsing and emission of data in
-different formats, in particular: `YAML`, `JSON`, `XML`, `ROS` parameter
-server. The library also provides some predefined serialization wrappers for
-common types, e.g., some standard containers and smart pointers.
+`ariles` is a C++ meta-programming (reflection?) library with focus on
+serialization and configuration. It employs preprocessor macro to automatically
+generate boilerplate code which facilitates implementation of generic
+processors (visitors) for classes. A number of visitors is included in the
+library, in particular parsers and emitters of data in various formats, such as
+`YAML`, `JSON`, `XML`, `ROS` parameter server. `ariles` also provides
+predefined serialization wrappers for some common types, e.g., standard
+containers, smart pointers, `Eigen` matrices.
 
 
 <a name="uses"></a>
@@ -70,8 +74,8 @@ Use cases
    parameter server. Note that the conversion is not data-agnostic, i.e., the
    complete structure of the data must be represented in C++ code.
 
-3. `ariles` facilitates collection of time-series data by flattening a class
-   hierarchy to a list of name-value pairs (string-double).
+3. Collection of time-series data by flattening a class hierarchy to a list of
+   name-value pairs (string-double).
 
 4. `ariles` can emit `Octave` script code containing all data, which is useful
    for debugging of numerical software.
@@ -118,9 +122,12 @@ ariles2::apply<ariles2::yaml_cpp::Reader>("config.yaml", configurable);
 
 Conversion:
 ```
+// read class from a file
 ariles2::apply<ariles2::yaml_cpp::Reader>("config.yaml", configurable);
+// dump class to ROS parameter server
 ariles2::apply<ariles2::ros::Writer>(nh, configurable, "/some_namespace/");
 ```
+
 
 
 <a name="formats"></a>
@@ -152,9 +159,13 @@ specific data representation formats, for example:
 * A set of key-value pairs, output only, no dependencies:
   https://asherikov.github.io/ariles/2/group__array.html
 
+* `graphviz` dot files for diagram generation:
+  https://asherikov.github.io/ariles/2/group__graphviz.html
+
 
 The complete list of modules is available at
 https://asherikov.github.io/ariles/2/modules.html
+
 
 
 <a name="types"></a>
@@ -188,3 +199,31 @@ Compilation with catkin
 
 An example catkin package is provided in `pkg_ros` branch of the main
 repository -> https://github.com/asherikov/ariles/tree/pkg_ros.
+
+
+
+<a name="related"></a>
+Related software
+================
+
+* https://github.com/PickNikRobotics/rosparam_shortcuts: a set of wrapper
+  functions to read individual parameters from ROS parameter server. This tool
+  serves pretty much the same purpose as `ariles2::ros::Reader`, but its
+  functionality is more limited.
+
+* https://billyquith.github.io/ponder/: C++14 reflection library, supports
+  serialization to XML and JSON. Unlike `ariles` it is more focused on
+  reflection per se rather than applications, for example, it allows to set
+  value by string name of a class member, handles class methods, etc. `Ponder`
+  does not rely as much on preprocessor macro, but is more verbose.
+
+* https://github.com/bytemaster/boost_reflect: discontinued C++ reflection
+  library, similar to `ponder`. Partially inspired `ariles` 2.x.x API.
+
+* https://github.com/apolukhin/magic_get (aka `pfr`): C++14 library providing
+  tuple like methods for aggregate initializable structures. Addresses a
+  somewhat different but related problem.
+
+* Serialization libraries, e.g., `boost::serialization`,
+  https://github.com/USCiLab/cereal.
+
