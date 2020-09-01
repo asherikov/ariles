@@ -4,20 +4,22 @@ Ariles
 <table>
   <tr>
     <th>branch</th>
-    <td align="center"><a href="https://github.com/asherikov/ariles/tree/head_2">HEAD v2</a></td>
     <td align="center">
-        <a href="https://github.com/asherikov/ariles/tree/pkg_ros">pkg_ros</a>
-        (<a href="https://index.ros.org/p/ariles_ros/">ROS package</a>)
+        <a href="https://github.com/asherikov/ariles/tree/head_2">HEAD v2</a>
     </td>
     <td align="center">
-        <a href="https://github.com/asherikov/ariles/tree/pkg_freebsd">pkg_freebsd</a>
+        <a href="https://github.com/asherikov/ariles/tree/pkg_ros_2">pkg_ros</a><br/>
+        (ROS package)
+    </td>
+    <td align="center">
+        <a href="https://github.com/asherikov/ariles/tree/pkg_freebsd">pkg_freebsd</a><br/>
         (FreeBSD package)
     </td>
   </tr>
   <tr>
     <th>CI status</th>
     <td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=head_2" alt="Build Status"></a></td>
-    <td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=pkg_ros" alt="Build Status"></a></td>
+    <td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=pkg_ros_2" alt="Build Status"></a></td>
     <td align="center">X</td>
   </tr>
 </table>
