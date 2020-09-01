@@ -1,5 +1,5 @@
 CATKIN_WORKING_DIR=./build/catkin_workspace
-CATKIN_PKG_PATH=${CATKIN_WORKING_DIR}/src/${CATKIN_PKG}
+CATKIN_PKGS_PATH=${CATKIN_WORKING_DIR}/src/${CATKIN_PKG}
 
 
 # release
@@ -45,14 +45,14 @@ ros_install_deps:
 
 
 catkin_build_deb: clean
-	cd ${CATKIN_PKG_PATH}; bloom-generate rosdebian --os-name ubuntu --ros-distro ${ROS_DISTRO} ./
+	cd core; bloom-generate rosdebian --os-name ubuntu --ros-distro ${ROS_DISTRO} ./
 	# disable installation of catkin stuff: setup scripts, etc.
-	#cd ${CATKIN_PKG_PATH}; sed "s/dh_auto_configure --/dh_auto_configure -- -DCATKIN_BUILD_BINARY_PACKAGE=ON/" -i debian/rules
-	cd ${CATKIN_PKG_PATH}; fakeroot debian/rules binary
+	#cd core; sed "s/dh_auto_configure --/dh_auto_configure -- -DCATKIN_BUILD_BINARY_PACKAGE=ON/" -i debian/rules
+	cd core; fakeroot debian/rules binary
 
 
 catkin_test_deb: catkin_build_deb
-	sudo dpkg -i ../ros*`echo "${CATKIN_PKG}" | sed "s/_/-/"`*.deb
+	sudo dpkg -i ./ros*`echo "${CATKIN_PKG}" | sed "s/_/-/"`*.deb
 	mkdir -p build/dependency_test
 	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; \
 		cd build/dependency_test; \
@@ -61,8 +61,8 @@ catkin_test_deb: catkin_build_deb
 
 
 catkin_prepare_workspace: clean
-	mkdir -p ${CATKIN_PKG_PATH}
-	ls -1 | grep -v build | xargs cp -R -t ${CATKIN_PKG_PATH}
+	mkdir -p ${CATKIN_PKGS_PATH}
+	ls -1A | grep -v build | xargs cp -R -t ${CATKIN_PKGS_PATH}
 
 
 catkin_old_build: catkin_prepare_workspace
@@ -76,7 +76,7 @@ catkin_old_build_with_dependent: catkin_prepare_workspace
 catkin_old_deb: catkin_prepare_workspace
 	${MAKE} catkin_test_deb
 	${MAKE} catkin_prepare_workspace
-	rm -Rf ${CATKIN_PKG_PATH}
+	rm -Rf ${CATKIN_PKGS_PATH}/core
 	cd ${CATKIN_WORKING_DIR}/src; catkin_init_workspace
 	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated --pkg ${CATKIN_DEPENDENCY_TEST_PKG}
 
@@ -92,7 +92,7 @@ catkin_new_build_with_dependent: catkin_prepare_workspace
 catkin_new_deb:
 	${MAKE} catkin_test_deb
 	${MAKE} catkin_prepare_workspace
-	rm -Rf ${CATKIN_PKG_PATH}
+	rm -Rf ${CATKIN_PKGS_PATH}/core
 	cd ${CATKIN_WORKING_DIR}; catkin init
 	cd ${CATKIN_WORKING_DIR}; catkin build -i --verbose --summary ${CATKIN_DEPENDENCY_TEST_PKG}
 
