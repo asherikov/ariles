@@ -14,29 +14,29 @@
 #include <sstream>
 #include <msgpack.hpp>
 
-#include <ariles/visitors/msgpack.h>
+#include <ariles2/visitors/msgpack.h>
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_msgpack
     {
-        typedef ariles::Node<const ::msgpack::object *> NodeWrapper;
+        typedef serialization::Node<const ::msgpack::object *> NodeWrapper;
     }
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_msgpack
     {
         namespace impl
         {
-            class ARILES_VISIBILITY_ATTRIBUTE Reader
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader
             {
             public:
                 std::string buffer_;
 
-                std::vector<ARILES_SHARED_PTR< ::msgpack::object_handle> > handles_;
+                std::vector<ARILES2_SHARED_PTR< ::msgpack::object_handle> > handles_;
 
                 /// Stack of nodes.
                 std::vector<NodeWrapper> node_stack_;
@@ -52,7 +52,7 @@ namespace ariles
                  */
                 void initialize(std::istream &input_stream)
                 {
-                    ARILES_TRACE_FUNCTION;
+                    ARILES2_TRACE_FUNCTION;
                     std::stringstream str_stream;
                     str_stream << input_stream.rdbuf();
                     buffer_ = str_stream.str();
@@ -66,14 +66,14 @@ namespace ariles
                         while (buffer_offset != buffer_.size())
                         {
                             handles_.push_back(
-                                    ARILES_SHARED_PTR< ::msgpack::object_handle>(new ::msgpack::object_handle));
+                                    ARILES2_SHARED_PTR< ::msgpack::object_handle>(new ::msgpack::object_handle));
 
                             unpack(*handles_[handles_.size() - 1], buffer_.data(), buffer_.size(), buffer_offset);
                         }
                     }
                     catch (const std::exception &e)
                     {
-                        ARILES_THROW(std::string("Failed to parse the configuration file: ") + e.what());
+                        ARILES2_THROW(std::string("Failed to parse the configuration file: ") + e.what());
                     }
 
                     nameless_counter_ = 0;
@@ -87,7 +87,7 @@ namespace ariles
                  */
                 const ::msgpack::object &getRawNode(const std::size_t depth)
                 {
-                    ARILES_TRACE_FUNCTION;
+                    ARILES2_TRACE_FUNCTION;
                     if (node_stack_[depth].isArray())
                     {
                         return (getRawNode(depth - 1).via.array.ptr[node_stack_[depth].index_]);
@@ -101,16 +101,16 @@ namespace ariles
 
                 const ::msgpack::object &getRawNode()
                 {
-                    ARILES_TRACE_FUNCTION;
+                    ARILES2_TRACE_FUNCTION;
                     return (getRawNode(node_stack_.size() - 1));
                 }
             };
         }  // namespace impl
     }      // namespace ns_msgpack
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_msgpack
     {
@@ -130,18 +130,18 @@ namespace ariles
         }
 
 
-        std::size_t Reader::getMapSize(const bool /*expect_empty*/)
+        void Reader::startMap(const SizeLimitEnforcementType limit_type, const std::size_t min, const std::size_t max)
         {
-            ARILES_TRACE_FUNCTION;
-            return (impl_->getRawNode().via.map.size);
+            ARILES2_TRACE_FUNCTION;
+            checkSize(limit_type, impl_->getRawNode().via.map.size, min, max);
         }
 
 
 
-        bool Reader::descend(const std::string &child_name)
+        bool Reader::startMapEntry(const std::string &child_name)
         {
-            ARILES_TRACE_FUNCTION;
-            ARILES_TRACE_ENTRY(child_name);
+            ARILES2_TRACE_FUNCTION;
+            ARILES2_TRACE_VALUE(child_name);
             if (impl_->node_stack_.size() == 0)
             {
                 for (std::size_t i = 0; i < impl_->handles_.size(); ++i)
@@ -179,16 +179,16 @@ namespace ariles
         }
 
 
-        void Reader::ascend()
+        void Reader::endMapEntry()
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             impl_->node_stack_.pop_back();
         }
 
 
         std::size_t Reader::startArray()
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             std::size_t size = impl_->getRawNode().via.array.size;
             impl_->node_stack_.push_back(NodeWrapper(0, size));
 
@@ -198,55 +198,60 @@ namespace ariles
 
         void Reader::endArray()
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             impl_->node_stack_.pop_back();
         }
 
 
-        void Reader::shiftArray()
+        void Reader::startArrayElement()
         {
-            ARILES_TRACE_FUNCTION;
-            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ARILES_ASSERT(
+            ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
+        }
+
+
+        void Reader::endArrayElement()
+        {
+            ARILES2_TRACE_FUNCTION;
+            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ++impl_->node_stack_.back().index_;
         }
 
 
         bool Reader::startRoot(const std::string &name)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (true == name.empty())
             {
-                ARILES_ASSERT(
+                ARILES2_ASSERT(
                         0 == impl_->nameless_counter_,
                         "Multiple nameless root entries are not supported, specify root names explicitly.");
                 ++impl_->nameless_counter_;
-                return (descend("ariles"));
+                return (startMapEntry("ariles"));
             }
             else
             {
-                return (descend(name));
+                return (startMapEntry(name));
             }
         }
 
         void Reader::endRoot(const std::string & /*name*/)
         {
-            ARILES_TRACE_FUNCTION;
-            ascend();
+            ARILES2_TRACE_FUNCTION;
+            endMapEntry();
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
-        ARILES_TRACE_FUNCTION;                                                                                         \
+        ARILES2_TRACE_FUNCTION;                                                                                        \
         impl_->getRawNode() >> element;                                                                                \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
     }  // namespace ns_msgpack
-}  // namespace ariles
+}  // namespace ariles2

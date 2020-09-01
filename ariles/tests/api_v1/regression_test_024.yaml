@@ -1,5 +1,0 @@
-StateMachineParams:
-    substates:
-        STATE_1:
-            #type: "TestState"
-            remappings: {"a":"a"}

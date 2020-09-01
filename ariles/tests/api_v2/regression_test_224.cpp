@@ -8,23 +8,21 @@
     @brief
 */
 
-#define ARILES_API_VERSION 2
 #include "utility.h"
 
-#define ARILES_DEFAULT_CONFIGURABLE_FLAGS                                                                              \
-    ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED | ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED         \
-            | ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES
 
 #ifdef ARILES_VISITOR_yaml_cpp03
-#    include "ariles/visitors/yaml_cpp03.h"
+#    include <ariles2/visitors/yaml_cpp03.h>
 #endif
 
 #ifdef ARILES_VISITOR_yaml_cpp
-#    include "ariles/visitors/yaml_cpp.h"
+#    include <ariles2/visitors/yaml_cpp.h>
 #endif
 
-#include "ariles/adapters_all.h"
-#include "ariles/ariles2.h"
+#include "all_enabled_adapters.h"
+
+#include <ariles2/ariles.h>
+#include <ariles2/extra.h>
 
 
 // ===============================================================
@@ -33,12 +31,12 @@
 
 namespace ariles_tests
 {
-    struct SubstateParams : public ariles::DefaultBase
+    struct SubstateParams : public ariles2::RelaxedSloppyBase
     {
-#define ARILES_ENTRIES                                                                                                 \
-    ARILES_ENTRY(type)                                                                                                 \
-    ARILES_ENTRY(remappings)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_ENTRY(v, type)                                                                                             \
+    ARILES2_ENTRY(v, remappings)
+#include ARILES2_INITIALIZE
 
         std::string type;
         std::map<std::string, std::string> remappings;
@@ -48,10 +46,10 @@ namespace ariles_tests
         }
     };
 
-    struct StateMachineParams : public ariles::DefaultBase
+    struct StateMachineParams : public ariles2::RelaxedSloppyBase
     {
-#define ARILES_ENTRIES ARILES_ENTRY(substates)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v) ARILES2_ENTRY(v, substates)
+#include ARILES2_INITIALIZE
 
         std::map<std::string, SubstateParams> substates;
 
@@ -67,7 +65,7 @@ namespace ariles_tests
 // FIXTURES
 // ===============================================================
 
-#undef ARILES_BRIDGE_ros
+#undef ARILES_VISITOR_ros
 #include "fixtures/initializers.h"
 #include "fixtures/009_read.h"
 
@@ -99,10 +97,10 @@ namespace ariles_tests
 #define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                                               \
     ARILES_FIXTURE_TEST_CASE(ReadFixture, VISITOR_ID, NAMESPACE, StateMachineParams, INITIALIZER)
 
-#ifdef ARILES_VISITOR_INCLUDED_yaml_cpp03
+#ifdef ARILES2_VISITOR_INCLUDED_yaml_cpp03
 ARILES_TESTS(yaml_cpp03, yaml_cpp03, FilenameReaderInitializer224)
 #endif
 
-#ifdef ARILES_VISITOR_INCLUDED_yaml_cpp
+#ifdef ARILES2_VISITOR_INCLUDED_yaml_cpp
 ARILES_TESTS(yaml_cpp, yaml_cpp, FilenameReaderInitializer224)
 #endif

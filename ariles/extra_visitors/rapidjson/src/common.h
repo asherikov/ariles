@@ -25,15 +25,15 @@
 #include "istreamwrapper.h"
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_rapidjson
     {
         template <class t_Node>
-        class ARILES_LIB_LOCAL ImplBase
+        class ARILES2_LIB_LOCAL ImplBase
         {
         public:
-            typedef ariles::Node<t_Node *> NodeWrapper;
+            typedef serialization::Node<t_Node *> NodeWrapper;
 
 
         public:
@@ -76,4 +76,4 @@ namespace ariles
             }
         };
     }  // namespace ns_rapidjson
-}  // namespace ariles
+}  // namespace ariles2

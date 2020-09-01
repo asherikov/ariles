@@ -17,12 +17,12 @@ namespace ariles_tests
      * @brief Verbose definition of a configurable class (with explicit declaration
      * of members)
      */
-    class ConfigurableVerbose : public ariles::DefaultBase
+    class ConfigurableVerbose : public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES                                                                                                 \
-    ARILES_ENTRY_(integer)                                                                                             \
-    ARILES_ENTRY_(real)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_ENTRY_(v, integer)                                                                                         \
+    ARILES2_ENTRY_(v, real)
+#include ARILES2_INITIALIZE
 
 
     public:
@@ -33,24 +33,24 @@ namespace ariles_tests
     public:
         ConfigurableVerbose()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
 
-        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
             integer_ = 10;
             real_ = 1.33;
         }
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         void randomize()
         {
             boost::random::random_device random_generator;
             integer_ = GET_RANDOM_INT;
             real_ = GET_RANDOM_REAL;
-            ariles::apply<ariles::PostProcess>(*this);
+            ariles2::apply<ariles2::PostProcess>(*this);
         }
 #endif
     };

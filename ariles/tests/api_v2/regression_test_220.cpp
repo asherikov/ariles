@@ -8,12 +8,20 @@
     @brief
 */
 
-#define ARILES_API_VERSION 2
-
 #include "utility.h"
+#include "all_enabled_adapters.h"
 
-#include "ariles/adapters_all.h"
-#include "ariles/ariles2.h"
+#define ARILES2_DEFAULT_VISITORS                                                                                       \
+    ARILES2_VISITOR(count)                                                                                             \
+    ARILES2_VISITOR(postprocess)                                                                                       \
+    ARILES2_VISITOR(preprocess)                                                                                        \
+    ARILES2_VISITOR(defaults)                                                                                          \
+    ARILES2_VISITOR(read)                                                                                              \
+    ARILES2_VISITOR(write)                                                                                             \
+    ARILES2_VISITOR(compare)
+
+#include <ariles2/visitors/compare.h>
+#include <ariles2/ariles.h>
 
 
 // ===============================================================
@@ -40,17 +48,16 @@ BOOST_FIXTURE_TEST_CASE(CompareInheritance, ariles_tests::DummyFixture)
     ariles_tests::ConfigurableDerived configurable1, configurable2;
 
 
-    ariles::Compare visitor;
-    ariles::Compare::Parameters param;
+    ariles2::Compare visitor;
+    ariles2::Compare::Parameters param;
     param.double_tolerance_ = g_tolerance;
     param.compare_number_of_entries_ = true;
-    param.throw_on_error_ = false;
 
 
     configurable1.randomize();
     configurable2 = configurable1;
-    BOOST_CHECK(visitor.compare(configurable1, configurable2, param));
+    BOOST_CHECK(true == ariles2::apply(visitor, configurable1, configurable2, param));
 
     configurable1.randomize();
-    BOOST_CHECK(false == visitor.compare(configurable1, configurable2, param));
+    BOOST_CHECK(false == ariles2::apply(visitor, configurable1, configurable2, param));
 }

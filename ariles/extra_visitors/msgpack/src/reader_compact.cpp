@@ -15,25 +15,25 @@
 #include <iostream>
 #include <msgpack.hpp>
 
-#include <ariles/visitors/msgpack.h>
+#include <ariles2/visitors/msgpack.h>
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_msgpack_compact
     {
-        typedef ariles::Node<const ::msgpack::object *> NodeWrapper;
+        typedef serialization::Node<const ::msgpack::object *> NodeWrapper;
     }
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_msgpack_compact
     {
         namespace impl
         {
-            class ARILES_VISIBILITY_ATTRIBUTE Reader
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader
             {
             public:
                 std::string buffer_;
@@ -63,7 +63,7 @@ namespace ariles
                     }
                     catch (const std::exception &e)
                     {
-                        ARILES_THROW(std::string("Failed to parse the configuration file: ") + e.what());
+                        ARILES2_THROW(std::string("Failed to parse the configuration file: ") + e.what());
                     }
                 }
 
@@ -93,11 +93,11 @@ namespace ariles
             };
         }  // namespace impl
     }      // namespace ns_msgpack_compact
-}  // namespace ariles
+}  // namespace ariles2
 
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_msgpack_compact
     {
@@ -117,33 +117,36 @@ namespace ariles
         }
 
 
-        std::size_t Reader::getMapSize(const bool /*expect_empty*/)
+        void Reader::startMap(const SizeLimitEnforcementType limit_type, const std::size_t min, const std::size_t max)
         {
-            return (impl_->getRawNode().via.array.size);
-        }
-
-        std::size_t Reader::startMapImpl(const std::size_t size)
-        {
+            const std::size_t size = impl_->getRawNode().via.array.size;
+            checkSize(limit_type, size, min, max);
             impl_->node_stack_.push_back(NodeWrapper(0, size));
-            return (size);
         }
 
-
-        void Reader::endMap()
-        {
-            ARILES_ASSERT(
-                    true == impl_->node_stack_.back().isAllParsed(),
-                    "Some entries were not parsed, which is not allowed by this visitor.");
-            impl_->node_stack_.pop_back();
-        }
-
-
-        void Reader::ascend()
+        bool Reader::startMapEntry(const std::string &)
         {
             if (true == impl_->node_stack_.back().isArray())
             {
-                shiftArray();
+                startArrayElement();
             }
+            return (true);
+        }
+
+        void Reader::endMapEntry()
+        {
+            if (true == impl_->node_stack_.back().isArray())
+            {
+                endArrayElement();
+            }
+        }
+
+        void Reader::endMap()
+        {
+            ARILES2_ASSERT(
+                    true == impl_->node_stack_.back().isAllParsed(),
+                    "Some entries were not parsed, which is not allowed by this visitor.");
+            impl_->node_stack_.pop_back();
         }
 
 
@@ -162,24 +165,29 @@ namespace ariles
         }
 
 
-        void Reader::shiftArray()
+        void Reader::startArrayElement()
         {
-            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ARILES_ASSERT(
+            ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
+        }
+
+
+        void Reader::endArrayElement()
+        {
+            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ++impl_->node_stack_.back().index_;
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
         impl_->getRawNode() >> element;                                                                                \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
     }  // namespace ns_msgpack_compact
-}  // namespace ariles
+}  // namespace ariles2

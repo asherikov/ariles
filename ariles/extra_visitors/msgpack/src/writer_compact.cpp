@@ -12,15 +12,15 @@
 */
 
 #include <msgpack.hpp>
-#include <ariles/visitors/msgpack.h>
+#include <ariles2/visitors/msgpack.h>
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_msgpack_compact
     {
         namespace impl
         {
-            class ARILES_VISIBILITY_ATTRIBUTE Writer
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer
             {
             private:
                 Writer(const Writer &);
@@ -39,7 +39,7 @@ namespace ariles
             public:
                 explicit Writer(const std::string &file_name)
                 {
-                    ariles::write::Visitor::openFile(config_ofs_, file_name);
+                    ariles2::write::Visitor::openFile(config_ofs_, file_name);
                     output_stream_ = &config_ofs_;
                     packer_ = new ::msgpack::packer<std::ostream>(*output_stream_);
                 }
@@ -59,10 +59,10 @@ namespace ariles
             };
         }  // namespace impl
     }      // namespace ns_msgpack_compact
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_msgpack_compact
     {
@@ -78,7 +78,7 @@ namespace ariles
         }
 
 
-        void Writer::startMap(const std::size_t num_entries)
+        void Writer::startMap(const Parameters &, const std::size_t num_entries)
         {
             impl_->packer_->pack_array(num_entries);
         }
@@ -92,19 +92,19 @@ namespace ariles
 
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
-            ARILES_ASSERT(size <= std::numeric_limits<uint32_t>::max(), "Vector is too long.");
+            ARILES2_ASSERT(size <= std::numeric_limits<uint32_t>::max(), "Vector is too long.");
             impl_->packer_->pack_array(size);
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
-    void Writer::writeElement(const type &element)                                                                     \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
+    void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
         impl_->packer_->pack(element);                                                                                 \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
     }  // namespace ns_msgpack_compact
-}  // namespace ariles
+}  // namespace ariles2

@@ -8,16 +8,14 @@
     @brief
 */
 
-#define ARILES_API_VERSION 2
-
 #include "utility.h"
 
 
-#include "ariles/visitors/pugixml.h"
+#include <ariles2/visitors/pugixml.h>
 
 // If no format header is included, ariles is disabled, and
-// ariles::ConfigurableBase is just a dummy class.
-#include "ariles/ariles2.h"
+// ariles2::ConfigurableBase is just a dummy class.
+#include <ariles2/ariles.h>
 
 
 // ===============================================================

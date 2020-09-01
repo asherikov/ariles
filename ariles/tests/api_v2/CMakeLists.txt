@@ -41,12 +41,12 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "200" "" "${ARILES_TEST_ALL_
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "201" "" "${ARILES_TEST_ALL_VISITORS}") # complex
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "202" "" "${ARILES_TEST_ALL_VISITORS}") # inheritance, strictness
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "203" "" "${ARILES_TEST_ALL_VISITORS}") # postprocess
-ariles_define_regression_test(${CMAKE_PROJECT_NAME} "204" "" "${ARILES_TEST_ALL_VISITORS}") # no adapters_all.h
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "204" "" "${ARILES_TEST_ALL_VISITORS}") # no all_enabled_adapters.h
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "205" "" "${ARILES_TEST_ALL_VISITORS}") # disabled ariles
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "209" "" "${ARILES_TEST_ALL_VISITORS}") # pointers (scalar)
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "210" "rapidjson;jsonnet" "")           # jsonnet
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "211" "rapidjson;yaml_cpp" "")          # visitor inclusion order # TODO
-ariles_define_regression_test(${CMAKE_PROJECT_NAME} "212" "octave" "")                      # octave
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "212" "octave" "")                      # octave: complex, pointers
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "213" "" "${ARILES_TEST_ALL_VISITORS}") # special floats
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "214" "" "${ARILES_TEST_FILE_VISITORS}")# filenames
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "215" "pugixml" "")                     # XML childs vs attributes
@@ -58,4 +58,21 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "220" "" "")                
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "221" "array" "")                       # array
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "222" "" "${ARILES_TEST_ALL_VISITORS}") # flags
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "223" "rapidjson" "")                   # json floats, flags
-ariles_define_regression_test(${CMAKE_PROJECT_NAME} "224" "" "yaml_cpp03;yaml_cpp")         # missing entries
+if (NOT ${ARILES_VISITOR_yaml_cpp} STREQUAL "OFF")
+    ariles_define_regression_test(${CMAKE_PROJECT_NAME} "224" "yaml_cpp" "")                # missing entries
+elseif (NOT ${ARILES_VISITOR_yaml_cpp03} STREQUAL "OFF")
+    ariles_define_regression_test(${CMAKE_PROJECT_NAME} "224" "yaml_cpp03" "")              # missing entries
+endif()
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "225" "" "${ARILES_TEST_ALL_VISITORS}") # 201, but with sloppy pairs and maps
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "226" "graphviz" "")                    # graphviz: complex, pointers
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "229" "graphviz" "")                    # graphviz: ariles_diagram
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "230" "" "")                            # copyto, copyfrom
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "231" "protobuf3" "")                   # protobuf
+if (${ARILES_VISITOR_protobuf3} STREQUAL "ON")
+    protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${CMAKE_CURRENT_LIST_DIR}/types/protobuf/test.proto)
+    add_library("protobuf_test" STATIC ${PROTO_SRCS} ${PROTO_HDRS})
+    set_property(TARGET "protobuf_test" APPEND_STRING PROPERTY COMPILE_FLAGS " -Wno-error=shadow -Wno-error=unused-parameter ")
+    set_property(TARGET ${TGT_TEST} APPEND_STRING PROPERTY COMPILE_FLAGS " -Wno-error=shadow -Wno-error=unused-parameter ")
+    set_property(TARGET ${TGT_TEST} APPEND PROPERTY INCLUDE_DIRECTORIES ${CMAKE_CURRENT_BINARY_DIR})
+    target_link_libraries(${TGT_TEST} protobuf_test)
+endif()

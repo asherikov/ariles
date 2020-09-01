@@ -27,13 +27,13 @@ namespace ariles_tests
         {
             t_Configurable configurable_out;
             configurable_out.randomize();
-            BOOST_CHECK_NO_THROW(ariles::apply<typename t_Visitor::Writer>(
+            BOOST_CHECK_NO_THROW(ariles2::apply<typename t_Visitor::Writer>(
                                          getWriterInitializer("configurable_check.cfg"), configurable_out););
 
             // -------
 
             t_Configurable configurable_in;
-            BOOST_CHECK_NO_THROW(ariles::apply<typename t_Visitor::Reader>(
+            BOOST_CHECK_NO_THROW(ariles2::apply<typename t_Visitor::Reader>(
                                          getReaderInitializer("configurable_check.cfg"), configurable_in););
 
             // -------

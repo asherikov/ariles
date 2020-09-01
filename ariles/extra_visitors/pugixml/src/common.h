@@ -11,14 +11,14 @@
 #pragma once
 
 
-#include <ariles/visitors/pugixml.h>
+#include <ariles2/visitors/pugixml.h>
 #include <boost/lexical_cast.hpp>
 #include <pugixml.hpp>
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_pugixml
     {
-        typedef ariles::Node<pugi::xml_node> NodeWrapper;
+        typedef serialization::Node<pugi::xml_node> NodeWrapper;
     }
-}  // namespace ariles
+}  // namespace ariles2

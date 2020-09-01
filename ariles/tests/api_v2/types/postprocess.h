@@ -10,12 +10,12 @@
 
 namespace ariles_tests
 {
-    class ConfigurablePostProcessBase : public ariles::DefaultBase
+    class ConfigurablePostProcessBase : public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES                                                                                                 \
-    ARILES_TYPED_ENTRY_(integer, int)                                                                                  \
-    ARILES_TYPED_ENTRY_(real, double)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_TYPED_ENTRY_(v, integer, int)                                                                              \
+    ARILES2_TYPED_ENTRY_(v, real, double)
+#include ARILES2_INITIALIZE
 
     public:
         double another_real_;
@@ -23,8 +23,8 @@ namespace ariles_tests
     public:
         ConfigurablePostProcessBase()
         {
-            ariles::apply<ariles::Defaults>(*this);
-            ariles::apply<ariles::PostProcess>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
+            ariles2::apply<ariles2::PostProcess>(*this);
         }
 
         virtual ~ConfigurablePostProcessBase()
@@ -32,28 +32,28 @@ namespace ariles_tests
         }
 
 
-        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             integer_ = 10;
             real_ = 1.33;
         }
 
 
-        void arilesVisit(const ariles::PostProcess & /*visitor*/, const ariles::PostProcess::Parameters & /*param*/)
+        void arilesVisit(const ariles2::PostProcess & /*visitor*/, const ariles2::PostProcess::Parameters & /*param*/)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             another_real_ = integer_ * real_;
         }
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         void randomize()
         {
             boost::random::random_device random_generator;
             integer_ = GET_RANDOM_INT;
             real_ = GET_RANDOM_REAL;
-            ariles::apply<ariles::PostProcess>(*this);
+            ariles2::apply<ariles2::PostProcess>(*this);
         }
 #endif
     };
@@ -61,16 +61,16 @@ namespace ariles_tests
 
     class ConfigurablePostProcess : public ConfigurablePostProcessBase
     {
-#define ARILES_ENTRIES                                                                                                 \
-    ARILES_PARENT(ConfigurablePostProcessBase)                                                                         \
-    ARILES_TYPED_ENTRY_(member, ConfigurablePostProcessBase)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_PARENT(v, ConfigurablePostProcessBase)                                                                     \
+    ARILES2_TYPED_ENTRY_(v, member, ConfigurablePostProcessBase)
+#include ARILES2_INITIALIZE
 
     public:
         ConfigurablePostProcess()
         {
-            ariles::apply<ariles::Defaults>(*this);
-            ariles::apply<ariles::PostProcess>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
+            ariles2::apply<ariles2::PostProcess>(*this);
         }
 
         virtual ~ConfigurablePostProcess()
@@ -79,20 +79,20 @@ namespace ariles_tests
 
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         void randomize()
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             boost::random::random_device random_generator;
             ConfigurablePostProcessBase::randomize();
             member_.randomize();
-            ariles::apply<ariles::PostProcess>(*this);
+            ariles2::apply<ariles2::PostProcess>(*this);
         }
 #endif
     };
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_COMPARE_DISABLED
     // comparison
     template <class t_Configurable_out, class t_Configurable_in>
     void compare(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)
@@ -108,7 +108,7 @@ namespace ariles_tests
         t_Configurable_in manual_postprocess = configurable_in;
         manual_postprocess.another_real_ = 0.0;
         manual_postprocess.member_.another_real_ = 0.0;
-        ariles::apply<ariles::PostProcess>(manual_postprocess);
+        ariles2::apply<ariles2::PostProcess>(manual_postprocess);
 
         BOOST_CHECK_EQUAL(manual_postprocess.integer_, configurable_in.integer_);
         BOOST_CHECK_CLOSE(manual_postprocess.real_, configurable_in.real_, g_tolerance);
@@ -123,7 +123,7 @@ namespace ariles_tests
         // Known issue of APIv1.
         manual_postprocess.another_real_ = 0.0;
         manual_postprocess.member_.another_real_ = 0.0;
-        ariles::apply<ariles::PostProcess>(manual_postprocess);
+        ariles2::apply<ariles2::PostProcess>(manual_postprocess);
 
         BOOST_CHECK_EQUAL(manual_postprocess.integer_, configurable_in.integer_);
         BOOST_CHECK_CLOSE(manual_postprocess.real_, configurable_in.real_, g_tolerance);

@@ -14,10 +14,10 @@
 namespace ariles_tests
 {
     template <class t_Configurable>
-    class ConfigurableVector : public ariles::DefaultBase
+    class ConfigurableVector : public ARILES_TEST_DEFAULT_BASE
     {
-#define ARILES_ENTRIES ARILES_ENTRY_(vector)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v) ARILES2_ENTRY_(v, vector)
+#include ARILES2_INITIALIZE
 
     public:
         std::vector<t_Configurable> vector_;
@@ -26,11 +26,11 @@ namespace ariles_tests
     public:
         ConfigurableVector()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
 
-        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
         }
 
@@ -62,14 +62,14 @@ namespace ariles_tests
             ConfigurableVector<t_Configurable> configurable_vector_out;
             configurable_vector_out.randomize();
             BOOST_CHECK_NO_THROW(
-                    ariles::apply<typename t_Visitor::Writer>(
+                    ariles2::apply<typename t_Visitor::Writer>(
                             getWriterInitializer("configurable_match_vector.cfg"), configurable_vector_out););
 
             // -------
 
             ConfigurableVector<t_Configurable> configurable_vector_in;
             BOOST_CHECK_NO_THROW(
-                    ariles::apply<typename t_Visitor::Reader>(
+                    ariles2::apply<typename t_Visitor::Reader>(
                             getReaderInitializer("configurable_match_vector.cfg"), configurable_vector_in););
 
             // -------
@@ -80,12 +80,11 @@ namespace ariles_tests
                 compare(configurable_vector_out.vector_[i], configurable_vector_in.vector_[i]);
             }
 
-            ariles::Compare visitor;
-            ariles::Compare::Parameters param;
+            ariles2::Compare visitor;
+            ariles2::Compare::Parameters param;
             param.double_tolerance_ = g_tolerance;
             param.compare_number_of_entries_ = true;
-            param.throw_on_error_ = true;
-            BOOST_CHECK(visitor.compare(configurable_vector_out, configurable_vector_in, param));
+            BOOST_CHECK(ariles2::apply(visitor, configurable_vector_out, configurable_vector_in, param));
         }
     };
 }  // namespace ariles_tests

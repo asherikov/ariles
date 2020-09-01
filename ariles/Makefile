@@ -20,9 +20,14 @@ ARGS?=
 
 DEB_TARGET?=xenial
 
-TEST_ENV=UBSAN_OPTIONS=print_stacktrace=1:halt_on_error=1:suppressions=../../../cmake/sanitizer_undefined.supp \
-		 ASAN_OPTIONS=suppressions=../../../cmake/sanitizer_address.supp \
-		 LSAN_OPTIONS=suppressions=../../../cmake/sanitizer_leak.supp \
+SUPP_PATH=../../../qa/sanitizers/
+TEST_ENV=UBSAN_OPTIONS=print_stacktrace=1:halt_on_error=1:suppressions=${SUPP_PATH}/undefined.supp \
+		 ASAN_OPTIONS=suppressions=${SUPP_PATH}/address.supp \
+		 LSAN_OPTIONS=suppressions=${SUPP_PATH}/leak.supp
+
+PKG_NAME=ariles2
+
+FIND_ARILES_SOURCES=find ./extra_* ./tests/ ./include/ -iname "*.h" -or -iname "*.cpp"
 
 
 #----------------------------------------------
@@ -31,7 +36,7 @@ TEST_ENV=UBSAN_OPTIONS=print_stacktrace=1:halt_on_error=1:suppressions=../../../
 
 clean:
 	rm -Rf build;
-	rm -Rf include/ariles/internal/cpput_*.h
+	rm -Rf include/${PKG_NAME}/internal/cpput_*.h
 	#git submodule update --init doc/dox/; cd doc/dox/; git clean -f; git reset --hard
 
 
@@ -97,14 +102,14 @@ deb: clean
 deb-build: clean
 	${MAKE} build TC=${TC} TYPE=Release OPTIONS=deb_packages_${DEB_TARGET} TARGETS="pkg_deb" \
 		EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM} -DDEB_BUILDPACKAGE_FLAGS='-us;-uc'"
-	cd build/generic-Release-OPTIONS_deb_packages_${DEB_TARGET}/Debian/${DEB_TARGET}/ariles-*-source; \
+	cd build/generic-Release-OPTIONS_deb_packages_${DEB_TARGET}/Debian/${DEB_TARGET}/${PKG_NAME}-*-source; \
 		dpkg-buildpackage -us -uc -F
 
 deb-install:
-	sudo dpkg -i build/generic-Release-OPTIONS_deb_packages_${DEB_TARGET}/Debian/${DEB_TARGET}/ariles-*.deb
+	sudo dpkg -i build/generic-Release-OPTIONS_deb_packages_${DEB_TARGET}/Debian/${DEB_TARGET}/${PKG_NAME}-*.deb
 
 deb-uninstall:
-	dpkg --get-selections ariles* | awk '{print $1}' | xargs sudo dpkg -P
+	dpkg --get-selections ${PKG_NAME}* | awk '{print $1}' | xargs sudo dpkg -P
 
 cmake_dependency: clean
 	mkdir -p build/cmake_dependency_test
@@ -114,10 +119,10 @@ cmake_dependency: clean
 ppa-upload:
 	cd build/generic-Release-OPTIONS_deb_packages_trusty/Debian/trusty/; \
 		ftp -au ppa.launchpad.net:~asherikov/ubuntu/ppa/ \
-			ariles_*~${DEB_TARGET}.dsc \
-			ariles_*~${DEB_TARGET}.tar.xz \
-			ariles_*~${DEB_TARGET}_source.buildinfo \
-			ariles_*~${DEB_TARGET}_source.changes
+			${PKG_NAME}_*~${DEB_TARGET}.dsc \
+			${PKG_NAME}_*~${DEB_TARGET}.tar.xz \
+			${PKG_NAME}_*~${DEB_TARGET}_source.buildinfo \
+			${PKG_NAME}_*~${DEB_TARGET}_source.changes
 
 
 #----------------------------------------------
@@ -133,8 +138,10 @@ test-ros: clean
 test-noros: clean
 	${MAKE} build TC=${TC} TYPE=Debug OPTIONS=no_core TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp11_on_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
-	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp11_on_noros_sloppy TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp03_on_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+	${MAKE} cppcheck
+	${MAKE} spell
+
 
 test-cmake:
 	/bin/sh -c "! ${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=conflict TARGETS='${TARGETS}' EXTRA_CMAKE_PARAM='${EXTRA_CMAKE_PARAM}'"
@@ -144,8 +151,8 @@ test-cmake:
 #----------------------------------------------
 
 addutils:
-	git remote add cmakeut https://github.com/asherikov/cmakeut
-	git remote add cpput https://github.com/asherikov/cpput
+	git remote add --no-tags cmakeut https://github.com/asherikov/cmakeut
+	git remote add --no-tags cpput https://github.com/asherikov/cpput
 
 updateutils:
 	git fetch --all
@@ -158,6 +165,7 @@ updateutils:
 	git show remotes/cmakeut/master:cmake/cmakeut_list_filenames.cmake              > cmake/cmakeut_list_filenames.cmake
 	git rm --ignore-unmatch -rf cpput
 	git read-tree --prefix=cpput -u cpput/master
+	git rm --ignore-unmatch -rf cpput/package.xml
 
 
 update:
@@ -166,7 +174,7 @@ update:
 
 doxclean:
 	cd doc/dox; git fetch --all; git checkout gh-pages; git pull
-	rm -Rf ./doc/dox/1
+	rm -Rf ./doc/dox/2
 
 dox: doxclean clean
 	cd doc; doxygen
@@ -194,7 +202,7 @@ install-jsonnet:
 	cd ./jsonnet/build/; make install
 
 format:
-	find ./extra_visitors/ extra_adapters/ tests/ include/ -iname "*.h" -or -iname "*.cpp" | grep -v "better_enum.h" | xargs clang-format80 -verbose -i
+	${FIND_ARILES_SOURCES} | grep -v "better_enum.h" | xargs clang-format80 -verbose -i
 
 cppcheck:
 	# --inconclusive
@@ -212,8 +220,6 @@ cppcheck:
 		--suppress=syntaxError \
 		--suppress=useInitializationList \
 		--suppress=functionStatic \
-		--suppress=redundantAssignment:tests/api_v1/types/any.h \
-		--suppress=unreadVariable:tests/api_v1/regression_test_019.cpp \
 		--suppress=noExplicitConstructor:tests/api_v2/types/types.h \
 		--suppress=constParameter:tests/api_v2/types/types.h \
 		--suppress=redundantAssignment:tests/api_v2/types/any.h \
@@ -281,6 +287,16 @@ clangcheck:
 		-enable-checker valist.Uninitialized \
 		-enable-checker valist.Unterminated \
 		${MAKE} build build TC=${TC} TYPE=${TYPE} OPTIONS=${OPTIONS} TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+
+spell_interactive:
+	${MAKE} spell SPELL_XARGS_ARG=-o
+
+# https://github.com/myint/scspell
+spell:
+	${FIND_ARILES_SOURCES} \
+		| grep -v "./tests/common/better_enum.h" \
+		| grep -v "./extra_visitors/rapidjson/src/istreamwrapper.h" \
+		| xargs ${SPELL_XARGS_ARG} scspell --use-builtin-base-dict --override-dictionary ./qa/scspell.dict
 
 travis-apt-clean:
 	sudo rm \

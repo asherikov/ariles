@@ -17,30 +17,30 @@ namespace ariles_tests
     /**
      * @brief Configurable class without extra constructors.
      */
-    class ConfigurableEmpty : public ariles::DefaultBase
+    class ConfigurableEmpty : public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)
+#include ARILES2_INITIALIZE
 
 
     public:
         ConfigurableEmpty()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
 
         /**
          * @brief This method must be defined
          */
-        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
         }
 
 
         void randomize()
         {
-            ariles::apply<ariles::PostProcess>(*this);
+            ariles2::apply<ariles2::PostProcess>(*this);
         }
     };
 }  // namespace ariles_tests

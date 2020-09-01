@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ariles2_core</name>
+  <version>2.0.0</version>
+  <description>Catkin package Ariles serialization/configuration library</description>
+
+  <maintainer email="asherikov@yandex.com">Alexander Sherikov</maintainer>
+
+  <license>Apache 2.0</license>
+
+  <buildtool_depend>cmake</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>eigen</depend>
+  <depend>yaml-cpp</depend>
+  <depend>rapidjson-dev</depend>
+  <depend>boost</depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>

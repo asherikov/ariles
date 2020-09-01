@@ -3,7 +3,6 @@ MAKE_FLAGS?=-j5
 VERSION?="XXX__version_not_set__XXX"
 
 TYPE?=Debug
-TRACING?=OFF
 EXTRA_CMAKE_PARAM?=
 #EXTRA_CMAKE_PARAM?="-DCMAKE_CXX_COMPILER=g++"
 
@@ -13,7 +12,7 @@ REPO=https://github.com/asherikov/ariles.git
 DEPENDENCY_PATH=tests/dependency/
 DEBIAN_SYSTEM_DEPENDENCIES=libeigen3-dev octave libyaml-cpp-dev rapidjson-dev
 
-CATKIN_PKG=ariles_ros
+CATKIN_PKG=ariles2_core
 CATKIN_DEPENDENCY_PATH=${DEPENDENCY_PATH}
 CATKIN_DEPENDENCY_TEST_PKG=ariles_catkin_dependency_test
 CATKIN_ARGS=--cmake-args -DARILES_ROS_ENABLE_TESTS=ON

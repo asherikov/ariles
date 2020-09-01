@@ -8,15 +8,13 @@
     @brief
 */
 
-#define ARILES_API_VERSION 2
-
 #include "utility.h"
 
-#include "ariles/visitors/rapidjson.h"
+#include <ariles2/visitors/rapidjson.h>
 
 // If no format header is included, ariles is disabled, and
-// ariles::ConfigurableBase is just a dummy class.
-#include "ariles/ariles2.h"
+// ariles2::ConfigurableBase is just a dummy class.
+#include <ariles2/ariles.h>
 
 
 // ===============================================================
@@ -80,25 +78,21 @@ namespace ariles_tests
         {
             t_Configurable configurable;
 
-            BOOST_CHECK_NO_THROW(std::ofstream output_file_stream; output_file_stream.open("configurable.cfg");
-                                 typename t_Visitor::Writer visitor(
-                                         output_file_stream, ariles::rapidjson::Flags::DISABLE_STRING_FLOATS););
 
-            BOOST_CHECK_NO_THROW(std::ifstream input_file_stream;
-                                 input_file_stream.open("regression_test_223_float.json");
-                                 typename t_Visitor::Reader visitor(
-                                         input_file_stream, ariles::rapidjson::Flags::DISABLE_STRING_FLOATS););
-
-
-            BOOST_CHECK_NO_THROW(typename t_Visitor::Writer writer(
-                                         "configurable.cfg", ariles::rapidjson::Flags::DISABLE_STRING_FLOATS);
-                                 ariles::apply(writer, configurable););
+            BOOST_CHECK_NO_THROW({
+                typename t_Visitor::Writer::Parameters parameters;
+                parameters.writer_parameters_.fallback_to_string_floats_ = false;
+                typename t_Visitor::Writer writer("configurable.cfg");
+                ariles2::apply(writer, configurable, parameters);
+            });
 
             BOOST_CHECK_EQUAL(0, system("cmp configurable.cfg regression_test_223_float.json"));
 
 
-            BOOST_CHECK_NO_THROW(typename t_Visitor::Writer writer("configurable.cfg");
-                                 ariles::apply(writer, configurable););
+            BOOST_CHECK_NO_THROW({
+                typename t_Visitor::Writer writer("configurable.cfg");
+                ariles2::apply(writer, configurable);
+            });
 
             BOOST_CHECK_EQUAL(0, system("cmp configurable.cfg regression_test_223_string.json"));
         }

@@ -14,18 +14,18 @@
 namespace ariles_tests
 {
     template <class t_Scalar>
-    class ConfigurableMember : virtual public ariles::DefaultBase
+    class ConfigurableMember : virtual public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES                                                                                                 \
-    ARILES_TYPED_ENTRY_(integer, t_Scalar)                                                                             \
-    ARILES_TYPED_ENTRY_(real, double)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_TYPED_ENTRY_(v, integer, t_Scalar)                                                                         \
+    ARILES2_TYPED_ENTRY_(v, real, double)
+#include ARILES2_INITIALIZE
 
 
     public:
         ConfigurableMember()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
         virtual ~ConfigurableMember()
@@ -33,20 +33,20 @@ namespace ariles_tests
         }
 
 
-        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
             integer_ = 10;
             real_ = 1.33;
         }
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         void randomize()
         {
             boost::random::random_device random_generator;
             integer_ = GET_RANDOM_INT;
             real_ = GET_RANDOM_REAL;
-            ariles::apply<ariles::PostProcess>(*this);
+            ariles2::apply<ariles2::PostProcess>(*this);
         }
 #endif
     };
@@ -55,14 +55,14 @@ namespace ariles_tests
     template <class t_Scalar>
     class ConfigurableMember1 : public ConfigurableMember<t_Scalar>
     {
-#define ARILES_ENTRIES ARILES_TYPED_ENTRY_(member, ConfigurableMember<t_Scalar>)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v) ARILES2_TYPED_ENTRY_(v, member, ConfigurableMember<t_Scalar>)
+#include ARILES2_INITIALIZE
 
 
     public:
         ConfigurableMember1()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
         virtual ~ConfigurableMember1()
@@ -70,33 +70,33 @@ namespace ariles_tests
         }
 
 
-        void arilesVisit(const ariles::Defaults &visitor, const ariles::Defaults::Parameters &param)
+        void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
         {
-            visitor(member_, "member", param);
+            visitor.visitMapEntry(member_, "member", param);
         }
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         void randomize()
         {
             boost::random::random_device random_generator;
             member_.randomize();
-            ariles::apply<ariles::PostProcess>(*this);
+            ariles2::apply<ariles2::PostProcess>(*this);
         }
 #endif
     };
 
 
-    class ConfigurableBase : virtual public ariles::DefaultBase
+    class ConfigurableBase : virtual public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES ARILES_TYPED_ENTRY_(member, ConfigurableMember<int>)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v) ARILES2_TYPED_ENTRY_(v, member, ConfigurableMember<int>)
+#include ARILES2_INITIALIZE
 
 
     public:
         ConfigurableBase()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
         virtual ~ConfigurableBase()
@@ -104,18 +104,18 @@ namespace ariles_tests
         }
 
 
-        void arilesVisit(const ariles::Defaults &visitor, const ariles::Defaults::Parameters &param)
+        void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
         {
-            visitor(member_, "member", param);
+            visitor.visitMapEntry(member_, "member", param);
         }
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         void randomize()
         {
             boost::random::random_device random_generator;
             member_.randomize();
-            ariles::apply<ariles::PostProcess>(*this);
+            ariles2::apply<ariles2::PostProcess>(*this);
         }
 #endif
     };
@@ -123,31 +123,31 @@ namespace ariles_tests
 
     class ConfigurableDerived : public ConfigurableBase, public ConfigurableMember<int>
     {
-#define ARILES_ENTRIES                                                                                                 \
-    ARILES_PARENT(ConfigurableBase)                                                                                    \
-    ARILES_PARENT(ConfigurableMember<int>)                                                                             \
-    ARILES_TYPED_ENTRY_(another_member, ConfigurableMember<int>)                                                       \
-    ARILES_TYPED_ENTRY_(another_member1, ConfigurableMember1<int>)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_PARENT(v, ConfigurableBase)                                                                                \
+    ARILES2_PARENT(v, ConfigurableMember<int>)                                                                         \
+    ARILES2_TYPED_ENTRY_(v, another_member, ConfigurableMember<int>)                                                   \
+    ARILES2_TYPED_ENTRY_(v, another_member1, ConfigurableMember1<int>)
+#include ARILES2_INITIALIZE
 
 
     public:
         ConfigurableDerived()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
 
-        void arilesVisit(const ariles::Defaults &visitor, const ariles::Defaults::Parameters &param)
+        void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
         {
-            visitor(another_member_, "another_member", param);
-            visitor(another_member1_, "another_member1", param);
+            visitor.visitMapEntry(another_member_, "another_member", param);
+            visitor.visitMapEntry(another_member1_, "another_member1", param);
             ConfigurableBase::arilesVisit(visitor, param);
             ConfigurableMember<int>::arilesVisit(visitor, param);
         }
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         void randomize()
         {
             boost::random::random_device random_generator;
@@ -155,13 +155,13 @@ namespace ariles_tests
             another_member1_.randomize();
             ConfigurableBase::randomize();
             ConfigurableMember<int>::randomize();
-            ariles::apply<ariles::PostProcess>(*this);
+            ariles2::apply<ariles2::PostProcess>(*this);
         }
 #endif
     };
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_COMPARE_DISABLED
     // comparison
     template <class t_Configurable_out, class t_Configurable_in>
     void compare(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)

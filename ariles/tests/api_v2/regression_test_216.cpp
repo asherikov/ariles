@@ -8,20 +8,21 @@
     @brief
 */
 
-#define ARILES_API_VERSION 2
 
-
-#define ARILES_TESTS_BOOST_UTF_DISABLED
+#define ARILES_TESTS_RANDOMIZE_DISABLED
+#define ARILES_TESTS_COMPARE_DISABLED
 
 #include <api_v2/tests_config.h>
+#include "all_enabled_adapters.h"
 
-#include "ariles/adapters_all.h"
-#include "ariles/ariles2.h"
+#include <ariles2/ariles.h>
 
 
 // ===============================================================
 // TYPES
 // ===============================================================
+
+#define ARILES_TEST_DEFAULT_BASE ariles2::DefaultBase
 
 #include "types/any.h"
 #include "types/complex_auto_declare.h"

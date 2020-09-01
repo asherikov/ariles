@@ -8,67 +8,69 @@
     @brief
 */
 
-#include <ariles/visitors/rapidjson.h>
+#include <ariles2/visitors/rapidjson.h>
 #include "common.h"
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_rapidjson
     {
         namespace impl
         {
-            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ns_rapidjson::ImplBase<const ::rapidjson::Value>
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ariles2::ns_rapidjson::ImplBase<const ::rapidjson::Value>
             {
+            public:
+                std::vector< ::rapidjson::Value::ConstMemberIterator> iterator_stack_;
+
             public:
                 void initialize(std::istream &input_stream)
                 {
-                    ariles::ns_rapidjson::IStreamWrapper isw(input_stream);
+                    ariles2::ns_rapidjson::IStreamWrapper isw(input_stream);
                     document_.ParseStream(isw);
-                    ARILES_ASSERT(false == document_.HasParseError(), "Parsing failed");
+                    ARILES2_ASSERT(false == document_.HasParseError(), "Parsing failed");
                 }
             };
         }  // namespace impl
     }      // namespace ns_rapidjson
-}  // namespace ariles
+}  // namespace ariles2
 
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_rapidjson
     {
-        Reader::Reader(const std::string &file_name, const Flags &flags) : Base(flags)
+        Reader::Reader(const std::string &file_name)
         {
             std::ifstream config_ifs;
             read::Visitor::openFile(config_ifs, file_name);
-            impl_ = ImplPtr(new Impl());
+            impl_ = ImplPtr(new impl::Reader());
             impl_->initialize(config_ifs);
         }
 
 
-        Reader::Reader(std::istream &input_stream, const Flags &flags) : Base(flags)
+        Reader::Reader(std::istream &input_stream)
         {
-            impl_ = ImplPtr(new Impl());
+            impl_ = ImplPtr(new impl::Reader());
             impl_->initialize(input_stream);
         }
 
 
         void Reader::constructFromString(const char *input_string)
         {
-            impl_ = ImplPtr(new Impl());
+            impl_ = ImplPtr(new impl::Reader());
             impl_->document_.Parse(input_string);
         }
 
 
-        std::size_t Reader::getMapSize(const bool /*expect_empty*/)
+        void Reader::startMap(const SizeLimitEnforcementType limit_type, const std::size_t min, const std::size_t max)
         {
-            return (impl_->getRawNode().MemberCount());
+            ARILES2_TRACE_FUNCTION;
+            checkSize(limit_type, impl_->getRawNode().MemberCount(), min, max);
         }
 
-
-
-        bool Reader::descend(const std::string &child_name)
+        bool Reader::startMapEntry(const std::string &child_name)
         {
             const ::rapidjson::Value::ConstMemberIterator child = impl_->getRawNode().FindMember(child_name.c_str());
 
@@ -83,34 +85,54 @@ namespace ariles
             }
         }
 
-
-        void Reader::ascend()
+        void Reader::endMapEntry()
         {
             impl_->node_stack_.pop_back();
         }
 
 
-        bool Reader::getMapEntryNames(std::vector<std::string> &child_names)
+        bool Reader::startIteratedMap(
+                const SizeLimitEnforcementType limit_type,
+                const std::size_t min,
+                const std::size_t max)
         {
+            ARILES2_TRACE_FUNCTION;
+            checkSize(limit_type, impl_->getRawNode().MemberCount(), min, max);
+
+
             const ::rapidjson::Value &selected_node = impl_->getRawNode();
 
-            if (false == selected_node.IsObject())
+            if (true == selected_node.IsObject())
             {
-                return (false);
-            }
-            else
-            {
-                child_names.resize(selected_node.MemberCount());
-
-                std::size_t i = 0;
-                for (::rapidjson::Value::ConstMemberIterator it = selected_node.MemberBegin();
-                     it != selected_node.MemberEnd();
-                     ++it, ++i)
-                {
-                    child_names[i] = it->name.GetString();
-                }
+                impl_->iterator_stack_.push_back(selected_node.MemberBegin());
                 return (true);
             }
+            return (false);
+        }
+
+        bool Reader::startIteratedMapElement(std::string &entry_name)
+        {
+            if (impl_->iterator_stack_.back() != impl_->getRawNode().MemberEnd())
+            {
+                impl_->node_stack_.push_back(impl::Reader::NodeWrapper(&(impl_->iterator_stack_.back()->value)));
+                entry_name = impl_->iterator_stack_.back()->name.GetString();
+                return (true);
+            }
+            return (false);
+        }
+
+        void Reader::endIteratedMapElement()
+        {
+            ++impl_->iterator_stack_.back();
+            impl_->node_stack_.pop_back();
+        }
+
+        void Reader::endIteratedMap()
+        {
+            ARILES2_ASSERT(
+                    impl_->iterator_stack_.back() == impl_->getRawNode().MemberEnd(),
+                    "End of iterated map has not been reached.");
+            impl_->iterator_stack_.pop_back();
         }
 
 
@@ -123,12 +145,17 @@ namespace ariles
         }
 
 
-        void Reader::shiftArray()
+        void Reader::startArrayElement()
         {
-            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ARILES_ASSERT(
+            ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
+        }
+
+
+        void Reader::endArrayElement()
+        {
+            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ++impl_->node_stack_.back().index_;
         }
 
@@ -157,12 +184,12 @@ namespace ariles
             if (true == impl_->getRawNode().IsString())
             {
                 tmp_value = boost::lexical_cast<float>(impl_->getRawNode().GetString());
-                if (true == ariles::isNaN(tmp_value))
+                if (true == ariles2::isNaN(tmp_value))
                 {
                     element = std::numeric_limits<float>::signaling_NaN();
                     return;
                 }
-                if (true == ariles::isInfinity(tmp_value))
+                if (true == ariles2::isInfinity(tmp_value))
                 {
                     element = static_cast<float>(tmp_value);
                     return;
@@ -173,7 +200,7 @@ namespace ariles
                 tmp_value = impl_->getRawNode().GetDouble();  // old API compatibility
                 // tmp_value = impl_->getRawNode().GetFloat();
             }
-            ARILES_ASSERT(
+            ARILES2_ASSERT(
                     tmp_value <= std::numeric_limits<float>::max() && tmp_value >= -std::numeric_limits<float>::max(),
                     "Value is out of range.");
             element = static_cast<float>(tmp_value);
@@ -186,12 +213,12 @@ namespace ariles
             if (true == impl_->getRawNode().IsString())
             {
                 tmp_value = boost::lexical_cast<double>(impl_->getRawNode().GetString());
-                if (true == ariles::isNaN(tmp_value))
+                if (true == ariles2::isNaN(tmp_value))
                 {
                     element = std::numeric_limits<double>::signaling_NaN();
                     return;
                 }
-                if (true == ariles::isInfinity(tmp_value))
+                if (true == ariles2::isInfinity(tmp_value))
                 {
                     element = static_cast<double>(tmp_value);
                     return;
@@ -201,38 +228,38 @@ namespace ariles
             {
                 tmp_value = impl_->getRawNode().GetDouble();
             }
-            ARILES_ASSERT(
+            ARILES2_ASSERT(
                     tmp_value <= std::numeric_limits<double>::max() && tmp_value >= -std::numeric_limits<double>::max(),
                     "Value is out of range.");
             element = static_cast<double>(tmp_value);
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
         int64_t tmp_value = impl_->getRawNode().GetInt64();                                                            \
-        ARILES_ASSERT(                                                                                                 \
+        ARILES2_ASSERT(                                                                                                \
                 tmp_value <= std::numeric_limits<type>::max() && tmp_value >= std::numeric_limits<type>::min(),        \
                 "Value is out of range.");                                                                             \
         element = static_cast<type>(tmp_value);                                                                        \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
         uint64_t tmp_value = impl_->getRawNode().GetUint64();                                                          \
-        ARILES_ASSERT(tmp_value <= std::numeric_limits<type>::max(), "Value is too large.");                           \
+        ARILES2_ASSERT(tmp_value <= std::numeric_limits<type>::max(), "Value is too large.");                          \
         element = static_cast<type>(tmp_value);                                                                        \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
     }  // namespace ns_rapidjson
-}  // namespace ariles
+}  // namespace ariles2

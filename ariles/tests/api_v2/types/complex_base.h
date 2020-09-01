@@ -27,7 +27,7 @@ namespace ariles_tests
 
 
     public:
-        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
             t_ConfigurableComplex &impl = static_cast<t_ConfigurableComplex &>(*this);
 
@@ -35,7 +35,8 @@ namespace ariles_tests
             impl.integer_ = 10;
             impl.unsigned_integer_ = 100;
             impl.real_ = 1.33;
-            impl.string_ = "blahblah";
+            impl.string_ = "test_string";
+            impl.complex_float_ = std::complex<float>(4, 3);
 
             impl.std_vector_.resize(5);
             for (std::size_t i = 0; i < impl.std_vector_.size(); ++i)
@@ -57,7 +58,7 @@ namespace ariles_tests
             impl.boolean_false_ = false;
             impl.boolean_true_ = true;
 
-            impl.enum_ = ANOTHER_VALUE;
+            impl.some_enum_ = ANOTHER_VALUE;
             impl.better_enum_ = BetterEnum::DEFINED_1;
 
             impl.std_pair_.first = "test";
@@ -77,6 +78,8 @@ namespace ariles_tests
             impl.matrix_ << 1, 2, 3, 4, 5, 6, 7, 8, 9;
             impl.matrix_x_.resize(2, 3);
             impl.matrix_x_ << 8, 7, 6, 3, 2, 1;
+
+            impl.matrix_complex_double_.setZero();
 
             impl.std_vector_evector_.resize(4);
             for (std::size_t i = 0; i < impl.std_vector_evector_.size(); ++i)
@@ -102,7 +105,7 @@ namespace ariles_tests
         }
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         void randomize()
         {
             boost::random::random_device random_generator;
@@ -111,7 +114,9 @@ namespace ariles_tests
             impl.integer_ = GET_RANDOM_INT;
             impl.unsigned_integer_ = GET_RANDOM_UINT;
             impl.real_ = GET_RANDOM_REAL;
-            impl.string_ = "blahblah";
+            impl.complex_float_.real(GET_RANDOM_REAL);
+            impl.complex_float_.imag(GET_RANDOM_REAL);
+            impl.string_ = "test_string";
 
             impl.std_vector_.resize(5);
             for (std::size_t i = 0; i < impl.std_vector_.size(); ++i)
@@ -133,10 +138,10 @@ namespace ariles_tests
             impl.boolean_false_ = false;
             impl.boolean_true_ = true;
 
-            impl.enum_ = ANOTHER_VALUE;
+            impl.some_enum_ = ANOTHER_VALUE;
             impl.better_enum_ = BetterEnum::DEFINED_2;
 
-            impl.std_pair_.first = "testtt";
+            impl.std_pair_.first = "test_string_2";
             impl.std_pair_.second = GET_RANDOM_REAL;
 
             impl.std_map_.clear();
@@ -156,6 +161,8 @@ namespace ariles_tests
             impl.matrix_.setRandom();
             impl.matrix_x_.resize(2, 3);
             impl.matrix_x_.setRandom();
+
+            impl.matrix_complex_double_.setRandom();
 
             impl.std_vector_evector_.resize(4);
             for (std::size_t i = 0; i < impl.std_vector_evector_.size(); ++i)
@@ -182,26 +189,28 @@ namespace ariles_tests
             impl.quaternion_.w() = GET_RANDOM_REAL;
 #    endif
 
-            ariles::apply<ariles::PostProcess>(impl);
+            ariles2::apply<ariles2::PostProcess>(impl);
         }
 #endif
     };
 
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_COMPARE_DISABLED
     template <class t_Configurable_out, class t_Configurable_in>
     void compare(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)
     {
         BOOST_CHECK_EQUAL(configurable_out.integer_, configurable_in.integer_);
         BOOST_CHECK_EQUAL(configurable_out.unsigned_integer_, configurable_in.unsigned_integer_);
         BOOST_CHECK_CLOSE(configurable_out.real_, configurable_in.real_, g_tolerance);
+        BOOST_CHECK_CLOSE(configurable_out.complex_float_.real(), configurable_in.complex_float_.real(), g_tolerance);
+        BOOST_CHECK_CLOSE(configurable_out.complex_float_.imag(), configurable_in.complex_float_.imag(), g_tolerance);
         BOOST_CHECK_EQUAL(configurable_out.string_, configurable_in.string_);
         BOOST_CHECK_EQUAL(configurable_out.boolean_false_, configurable_in.boolean_false_);
         BOOST_CHECK_EQUAL(configurable_out.boolean_false_, false);
         BOOST_CHECK_EQUAL(configurable_out.boolean_true_, configurable_in.boolean_true_);
         BOOST_CHECK_EQUAL(configurable_out.boolean_true_, true);
-        BOOST_CHECK_EQUAL(configurable_out.enum_, configurable_in.enum_);
+        BOOST_CHECK_EQUAL(configurable_out.some_enum_, configurable_in.some_enum_);
         BOOST_CHECK_EQUAL(configurable_out.better_enum_, configurable_in.better_enum_);
 
         BOOST_CHECK_EQUAL(configurable_out.std_vector_.size(), configurable_in.std_vector_.size());
@@ -239,7 +248,11 @@ namespace ariles_tests
         {
             std::map<std::string, std::vector<std::string> >::const_iterator search =
                     configurable_out.std_map_.find(it->first);
-            BOOST_REQUIRE(search != configurable_out.std_map_.end());
+            BOOST_CHECK(search != configurable_out.std_map_.end());
+            if (search == configurable_out.std_map_.end())
+            {
+                break;
+            }
 
             BOOST_CHECK_EQUAL(it->second.size(), search->second.size());
             for (std::size_t i = 0; i < it->second.size(); ++i)
@@ -253,6 +266,7 @@ namespace ariles_tests
         BOOST_CHECK(configurable_out.vector_.isApprox(configurable_in.vector_, g_tolerance));
         BOOST_CHECK(configurable_out.matrix_.isApprox(configurable_in.matrix_, g_tolerance));
         BOOST_CHECK(configurable_out.matrix_x_.isApprox(configurable_in.matrix_x_, g_tolerance));
+        BOOST_CHECK(configurable_out.matrix_complex_double_.isApprox(configurable_in.matrix_complex_double_, g_tolerance));
         BOOST_CHECK_EQUAL(configurable_out.std_vector_evector_.size(), configurable_in.std_vector_evector_.size());
         BOOST_CHECK_EQUAL(
                 configurable_out.std_nested_vector_evector_.size(), configurable_in.std_nested_vector_evector_.size());

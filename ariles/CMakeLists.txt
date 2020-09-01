@@ -1,11 +1,12 @@
 # General parameters
 cmake_minimum_required (VERSION 2.8.12)
+
 set(ARILES_VERSION_MAJOR 1)
 set(ARILES_VERSION_MINOR 6)
 set(ARILES_VERSION_PATCH 7)
 
 if(CMAKE_VERSION VERSION_LESS 3)
-    project (ariles CXX)
+    project (ariles2 CXX)
     set(PROJECT_VERSION_MAJOR ${ARILES_VERSION_MAJOR})
     set(PROJECT_VERSION_MINOR ${ARILES_VERSION_MINOR})
     set(PROJECT_VERSION_PATCH ${ARILES_VERSION_PATCH})
@@ -13,12 +14,11 @@ else()
     if(POLICY CMP0048)
         cmake_policy(SET CMP0048 NEW)
     endif()
-    project(ariles VERSION ${ARILES_VERSION_MAJOR}.${ARILES_VERSION_MINOR}.${ARILES_VERSION_PATCH})
+    project(ariles2 VERSION ${ARILES_VERSION_MAJOR}.${ARILES_VERSION_MINOR}.${ARILES_VERSION_PATCH})
 endif()
 
-set(ARILES_HOMEPAGE http://asherikov.github.com/ariles/)
+set(ARILES_HOMEPAGE http://asherikov.github.com/ariles/2)
 set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
-
 
 
 #####################################
@@ -26,22 +26,19 @@ set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 #####################################
 
 option (ARILES_ENABLE_CORE              "Install core (if disabled only selected visitors are installed)." ON)
-option (ARILES_ENABLE_CORE_ALL_HEADER   "Generate ariles_all.h header (not suitable for packages)" ON)
 
+# extra visitors
 set    (ARILES_VISITORS_DEFAULT_MODE    "ON" CACHE STRING "ON = enable, OFF = disable")
 
-# extra adapters & options
-set (ARILES_DEFAULT_CONFIGURABLE_FLAGS  "" CACHE STRING "Override default flags")
-set (ARILES_DEFAULT_FLOAT_VALUE         "std::numeric_limits<float>::signaling_NaN()" CACHE STRING "Default value for floats")
-set (ARILES_DEFAULT_DOUBLE_VALUE        "std::numeric_limits<double>::signaling_NaN()" CACHE STRING "Default value for doubles")
-
+# extra adapters
 option (ARILES_ADAPTER_EIGEN            "Enable eigen support." ON)
 option (ARILES_ADAPTER_BOOST_POINTER    "Enable boost pointer support." ON)
 option (ARILES_ADAPTER_BOOST_OPTIONAL   "Enable boost optional support." ON)
 option (ARILES_ADAPTER_BETTER_ENUMS     "Enable support for beter enums." ON)
+option (ARILES_ADAPTER_ROSMSG           "ROS message conversions." ON)
 
 # build parameters
-set    (ARILES_CPP_STANDARD             "c++98" CACHE STRING "C++ standard version")
+set    (ARILES_CPP_STANDARD             "c++03" CACHE STRING "C++ standard version")
 option (ARILES_CPP_SANITIZERS           "Enable sanitizers"                 OFF)
 option (ARILES_VERBOSE                  "Verbose build"                     ON)
 option (ARILES_BUILD_REGRESSION_TESTS   "Build regression tests."           ON)
@@ -51,31 +48,6 @@ set    (ARILES_DEB_TARGETS              "" CACHE STRING "Enable debian package g
 # install parameters
 set    (ARILES_PKGCONFIG_INSTALL_PATH   "" CACHE STRING "pkg-config pc-file install path, not installed if empty")
 
-
-
-#####################################
-## Compatibility (deprecated)
-#####################################
-
-if (DEFINED ARILES_BRIDGES_DEFAULT_MODE)
-    set (ARILES_VISITORS_DEFAULT_MODE   "${ARILES_BRIDGES_DEFAULT_MODE}")
-    set (ARILES_VISITORS_DEFAULT_MODE   "${ARILES_BRIDGES_DEFAULT_MODE}" CACHE STRING "")
-endif()
-
-get_cmake_property(CMAKE_VARIABLES VARIABLES)
-foreach (CMAKE_VARIABLE ${CMAKE_VARIABLES})
-    if (CMAKE_VARIABLE MATCHES "ARILES_BRIDGE_.*")
-        string(REPLACE "ARILES_BRIDGE" "ARILES_VISITOR" ARILES_VISITOR_OPTION "${CMAKE_VARIABLE}")
-        set ("${ARILES_VISITOR_OPTION}" "${${CMAKE_VARIABLE}}" CACHE STRING "")
-    endif()
-endforeach()
-
-get_cmake_property(CACHED_VARIABLES CACHE_VARIABLES)
-foreach (CACHED_VARIABLE ${CACHED_VARIABLES})
-    if (CACHED_VARIABLE MATCHES "ARILES_BRIDGE_.*")
-        unset("${CACHED_VARIABLE}" CACHE)
-    endif()
-endforeach()
 
 
 #####################################
@@ -124,7 +96,7 @@ set(CPACK_COMPONENTS_GROUPING ONE_PER_GROUP)
 set(CPACK_GENERATOR "DEB")
 
 
-set(CPACK_DEBIAN_PACKAGE_HOMEPAGE   "https://asherikov.github.io/ariles/")
+set(CPACK_DEBIAN_PACKAGE_HOMEPAGE   "https://asherikov.github.io/ariles/2")
 set(CPACK_DEBIAN_PACKAGE_PRIORITY   "optional")
 set(CPACK_DEBIAN_PACKAGE_SECTION    "devel")
 
@@ -150,6 +122,7 @@ if (NOT ${ARILES_ENABLE_CORE})
     set(ARILES_ADAPTER_BOOST_POINTER    OFF)
     set(ARILES_ADAPTER_BOOST_OPTIONAL   OFF)
     set(ARILES_ADAPTER_BETTER_ENUMS     OFF)
+    set(ARILES_ADAPTER_ROSMSG           OFF)
 endif()
 
 
@@ -206,6 +179,9 @@ endif(ARILES_ADAPTER_BOOST_OPTIONAL)
 if (ARILES_ADAPTER_BETTER_ENUMS)
     list(APPEND ARILES_EXTRA_ADAPTERS "better_enums")
 endif(ARILES_ADAPTER_BETTER_ENUMS)
+if (ARILES_ADAPTER_ROSMSG)
+    list(APPEND ARILES_EXTRA_ADAPTERS "rosmsg")
+endif(ARILES_ADAPTER_ROSMSG)
 
 
 #####################################
@@ -275,9 +251,9 @@ set(DEB_ARCHIVE_FILES
 # cpput
 # --------------
 option(CPPUT_EMBEDDED "" ON)
-set(CPPUT_EMBEDDED_ID "ARILES"  CACHE STRING "")
-set(CPPUT_EMBEDDED_COPY_TO_DIR "${PROJECT_SOURCE_DIR}/include/ariles/internal/"  CACHE STRING "")
-set(CPPUT_SELECT_HEADERS "config.h;;exception.h;floating_point_utils.h;visibility.h;misc.h;flags.h"  CACHE STRING "")
+set(CPPUT_EMBEDDED_ID "ARILES2"  CACHE STRING "")
+set(CPPUT_EMBEDDED_COPY_TO_DIR "${PROJECT_SOURCE_DIR}/include/${CMAKE_PROJECT_NAME}/internal/"  CACHE STRING "")
+set(CPPUT_SELECT_HEADERS "config.h;;exception.h;floating_point_utils.h;visibility.h;misc.h;trace.h"  CACHE STRING "")
 add_subdirectory(cpput)
 # --------------
 
@@ -286,14 +262,14 @@ add_custom_target( TGT_ariles_copy_headers ALL )
 
 # core & adapters headers
 cmakeut_copy_dir_if_exists(TGT_ariles_copy_headers          "ariles"
-                          "${PROJECT_SOURCE_DIR}/include"  "${ARILES_INCLUDE_DIR}/core/")
+                          "${PROJECT_SOURCE_DIR}/include"   "${ARILES_INCLUDE_DIR}/core/")
 set(ARILES_CORE_BUILD_INCLUDES "${ARILES_INCLUDE_DIR}/core/")
 
 if (${ARILES_ENABLE_CORE})
     foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
         cmakeut_copy_dir_if_exists(
             TGT_ariles_copy_headers                                         "adapter_${ARILES_EXTRA_ADAPTER}"
-            "${PROJECT_SOURCE_DIR}/extra_adapters/${ARILES_EXTRA_ADAPTER}"  "${ARILES_INCLUDE_DIR}/core/ariles/adapters/")
+            "${PROJECT_SOURCE_DIR}/extra_adapters/${ARILES_EXTRA_ADAPTER}"  "${ARILES_INCLUDE_DIR}/core/${CMAKE_PROJECT_NAME}/adapters/")
     endforeach()
 
     list(APPEND DEB_ARCHIVE_FILES "./include" "./extra_adapters")
@@ -385,59 +361,11 @@ set(ARILES_BUILD_CONFIG
 // __func__ ?
 #cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNC_
 // __FUNCTION__ ?
-#cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNCTION_\n
-#cmakedefine ARILES_DEFAULT_FLOAT_VALUE ${ARILES_DEFAULT_FLOAT_VALUE}\n
-#cmakedefine ARILES_DEFAULT_DOUBLE_VALUE ${ARILES_DEFAULT_DOUBLE_VALUE}\n")
-
-if (ARILES_DEFAULT_CONFIGURABLE_FLAGS)
-    set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#ifndef ARILES_DEFAULT_CONFIGURABLE_FLAGS\n")
-    set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#define ARILES_DEFAULT_CONFIGURABLE_FLAGS ${ARILES_DEFAULT_CONFIGURABLE_FLAGS}\n")
-    set(ARILES_BUILD_CONFIG   "${ARILES_BUILD_CONFIG}#endif\n")
-endif(ARILES_DEFAULT_CONFIGURABLE_FLAGS)
+#cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNCTION_\n")
 
 string(CONFIGURE "${ARILES_BUILD_CONFIG}" ARILES_BUILD_CONFIG)
-file(WRITE "${ARILES_INCLUDE_DIR}/core/ariles/internal/build_config.h" "${ARILES_BUILD_CONFIG}")
+file(WRITE "${ARILES_INCLUDE_DIR}/core/${CMAKE_PROJECT_NAME}/internal/build_config.h" "${ARILES_BUILD_CONFIG}")
 #---
-
-
-if (${ARILES_ENABLE_CORE})
-    # adapters_all.h TODO deprecated
-    #---
-    set(ARILES_ADAPTERS_ALL   "#pragma once\n")
-    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"internal/helpers.h\"\n")
-
-    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/std_vector.h\"\n")
-    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/std_pair.h\"\n")
-    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/std_map.h\"\n")
-    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/pointer.h\"\n")
-
-    foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
-        set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/${ARILES_EXTRA_ADAPTER}.h\"\n")
-    endforeach()
-
-    file(WRITE "${ARILES_INCLUDE_DIR}/core/ariles/adapters_all.h" "${ARILES_ADAPTERS_ALL}")
-    #---
-
-
-    # ariles_all.h TODO deprecated
-    #---
-    if (${ARILES_ENABLE_CORE_ALL_HEADER})
-        set(ARILES_HEADER_ALL   "#pragma once\n")
-        set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"internal/build_config.h\"\n")
-
-        foreach(ARILES_VISITOR ${ARILES_VISITORS})
-            if (NOT ${ARILES_VISITOR_${ARILES_VISITOR}} STREQUAL "OFF")
-                set(ARILES_HEADER_ALL "${ARILES_HEADER_ALL}#include <ariles/bridges/${ARILES_VISITOR}.h>\n")
-            endif()
-        endforeach(ARILES_VISITOR)
-
-        set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"ariles.h\"\n")
-        set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"adapters_all.h\"\n")
-
-        file(WRITE "${ARILES_INCLUDE_DIR}/core/ariles/ariles_all.h" "${ARILES_HEADER_ALL}")
-    endif()
-    #---
-endif()
 
 
 
@@ -453,9 +381,9 @@ if (${ARILES_ENABLE_CORE})
 
 
     set(ARILES_COMPONENT_NAME "core")
-    set(ariles_LIBRARIES "ariles-${ARILES_COMPONENT_NAME}_LIBRARIES")
-    set(ariles_INCLUDE_DIRS "ariles-${ARILES_COMPONENT_NAME}_INCLUDE_DIRS")
-    set(ariles_LIBRARY_DIRS "ariles-${ARILES_COMPONENT_NAME}_LIBRARY_DIRS")
+    set(ariles_LIBRARIES "${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}_LIBRARIES")
+    set(ariles_INCLUDE_DIRS "${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}_INCLUDE_DIRS")
+    set(ariles_LIBRARY_DIRS "${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}_LIBRARY_DIRS")
 
     set(ARILES_LIBRARIES            "")
     set(ARILES_INCLUDES             "${ARILES_CORE_INCLUDES}")
@@ -471,21 +399,21 @@ if (${ARILES_ENABLE_CORE})
     list(REMOVE_ITEM ARILES_LIBRARIES "")
 
     configure_package_config_file(  "cmake/arilesConfig.cmake.in"
-                                    "${PROJECT_BINARY_DIR}/ariles-${ARILES_COMPONENT_NAME}Config.cmake"
-                                    INSTALL_DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles-${ARILES_COMPONENT_NAME}/"
+                                    "${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}Config.cmake"
+                                    INSTALL_DESTINATION "${CMAKE_INSTALL_PREFIX}/share/${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}/"
                                     PATH_VARS ARILES_INCLUDES
                                     NO_SET_AND_CHECK_MACRO
                                     NO_CHECK_REQUIRED_COMPONENTS_MACRO)
-    install (FILES "${PROJECT_BINARY_DIR}/ariles-${ARILES_COMPONENT_NAME}Config.cmake"
-             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles-${ARILES_COMPONENT_NAME}/"
+    install (FILES "${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}Config.cmake"
+             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}/"
              COMPONENT ${ARILES_COMPONENT_NAME})
 
     write_basic_package_version_file(
-        ${PROJECT_BINARY_DIR}/ariles-${ARILES_COMPONENT_NAME}ConfigVersion.cmake
+        ${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}ConfigVersion.cmake
         VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}
         COMPATIBILITY SameMajorVersion)
-    install (FILES "${PROJECT_BINARY_DIR}/ariles-${ARILES_COMPONENT_NAME}ConfigVersion.cmake"
-             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ariles-${ARILES_COMPONENT_NAME}/"
+    install (FILES "${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}ConfigVersion.cmake"
+             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/${CMAKE_PROJECT_NAME}-${ARILES_COMPONENT_NAME}/"
              COMPONENT ${ARILES_COMPONENT_NAME})
 
 
@@ -494,9 +422,9 @@ if (${ARILES_ENABLE_CORE})
         set(ARILES_INCLUDES_FLAGS "-I${ARILES_INCLUDES_FLAGS}")
         string(REPLACE ";" " -l" ARILES_LIBRARIES_FLAGS "${ARILES_LIBRARIES}")
         set(ARILES_LIBRARIES_FLAGS "-l${ARILES_LIBRARIES_FLAGS}")
-        configure_file("cmake/ariles.pc.in"             "${PROJECT_BINARY_DIR}/ariles.pc" @ONLY)
+        configure_file("cmake/ariles.pc.in"             "${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.pc" @ONLY)
 
-        install(FILES "${PROJECT_BINARY_DIR}/ariles.pc"
+        install(FILES "${PROJECT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.pc"
                 DESTINATION "${ARILES_PKGCONFIG_INSTALL_PATH}"
                 COMPONENT ${ARILES_COMPONENT_NAME})
     endif()
@@ -526,7 +454,6 @@ if(ARILES_DEB_TARGETS)
 
     set(DEB_COMMON_CMAKE_ARGS
         "-DARILES_CPP_STANDARD=${ARILES_CPP_STANDARD} \
-         -DARILES_ENABLE_CORE_ALL_HEADER=${ARILES_ENABLE_CORE_ALL_HEADER} \
          -DARILES_BUILD_REGRESSION_TESTS=${ARILES_BUILD_REGRESSION_TESTS} \
          -DARILES_VISITORS_DEFAULT_MODE=OFF")
 

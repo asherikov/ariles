@@ -9,26 +9,26 @@
 */
 
 
-#include "ariles/adapters_all.h"
-#include "ariles/ariles2.h"
+#include "all_enabled_adapters.h"
+#include <ariles2/ariles.h>
 
 
 // ===============================================================
 // TYPES
 // ===============================================================
 
-namespace testlib1
+namespace testlib_1
 {
     /**
      * @brief Verbose definition of a configurable class (with explicit declaration
      * of members)
      */
-    class ConfigurableVerbose : public ariles::DefaultBase
+    class ConfigurableVerbose : public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES                                                                                                 \
-    ARILES_ENTRY_(integer)                                                                                             \
-    ARILES_ENTRY_(real)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_ENTRY_(v, integer)                                                                                         \
+    ARILES2_ENTRY_(v, real)
+#include ARILES2_INITIALIZE
 
 
     public:
@@ -39,14 +39,14 @@ namespace testlib1
     public:
         ConfigurableVerbose()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
 
-        void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
             integer_ = 10;
             real_ = 1.33;
         }
     };
-}  // namespace testlib1
+}  // namespace testlib_1

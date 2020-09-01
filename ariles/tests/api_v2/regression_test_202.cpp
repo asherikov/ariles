@@ -9,13 +9,21 @@
 */
 
 
-#define ARILES_API_VERSION 2
-
 #include "utility.h"
 #include "all_enabled_visitors.h"
+#include "all_enabled_adapters.h"
 
-#include "ariles/adapters_all.h"
-#include "ariles/ariles2.h"
+#define ARILES2_DEFAULT_VISITORS                                                                                       \
+    ARILES2_VISITOR(count)                                                                                             \
+    ARILES2_VISITOR(postprocess)                                                                                       \
+    ARILES2_VISITOR(preprocess)                                                                                        \
+    ARILES2_VISITOR(defaults)                                                                                          \
+    ARILES2_VISITOR(read)                                                                                              \
+    ARILES2_VISITOR(write)                                                                                             \
+    ARILES2_VISITOR(compare)
+
+#include <ariles2/visitors/compare.h>
+#include <ariles2/ariles.h>
 
 
 // ===============================================================
@@ -55,7 +63,7 @@
             ComparisonViaBaseFixture##_##VISITOR_ID##_##INITIALIZER,                                                   \
             ariles_tests::ComparisonViaBaseFixture<ariles_tests::initializers::INITIALIZER>)                           \
     {                                                                                                                  \
-        test<ariles_tests::ConfigurableBase, ariles_tests::ConfigurableDerived, ariles::NAMESPACE>();                  \
+        test<ariles_tests::ConfigurableBase, ariles_tests::ConfigurableDerived, ariles2::NAMESPACE>();                 \
     }
 
 

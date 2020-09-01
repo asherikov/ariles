@@ -24,16 +24,18 @@ namespace ariles_tests
         template <class t_Configurable, class t_Visitor>
         void test()
         {
-            // Exlicit instantiation of reader and writer classes
+            // Explicit instantiation of reader and writer classes
             {
                 t_Configurable configurable;
                 configurable.randomize();
 
-                typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
-                ariles::apply(writer, configurable);
+                const std::string filename =
+                        std::string("octave_") + configurable.arilesDefaultID() + "_configurable.cfg";
+                typename t_Visitor::Writer writer(getWriterInitializer(filename));
+                ariles2::apply(writer, configurable);
 
                 std::string octave_cmd = std::string("octave --no-gui --no-history --silent --eval 'source ")
-                                         + getWriterInitializer("configurable.cfg") + "'";
+                                         + getWriterInitializer(filename) + "'";
                 BOOST_CHECK_EQUAL(0, std::system(octave_cmd.c_str()));
             }
 
@@ -43,10 +45,12 @@ namespace ariles_tests
             {
                 t_Configurable configurable;
                 configurable.randomize();
-                ariles::apply<typename t_Visitor::Writer>(getWriterInitializer("configurable2.cfg"), configurable);
+                const std::string filename =
+                        std::string("octave_") + configurable.arilesDefaultID() + "_configurable2.cfg";
+                ariles2::apply<typename t_Visitor::Writer>(getWriterInitializer(filename), configurable);
 
                 std::string octave_cmd = std::string("octave --no-gui --no-history --silent --eval 'source ")
-                                         + getWriterInitializer("configurable2.cfg") + "'";
+                                         + getWriterInitializer(filename) + "'";
                 BOOST_CHECK_EQUAL(0, std::system(octave_cmd.c_str()));
             }
         }

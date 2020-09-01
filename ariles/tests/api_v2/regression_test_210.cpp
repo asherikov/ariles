@@ -8,17 +8,15 @@
     @brief
 */
 
-#define ARILES_API_VERSION 2
-
 #include "utility.h"
 
 
-#include "ariles/visitors/jsonnet.h"
-#include "ariles/visitors/rapidjson.h"
+#include <ariles2/visitors/jsonnet.h>
+#include <ariles2/visitors/rapidjson.h>
 
 // If no format header is included, ariles is disabled, and
-// ariles::ConfigurableBase is just a dummy class.
-#include "ariles/ariles2.h"
+// ariles2::ConfigurableBase is just a dummy class.
+#include <ariles2/ariles.h>
 
 
 // ===============================================================
@@ -64,4 +62,4 @@ namespace ariles_tests
 #define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                                               \
     ARILES_FIXTURE_TEST_CASE(ReadFixture, VISITOR_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
 
-ARILES_TESTS(rapidjson_jsonnet, jsonnet<ariles::rapidjson>, FilenameReaderInitializer210)
+ARILES_TESTS(rapidjson_jsonnet, jsonnet<ariles2::rapidjson>, FilenameReaderInitializer210)

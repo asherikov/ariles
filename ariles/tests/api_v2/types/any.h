@@ -8,17 +8,17 @@
 
 #pragma once
 
-#include "types.h"
+#include <ariles2/types.h>
 
 namespace ariles_tests
 {
-    class Base : public ariles::DefaultBase
+    class Base : public ariles2::DefaultBase
     {
-#define ARILES_ENTRIES ARILES_TYPED_ENTRY_(real, double)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v) ARILES2_TYPED_ENTRY_(v, real, double)
+#include ARILES2_INITIALIZE
 
     public:
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         virtual void randomize()
         {
             boost::random::random_device random_generator;
@@ -28,7 +28,7 @@ namespace ariles_tests
 
         Base()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
         virtual ~Base()
@@ -39,14 +39,14 @@ namespace ariles_tests
 
     class Derived1 : public Base
     {
-#define ARILES_DEFAULT_ID "Derived1"  // Needed for cast<Derived1>("Derived1"));
-#define ARILES_ENTRIES                                                                                                 \
-    ARILES_PARENT(Base)                                                                                                \
-    ARILES_TYPED_ENTRY_(real1, double)
-#include ARILES_INITIALIZE
+#define ARILES2_DEFAULT_ID "Derived1"  // Needed for cast<Derived1>("Derived1"));
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_PARENT(v, Base)                                                                                            \
+    ARILES2_TYPED_ENTRY_(v, real1, double)
+#include ARILES2_INITIALIZE
 
     public:
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         void randomize()
         {
             Base::randomize();
@@ -57,21 +57,21 @@ namespace ariles_tests
 
         Derived1()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
     };
 
 
     class Derived2 : public Base
     {
-#define ARILES_DEFAULT_ID "Derived2"  // Needed for cast<Derived2>("Derived2"));
-#define ARILES_ENTRIES                                                                                                 \
-    ARILES_PARENT(Base)                                                                                                \
-    ARILES_TYPED_ENTRY_(real2, double)
-#include ARILES_INITIALIZE
+#define ARILES2_DEFAULT_ID "Derived2"  // Needed for cast<Derived2>("Derived2"));
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_PARENT(v, Base)                                                                                            \
+    ARILES2_TYPED_ENTRY_(v, real2, double)
+#include ARILES2_INITIALIZE
 
     public:
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         void randomize()
         {
             Base::randomize();
@@ -82,16 +82,16 @@ namespace ariles_tests
 
         Derived2()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
     };
 
 
     template <template <class> class t_Pointer, class t_Instantiator>
-    class CommonAny : public ariles::Any<t_Pointer, Base, t_Instantiator>
+    class CommonAny : public ariles2::Any<t_Pointer, Base, t_Instantiator>
     {
     public:
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         void randomize()
         {
             boost::random::random_device random_generator;
@@ -179,47 +179,47 @@ namespace ariles_tests
 #endif
 
 
-    class ConfigurableAny : public ariles::DefaultBase
+    class ConfigurableAny : public ariles2::DefaultBase
     {
     public:
-#define ARILES_ENTRIES_0
+#define ARILES2_ENTRIES_0(v)
 
 #if __cplusplus >= 201103L
         CommonAny<std::shared_ptr, StdPtrInstantiator> std_any_;
 
-#    define ARILES_ENTRIES_1                                                                                           \
-        ARILES_ENTRIES_0                                                                                               \
-        ARILES_ENTRY_(std_any)
+#    define ARILES2_ENTRIES_1(v)                                                                                       \
+        ARILES2_ENTRIES_0(v)                                                                                           \
+        ARILES2_ENTRY_(v, std_any)
 #else
-#    define ARILES_ENTRIES_1 ARILES_ENTRIES_0
+#    define ARILES2_ENTRIES_1(v) ARILES2_ENTRIES_0(v)
 #endif
 
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
         CommonAny<boost::shared_ptr, BoostPtrInstantiator> boost_any_;
-#    define ARILES_ENTRIES_2                                                                                           \
-        ARILES_ENTRIES_1                                                                                               \
-        ARILES_ENTRY_(boost_any)
+#    define ARILES2_ENTRIES_2(v)                                                                                       \
+        ARILES2_ENTRIES_1(v)                                                                                           \
+        ARILES2_ENTRY_(v, boost_any)
 #else
-#    define ARILES_ENTRIES_2 ARILES_ENTRIES_1
+#    define ARILES2_ENTRIES_2(v) ARILES2_ENTRIES_1(v)
 #endif
 
 
-#define ARILES_ENTRIES ARILES_ENTRIES_2
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v) ARILES2_ENTRIES_2(v)
+#include ARILES2_INITIALIZE
 
-#undef ARILES_ENTRIES_0
-#undef ARILES_ENTRIES_1
-#undef ARILES_ENTRIES_2
+#undef ARILES2_ENTRIES_0
+#undef ARILES2_ENTRIES_1
+#undef ARILES2_ENTRIES_2
 
 
     public:
         ConfigurableAny()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         void randomize()
         {
             boost::random::random_device random_generator;
@@ -235,7 +235,7 @@ namespace ariles_tests
     };
 
 
-#ifndef ARILES_TESTS_BOOST_UTF_DISABLED
+#ifndef ARILES_TESTS_COMPARE_DISABLED
     template <class t_Configurable_out, class t_Configurable_in>
     void compare(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)
     {

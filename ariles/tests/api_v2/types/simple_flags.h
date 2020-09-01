@@ -10,75 +10,37 @@
 
 #pragma once
 
+#include <ariles2/extra.h>
 
 namespace ariles_tests
 {
-    class ConfigurableFlags1 : public ariles::DefaultBase
+    class ConfigurableFlags1 : public ariles2::SloppyBase
     {
-#define ARILES_ENTRIES                                                                                                 \
-    ARILES_TYPED_ENTRY_(integer, int)                                                                                  \
-    ARILES_TYPED_ENTRY_(real, double)
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_TYPED_ENTRY_(v, integer, int)                                                                              \
+    ARILES2_TYPED_ENTRY_(v, real, double)
+#include ARILES2_INITIALIZE
 
 
     public:
-        ariles::ConfigurableFlags getExpectedConfigurableFlags() const
+        ariles2::read::Parameters getExpectedReadParameters() const
         {
-            return (ariles::ConfigurableFlags(
-                    ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
-                    | ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED));
+            ariles2::read::Parameters parameters;
+
+            parameters.sloppy_maps_ = true;
+            parameters.sloppy_pairs_ = true;
+
+            return (parameters);
         }
 
-        virtual const ariles::Read::Parameters &arilesGetParameters(const ariles::Read &) const
+        ariles2::write::Parameters getExpectedWriteParameters() const
         {
-            static ariles::Read::Parameters flags(
-                    ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
-                    | ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED);
-            return (flags);
-        }
+            ariles2::write::Parameters parameters;
 
-        virtual const ariles::Write::Parameters &arilesGetParameters(const ariles::Write &) const
-        {
-            static ariles::Write::Parameters flags(
-                    ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
-                    | ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED);
-            return (flags);
-        }
-    };
+            parameters.sloppy_maps_ = true;
+            parameters.sloppy_pairs_ = true;
 
-
-    class ConfigurableFlags2 : public ariles::DefaultBase
-    {
-#define ARILES_DEFAULT_ID "ConfigurableFlags2"
-#define ARILES_ENTRIES                                                                                                 \
-    ARILES_TYPED_ENTRY_(integer, int)                                                                                  \
-    ARILES_TYPED_ENTRY_(real, double)
-#define ARILES_AUTO_DEFAULTS
-#include ARILES_INITIALIZE
-
-
-    public:
-        ariles::ConfigurableFlags getExpectedConfigurableFlags() const
-        {
-            return (ariles::ConfigurableFlags(
-                    ariles::ConfigurableFlags::DEFAULT & ~ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
-                    & ~ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED));
-        }
-
-        virtual const ariles::Read::Parameters &arilesGetParameters(const ariles::Read &) const
-        {
-            static ariles::Read::Parameters flags(
-                    ariles::ConfigurableFlags::DEFAULT & ~ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
-                    & ~ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED);
-            return (flags);
-        }
-
-        virtual const ariles::Write::Parameters &arilesGetParameters(const ariles::Write &) const
-        {
-            static ariles::Write::Parameters flags(
-                    ariles::ConfigurableFlags::DEFAULT & ~ariles::ConfigurableFlags::SLOPPY_MAPS_IF_SUPPORTED
-                    & ~ariles::ConfigurableFlags::SLOPPY_PAIRS_IF_SUPPORTED);
-            return (flags);
+            return (parameters);
         }
     };
 }  // namespace ariles_tests

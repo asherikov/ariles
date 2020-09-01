@@ -8,7 +8,7 @@
     @brief
 */
 
-#include <ariles/visitors/octave.h>
+#include <ariles2/visitors/octave.h>
 
 #include <limits>
 #include <iomanip>
@@ -16,21 +16,22 @@
 #include <boost/lexical_cast.hpp>
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_octave
     {
-        typedef ariles::Node<std::string> NodeWrapper;
-    }
-}  // namespace ariles
+        typedef serialization::Node<std::string> NodeWrapper;
+    }  // namespace ns_octave
+}  // namespace ariles2
 
-namespace ariles
+
+namespace ariles2
 {
     namespace ns_octave
     {
         namespace impl
         {
-            class ARILES_VISIBILITY_ATTRIBUTE Writer
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer
             {
             public:
                 std::vector<NodeWrapper> node_stack_;
@@ -55,7 +56,7 @@ namespace ariles
             public:
                 explicit Writer(const std::string &file_name)
                 {
-                    ariles::write::Visitor::openFile(config_ofs_, file_name);
+                    ariles2::write::Visitor::openFile(config_ofs_, file_name);
                     output_stream_ = &config_ofs_;
                     initEmitter();
                 }
@@ -65,12 +66,31 @@ namespace ariles
                     output_stream_ = &output_stream;
                     initEmitter();
                 }
+
+                template <typename t_Scalar>
+                void writeComplex(const std::complex<t_Scalar> &element)
+                {
+                    if (true == node_stack_.back().isMatrix())
+                    {
+                        *output_stream_ << element.real() << " + " << element.imag() << "i";
+                    }
+                    else
+                    {
+                        *output_stream_ << node_stack_.back().node_;
+                        if (true == node_stack_.back().isArray())
+                        {
+                            *output_stream_ << "{" << node_stack_.back().index_ + 1 << "}";
+                        }
+                        *output_stream_ << " = " << element.real() << " + " << element.imag() << "i"
+                                        << ";\n";
+                    }
+                }
             };
         }  // namespace impl
     }      // namespace ns_octave
-}  // namespace ariles
+}  // namespace ariles2
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_octave
     {
@@ -86,13 +106,6 @@ namespace ariles
         }
 
 
-        const serialization::Features &Writer::getSerializationFeatures() const
-        {
-            static serialization::Features parameters(serialization::Features::NATIVE_MATRIX_SUPPORTED);
-            return (parameters);
-        }
-
-
         void Writer::flush()
         {
             impl_->output_stream_->flush();
@@ -100,11 +113,11 @@ namespace ariles
 
 
 
-        void Writer::descend(const std::string &map_name)
+        void Writer::startMapEntry(const std::string &map_name)
         {
             if (0 == impl_->node_stack_.size())
             {
-                impl_->node_stack_.push_back(map_name);
+                impl_->node_stack_.push_back(NodeWrapper(map_name));
             }
             else
             {
@@ -119,18 +132,18 @@ namespace ariles
                 }
                 else
                 {
-                    impl_->node_stack_.push_back(impl_->node_stack_.back().node_ + "." + map_name);
+                    impl_->node_stack_.push_back(NodeWrapper(impl_->node_stack_.back().node_ + "." + map_name));
                 }
             }
         }
 
-        void Writer::ascend()
+        void Writer::endMapEntry()
         {
             impl_->node_stack_.pop_back();
         }
 
 
-        void Writer::startArray(const std::size_t size, const bool compact)
+        void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
             if (true == impl_->node_stack_.back().isArray())
             {
@@ -138,7 +151,7 @@ namespace ariles
                 node += "{";
                 node += boost::lexical_cast<std::string>(impl_->node_stack_.back().index_ + 1);
                 node += "}";
-                impl_->node_stack_.push_back(NodeWrapper(node, 0, size, compact));
+                impl_->node_stack_.push_back(NodeWrapper(node, 0, size));
             }
             else
             {
@@ -146,9 +159,9 @@ namespace ariles
             }
         }
 
-        void Writer::shiftArray()
+        void Writer::endArrayElement()
         {
-            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: array expected.");
+            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: array expected.");
             ++impl_->node_stack_.back().index_;
         }
 
@@ -158,19 +171,36 @@ namespace ariles
         }
 
 
-        void Writer::startMatrix(const bool compact)
+        void Writer::startVector(const std::size_t /*size*/)
         {
-            std::string node = impl_->node_stack_.back().node_;
-            if (compact)
-            {
-                node += " = [";
-            }
-            else
-            {
-                node += " = [...\n";
-            }
+            impl_->node_stack_.push_back(NodeWrapper(impl_->node_stack_.back().node_ + " = [", NodeWrapper::MATRIX));
+            *impl_->output_stream_ << impl_->node_stack_.back().node_;
+        }
 
-            impl_->node_stack_.push_back(NodeWrapper(node, NodeWrapper::MATRIX, compact));
+        void Writer::startVectorElement()
+        {
+        }
+
+        void Writer::endVectorElement()
+        {
+            *impl_->output_stream_ << "; ";
+        }
+
+        void Writer::endVector()
+        {
+            *impl_->output_stream_ << "];\n";
+            impl_->node_stack_.pop_back();
+        }
+
+
+        void Writer::startMatrix(
+                const bool /*dynamic*/,
+                const std::size_t /*cols*/,
+                const std::size_t /*rows*/,
+                const Parameters & /*param*/)
+        {
+            impl_->node_stack_.push_back(
+                    NodeWrapper(impl_->node_stack_.back().node_ + " = [...\n", NodeWrapper::MATRIX));
             *impl_->output_stream_ << impl_->node_stack_.back().node_;
         }
 
@@ -179,36 +209,37 @@ namespace ariles
             impl_->node_stack_.back().index_ = 0;
         }
 
-        void Writer::endMatrixRow()
+        void Writer::startMatrixElement()
         {
-            if (impl_->node_stack_.back().isCompact())
+            if (0 != impl_->node_stack_.back().index_)
             {
-                *impl_->output_stream_ << "; ";
-            }
-            else
-            {
-                *impl_->output_stream_ << "; ...\n";
+                *impl_->output_stream_ << ", ";
             }
         }
 
-        void Writer::endMatrix()
+        void Writer::endMatrixElement()
+        {
+            ++impl_->node_stack_.back().index_;
+        }
+
+        void Writer::endMatrixRow()
+        {
+            *impl_->output_stream_ << "; ...\n";
+        }
+
+        void Writer::endMatrix(const bool /*dynamic*/)
         {
             *impl_->output_stream_ << "];\n";
             impl_->node_stack_.pop_back();
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
-    void Writer::writeElement(const type &element)                                                                     \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
+    void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
         if (true == impl_->node_stack_.back().isMatrix())                                                              \
         {                                                                                                              \
-            if (0 != impl_->node_stack_.back().index_)                                                                 \
-            {                                                                                                          \
-                *impl_->output_stream_ << ", ";                                                                        \
-            }                                                                                                          \
             *impl_->output_stream_ << element;                                                                         \
-            ++impl_->node_stack_.back().index_;                                                                        \
         }                                                                                                              \
         else                                                                                                           \
         {                                                                                                              \
@@ -221,12 +252,12 @@ namespace ariles
         }                                                                                                              \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_NUMERIC_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_NUMERIC_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
-        void Writer::writeElement(const std::string &element)
+        void Writer::writeElement(const std::string &element, const Parameters &)
         {
             *impl_->output_stream_ << impl_->node_stack_.back().node_;
             if (true == impl_->node_stack_.back().isArray())
@@ -235,5 +266,15 @@ namespace ariles
             }
             *impl_->output_stream_ << " = '" << element << "';\n";
         }
+
+        void Writer::writeElement(const std::complex<float> &element, const Parameters &)
+        {
+            impl_->writeComplex(element);
+        }
+
+        void Writer::writeElement(const std::complex<double> &element, const Parameters &)
+        {
+            impl_->writeComplex(element);
+        }
     }  // namespace ns_octave
-}  // namespace ariles
+}  // namespace ariles2

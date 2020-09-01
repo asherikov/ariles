@@ -25,26 +25,26 @@ namespace ariles_tests
         template <class t_Configurable1, class t_Configurable2, class t_Visitor>
         void test()
         {
-            // Exlicit instantiation of reader and writer classes
+            // Explicit instantiation of reader and writer classes
             BOOST_CHECK_NO_THROW(t_Configurable1 configurable;
 
                                  typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
-                                 ariles::apply(writer, configurable););
+                                 ariles2::apply(writer, configurable););
 
             BOOST_CHECK_THROW(t_Configurable2 configurable;
 
                               typename t_Visitor::Reader reader(getReaderInitializer("configurable.cfg"));
-                              ariles::apply(reader, configurable);
+                              ariles2::apply(reader, configurable);
                               , std::runtime_error);
 
             // --------------------------------
 
             // Implicit instantiation of reader and writer classes
 
-            BOOST_CHECK_NO_THROW(t_Configurable1 configurable; ariles::apply<typename t_Visitor::Writer>(
+            BOOST_CHECK_NO_THROW(t_Configurable1 configurable; ariles2::apply<typename t_Visitor::Writer>(
                                          getWriterInitializer("configurable2.cfg"), configurable););
 
-            BOOST_CHECK_THROW(t_Configurable2 configurable; ariles::apply<typename t_Visitor::Reader>(
+            BOOST_CHECK_THROW(t_Configurable2 configurable; ariles2::apply<typename t_Visitor::Reader>(
                                       getReaderInitializer("configurable2.cfg"), configurable);
                               , std::runtime_error);
         }

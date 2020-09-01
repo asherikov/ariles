@@ -8,13 +8,21 @@
     @brief
 */
 
-#define ARILES_API_VERSION 2
-
 #include "utility.h"
 #include "all_enabled_visitors.h"
+#include "all_enabled_adapters.h"
 
-#include "ariles/adapters_all.h"
-#include "ariles/ariles2.h"
+#define ARILES2_DEFAULT_VISITORS                                                                                       \
+    ARILES2_VISITOR(count)                                                                                             \
+    ARILES2_VISITOR(postprocess)                                                                                       \
+    ARILES2_VISITOR(preprocess)                                                                                        \
+    ARILES2_VISITOR(defaults)                                                                                          \
+    ARILES2_VISITOR(read)                                                                                              \
+    ARILES2_VISITOR(write)                                                                                             \
+    ARILES2_VISITOR(compare)
+
+#include <ariles2/visitors/compare.h>
+#include <ariles2/ariles.h>
 
 
 // ===============================================================
@@ -22,10 +30,9 @@
 // ===============================================================
 
 #include "types/postprocess.h"
-
-#define ARILES_TESTS_BOOST_UTF_DISABLED
+#define ARILES_TESTS_COMPARE_DISABLED
 #include "types/complex_auto_declare.h"
-#undef ARILES_TESTS_BOOST_UTF_DISABLED
+#undef ARILES_TESTS_COMPARE_DISABLED
 
 
 // ===============================================================
@@ -53,7 +60,7 @@
 BOOST_FIXTURE_TEST_CASE(Complex_arilesPostProcess, ariles_tests::DummyFixture)
 {
     ariles_tests::ConfigurableComplex configurable;
-    ariles::apply<ariles::PostProcess>(configurable);
+    ariles2::apply<ariles2::PostProcess>(configurable);
 }
 
 

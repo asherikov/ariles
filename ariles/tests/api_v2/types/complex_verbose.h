@@ -14,57 +14,60 @@
 
 namespace ariles_tests
 {
-    class ConfigurableComplexVerbose : public ariles::DefaultBase,
+    class ConfigurableComplexVerbose : public ARILES_TEST_DEFAULT_BASE,
                                        public ConfigurableComplexBase<ConfigurableComplexVerbose>
     {
-#define ARILES_ENTRIES_STANDARD_TYPES                                                                                  \
-    ARILES_ENTRY_(integer)                                                                                             \
-    ARILES_ENTRY_(unsigned_integer)                                                                                    \
-    ARILES_ENTRY_(real)                                                                                                \
-    ARILES_ENTRY_(string)                                                                                              \
-    ARILES_ENTRY_(std_vector)                                                                                          \
-    ARILES_ENTRY_(std_nested_vector)                                                                                   \
-    ARILES_ENTRY_(enum)                                                                                                \
-    ARILES_ENTRY_(boolean_true)                                                                                        \
-    ARILES_ENTRY_(boolean_false)                                                                                       \
-    ARILES_ENTRY_(std_pair)                                                                                            \
-    ARILES_ENTRY_(std_map)
+#define ARILES2_ENTRIES_STANDARD_TYPES(v)                                                                              \
+    ARILES2_ENTRY_(v, integer)                                                                                         \
+    ARILES2_ENTRY_(v, unsigned_integer)                                                                                \
+    ARILES2_ENTRY_(v, real)                                                                                            \
+    ARILES2_ENTRY_(v, complex_float)                                                                                   \
+    ARILES2_ENTRY_(v, string)                                                                                          \
+    ARILES2_ENTRY_(v, std_vector)                                                                                      \
+    ARILES2_ENTRY_(v, std_nested_vector)                                                                               \
+    ARILES2_ENTRY_(v, some_enum)                                                                                       \
+    ARILES2_ENTRY_(v, boolean_true)                                                                                    \
+    ARILES2_ENTRY_(v, boolean_false)                                                                                   \
+    ARILES2_ENTRY_(v, std_pair)                                                                                        \
+    ARILES2_ENTRY_(v, std_map)
 
 #ifdef ARILES_ADAPTER_EIGEN
-#    define ARILES_ENTRIES_0                                                                                           \
-        ARILES_ENTRIES_STANDARD_TYPES                                                                                  \
-        ARILES_ENTRY_(vector)                                                                                          \
-        ARILES_ENTRY_(matrix)                                                                                          \
-        ARILES_ENTRY_(matrix_x)                                                                                        \
-        ARILES_ENTRY_(std_vector_evector)                                                                              \
-        ARILES_ENTRY_(std_nested_vector_evector)                                                                       \
-        ARILES_ENTRY_(isometry)                                                                                        \
-        ARILES_ENTRY_(quaternion)
+#    define ARILES2_ENTRIES_0(v)                                                                                       \
+        ARILES2_ENTRIES_STANDARD_TYPES(v)                                                                              \
+        ARILES2_ENTRY_(v, vector)                                                                                      \
+        ARILES2_ENTRY_(v, matrix)                                                                                      \
+        ARILES2_ENTRY_(v, matrix_x)                                                                                    \
+        ARILES2_ENTRY_(v, matrix_complex_double)                                                                                    \
+        ARILES2_ENTRY_(v, std_vector_evector)                                                                          \
+        ARILES2_ENTRY_(v, std_nested_vector_evector)                                                                   \
+        ARILES2_ENTRY_(v, isometry)                                                                                    \
+        ARILES2_ENTRY_(v, quaternion)
 #else
-#    define ARILES_ENTRIES_0 ARILES_ENTRIES_STANDARD_TYPES
+#    define ARILES2_ENTRIES_0(v) ARILES2_ENTRIES_STANDARD_TYPES(v)
 #endif
 
 #ifdef ARILES_ADAPTER_BETTER_ENUMS
-#    define ARILES_ENTRIES_1                                                                                           \
-        ARILES_ENTRIES_0                                                                                               \
-        ARILES_ENTRY_(better_enum)
+#    define ARILES2_ENTRIES_1(v)                                                                                       \
+        ARILES2_ENTRIES_0(v)                                                                                           \
+        ARILES2_ENTRY_(v, better_enum)
 #else
-#    define ARILES_ENTRIES_1 ARILES_ENTRIES_STANDARD_TYPES
+#    define ARILES2_ENTRIES_1(v) ARILES2_ENTRIES_STANDARD_TYPES(v)
 #endif
 
 
-#define ARILES_ENTRIES ARILES_ENTRIES_1
-#include ARILES_INITIALIZE
+#define ARILES2_ENTRIES(v) ARILES2_ENTRIES_1(v)
+#include ARILES2_INITIALIZE
 
-#undef ARILES_ENTRIES_STANDARD_TYPES
-#undef ARILES_ENTRIES_0
-#undef ARILES_ENTRIES_1
+#undef ARILES2_ENTRIES_STANDARD_TYPES
+#undef ARILES2_ENTRIES_0
+#undef ARILES2_ENTRIES_1
 
 
     public:
         int integer_;
         std::size_t unsigned_integer_;
         double real_;
+        std::complex<float> complex_float_;
 
 
         std::vector<double> std_vector_;
@@ -75,7 +78,7 @@ namespace ariles_tests
         bool boolean_true_;
         bool boolean_false_;
 
-        SomeEnum enum_;
+        SomeEnum some_enum_;
         BetterEnum better_enum_;
 
         std::pair<std::string, double> std_pair_;
@@ -86,6 +89,7 @@ namespace ariles_tests
         Eigen::Vector3d vector_;
         Eigen::Matrix3d matrix_;
         Eigen::MatrixXd matrix_x_;
+        Eigen::Matrix3cd matrix_complex_double_;
 
         std::vector<Eigen::Vector3d> std_vector_evector_;
         std::vector<std::vector<Eigen::Vector3d> > std_nested_vector_evector_;
@@ -99,14 +103,14 @@ namespace ariles_tests
     public:
         ConfigurableComplexVerbose()
         {
-            ariles::apply<ariles::Defaults>(*this);
+            ariles2::apply<ariles2::Defaults>(*this);
         }
 
         virtual ~ConfigurableComplexVerbose()
         {
         }
 
-        void arilesVisit(const ariles::Defaults &visitor, const ariles::Defaults::Parameters &param)
+        void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
         {
             ConfigurableComplexBase<ConfigurableComplexVerbose>::arilesVisit(visitor, param);
         }

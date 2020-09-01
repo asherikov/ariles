@@ -14,14 +14,17 @@
 #include "common.h"
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_ros
     {
         namespace impl
         {
-            class ARILES_VISIBILITY_ATTRIBUTE Reader : public ariles::ns_ros::ImplBase
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ariles2::ns_ros::ImplBase
             {
+            public:
+                std::vector<XmlRpc::XmlRpcValue::iterator> iterator_stack_;
+
             public:
                 explicit Reader(const ::ros::NodeHandle &nh)
                 {
@@ -30,10 +33,10 @@ namespace ariles
             };
         }  // namespace impl
     }      // namespace ns_ros
-}  // namespace ariles
+}  // namespace ariles2
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_ros
     {
@@ -43,21 +46,20 @@ namespace ariles
         }
 
 
-        std::size_t Reader::getMapSize(const bool expect_empty)
+        void Reader::startMap(const SizeLimitEnforcementType limit_type, const std::size_t min, const std::size_t max)
         {
+            ARILES2_TRACE_FUNCTION;
             if (XmlRpc::XmlRpcValue::TypeStruct == impl_->getRawNode().getType())
             {
-                return (impl_->getRawNode().size());
+                checkSize(limit_type, impl_->getRawNode().size(), min, max);
             }
             else
             {
-                ARILES_PERSISTENT_ASSERT(true == expect_empty, "Expected struct.");
-                return (0);
+                ARILES2_PERSISTENT_ASSERT(0 == min and min == max, "Expected struct.");
             }
         }
 
-
-        bool Reader::descend(const std::string &child_name)
+        bool Reader::startMapEntry(const std::string &child_name)
         {
             if (0 == impl_->node_stack_.size())
             {
@@ -81,38 +83,58 @@ namespace ariles
             }
         }
 
-
-        void Reader::ascend()
+        void Reader::endMapEntry()
         {
             impl_->node_stack_.pop_back();
         }
 
 
-        bool Reader::getMapEntryNames(std::vector<std::string> &child_names)
+
+        bool Reader::startIteratedMap(
+                const SizeLimitEnforcementType limit_type,
+                const std::size_t min,
+                const std::size_t max)
         {
-            XmlRpc::XmlRpcValue selected_node = impl_->getRawNode();
-
-            if (XmlRpc::XmlRpcValue::TypeStruct != selected_node.getType())
+            ARILES2_TRACE_FUNCTION;
+            if (XmlRpc::XmlRpcValue::TypeStruct == impl_->getRawNode().getType())
             {
-                return (false);
-            }
-            else
-            {
-                child_names.resize(selected_node.size());
-
-                std::size_t i = 0;
-                for (XmlRpc::XmlRpcValue::iterator it = selected_node.begin(); it != selected_node.end(); ++it, ++i)
-                {
-                    child_names[i] = it->first;
-                }
+                checkSize(limit_type, impl_->getRawNode().size(), min, max);
+                impl_->iterator_stack_.push_back(impl_->getRawNode().begin());
                 return (true);
             }
+            ARILES2_PERSISTENT_ASSERT(0 == min and min == max, "Expected struct.");
+            return (false);
+        }
+
+        bool Reader::startIteratedMapElement(std::string &entry_name)
+        {
+            if (impl_->iterator_stack_.back() != impl_->getRawNode().end())
+            {
+                impl_->node_stack_.push_back(&impl_->iterator_stack_.back()->second);
+                entry_name = impl_->iterator_stack_.back()->first;
+                return (true);
+            }
+            return (false);
+        }
+
+        void Reader::endIteratedMapElement()
+        {
+            ++impl_->iterator_stack_.back();
+            impl_->node_stack_.pop_back();
+        }
+
+        void Reader::endIteratedMap()
+        {
+            ARILES2_ASSERT(
+                    impl_->iterator_stack_.back() == impl_->getRawNode().end(),
+                    "End of iterated map has not been reached.");
+            impl_->iterator_stack_.pop_back();
         }
 
 
         std::size_t Reader::startArray()
         {
-            ARILES_ASSERT(XmlRpc::XmlRpcValue::TypeArray == impl_->getRawNode().getType(), "Expected array.");
+            ARILES2_ASSERT(XmlRpc::XmlRpcValue::TypeArray == impl_->getRawNode().getType(), "Expected array.");
 
             std::size_t size = impl_->getRawNode().size();
             impl_->node_stack_.push_back(NodeWrapper(0, size));
@@ -120,16 +142,18 @@ namespace ariles
             return (size);
         }
 
-
-        void Reader::shiftArray()
+        void Reader::startArrayElement()
         {
-            ARILES_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ARILES_ASSERT(
+            ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: array has more elements than expected.");
-            ++impl_->node_stack_.back().index_;
         }
 
+        void Reader::endArrayElement()
+        {
+            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ++impl_->node_stack_.back().index_;
+        }
 
         void Reader::endArray()
         {
@@ -139,57 +163,57 @@ namespace ariles
 
         bool Reader::startRoot(const std::string &name)
         {
-            ARILES_TRACE_FUNCTION;
+            ARILES2_TRACE_FUNCTION;
             if (true == name.empty())
             {
-                return (descend("ariles"));
+                return (startMapEntry("ariles"));
             }
             else
             {
-                return (descend(name));
+                return (startMapEntry(name));
             }
         }
 
         void Reader::endRoot(const std::string & /*name*/)
         {
-            ARILES_TRACE_FUNCTION;
-            ascend();
+            ARILES2_TRACE_FUNCTION;
+            endMapEntry();
         }
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
-        ARILES_ASSERT(impl_->getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt, "Integer type expected.");        \
+        ARILES2_ASSERT(impl_->getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt, "Integer type expected.");       \
         int tmp_value = static_cast<int>(impl_->getRawNode());                                                         \
-        ARILES_ASSERT(                                                                                                 \
+        ARILES2_ASSERT(                                                                                                \
                 static_cast<int64_t>(tmp_value) <= std::numeric_limits<type>::max()                                    \
                         && static_cast<int64_t>(tmp_value) >= std::numeric_limits<type>::min(),                        \
                 "Value is out of range.");                                                                             \
         element = static_cast<type>(tmp_value);                                                                        \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_SIGNED_INTEGER_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
-        ARILES_ASSERT(impl_->getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt, "Integer type expected.");        \
+        ARILES2_ASSERT(impl_->getRawNode().getType() == XmlRpc::XmlRpcValue::TypeInt, "Integer type expected.");       \
         int tmp_value = static_cast<int>(impl_->getRawNode());                                                         \
-        ARILES_ASSERT(tmp_value >= 0, "Expected positive value.");                                                     \
-        ARILES_ASSERT(static_cast<uint64_t>(tmp_value) <= std::numeric_limits<type>::max(), "Value is too large.");    \
+        ARILES2_ASSERT(tmp_value >= 0, "Expected positive value.");                                                    \
+        ARILES2_ASSERT(static_cast<uint64_t>(tmp_value) <= std::numeric_limits<type>::max(), "Value is too large.");   \
         element = static_cast<type>(tmp_value);                                                                        \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
-#define ARILES_BASIC_TYPE(type)                                                                                        \
+#define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
         switch (impl_->getRawNode().getType())                                                                         \
@@ -204,14 +228,14 @@ namespace ariles
                 element = static_cast<int>(impl_->getRawNode());                                                       \
                 break;                                                                                                 \
             default:                                                                                                   \
-                ARILES_THROW("Could not convert value to type.");                                                      \
+                ARILES2_THROW("Could not convert value to type.");                                                     \
                 break;                                                                                                 \
         }                                                                                                              \
     }
 
-        ARILES_MACRO_SUBSTITUTE(ARILES_BASIC_REAL_TYPES_LIST)
+        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_REAL_TYPES_LIST)
 
-#undef ARILES_BASIC_TYPE
+#undef ARILES2_BASIC_TYPE
 
 
         void Reader::readElement(std::string &element)
@@ -237,9 +261,9 @@ namespace ariles
                     break;
 
                 default:
-                    ARILES_THROW("Could not convert value to boolean.");
+                    ARILES2_THROW("Could not convert value to boolean.");
                     break;
             }
         }
     }  // namespace ns_ros
-}  // namespace ariles
+}  // namespace ariles2

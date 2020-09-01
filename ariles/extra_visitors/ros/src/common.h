@@ -11,21 +11,21 @@
 #pragma once
 
 
-#include <ariles/visitors/ros.h>
+#include <ariles2/visitors/ros.h>
 
 
 // http://docs.ros.org/api/xmlrpcpp/html/classXmlRpc_1_1XmlRpcValue.html
 #include <XmlRpcValue.h>
 
 
-namespace ariles
+namespace ariles2
 {
     namespace ns_ros
     {
-        typedef ariles::Node<XmlRpc::XmlRpcValue *> NodeWrapper;
+        typedef serialization::Node<XmlRpc::XmlRpcValue *> NodeWrapper;
 
 
-        class ARILES_LIB_LOCAL ImplBase
+        class ARILES2_LIB_LOCAL ImplBase
         {
         public:
             /// Stack of nodes.
@@ -62,4 +62,4 @@ namespace ariles
             }
         };
     }  // namespace ns_ros
-}  // namespace ariles
+}  // namespace ariles2

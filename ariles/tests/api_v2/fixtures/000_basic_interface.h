@@ -25,20 +25,20 @@ namespace ariles_tests
         template <class t_Configurable, class t_Visitor>
         void test()
         {
-            // Exlicit instantiation of reader and writer classes
+            // Explicit instantiation of reader and writer classes
             {
                 t_Configurable configurable;
                 configurable.randomize();
 
                 typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
-                ariles::apply(writer, configurable);
+                ariles2::apply(writer, configurable);
             }
 
             {
                 t_Configurable configurable;
 
                 typename t_Visitor::Reader reader(getReaderInitializer("configurable.cfg"));
-                ariles::apply(reader, configurable);
+                ariles2::apply(reader, configurable);
             }
 
             // --------------------------------
@@ -48,35 +48,35 @@ namespace ariles_tests
             {
                 t_Configurable configurable;
                 configurable.randomize();
-                ariles::apply<typename t_Visitor::Writer>(getWriterInitializer("configurable2.cfg"), configurable);
+                ariles2::apply<typename t_Visitor::Writer>(getWriterInitializer("configurable2.cfg"), configurable);
             }
 
             {
                 t_Configurable configurable;
-                ariles::apply<typename t_Visitor::Reader>(getReaderInitializer("configurable2.cfg"), configurable);
+                ariles2::apply<typename t_Visitor::Reader>(getReaderInitializer("configurable2.cfg"), configurable);
             }
 
 
             // --------------------------------
             // strictness control
             // --------------------------------
-            // Exlicit instantiation of reader and writer classes
+            // Explicit instantiation of reader and writer classes
             {
                 t_Configurable configurable;
                 configurable.randomize();
 
                 typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
-                ariles::apply(writer, configurable);
+                ariles2::apply(writer, configurable);
             }
 
             {
                 t_Configurable configurable;
 
+                typename t_Visitor::Reader::Parameters parameters;
+                parameters.reader_parameters_.override_parameters_ = false;
+                parameters.reader_parameters_.allow_missing_entries_ = true;
                 typename t_Visitor::Reader reader(getReaderInitializer("configurable.cfg"));
-                ariles::apply(
-                        reader,
-                        configurable,
-                        ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
+                ariles2::apply(reader, configurable, parameters);
             }
 
             // --------------------------------
@@ -86,15 +86,16 @@ namespace ariles_tests
             {
                 t_Configurable configurable;
                 configurable.randomize();
-                ariles::apply<typename t_Visitor::Writer>(getWriterInitializer("configurable2.cfg"), configurable);
+                ariles2::apply<typename t_Visitor::Writer>(getWriterInitializer("configurable2.cfg"), configurable);
             }
 
             {
                 t_Configurable configurable;
-                ariles::apply<typename t_Visitor::Reader>(
-                        getReaderInitializer("configurable2.cfg"),
-                        configurable,
-                        ariles::ConfigurableFlags::DEFAULT | ariles::ConfigurableFlags::ALLOW_MISSING_ENTRIES);
+                ariles2::read::Parameters parameters;
+                parameters.override_parameters_ = false;
+                parameters.allow_missing_entries_ = true;
+                ariles2::apply<typename t_Visitor::Reader>(
+                        getReaderInitializer("configurable2.cfg"), configurable, parameters);
             }
         }
     };

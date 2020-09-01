@@ -9,16 +9,14 @@
 */
 
 
-#define ARILES_API_VERSION 2
-
 #include "utility.h"
 
 #ifdef ARILES_VISITOR_array
-#    include "ariles/visitors/array.h"
+#    include <ariles2/visitors/array.h>
 #endif
+#include "all_enabled_adapters.h"
 
-#include "ariles/adapters_all.h"
-#include "ariles/ariles2.h"
+#include <ariles2/ariles.h>
 
 
 // ===============================================================

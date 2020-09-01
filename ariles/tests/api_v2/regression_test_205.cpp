@@ -8,12 +8,10 @@
     @brief
 */
 
-#define ARILES_API_VERSION 2
-
 #include "utility.h"
 
-#define ARILES_DISABLE
-#include "ariles/ariles2.h"
+#define ARILES2_DISABLE
+#include <ariles2/ariles.h>
 
 
 // ===============================================================

@@ -8,16 +8,14 @@
     @brief
 */
 
-#define ARILES_API_VERSION 2
-
 #include "utility.h"
 #include "all_enabled_visitors.h"
 
 // all adapters
-// #include "ariles/adapters_all.h"
+// #include "all_enabled_adapters.h"
 // only basic adapters
-// definition of ariles::ConfigurableBase
-#include "ariles/ariles2.h"
+// definition of ariles2::ConfigurableBase
+#include <ariles2/ariles.h>
 
 
 // ===============================================================

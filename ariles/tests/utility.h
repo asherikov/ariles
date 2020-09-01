@@ -24,6 +24,8 @@
 #include <boost/random/uniform_real_distribution.hpp>
 
 
+#define ARILES_TEST_DEFAULT_BASE ariles2::DefaultBase
+
 namespace ariles_tests
 {
     struct GlobalFixtureConfig
@@ -57,7 +59,7 @@ namespace ariles_tests
             FIXTURE_NAME##_##VISITOR_ID##_##CONFIGURABLE_TYPE##_##INITIALIZER_TYPE,                                    \
             ariles_tests::FIXTURE_NAME<ariles_tests::initializers::INITIALIZER_TYPE>)                                  \
     {                                                                                                                  \
-        test<ariles_tests::CONFIGURABLE_TYPE, ariles::FORMAT_NAMESPACE>();                                             \
+        test<ariles_tests::CONFIGURABLE_TYPE, ariles2::FORMAT_NAMESPACE>();                                            \
     }
 
 #define ARILES_FIXTURE_TEST_CASE_2CLASSES(                                                                             \
@@ -66,7 +68,7 @@ namespace ariles_tests
             FIXTURE_NAME##_##VISITOR_ID##_##CONFIGURABLE_TYPE1##_##CONFIGURABLE_TYPE2##_##INITIALIZER_TYPE,            \
             ariles_tests::FIXTURE_NAME<ariles_tests::initializers::INITIALIZER_TYPE>)                                  \
     {                                                                                                                  \
-        test<ariles_tests::CONFIGURABLE_TYPE1, ariles_tests::CONFIGURABLE_TYPE2, ariles::FORMAT_NAMESPACE>();          \
+        test<ariles_tests::CONFIGURABLE_TYPE1, ariles_tests::CONFIGURABLE_TYPE2, ariles2::FORMAT_NAMESPACE>();         \
     }
 
 // -----
@@ -85,9 +87,9 @@ boost::random::uniform_int_distribution<unsigned int> g_uint_uniform_distributio
 
 boost::random::uniform_real_distribution<> g_real_uniform_distribution(-1e5, 1e5);
 
-#define GET_RANDOM_UINT g_uint_uniform_distribution(random_generator);
-#define GET_RANDOM_INT g_int_uniform_distribution(random_generator);
-#define GET_RANDOM_REAL g_real_uniform_distribution(random_generator);
+#define GET_RANDOM_UINT g_uint_uniform_distribution(random_generator)
+#define GET_RANDOM_INT g_int_uniform_distribution(random_generator)
+#define GET_RANDOM_REAL g_real_uniform_distribution(random_generator)
 // -----
 
 

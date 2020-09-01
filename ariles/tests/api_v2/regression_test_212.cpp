@@ -9,23 +9,24 @@
 */
 
 
-#define ARILES_API_VERSION 2
-
 #include "utility.h"
 
 #ifdef ARILES_VISITOR_octave
-#    include "ariles/visitors/octave.h"
+#    include <ariles2/visitors/octave.h>
 #endif
+#include "all_enabled_adapters.h"
 
-#include "ariles/adapters_all.h"
-#include "ariles/ariles2.h"
+#include <ariles2/ariles.h>
 
 
 // ===============================================================
 // TYPES
 // ===============================================================
 
+#define ARILES_TESTS_COMPARE_DISABLED
 #include "types/complex_auto_declare.h"
+#include "types/pointers.h"
+#undef ARILES_TESTS_COMPARE_DISABLED
 
 
 // ===============================================================
@@ -42,6 +43,7 @@
 // ===============================================================
 
 #define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                                               \
-    ARILES_FIXTURE_TEST_CASE(OctaveFixture, VISITOR_ID, NAMESPACE, ConfigurableComplex, INITIALIZER)
+    ARILES_FIXTURE_TEST_CASE(OctaveFixture, VISITOR_ID, NAMESPACE, ConfigurableComplex, INITIALIZER)                   \
+    ARILES_FIXTURE_TEST_CASE(OctaveFixture, VISITOR_ID, NAMESPACE, ConfigurablePointers, INITIALIZER)
 
 #include "instantiate.h"

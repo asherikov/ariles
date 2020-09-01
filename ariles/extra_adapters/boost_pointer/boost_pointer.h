@@ -12,8 +12,9 @@
 
 #include <boost/smart_ptr/shared_ptr.hpp>
 #include <boost/smart_ptr/make_shared.hpp>
+#include "../internal/helpers.h"
 
-namespace ariles
+namespace ariles2
 {
     template <class t_Value>
     class PointerHandler<boost::shared_ptr<t_Value> >
@@ -39,10 +40,10 @@ namespace ariles
             return (NULL == ptr);
         }
     };
-}  // namespace ariles
-#define ARILES_POINTER_TYPE boost::shared_ptr
-#define ARILES_POINTER_HANDLER BoostSharedPtrHandler
-#include <ariles/adapters/generic_pointer.h>
+}  // namespace ariles2
+#define ARILES2_POINTER_TYPE boost::shared_ptr
+#define ARILES2_POINTER_HANDLER BoostSharedPtrHandler
+#include <ariles2/adapters/generic_pointer.h>
 
 
 // this version is known to work
@@ -50,7 +51,7 @@ namespace ariles
 #    include <boost/move/unique_ptr.hpp>
 #    include <boost/move/make_unique.hpp>
 
-namespace ariles
+namespace ariles2
 {
     template <class t_Value>
     class PointerHandler<boost::movelib::unique_ptr<t_Value> >
@@ -76,8 +77,8 @@ namespace ariles
             return (NULL == ptr);
         }
     };
-}  // namespace ariles
+}  // namespace ariles2
 
-#    define ARILES_POINTER_TYPE boost::movelib::unique_ptr
-#    include <ariles/adapters/generic_pointer.h>
+#    define ARILES2_POINTER_TYPE boost::movelib::unique_ptr
+#    include <ariles2/adapters/generic_pointer.h>
 #endif
