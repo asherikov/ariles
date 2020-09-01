@@ -4,7 +4,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 
 
 if (DEFINED CATKIN_DEVEL_PREFIX)
-    project(ariles_catkin_dependency_test)
+    project(ariles2_catkin_demo)
 
     find_package(catkin REQUIRED ariles2_core)
 
@@ -25,7 +25,7 @@ if (DEFINED CATKIN_DEVEL_PREFIX)
         RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
     )
 else()
-    project(ariles_cmake_dependency_test)
+    project(ariles2_demo)
 
     find_package(ariles2_core REQUIRED)
 

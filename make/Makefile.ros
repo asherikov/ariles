@@ -1,6 +1,5 @@
 CATKIN_WORKING_DIR=./build/catkin_workspace
 CATKIN_PKG_PATH=${CATKIN_WORKING_DIR}/src/${CATKIN_PKG}
-CATKIN_DEPENDENT_PKG_PATH=${CATKIN_WORKING_DIR}/src/${CATKIN_DEPENDENCY_TEST_PKG}
 
 
 # release
@@ -63,9 +62,7 @@ catkin_test_deb: catkin_build_deb
 
 catkin_prepare_workspace: clean
 	mkdir -p ${CATKIN_PKG_PATH}
-	mkdir -p ${CATKIN_DEPENDENT_PKG_PATH}
 	ls -1 | grep -v build | xargs cp -R -t ${CATKIN_PKG_PATH}
-	cp -R ${CATKIN_DEPENDENCY_PATH}/* ${CATKIN_DEPENDENT_PKG_PATH}/
 
 
 catkin_old_build: catkin_prepare_workspace
