@@ -141,7 +141,7 @@ test-noros: clean
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp03_on_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 	${MAKE} cppcheck
 	${MAKE} spell
-	
+
 
 test-cmake:
 	/bin/sh -c "! ${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=conflict TARGETS='${TARGETS}' EXTRA_CMAKE_PARAM='${EXTRA_CMAKE_PARAM}'"
@@ -165,6 +165,7 @@ updateutils:
 	git show remotes/cmakeut/master:cmake/cmakeut_list_filenames.cmake              > cmake/cmakeut_list_filenames.cmake
 	git rm --ignore-unmatch -rf cpput
 	git read-tree --prefix=cpput -u cpput/master
+	git rm --ignore-unmatch -rf cpput/package.xml
 
 
 update:
