@@ -12,7 +12,7 @@
 #include "utility.h"
 
 
-#ifdef ARILES_VISITOR_graphviz
+#ifdef ARILES_VISITOR_protobuf3
 #    define ARILES2_DEFAULT_VISITORS                                                                                   \
         ARILES2_VISITOR(count)                                                                                         \
         ARILES2_VISITOR(postprocess)                                                                                   \
