@@ -6,9 +6,9 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 if (DEFINED CATKIN_DEVEL_PREFIX)
     project(ariles2_catkin_demo)
 
-    find_package(catkin REQUIRED ariles2_core)
+    find_package(catkin REQUIRED ariles2_core_ros)
 
-    catkin_package(DEPENDS ariles2_core)
+    catkin_package(DEPENDS ariles2_core_ros)
 
     include_directories(
         include
@@ -27,10 +27,10 @@ if (DEFINED CATKIN_DEVEL_PREFIX)
 else()
     project(ariles2_demo)
 
-    find_package(ariles2_core REQUIRED)
+    find_package(ariles2_core_ros REQUIRED)
 
-    include_directories(${ariles2_core_INCLUDE_DIRS})
+    include_directories(${ariles2_core_ros_INCLUDE_DIRS})
 
     add_executable(demo demo.cpp)
-    target_link_libraries(demo ${ariles2_core_LIBRARIES})
+    target_link_libraries(demo ${ariles2_core_ros_LIBRARIES})
 endif()

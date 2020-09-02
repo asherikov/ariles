@@ -1,5 +1,12 @@
+PROJECT=ariles2
+
+CATKIN_PKGS=ariles2_core_ros
+CATKIN_DEPENDENCY_TEST_PKG=ariles2_catkin_demo
+CATKIN_ARGS=--cmake-args -DARILES_ROS_ENABLE_TESTS=ON
+CATKIN_TARGETS=all test
+
 CATKIN_WORKING_DIR=./build/catkin_workspace
-CATKIN_PKGS_PATH=${CATKIN_WORKING_DIR}/src/${CATKIN_PKG}
+CATKIN_PKGS_PATH=${CATKIN_WORKING_DIR}/src/${PROJECT}
 
 
 # release
@@ -44,15 +51,16 @@ ros_install_deps:
 	apt install -y python-catkin-tools
 
 
-catkin_build_deb: clean
-	cd core; bloom-generate rosdebian --os-name ubuntu --ros-distro ${ROS_DISTRO} ./
-	# disable installation of catkin stuff: setup scripts, etc.
-	#cd core; sed "s/dh_auto_configure --/dh_auto_configure -- -DCATKIN_BUILD_BINARY_PACKAGE=ON/" -i debian/rules
-	cd core; fakeroot debian/rules binary
+catkin_build_deb_pkg:
+	cd ${CATKIN_PKGS_PATH}/${PKG}; bloom-generate rosdebian --os-name ubuntu --ros-distro ${ROS_DISTRO} ./
+	cd ${CATKIN_PKGS_PATH}/${PKG}; fakeroot debian/rules binary
 
+catkin_build_deb: clean
+	${MAKE} catkin_prepare_workspace
+	echo ${CATKIN_PKGS} | tr " " "\n" | xargs -I {} ${MAKE} catkin_build_deb_pkg PKG="{}" ROS_DISTRO=${ROS_DISTRO}
 
 catkin_test_deb: catkin_build_deb
-	sudo dpkg -i ./ros*`echo "${CATKIN_PKG}" | sed "s/_/-/"`*.deb
+	sudo dpkg -i ${CATKIN_PKGS_PATH}/ros*${PROJECT}*.deb
 	mkdir -p build/dependency_test
 	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; \
 		cd build/dependency_test; \
@@ -67,7 +75,7 @@ catkin_prepare_workspace: clean
 
 catkin_old_build: catkin_prepare_workspace
 	cd ${CATKIN_WORKING_DIR}/src; catkin_init_workspace
-	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated --pkg ${CATKIN_PKG} ${CATKIN_ARGS} --make-args ${CATKIN_TARGETS} # old
+	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated --pkg ${CATKIN_PKGS} ${CATKIN_ARGS} --make-args ${CATKIN_TARGETS} # old
 
 catkin_old_build_with_dependent: catkin_prepare_workspace
 	cd ${CATKIN_WORKING_DIR}/src; catkin_init_workspace
@@ -76,14 +84,14 @@ catkin_old_build_with_dependent: catkin_prepare_workspace
 catkin_old_deb: catkin_prepare_workspace
 	${MAKE} catkin_test_deb
 	${MAKE} catkin_prepare_workspace
-	rm -Rf ${CATKIN_PKGS_PATH}/core
+	cd ${CATKIN_PKGS_PATH}/; ls -1A | grep -v demo | xargs rm -Rf
 	cd ${CATKIN_WORKING_DIR}/src; catkin_init_workspace
 	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated --pkg ${CATKIN_DEPENDENCY_TEST_PKG}
 
 
 catkin_new_build: catkin_prepare_workspace
 	cd ${CATKIN_WORKING_DIR}; catkin init
-	cd ${CATKIN_WORKING_DIR}; catkin build -i --verbose --summary ${CATKIN_PKG} --make-args ${CATKIN_TARGETS} ${CATKIN_ARGS}
+	cd ${CATKIN_WORKING_DIR}; catkin build -i --verbose --summary ${CATKIN_PKGS} --make-args ${CATKIN_TARGETS} ${CATKIN_ARGS}
 
 catkin_new_build_with_dependent: catkin_prepare_workspace
 	cd ${CATKIN_WORKING_DIR}; catkin init
@@ -92,7 +100,7 @@ catkin_new_build_with_dependent: catkin_prepare_workspace
 catkin_new_deb:
 	${MAKE} catkin_test_deb
 	${MAKE} catkin_prepare_workspace
-	rm -Rf ${CATKIN_PKGS_PATH}/core
+	cd ${CATKIN_PKGS_PATH}; ls -1A | grep -v demo | xargs rm -Rf
 	cd ${CATKIN_WORKING_DIR}; catkin init
 	cd ${CATKIN_WORKING_DIR}; catkin build -i --verbose --summary ${CATKIN_DEPENDENCY_TEST_PKG}
 
@@ -112,17 +120,21 @@ ros_prerelease_deps:
 	sudo ${MAKE} ros_add_repos UBUNTU_DISTRO=${UBUNTU_DISTRO}
 	sudo apt-get install python3-ros-buildfarm
 
-ros_prerelease: ros_prerelease_deps
+ros_prerelease_pkg:
 	# sudo apt install docker.io
 	# sudo adduser username docker
 	generate_prerelease_script.py \
 		https://raw.githubusercontent.com/ros-infrastructure/ros_buildfarm_config/production/index.yaml \
 		${ROS_DISTRO} default ubuntu ${UBUNTU_DISTRO} amd64 \
-		--level 0 --custom-repo ${CATKIN_PKG}:git:${REPO}:${BRANCH} \
+		--level 0 --custom-repo ${PKG}:git:${REPO}:${BRANCH} \
 		--output-dir ./build/ros_prerelease
 	# dirty fix to break interactive part of the script
 	cd ./build/ros_prerelease; sed -i -e "/_ls_prerelease_scripts=/d" prerelease.sh
 	cd ./build/ros_prerelease; env ABORT_ON_TEST_FAILURE=1 ./prerelease.sh
+
+ros_prerelease: ros_prerelease_deps
+	echo ${CATKIN_PKGS} | tr " " "\n" | xargs -I {} ${MAKE} ros_prerelease_pkg PKG="{}" \
+		ROS_DISTRO=${ROS_DISTRO} UBUNTU_DISTRO=${UBUNTU_DISTRO} REPO=${REPO} BRANCH=${BRANCH}
 
 
 # docker
@@ -131,6 +143,12 @@ ros_make_docker:
 	docker pull ros:${ROS_DISTRO}-ros-base-${UBUNTU_DISTRO}
 	docker run -ti ros:${ROS_DISTRO}-ros-base-${UBUNTU_DISTRO} \
 		/bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
-		&& git clone -b ${BRANCH} ${REPO} ${CATKIN_PKG} \
-		&& cd ${CATKIN_PKG} \
+		&& git clone -b ${BRANCH} ${REPO} ${PROJECT} \
+		&& cd ${PROJECT} \
 		&& make ${TARGET} ROS_DISTRO=${ROS_DISTRO} UBUNTU_DISTRO=${UBUNTU_DISTRO}"
+
+
+# other
+#----------------------------------------------
+clean_pkg:
+	dpkg --get-selections | grep ariles2 | cut -f 1 | xargs sudo dpkg -r

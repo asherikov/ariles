@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>ariles2_core</name>
+  <name>ariles2_core_ros</name>
   <version>2.0.0</version>
   <description>Catkin package Ariles serialization/configuration library</description>
 

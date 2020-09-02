@@ -7,11 +7,6 @@ REPO=https://github.com/asherikov/ariles.git
 DEPENDENCY_PATH=./demo
 DEBIAN_SYSTEM_DEPENDENCIES=libeigen3-dev octave libyaml-cpp-dev rapidjson-dev
 
-CATKIN_PKG=ariles2_core
-CATKIN_DEPENDENCY_TEST_PKG=ariles2_catkin_demo
-CATKIN_ARGS=--cmake-args -DARILES_ROS_ENABLE_TESTS=ON
-CATKIN_TARGETS=all test
-
 
 update:
 	git fetch --all

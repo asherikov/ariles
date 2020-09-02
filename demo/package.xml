@@ -10,7 +10,7 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <depend>ariles2_core</depend>
+  <depend>ariles2_core_ros</depend>
 
   <export>
   </export>
