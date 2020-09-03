@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>ariles2_core_ros</name>
+  <name>ariles2_octave_ros</name>
   <version>2.0.0</version>
-  <description>Ariles serialization/configuration library (core and ROS modules)</description>
+  <description>Ariles serialization/configuration library (octave module)</description>
 
   <maintainer email="asherikov@yandex.com">Alexander Sherikov</maintainer>
 
@@ -10,9 +10,7 @@
 
   <buildtool_depend>cmake</buildtool_depend>
 
-  <depend>roscpp</depend>
-  <depend>eigen</depend>
-  <depend>boost</depend>
+  <depend>ariles2_core_ros</depend>
 
   <export>
     <build_type>cmake</build_type>

@@ -18,18 +18,6 @@ update_head:
 	${MAKE} update VERSION="origin/master"
 
 
-# utils
-#----------------------------------------------
-
-#addutils:
-#	git remote add cmakeut https://github.com/asherikov/cmakeut --no-tags
-#
-#updateutils:
-#	git fetch --all
-#	git show remotes/cmakeut/master:make/Makefile.ros                       > make/Makefile.ros
-#	git show remotes/cmakeut/master:make/Makefile.common                    > make/Makefile.common
-
-
 # clean
 #----------------------------------------------
 

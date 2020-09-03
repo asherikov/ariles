@@ -1,2 +1,2 @@
-.include ".make/Makefile.common"
-.include ".make/Makefile.ariles"
+.include ".make/common.mk"
+.include ".make/ariles.mk"

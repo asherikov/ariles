@@ -6,13 +6,9 @@ option(ARILES_ROS_ENABLE_TESTS "Enable tests." OFF)
 
 #-----
 # ARILES
-set(ARILES_VISITOR_yaml_cpp      "ON"    CACHE STRING "")
-set(ARILES_VISITOR_ros           "ON"    CACHE STRING "")
-set(ARILES_VISITOR_octave        "ON"    CACHE STRING "")
-set(ARILES_VISITOR_array         "ON"    CACHE STRING "")
-set(ARILES_VISITOR_rapidjson     "ON"    CACHE STRING "")
+set(ARILES_VISITOR_ros          "ON"    CACHE STRING "")
 
-set(ARILES_COMPONENTS  core yaml-cpp octave ros array rapidjson)
+set(ARILES_COMPONENTS  core ros)
 #-----
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/../.cmake/common.cmake)

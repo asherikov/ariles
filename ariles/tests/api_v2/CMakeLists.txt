@@ -7,9 +7,17 @@ foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
 endforeach()
 
 
+set (ARILES_TEST_FILE_VISITORS_ENABLED OFF)
 foreach(ARILES_VISITOR ${ARILES_VISITORS})
     if (NOT ${ARILES_VISITOR_${ARILES_VISITOR}} STREQUAL "OFF")
         set(ARILES_TESTS_CONFIG "${ARILES_TESTS_CONFIG}#define ARILES_VISITOR_${ARILES_VISITOR}\n")
+    endif()
+
+    if (NOT ARILES_TEST_FILE_VISITORS_ENABLED)
+        list (FIND ARILES_TEST_FILE_VISITORS "ARILES_VISITOR" INDEX)
+        if (${INDEX} GREATER -1)
+            set(ARILES_TEST_FILE_VISITORS_ENABLED ON)
+        endif()
     endif()
 endforeach(ARILES_VISITOR)
 
@@ -48,7 +56,9 @@ ariles_define_regression_test(${PROJECT_NAME} "210" "rapidjson;jsonnet" "")     
 ariles_define_regression_test(${PROJECT_NAME} "211" "rapidjson;yaml_cpp" "")          # visitor inclusion order # TODO
 ariles_define_regression_test(${PROJECT_NAME} "212" "octave" "")                      # octave: complex, pointers
 ariles_define_regression_test(${PROJECT_NAME} "213" "" "${ARILES_TEST_ALL_VISITORS}") # special floats
-ariles_define_regression_test(${PROJECT_NAME} "214" "" "${ARILES_TEST_FILE_VISITORS}")# filenames
+if(ARILES_TEST_FILE_VISITORS_ENABLED)
+    ariles_define_regression_test(${PROJECT_NAME} "214" "" "${ARILES_TEST_FILE_VISITORS}")# filenames
+endif()
 ariles_define_regression_test(${PROJECT_NAME} "215" "pugixml" "")                     # XML childs vs attributes
 ariles_define_regression_test(${PROJECT_NAME} "216" "" "")                            # inclusion
 ariles_define_regression_test(${PROJECT_NAME} "217" "" "${ARILES_TEST_ALL_VISITORS}") # any

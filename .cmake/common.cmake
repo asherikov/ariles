@@ -17,7 +17,7 @@ if(ARILES_ROS_ENABLE_TESTS)
     enable_testing()
 endif()
 
-add_subdirectory("${ARILES_DIR}" "./ariles")
+add_subdirectory("${ARILES_DIR}" "./ariles2_${CMAKE_PROJECT_NAME}")
 
 
 set(ARILES_ROS_CONFIG_INSTALL_DESTINATION "${CMAKE_INSTALL_PREFIX}/share/${CMAKE_PROJECT_NAME}/cmake/")
