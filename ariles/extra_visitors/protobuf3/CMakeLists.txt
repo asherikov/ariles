@@ -1,4 +1,5 @@
-set (TGT_ARILES_VISITOR_LIB  "ariles_visitor_${ARILES_VISITOR}")
+set (TGT_ARILES_VISITOR_LIB      "${PROJECT_NAME}_visitor_${ARILES_VISITOR}")
+
 if(NOT ARILES_DEB_TARGETS)
     find_package(Protobuf REQUIRED)
 

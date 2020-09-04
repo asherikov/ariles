@@ -3,7 +3,8 @@ if (${INDEX} GREATER -1)
     message(FATAL_ERROR "Conflict between the visitors detected (yaml_cpp -- yaml_cpp03).")
 endif()
 
-set (TGT_ARILES_VISITOR_LIB      "ariles_visitor_${ARILES_VISITOR}")
+set (TGT_ARILES_VISITOR_LIB      "${PROJECT_NAME}_visitor_${ARILES_VISITOR}")
+
 if(NOT ARILES_DEB_TARGETS)
     pkg_search_module(${ARILES_VISITOR} REQUIRED yaml-cpp03)
 

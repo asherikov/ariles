@@ -261,7 +261,7 @@ add_subdirectory(cpput)
 add_custom_target( TGT_ariles_copy_headers ALL )
 
 # core & adapters headers
-cmakeut_copy_dir_if_exists(TGT_ariles_copy_headers          "ariles"
+cmakeut_copy_dir_if_exists(TGT_ariles_copy_headers          "ariles2"
                           "${PROJECT_SOURCE_DIR}/include"   "${ARILES_INCLUDE_DIR}/core/")
 set(ARILES_CORE_BUILD_INCLUDES "${ARILES_INCLUDE_DIR}/core/")
 
