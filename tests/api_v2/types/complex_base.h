@@ -17,8 +17,12 @@ namespace ariles_tests
     template <class t_ConfigurableComplex>
     class ConfigurableComplexBase
     {
+    public:
+        bool set_defaults_check_flag_;
+
+
     protected:
-        ConfigurableComplexBase()
+        ConfigurableComplexBase() : set_defaults_check_flag_(false)
         {
         }
         ~ConfigurableComplexBase()
@@ -29,75 +33,76 @@ namespace ariles_tests
     public:
         void arilesVisit(const ariles::Defaults & /*visitor*/, const ariles::Defaults::Parameters & /*param*/)
         {
-            t_ConfigurableComplex &impl = static_cast<t_ConfigurableComplex &>(*this);
+            t_ConfigurableComplex * impl = static_cast<t_ConfigurableComplex *>(this);
+            set_defaults_check_flag_ = true;
 
 
-            impl.integer_ = 10;
-            impl.unsigned_integer_ = 100;
-            impl.real_ = 1.33;
-            impl.string_ = "blahblah";
+            impl->integer_ = 10;
+            impl->unsigned_integer_ = 100;
+            impl->real_ = 1.33;
+            impl->string_ = "blahblah";
 
-            impl.std_vector_.resize(5);
-            for (std::size_t i = 0; i < impl.std_vector_.size(); ++i)
+            impl->std_vector_.resize(5);
+            for (std::size_t i = 0; i < impl->std_vector_.size(); ++i)
             {
-                impl.std_vector_[i] = i * 5.22 + 2.3;
+                impl->std_vector_[i] = i * 5.22 + 2.3;
             }
 
-            impl.std_nested_vector_.resize(3);
-            for (std::size_t i = 0; i < impl.std_nested_vector_.size(); ++i)
+            impl->std_nested_vector_.resize(3);
+            for (std::size_t i = 0; i < impl->std_nested_vector_.size(); ++i)
             {
-                impl.std_nested_vector_[i].resize(7 - i);
+                impl->std_nested_vector_[i].resize(7 - i);
 
-                for (std::size_t j = 0; j < impl.std_nested_vector_[i].size(); ++j)
+                for (std::size_t j = 0; j < impl->std_nested_vector_[i].size(); ++j)
                 {
-                    impl.std_nested_vector_[i][j] = 5.2 + i * 0.1 + j * 0.3;
+                    impl->std_nested_vector_[i][j] = 5.2 + i * 0.1 + j * 0.3;
                 }
             }
 
-            impl.boolean_false_ = false;
-            impl.boolean_true_ = true;
+            impl->boolean_false_ = false;
+            impl->boolean_true_ = true;
 
-            impl.enum_ = ANOTHER_VALUE;
-            impl.better_enum_ = BetterEnum::DEFINED_1;
+            impl->enum_ = ANOTHER_VALUE;
+            impl->better_enum_ = BetterEnum::DEFINED_1;
 
-            impl.std_pair_.first = "test";
-            impl.std_pair_.second = 13;
+            impl->std_pair_.first = "test";
+            impl->std_pair_.second = 13;
 
             std::vector<std::string> std_map_test;
             std_map_test.push_back("one");
-            impl.std_map_["one"] = std_map_test;
+            impl->std_map_["one"] = std_map_test;
             std_map_test.push_back("two");
-            impl.std_map_["two"] = std_map_test;
+            impl->std_map_["two"] = std_map_test;
             std_map_test.push_back("three");
-            impl.std_map_["three"] = std_map_test;
+            impl->std_map_["three"] = std_map_test;
 
 
 #ifdef ARILES_ADAPTER_EIGEN
-            impl.vector_.setConstant(3);
-            impl.matrix_ << 1, 2, 3, 4, 5, 6, 7, 8, 9;
-            impl.matrix_x_.resize(2, 3);
-            impl.matrix_x_ << 8, 7, 6, 3, 2, 1;
+            impl->vector_.setConstant(3);
+            impl->matrix_ << 1, 2, 3, 4, 5, 6, 7, 8, 9;
+            impl->matrix_x_.resize(2, 3);
+            impl->matrix_x_ << 8, 7, 6, 3, 2, 1;
 
-            impl.std_vector_evector_.resize(4);
-            for (std::size_t i = 0; i < impl.std_vector_evector_.size(); ++i)
+            impl->std_vector_evector_.resize(4);
+            for (std::size_t i = 0; i < impl->std_vector_evector_.size(); ++i)
             {
-                impl.std_vector_evector_[i].setConstant(i * 9 + 0.43);
+                impl->std_vector_evector_[i].setConstant(i * 9 + 0.43);
             }
 
-            impl.std_nested_vector_evector_.resize(2);
-            for (std::size_t i = 0; i < impl.std_nested_vector_evector_.size(); ++i)
+            impl->std_nested_vector_evector_.resize(2);
+            for (std::size_t i = 0; i < impl->std_nested_vector_evector_.size(); ++i)
             {
-                impl.std_nested_vector_evector_[i].resize(1 + i);
+                impl->std_nested_vector_evector_[i].resize(1 + i);
 
-                for (std::size_t j = 0; j < impl.std_nested_vector_evector_[i].size(); ++j)
+                for (std::size_t j = 0; j < impl->std_nested_vector_evector_[i].size(); ++j)
                 {
-                    impl.std_nested_vector_evector_[i][j].setConstant(5.2 + i * 0.1 + j * 0.3);
+                    impl->std_nested_vector_evector_[i][j].setConstant(5.2 + i * 0.1 + j * 0.3);
                 }
             }
 
-            impl.isometry_.setIdentity();
+            impl->isometry_.setIdentity();
 
-            impl.quaternion_.setIdentity();
+            impl->quaternion_.setIdentity();
 #endif
         }
 
@@ -106,83 +111,83 @@ namespace ariles_tests
         void randomize()
         {
             boost::random::random_device random_generator;
-            t_ConfigurableComplex &impl = static_cast<t_ConfigurableComplex &>(*this);
+            t_ConfigurableComplex *impl = static_cast<t_ConfigurableComplex *>(this);
 
-            impl.integer_ = GET_RANDOM_INT;
-            impl.unsigned_integer_ = GET_RANDOM_UINT;
-            impl.real_ = GET_RANDOM_REAL;
-            impl.string_ = "blahblah";
+            impl->integer_ = GET_RANDOM_INT;
+            impl->unsigned_integer_ = GET_RANDOM_UINT;
+            impl->real_ = GET_RANDOM_REAL;
+            impl->string_ = "blahblah";
 
-            impl.std_vector_.resize(5);
-            for (std::size_t i = 0; i < impl.std_vector_.size(); ++i)
+            impl->std_vector_.resize(5);
+            for (std::size_t i = 0; i < impl->std_vector_.size(); ++i)
             {
-                impl.std_vector_[i] = GET_RANDOM_REAL;
+                impl->std_vector_[i] = GET_RANDOM_REAL;
             }
 
-            impl.std_nested_vector_.resize(3);
-            for (std::size_t i = 0; i < impl.std_nested_vector_.size(); ++i)
+            impl->std_nested_vector_.resize(3);
+            for (std::size_t i = 0; i < impl->std_nested_vector_.size(); ++i)
             {
-                impl.std_nested_vector_[i].resize(7 - i);
+                impl->std_nested_vector_[i].resize(7 - i);
 
-                for (std::size_t j = 0; j < impl.std_nested_vector_[i].size(); ++j)
+                for (std::size_t j = 0; j < impl->std_nested_vector_[i].size(); ++j)
                 {
-                    impl.std_nested_vector_[i][j] = GET_RANDOM_REAL;
+                    impl->std_nested_vector_[i][j] = GET_RANDOM_REAL;
                 }
             }
 
-            impl.boolean_false_ = false;
-            impl.boolean_true_ = true;
+            impl->boolean_false_ = false;
+            impl->boolean_true_ = true;
 
-            impl.enum_ = ANOTHER_VALUE;
-            impl.better_enum_ = BetterEnum::DEFINED_2;
+            impl->enum_ = ANOTHER_VALUE;
+            impl->better_enum_ = BetterEnum::DEFINED_2;
 
-            impl.std_pair_.first = "testtt";
-            impl.std_pair_.second = GET_RANDOM_REAL;
+            impl->std_pair_.first = "testtt";
+            impl->std_pair_.second = GET_RANDOM_REAL;
 
-            impl.std_map_.clear();
+            impl->std_map_.clear();
             std::vector<std::string> std_map_test;
             std_map_test.push_back("1one");
-            impl.std_map_["one1"] = std_map_test;
+            impl->std_map_["one1"] = std_map_test;
             std_map_test.push_back("2two");
-            impl.std_map_["two2"] = std_map_test;
+            impl->std_map_["two2"] = std_map_test;
             std_map_test.push_back("3three");
-            impl.std_map_["three3"] = std_map_test;
+            impl->std_map_["three3"] = std_map_test;
             std_map_test.push_back("4four");
-            impl.std_map_["four4"] = std_map_test;
+            impl->std_map_["four4"] = std_map_test;
 
 
 #    ifdef ARILES_ADAPTER_EIGEN
-            impl.vector_.setRandom();
-            impl.matrix_.setRandom();
-            impl.matrix_x_.resize(2, 3);
-            impl.matrix_x_.setRandom();
+            impl->vector_.setRandom();
+            impl->matrix_.setRandom();
+            impl->matrix_x_.resize(2, 3);
+            impl->matrix_x_.setRandom();
 
-            impl.std_vector_evector_.resize(4);
-            for (std::size_t i = 0; i < impl.std_vector_evector_.size(); ++i)
+            impl->std_vector_evector_.resize(4);
+            for (std::size_t i = 0; i < impl->std_vector_evector_.size(); ++i)
             {
-                impl.std_vector_evector_[i].setRandom();
+                impl->std_vector_evector_[i].setRandom();
             }
 
-            impl.std_nested_vector_evector_.resize(2);
-            for (std::size_t i = 0; i < impl.std_nested_vector_evector_.size(); ++i)
+            impl->std_nested_vector_evector_.resize(2);
+            for (std::size_t i = 0; i < impl->std_nested_vector_evector_.size(); ++i)
             {
-                impl.std_nested_vector_evector_[i].resize(1 + i);
+                impl->std_nested_vector_evector_[i].resize(1 + i);
 
-                for (std::size_t j = 0; j < impl.std_nested_vector_evector_[i].size(); ++j)
+                for (std::size_t j = 0; j < impl->std_nested_vector_evector_[i].size(); ++j)
                 {
-                    impl.std_nested_vector_evector_[i][j].setRandom();
+                    impl->std_nested_vector_evector_[i][j].setRandom();
                 }
             }
 
-            impl.isometry_.matrix() = Eigen::MatrixXd::Random(4, 4);
+            impl->isometry_.matrix() = Eigen::MatrixXd::Random(4, 4);
 
-            impl.quaternion_.x() = GET_RANDOM_REAL;
-            impl.quaternion_.y() = GET_RANDOM_REAL;
-            impl.quaternion_.z() = GET_RANDOM_REAL;
-            impl.quaternion_.w() = GET_RANDOM_REAL;
+            impl->quaternion_.x() = GET_RANDOM_REAL;
+            impl->quaternion_.y() = GET_RANDOM_REAL;
+            impl->quaternion_.z() = GET_RANDOM_REAL;
+            impl->quaternion_.w() = GET_RANDOM_REAL;
 #    endif
 
-            ariles::apply<ariles::PostProcess>(impl);
+            ariles::apply<ariles::PostProcess>(*impl);
         }
 #endif
     };

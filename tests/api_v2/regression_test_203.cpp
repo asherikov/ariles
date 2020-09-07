@@ -22,6 +22,7 @@
 // ===============================================================
 
 #include "types/postprocess.h"
+#include "types/no_setdefaults.h"
 
 #define ARILES_TESTS_BOOST_UTF_DISABLED
 #include "types/complex_auto_declare.h"
@@ -37,6 +38,7 @@
 #include "fixtures/002_comparison.h"
 #include "fixtures/003_comparison_vector.h"
 #include "fixtures/006_dummy.h"
+#include "fixtures/016_defaults.h"
 
 
 // ===============================================================
@@ -47,7 +49,9 @@
     ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER)       \
     ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, VISITOR_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER)     \
     ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, VISITOR_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER)      \
-    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, VISITOR_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER)
+    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, VISITOR_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER)     \
+    ARILES_FIXTURE_TEST_CASE(DefaultsCheckFixture, VISITOR_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER)        \
+    ARILES_FIXTURE_TEST_CASE(DefaultsCheckFixture, VISITOR_ID, NAMESPACE, ConfigurableComplex, INITIALIZER)
 
 
 BOOST_FIXTURE_TEST_CASE(Complex_arilesPostProcess, ariles_tests::DummyFixture)
@@ -56,5 +60,12 @@ BOOST_FIXTURE_TEST_CASE(Complex_arilesPostProcess, ariles_tests::DummyFixture)
     ariles::apply<ariles::PostProcess>(configurable);
 }
 
+BOOST_FIXTURE_TEST_CASE(ConfigurableNoSetDefaults_Defaults, ariles_tests::DummyFixture)
+{
+    ariles_tests::ConfigurableNoSetDefaults configurable;
+    configurable.integer_ = 100;
+    ariles::apply<ariles::Defaults>(configurable);
+    BOOST_CHECK_EQUAL(configurable.integer_, 0);
+}
 
 #include "instantiate.h"

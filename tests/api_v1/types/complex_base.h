@@ -17,9 +17,13 @@ namespace ariles_tests
     template <class t_ConfigurableComplex>
     class ConfigurableComplexBase
     {
+    public:
+        bool set_defaults_check_flag_;
+
     protected:
         ConfigurableComplexBase()
         {
+            set_defaults_check_flag_ = false;
         }
         ~ConfigurableComplexBase()
         {
@@ -29,6 +33,8 @@ namespace ariles_tests
     public:
         void setDefaults()
         {
+            set_defaults_check_flag_ = true;
+
             t_ConfigurableComplex &impl = static_cast<t_ConfigurableComplex &>(*this);
 
 

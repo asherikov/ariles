@@ -14,6 +14,11 @@
 
 #ifdef ARILES_ENABLED
 
+#    ifndef ARILES_API_VERSION
+#        error "ARILES_API_VERSION is not defined, probably unhandled includion order, add explicit definition of ARILES_API_VERSION."
+#    endif
+
+
 #    ifndef ARILES_DOXYGEN_PROCESSING
 
 public:

@@ -40,7 +40,7 @@ target_include_directories(testlib_api_v1 SYSTEM PRIVATE ${ARILES_CORE_DEPENDENC
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "000" "" "${ARILES_TEST_ALL_VISITORS}") # features
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "001" "" "${ARILES_TEST_ALL_VISITORS}") # complex
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "002" "" "${ARILES_TEST_ALL_VISITORS}") # inheritance, strictness
-ariles_define_regression_test(${CMAKE_PROJECT_NAME} "003" "" "${ARILES_TEST_ALL_VISITORS}") # finalize
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "003" "" "${ARILES_TEST_ALL_VISITORS}") # finalize, defaults
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "004" "" "${ARILES_TEST_ALL_VISITORS}") # no adapters_all.h
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "005" "" "${ARILES_TEST_ALL_VISITORS}") # disabled ariles
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "009" "" "${ARILES_TEST_ALL_VISITORS}") # pointers (scalar)

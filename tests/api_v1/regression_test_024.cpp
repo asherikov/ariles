@@ -45,6 +45,10 @@ namespace ariles_tests
         virtual ~SubstateParams()
         {
         }
+
+        void setDefaults()
+        {
+        }
     };
 
     struct StateMachineParams : public ariles::RelaxedConfigurableBase
@@ -56,6 +60,10 @@ namespace ariles_tests
         std::map<std::string, SubstateParams> substates;
 
         virtual ~StateMachineParams()
+        {
+        }
+
+        void setDefaults()
         {
         }
     };

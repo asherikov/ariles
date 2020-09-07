@@ -404,6 +404,9 @@ if (${ARILES_ENABLE_CORE})
     # adapters_all.h TODO deprecated
     #---
     set(ARILES_ADAPTERS_ALL   "#pragma once\n")
+    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#ifndef ARILES_API_VERSION\n")
+    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#define ARILES_API_VERSION 1\n")
+    set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#endif\n")
     set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"internal/helpers.h\"\n")
 
     set(ARILES_ADAPTERS_ALL   "${ARILES_ADAPTERS_ALL}#include \"adapters/std_vector.h\"\n")
@@ -423,6 +426,9 @@ if (${ARILES_ENABLE_CORE})
     #---
     if (${ARILES_ENABLE_CORE_ALL_HEADER})
         set(ARILES_HEADER_ALL   "#pragma once\n")
+        set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#ifndef ARILES_API_VERSION\n")
+        set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#define ARILES_API_VERSION 1\n")
+        set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#endif\n")
         set(ARILES_HEADER_ALL   "${ARILES_HEADER_ALL}#include \"internal/build_config.h\"\n")
 
         foreach(ARILES_VISITOR ${ARILES_VISITORS})

@@ -13,6 +13,11 @@
 #include <vector>
 
 #include "serialization.h"
+
+#ifndef ARILES_API_VERSION
+#    error "ARILES_API_VERSION is not defined, probably unhandled includion order, add explicit definition of ARILES_API_VERSION."
+#endif
+
 #if 1 == ARILES_API_VERSION
 #    include "defaults.h"
 #    include "postprocess.h"

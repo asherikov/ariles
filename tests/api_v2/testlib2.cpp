@@ -9,8 +9,8 @@
 */
 
 
-#include "ariles/adapters_all.h"
 #include "ariles/ariles2.h"
+#include "ariles/adapters/basic.h"
 
 
 // ===============================================================

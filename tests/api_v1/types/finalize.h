@@ -20,10 +20,13 @@ namespace ariles_tests
 
     public:
         double another_real_;
+        bool set_defaults_check_flag_;
 
     public:
         ConfigurableFinalizeBase()
         {
+            set_defaults_check_flag_ = false;
+
             ConfigurableFinalizeBase::setDefaults();
             ConfigurableFinalizeBase::finalize();
         }
@@ -35,6 +38,8 @@ namespace ariles_tests
 
         virtual void setDefaults()
         {
+            set_defaults_check_flag_ = true;
+
             integer_ = 10;
             real_ = 1.33;
         }

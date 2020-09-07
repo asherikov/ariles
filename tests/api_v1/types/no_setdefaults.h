@@ -21,9 +21,6 @@ namespace ariles_tests
 #include ARILES_INITIALIZE
 
     public:
-        double another_real_;
-
-    public:
         ConfigurableNoSetDefaults()
         {
             setDefaults();
