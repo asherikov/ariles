@@ -47,18 +47,18 @@ namespace ariles2
 
 #define ARILES2_NAMED_ENTRY_prewrite(v, entry, name) visitor.visitMapEntry(entry, #name, parameters);
 #define ARILES2_PARENT_prewrite(v, entry)
-#define ARILES2_VISIT_prewrite                                                                                       \
+#define ARILES2_VISIT_prewrite                                                                                         \
     template <class t_Visitor>                                                                                         \
     void arilesVisit(                                                                                                  \
             const t_Visitor &visitor,                                                                                  \
             const typename t_Visitor::Parameters &parameters,                                                          \
-            ARILES2_IS_BASE_ENABLER(ariles2::prewrite::Visitor, t_Visitor))                                          \
+            ARILES2_IS_BASE_ENABLER(ariles2::prewrite::Visitor, t_Visitor))                                            \
     {                                                                                                                  \
         ARILES2_TRACE_FUNCTION;                                                                                        \
         ARILES2_UNUSED_ARG(visitor);                                                                                   \
         ARILES2_UNUSED_ARG(parameters);                                                                                \
         arilesVisitParents(visitor, parameters);                                                                       \
-        ARILES2_ENTRIES(prewrite)                                                                                    \
+        ARILES2_ENTRIES(prewrite)                                                                                      \
     }
 
 #define ARILES2_METHODS_prewrite ARILES2_METHODS(prewrite, const, ARILES2_EMPTY_MACRO)

@@ -11,7 +11,7 @@
 #pragma once
 
 
-#include <ariles2/visitors/ros.h>
+#include <ariles2/visitors/rosparam.h>
 
 
 // http://docs.ros.org/api/xmlrpcpp/html/classXmlRpc_1_1XmlRpcValue.html
@@ -20,7 +20,7 @@
 
 namespace ariles2
 {
-    namespace ns_ros
+    namespace ns_rosparam
     {
         typedef serialization::Node<XmlRpc::XmlRpcValue *> NodeWrapper;
 
@@ -61,5 +61,5 @@ namespace ariles2
                 return (getRawNode(node_stack_.size() - 1));
             }
         };
-    }  // namespace ns_ros
+    }  // namespace ns_rosparam
 }  // namespace ariles2

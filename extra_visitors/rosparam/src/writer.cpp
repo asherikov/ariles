@@ -14,11 +14,11 @@
 
 namespace ariles2
 {
-    namespace ns_ros
+    namespace ns_rosparam
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ariles2::ns_ros::ImplBase
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ariles2::ns_rosparam::ImplBase
             {
             public:
                 explicit Writer(const ::ros::NodeHandle &nh)
@@ -27,13 +27,13 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_ros
+    }      // namespace ns_rosparam
 }  // namespace ariles2
 
 
 namespace ariles2
 {
-    namespace ns_ros
+    namespace ns_rosparam
     {
         Writer::Writer(const ::ros::NodeHandle &nh)
         {
@@ -173,5 +173,5 @@ namespace ariles2
         ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
-    }  // namespace ns_ros
+    }  // namespace ns_rosparam
 }  // namespace ariles2

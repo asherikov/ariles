@@ -28,7 +28,7 @@
 // FIXTURES
 // ===============================================================
 
-#undef ARILES_VISITOR_ros
+#undef ARILES_VISITOR_rosparam
 #include "fixtures/initializers.h"
 #include "fixtures/015_read_compare.h"
 

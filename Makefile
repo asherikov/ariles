@@ -113,7 +113,7 @@ deb-uninstall:
 
 cmake_dependency: clean
 	mkdir -p build/cmake_dependency_test
-	cd build/cmake_dependency_test; cmake ../../tests/cmake/dependency/ -DARILES_COMPONENTS="core;ros;yaml-cpp;octave"
+	cd build/cmake_dependency_test; cmake ../../tests/cmake/dependency/ -DARILES_COMPONENTS="core;rosparam;yaml-cpp;octave"
 	cd build/cmake_dependency_test; ${MAKE} ${MAKE_FLAGS}
 
 ppa-upload:

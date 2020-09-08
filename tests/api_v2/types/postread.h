@@ -68,7 +68,7 @@ namespace ariles_tests
     class ConfigurablePostRead : public ConfigurablePostReadBase
     {
 #define ARILES2_ENTRIES(v)                                                                                             \
-    ARILES2_PARENT(v, ConfigurablePostReadBase)                                                                     \
+    ARILES2_PARENT(v, ConfigurablePostReadBase)                                                                        \
     ARILES2_TYPED_ENTRY_(v, member, ConfigurablePostReadBase)
 #include ARILES2_INITIALIZE
 

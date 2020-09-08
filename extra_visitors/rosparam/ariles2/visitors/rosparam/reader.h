@@ -13,7 +13,7 @@
 
 namespace ariles2
 {
-    namespace ns_ros
+    namespace ns_rosparam
     {
         namespace impl
         {
@@ -69,5 +69,5 @@ namespace ariles2
 
 #undef ARILES2_BASIC_TYPE
         };
-    }  // namespace ns_ros
+    }  // namespace ns_rosparam
 }  // namespace ariles2

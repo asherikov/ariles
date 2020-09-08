@@ -14,8 +14,8 @@
 
 #define ARILES2_DEFAULT_VISITORS                                                                                       \
     ARILES2_VISITOR(count)                                                                                             \
-    ARILES2_VISITOR(postread)                                                                                       \
-    ARILES2_VISITOR(prewrite)                                                                                        \
+    ARILES2_VISITOR(postread)                                                                                          \
+    ARILES2_VISITOR(prewrite)                                                                                          \
     ARILES2_VISITOR(defaults)                                                                                          \
     ARILES2_VISITOR(read)                                                                                              \
     ARILES2_VISITOR(write)                                                                                             \
@@ -52,11 +52,11 @@
 // ===============================================================
 
 #define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                                               \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurablePostRead, INITIALIZER)       \
-    ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, VISITOR_ID, NAMESPACE, ConfigurablePostRead, INITIALIZER)     \
-    ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, VISITOR_ID, NAMESPACE, ConfigurablePostRead, INITIALIZER)      \
-    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, VISITOR_ID, NAMESPACE, ConfigurablePostRead, INITIALIZER)     \
-    ARILES_FIXTURE_TEST_CASE(DefaultsCheckFixture, VISITOR_ID, NAMESPACE, ConfigurablePostRead, INITIALIZER)        \
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurablePostRead, INITIALIZER)          \
+    ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, VISITOR_ID, NAMESPACE, ConfigurablePostRead, INITIALIZER)        \
+    ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, VISITOR_ID, NAMESPACE, ConfigurablePostRead, INITIALIZER)         \
+    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, VISITOR_ID, NAMESPACE, ConfigurablePostRead, INITIALIZER)        \
+    ARILES_FIXTURE_TEST_CASE(DefaultsCheckFixture, VISITOR_ID, NAMESPACE, ConfigurablePostRead, INITIALIZER)           \
     ARILES_FIXTURE_TEST_CASE(DefaultsCheckFixture, VISITOR_ID, NAMESPACE, ConfigurableComplex, INITIALIZER)
 
 
