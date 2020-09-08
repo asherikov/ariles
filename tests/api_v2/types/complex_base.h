@@ -17,9 +17,14 @@ namespace ariles_tests
     template <class t_ConfigurableComplex>
     class ConfigurableComplexBase
     {
+    public:
+        bool defaults_check_flag_;
+
+
     protected:
         ConfigurableComplexBase()
         {
+            defaults_check_flag_ = false;
         }
         ~ConfigurableComplexBase()
         {
@@ -29,6 +34,8 @@ namespace ariles_tests
     public:
         void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
+            defaults_check_flag_ = true;
+
             t_ConfigurableComplex &impl = static_cast<t_ConfigurableComplex &>(*this);
 
 

@@ -44,6 +44,7 @@
 #include "fixtures/002_comparison.h"
 #include "fixtures/003_comparison_vector.h"
 #include "fixtures/006_dummy.h"
+#include "fixtures/019_defaults.h"
 
 
 // ===============================================================
@@ -54,7 +55,9 @@
     ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER)       \
     ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, VISITOR_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER)     \
     ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, VISITOR_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER)      \
-    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, VISITOR_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER)
+    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, VISITOR_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER)     \
+    ARILES_FIXTURE_TEST_CASE(DefaultsCheckFixture, VISITOR_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER)        \
+    ARILES_FIXTURE_TEST_CASE(DefaultsCheckFixture, VISITOR_ID, NAMESPACE, ConfigurableComplex, INITIALIZER)
 
 
 BOOST_FIXTURE_TEST_CASE(Complex_arilesPostProcess, ariles_tests::DummyFixture)

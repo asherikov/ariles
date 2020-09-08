@@ -19,10 +19,13 @@ namespace ariles_tests
 
     public:
         double another_real_;
+        bool defaults_check_flag_;
 
     public:
         ConfigurablePostProcessBase()
         {
+            defaults_check_flag_ = false;
+
             ariles2::apply<ariles2::Defaults>(*this);
             ariles2::apply<ariles2::PostProcess>(*this);
         }
@@ -35,6 +38,9 @@ namespace ariles_tests
         void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
             ARILES2_TRACE_FUNCTION;
+
+            defaults_check_flag_ = true;
+
             integer_ = 10;
             real_ = 1.33;
         }
