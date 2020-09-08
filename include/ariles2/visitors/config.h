@@ -13,7 +13,7 @@
 
 #include "defaults.h"
 #include "postread.h"
-#include "preprocess.h"
+#include "prewrite.h"
 #include "read.h"
 #include "write.h"
 
@@ -142,7 +142,7 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters
         {
         public:
-            ariles2::preprocess::Visitor::Parameters preprocess_parameters_;
+            ariles2::prewrite::Visitor::Parameters prewrite_parameters_;
             typename t_Writer::Parameters writer_parameters_;
 
 
@@ -157,10 +157,10 @@ namespace ariles2
             }
 
             Parameters(
-                    const ariles2::preprocess::Visitor::Parameters &preprocess_parameters,
+                    const ariles2::prewrite::Visitor::Parameters &prewrite_parameters,
                     const typename t_Writer::Parameters &writer_parameters)
             {
-                this->preprocess_parameters_ = preprocess_parameters;
+                this->prewrite_parameters_ = prewrite_parameters;
                 this->writer_parameters_ = writer_parameters;
             }
         };
@@ -175,7 +175,7 @@ namespace ariles2
 
 
         public:
-            ariles2::preprocess::Visitor preprocess_visitor_;
+            ariles2::prewrite::Visitor prewrite_visitor_;
             t_Writer writer_visitor_;
 
 
@@ -214,7 +214,7 @@ namespace ariles2
             {
                 // static variable is potentially unsafe
                 return (Parameters(
-                        ariles_class.arilesGetParameters(preprocess_visitor_),
+                        ariles_class.arilesGetParameters(prewrite_visitor_),
                         ariles_class.arilesGetParameters(writer_visitor_)));
             }
 
@@ -225,7 +225,7 @@ namespace ariles2
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_VALUE(name);
                 ARILES2_TRACE_TYPE(entry);
-                ariles2::apply(preprocess_visitor_, entry, name, param.preprocess_parameters_);
+                ariles2::apply(prewrite_visitor_, entry, name, param.prewrite_parameters_);
                 ariles2::apply(writer_visitor_, entry, name, param.writer_parameters_);
             }
 

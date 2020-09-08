@@ -17,7 +17,7 @@
 @defgroup postread PostRead
 @ingroup process
 
-@brief postread entries, e.g., validate after deserialization.
+@brief Postprocess entries, e.g., validate after deserialization.
 */
 
 namespace ariles2

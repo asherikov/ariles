@@ -14,7 +14,7 @@
 #include "process.h"
 
 /**
-@defgroup preprocess PreProcess
+@defgroup prewrite PreWrite
 @ingroup process
 
 @brief Preprocess entries, e.g., pack values before serialization.
@@ -22,8 +22,8 @@
 
 namespace ariles2
 {
-    /// @ingroup preprocess
-    namespace preprocess
+    /// @ingroup prewrite
+    namespace prewrite
     {
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
         {
@@ -35,37 +35,37 @@ namespace ariles2
 
 
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor
-          : public ariles2::process::Visitor<const preprocess::Visitor, preprocess::Parameters>
+          : public ariles2::process::Visitor<const prewrite::Visitor, prewrite::Parameters>
         {
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::Base<const preprocess::Visitor>
+        class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::Base<const prewrite::Visitor>
         {
         };
 
 
-#define ARILES2_NAMED_ENTRY_preprocess(v, entry, name) visitor.visitMapEntry(entry, #name, parameters);
-#define ARILES2_PARENT_preprocess(v, entry)
-#define ARILES2_VISIT_preprocess                                                                                       \
+#define ARILES2_NAMED_ENTRY_prewrite(v, entry, name) visitor.visitMapEntry(entry, #name, parameters);
+#define ARILES2_PARENT_prewrite(v, entry)
+#define ARILES2_VISIT_prewrite                                                                                       \
     template <class t_Visitor>                                                                                         \
     void arilesVisit(                                                                                                  \
             const t_Visitor &visitor,                                                                                  \
             const typename t_Visitor::Parameters &parameters,                                                          \
-            ARILES2_IS_BASE_ENABLER(ariles2::preprocess::Visitor, t_Visitor))                                          \
+            ARILES2_IS_BASE_ENABLER(ariles2::prewrite::Visitor, t_Visitor))                                          \
     {                                                                                                                  \
         ARILES2_TRACE_FUNCTION;                                                                                        \
         ARILES2_UNUSED_ARG(visitor);                                                                                   \
         ARILES2_UNUSED_ARG(parameters);                                                                                \
         arilesVisitParents(visitor, parameters);                                                                       \
-        ARILES2_ENTRIES(preprocess)                                                                                    \
+        ARILES2_ENTRIES(prewrite)                                                                                    \
     }
 
-#define ARILES2_METHODS_preprocess ARILES2_METHODS(preprocess, const, ARILES2_EMPTY_MACRO)
-#define ARILES2_BASE_METHODS_preprocess ARILES2_BASE_METHODS(preprocess)
-    }  // namespace preprocess
+#define ARILES2_METHODS_prewrite ARILES2_METHODS(prewrite, const, ARILES2_EMPTY_MACRO)
+#define ARILES2_BASE_METHODS_prewrite ARILES2_BASE_METHODS(prewrite)
+    }  // namespace prewrite
 
 
-    /// @ingroup preprocess
-    typedef preprocess::Visitor PreProcess;
+    /// @ingroup prewrite
+    typedef prewrite::Visitor PreWrite;
 }  // namespace ariles2
