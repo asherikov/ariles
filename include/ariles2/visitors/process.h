@@ -15,7 +15,7 @@
 /**
 @defgroup process Process
 
-@brief Process entries, base for @ref preprocess and @ref postprocess.
+@brief Process entries, base for @ref preprocess and @ref postread.
 */
 
 namespace ariles2

@@ -16,7 +16,7 @@
 
 #define ARILES2_DEFAULT_VISITORS                                                                                       \
     ARILES2_VISITOR(count)                                                                                             \
-    ARILES2_VISITOR(postprocess)                                                                                       \
+    ARILES2_VISITOR(postread)                                                                                       \
     ARILES2_VISITOR(preprocess)                                                                                        \
     ARILES2_VISITOR(defaults)                                                                                          \
     ARILES2_VISITOR(read)                                                                                              \

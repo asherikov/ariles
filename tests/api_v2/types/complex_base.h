@@ -196,7 +196,7 @@ namespace ariles_tests
             impl.quaternion_.w() = GET_RANDOM_REAL;
 #    endif
 
-            ariles2::apply<ariles2::PostProcess>(impl);
+            ariles2::apply<ariles2::PostRead>(impl);
         }
 #endif
     };
