@@ -9,7 +9,7 @@
 */
 
 /**
-@defgroup ros ROS
+@defgroup rosparam ROS
 @ingroup config
 
 @brief ROS parameter server serialization.
@@ -18,7 +18,7 @@
 
 #pragma once
 
-#define ARILES2_VISITOR_INCLUDED_ros
+#define ARILES2_VISITOR_INCLUDED_rosparam
 
 #include <ariles2/internal/helpers.h>
 #include <ariles2/visitors/config.h>
@@ -26,18 +26,18 @@
 #include <ros/ros.h>
 
 
-#include "./ros/reader.h"
-#include "./ros/writer.h"
+#include "./rosparam/reader.h"
+#include "./rosparam/writer.h"
 
 namespace ariles2
 {
     /**
      * @brief ROS parameter server visitor.
-     * @ingroup ros
+     * @ingroup rosparam
      */
-    struct ARILES2_VISIBILITY_ATTRIBUTE ros
+    struct ARILES2_VISIBILITY_ATTRIBUTE rosparam
     {
-        typedef ariles2::cfgread::Visitor<ns_ros::Reader> Reader;
-        typedef ariles2::cfgwrite::Visitor<ns_ros::Writer> Writer;
+        typedef ariles2::cfgread::Visitor<ns_rosparam::Reader> Reader;
+        typedef ariles2::cfgwrite::Visitor<ns_rosparam::Writer> Writer;
     };
 }  // namespace ariles2

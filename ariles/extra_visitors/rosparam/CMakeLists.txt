@@ -16,4 +16,5 @@ endif()
 
 
 include(ariles_install_component)
-set(DEB_${ARILES_COMPONENT}_DEPENDS "ros-${ARILES_VISITOR_ros}-ros-base")
+set(ARILES_ROS_DISTRO "${ARILES_VISITOR_rosparam}")
+set(DEB_${ARILES_COMPONENT}_DEPENDS "ros-${ARILES_ROS_DISTRO}-ros-base")

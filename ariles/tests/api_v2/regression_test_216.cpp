@@ -30,7 +30,7 @@
 #include "types/complex_verbose.h"
 #include "types/empty.h"
 #include "types/enum.h"
-#include "types/postprocess.h"
+#include "types/postread.h"
 #include "types/inheritance.h"
 #include "types/minimal.h"
 #include "types/no_setdefaults.h"
@@ -46,7 +46,7 @@ int main()
     ariles_tests::ConfigurableComplex a;
     ariles_tests::ConfigurableComplexVerbose b;
     ariles_tests::ConfigurableEmpty c;
-    ariles_tests::ConfigurablePostProcess d;
+    ariles_tests::ConfigurablePostRead d;
     ariles_tests::ConfigurableMember<int> e;
     ariles_tests::ConfigurableBase f;
     ariles_tests::ConfigurableDerived g;

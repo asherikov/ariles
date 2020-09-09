@@ -8,7 +8,7 @@ Ariles
         <a href="https://github.com/asherikov/ariles/tree/head_2">HEAD v2</a>
     </td>
     <td align="center">
-        <a href="https://github.com/asherikov/ariles/tree/pkg_ros_2">pkg_ros</a><br/>
+        <a href="https://github.com/asherikov/ariles/tree/pkg_ros_2">pkg_ros_2</a><br/>
         (ROS package)
     </td>
     <td align="center">
@@ -127,7 +127,7 @@ Conversion:
 // read class from a file
 ariles2::apply<ariles2::yaml_cpp::Reader>("config.yaml", configurable);
 // dump class to ROS parameter server
-ariles2::apply<ariles2::ros::Writer>(nh, configurable, "/some_namespace/");
+ariles2::apply<ariles2::rosparam::Writer>(nh, configurable, "/some_namespace/");
 ```
 
 
@@ -210,7 +210,7 @@ Related software
 
 * https://github.com/PickNikRobotics/rosparam_shortcuts: a set of wrapper
   functions to read individual parameters from ROS parameter server. This tool
-  serves pretty much the same purpose as `ariles2::ros::Reader`, but its
+  serves pretty much the same purpose as `ariles2::rosparam::Reader`, but its
   functionality is more limited.
 
 * https://billyquith.github.io/ponder/: C++14 reflection library, supports

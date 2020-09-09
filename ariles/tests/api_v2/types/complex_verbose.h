@@ -37,7 +37,7 @@ namespace ariles_tests
         ARILES2_ENTRY_(v, vector)                                                                                      \
         ARILES2_ENTRY_(v, matrix)                                                                                      \
         ARILES2_ENTRY_(v, matrix_x)                                                                                    \
-        ARILES2_ENTRY_(v, matrix_complex_double)                                                                                    \
+        ARILES2_ENTRY_(v, matrix_complex_double)                                                                       \
         ARILES2_ENTRY_(v, std_vector_evector)                                                                          \
         ARILES2_ENTRY_(v, std_nested_vector_evector)                                                                   \
         ARILES2_ENTRY_(v, isometry)                                                                                    \

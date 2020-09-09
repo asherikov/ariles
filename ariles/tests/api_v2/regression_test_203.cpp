@@ -14,8 +14,8 @@
 
 #define ARILES2_DEFAULT_VISITORS                                                                                       \
     ARILES2_VISITOR(count)                                                                                             \
-    ARILES2_VISITOR(postprocess)                                                                                       \
-    ARILES2_VISITOR(preprocess)                                                                                        \
+    ARILES2_VISITOR(postread)                                                                                          \
+    ARILES2_VISITOR(prewrite)                                                                                          \
     ARILES2_VISITOR(defaults)                                                                                          \
     ARILES2_VISITOR(read)                                                                                              \
     ARILES2_VISITOR(write)                                                                                             \
@@ -29,7 +29,7 @@
 // TYPES
 // ===============================================================
 
-#include "types/postprocess.h"
+#include "types/postread.h"
 #define ARILES_TESTS_COMPARE_DISABLED
 #include "types/complex_auto_declare.h"
 #undef ARILES_TESTS_COMPARE_DISABLED
@@ -44,6 +44,7 @@
 #include "fixtures/002_comparison.h"
 #include "fixtures/003_comparison_vector.h"
 #include "fixtures/006_dummy.h"
+#include "fixtures/019_defaults.h"
 
 
 // ===============================================================
@@ -51,16 +52,18 @@
 // ===============================================================
 
 #define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                                               \
-    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER)       \
-    ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, VISITOR_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER)     \
-    ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, VISITOR_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER)      \
-    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, VISITOR_ID, NAMESPACE, ConfigurablePostProcess, INITIALIZER)
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurablePostRead, INITIALIZER)          \
+    ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, VISITOR_ID, NAMESPACE, ConfigurablePostRead, INITIALIZER)        \
+    ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, VISITOR_ID, NAMESPACE, ConfigurablePostRead, INITIALIZER)         \
+    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, VISITOR_ID, NAMESPACE, ConfigurablePostRead, INITIALIZER)        \
+    ARILES_FIXTURE_TEST_CASE(DefaultsCheckFixture, VISITOR_ID, NAMESPACE, ConfigurablePostRead, INITIALIZER)           \
+    ARILES_FIXTURE_TEST_CASE(DefaultsCheckFixture, VISITOR_ID, NAMESPACE, ConfigurableComplex, INITIALIZER)
 
 
-BOOST_FIXTURE_TEST_CASE(Complex_arilesPostProcess, ariles_tests::DummyFixture)
+BOOST_FIXTURE_TEST_CASE(Complex_arilesPostRead, ariles_tests::DummyFixture)
 {
     ariles_tests::ConfigurableComplex configurable;
-    ariles2::apply<ariles2::PostProcess>(configurable);
+    ariles2::apply<ariles2::PostRead>(configurable);
 }
 
 

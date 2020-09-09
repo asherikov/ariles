@@ -106,7 +106,7 @@ namespace ariles_tests
         };
 
 
-#ifdef ARILES2_VISITOR_INCLUDED_ros
+#ifdef ARILES2_VISITOR_INCLUDED_rosparam
 #    include <unistd.h>
 #    include <sys/types.h>
 #    include <sys/wait.h>

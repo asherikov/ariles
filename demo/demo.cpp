@@ -16,7 +16,7 @@
 // `visitor` is an Ariles component which provides integration with a particular
 // 3rd party library.
 #include <ariles2/visitors/yaml_cpp.h>
-#include <ariles2/visitors/ros.h>
+#include <ariles2/visitors/rosparam.h>
 #include <ariles2/visitors/octave.h>
 
 // `adapter` is an Ariles component which adds support for serialization of
@@ -164,20 +164,20 @@ int main()
         ros::NodeHandle nh;
 
         // read/write
-        ariles2::apply<ariles2::ros::Writer>(nh, my_container_class);
-        ariles2::apply<ariles2::ros::Reader>(nh, my_container_class);
+        ariles2::apply<ariles2::rosparam::Writer>(nh, my_container_class);
+        ariles2::apply<ariles2::rosparam::Reader>(nh, my_container_class);
         // parameters can be uploaded to parameter server in advance using
         // roslaunch, see http://wiki.ros.org/roslaunch/XML/rosparam
 
         // read/write with namespace
-        ariles2::apply<ariles2::ros::Writer>(nh, my_container_class, "/some_namespace/");
-        ariles2::apply<ariles2::ros::Reader>(nh, my_container_class, "/some_namespace/");
+        ariles2::apply<ariles2::rosparam::Writer>(nh, my_container_class, "/some_namespace/");
+        ariles2::apply<ariles2::rosparam::Reader>(nh, my_container_class, "/some_namespace/");
 
         // Reader / Writer classes
-        ariles2::ros::Writer writer(nh);
+        ariles2::rosparam::Writer writer(nh);
         ariles2::apply(writer, my_container_class);
 
-        ariles2::ros::Reader reader(nh);
+        ariles2::rosparam::Reader reader(nh);
         ariles2::apply(reader, my_container_class);
     }
 

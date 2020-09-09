@@ -132,8 +132,9 @@ namespace ariles2
                     }
                     return (false);
                 }
-                return (std::abs(left - right) <= ((std::abs(left) < std::abs(right) ? std::abs(right) : std::abs(left))
-                                                   * param.double_tolerance_));
+                return (std::abs(left - right)
+                        <= ((std::abs(left) < std::abs(right) ? std::abs(right) : std::abs(left))
+                            * param.double_tolerance_));
             }
 
 
@@ -159,7 +160,8 @@ namespace ariles2
 
 
         template <>
-        inline double Visitor::Parameters::getTolerance<double>(const ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(double)) const
+        inline double Visitor::Parameters::getTolerance<double>(
+                const ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(double)) const
         {
             return (double_tolerance_);
         }

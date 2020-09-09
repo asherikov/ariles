@@ -16,11 +16,11 @@
 
 namespace ariles2
 {
-    namespace ns_ros
+    namespace ns_rosparam
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ariles2::ns_ros::ImplBase
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ariles2::ns_rosparam::ImplBase
             {
             public:
                 std::vector<XmlRpc::XmlRpcValue::iterator> iterator_stack_;
@@ -32,13 +32,13 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_ros
+    }      // namespace ns_rosparam
 }  // namespace ariles2
 
 
 namespace ariles2
 {
-    namespace ns_ros
+    namespace ns_rosparam
     {
         Reader::Reader(const ::ros::NodeHandle &nh)
         {
@@ -265,5 +265,5 @@ namespace ariles2
                     break;
             }
         }
-    }  // namespace ns_ros
+    }  // namespace ns_rosparam
 }  // namespace ariles2

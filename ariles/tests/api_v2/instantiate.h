@@ -40,8 +40,8 @@ ARILES_TESTS(rapidjson_jsonnet, jsonnet<ariles2::rapidjson>, StreamInitializer)
 #    undef ComparisonMultiFixture
 #endif
 
-#ifdef ARILES2_VISITOR_INCLUDED_ros
-ARILES_TESTS_SHORTCUT(ros, ROSInitializer)
+#ifdef ARILES2_VISITOR_INCLUDED_rosparam
+ARILES_TESTS_SHORTCUT(rosparam, ROSInitializer)
 #endif
 
 #ifdef ARILES2_VISITOR_INCLUDED_octave

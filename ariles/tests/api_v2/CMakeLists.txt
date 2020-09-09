@@ -36,7 +36,7 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY     "${PROJECT_BINARY_DIR}/tests_bin_api_v2/
 ## API v2
 ##############################################################################
 
-ariles_define_test(${PROJECT_NAME} "demo_api_v2" "yaml_cpp;ros;octave" "")
+ariles_define_test(${PROJECT_NAME} "demo_api_v2" "yaml_cpp;rosparam;octave" "")
 
 # basic test for missing inlines
 add_library(testlib_api_v2 SHARED testlib1.cpp testlib2.cpp)
@@ -48,7 +48,7 @@ target_include_directories(testlib_api_v2 SYSTEM PRIVATE ${ARILES_CORE_DEPENDENC
 ariles_define_regression_test(${PROJECT_NAME} "200" "" "${ARILES_TEST_ALL_VISITORS}") # features
 ariles_define_regression_test(${PROJECT_NAME} "201" "" "${ARILES_TEST_ALL_VISITORS}") # complex
 ariles_define_regression_test(${PROJECT_NAME} "202" "" "${ARILES_TEST_ALL_VISITORS}") # inheritance, strictness
-ariles_define_regression_test(${PROJECT_NAME} "203" "" "${ARILES_TEST_ALL_VISITORS}") # postprocess
+ariles_define_regression_test(${PROJECT_NAME} "203" "" "${ARILES_TEST_ALL_VISITORS}") # postread, defaults
 ariles_define_regression_test(${PROJECT_NAME} "204" "" "${ARILES_TEST_ALL_VISITORS}") # no all_enabled_adapters.h
 ariles_define_regression_test(${PROJECT_NAME} "205" "" "${ARILES_TEST_ALL_VISITORS}") # disabled ariles
 ariles_define_regression_test(${PROJECT_NAME} "209" "" "${ARILES_TEST_ALL_VISITORS}") # pointers (scalar)

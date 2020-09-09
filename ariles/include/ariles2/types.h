@@ -182,7 +182,7 @@ namespace ariles2
         }
 
 
-        void arilesVisit(const ariles2::PostProcess &visitor, const ariles2::PostProcess::Parameters &param)
+        void arilesVisit(const ariles2::PostRead &visitor, const ariles2::PostRead::Parameters &param)
         {
             if (true == isInitialized())
             {
@@ -191,7 +191,7 @@ namespace ariles2
         }
 
 
-        void arilesVisit(const ariles2::PreProcess &visitor, const ariles2::PreProcess::Parameters &param)
+        void arilesVisit(const ariles2::PreWrite &visitor, const ariles2::PreWrite::Parameters &param)
         {
             if (true == isInitialized())
             {
@@ -282,13 +282,13 @@ namespace ariles2
         }
 
 
-        void arilesVisit(const ariles2::PostProcess &visitor, const ariles2::PostProcess::Parameters &param)
+        void arilesVisit(const ariles2::PostRead &visitor, const ariles2::PostRead::Parameters &param)
         {
             ARILES2_ASSERT(false == isNull(), "Not initialized");
             value_->arilesVisit(visitor, param);
         }
 
-        void arilesVisit(const ariles2::PreProcess &visitor, const ariles2::PreProcess::Parameters &param)
+        void arilesVisit(const ariles2::PreWrite &visitor, const ariles2::PreWrite::Parameters &param)
         {
             if (false == isNull())
             {

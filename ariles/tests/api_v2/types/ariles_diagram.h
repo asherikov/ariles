@@ -144,8 +144,8 @@ namespace ariles_tests
             visitors_["rapidjson"] = ArilesVisitor();
             visitors_["rapidjson"].dependencies_.push_back(ArilesDependency("rapidjson", "https://rapidjson.org/"));
 
-            visitors_["ros"] = ArilesVisitor();
-            visitors_["ros"].dependencies_.push_back(ArilesDependency("ros", "https://www.ros.org/"));
+            visitors_["rosparam"] = ArilesVisitor();
+            visitors_["rosparam"].dependencies_.push_back(ArilesDependency("ros", "https://www.ros.org/"));
 
             visitors_["yaml_cpp"] = ArilesVisitor();
             visitors_["yaml_cpp"].dependencies_.push_back(

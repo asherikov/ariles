@@ -25,8 +25,7 @@
 
 #    define ARILES2_IS_ENUM_ENABLER(Enum) const typename std::enable_if<(std::is_enum<Enum>::value)>::type * = NULL
 
-#    define ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(Real)                                                                    \
-        std::enable_if<(std::is_floating_point<Real>::value)>::type *
+#    define ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(Real) std::enable_if<(std::is_floating_point<Real>::value)>::type *
 
 #    define ARILES2_IS_BASE_OF(Base, Derived) std::is_base_of<Base, Derived>::value
 
@@ -49,7 +48,7 @@
 #    define ARILES2_IS_ENUM_ENABLER(Enum)                                                                              \
         const typename boost::enable_if_c<(boost::is_enum<Enum>::value)>::type * = NULL
 
-#    define ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(Real)                                                                    \
+#    define ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(Real)                                                               \
         boost::enable_if_c<(boost::is_floating_point<Real>::value)>::type *
 
 #    define ARILES2_IS_BASE_OF(Base, Derived) boost::is_base_of<Base, Derived>::value

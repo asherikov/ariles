@@ -22,8 +22,8 @@
 #    include <ariles2/visitors/msgpack.h>
 #endif
 
-#ifdef ARILES_VISITOR_ros
-#    include <ariles2/visitors/ros.h>
+#ifdef ARILES_VISITOR_rosparam
+#    include <ariles2/visitors/rosparam.h>
 #endif
 
 #ifdef ARILES_VISITOR_jsonnet

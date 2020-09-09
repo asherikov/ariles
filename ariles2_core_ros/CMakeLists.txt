@@ -6,9 +6,9 @@ option(ARILES_ROS_ENABLE_TESTS "Enable tests." OFF)
 
 #-----
 # ARILES
-set(ARILES_VISITOR_ros          "ON"    CACHE STRING "")
+set(ARILES_VISITOR_rosparam     "ON"    CACHE STRING "")
 
-set(ARILES_COMPONENTS  core ros)
+set(ARILES_COMPONENTS  core rosparam)
 #-----
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/../.cmake/common.cmake)
