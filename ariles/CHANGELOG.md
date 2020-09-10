@@ -1,6 +1,17 @@
 Unreleased
 ==========
 
+1.6.8
+==========
+
+Fixed
+-----
+
+* Critical bug in ARILES_API_VERSION define handling: `setDefaults()` was not
+  called under some conditions.
+* Inclusion order in helpers.h
+
+
 
 1.6.7
 ==========

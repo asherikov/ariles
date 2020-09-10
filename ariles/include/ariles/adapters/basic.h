@@ -10,6 +10,10 @@
 
 #pragma once
 
+#ifndef ARILES_API_VERSION
+#    define ARILES_API_VERSION 1
+#endif
+
 namespace ariles
 {
     namespace read

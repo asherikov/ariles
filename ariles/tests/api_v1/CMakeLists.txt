@@ -40,7 +40,7 @@ target_include_directories(testlib_api_v1 SYSTEM PRIVATE ${ARILES_CORE_DEPENDENC
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "000" "" "${ARILES_TEST_ALL_VISITORS}") # features
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "001" "" "${ARILES_TEST_ALL_VISITORS}") # complex
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "002" "" "${ARILES_TEST_ALL_VISITORS}") # inheritance, strictness
-ariles_define_regression_test(${CMAKE_PROJECT_NAME} "003" "" "${ARILES_TEST_ALL_VISITORS}") # finalize
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "003" "" "${ARILES_TEST_ALL_VISITORS}") # finalize, defaults
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "004" "" "${ARILES_TEST_ALL_VISITORS}") # no adapters_all.h
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "005" "" "${ARILES_TEST_ALL_VISITORS}") # disabled ariles
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "009" "" "${ARILES_TEST_ALL_VISITORS}") # pointers (scalar)
@@ -58,4 +58,10 @@ ariles_define_regression_test(${CMAKE_PROJECT_NAME} "020" "" "")                
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "021" "array" "")                       # array
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "022" "" "${ARILES_TEST_ALL_VISITORS}") # flags
 ariles_define_regression_test(${CMAKE_PROJECT_NAME} "023" "rapidjson" "")                   # json floats, flags
-ariles_define_regression_test(${CMAKE_PROJECT_NAME} "024" "" "yaml_cpp03;yaml_cpp")         # missing entries
+if (NOT ${ARILES_VISITOR_yaml_cpp} STREQUAL "OFF")
+    ariles_define_regression_test(${CMAKE_PROJECT_NAME} "024" "yaml_cpp" "")                # missing entries
+elseif (NOT ${ARILES_VISITOR_yaml_cpp03} STREQUAL "OFF")
+    ariles_define_regression_test(${CMAKE_PROJECT_NAME} "024" "yaml_cpp03" "")              # missing entries
+endif()
+ariles_define_regression_test(${CMAKE_PROJECT_NAME} "025" "" "${ARILES_TEST_ALL_VISITORS}") # Eigen vector wrapper
+
