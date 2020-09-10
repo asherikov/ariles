@@ -19,9 +19,6 @@ namespace ariles_tests
 #include ARILES2_INITIALIZE
 
     public:
-        double another_real_;
-
-    public:
         ConfigurableNoSetDefaults()
         {
             ariles2::apply<ariles2::Defaults>(*this);

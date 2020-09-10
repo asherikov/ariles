@@ -220,9 +220,6 @@ cppcheck:
 		--suppress=syntaxError \
 		--suppress=useInitializationList \
 		--suppress=functionStatic \
-		--suppress=noExplicitConstructor:tests/api_v2/types/types.h \
-		--suppress=constParameter:tests/api_v2/types/types.h \
-		--suppress=redundantAssignment:tests/api_v2/types/any.h \
 		-i ./build \
 	3>&1 1>&2 2>&3 | tee cppcheck.err
 	test 0 -eq `cat cppcheck.err | wc -l && rm cppcheck.err`
