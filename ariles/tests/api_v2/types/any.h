@@ -113,12 +113,15 @@ namespace ariles_tests
 
             this->operator->()->real_ = 10.0;
             test = this->operator->()->real_;
+            BOOST_CHECK_EQUAL(test, 10.0);
 
             this->operator*().real_ = 10.0;
             test = this->operator*().real_;
+            BOOST_CHECK_EQUAL(test, 10.0);
 
             this->template cast<Derived1>()->real1_ = 10.0;
             test = this->template cast<Derived1>()->real1_;
+            BOOST_CHECK_EQUAL(test, 10.0);
 
 
             test = GET_RANDOM_REAL;
