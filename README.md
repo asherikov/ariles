@@ -16,7 +16,7 @@ Ariles
   </tr>
   <tr>
     <th>CI status</th>
-    <td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=master" alt="Build Status"></a></td>
+    <td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=head_1" alt="Build Status"></a></td>
     <td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=pkg_ros" alt="Build Status"></a></td>
     <td align="center">X</td>
   </tr>
