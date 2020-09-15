@@ -43,6 +43,24 @@ namespace ariles_tests
             }
 
 
+            // Explicit instantiation of reader and writer classes + id
+            {
+                t_Configurable configurable;
+                configurable.randomize();
+
+                typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
+                ariles2::apply(writer, configurable, std::string("id"));
+
+                BOOST_CHECK_EQUAL(writer.getWriter().index_, writer.getWriter().name_value_pairs_->size());
+
+                for (std::size_t i = 0; i < writer.getWriter().name_value_pairs_->size(); ++i)
+                {
+                    std::cout << (*writer.getWriter().name_value_pairs_)[i].first << " = "
+                              << (*writer.getWriter().name_value_pairs_)[i].second << std::endl;
+                }
+            }
+
+
             // External buffers
             {
                 t_Configurable configurable;
