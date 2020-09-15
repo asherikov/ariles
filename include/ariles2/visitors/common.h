@@ -313,6 +313,7 @@ namespace ariles2
             t_Left &left,
             t_Right &right,
             ARILES2_IS_BASE_DISABLER(typename t_Visitor::Parameters, t_Right),
+            ARILES2_IS_BASE_DISABLER(std::string, t_Right),
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
