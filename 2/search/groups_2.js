@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['defaults',['Defaults',['../group__defaults.html',1,'']]]
+  ['graphviz',['Graphviz',['../group__graphviz.html',1,'']]]
 ];
