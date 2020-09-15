@@ -174,7 +174,7 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
-                    "Internal error: array has more elements than expected.");
+                    "Internal error: namevalue.has more elements than expected.");
         }
 
 

@@ -48,8 +48,8 @@ ARILES_TESTS_SHORTCUT(rosparam, ROSInitializer)
 ARILES_TESTS_SHORTCUT(octave, FilenameInitializer)
 #endif
 
-#ifdef ARILES2_VISITOR_INCLUDED_array
-ARILES_TESTS_SHORTCUT(array, SizeInitializer)
+#ifdef ARILES2_VISITOR_INCLUDED_namevalue
+ARILES_TESTS_SHORTCUT(namevalue, SizeInitializer)
 #endif
 
 #ifdef ARILES2_VISITOR_INCLUDED_pugixml

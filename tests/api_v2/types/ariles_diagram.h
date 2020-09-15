@@ -128,7 +128,7 @@ namespace ariles_tests
 
         void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
-            visitors_["array"] = ArilesVisitor();
+            visitors_["namevalue"] = ArilesVisitor();
             visitors_["graphviz"] = ArilesVisitor();
             visitors_["octave"] = ArilesVisitor();
 

@@ -70,6 +70,7 @@ michalczyk
 movelib
 msgpack
 msgs
+namevalue
 noexcept
 npos
 nullptr

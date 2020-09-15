@@ -18,7 +18,7 @@
 
 namespace ariles2
 {
-    namespace ns_array
+    namespace ns_namevalue
     {
         typedef std::pair<std::string, double> NameValuePair;
 
@@ -252,5 +252,5 @@ namespace ariles2
 
 
         typedef GenericWriter<NameValuePair> Writer;
-    }  // namespace ns_array
+    }  // namespace ns_namevalue
 }  // namespace ariles2

@@ -65,7 +65,7 @@ ariles_define_regression_test(${PROJECT_NAME} "217" "" "${ARILES_TEST_ALL_VISITO
 ariles_define_regression_test(${PROJECT_NAME} "218" "" "${ARILES_TEST_ALL_VISITORS}") # pointers (configurable)
 ariles_define_regression_test(${PROJECT_NAME} "219" "" "")                            # comparison (complex)
 ariles_define_regression_test(${PROJECT_NAME} "220" "" "")                            # comparison (inheritance)
-ariles_define_regression_test(${PROJECT_NAME} "221" "array" "")                       # array
+ariles_define_regression_test(${PROJECT_NAME} "221" "namevalue" "")                   # namevalue
 ariles_define_regression_test(${PROJECT_NAME} "222" "" "${ARILES_TEST_ALL_VISITORS}") # flags
 ariles_define_regression_test(${PROJECT_NAME} "223" "rapidjson" "")                   # json floats, flags
 if (NOT ${ARILES_VISITOR_yaml_cpp} STREQUAL "OFF")

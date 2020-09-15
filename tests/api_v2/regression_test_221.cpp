@@ -11,8 +11,8 @@
 
 #include "utility.h"
 
-#ifdef ARILES_VISITOR_array
-#    include <ariles2/visitors/array.h>
+#ifdef ARILES_VISITOR_namevalue
+#    include <ariles2/visitors/namevalue.h>
 #endif
 #include "all_enabled_adapters.h"
 
@@ -33,7 +33,7 @@
 
 
 #include "fixtures/initializers.h"
-#include "fixtures/013_write_array.h"
+#include "fixtures/013_write_namevalue.h"
 
 
 // ===============================================================
@@ -41,7 +41,7 @@
 // ===============================================================
 
 #define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                                               \
-    ARILES_FIXTURE_TEST_CASE(ArrayFixture, VISITOR_ID, NAMESPACE, ConfigurableComplex, INITIALIZER)                    \
-    ARILES_FIXTURE_TEST_CASE(ArrayFixture, VISITOR_ID, NAMESPACE, ConfigurableEmpty, INITIALIZER)
+    ARILES_FIXTURE_TEST_CASE(NameValueFixture, VISITOR_ID, NAMESPACE, ConfigurableComplex, INITIALIZER)                    \
+    ARILES_FIXTURE_TEST_CASE(NameValueFixture, VISITOR_ID, NAMESPACE, ConfigurableEmpty, INITIALIZER)
 
 #include "instantiate.h"

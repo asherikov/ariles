@@ -159,7 +159,7 @@ specific data representation formats, for example:
   https://asherikov.github.io/ariles/2/group__ros.html
 
 * A set of key-value pairs, output only, no dependencies:
-  https://asherikov.github.io/ariles/2/group__array.html
+  https://asherikov.github.io/ariles/2/group__namevalue.html
 
 * `graphviz` dot files for diagram generation:
   https://asherikov.github.io/ariles/2/group__graphviz.html
