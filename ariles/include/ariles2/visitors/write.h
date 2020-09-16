@@ -41,7 +41,7 @@ namespace ariles2
 
 
         template <class t_Derived, class t_Parameters>
-        class ARILES2_VISIBILITY_ATTRIBUTE VisitorBase : public serialization::Base<t_Parameters>
+        class ARILES2_VISIBILITY_ATTRIBUTE VisitorBase : public serialization::Base<t_Derived, t_Parameters>
         {
         protected:
             VisitorBase(){};

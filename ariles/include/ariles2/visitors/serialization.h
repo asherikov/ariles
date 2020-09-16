@@ -135,7 +135,7 @@ namespace ariles2
         };
 
 
-        template <class t_Parameters>
+        template <class t_Derived, class t_Parameters>
         class ARILES2_VISIBILITY_ATTRIBUTE Base : public visitor::Base<visitor::GenericVisitor, t_Parameters>
         {
         public:
@@ -148,7 +148,7 @@ namespace ariles2
             template <class t_Ariles>
             const t_Parameters &getParameters(const t_Ariles &ariles_class) const
             {
-                return (ariles_class.arilesGetParameters(*this));
+                return (ariles_class.arilesGetParameters(*static_cast<const t_Derived *>(this)));
             }
         };
     }  // namespace serialization

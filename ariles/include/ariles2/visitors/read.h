@@ -42,7 +42,7 @@ namespace ariles2
 
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public serialization::Base<Parameters>
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public serialization::Base<Visitor, Parameters>
         {
         public:
             enum SizeLimitEnforcementType

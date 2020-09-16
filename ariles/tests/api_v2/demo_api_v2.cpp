@@ -93,6 +93,9 @@ namespace demo
             // If you use your own method to initialize member variables,
             // it is up to you to properly initialize all entries and
             // parent classes.
+            // all parents at once
+            arilesVisitParents(visitor, param);
+            // or one by one (either option is sufficient)
             ArilesBaseClass::arilesVisit(visitor, param);
 
             // custom default values for some members

@@ -9,7 +9,7 @@
 */
 
 /**
-@defgroup array Array
+@defgroup namevalue NameValue
 @ingroup config
 
 @brief Generates a vector of <std::string, double> pairs with flattened member names,
@@ -19,21 +19,21 @@ e.g., <"ariles_class.class_member.real_member", 3.4>.
 
 #pragma once
 
-#define ARILES2_VISITOR_INCLUDED_array
+#define ARILES2_VISITOR_INCLUDED_namevalue
 
 #include <ariles2/internal/helpers.h>
 #include <ariles2/visitors/config.h>
 
-#include "./array/writer.h"
+#include "./namevalue/writer.h"
 
 namespace ariles2
 {
     /**
-     * @brief Array visitor.
-     * @ingroup array
+     * @brief NameValue visitor.
+     * @ingroup namevalue
      */
-    struct ARILES2_VISIBILITY_ATTRIBUTE array
+    struct ARILES2_VISIBILITY_ATTRIBUTE namevalue
     {
-        typedef ariles2::cfgwrite::Visitor<ns_array::Writer> Writer;
+        typedef ariles2::cfgwrite::Visitor<ns_namevalue::Writer> Writer;
     };
 }  // namespace ariles2

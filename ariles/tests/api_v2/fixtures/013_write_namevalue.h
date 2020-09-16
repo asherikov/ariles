@@ -15,7 +15,7 @@
 namespace ariles_tests
 {
     template <class t_FixtureBase>
-    class ArrayFixture : public t_FixtureBase
+    class NameValueFixture : public t_FixtureBase
     {
     public:
         using t_FixtureBase::getWriterInitializer;
@@ -43,12 +43,30 @@ namespace ariles_tests
             }
 
 
+            // Explicit instantiation of reader and writer classes + id
+            {
+                t_Configurable configurable;
+                configurable.randomize();
+
+                typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
+                ariles2::apply(writer, configurable, std::string("id"));
+
+                BOOST_CHECK_EQUAL(writer.getWriter().index_, writer.getWriter().name_value_pairs_->size());
+
+                for (std::size_t i = 0; i < writer.getWriter().name_value_pairs_->size(); ++i)
+                {
+                    std::cout << (*writer.getWriter().name_value_pairs_)[i].first << " = "
+                              << (*writer.getWriter().name_value_pairs_)[i].second << std::endl;
+                }
+            }
+
+
             // External buffers
             {
                 t_Configurable configurable;
                 configurable.randomize();
 
-                std::vector<ariles2::ns_array::NameValuePair> name_value_pairs;
+                std::vector<ariles2::ns_namevalue::NameValuePair> name_value_pairs;
 
                 typename t_Visitor::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
                 ariles2::apply(writer, configurable);
@@ -62,14 +80,14 @@ namespace ariles_tests
                 t_Configurable configurable;
                 configurable.randomize();
 
-                std::vector<ariles2::ns_array::NameValuePair> name_value_pairs;
+                std::vector<ariles2::ns_namevalue::NameValuePair> name_value_pairs;
 
                 typename t_Visitor::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
                 ariles2::apply(writer, configurable);
 
                 BOOST_CHECK_EQUAL(writer.getWriter().index_, name_value_pairs.size());
 
-                std::vector<ariles2::ns_array::NameValuePair> name_value_pairs_back = name_value_pairs;
+                std::vector<ariles2::ns_namevalue::NameValuePair> name_value_pairs_back = name_value_pairs;
                 writer.getWriter().reset();
 
                 ariles2::apply(writer, configurable);
@@ -91,7 +109,7 @@ namespace ariles_tests
                 configurable.randomize();
 
                 const bool initialize_structure = false;
-                std::vector<ariles2::ns_array::NameValuePair> name_value_pairs;
+                std::vector<ariles2::ns_namevalue::NameValuePair> name_value_pairs;
 
                 typename t_Visitor::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
                 ariles2::apply(writer, configurable);
@@ -100,7 +118,7 @@ namespace ariles_tests
 
                 // ---
 
-                std::vector<ariles2::ns_array::NameValuePair> name_value_pairs_back = name_value_pairs;
+                std::vector<ariles2::ns_namevalue::NameValuePair> name_value_pairs_back = name_value_pairs;
                 writer.getWriter().reset(initialize_structure);
 
                 ariles2::apply(writer, configurable);

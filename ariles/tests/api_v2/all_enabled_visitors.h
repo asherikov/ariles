@@ -44,10 +44,10 @@
 //#include <ariles2/visitors/octave.h>
 //#endif
 //
-//#ifdef ARILES_VISITOR_array
-//#include <ariles2/visitors/array.h>
+//#ifdef ARILES_VISITOR_namevalue
+//#include <ariles2/visitors/namevalue.h>
 //#endif
 //
 //#ifdef ARILES_VISITOR_graphviz
-//#include <ariles2/visitors/array.h>
+//#include <ariles2/visitors/namevalue.h>
 //#endif
