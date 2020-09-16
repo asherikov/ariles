@@ -4,6 +4,7 @@ Unreleased
 Changed
 -------
 * Ariles namespace (`ariles` -> `ariles2`).
+* Renamed visitors: `ros` -> `rosparam`, `array` - > `namevalue`.
 * Ariles entry and parent class declaration API, refer to examples and tests.
 
 
