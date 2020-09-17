@@ -75,8 +75,8 @@ namespace ariles_tests
 
                 configurable.defaults_check_flag_ = false;
                 typename t_Visitor::Reader::Parameters parameters;
-                parameters.reader_parameters_.override_parameters_ = false;
-                parameters.reader_parameters_.allow_missing_entries_ = true;
+                parameters.read_.override_parameters_ = false;
+                parameters.read_.allow_missing_entries_ = true;
                 typename t_Visitor::Reader reader(getReaderInitializer("configurable.cfg"));
                 ariles2::apply(reader, configurable, parameters);
                 BOOST_CHECK(configurable.defaults_check_flag_);

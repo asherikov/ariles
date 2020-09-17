@@ -74,8 +74,8 @@ namespace ariles_tests
                 t_Configurable configurable;
 
                 typename t_Visitor::Reader::Parameters parameters;
-                parameters.reader_parameters_.override_parameters_ = true;
-                parameters.reader_parameters_.allow_missing_entries_ = true;
+                parameters.read_.override_parameters_ = true;
+                parameters.read_.allow_missing_entries_ = true;
                 typename t_Visitor::Reader reader(std::string("configurable3") + ".cfg");
                 ariles2::apply(reader, configurable, parameters);
             }
@@ -93,8 +93,8 @@ namespace ariles_tests
             {
                 t_Configurable configurable;
                 typename t_Visitor::Reader::Parameters parameters;
-                parameters.reader_parameters_.override_parameters_ = true;
-                parameters.reader_parameters_.allow_missing_entries_ = true;
+                parameters.read_.override_parameters_ = true;
+                parameters.read_.allow_missing_entries_ = true;
                 ariles2::apply<typename t_Visitor::Reader>(
                         std::string("configurable4") + ".cfg", configurable, parameters);
             }

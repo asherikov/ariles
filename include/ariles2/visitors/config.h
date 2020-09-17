@@ -33,33 +33,31 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters
         {
         public:
-            ariles2::defaults::Visitor::Parameters defaults_parameters_;
-            typename t_Reader::Parameters reader_parameters_;
-            ariles2::postread::Visitor::Parameters postread_parameters_;
+            ariles2::defaults::Visitor::Parameters defaults_;
+            typename t_Reader::Parameters read_;
+            ariles2::postread::Visitor::Parameters postread_;
 
 
         public:
             Parameters(const bool override_parameters = true)
-              : defaults_parameters_(override_parameters)
-              , reader_parameters_(override_parameters)
-              , postread_parameters_(override_parameters)
+              : defaults_(override_parameters), read_(override_parameters), postread_(override_parameters)
             {
             }
 
             Parameters(const typename t_Reader::Parameters &param, const bool override_parameters = true)
-              : defaults_parameters_(override_parameters), postread_parameters_(override_parameters)
+              : defaults_(override_parameters), postread_(override_parameters)
             {
-                this->reader_parameters_ = param;
+                this->read_ = param;
             }
 
             Parameters(
-                    const ariles2::defaults::Visitor::Parameters &defaults_parameters,
-                    const typename t_Reader::Parameters &reader_parameters,
-                    const ariles2::postread::Visitor::Parameters &postread_parameters)
+                    const ariles2::defaults::Visitor::Parameters &defaults,
+                    const typename t_Reader::Parameters &reader,
+                    const ariles2::postread::Visitor::Parameters &postread)
             {
-                this->defaults_parameters_ = defaults_parameters;
-                this->reader_parameters_ = reader_parameters;
-                this->postread_parameters_ = postread_parameters;
+                this->defaults_ = defaults;
+                this->read_ = reader;
+                this->postread_ = postread;
             }
         };
 
@@ -73,27 +71,27 @@ namespace ariles2
 
 
         public:
-            ariles2::defaults::Visitor defaults_visitor_;
-            t_Reader reader_visitor_;
-            ariles2::postread::Visitor postread_visitor_;
+            ariles2::defaults::Visitor defaults_;
+            t_Reader read_;
+            ariles2::postread::Visitor postread_;
 
 
         public:
             template <class t_Initializer>
-            Visitor(t_Initializer &initializer) : reader_visitor_(initializer)
+            Visitor(t_Initializer &initializer) : read_(initializer)
             {
                 ARILES2_TRACE_FUNCTION;
             }
 
             template <class t_Initializer>
-            Visitor(const t_Initializer &initializer) : reader_visitor_(initializer)
+            Visitor(const t_Initializer &initializer) : read_(initializer)
             {
                 ARILES2_TRACE_FUNCTION;
             }
 
             template <class t_Initializer0, class t_Initializer1>
             Visitor(t_Initializer0 &initializer0, const t_Initializer1 &initializer1)
-              : reader_visitor_(initializer0, initializer1)
+              : read_(initializer0, initializer1)
             {
                 ARILES2_TRACE_FUNCTION;
             }
@@ -106,9 +104,9 @@ namespace ariles2
             {
                 // static variable is potentially unsafe
                 return (Parameters(
-                        ariles_class.arilesGetParameters(defaults_visitor_),
-                        ariles_class.arilesGetParameters(reader_visitor_),
-                        ariles_class.arilesGetParameters(postread_visitor_)));
+                        ariles_class.arilesGetParameters(defaults_),
+                        ariles_class.arilesGetParameters(read_),
+                        ariles_class.arilesGetParameters(postread_)));
             }
 
 
@@ -118,15 +116,15 @@ namespace ariles2
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_VALUE(name);
                 ARILES2_TRACE_TYPE(entry);
-                ariles2::apply(defaults_visitor_, entry, name, param.defaults_parameters_);
-                ariles2::apply(reader_visitor_, entry, name, param.reader_parameters_);
-                ariles2::apply(postread_visitor_, entry, name, param.postread_parameters_);
+                ariles2::apply(defaults_, entry, name, param.defaults_);
+                ariles2::apply(read_, entry, name, param.read_);
+                ariles2::apply(postread_, entry, name, param.postread_);
             }
 
 
             const t_Reader &getReader() const
             {
-                return (reader_visitor_);
+                return (read_);
             }
         };
     }  // namespace cfgread
@@ -142,26 +140,28 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters
         {
         public:
-            ariles2::prewrite::Visitor::Parameters prewrite_parameters_;
-            typename t_Writer::Parameters writer_parameters_;
+            ariles2::prewrite::Visitor::Parameters prewrite_;
+            typename t_Writer::Parameters write_;
 
 
         public:
-            Parameters()
+            Parameters(const bool override_parameters = true)
+              : prewrite_(override_parameters), write_(override_parameters)
             {
             }
 
-            Parameters(const typename t_Writer::Parameters &param)
+            Parameters(const typename t_Writer::Parameters &param, const bool override_parameters = true)
+              : prewrite_(override_parameters)
             {
-                this->writer_parameters_ = param;
+                this->write_ = param;
             }
 
             Parameters(
-                    const ariles2::prewrite::Visitor::Parameters &prewrite_parameters,
-                    const typename t_Writer::Parameters &writer_parameters)
+                    const ariles2::prewrite::Visitor::Parameters &prewrite,
+                    const typename t_Writer::Parameters &writer)
             {
-                this->prewrite_parameters_ = prewrite_parameters;
-                this->writer_parameters_ = writer_parameters;
+                this->prewrite_ = prewrite;
+                this->write_ = writer;
             }
         };
 
@@ -175,33 +175,33 @@ namespace ariles2
 
 
         public:
-            ariles2::prewrite::Visitor prewrite_visitor_;
-            t_Writer writer_visitor_;
+            ariles2::prewrite::Visitor prewrite_;
+            t_Writer write_;
 
 
         public:
             template <class t_Initializer>
-            Visitor(t_Initializer &initializer) : writer_visitor_(initializer)
+            Visitor(t_Initializer &initializer) : write_(initializer)
             {
                 ARILES2_TRACE_FUNCTION;
             }
 
             template <class t_Initializer>
-            Visitor(const t_Initializer &initializer) : writer_visitor_(initializer)
+            Visitor(const t_Initializer &initializer) : write_(initializer)
             {
                 ARILES2_TRACE_FUNCTION;
             }
 
             template <class t_Initializer0, class t_Initializer1>
             Visitor(t_Initializer0 *initializer0, const t_Initializer1 &initializer1)
-              : writer_visitor_(initializer0, initializer1)
+              : write_(initializer0, initializer1)
             {
                 ARILES2_TRACE_FUNCTION;
             }
 
             template <class t_Initializer0, class t_Initializer1>
             Visitor(t_Initializer0 &initializer0, const t_Initializer1 &initializer1)
-              : writer_visitor_(initializer0, initializer1)
+              : write_(initializer0, initializer1)
             {
                 ARILES2_TRACE_FUNCTION;
             }
@@ -214,8 +214,7 @@ namespace ariles2
             {
                 // static variable is potentially unsafe
                 return (Parameters(
-                        ariles_class.arilesGetParameters(prewrite_visitor_),
-                        ariles_class.arilesGetParameters(writer_visitor_)));
+                        ariles_class.arilesGetParameters(prewrite_), ariles_class.arilesGetParameters(write_)));
             }
 
 
@@ -225,20 +224,20 @@ namespace ariles2
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_VALUE(name);
                 ARILES2_TRACE_TYPE(entry);
-                ariles2::apply(prewrite_visitor_, entry, name, param.prewrite_parameters_);
-                ariles2::apply(writer_visitor_, entry, name, param.writer_parameters_);
+                ariles2::apply(prewrite_, entry, name, param.prewrite_);
+                ariles2::apply(write_, entry, name, param.write_);
             }
 
 
             const t_Writer &getWriter() const
             {
-                return (writer_visitor_);
+                return (write_);
             }
 
 
             t_Writer &getWriter()
             {
-                return (writer_visitor_);
+                return (write_);
             }
         };
     }  // namespace cfgwrite
