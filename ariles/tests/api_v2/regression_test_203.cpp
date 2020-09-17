@@ -66,11 +66,11 @@ BOOST_FIXTURE_TEST_CASE(Complex_arilesPostRead, ariles_tests::DummyFixture)
     ariles_tests::ConfigurableComplex configurable;
     ariles2::apply<ariles2::PostRead>(configurable);
 }
-                              
+
 BOOST_FIXTURE_TEST_CASE(ConfigurableNoSetDefaults_Defaults, ariles_tests::DummyFixture)
 {
     ariles_tests::ConfigurableNoSetDefaults configurable;
-    configurable.integer_ = 100;       
+    configurable.integer_ = 100;
     ariles2::apply<ariles2::Defaults>(configurable);
     BOOST_CHECK_EQUAL(configurable.integer_, 0);
 }

@@ -265,6 +265,38 @@ namespace ariles2
     }
 
 
+    template <class t_Visitor, class t_Ariles, class t_Arg>
+    typename t_Visitor::ReturnType apply(
+            t_Arg &arg,
+            t_Ariles &ariles_class,
+            const std::string &name,
+            const typename t_Visitor::Parameters &param,
+            ARILES2_IS_BASE_DISABLER(std::string, t_Arg),
+            ARILES2_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+    {
+        ARILES2_TRACE_FUNCTION;
+        t_Visitor visitor(arg);
+        return (ariles2::apply(visitor, ariles_class, name, param));
+    }
+
+
+    template <class t_Visitor, class t_Ariles, class t_Arg>
+    typename t_Visitor::ReturnType apply(
+            t_Arg &arg,
+            t_Ariles &ariles_class,
+            const char *name,
+            const typename t_Visitor::Parameters &param,
+            ARILES2_IS_BASE_DISABLER(std::string, t_Arg),
+            ARILES2_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+    {
+        ARILES2_TRACE_FUNCTION;
+        t_Visitor visitor(arg);
+        return (ariles2::apply(visitor, ariles_class, name, param));
+    }
+
+
     template <class t_Visitor, class t_Ariles>
     typename t_Visitor::ReturnType apply(
             const std::string &arg,
