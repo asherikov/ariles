@@ -134,7 +134,7 @@ namespace ariles2
             void startMap(t_Entry &entry, const Parameters &parameters)
             {
                 startMap(
-                        parameters.allow_missing_entries_ ? SIZE_LIMIT_NONE : SIZE_LIMIT_EQUAL,
+                        parameters.allow_missing_entries_ ? SIZE_LIMIT_NONE : SIZE_LIMIT_MIN,
                         ariles2::apply<ariles2::Count>(entry));
             }
 
