@@ -86,3 +86,4 @@ if (${ARILES_VISITOR_protobuf3} STREQUAL "ON")
     set_property(TARGET ${TGT_TEST} APPEND PROPERTY INCLUDE_DIRECTORIES ${CMAKE_CURRENT_BINARY_DIR})
     target_link_libraries(${TGT_TEST} protobuf_test)
 endif()
+ariles_define_regression_test(${PROJECT_NAME} "232" "yaml_cpp" "")                    # NonNullPointer abstract

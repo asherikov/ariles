@@ -193,6 +193,7 @@ namespace ariles2
     {
         typedef ns_graphviz::Parameters Parameters;
         typedef ns_graphviz::Visitor Visitor;
+        typedef ns_graphviz::Visitor Writer;
         typedef ns_graphviz::Base Base;
     };
 

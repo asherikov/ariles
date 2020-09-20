@@ -18,6 +18,10 @@ namespace ariles_tests
 #include ARILES2_INITIALIZE
 
     public:
+        bool defaults_check_flag_;
+        bool finalize_check_flag_;
+
+    public:
 #ifndef ARILES_TESTS_RANDOMIZE_DISABLED
         virtual void randomize()
         {
@@ -29,10 +33,18 @@ namespace ariles_tests
         Base()
         {
             ariles2::apply<ariles2::Defaults>(*this);
+            defaults_check_flag_ = false;
+            finalize_check_flag_ = false;
         }
 
         virtual ~Base()
         {
+        }
+
+        void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
+        {
+            ARILES2_TRACE_FUNCTION;
+            real_ = 0.0;
         }
     };
 
@@ -59,6 +71,20 @@ namespace ariles_tests
         {
             ariles2::apply<ariles2::Defaults>(*this);
         }
+
+        void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+            arilesVisit<ariles2::Defaults>(visitor, param);
+            defaults_check_flag_ = true;
+        }
+
+        void arilesVisit(const ariles2::PostRead &visitor, const ariles2::PostRead::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+            arilesVisit<ariles2::PostRead>(visitor, param);
+            finalize_check_flag_ = true;
+        }
     };
 
 
@@ -83,6 +109,20 @@ namespace ariles_tests
         Derived2()
         {
             ariles2::apply<ariles2::Defaults>(*this);
+        }
+
+        void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+            arilesVisit<ariles2::Defaults>(visitor, param);
+            defaults_check_flag_ = true;
+        }
+
+        void arilesVisit(const ariles2::PostRead &visitor, const ariles2::PostRead::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+            arilesVisit<ariles2::PostRead>(visitor, param);
+            finalize_check_flag_ = true;
         }
     };
 
@@ -267,6 +307,8 @@ namespace ariles_tests
                     configurable_in.std_any_.template cast<Derived2>("Derived2")->real2_,
                     g_tolerance);
         }
+        BOOST_CHECK(configurable_in.std_any_->defaults_check_flag_);
+        BOOST_CHECK(configurable_in.std_any_->finalize_check_flag_);
 #    endif
 
 
@@ -295,6 +337,8 @@ namespace ariles_tests
                     configurable_in.boost_any_.template cast<Derived2>("Derived2")->real2_,
                     g_tolerance);
         }
+        BOOST_CHECK(configurable_in.boost_any_->defaults_check_flag_);
+        BOOST_CHECK(configurable_in.boost_any_->finalize_check_flag_);
 #    endif
     }
 #endif
