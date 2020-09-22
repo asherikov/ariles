@@ -8,5 +8,5 @@ Enabled data formats:
 - Octave script (output)
 - array (flattened key-value pairs)
 
-Note: ariles is not a catkin package, use `catkin(DEPENDS ariles_ros)` in your
-CMakeLists.txt, `find_package(catkin REQUIRED ariles_ros)` still works.
+Note: ariles is not a catkin package, use `catkin(DEPENDS ariles2_core_ros)` in your
+CMakeLists.txt, `find_package(catkin REQUIRED ariles2_core_ros)` still works.
