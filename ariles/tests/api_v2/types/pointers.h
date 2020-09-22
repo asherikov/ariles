@@ -16,15 +16,72 @@ namespace ariles_tests
     class ConfigurablePointers : public ariles2::DefaultBase
     {
     public:
-        class Minimal : public ariles2::DefaultBase
+        class MinimalBase : public ariles2::DefaultBase
         {
-#define ARILES2_ENTRIES(v) ARILES2_TYPED_ENTRY_(v, integer_member, int)
+#define ARILES2_ENTRIES(v) ARILES2_TYPED_ENTRY_(v, real, double)
 #include ARILES2_INITIALIZE
 
         public:
+            bool defaults_check_flag_;
+            bool finalize_check_flag_;
+
+        public:
+            MinimalBase()
+            {
+                ariles2::apply<ariles2::Defaults>(*this);
+                defaults_check_flag_ = false;
+                finalize_check_flag_ = false;
+            }
+
+            virtual ~MinimalBase()
+            {
+            }
+
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
+            virtual void randomize()
+            {
+                ARILES2_TRACE_FUNCTION;
+                boost::random::random_device random_generator;
+                real_ = GET_RANDOM_REAL;
+            }
+#endif
+
+            void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
+            {
+                ARILES2_TRACE_FUNCTION;
+                real_ = 0.0;
+            }
+        };
+
+
+        class Minimal : public MinimalBase
+        {
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_PARENT(v, MinimalBase)                                                                                     \
+    ARILES2_TYPED_ENTRY_(v, integer_member, int)
+#include ARILES2_INITIALIZE
+
+        public:
+            Minimal()
+            {
+                ariles2::apply<ariles2::Defaults>(*this);
+                finalize_check_flag_ = false;
+            }
+
             virtual ~Minimal()
             {
             }
+
+
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
+            void randomize()
+            {
+                ARILES2_TRACE_FUNCTION;
+                MinimalBase::randomize();
+                boost::random::random_device random_generator;
+                integer_member_ = GET_RANDOM_INT;
+            }
+#endif
 
             bool operator==(const Minimal &other) const
             {
@@ -35,6 +92,22 @@ namespace ariles_tests
             {
                 static std::string instance_id("Minimal");
                 return (instance_id);
+            }
+
+
+            void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
+            {
+                ARILES2_TRACE_FUNCTION;
+                arilesVisitParents(visitor, param);
+                integer_member_ = 0;
+                defaults_check_flag_ = true;
+            }
+
+            void arilesVisit(const ariles2::PostRead &visitor, const ariles2::PostRead::Parameters &param)
+            {
+                ARILES2_TRACE_FUNCTION;
+                arilesVisitParents(visitor, param);
+                finalize_check_flag_ = true;
             }
         };
 
@@ -126,25 +199,25 @@ namespace ariles_tests
             boost::random::random_device random_generator;
 #    if __cplusplus >= 201103L
             std_shared_ptr_test_ = std::make_shared<Minimal>();
-            std_shared_ptr_test_->integer_member_ = GET_RANDOM_INT;
+            std_shared_ptr_test_->randomize();
 
             BOOST_CHECK(false == std_shared_ptr_test_non_null_.isNull());
-            std_shared_ptr_test_non_null_->integer_member_ = GET_RANDOM_INT;
+            std_shared_ptr_test_non_null_->randomize();
 
             std_unique_ptr_test_.reset(new Minimal());
-            std_unique_ptr_test_->integer_member_ = GET_RANDOM_INT;
+            std_unique_ptr_test_->randomize();
 #    endif
 
 #    ifdef ARILES_ADAPTER_BOOST_POINTER
             shared_ptr_test_ = boost::make_shared<Minimal>();
-            shared_ptr_test_->integer_member_ = GET_RANDOM_INT;
+            shared_ptr_test_->randomize();
 
             BOOST_CHECK(false == shared_ptr_test_non_null_.isNull());
-            shared_ptr_test_non_null_->integer_member_ = GET_RANDOM_INT;
+            shared_ptr_test_non_null_->randomize();
 
 #        if BOOST_VERSION >= 105800
             unique_ptr_test_ = boost::movelib::make_unique<Minimal>();
-            unique_ptr_test_->integer_member_ = GET_RANDOM_INT;
+            unique_ptr_test_->randomize();
 #        endif
 
             shared_ptr_test_null_.reset();
@@ -153,7 +226,7 @@ namespace ariles_tests
 #    ifdef ARILES_ADAPTER_BOOST_OPTIONAL
             {
                 Minimal minimal;
-                minimal.integer_member_ = GET_RANDOM_INT;
+                minimal.randomize();
                 optional_test_ = minimal;
                 optional_test_null_ = boost::none;
             }
@@ -165,6 +238,15 @@ namespace ariles_tests
 
 #ifndef ARILES_TESTS_COMPARE_DISABLED
     template <class t_Configurable_out, class t_Configurable_in>
+    void compareMinimal(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)
+    {
+        BOOST_CHECK_EQUAL(
+                dynamic_cast<const ConfigurablePointers::Minimal &>(*configurable_out).integer_member_,
+                dynamic_cast<const ConfigurablePointers::Minimal &>(*configurable_in).integer_member_);
+        BOOST_CHECK_CLOSE(configurable_out->real_, configurable_in->real_, g_tolerance);
+    }
+
+    template <class t_Configurable_out, class t_Configurable_in>
     void compare(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)
     {
 #    if __cplusplus >= 201103L
@@ -175,9 +257,7 @@ namespace ariles_tests
         else
         {
             BOOST_CHECK(configurable_out.std_shared_ptr_test_ != NULL);
-            BOOST_CHECK_EQUAL(
-                    configurable_out.std_shared_ptr_test_->integer_member_,
-                    configurable_in.std_shared_ptr_test_->integer_member_);
+            compareMinimal(configurable_out.std_shared_ptr_test_, configurable_in.std_shared_ptr_test_);
         }
         if (configurable_in.std_unique_ptr_test_ == NULL)
         {
@@ -186,16 +266,14 @@ namespace ariles_tests
         else
         {
             BOOST_CHECK(configurable_out.std_unique_ptr_test_ != NULL);
-            BOOST_CHECK_EQUAL(
-                    configurable_out.std_unique_ptr_test_->integer_member_,
-                    configurable_in.std_unique_ptr_test_->integer_member_);
+            compareMinimal(configurable_out.std_unique_ptr_test_, configurable_in.std_unique_ptr_test_);
         }
 
         BOOST_CHECK(false == configurable_in.std_shared_ptr_test_non_null_.isNull());
         BOOST_CHECK(false == configurable_out.std_shared_ptr_test_non_null_.isNull());
-        BOOST_CHECK_EQUAL(
-                configurable_out.std_shared_ptr_test_non_null_->integer_member_,
-                configurable_in.std_shared_ptr_test_non_null_->integer_member_);
+        compareMinimal(configurable_out.std_shared_ptr_test_non_null_, configurable_in.std_shared_ptr_test_non_null_);
+        BOOST_CHECK(configurable_in.std_shared_ptr_test_non_null_->defaults_check_flag_);
+        BOOST_CHECK(configurable_in.std_shared_ptr_test_non_null_->finalize_check_flag_);
 #    endif
 
 
@@ -207,9 +285,9 @@ namespace ariles_tests
         else
         {
             BOOST_CHECK(configurable_out.shared_ptr_test_ != NULL);
-            BOOST_CHECK_EQUAL(
-                    configurable_out.shared_ptr_test_->integer_member_,
-                    configurable_in.shared_ptr_test_->integer_member_);
+            compareMinimal(configurable_out.shared_ptr_test_, configurable_in.shared_ptr_test_);
+            BOOST_CHECK(configurable_in.shared_ptr_test_->defaults_check_flag_);
+            BOOST_CHECK(configurable_in.shared_ptr_test_->finalize_check_flag_);
         }
 #        if BOOST_VERSION >= 105800
         if (configurable_in.unique_ptr_test_ == NULL)
@@ -219,9 +297,9 @@ namespace ariles_tests
         else
         {
             BOOST_CHECK(configurable_out.unique_ptr_test_ != NULL);
-            BOOST_CHECK_EQUAL(
-                    configurable_out.unique_ptr_test_->integer_member_,
-                    configurable_in.unique_ptr_test_->integer_member_);
+            compareMinimal(configurable_out.unique_ptr_test_, configurable_in.unique_ptr_test_);
+            BOOST_CHECK(configurable_in.unique_ptr_test_->defaults_check_flag_);
+            BOOST_CHECK(configurable_in.unique_ptr_test_->finalize_check_flag_);
         }
 #        endif
 
@@ -230,19 +308,19 @@ namespace ariles_tests
 
         BOOST_CHECK(false == configurable_in.shared_ptr_test_non_null_.isNull());
         BOOST_CHECK(false == configurable_out.shared_ptr_test_non_null_.isNull());
-        BOOST_CHECK_EQUAL(
-                configurable_out.shared_ptr_test_non_null_->integer_member_,
-                configurable_in.shared_ptr_test_non_null_->integer_member_);
+        compareMinimal(configurable_out.shared_ptr_test_non_null_, configurable_in.shared_ptr_test_non_null_);
+        BOOST_CHECK(configurable_in.shared_ptr_test_non_null_->defaults_check_flag_);
+        BOOST_CHECK(configurable_in.shared_ptr_test_non_null_->finalize_check_flag_);
 #    endif
 
 
 #    ifdef ARILES_ADAPTER_BOOST_OPTIONAL
         BOOST_CHECK(configurable_out.optional_test_ != boost::none);
         BOOST_CHECK(configurable_in.optional_test_ != boost::none);
-        BOOST_CHECK_EQUAL(
-                configurable_out.optional_test_->integer_member_, configurable_in.optional_test_->integer_member_);
+        compareMinimal(configurable_out.optional_test_, configurable_in.optional_test_);
         BOOST_CHECK(configurable_out.optional_test_null_ == boost::none);
         BOOST_CHECK(configurable_in.optional_test_null_ == boost::none);
+        BOOST_CHECK(configurable_in.optional_test_->finalize_check_flag_);
 #    endif
     }
 #endif

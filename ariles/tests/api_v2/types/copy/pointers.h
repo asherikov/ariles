@@ -19,6 +19,7 @@ namespace ariles_tests
         class Minimal
         {
         public:
+            double real;
             int integer_member;
 
         public:

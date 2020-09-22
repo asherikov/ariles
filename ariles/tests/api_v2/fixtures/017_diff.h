@@ -30,7 +30,7 @@ namespace ariles_tests
                 ariles2::apply<ariles2::Defaults>(configurable);
 
                 const std::string filename = std::string(ARILES_TESTS_TEST_NAME) + ".cfg";
-                ariles2::apply<typename t_Visitor::Visitor>(getWriterInitializer(filename), configurable);
+                ariles2::apply<typename t_Visitor::Writer>(getWriterInitializer(filename), configurable);
 
                 const std::string ref_filename = std::string(ARILES_TESTS_TEST_NAME) + ".ref";
                 const std::string diff_cmd = std::string("diff ") + filename + " " + ref_filename;
