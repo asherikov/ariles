@@ -71,7 +71,7 @@ $(function() {
 <li>Parameters()
 : <a class="el" href="classariles2_1_1cfgread_1_1Parameters.html#af8dd9fe38c434b2c9861ebd85fa8da44">ariles2::cfgread::Parameters&lt; t_Reader &gt;</a>
 , <a class="el" href="classariles2_1_1cfgread_1_1Visitor.html#a412594d57b8b20effafc1a1c8f7ac1f3">ariles2::cfgread::Visitor&lt; t_Reader &gt;</a>
-, <a class="el" href="classariles2_1_1cfgwrite_1_1Parameters.html#aebeb1fe516b1516eaa9d6d7d20bc333c">ariles2::cfgwrite::Parameters&lt; t_Writer &gt;</a>
+, <a class="el" href="classariles2_1_1cfgwrite_1_1Parameters.html#addee9baea704c3c1ef0c4deda90fcb90">ariles2::cfgwrite::Parameters&lt; t_Writer &gt;</a>
 , <a class="el" href="classariles2_1_1cfgwrite_1_1Visitor.html#abf17f161339930cdcdb1c420be6eaa3f">ariles2::cfgwrite::Visitor&lt; t_Writer &gt;</a>
 , <a class="el" href="classariles2_1_1compare_1_1Parameters.html#a464a46250380c5eb2fcca0da802128d6">ariles2::compare::Parameters</a>
 , <a class="el" href="classariles2_1_1compare_1_1Visitor.html#a0d2b6d5efda6ab6bbd10ffb951efeedb">ariles2::compare::Visitor</a>
@@ -83,15 +83,15 @@ $(function() {
 , <a class="el" href="classariles2_1_1count_1_1Visitor.html#aa8359671459f2d311f7b882e8b18fbb2">ariles2::count::Visitor</a>
 , <a class="el" href="classariles2_1_1defaults_1_1Parameters.html#a74c2b1d166f9d0ee7d7c759405b71fc9">ariles2::defaults::Parameters</a>
 , <a class="el" href="classariles2_1_1defaults_1_1Visitor.html#a64dd9ccbb88776ff48239c2583fd5fb3">ariles2::defaults::Visitor</a>
+, <a class="el" href="classariles2_1_1finalize_1_1Parameters.html#a829a5919e50079ff85054f13e7091d55">ariles2::finalize::Parameters</a>
 , <a class="el" href="structariles2_1_1graphviz.html#aa30763ad2c849fc1279cd2fb85ad6bff">ariles2::graphviz</a>
 , <a class="el" href="classariles2_1_1ns__graphviz_1_1Parameters.html#ade0d844222c56d734439c3e43150bfd1">ariles2::ns_graphviz::Parameters</a>
 , <a class="el" href="classariles2_1_1ns__protobuf3_1_1Reader.html#acea7ca3b1ae99d7813d7b8e0445d177e">ariles2::ns_protobuf3::Reader</a>
 , <a class="el" href="classariles2_1_1ns__protobuf3_1_1Writer.html#a05a45c9f9d1d0a8fb1165a8faa1ab79e">ariles2::ns_protobuf3::Writer</a>
-, <a class="el" href="classariles2_1_1postread_1_1Parameters.html#acb7cda5f026a684dbd7b465fb6defdd1">ariles2::postread::Parameters</a>
 , <a class="el" href="classariles2_1_1prewrite_1_1Parameters.html#ab679795a32168440ccfc142c132c3a09">ariles2::prewrite::Parameters</a>
 , <a class="el" href="classariles2_1_1process_1_1Visitor.html#ac565d4e4d6fc2ea8e22833973578a954">ariles2::process::Visitor&lt; t_Derived, t_Parameters &gt;</a>
 , <a class="el" href="classariles2_1_1read_1_1Parameters.html#a25c9e5ebe0e16b2be487ce4bef976a2e">ariles2::read::Parameters</a>
-, <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">ariles2::serialization::Base&lt; t_Parameters &gt;</a>
+, <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">ariles2::serialization::Base&lt; t_Derived, t_Parameters &gt;</a>
 , <a class="el" href="classariles2_1_1serialization_1_1Parameters.html#ae53b1d0b6500b3b3e869a4a61c3b7a33">ariles2::serialization::Parameters</a>
 , <a class="el" href="classariles2_1_1visitor_1_1Parameters.html#af2f185a0942e7330f3f11feee6f8117d">ariles2::visitor::Parameters</a>
 , <a class="el" href="classariles2_1_1write_1_1Parameters.html#ab285ca811fc858880e7e08e6b76c1df1">ariles2::write::Parameters</a>
@@ -119,20 +119,20 @@ $(function() {
 : <a class="el" href="classariles2_1_1PointerHandler_3_01boost_1_1optional_3_01t__Value_01_4_01_4.html#a61eac7bf3ce50dddd079212232c7063e">ariles2::PointerHandler&lt; boost::optional&lt; t_Value &gt; &gt;</a>
 , <a class="el" href="classariles2_1_1PointerHandler_3_01boost_1_1shared__ptr_3_01t__Value_01_4_01_4.html#a2826801f2102a8fe4c4a0cddba9ea4c0">ariles2::PointerHandler&lt; boost::shared_ptr&lt; t_Value &gt; &gt;</a>
 </li>
-<li>postread_parameters_
-: <a class="el" href="classariles2_1_1cfgread_1_1Parameters.html#a7a3fcb09dce7646bba1750ef58a86d58">ariles2::cfgread::Parameters&lt; t_Reader &gt;</a>
-</li>
-<li>postread_visitor_
-: <a class="el" href="classariles2_1_1cfgread_1_1Visitor.html#af80d82085dd23d3f7476b08aff858219">ariles2::cfgread::Visitor&lt; t_Reader &gt;</a>
+<li>postread_
+: <a class="el" href="classariles2_1_1cfgread_1_1Parameters.html#ab91057c2985b430d1e6e246c2199cbb6">ariles2::cfgread::Parameters&lt; t_Reader &gt;</a>
+, <a class="el" href="classariles2_1_1cfgread_1_1Visitor.html#a2a9bcc3b7678903bea7e0a133664369a">ariles2::cfgread::Visitor&lt; t_Reader &gt;</a>
 </li>
 <li>preprocessor_
 : <a class="el" href="classariles2_1_1ns__jsonnet_1_1impl_1_1Reader.html#a172ca61b3c957bdde3ec857cb17a8e63">ariles2::ns_jsonnet::impl::Reader</a>
 </li>
-<li>prewrite_parameters_
-: <a class="el" href="classariles2_1_1cfgwrite_1_1Parameters.html#a3ff96e97bbc4a2ea14b1f0d455fa816b">ariles2::cfgwrite::Parameters&lt; t_Writer &gt;</a>
+<li>preread_
+: <a class="el" href="classariles2_1_1cfgread_1_1Parameters.html#a356aef29d6cfe777db6780e1e4d90341">ariles2::cfgread::Parameters&lt; t_Reader &gt;</a>
+, <a class="el" href="classariles2_1_1cfgread_1_1Visitor.html#a6e5475fc77a4289429ef31adddda2de2">ariles2::cfgread::Visitor&lt; t_Reader &gt;</a>
 </li>
-<li>prewrite_visitor_
-: <a class="el" href="classariles2_1_1cfgwrite_1_1Visitor.html#a5fdef230dc9ba2bc1d2c8b8b831649b0">ariles2::cfgwrite::Visitor&lt; t_Writer &gt;</a>
+<li>prewrite_
+: <a class="el" href="classariles2_1_1cfgwrite_1_1Parameters.html#a7b7e334757d0eb04e1d8b424dca29bd9">ariles2::cfgwrite::Parameters&lt; t_Writer &gt;</a>
+, <a class="el" href="classariles2_1_1cfgwrite_1_1Visitor.html#aa47dd5e9645c709b3bacf646f5efbd93">ariles2::cfgwrite::Visitor&lt; t_Writer &gt;</a>
 </li>
 <li>Put()
 : <a class="el" href="classariles2_1_1ns__rapidjson_1_1BasicIStreamWrapper.html#aa20570d9c0134f4cdf8ca4ad0f7d185f">ariles2::ns_rapidjson::BasicIStreamWrapper&lt; StreamType &gt;</a>

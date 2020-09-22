@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['graphviz',['Graphviz',['../group__graphviz.html',1,'']]]
+  ['finalize',['Finalize',['../group__finalize.html',1,'']]]
 ];

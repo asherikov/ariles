@@ -92,7 +92,7 @@ Inheritance diagram for ariles2::ns_msgpack::Writer:</div>
 <area href="classariles2_1_1serialization_1_1PIMPLVisitor.html" alt="ariles2::serialization::PIMPLVisitor&lt; write::Visitor, impl::Writer &gt;" shape="rect" coords="0,336,366,360"/>
 <area href="classariles2_1_1write_1_1Visitor.html" alt="ariles2::write::Visitor" shape="rect" coords="0,280,366,304"/>
 <area href="classariles2_1_1write_1_1VisitorBase.html" alt="ariles2::write::VisitorBase&lt; Visitor, Parameters &gt;" shape="rect" coords="0,224,366,248"/>
-<area href="classariles2_1_1serialization_1_1Base.html" alt="ariles2::serialization::Base&lt; Parameters &gt;" shape="rect" coords="0,168,366,192"/>
+<area href="classariles2_1_1serialization_1_1Base.html" alt="ariles2::serialization::Base&lt; Visitor, Parameters &gt;" shape="rect" coords="0,168,366,192"/>
 <area href="classariles2_1_1visitor_1_1Base.html" alt="ariles2::visitor::Base&lt; visitor::GenericVisitor, Parameters &gt;" shape="rect" coords="0,112,366,136"/>
 <area href="classariles2_1_1visitor_1_1GenericVisitor.html" alt="ariles2::visitor::GenericVisitor" shape="rect" coords="0,56,366,80"/>
 <area href="classariles2_1_1visitor_1_1Visitor.html" alt="ariles2::visitor::Visitor" shape="rect" coords="0,0,366,24"/>
@@ -101,8 +101,8 @@ Inheritance diagram for ariles2::ns_msgpack::Writer:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a0f7bf3ad2a79a0e9a9b3ca86f5b0d648"><td class="memItemLeft" align="right" valign="top">typedef Parameters&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a></td></tr>
-<tr class="separator:a0f7bf3ad2a79a0e9a9b3ca86f5b0d648"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e5e53dccea53cebb48b1cdaef5fd072"><td class="memItemLeft" align="right" valign="top">typedef Parameters&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a></td></tr>
+<tr class="separator:a9e5e53dccea53cebb48b1cdaef5fd072"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb9a7f4e9e644b4beae60c5a30266f49"><td class="memItemLeft" align="right" valign="top">typedef void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1visitor_1_1Base.html#adb9a7f4e9e644b4beae60c5a30266f49">ReturnType</a></td></tr>
 <tr class="separator:adb9a7f4e9e644b4beae60c5a30266f49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -114,25 +114,25 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2f35800fbe14970a482b9fcb1c9b43a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack_1_1Writer.html#a2f35800fbe14970a482b9fcb1c9b43a5">Writer</a> (std::ostream &amp;output_stream)</td></tr>
 <tr class="memdesc:a2f35800fbe14970a482b9fcb1c9b43a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a2f35800fbe14970a482b9fcb1c9b43a5">More...</a><br /></td></tr>
 <tr class="separator:a2f35800fbe14970a482b9fcb1c9b43a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bd80b3b79b6d3a123987e295e3559ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack_1_1Writer.html#a4bd80b3b79b6d3a123987e295e3559ac">startMap</a> (const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;, const std::size_t num_entries)</td></tr>
+<tr class="memitem:a4bd80b3b79b6d3a123987e295e3559ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack_1_1Writer.html#a4bd80b3b79b6d3a123987e295e3559ac">startMap</a> (const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;, const std::size_t num_entries)</td></tr>
 <tr class="memdesc:a4bd80b3b79b6d3a123987e295e3559ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts a nested map in the configuration file.  <a href="#a4bd80b3b79b6d3a123987e295e3559ac">More...</a><br /></td></tr>
 <tr class="separator:a4bd80b3b79b6d3a123987e295e3559ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3157fbb37622c9d84a264aeb06f57fa4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack_1_1Writer.html#a3157fbb37622c9d84a264aeb06f57fa4">startMapEntry</a> (const std::string &amp;map_name)</td></tr>
 <tr class="memdesc:a3157fbb37622c9d84a264aeb06f57fa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts a nested map in the configuration file.  <a href="#a3157fbb37622c9d84a264aeb06f57fa4">More...</a><br /></td></tr>
 <tr class="separator:a3157fbb37622c9d84a264aeb06f57fa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f3495f32b3cd636ac8d415b5cb82fcc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack_1_1Writer.html#a2f3495f32b3cd636ac8d415b5cb82fcc">startIteratedMap</a> (const std::size_t, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;)</td></tr>
+<tr class="memitem:a2f3495f32b3cd636ac8d415b5cb82fcc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack_1_1Writer.html#a2f3495f32b3cd636ac8d415b5cb82fcc">startIteratedMap</a> (const std::size_t, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;)</td></tr>
 <tr class="separator:a2f3495f32b3cd636ac8d415b5cb82fcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3605a44004ec5b534f4fce27267b3eb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack_1_1Writer.html#ab3605a44004ec5b534f4fce27267b3eb">flush</a> ()</td></tr>
 <tr class="memdesc:ab3605a44004ec5b534f4fce27267b3eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flush the configuration to the output.  <a href="#ab3605a44004ec5b534f4fce27267b3eb">More...</a><br /></td></tr>
 <tr class="separator:ab3605a44004ec5b534f4fce27267b3eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a318d595b34f31f1f3ae082b400874171"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack_1_1Writer.html#a318d595b34f31f1f3ae082b400874171">startArray</a> (const std::size_t size, const bool=false)</td></tr>
 <tr class="separator:a318d595b34f31f1f3ae082b400874171"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70b3ff1e470e9b3a3ca8c6c456b541cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack_1_1Writer.html#a70b3ff1e470e9b3a3ca8c6c456b541cc">startRoot</a> (const std::string &amp;name, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;)</td></tr>
+<tr class="memitem:a70b3ff1e470e9b3a3ca8c6c456b541cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack_1_1Writer.html#a70b3ff1e470e9b3a3ca8c6c456b541cc">startRoot</a> (const std::string &amp;name, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;)</td></tr>
 <tr class="separator:a70b3ff1e470e9b3a3ca8c6c456b541cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afda7ab1e0846ace913b1db71855154c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack_1_1Writer.html#afda7ab1e0846ace913b1db71855154c0">endRoot</a> (const std::string &amp;name)</td></tr>
 <tr class="separator:afda7ab1e0846ace913b1db71855154c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa41f4b542e798bf84f19f02007279ef"><td class="memTemplParams" colspan="2">template&lt;class t_Entry &gt; </td></tr>
-<tr class="memitem:afa41f4b542e798bf84f19f02007279ef"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1Visitor.html#afa41f4b542e798bf84f19f02007279ef">startMap</a> (t_Entry &amp;entry, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;parameters)</td></tr>
+<tr class="memitem:afa41f4b542e798bf84f19f02007279ef"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1Visitor.html#afa41f4b542e798bf84f19f02007279ef">startMap</a> (t_Entry &amp;entry, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;parameters)</td></tr>
 <tr class="separator:afa41f4b542e798bf84f19f02007279ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ef781a8a7ead88558e6c4337e0bbcf3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a9ef781a8a7ead88558e6c4337e0bbcf3">endMapEntry</a> ()</td></tr>
 <tr class="separator:a9ef781a8a7ead88558e6c4337e0bbcf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,7 +159,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad738af099a3d0284c82ea41cfe94b454"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af252953f894b1572e6952376715448b8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#af252953f894b1572e6952376715448b8">endVector</a> ()</td></tr>
 <tr class="separator:af252953f894b1572e6952376715448b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a239669dcfca42268775a3d4916c9d3f0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a239669dcfca42268775a3d4916c9d3f0">startMatrix</a> (const bool dynamic, const std::size_t cols, const std::size_t rows, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;param)</td></tr>
+<tr class="memitem:a239669dcfca42268775a3d4916c9d3f0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a239669dcfca42268775a3d4916c9d3f0">startMatrix</a> (const bool dynamic, const std::size_t cols, const std::size_t rows, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;param)</td></tr>
 <tr class="separator:a239669dcfca42268775a3d4916c9d3f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b186d07e826c4282e1a31540e804bf7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a3b186d07e826c4282e1a31540e804bf7">startMatrixRow</a> ()</td></tr>
 <tr class="separator:a3b186d07e826c4282e1a31540e804bf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,28 +171,28 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afcb2c058dcbc8972da7d25942255a1f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87ffd6ebcef5a7c5ea86565fa621f5c4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a87ffd6ebcef5a7c5ea86565fa621f5c4">endMatrix</a> (const bool dynamic)</td></tr>
 <tr class="separator:a87ffd6ebcef5a7c5ea86565fa621f5c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7d8bffcac18afafa86652acce6a6158"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#aa7d8bffcac18afafa86652acce6a6158">startPointer</a> (const bool is_null, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;param)</td></tr>
+<tr class="memitem:aa7d8bffcac18afafa86652acce6a6158"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#aa7d8bffcac18afafa86652acce6a6158">startPointer</a> (const bool is_null, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;param)</td></tr>
 <tr class="separator:aa7d8bffcac18afafa86652acce6a6158"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5f9fc2ea4b59e50f7e15106f5947879"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#ac5f9fc2ea4b59e50f7e15106f5947879">endPointer</a> (const bool is_null)</td></tr>
 <tr class="separator:ac5f9fc2ea4b59e50f7e15106f5947879"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9b898ae0dc279a1fb2a2393c7df2e2e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#af9b898ae0dc279a1fb2a2393c7df2e2e">writeElement</a> (const std::complex&lt; t_Scalar &gt; &amp;entry, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;param)</td></tr>
+<tr class="memitem:af9b898ae0dc279a1fb2a2393c7df2e2e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#af9b898ae0dc279a1fb2a2393c7df2e2e">writeElement</a> (const std::complex&lt; t_Scalar &gt; &amp;entry, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;param)</td></tr>
 <tr class="separator:af9b898ae0dc279a1fb2a2393c7df2e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c6abbad52743356f3bbc2bad5bbcff7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a3c6abbad52743356f3bbc2bad5bbcff7">writeElement</a> (const std::complex&lt; float &gt; &amp;entry, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;param)</td></tr>
+<tr class="memitem:a3c6abbad52743356f3bbc2bad5bbcff7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a3c6abbad52743356f3bbc2bad5bbcff7">writeElement</a> (const std::complex&lt; float &gt; &amp;entry, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;param)</td></tr>
 <tr class="separator:a3c6abbad52743356f3bbc2bad5bbcff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0384d621c07d8371ea8edb9ccd83caef"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a0384d621c07d8371ea8edb9ccd83caef">writeElement</a> (const std::complex&lt; double &gt; &amp;entry, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;param)</td></tr>
+<tr class="memitem:a0384d621c07d8371ea8edb9ccd83caef"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a0384d621c07d8371ea8edb9ccd83caef">writeElement</a> (const std::complex&lt; double &gt; &amp;entry, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;param)</td></tr>
 <tr class="separator:a0384d621c07d8371ea8edb9ccd83caef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f73e9626de450d4c80ddbfc96b28598"><td class="memItemLeft" align="right" valign="top"><a class="el" href="helpers_8h.html#afea64d1a6a535414a0043caf4820c393">ARILES2_BASIC_TYPES_LIST</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a6f73e9626de450d4c80ddbfc96b28598">visit</a> (const t_Entry &amp;entry, const std::string &amp;entry_name, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;param)</td></tr>
+<tr class="memitem:a6f73e9626de450d4c80ddbfc96b28598"><td class="memItemLeft" align="right" valign="top"><a class="el" href="helpers_8h.html#afea64d1a6a535414a0043caf4820c393">ARILES2_BASIC_TYPES_LIST</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a6f73e9626de450d4c80ddbfc96b28598">visit</a> (const t_Entry &amp;entry, const std::string &amp;entry_name, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;param)</td></tr>
 <tr class="separator:a6f73e9626de450d4c80ddbfc96b28598"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40d1335d7385d4a268352f2e64c1893b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a40d1335d7385d4a268352f2e64c1893b">visitMapEntry</a> (const t_Entry &amp;entry, const std::string &amp;entry_name, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;param)</td></tr>
+<tr class="memitem:a40d1335d7385d4a268352f2e64c1893b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a40d1335d7385d4a268352f2e64c1893b">visitMapEntry</a> (const t_Entry &amp;entry, const std::string &amp;entry_name, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;param)</td></tr>
 <tr class="separator:a40d1335d7385d4a268352f2e64c1893b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a768856dbd3c1333c1cd6645102ca66ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a768856dbd3c1333c1cd6645102ca66ea">visitArrayElement</a> (const t_Element &amp;element, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;param)</td></tr>
+<tr class="memitem:a768856dbd3c1333c1cd6645102ca66ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a768856dbd3c1333c1cd6645102ca66ea">visitArrayElement</a> (const t_Element &amp;element, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;param)</td></tr>
 <tr class="separator:a768856dbd3c1333c1cd6645102ca66ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:addf858834ba85fbc8e7ac8499315e966"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#addf858834ba85fbc8e7ac8499315e966">visitVectorElement</a> (const t_Element &amp;element, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;param)</td></tr>
+<tr class="memitem:addf858834ba85fbc8e7ac8499315e966"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#addf858834ba85fbc8e7ac8499315e966">visitVectorElement</a> (const t_Element &amp;element, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;param)</td></tr>
 <tr class="separator:addf858834ba85fbc8e7ac8499315e966"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13b5346ee5f6c27ef561427a8e06ce21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a13b5346ee5f6c27ef561427a8e06ce21">visitMatrixElement</a> (const t_Element &amp;element, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;param)</td></tr>
+<tr class="memitem:a13b5346ee5f6c27ef561427a8e06ce21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1write_1_1VisitorBase.html#a13b5346ee5f6c27ef561427a8e06ce21">visitMatrixElement</a> (const t_Element &amp;element, const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;param)</td></tr>
 <tr class="separator:a13b5346ee5f6c27ef561427a8e06ce21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02159a984dd7476752653272351ab16d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1serialization_1_1Base.html#a02159a984dd7476752653272351ab16d">getParameters</a> (const t_Ariles &amp;ariles_class) const</td></tr>
-<tr class="separator:a02159a984dd7476752653272351ab16d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a120e17fd78228c61a01e71cc592a7be0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1serialization_1_1Base.html#a120e17fd78228c61a01e71cc592a7be0">getParameters</a> (const t_Ariles &amp;ariles_class) const</td></tr>
+<tr class="separator:a120e17fd78228c61a01e71cc592a7be0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -209,7 +209,7 @@ Protected Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ae1469cc56850102b74384c762a14519f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1visitor_1_1Base.html#ae1469cc56850102b74384c762a14519f">getDefaultParameters</a> () const</td></tr>
+<tr class="memitem:ae1469cc56850102b74384c762a14519f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1visitor_1_1Base.html#ae1469cc56850102b74384c762a14519f">getDefaultParameters</a> () const</td></tr>
 <tr class="separator:ae1469cc56850102b74384c762a14519f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
@@ -266,8 +266,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a0f7bf3ad2a79a0e9a9b3ca86f5b0d648"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">&#9670;&nbsp;</a></span>Parameters</h2>
+<a id="a9e5e53dccea53cebb48b1cdaef5fd072"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e5e53dccea53cebb48b1cdaef5fd072">&#9670;&nbsp;</a></span>Parameters</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -276,7 +276,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">typedef Parameters  <a class="el" href="classariles2_1_1serialization_1_1Base.html">ariles2::serialization::Base</a>&lt; Parameters  &gt;::Parameters</td>
+          <td class="memname">typedef Parameters  <a class="el" href="classariles2_1_1serialization_1_1Base.html">ariles2::serialization::Base</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , Parameters  &gt;::Parameters</td>
         </tr>
       </table>
   </td>
@@ -300,7 +300,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void  <a class="el" href="classariles2_1_1visitor_1_1Base.html">ariles2::visitor::Base</a>&lt; <a class="el" href="classariles2_1_1visitor_1_1GenericVisitor.html">visitor::GenericVisitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> , void  &gt;::<a class="el" href="classariles2_1_1visitor_1_1Base.html#adb9a7f4e9e644b4beae60c5a30266f49">ReturnType</a></td>
+          <td class="memname">typedef void  <a class="el" href="classariles2_1_1visitor_1_1Base.html">ariles2::visitor::Base</a>&lt; <a class="el" href="classariles2_1_1visitor_1_1GenericVisitor.html">visitor::GenericVisitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> , void  &gt;::<a class="el" href="classariles2_1_1visitor_1_1Base.html#adb9a7f4e9e644b4beae60c5a30266f49">ReturnType</a></td>
         </tr>
       </table>
   </td>
@@ -398,7 +398,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::endArray </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::endArray </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -427,7 +427,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::endArrayElement </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::endArrayElement </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -456,7 +456,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::endIteratedMap </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::endIteratedMap </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -483,7 +483,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::endIteratedMapElement </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::endIteratedMapElement </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -510,7 +510,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::endMap </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::endMap </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -541,7 +541,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::endMapEntry </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::endMapEntry </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -570,7 +570,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::endMatrix </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::endMatrix </td>
           <td>(</td>
           <td class="paramtype">const bool&#160;</td>
           <td class="paramname"><em>dynamic</em></td><td>)</td>
@@ -600,7 +600,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::endMatrixElement </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::endMatrixElement </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -629,7 +629,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::endMatrixRow </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::endMatrixRow </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -658,7 +658,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::endPointer </td>
+          <td class="memname">void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::endPointer </td>
           <td>(</td>
           <td class="paramtype">const bool&#160;</td>
           <td class="paramname"><em>is_null</em></td><td>)</td>
@@ -716,7 +716,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::endVector </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::endVector </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -745,7 +745,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::endVectorElement </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::endVectorElement </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -805,7 +805,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp; <a class="el" href="classariles2_1_1visitor_1_1Base.html">ariles2::visitor::Base</a>&lt; <a class="el" href="classariles2_1_1visitor_1_1GenericVisitor.html">visitor::GenericVisitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> , void  &gt;::getDefaultParameters </td>
+          <td class="memname">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp; <a class="el" href="classariles2_1_1visitor_1_1Base.html">ariles2::visitor::Base</a>&lt; <a class="el" href="classariles2_1_1visitor_1_1GenericVisitor.html">visitor::GenericVisitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> , void  &gt;::getDefaultParameters </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -822,8 +822,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a02159a984dd7476752653272351ab16d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02159a984dd7476752653272351ab16d">&#9670;&nbsp;</a></span>getParameters()</h2>
+<a id="a120e17fd78228c61a01e71cc592a7be0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a120e17fd78228c61a01e71cc592a7be0">&#9670;&nbsp;</a></span>getParameters()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -832,7 +832,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp; <a class="el" href="classariles2_1_1serialization_1_1Base.html">ariles2::serialization::Base</a>&lt; <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::getParameters </td>
+          <td class="memname">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp; <a class="el" href="classariles2_1_1serialization_1_1Base.html">ariles2::serialization::Base</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::getParameters </td>
           <td>(</td>
           <td class="paramtype">const t_Ariles &amp;&#160;</td>
           <td class="paramname"><em>ariles_class</em></td><td>)</td>
@@ -860,7 +860,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::openFile </td>
+          <td class="memname">static void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::openFile </td>
           <td>(</td>
           <td class="paramtype">std::ofstream &amp;&#160;</td>
           <td class="paramname"><em>config_ofs</em>, </td>
@@ -947,7 +947,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::startArrayElement </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::startArrayElement </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -984,7 +984,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -1016,7 +1016,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::startIteratedMapElement </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::startIteratedMapElement </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>map_name</em></td><td>)</td>
@@ -1046,7 +1046,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void ariles2::ns_msgpack::Writer::startMap </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
@@ -1103,7 +1103,7 @@ template&lt;class t_Entry &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;&#160;</td>
           <td class="paramname"><em>parameters</em>&#160;</td>
         </tr>
         <tr>
@@ -1171,7 +1171,7 @@ template&lt;class t_Entry &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::startMatrix </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::startMatrix </td>
           <td>(</td>
           <td class="paramtype">const bool&#160;</td>
           <td class="paramname"><em>dynamic</em>, </td>
@@ -1191,7 +1191,7 @@ template&lt;class t_Entry &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &amp;&#160;</td>
           <td class="paramname"><em>param</em>&#160;</td>
         </tr>
         <tr>
@@ -1223,7 +1223,7 @@ template&lt;class t_Entry &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::startMatrixElement </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::startMatrixElement </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1252,7 +1252,7 @@ template&lt;class t_Entry &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::startMatrixRow </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::startMatrixRow </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1281,7 +1281,7 @@ template&lt;class t_Entry &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::startPointer </td>
+          <td class="memname">void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::startPointer </td>
           <td>(</td>
           <td class="paramtype">const bool&#160;</td>
           <td class="paramname"><em>is_null</em>, </td>
@@ -1289,7 +1289,7 @@ template&lt;class t_Entry &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &amp;&#160;</td>
           <td class="paramname"><em>param</em>&#160;</td>
         </tr>
         <tr>
@@ -1327,7 +1327,7 @@ template&lt;class t_Entry &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a> &amp;&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -1359,7 +1359,7 @@ template&lt;class t_Entry &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::startVector </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::startVector </td>
           <td>(</td>
           <td class="paramtype">const std::size_t&#160;</td>
           <td class="paramname"><em>size</em></td><td>)</td>
@@ -1389,7 +1389,7 @@ template&lt;class t_Entry &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::startVectorElement </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::startVectorElement </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1418,7 +1418,7 @@ template&lt;class t_Entry &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="helpers_8h.html#afea64d1a6a535414a0043caf4820c393">ARILES2_BASIC_TYPES_LIST</a> void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::visit </td>
+          <td class="memname"><a class="el" href="helpers_8h.html#afea64d1a6a535414a0043caf4820c393">ARILES2_BASIC_TYPES_LIST</a> void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::visit </td>
           <td>(</td>
           <td class="paramtype">const t_Entry &amp;&#160;</td>
           <td class="paramname"><em>entry</em>, </td>
@@ -1432,7 +1432,7 @@ template&lt;class t_Entry &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &amp;&#160;</td>
           <td class="paramname"><em>param</em>&#160;</td>
         </tr>
         <tr>
@@ -1462,7 +1462,7 @@ template&lt;class t_Entry &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::visitArrayElement </td>
+          <td class="memname">void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::visitArrayElement </td>
           <td>(</td>
           <td class="paramtype">const t_Element &amp;&#160;</td>
           <td class="paramname"><em>element</em>, </td>
@@ -1470,7 +1470,7 @@ template&lt;class t_Entry &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &amp;&#160;</td>
           <td class="paramname"><em>param</em>&#160;</td>
         </tr>
         <tr>
@@ -1500,7 +1500,7 @@ template&lt;class t_Entry &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::visitMapEntry </td>
+          <td class="memname">void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::visitMapEntry </td>
           <td>(</td>
           <td class="paramtype">const t_Entry &amp;&#160;</td>
           <td class="paramname"><em>entry</em>, </td>
@@ -1514,7 +1514,7 @@ template&lt;class t_Entry &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &amp;&#160;</td>
           <td class="paramname"><em>param</em>&#160;</td>
         </tr>
         <tr>
@@ -1544,7 +1544,7 @@ template&lt;class t_Entry &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::visitMatrixElement </td>
+          <td class="memname">void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::visitMatrixElement </td>
           <td>(</td>
           <td class="paramtype">const t_Element &amp;&#160;</td>
           <td class="paramname"><em>element</em>, </td>
@@ -1552,7 +1552,7 @@ template&lt;class t_Entry &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &amp;&#160;</td>
           <td class="paramname"><em>param</em>&#160;</td>
         </tr>
         <tr>
@@ -1582,7 +1582,7 @@ template&lt;class t_Entry &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::visitVectorElement </td>
+          <td class="memname">void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::visitVectorElement </td>
           <td>(</td>
           <td class="paramtype">const t_Element &amp;&#160;</td>
           <td class="paramname"><em>element</em>, </td>
@@ -1590,7 +1590,7 @@ template&lt;class t_Entry &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &amp;&#160;</td>
           <td class="paramname"><em>param</em>&#160;</td>
         </tr>
         <tr>
@@ -1620,7 +1620,7 @@ template&lt;class t_Entry &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::writeElement </td>
+          <td class="memname">void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::writeElement </td>
           <td>(</td>
           <td class="paramtype">const std::complex&lt; t_Scalar &gt; &amp;&#160;</td>
           <td class="paramname"><em>entry</em>, </td>
@@ -1628,7 +1628,7 @@ template&lt;class t_Entry &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &amp;&#160;</td>
           <td class="paramname"><em>param</em>&#160;</td>
         </tr>
         <tr>
@@ -1658,7 +1658,7 @@ template&lt;class t_Entry &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::writeElement </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::writeElement </td>
           <td>(</td>
           <td class="paramtype">const std::complex&lt; float &gt; &amp;&#160;</td>
           <td class="paramname"><em>entry</em>, </td>
@@ -1666,7 +1666,7 @@ template&lt;class t_Entry &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &amp;&#160;</td>
           <td class="paramname"><em>param</em>&#160;</td>
         </tr>
         <tr>
@@ -1696,7 +1696,7 @@ template&lt;class t_Entry &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &gt;::writeElement </td>
+          <td class="memname">virtual void <a class="el" href="classariles2_1_1write_1_1VisitorBase.html">ariles2::write::VisitorBase</a>&lt; <a class="el" href="classariles2_1_1write_1_1Visitor.html#ae38ff24cdbf8abcc78ae7105ad83ea96">Visitor</a> , <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &gt;::writeElement </td>
           <td>(</td>
           <td class="paramtype">const std::complex&lt; double &gt; &amp;&#160;</td>
           <td class="paramname"><em>entry</em>, </td>
@@ -1704,7 +1704,7 @@ template&lt;class t_Entry &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a0f7bf3ad2a79a0e9a9b3ca86f5b0d648">Parameters</a>  &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classariles2_1_1serialization_1_1Base.html#a9e5e53dccea53cebb48b1cdaef5fd072">Parameters</a>  &amp;&#160;</td>
           <td class="paramname"><em>param</em>&#160;</td>
         </tr>
         <tr>
@@ -1750,8 +1750,8 @@ template&lt;class t_Entry &gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/usr/home/aleks/git/asherikov/ariles_head_2/extra_visitors/msgpack/ariles2/visitors/msgpack/<a class="el" href="msgpack_2ariles2_2visitors_2msgpack_2writer_8h_source.html">writer.h</a></li>
-<li>/usr/home/aleks/git/asherikov/ariles_head_2/extra_visitors/msgpack/src/<a class="el" href="msgpack_2src_2writer_8cpp_source.html">writer.cpp</a></li>
+<li>/usr/home/aleks/git/asherikov/ariles/head_2/extra_visitors/msgpack/ariles2/visitors/msgpack/<a class="el" href="msgpack_2ariles2_2visitors_2msgpack_2writer_8h_source.html">writer.h</a></li>
+<li>/usr/home/aleks/git/asherikov/ariles/head_2/extra_visitors/msgpack/src/<a class="el" href="msgpack_2src_2writer_8cpp_source.html">writer.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

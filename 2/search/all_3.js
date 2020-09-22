@@ -6,8 +6,6 @@ var searchData=
   ['defaultbase',['DefaultBase',['../classariles2_1_1DefaultBase.html',1,'ariles2::DefaultBase'],['../classariles2_1_1DefaultBase.html#af9446bb27cb30b476c71d118f8b6c440',1,'ariles2::DefaultBase::DefaultBase()']]],
   ['defaults',['Defaults',['../group__defaults.html#gad298ea33d167be9de555e15fb2e99a9a',1,'ariles2::Defaults()'],['../group__defaults.html',1,'(Global Namespace)']]],
   ['defaults_2eh',['defaults.h',['../defaults_8h.html',1,'']]],
-  ['defaults_5fparameters_5f',['defaults_parameters_',['../classariles2_1_1cfgread_1_1Parameters.html#af4c5ca19698eba7e6f2da9428c6d058f',1,'ariles2::cfgread::Parameters']]],
-  ['defaults_5fvisitor_5f',['defaults_visitor_',['../classariles2_1_1cfgread_1_1Visitor.html#a3c4c23a8eb059443a557fba7117de70b',1,'ariles2::cfgread::Visitor']]],
   ['demo',['demo',['../namespacedemo.html',1,'']]],
   ['demo_5fapi_5fv2_2ecpp',['demo_api_v2.cpp',['../demo__api__v2_8cpp.html',1,'']]],
   ['dependencies_5f',['dependencies_',['../classariles__tests_1_1ArilesVisitor.html#a4c32f905360bb843faf6af36c5c3b1e9',1,'ariles_tests::ArilesVisitor']]],
