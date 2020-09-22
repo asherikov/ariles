@@ -14,7 +14,7 @@
 #include "process.h"
 
 /**
-@defgroup postread PostRead
+@defgroup finalize Finalize
 @ingroup process
 
 @brief Postprocess entries, e.g., validate after deserialization.
@@ -22,8 +22,8 @@
 
 namespace ariles2
 {
-    /// @ingroup postread
-    namespace postread
+    /// @ingroup finalize
+    namespace finalize
     {
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
         {
@@ -35,37 +35,43 @@ namespace ariles2
 
 
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor
-          : public ariles2::process::Visitor<const postread::Visitor, postread::Parameters>
+          : public ariles2::process::Visitor<const finalize::Visitor, finalize::Parameters>
         {
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::Base<const postread::Visitor>
+        class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::Base<const finalize::Visitor>
         {
         };
 
 
-#define ARILES2_NAMED_ENTRY_postread(v, entry, name) visitor.visitMapEntry(entry, #name, parameters);
-#define ARILES2_PARENT_postread(v, entry)
-#define ARILES2_VISIT_postread                                                                                         \
+#define ARILES2_NAMED_ENTRY_finalize(v, entry, name) visitor.visitMapEntry(entry, #name, parameters);
+#define ARILES2_PARENT_finalize(v, entry)
+#define ARILES2_VISIT_finalize                                                                                         \
     template <class t_Visitor>                                                                                         \
     void arilesVisit(                                                                                                  \
             const t_Visitor &visitor,                                                                                  \
             const typename t_Visitor::Parameters &parameters,                                                          \
-            ARILES2_IS_BASE_ENABLER(ariles2::postread::Visitor, t_Visitor))                                            \
+            ARILES2_IS_BASE_ENABLER(ariles2::finalize::Visitor, t_Visitor))                                            \
     {                                                                                                                  \
         ARILES2_TRACE_FUNCTION;                                                                                        \
         ARILES2_UNUSED_ARG(visitor);                                                                                   \
         ARILES2_UNUSED_ARG(parameters);                                                                                \
         arilesVisitParents(visitor, parameters);                                                                       \
-        ARILES2_ENTRIES(postread)                                                                                      \
+        ARILES2_ENTRIES(finalize)                                                                                      \
     }
 
-#define ARILES2_METHODS_postread ARILES2_METHODS(postread, const, ARILES2_EMPTY_MACRO)
-#define ARILES2_BASE_METHODS_postread ARILES2_BASE_METHODS(postread)
-    }  // namespace postread
+#define ARILES2_METHODS_finalize ARILES2_METHODS(finalize, const, ARILES2_EMPTY_MACRO)
+#define ARILES2_BASE_METHODS_finalize ARILES2_BASE_METHODS(finalize)
+    }  // namespace finalize
 
 
-    /// @ingroup postread
+    /**
+     * @ingroup defaults
+     * @{
+     */
+    namespace postread = finalize;
     typedef postread::Visitor PostRead;
+    typedef finalize::Visitor Finalize;
+    /// @}
 }  // namespace ariles2

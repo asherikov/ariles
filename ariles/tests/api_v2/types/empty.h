@@ -40,7 +40,7 @@ namespace ariles_tests
 
         void randomize()
         {
-            ariles2::apply<ariles2::PostRead>(*this);
+            ariles2::apply<ariles2::Finalize>(*this);
         }
     };
 }  // namespace ariles_tests

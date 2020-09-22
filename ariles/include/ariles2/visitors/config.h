@@ -12,7 +12,7 @@
 #pragma once
 
 #include "defaults.h"
-#include "postread.h"
+#include "finalize.h"
 #include "prewrite.h"
 #include "read.h"
 #include "write.h"
@@ -33,29 +33,29 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters
         {
         public:
-            ariles2::defaults::Visitor::Parameters defaults_;
+            ariles2::preread::Visitor::Parameters preread_;
             typename t_Reader::Parameters read_;
             ariles2::postread::Visitor::Parameters postread_;
 
 
         public:
             Parameters(const bool override_parameters = true)
-              : defaults_(override_parameters), read_(override_parameters), postread_(override_parameters)
+              : preread_(override_parameters), read_(override_parameters), postread_(override_parameters)
             {
             }
 
             Parameters(const typename t_Reader::Parameters &param, const bool override_parameters = true)
-              : defaults_(override_parameters), postread_(override_parameters)
+              : preread_(override_parameters), postread_(override_parameters)
             {
                 this->read_ = param;
             }
 
             Parameters(
-                    const ariles2::defaults::Visitor::Parameters &defaults,
+                    const ariles2::preread::Visitor::Parameters &preread,
                     const typename t_Reader::Parameters &reader,
                     const ariles2::postread::Visitor::Parameters &postread)
             {
-                this->defaults_ = defaults;
+                this->preread_ = preread;
                 this->read_ = reader;
                 this->postread_ = postread;
             }
@@ -71,7 +71,7 @@ namespace ariles2
 
 
         public:
-            ariles2::defaults::Visitor defaults_;
+            ariles2::preread::Visitor preread_;
             t_Reader read_;
             ariles2::postread::Visitor postread_;
 
@@ -104,7 +104,7 @@ namespace ariles2
             {
                 // static variable is potentially unsafe
                 return (Parameters(
-                        ariles_class.arilesGetParameters(defaults_),
+                        ariles_class.arilesGetParameters(preread_),
                         ariles_class.arilesGetParameters(read_),
                         ariles_class.arilesGetParameters(postread_)));
             }
@@ -116,7 +116,7 @@ namespace ariles2
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_VALUE(name);
                 ARILES2_TRACE_TYPE(entry);
-                ariles2::apply(defaults_, entry, name, param.defaults_);
+                ariles2::apply(preread_, entry, name, param.preread_);
                 ariles2::apply(read_, entry, name, param.read_);
                 ariles2::apply(postread_, entry, name, param.postread_);
             }

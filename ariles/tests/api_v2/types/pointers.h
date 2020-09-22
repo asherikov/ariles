@@ -103,7 +103,7 @@ namespace ariles_tests
                 defaults_check_flag_ = true;
             }
 
-            void arilesVisit(const ariles2::PostRead &visitor, const ariles2::PostRead::Parameters &param)
+            void arilesVisit(const ariles2::Finalize &visitor, const ariles2::Finalize::Parameters &param)
             {
                 ARILES2_TRACE_FUNCTION;
                 arilesVisitParents(visitor, param);
