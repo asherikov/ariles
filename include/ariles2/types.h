@@ -183,7 +183,7 @@ namespace ariles2
         }
 
 
-        void arilesVisit(const ariles2::PostRead &visitor, const ariles2::PostRead::Parameters &param)
+        void arilesVisit(const ariles2::Finalize &visitor, const ariles2::Finalize::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
             if (true == isInitialized())
@@ -312,7 +312,7 @@ namespace ariles2
         }
 
 
-        void arilesVisit(const ariles2::PostRead &visitor, const ariles2::PostRead::Parameters &param)
+        void arilesVisit(const ariles2::Finalize &visitor, const ariles2::Finalize::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
             ARILES2_ASSERT(false == isNull(), "Not initialized");

@@ -79,10 +79,10 @@ namespace ariles_tests
             defaults_check_flag_ = true;
         }
 
-        void arilesVisit(const ariles2::PostRead &visitor, const ariles2::PostRead::Parameters &param)
+        void arilesVisit(const ariles2::Finalize &visitor, const ariles2::Finalize::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            arilesVisit<ariles2::PostRead>(visitor, param);
+            arilesVisit<ariles2::Finalize>(visitor, param);
             finalize_check_flag_ = true;
         }
     };
@@ -118,10 +118,10 @@ namespace ariles_tests
             defaults_check_flag_ = true;
         }
 
-        void arilesVisit(const ariles2::PostRead &visitor, const ariles2::PostRead::Parameters &param)
+        void arilesVisit(const ariles2::Finalize &visitor, const ariles2::Finalize::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            arilesVisit<ariles2::PostRead>(visitor, param);
+            arilesVisit<ariles2::Finalize>(visitor, param);
             finalize_check_flag_ = true;
         }
     };

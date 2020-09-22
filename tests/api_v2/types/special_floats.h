@@ -25,7 +25,7 @@ namespace ariles_tests
 #include ARILES2_INITIALIZE
 
     public:
-        bool postreaded_;
+        bool finalizeed_;
 
 
     public:
@@ -41,7 +41,7 @@ namespace ariles_tests
 
         void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
-            postreaded_ = false;
+            finalizeed_ = false;
 
             float_quiet_nan_ = 0.0;
             float_signaling_nan_ = 0.0;
@@ -59,7 +59,7 @@ namespace ariles_tests
         virtual void randomize()
         {
             boost::random::random_device random_generator;
-            postreaded_ = false;
+            finalizeed_ = false;
 
             float_quiet_nan_ = std::numeric_limits<float>::quiet_NaN();
             float_signaling_nan_ = std::numeric_limits<float>::signaling_NaN();
@@ -73,9 +73,9 @@ namespace ariles_tests
         }
 #endif
 
-        void arilesVisit(const ariles2::PostRead & /*visitor*/, const ariles2::PostRead::Parameters & /*param*/)
+        void arilesVisit(const ariles2::Finalize & /*visitor*/, const ariles2::Finalize::Parameters & /*param*/)
         {
-            postreaded_ = true;
+            finalizeed_ = true;
         }
     };
 
@@ -84,7 +84,7 @@ namespace ariles_tests
 #ifndef ARILES_TESTS_COMPARE_DISABLED
     void check(class ConfigurableSpecialFloats &configurable)
     {
-        BOOST_CHECK(true == configurable.postreaded_);
+        BOOST_CHECK(true == configurable.finalizeed_);
 
         BOOST_CHECK(true == ariles2::isNaN(configurable.double_quiet_nan_));
         BOOST_CHECK(true == ariles2::isNaN(configurable.double_signaling_nan_));

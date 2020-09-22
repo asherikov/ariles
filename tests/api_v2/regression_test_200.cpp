@@ -21,7 +21,7 @@
 
 #include "types/simple_verbose.h"
 #include "types/simple_auto_declare.h"
-#include "types/no_setdefaults.h"
+#include "types/auto_defaults.h"
 #include "types/empty.h"
 
 
