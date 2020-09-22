@@ -14,7 +14,7 @@
 #include "common.h"
 
 /**
-@defgroup defaults Defaults
+@defgroup defaults Defaults (PreRead)
 
 @brief Initializes entries to their default values.
 */
@@ -140,7 +140,12 @@ namespace ariles2
 #define ARILES2_BASE_METHODS_defaults ARILES2_BASE_METHODS(defaults)
     }  // namespace defaults
 
-
-    /// @ingroup defaults
+    /**
+     * @ingroup defaults
+     * @{
+     */
+    namespace preread = defaults;
+    typedef preread::Visitor PreRead;
     typedef defaults::Visitor Defaults;
+    /// @}
 }  // namespace ariles2
