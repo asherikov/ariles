@@ -67,7 +67,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><ul>
 <li>'Sloppy' <code>std::map</code> and <code>std::pair</code>: maps and pairs where the key or the first element is an <code>std::string</code> can optionally be saved / loaded as maps if supported by the data format. For example: <div class="fragment"><div class="line">std_map:</div><div class="line">    key: value</div></div><!-- fragment --> instead of <div class="fragment"><div class="line">std_map:</div><div class="line">    first: key</div><div class="line">    second: value</div></div><!-- fragment --></li>
-<li>'Polymorphic' configurations: <code>ariles::Any</code> class defined in <code>ariles/types.h</code> provides functionality similar to <code>protobuf::Any</code> &ndash; this class automatically instantiates and reads configuration of some user-defined class based on its string id and stores a pointer to its base class. See <code>tests/api_v(1|2)/types/any.h</code> for an example. </li>
+<li>'Polymorphic' configurations: <code>ariles::Any</code> class defined in <code>ariles/types.h</code> provides functionality similar to <code>protobuf::Any</code> &ndash; this class automatically instantiates and reads configuration of some user-defined class based on its string id and stores a pointer to its base class. See <code>tests/api_v2/types/any.h</code> for an example. </li>
 </ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
