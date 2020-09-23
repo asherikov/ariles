@@ -799,7 +799,8 @@ INPUT                  =    ../README.md \
                             ../tests/api_v2/types/ariles_diagram.h \
                             ../tests/api_v2/demo_api_v2.cpp \
                             ./doxygen_pages.dox \
-                            ./advanced_features.md
+                            ./advanced_features.md \
+                            ./migration_1to2.md
 #                            ../CHANGELOG.md
 
 # This tag can be used to specify the character encoding of the source files
