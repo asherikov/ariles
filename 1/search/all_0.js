@@ -103,7 +103,7 @@ var searchData=
   ['entry',['entry',['../namespaceariles_1_1entry.html',1,'ariles']]],
   ['impl',['impl',['../namespaceariles_1_1ns__jsonnet_1_1impl.html',1,'ariles::ns_jsonnet::impl'],['../namespaceariles_1_1ns__msgpack_1_1impl.html',1,'ariles::ns_msgpack::impl'],['../namespaceariles_1_1ns__msgpack__compact_1_1impl.html',1,'ariles::ns_msgpack_compact::impl'],['../namespaceariles_1_1ns__octave_1_1impl.html',1,'ariles::ns_octave::impl'],['../namespaceariles_1_1ns__pugixml_1_1impl.html',1,'ariles::ns_pugixml::impl'],['../namespaceariles_1_1ns__rapidjson_1_1impl.html',1,'ariles::ns_rapidjson::impl'],['../namespaceariles_1_1ns__ros_1_1impl.html',1,'ariles::ns_ros::impl'],['../namespaceariles_1_1ns__yaml__cpp03_1_1impl.html',1,'ariles::ns_yaml_cpp03::impl'],['../namespaceariles_1_1ns__yaml__cpp_1_1impl.html',1,'ariles::ns_yaml_cpp::impl']]],
   ['ariles',['Ariles',['../index.html',1,'']]],
-  ['advanced_20features',['Advanced features',['../md_advanced_features.html',1,'']]],
+  ['advanced_20features',['Advanced features',['../md_doc_advanced_features.html',1,'']]],
   ['ns_5farray',['ns_array',['../namespaceariles_1_1ns__array.html',1,'ariles']]],
   ['ns_5fjsonnet',['ns_jsonnet',['../namespaceariles_1_1ns__jsonnet.html',1,'ariles']]],
   ['ns_5fmsgpack',['ns_msgpack',['../namespaceariles_1_1ns__msgpack.html',1,'ariles']]],
