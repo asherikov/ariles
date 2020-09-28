@@ -11,10 +11,6 @@
 #include "utility.h"
 #include "all_enabled_visitors.h"
 
-// all adapters
-// #include "all_enabled_adapters.h"
-// only basic adapters
-// definition of ariles2::ConfigurableBase
 #include <ariles2/ariles.h>
 
 

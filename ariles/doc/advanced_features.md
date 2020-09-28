@@ -19,5 +19,5 @@ Advanced features
   provides functionality similar to `protobuf::Any` -- this class automatically
   instantiates and reads configuration of some user-defined class based on its
   string id and stores a pointer to its base class. See
-  `tests/api_v(1|2)/types/any.h` for an example.
+  `tests/api_v2/types/any.h` for an example.
 
