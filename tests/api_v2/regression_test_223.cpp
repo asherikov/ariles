@@ -11,9 +11,6 @@
 #include "utility.h"
 
 #include <ariles2/visitors/rapidjson.h>
-
-// If no format header is included, ariles is disabled, and
-// ariles2::ConfigurableBase is just a dummy class.
 #include <ariles2/ariles.h>
 
 

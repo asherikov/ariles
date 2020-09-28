@@ -69,7 +69,7 @@ namespace demo
     };
 
 
-    class MyClass : public ArilesBaseClass,  // no need to inherit from ConfigurableBase directly.
+    class MyClass : public ArilesBaseClass,  // no need to inherit from ariles2::DefaultBase directly.
                     public NonArilesBaseClass
     {
 // Declare entries, in this case we indicate inheritance from another
