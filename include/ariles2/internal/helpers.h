@@ -75,17 +75,33 @@
 #define ARILES2_EMPTY_MACRO
 
 
-#define ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST                                                                        \
-    ARILES2_BASIC_TYPE(int)                                                                                            \
-    ARILES2_BASIC_TYPE(short)                                                                                          \
-    ARILES2_BASIC_TYPE(long)                                                                                           \
-    ARILES2_BASIC_TYPE(char)
+#if __cplusplus >= 201103L
+#    define ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST                                                                    \
+        ARILES2_BASIC_TYPE(int)                                                                                        \
+        ARILES2_BASIC_TYPE(short)                                                                                      \
+        ARILES2_BASIC_TYPE(long)                                                                                       \
+        ARILES2_BASIC_TYPE(long long)                                                                                  \
+        ARILES2_BASIC_TYPE(char)
 
-#define ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST                                                                      \
-    ARILES2_BASIC_TYPE(unsigned int)                                                                                   \
-    ARILES2_BASIC_TYPE(unsigned short)                                                                                 \
-    ARILES2_BASIC_TYPE(unsigned long)                                                                                  \
-    ARILES2_BASIC_TYPE(unsigned char)
+#    define ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST                                                                  \
+        ARILES2_BASIC_TYPE(unsigned int)                                                                               \
+        ARILES2_BASIC_TYPE(unsigned short)                                                                             \
+        ARILES2_BASIC_TYPE(unsigned long)                                                                              \
+        ARILES2_BASIC_TYPE(unsigned long long)                                                                         \
+        ARILES2_BASIC_TYPE(unsigned char)
+#else
+#    define ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST                                                                    \
+        ARILES2_BASIC_TYPE(int)                                                                                        \
+        ARILES2_BASIC_TYPE(short)                                                                                      \
+        ARILES2_BASIC_TYPE(long)                                                                                       \
+        ARILES2_BASIC_TYPE(char)
+
+#    define ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST                                                                  \
+        ARILES2_BASIC_TYPE(unsigned int)                                                                               \
+        ARILES2_BASIC_TYPE(unsigned short)                                                                             \
+        ARILES2_BASIC_TYPE(unsigned long)                                                                              \
+        ARILES2_BASIC_TYPE(unsigned char)
+#endif
 
 #define ARILES2_BASIC_INTEGER_TYPES_LIST                                                                               \
     ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST                                                                            \

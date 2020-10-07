@@ -62,7 +62,7 @@ namespace ariles_tests
     ARILES2_TYPED_ENTRY_(v, transforms, std::vector<ariles_tests::rosmsg::Transform>)                                  \
     ARILES2_TYPED_ENTRY_(v, velocities, std::vector<ariles_tests::rosmsg::Twist>)                                      \
     ARILES2_TYPED_ENTRY_(v, accelerations, std::vector<ariles_tests::rosmsg::Twist>)                                   \
-    ARILES2_TYPED_ENTRY_(v, time_from_start, std::size_t)
+    ARILES2_TYPED_ENTRY_(v, time_from_start, uint64_t)
 #include ARILES2_INITIALIZE
 
         public:
