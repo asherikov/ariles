@@ -158,8 +158,6 @@ updateutils:
 	git fetch --all
 	git show remotes/cmakeut/master:cmake/FindEigen3.cmake > cmake/FindEigen3.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_compiler_flags.cmake              > cmake/cmakeut_compiler_flags.cmake
-	git show remotes/cmakeut/master:cmake/cmakeut_copy_dir_if_exists.cmake          > cmake/cmakeut_copy_dir_if_exists.cmake
-	git show remotes/cmakeut/master:cmake/cmakeut_copy_file_if_exists.cmake         > cmake/cmakeut_copy_file_if_exists.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_detect_func_macro.cmake           > cmake/cmakeut_detect_func_macro.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_dump_variables.cmake              > cmake/cmakeut_dump_variables.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_list_filenames.cmake              > cmake/cmakeut_list_filenames.cmake

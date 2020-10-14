@@ -32,7 +32,9 @@ function(ariles_define_test ARILES_MODULE TEST_ID DEPENDENCIES)
     target_include_directories(${TGT_NAME} PRIVATE ${ARILES_CORE_BUILD_INCLUDES})
     target_include_directories(${TGT_NAME} SYSTEM PRIVATE ${ARILES_CORE_DEPENDENCY_INCLUDES})
 
-    add_dependencies(${TGT_NAME} TGT_ariles_copy_headers ${TGT_DEPENDS})
+    if (TGT_INCLUDES)
+        add_dependencies(${TGT_NAME} ${TGT_DEPENDS})
+    endif()
 
     target_link_libraries(${TGT_NAME} ${LINK_TO_LIBRARIES})
 

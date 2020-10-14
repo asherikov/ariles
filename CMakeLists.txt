@@ -25,7 +25,7 @@ set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 ## Options (definitions & defaults)
 #####################################
 
-option (ARILES_ENABLE_CORE              "Install core (if disabled only selected visitors are installed)." ON)
+set    (ARILES_ENABLE_CORE              "ON" CACHE STRING "ON = enable, OFF = disable, NOINSTALL")
 
 # extra visitors
 set    (ARILES_VISITORS_DEFAULT_MODE    "ON" CACHE STRING "ON = enable, OFF = disable")
@@ -60,8 +60,6 @@ include(CMakeParseArguments)
 include(CPackComponent)
 include(CMakePackageConfigHelpers)
 
-include(cmakeut_copy_dir_if_exists)
-include(cmakeut_copy_file_if_exists)
 include(cmakeut_list_filenames)
 include(cmakeut_dump_variables)
 include(cmakeut_compiler_flags)
@@ -113,7 +111,7 @@ if(NOT CMAKE_CXX_COMPILER_LAUNCHER)
 endif()
 
 
-if (NOT ${ARILES_ENABLE_CORE})
+if (NOT ${ARILES_ENABLE_CORE} STREQUAL "ON")
     # tests cannot be built if the core is not installed
     set(ARILES_BUILD_REGRESSION_TESTS   OFF)
 
@@ -199,10 +197,11 @@ endif(ARILES_VERBOSE)
 set (CMAKE_RULE_MESSAGES        OFF CACHE BOOL "")
 
 
-##
-## paths
-##
-set (ARILES_INCLUDE_DIR "${PROJECT_BINARY_DIR}/include/")
+if(CMAKE_TOOLCHAIN_FILE)
+    if(NOT IS_ABSOLUTE ${CMAKE_TOOLCHAIN_FILE})
+        set(CMAKE_TOOLCHAIN_FILE "${PROJECT_SOURCE_DIR}/${CMAKE_TOOLCHAIN_FILE}")
+    endif()
+endif(CMAKE_TOOLCHAIN_FILE)
 
 
 ##
@@ -219,6 +218,10 @@ if(NOT CMAKE_BUILD_TYPE)
     set (CMAKE_BUILD_TYPE Debug)
 endif (NOT CMAKE_BUILD_TYPE)
 
+set (CMAKEUT_CPP_SANITIZERS ${ARILES_CPP_SANITIZERS})
+cmakeut_compiler_flags("${ARILES_CPP_STANDARD}")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKEUT_CXX_FLAGS}")
+
 
 set (RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 set (LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
@@ -229,9 +232,6 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
 set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
 
-# This will go to the configuration file for projects, which use ariles.
-set (ARILES_CORE_INCLUDES "${CMAKE_INSTALL_PREFIX}/include")
-
 set(DEB_ARCHIVE_FILES
     "./AUTHORS.md"
     "./CMakeLists.txt"
@@ -240,40 +240,6 @@ set(DEB_ARCHIVE_FILES
     "./README.md"
     "./cmake"
     "./cpput")
-
-
-#####################################
-## Ariles headers
-#####################################
-
-
-# --------------
-# cpput
-# --------------
-option(CPPUT_EMBEDDED "" ON)
-set(CPPUT_EMBEDDED_ID "ARILES2"  CACHE STRING "")
-set(CPPUT_EMBEDDED_COPY_TO_DIR "${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/internal/"  CACHE STRING "")
-set(CPPUT_SELECT_HEADERS "config.h;;exception.h;floating_point_utils.h;visibility.h;misc.h;trace.h"  CACHE STRING "")
-add_subdirectory(cpput)
-# --------------
-
-
-add_custom_target( TGT_ariles_copy_headers ALL )
-
-# core & adapters headers
-cmakeut_copy_dir_if_exists(TGT_ariles_copy_headers          "ariles2"
-                          "${PROJECT_SOURCE_DIR}/include"   "${ARILES_INCLUDE_DIR}/core/")
-set(ARILES_CORE_BUILD_INCLUDES "${ARILES_INCLUDE_DIR}/core/")
-
-if (${ARILES_ENABLE_CORE})
-    foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
-        cmakeut_copy_dir_if_exists(
-            TGT_ariles_copy_headers                                         "adapter_${ARILES_EXTRA_ADAPTER}"
-            "${PROJECT_SOURCE_DIR}/extra_adapters/${ARILES_EXTRA_ADAPTER}"  "${ARILES_INCLUDE_DIR}/core/${PROJECT_NAME}/adapters/")
-    endforeach()
-
-    list(APPEND DEB_ARCHIVE_FILES "./include" "./extra_adapters")
-endif()
 
 
 
@@ -291,8 +257,6 @@ list(APPEND ARILES_CORE_DEPENDENCY_INCLUDES "${Boost_INCLUDE_DIRS}")
 ## Optional dependencies
 ##
 
-set(VISITOR_TARGET_PREFIX TGT_visitor)
-
 if (ARILES_ADAPTER_EIGEN)
     find_package(Eigen3 REQUIRED)
     list(APPEND ARILES_CORE_DEPENDENCY_INCLUDES "${EIGEN3_INCLUDE_DIR}")
@@ -307,65 +271,58 @@ endif(ARILES_ADAPTER_BOOST_OPTIONAL)
 
 
 
-if(CMAKE_TOOLCHAIN_FILE)
-    if(NOT IS_ABSOLUTE ${CMAKE_TOOLCHAIN_FILE})
-        set(CMAKE_TOOLCHAIN_FILE "${PROJECT_SOURCE_DIR}/${CMAKE_TOOLCHAIN_FILE}")
-    endif()
-endif(CMAKE_TOOLCHAIN_FILE)
-
-
-foreach(ARILES_VISITORS_DIR ${ARILES_VISITORS_DIRS})
-    cmakeut_list_filenames("${ARILES_VISITORS_DIR}"   "ARILES_VISITORS_TMP" DIRS_WITH_CMAKELISTS)
-
-    foreach(ARILES_VISITOR ${ARILES_VISITORS_TMP})
-        if (NOT ${ARILES_VISITOR_${ARILES_VISITOR}} STREQUAL "OFF")
-            add_custom_target(${VISITOR_TARGET_PREFIX}_${ARILES_VISITOR})
-            include("${ARILES_VISITOR_${ARILES_VISITOR}_DIR}/CMakeLists.txt")
-
-            list(APPEND DEB_ARCHIVE_FILES "${PROJECT_SOURCE_DIR}/extra_visitors/${ARILES_VISITOR}/")
-        endif()
-    endforeach(ARILES_VISITOR)
-endforeach(ARILES_VISITORS_DIR)
-
-
-
 #####################################
-## Variables / options for ariles
+## Ariles headers
 #####################################
 
-set(CMAKEUT_CPP_SANITIZERS ${ARILES_CPP_SANITIZERS})
-cmakeut_compiler_flags("${ARILES_CPP_STANDARD}")
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKEUT_CXX_FLAGS}")
+if (NOT ${ARILES_ENABLE_CORE} STREQUAL "OFF")
+    set(ARILES_CORE_BUILD_INCLUDES "${PROJECT_BINARY_DIR}/include/core/")
 
 
+    # --------------
+    # build config
+    # --------------
+    set(ARILES_BUILD_CONFIG
+    "#pragma once
+    // __func__ ?
+    #cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNC_
+    // __FUNCTION__ ?
+    #cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNCTION_\n")
 
-#####################################
-## Tests
-#####################################
+    string(CONFIGURE "${ARILES_BUILD_CONFIG}" ARILES_BUILD_CONFIG)
+    file(WRITE "${ARILES_CORE_BUILD_INCLUDES}/${PROJECT_NAME}/internal/build_config.h" "${ARILES_BUILD_CONFIG}")
+    # --------------
 
-if (ARILES_BUILD_REGRESSION_TESTS)
-    enable_testing()
-    add_subdirectory ("${PROJECT_SOURCE_DIR}/tests")
+
+    # --------------
+    # core & adapters headers
+    # --------------
+    execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${PROJECT_SOURCE_DIR}/include"
+        "${ARILES_CORE_BUILD_INCLUDES}"
+    )
+
+    foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
+        execute_process(COMMAND ${CMAKE_COMMAND} -E copy_directory
+            "${PROJECT_SOURCE_DIR}/extra_adapters/${ARILES_EXTRA_ADAPTER}"
+            "${ARILES_CORE_BUILD_INCLUDES}/${PROJECT_NAME}/adapters/"
+        )
+    endforeach()
+    # --------------
+
+
+    # --------------
+    # cpput
+    # --------------
+    option(CPPUT_EMBEDDED "" ON)
+    set(CPPUT_EMBEDDED_ID "ARILES2"  CACHE STRING "")
+    set(CPPUT_EMBEDDED_COPY_TO_DIR "${ARILES_CORE_BUILD_INCLUDES}/${PROJECT_NAME}/internal/"  CACHE STRING "")
+    set(CPPUT_SELECT_HEADERS "config.h;exception.h;floating_point_utils.h;visibility.h;misc.h;trace.h"  CACHE STRING "")
+    add_subdirectory(cpput)
+    # --------------
+
+    list(APPEND DEB_ARCHIVE_FILES "./include" "./extra_adapters")
 endif()
-
-
-
-#####################################
-## Auto-generated headers
-#####################################
-
-# build config
-#---
-set(ARILES_BUILD_CONFIG
-"#pragma once
-// __func__ ?
-#cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNC_
-// __FUNCTION__ ?
-#cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNCTION_\n")
-
-string(CONFIGURE "${ARILES_BUILD_CONFIG}" ARILES_BUILD_CONFIG)
-file(WRITE "${ARILES_INCLUDE_DIR}/core/${PROJECT_NAME}/internal/build_config.h" "${ARILES_BUILD_CONFIG}")
-#---
 
 
 
@@ -373,7 +330,7 @@ file(WRITE "${ARILES_INCLUDE_DIR}/core/${PROJECT_NAME}/internal/build_config.h" 
 ## Package config files & Installation
 #####################################
 
-if (${ARILES_ENABLE_CORE})
+if (${ARILES_ENABLE_CORE} STREQUAL "ON")
     cpack_add_component("core"
         DISPLAY_NAME "Ariles core"
         DESCRIPTION "Core headers and STL adapters"
@@ -385,8 +342,9 @@ if (${ARILES_ENABLE_CORE})
     set(ariles_INCLUDE_DIRS "${PROJECT_NAME}-${ARILES_COMPONENT_NAME}_INCLUDE_DIRS")
     set(ariles_LIBRARY_DIRS "${PROJECT_NAME}-${ARILES_COMPONENT_NAME}_LIBRARY_DIRS")
 
+
     set(ARILES_LIBRARIES            "")
-    set(ARILES_INCLUDES             "${ARILES_CORE_INCLUDES}")
+    set(ARILES_INCLUDES             "${CMAKE_INSTALL_PREFIX}/include")
     set(ARILES_DEPENDENCY_INCLUDES  "${ARILES_CORE_DEPENDENCY_INCLUDES}")
     set(ARILES_LIBRARY_DIRS         "")
 
@@ -430,12 +388,48 @@ if (${ARILES_ENABLE_CORE})
     endif()
 
 
-    install (DIRECTORY "${ARILES_INCLUDE_DIR}/${ARILES_COMPONENT_NAME}/"
-             DESTINATION "${CMAKE_INSTALL_PREFIX}/include/"
+    install (DIRECTORY "${ARILES_CORE_BUILD_INCLUDES}/"
+             DESTINATION "${ARILES_INCLUDES}/"
              COMPONENT "${ARILES_COMPONENT_NAME}")
 
     set(DEB_CMAKE_FLAGS_core "-DARILES_ENABLE_CORE=ON")
     set(DEB_core_DEPENDS "libboost-all-dev;libeigen3-dev")
+else()
+    if (${ARILES_ENABLE_CORE} STREQUAL "OFF")
+        find_package(ariles2-core REQUIRED)
+    endif()
+endif()
+
+
+
+#####################################
+## visitors
+#####################################
+
+set(VISITOR_TARGET_PREFIX TGT_visitor)
+
+foreach(ARILES_VISITORS_DIR ${ARILES_VISITORS_DIRS})
+    cmakeut_list_filenames("${ARILES_VISITORS_DIR}"   "ARILES_VISITORS_TMP" DIRS_WITH_CMAKELISTS)
+
+    foreach(ARILES_VISITOR ${ARILES_VISITORS_TMP})
+        if (NOT ${ARILES_VISITOR_${ARILES_VISITOR}} STREQUAL "OFF")
+            add_custom_target(${VISITOR_TARGET_PREFIX}_${ARILES_VISITOR})
+            include("${ARILES_VISITOR_${ARILES_VISITOR}_DIR}/CMakeLists.txt")
+
+            list(APPEND DEB_ARCHIVE_FILES "${PROJECT_SOURCE_DIR}/extra_visitors/${ARILES_VISITOR}/")
+        endif()
+    endforeach(ARILES_VISITOR)
+endforeach(ARILES_VISITORS_DIR)
+
+
+
+#####################################
+## tests
+#####################################
+
+if (ARILES_BUILD_REGRESSION_TESTS)
+    enable_testing()
+    add_subdirectory ("${PROJECT_SOURCE_DIR}/tests")
 endif()
 
 

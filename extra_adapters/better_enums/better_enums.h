@@ -30,7 +30,7 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             std::string enum_value;
             visitor.readElement(enum_value);
-            entry = t_BetterEnum::_from_string(enum_value.c_str());
+            entry = t_BetterEnum::_from_string_nocase(enum_value.c_str());
         }
     }  // namespace read
 }  // namespace ariles2
