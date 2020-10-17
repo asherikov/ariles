@@ -8,6 +8,7 @@ if (DEFINED CATKIN_DEVEL_PREFIX)
 
     find_package(catkin REQUIRED
         ariles2_core_ros
+        ariles2_rosparam_ros
         ariles2_rapidjson_ros
         ariles2_yamlcpp_ros
         ariles2_octave_ros
@@ -15,6 +16,7 @@ if (DEFINED CATKIN_DEVEL_PREFIX)
 
     catkin_package(DEPENDS
         ariles2_core_ros
+        ariles2_rosparam_ros
         ariles2_rapidjson_ros
         ariles2_yamlcpp_ros
         ariles2_octave_ros
@@ -38,12 +40,14 @@ else()
     project(ariles2_demo)
 
     find_package(ariles2_core_ros REQUIRED)
+    find_package(ariles2_rosparam_ros REQUIRED)
     find_package(ariles2_rapidjson_ros REQUIRED)
     find_package(ariles2_yamlcpp_ros REQUIRED)
     find_package(ariles2_octave_ros REQUIRED)
 
     include_directories(
         ${ariles2_core_ros_INCLUDE_DIRS}
+        ${ariles2_rosparam_ros_INCLUDE_DIRS}
         ${ariles2_rapidjson_ros_INCLUDE_DIRS}
         ${ariles2_yamlcpp_ros_INCLUDE_DIRS}
         ${ariles2_octave_ros_INCLUDE_DIRS}
@@ -52,6 +56,7 @@ else()
     add_executable(demo demo.cpp)
     target_link_libraries(demo
         ${ariles2_core_ros_LIBRARIES}
+        ${ariles2_rosparam_ros_LIBRARIES}
         ${ariles2_rapidjson_ros_LIBRARIES}
         ${ariles2_yamlcpp_ros_LIBRARIES}
         ${ariles2_octave_ros_LIBRARIES}
