@@ -12,7 +12,7 @@ Ariles
         (ROS package)
     </td>
     <td align="center">
-        <a href="https://github.com/asherikov/ariles/tree/pkg_freebsd">pkg_freebsd</a><br/>
+        <a href="https://github.com/asherikov/ariles/tree/pkg_freebsd_2">pkg_freebsd</a><br/>
         (FreeBSD package)
     </td>
   </tr>
@@ -44,6 +44,7 @@ Links
 * GitHub: https://github.com/asherikov/ariles
 * Travis CI: https://travis-ci.org/asherikov/ariles
 * Legacy 1.x.x version: https://github.com/asherikov/ariles/tree/head_1
+  (migration guide https://asherikov.github.io/ariles/2/md_doc_migration_1to2.html)
 
 
 <a name="intro"></a>

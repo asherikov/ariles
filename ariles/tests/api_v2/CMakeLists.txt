@@ -7,23 +7,15 @@ foreach(ARILES_EXTRA_ADAPTER ${ARILES_EXTRA_ADAPTERS})
 endforeach()
 
 
-set (ARILES_TEST_FILE_VISITORS_ENABLED OFF)
 foreach(ARILES_VISITOR ${ARILES_VISITORS})
     if (NOT ${ARILES_VISITOR_${ARILES_VISITOR}} STREQUAL "OFF")
         set(ARILES_TESTS_CONFIG "${ARILES_TESTS_CONFIG}#define ARILES_VISITOR_${ARILES_VISITOR}\n")
     endif()
-
-    if (NOT ARILES_TEST_FILE_VISITORS_ENABLED)
-        list (FIND ARILES_TEST_FILE_VISITORS "ARILES_VISITOR" INDEX)
-        if (${INDEX} GREATER -1)
-            set(ARILES_TEST_FILE_VISITORS_ENABLED ON)
-        endif()
-    endif()
 endforeach(ARILES_VISITOR)
 
 
-file(WRITE "${ARILES_INCLUDE_DIR}/tests/api_v2/tests_config.h" "${ARILES_TESTS_CONFIG}")
-include_directories("${ARILES_INCLUDE_DIR}/tests")
+file(WRITE "${PROJECT_BINARY_DIR}/tests/api_v2/tests_config.h" "${ARILES_TESTS_CONFIG}")
+include_directories("${PROJECT_BINARY_DIR}/tests")
 ##############################################################################
 
 
@@ -45,39 +37,37 @@ target_include_directories(testlib_api_v2 SYSTEM PRIVATE ${ARILES_CORE_DEPENDENC
 
 
 # tests
-ariles_define_regression_test(${PROJECT_NAME} "200" "" "${ARILES_TEST_ALL_VISITORS}") # features
-ariles_define_regression_test(${PROJECT_NAME} "201" "" "${ARILES_TEST_ALL_VISITORS}") # complex
-ariles_define_regression_test(${PROJECT_NAME} "202" "" "${ARILES_TEST_ALL_VISITORS}") # inheritance, strictness
-ariles_define_regression_test(${PROJECT_NAME} "203" "" "${ARILES_TEST_ALL_VISITORS}") # finalize, defaults
-ariles_define_regression_test(${PROJECT_NAME} "204" "" "${ARILES_TEST_ALL_VISITORS}") # no all_enabled_adapters.h
-ariles_define_regression_test(${PROJECT_NAME} "205" "" "${ARILES_TEST_ALL_VISITORS}") # disabled ariles
-ariles_define_regression_test(${PROJECT_NAME} "209" "" "${ARILES_TEST_ALL_VISITORS}") # pointers (scalar)
-ariles_define_regression_test(${PROJECT_NAME} "210" "rapidjson;jsonnet" "")           # jsonnet
-ariles_define_regression_test(${PROJECT_NAME} "211" "rapidjson;yaml_cpp" "")          # visitor inclusion order # TODO
-ariles_define_regression_test(${PROJECT_NAME} "212" "octave" "")                      # octave: complex, pointers
-ariles_define_regression_test(${PROJECT_NAME} "213" "" "${ARILES_TEST_ALL_VISITORS}") # special floats
-if(ARILES_TEST_FILE_VISITORS_ENABLED)
-    ariles_define_regression_test(${PROJECT_NAME} "214" "" "${ARILES_TEST_FILE_VISITORS}")# filenames
-endif()
-ariles_define_regression_test(${PROJECT_NAME} "215" "pugixml" "")                     # XML childs vs attributes
-ariles_define_regression_test(${PROJECT_NAME} "216" "" "")                            # inclusion
-ariles_define_regression_test(${PROJECT_NAME} "217" "" "${ARILES_TEST_ALL_VISITORS}") # any
-ariles_define_regression_test(${PROJECT_NAME} "218" "" "${ARILES_TEST_ALL_VISITORS}") # pointers (configurable)
-ariles_define_regression_test(${PROJECT_NAME} "219" "" "")                            # comparison (complex)
-ariles_define_regression_test(${PROJECT_NAME} "220" "" "")                            # comparison (inheritance)
-ariles_define_regression_test(${PROJECT_NAME} "221" "namevalue" "")                   # namevalue
-ariles_define_regression_test(${PROJECT_NAME} "222" "" "${ARILES_TEST_ALL_VISITORS}") # flags
-ariles_define_regression_test(${PROJECT_NAME} "223" "rapidjson" "")                   # json floats, flags
+ariles_define_regression_test("200" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # features
+ariles_define_regression_test("201" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # complex
+ariles_define_regression_test("202" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # inheritance, strictness
+ariles_define_regression_test("203" ""      "${ARILES_TEST_ALL_VISITORS}")  # finalize, defaults
+ariles_define_regression_test("204" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # no all_enabled_adapters.h
+ariles_define_regression_test("205" ""      "${ARILES_TEST_ALL_VISITORS}")  # disabled ariles
+ariles_define_regression_test("209" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # pointers (scalar)
+ariles_define_regression_test("210" "rapidjson;jsonnet")                    # jsonnet
+ariles_define_regression_test("211" "rapidjson;yaml_cpp")                   # visitor inclusion order # TODO
+ariles_define_regression_test("212" "octave")                               # octave: complex, pointers
+ariles_define_regression_test("213" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # special floats
+ariles_define_regression_test("214" "ANY"   "${ARILES_TEST_FILE_VISITORS}") # filenames
+ariles_define_regression_test("215" "pugixml")                              # XML childs vs attributes
+ariles_define_regression_test("216" "")                                     # inclusion
+ariles_define_regression_test("217" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # any
+ariles_define_regression_test("218" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # pointers (configurable)
+ariles_define_regression_test("219" "")                                     # comparison (complex)
+ariles_define_regression_test("220" "")                                     # comparison (inheritance)
+ariles_define_regression_test("221" "namevalue")                            # namevalue
+ariles_define_regression_test("222" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # flags
+ariles_define_regression_test("223" "rapidjson")                            # json floats, flags
 if (NOT ${ARILES_VISITOR_yaml_cpp} STREQUAL "OFF")
-    ariles_define_regression_test(${PROJECT_NAME} "224" "yaml_cpp" "")                # missing entries
+    ariles_define_regression_test("224" "yaml_cpp")                         # missing entries
 elseif (NOT ${ARILES_VISITOR_yaml_cpp03} STREQUAL "OFF")
-    ariles_define_regression_test(${PROJECT_NAME} "224" "yaml_cpp03" "")              # missing entries
+    ariles_define_regression_test("224" "yaml_cpp03")                       # missing entries
 endif()
-ariles_define_regression_test(${PROJECT_NAME} "225" "" "${ARILES_TEST_ALL_VISITORS}") # 201, but with sloppy pairs and maps
-ariles_define_regression_test(${PROJECT_NAME} "226" "graphviz" "")                    # graphviz: complex, pointers
-ariles_define_regression_test(${PROJECT_NAME} "229" "graphviz" "")                    # graphviz: ariles_diagram
-ariles_define_regression_test(${PROJECT_NAME} "230" "" "")                            # copyto, copyfrom
-ariles_define_regression_test(${PROJECT_NAME} "231" "protobuf3" "")                   # protobuf
+ariles_define_regression_test("225" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # 201, but with sloppy pairs and maps
+ariles_define_regression_test("226" "graphviz")                             # graphviz: complex, pointers
+ariles_define_regression_test("229" "graphviz")                             # graphviz: ariles_diagram
+ariles_define_regression_test("230" "")                                     # copyto, copyfrom
+ariles_define_regression_test("231" "protobuf3")                            # protobuf
 if (${ARILES_VISITOR_protobuf3} STREQUAL "ON")
     protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${CMAKE_CURRENT_LIST_DIR}/types/protobuf/test.proto)
     add_library("protobuf_test" STATIC ${PROTO_SRCS} ${PROTO_HDRS})
@@ -86,4 +76,4 @@ if (${ARILES_VISITOR_protobuf3} STREQUAL "ON")
     set_property(TARGET ${TGT_TEST} APPEND PROPERTY INCLUDE_DIRECTORIES ${CMAKE_CURRENT_BINARY_DIR})
     target_link_libraries(${TGT_TEST} protobuf_test)
 endif()
-ariles_define_regression_test(${PROJECT_NAME} "232" "yaml_cpp" "")                    # NonNullPointer abstract
+ariles_define_regression_test("232" "yaml_cpp")                             # NonNullPointer abstract

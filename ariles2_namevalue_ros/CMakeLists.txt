@@ -6,7 +6,7 @@ option(ARILES_ROS_ENABLE_TESTS "Enable tests." OFF)
 
 #-----
 # ARILES
-set(ARILES_ENABLE_CORE          "OFF"   CACHE STRING "")
+set(ARILES_ENABLE_CORE          "BUILD" CACHE STRING "")
 set(ARILES_VISITOR_namevalue    "ON"    CACHE STRING "")
 
 set(ARILES_COMPONENTS  namevalue)

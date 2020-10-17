@@ -11,7 +11,20 @@ cpack_add_component(
 
 if(TARGET ${TGT_ARILES_VISITOR_LIB})
     add_dependencies(${VISITOR_TARGET_PREFIX}_${ARILES_VISITOR} ${TGT_ARILES_VISITOR_LIB})
-    add_dependencies(${TGT_ARILES_VISITOR_LIB} TGT_ariles_copy_headers)
+    if (NOT ${ARILES_ENABLE_CORE} STREQUAL "OFF")
+        target_include_directories(${TGT_ARILES_VISITOR_LIB} PUBLIC
+            "$<BUILD_INTERFACE:${ARILES_CORE_BUILD_INCLUDES}>"
+        )
+    else()
+        target_include_directories(${TGT_ARILES_VISITOR_LIB} PUBLIC
+            "$<BUILD_INTERFACE:${ariles2-core_INCLUDE_DIRS}>"
+        )
+    endif()
+
+    target_include_directories(${TGT_ARILES_VISITOR_LIB} PUBLIC
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/extra_visitors/${ARILES_VISITOR}/>
+    )
+
 
     # built-tree specific targets, not relocatable
     #export(TARGETS ${TGT_ARILES_VISITOR_LIB} FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-${ARILES_COMPONENT}-targets.cmake)
@@ -20,13 +33,6 @@ if(TARGET ${TGT_ARILES_VISITOR_LIB})
     set_target_properties(${TGT_ARILES_VISITOR_LIB} PROPERTIES LINK_LIBRARIES "${ARILES_VISITOR_${ARILES_VISITOR}_LIBS}")
     set_target_properties(${TGT_ARILES_VISITOR_LIB} PROPERTIES CXX_VISIBILITY_PRESET hidden)
     set_target_properties(${TGT_ARILES_VISITOR_LIB} PROPERTIES VISIBILITY_INLINES_HIDDEN YES)
-
-    target_include_directories(${TGT_ARILES_VISITOR_LIB} PUBLIC
-        $<BUILD_INTERFACE:${ARILES_CORE_BUILD_INCLUDES}/>
-    )
-    target_include_directories(${TGT_ARILES_VISITOR_LIB} PUBLIC
-        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/extra_visitors/${ARILES_VISITOR}/>
-    )
 
     install(
         TARGETS ${TGT_ARILES_VISITOR_LIB} EXPORT ${ARILES_COMPONENT}_targets
@@ -50,10 +56,21 @@ if(TARGET ${TGT_ARILES_VISITOR_LIB})
 
     set(ARILES_VISITOR_${ARILES_VISITOR}_LIBS "${TGT_ARILES_VISITOR_LIB};${ARILES_VISITOR_${ARILES_VISITOR}_LIBS}")
 else()
+    if (NOT ${ARILES_ENABLE_CORE} STREQUAL "OFF")
+        set_property(
+            TARGET ${VISITOR_TARGET_PREFIX}_${ARILES_VISITOR}
+            APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+            "${ARILES_CORE_BUILD_INCLUDES}/")
+    else()
+        set_property(
+            TARGET ${VISITOR_TARGET_PREFIX}_${ARILES_VISITOR}
+            APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+            "${ariles2-core_INCLUDE_DIRS}/")
+    endif()
     set_property(
         TARGET ${VISITOR_TARGET_PREFIX}_${ARILES_VISITOR}
         APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES
-        "${ARILES_CORE_BUILD_INCLUDES};${PROJECT_SOURCE_DIR}/extra_visitors/${ARILES_VISITOR}/")
+        "${PROJECT_SOURCE_DIR}/extra_visitors/${ARILES_VISITOR}/")
 endif()
 
 
@@ -119,4 +136,4 @@ install (DIRECTORY "${PROJECT_SOURCE_DIR}/extra_visitors/${ARILES_VISITOR}/${PRO
          DESTINATION "${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}/"
          COMPONENT "${ARILES_COMPONENT}")
 
-set("DEB_CMAKE_FLAGS_${ARILES_COMPONENT}" "-DARILES_VISITOR_${ARILES_VISITOR}=ON -DARILES_ENABLE_CORE=OFF")
+set("DEB_CMAKE_FLAGS_${ARILES_COMPONENT}" "-DARILES_VISITOR_${ARILES_VISITOR}=ON -DARILES_ENABLE_CORE=BUILD")

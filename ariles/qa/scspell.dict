@@ -72,6 +72,7 @@ movelib
 msgpack
 msgs
 namevalue
+nocase
 noexcept
 npos
 nullptr
