@@ -10,11 +10,11 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <depend>ariles2_core_ros</depend>
-  <depend>ariles2_rosparam_ros</depend>
-  <depend>ariles2_rapidjson_ros</depend>
-  <depend>ariles2_yamlcpp_ros</depend>
-  <depend>ariles2_octave_ros</depend>
+  <depend>ariles2_core_catkin</depend>
+  <depend>ariles2_rosparam_catkin</depend>
+  <depend>ariles2_rapidjson_catkin</depend>
+  <depend>ariles2_yamlcpp_catkin</depend>
+  <depend>ariles2_octave_catkin</depend>
 
   <export>
   </export>

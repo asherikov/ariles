@@ -1,6 +1,13 @@
 PROJECT=ariles2
 
-CATKIN_PKGS=ariles2_namevalue_ros ariles2_core_ros ariles2_graphviz_ros ariles2_octave_ros ariles2_rapidjson_ros ariles2_yamlcpp_ros ariles2_rosparam_ros
+CATKIN_PKGS= \
+			ariles2_namevalue_catkin \
+			ariles2_core_catkin \
+			ariles2_graphviz_catkin \
+			ariles2_octave_catkin \
+			ariles2_rapidjson_catkin \
+			ariles2_yamlcpp_catkin \
+			ariles2_rosparam_catkin
 
 CATKIN_DEPENDENCY_TEST_PKG=ariles2_catkin_demo
 CATKIN_ARGS=--cmake-args -DARILES_ROS_ENABLE_TESTS=ON

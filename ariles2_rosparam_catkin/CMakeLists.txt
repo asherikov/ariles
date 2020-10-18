@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(ariles2_yamlcpp_ros VERSION 2.0.0)
+project(ariles2_rosparam_catkin VERSION 2.0.0)
 
 
 option(ARILES_ROS_ENABLE_TESTS "Enable tests." OFF)
@@ -7,9 +7,9 @@ option(ARILES_ROS_ENABLE_TESTS "Enable tests." OFF)
 #-----
 # ARILES
 set(ARILES_ENABLE_CORE          "BUILD" CACHE STRING "")
-set(ARILES_VISITOR_yaml_cpp     "ON"    CACHE STRING "")
+set(ARILES_VISITOR_rosparam     "ON"    CACHE STRING "")
 
-set(ARILES_COMPONENTS  yaml-cpp)
+set(ARILES_COMPONENTS  rosparam)
 #-----
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/../.cmake/common.cmake)

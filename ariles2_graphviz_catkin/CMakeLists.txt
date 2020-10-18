@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(ariles2_rapidjson_ros VERSION 2.0.0)
+project(ariles2_graphviz_catkin VERSION 2.0.0)
 
 
 option(ARILES_ROS_ENABLE_TESTS "Enable tests." OFF)
@@ -7,9 +7,9 @@ option(ARILES_ROS_ENABLE_TESTS "Enable tests." OFF)
 #-----
 # ARILES
 set(ARILES_ENABLE_CORE          "BUILD" CACHE STRING "")
-set(ARILES_VISITOR_rapidjson    "ON"    CACHE STRING "")
+set(ARILES_VISITOR_graphviz     "ON"    CACHE STRING "")
 
-set(ARILES_COMPONENTS  rapidjson)
+set(ARILES_COMPONENTS  graphviz)
 #-----
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/../.cmake/common.cmake)
