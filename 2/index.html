@@ -67,12 +67,12 @@ $(function() {
 <div class="contents">
 <div class="textblock"><table class="doxtable">
 <tr>
-<th>branch </th><td align="center"><a href="https://github.com/asherikov/ariles/tree/head_2">HEAD v2</a>  </td><td align="center"><a href="https://github.com/asherikov/ariles/tree/pkg_ros_2">pkg_ros_2</a><br />
- (ROS package)  </td><td align="center"><a href="https://github.com/asherikov/ariles/tree/pkg_freebsd">pkg_freebsd</a><br />
+<th>branch </th><td align="center"><a href="https://github.com/asherikov/ariles/tree/head_2">HEAD v2</a>  </td><td align="center"><a href="https://github.com/asherikov/ariles/tree/pkg_catkin_2">pkg_catkin_2</a><br />
+ (ROS package)  </td><td align="center"><a href="https://github.com/asherikov/ariles/tree/pkg_freebsd_2">pkg_freebsd</a><br />
  (FreeBSD package)   </td></tr>
 <tr>
 <th>CI status </th><td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=head_2" alt="Build Status" class="inline"/>
-</a> </td><td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=pkg_ros_2" alt="Build Status" class="inline"/>
+</a> </td><td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=pkg_catkin_2" alt="Build Status" class="inline"/>
 </a> </td><td align="center">X  </td></tr>
 </table>
 <h1>Contents </h1>
@@ -93,7 +93,7 @@ $(function() {
 <li>Documentation (Doxygen): <a href="https://asherikov.github.io/ariles/2/">https://asherikov.github.io/ariles/2/</a></li>
 <li>GitHub: <a href="https://github.com/asherikov/ariles">https://github.com/asherikov/ariles</a></li>
 <li>Travis CI: <a href="https://travis-ci.org/asherikov/ariles">https://travis-ci.org/asherikov/ariles</a></li>
-<li>Legacy 1.x.x version: <a href="https://github.com/asherikov/ariles/tree/head_1">https://github.com/asherikov/ariles/tree/head_1</a></li>
+<li>Legacy 1.x.x version: <a href="https://github.com/asherikov/ariles/tree/head_1">https://github.com/asherikov/ariles/tree/head_1</a> (migration guide <a href="https://asherikov.github.io/ariles/2/md_doc_migration_1to2.html">https://asherikov.github.io/ariles/2/md_doc_migration_1to2.html</a>)</li>
 </ul>
 <p><a class="anchor" id="intro"></a> </p><h1>Introduction </h1>
 <p><code>ariles</code> is a C++ meta-programming (reflection?) library with focus on serialization and configuration. It employs preprocessor macro to automatically generate boilerplate code which facilitates implementation of generic processors (visitors) for classes. A number of visitors is included in the library, in particular parsers and emitters of data in various formats, such as <code>YAML</code>, <code>JSON</code>, <code>XML</code>, <code>ROS</code> parameter server. <code>ariles</code> also provides predefined serialization wrappers for some common types, e.g., standard containers, smart pointers, <code>Eigen</code> matrices.</p>
