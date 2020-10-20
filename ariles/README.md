@@ -8,18 +8,18 @@ Ariles
         <a href="https://github.com/asherikov/ariles/tree/head_2">HEAD v2</a>
     </td>
     <td align="center">
-        <a href="https://github.com/asherikov/ariles/tree/pkg_ros_2">pkg_ros_2</a><br/>
-        (ROS package)
+        <a href="https://github.com/asherikov/ariles/tree/pkg_catkin_2">pkg_catkin_2</a><br/>
+        (ROS/catkin package)
     </td>
     <td align="center">
-        <a href="https://github.com/asherikov/ariles/tree/pkg_freebsd_2">pkg_freebsd</a><br/>
+        <a href="https://github.com/asherikov/ariles/tree/pkg_freebsd_2">pkg_freebsd_2</a><br/>
         (FreeBSD package)
     </td>
   </tr>
   <tr>
     <th>CI status</th>
     <td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=head_2" alt="Build Status"></a></td>
-    <td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=pkg_ros_2" alt="Build Status"></a></td>
+    <td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=pkg_catkin_2" alt="Build Status"></a></td>
     <td align="center">X</td>
   </tr>
 </table>
