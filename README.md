@@ -9,10 +9,10 @@ Ariles
     </td>
     <td align="center">
         <a href="https://github.com/asherikov/ariles/tree/pkg_catkin_2">pkg_catkin_2</a><br/>
-        (ROS package)
+        (ROS/catkin package)
     </td>
     <td align="center">
-        <a href="https://github.com/asherikov/ariles/tree/pkg_freebsd_2">pkg_freebsd</a><br/>
+        <a href="https://github.com/asherikov/ariles/tree/pkg_freebsd_2">pkg_freebsd_2</a><br/>
         (FreeBSD package)
     </td>
   </tr>
