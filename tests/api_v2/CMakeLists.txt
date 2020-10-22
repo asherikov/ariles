@@ -77,3 +77,4 @@ if (${ARILES_VISITOR_protobuf3} STREQUAL "ON")
     target_link_libraries(${TGT_TEST} protobuf_test)
 endif()
 ariles_define_regression_test("232" "yaml_cpp")                             # NonNullPointer abstract
+ariles_define_regression_test("233" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # subtree read

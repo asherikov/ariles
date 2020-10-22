@@ -35,6 +35,9 @@
 #    define ARILES2_IS_BASE_DISABLER(Base, Derived)                                                                    \
         const typename std::enable_if<not(ARILES2_IS_BASE_OF(Base, Derived))>::type * = NULL
 
+#    define ARILES2_IS_ANY_OF(Type, Type1, Type2)                                                               \
+        const typename std::enable_if<std::is_base_of<Type1, Type>::value or std::is_base_of<Type2, Type>::value>::type * = NULL
+
 #    define ARILES2_SHARED_PTR std::shared_ptr
 
 #else
@@ -59,6 +62,8 @@
 #    define ARILES2_IS_BASE_DISABLER(Base, Derived)                                                                    \
         const typename boost::enable_if_c<not(ARILES2_IS_BASE_OF(Base, Derived))>::type * = NULL
 
+#    define ARILES2_IS_ANY_OF(Type, Type1, Type2)                                                               \
+        const typename boost::enable_if_c<boost::is_base_of<Type1, Type>::value or boost::is_base_of<Type2, Type>::value>::type * = NULL
 
 #    define ARILES2_SHARED_PTR boost::shared_ptr
 

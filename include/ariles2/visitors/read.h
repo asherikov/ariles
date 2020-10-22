@@ -32,7 +32,6 @@ namespace ariles2
         public:
             bool allow_missing_entries_;
 
-
         public:
             Parameters(const bool override_parameters = true) : serialization::Parameters(override_parameters)
             {
@@ -126,6 +125,67 @@ namespace ariles2
                 {
                     endMapEntry();
                 }
+            }
+
+
+            virtual bool startRoot(const std::vector<std::string> &subtree)
+            {
+                ARILES2_TRACE_FUNCTION;
+
+                bool result = false;
+                if (0 == subtree.size())
+                {
+                    result = this->startRoot("");
+                }
+                else
+                {
+                    result = this->startRoot(subtree[0]);
+                    for (std::size_t i = 1; i < subtree.size() and true == result; ++i)
+                    {
+                        this->startMap(SIZE_LIMIT_MIN, 1);
+                        result &= (this->startMapEntry(subtree[i]));
+                    }
+                }
+
+                return (result);
+            }
+
+            virtual void endRoot(const std::vector<std::string> &subtree)
+            {
+                ARILES2_TRACE_FUNCTION;
+                for (std::size_t i = 1; i < subtree.size(); ++i)
+                {
+                    this->endMapEntry();
+                    this->endMap();
+                }
+                if (0 == subtree.size())
+                {
+                    endRoot("");
+                }
+                else
+                {
+                    endRoot(subtree[0]);
+                }
+            }
+
+
+            const std::string & convertSubtreeToString(const std::string & subtree) const
+            {
+                return (subtree);
+            }
+
+            std::string convertSubtreeToString(const std::vector<std::string> & subtree) const
+            {
+                std::string result;
+                for (std::size_t i = 0; i < subtree.size(); ++i)
+                {
+                    if (i > 0)
+                    {
+                        result += "/";
+                    }
+                    result += subtree[i];
+                }
+                return (result);
             }
 
 
@@ -308,15 +368,15 @@ namespace ariles2
 #undef ARILES2_BASIC_TYPE
 
 
-            template <class t_Entry>
-            void visit(t_Entry &entry, const std::string &name, const Parameters &param)
+            template <class t_Entry, class t_Subtree>
+            void visit(t_Entry &entry, const t_Subtree &subtree, const Parameters &param)
             {
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_VALUE(name);
                 ARILES2_TRACE_TYPE(entry);
 
 
-                if (this->startRoot(name))
+                if (this->startRoot(subtree))
                 {
                     try
                     {
@@ -324,16 +384,16 @@ namespace ariles2
                     }
                     catch (const std::exception &e)
                     {
-                        ARILES2_THROW(std::string("Failed to parse entry <") + name + "> ||  " + e.what());
+                        ARILES2_THROW(std::string("Failed to parse entry <") + convertSubtreeToString(subtree) + "> ||  " + e.what());
                     }
 
-                    this->endRoot(name);
+                    this->endRoot(subtree);
                 }
                 else
                 {
                     ARILES2_PERSISTENT_ASSERT(
                             true == param.allow_missing_entries_,
-                            std::string("Configuration file does not contain entry '") + name + "'.");
+                            std::string("Configuration file does not contain entry '") + convertSubtreeToString(subtree) + "'.");
                 }
             }
 

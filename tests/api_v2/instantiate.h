@@ -11,10 +11,12 @@
 #ifdef ARILES2_VISITOR_INCLUDED_msgpack
 ARILES_TESTS_SHORTCUT(msgpack, FilenameInitializer)
 ARILES_TESTS_SHORTCUT(msgpack, StreamInitializer)
+#ifndef ARILES2_TESTS_DISABLE_msgpack_compact
 #    define ComparisonMultiFixture ComparisonSimpleFixture
 ARILES_TESTS_SHORTCUT(msgpack_compact, FilenameInitializer)
 ARILES_TESTS_SHORTCUT(msgpack_compact, StreamInitializer)
 #    undef ComparisonMultiFixture
+#endif
 #endif
 
 #ifdef ARILES2_VISITOR_INCLUDED_yaml_cpp03
