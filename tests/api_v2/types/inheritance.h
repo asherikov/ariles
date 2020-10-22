@@ -55,7 +55,9 @@ namespace ariles_tests
     template <class t_Scalar>
     class ConfigurableMember1 : public ConfigurableMember<t_Scalar>
     {
-#define ARILES2_ENTRIES(v) ARILES2_TYPED_ENTRY_(v, member, ConfigurableMember<t_Scalar>)
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_PARENT(v, ConfigurableMember<t_Scalar>)                                                                    \
+    ARILES2_TYPED_ENTRY_(v, member, ConfigurableMember<t_Scalar>)
 #include ARILES2_INITIALIZE
 
 

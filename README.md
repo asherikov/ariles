@@ -20,7 +20,7 @@ Ariles
     <th>CI status</th>
     <td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=head_2" alt="Build Status"></a></td>
     <td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=pkg_catkin_2" alt="Build Status"></a></td>
-    <td align="center">X</td>
+    <td align="center"></td>
   </tr>
 </table>
 
