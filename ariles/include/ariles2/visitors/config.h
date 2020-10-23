@@ -122,6 +122,17 @@ namespace ariles2
             }
 
 
+            template <class t_Entry>
+            void visit(t_Entry &entry, const std::vector<std::string> &subtree, const Parameters &param)
+            {
+                ARILES2_TRACE_FUNCTION;
+                ARILES2_TRACE_TYPE(entry);
+                ariles2::apply(preread_, entry, true == subtree.empty() ? "" : subtree.back(), param.preread_);
+                ariles2::apply(read_, entry, subtree, param.read_);
+                ariles2::apply(postread_, entry, true == subtree.empty() ? "" : subtree.back(), param.postread_);
+            }
+
+
             const t_Reader &getReader() const
             {
                 return (read_);

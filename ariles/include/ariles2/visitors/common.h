@@ -10,8 +10,8 @@
 
 #pragma once
 
+#include <vector>
 #include "../internal/helpers.h"
-
 
 namespace ariles2
 {
@@ -122,16 +122,17 @@ namespace ariles2
 namespace ariles2
 {
     // -----
-    template <class t_Ariles, class t_Visitor>
+    template <class t_Ariles, class t_Visitor, class t_Subtree>
     typename t_Visitor::ReturnType apply(
             t_Visitor &visitor,
             t_Ariles &ariles_class,
-            const std::string &name,
+            const t_Subtree &subtree,
             const typename t_Visitor::Parameters &param,
+            ARILES2_IS_ANY_OF(t_Subtree, std::string, std::vector<std::string>),
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
-        return (visitor.visit(ariles_class, name, param));
+        return (visitor.visit(ariles_class, subtree, param));
     }
 
 
@@ -160,15 +161,16 @@ namespace ariles2
     }
 
 
-    template <class t_Visitor, class t_Ariles>
+    template <class t_Visitor, class t_Ariles, class t_Subtree>
     typename t_Visitor::ReturnType apply(
             t_Visitor &visitor,
             t_Ariles &ariles_class,
-            const std::string &name,
+            const t_Subtree &subtree,
+            ARILES2_IS_ANY_OF(t_Subtree, std::string, std::vector<std::string>),
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
-        return (visitor.visit(ariles_class, name, visitor.getParameters(ariles_class)));
+        return (visitor.visit(ariles_class, subtree, visitor.getParameters(ariles_class)));
     }
 
 
@@ -265,19 +267,19 @@ namespace ariles2
     }
 
 
-    template <class t_Visitor, class t_Ariles, class t_Arg>
+    template <class t_Visitor, class t_Ariles, class t_Arg, class t_Subtree>
     typename t_Visitor::ReturnType apply(
             t_Arg &arg,
             t_Ariles &ariles_class,
-            const std::string &name,
-            const typename t_Visitor::Parameters &param,
+            const t_Subtree &subtree,
+            ARILES2_IS_ANY_OF(t_Subtree, const std::string, const std::vector<std::string>),
             ARILES2_IS_BASE_DISABLER(std::string, t_Arg),
             ARILES2_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
         t_Visitor visitor(arg);
-        return (ariles2::apply(visitor, ariles_class, name, param));
+        return (ariles2::apply(visitor, ariles_class, subtree));
     }
 
 
@@ -307,6 +309,20 @@ namespace ariles2
         ARILES2_TRACE_FUNCTION;
         t_Visitor visitor(arg);
         return (ariles2::apply(visitor, ariles_class, param));
+    }
+
+
+    template <class t_Visitor, class t_Ariles, class t_Subtree>
+    typename t_Visitor::ReturnType apply(
+            const std::string &arg,
+            t_Ariles &ariles_class,
+            const t_Subtree &subtree,
+            ARILES2_IS_ANY_OF(t_Subtree, const std::string, const std::vector<std::string>),
+            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+    {
+        ARILES2_TRACE_FUNCTION;
+        t_Visitor visitor(arg);
+        return (ariles2::apply(visitor, ariles_class, subtree));
     }
     // -----
 

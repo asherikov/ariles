@@ -121,6 +121,7 @@ subentry
 submessage
 substate
 substates
+subtree
 tellp
 templated
 testlib
