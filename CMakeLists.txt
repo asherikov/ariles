@@ -1,21 +1,15 @@
 # General parameters
-cmake_minimum_required (VERSION 2.8.12)
+cmake_minimum_required (VERSION 3.0.0)
 
 set(ARILES_VERSION_MAJOR 2)
 set(ARILES_VERSION_MINOR 0)
 set(ARILES_VERSION_PATCH 0)
 
-if(CMAKE_VERSION VERSION_LESS 3)
-    project (ariles2 CXX)
-    set(PROJECT_VERSION_MAJOR ${ARILES_VERSION_MAJOR})
-    set(PROJECT_VERSION_MINOR ${ARILES_VERSION_MINOR})
-    set(PROJECT_VERSION_PATCH ${ARILES_VERSION_PATCH})
-else()
-    if(POLICY CMP0048)
-        cmake_policy(SET CMP0048 NEW)
-    endif()
-    project(ariles2 VERSION ${ARILES_VERSION_MAJOR}.${ARILES_VERSION_MINOR}.${ARILES_VERSION_PATCH})
+if(POLICY CMP0048)
+    cmake_policy(SET CMP0048 NEW)
 endif()
+project(ariles2 VERSION ${ARILES_VERSION_MAJOR}.${ARILES_VERSION_MINOR}.${ARILES_VERSION_PATCH})
+
 
 set(ARILES_HOMEPAGE http://asherikov.github.com/ariles/2)
 set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
@@ -25,7 +19,7 @@ set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 ## Options (definitions & defaults)
 #####################################
 
-set    (ARILES_ENABLE_CORE              "ON" CACHE STRING "ON = enable, OFF = disable, NOINSTALL")
+set    (ARILES_ENABLE_CORE              "ON" CACHE STRING "ON = enable (build & install), OFF = disable (must be installed), BUILD (build but not install)")
 
 # extra visitors
 set    (ARILES_VISITORS_DEFAULT_MODE    "ON" CACHE STRING "ON = enable, OFF = disable")
@@ -396,7 +390,7 @@ if (${ARILES_ENABLE_CORE} STREQUAL "ON")
     set(DEB_core_DEPENDS "libboost-all-dev;libeigen3-dev")
 else()
     if (${ARILES_ENABLE_CORE} STREQUAL "OFF")
-        find_package(ariles2-core REQUIRED)
+        find_package(${PROJECT_NAME}-core REQUIRED)
     endif()
 endif()
 
