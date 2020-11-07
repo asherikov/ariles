@@ -116,13 +116,13 @@ cmake_dependency: clean
 	cd build/cmake_dependency_test; cmake ../../tests/cmake/dependency/ -DARILES_COMPONENTS="core;rosparam;yaml-cpp;octave"
 	cd build/cmake_dependency_test; ${MAKE} ${MAKE_FLAGS}
 
-ppa-upload:
-	cd build/generic-Release-OPTIONS_deb_packages_trusty/Debian/trusty/; \
-		ftp -au ppa.launchpad.net:~asherikov/ubuntu/ppa/ \
-			${PKG_NAME}_*~${DEB_TARGET}.dsc \
-			${PKG_NAME}_*~${DEB_TARGET}.tar.xz \
-			${PKG_NAME}_*~${DEB_TARGET}_source.buildinfo \
-			${PKG_NAME}_*~${DEB_TARGET}_source.changes
+#ppa-upload:
+#	cd build/generic-Release-OPTIONS_deb_packages_trusty/Debian/trusty/; \
+#		ftp -au ppa.launchpad.net:~asherikov/ubuntu/ppa/ \
+#			${PKG_NAME}_*~${DEB_TARGET}.dsc \
+#			${PKG_NAME}_*~${DEB_TARGET}.tar.xz \
+#			${PKG_NAME}_*~${DEB_TARGET}_source.buildinfo \
+#			${PKG_NAME}_*~${DEB_TARGET}_source.changes
 
 
 #----------------------------------------------
@@ -290,7 +290,7 @@ spell:
 		| xargs ${SPELL_XARGS_ARG} scspell --use-builtin-base-dict --override-dictionary ./qa/scspell.dict
 
 travis-apt-clean:
-	sudo rm \
+	-sudo rm -f \
 		/etc/apt/sources.list.d/cassandra.list \
 		/etc/apt/sources.list.d/cassandra.list.save \
 		/etc/apt/sources.list.d/heroku-toolbelt.list \

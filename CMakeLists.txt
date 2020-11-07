@@ -391,6 +391,11 @@ if (${ARILES_ENABLE_CORE} STREQUAL "ON")
 else()
     if (${ARILES_ENABLE_CORE} STREQUAL "OFF")
         find_package(${PROJECT_NAME}-core REQUIRED)
+    else()
+        if (${ARILES_ENABLE_CORE} STREQUAL "BUILD")
+        else()
+            message(FATAL_ERROR "Unsupported value of ARILES_ENABLE_CORE=${ARILES_ENABLE_CORE}")
+        endif()
     endif()
 endif()
 
@@ -438,7 +443,7 @@ set(CPACK_DEBIAN_RESOURCE_FILE_CHANGELOG "")
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Alexander Sherikov <asherikov@yandex.com>")
 
 if(ARILES_DEB_TARGETS)
-    set(DEB_UBUNTU_CODENAMES ${ARILES_DEB_TARGETS}) # precise sausy trusty
+    set(DEB_UBUNTU_CODENAMES ${ARILES_DEB_TARGETS}) # xenial, bionic, ...
 
     set(DEB_COMMON_CMAKE_ARGS
         "-DARILES_CPP_STANDARD=${ARILES_CPP_STANDARD} \
