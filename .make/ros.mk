@@ -1,8 +1,8 @@
 PROJECT=ariles2
 
 CATKIN_PKGS= \
-			ariles2_namevalue_catkin \
 			ariles2_core_catkin \
+			ariles2_namevalue_catkin \
 			ariles2_graphviz_catkin \
 			ariles2_octave_catkin \
 			ariles2_rapidjson_catkin \
@@ -59,18 +59,16 @@ ros_install_deps:
 	apt install -y python-catkin-tools
 
 
-catkin_build_deb_pkg:
+catkin_test_deb_pkg:
 	cd ${CATKIN_PKGS_PATH}/${PKG}; bloom-generate rosdebian --os-name ubuntu --ros-distro ${ROS_DISTRO} ./
 	cd ${CATKIN_PKGS_PATH}/${PKG}; fakeroot debian/rules binary
+	echo ${PKG} | tr "_" "-" | xargs -I {} sudo /bin/sh -c 'dpkg -i ${CATKIN_PKGS_PATH}/ros*{}*.deb'
 
-catkin_build_deb: clean
+catkin_test_deb: clean
 	${MAKE} catkin_prepare_workspace
 	${MAKE} catkin_fake_rosdep
-	echo ${CATKIN_PKGS} | tr " " "\n" | xargs -I {} ${MAKE} catkin_build_deb_pkg PKG="{}" ROS_DISTRO=${ROS_DISTRO}
-
-catkin_test_deb: catkin_build_deb
-	sudo dpkg -i ${CATKIN_PKGS_PATH}/ros*${PROJECT}*.deb
 	mkdir -p build/dependency_test
+	echo ${CATKIN_PKGS} | tr " " "\n" | xargs -I {} ${MAKE} catkin_test_deb_pkg PKG="{}" ROS_DISTRO=${ROS_DISTRO}
 	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; \
 		cd build/dependency_test; \
 		cmake ../../${DEPENDENCY_PATH}/; \
