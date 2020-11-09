@@ -16,17 +16,6 @@ jobs:
     include:
 
 # special cases
-      - name: "disabled_core"
-        dist: xenial
-        compiler: gcc
-        before_install:
-          - make travis-apt-clean
-          - sudo apt update
-          - sudo apt install -y cmake libboost-all-dev libeigen3-dev
-        script:
-          - make build TYPE=Debug OPTIONS=no_core TARGETS="all"
-
-
       - name: "test_cmake"
         dist: xenial
         compiler: gcc

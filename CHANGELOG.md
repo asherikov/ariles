@@ -31,3 +31,4 @@ Removed
 * Ubuntu 14.04 (Trusty) tests.
 * yaml-cpp03 support.
 * C++03 tests.
+* cmake 2.x support.

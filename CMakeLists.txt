@@ -1,14 +1,6 @@
 # General parameters
 cmake_minimum_required (VERSION 3.0.0)
-
-set(ARILES_VERSION_MAJOR 2)
-set(ARILES_VERSION_MINOR 0)
-set(ARILES_VERSION_PATCH 0)
-
-if(POLICY CMP0048)
-    cmake_policy(SET CMP0048 NEW)
-endif()
-project(ariles2 VERSION ${ARILES_VERSION_MAJOR}.${ARILES_VERSION_MINOR}.${ARILES_VERSION_PATCH})
+project(ariles2 VERSION 2.0.0)
 
 
 set(ARILES_HOMEPAGE http://asherikov.github.com/ariles/2)
@@ -19,7 +11,7 @@ set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 ## Options (definitions & defaults)
 #####################################
 
-set    (ARILES_ENABLE_CORE              "ON" CACHE STRING "ON = enable (build & install), OFF = disable (must be installed), BUILD (build but not install)")
+option (ARILES_ENABLE_CORE              "ON = enable (build & install), OFF = disable (must be installed)" ON)
 
 # extra visitors
 set    (ARILES_VISITORS_DEFAULT_MODE    "ON" CACHE STRING "ON = enable, OFF = disable")
@@ -263,14 +255,24 @@ if (ARILES_ADAPTER_BOOST_OPTIONAL)
     # BOOST is a mandatory dependency
 endif(ARILES_ADAPTER_BOOST_OPTIONAL)
 
+list(REMOVE_DUPLICATES ARILES_CORE_DEPENDENCY_INCLUDES)
+list(REMOVE_ITEM ARILES_CORE_DEPENDENCY_INCLUDES "")
+
 
 
 #####################################
 ## Ariles headers
 #####################################
 
-if (NOT ${ARILES_ENABLE_CORE} STREQUAL "OFF")
-    set(ARILES_CORE_BUILD_INCLUDES "${PROJECT_BINARY_DIR}/include/core/")
+if (${ARILES_ENABLE_CORE})
+    set(ARILES_CORE_BUILD_INCLUDES      "${PROJECT_BINARY_DIR}/include/core/")
+
+    add_library(${PROJECT_NAME}-core INTERFACE)
+    target_include_directories(${PROJECT_NAME}-core INTERFACE
+        "$<BUILD_INTERFACE:${ARILES_CORE_BUILD_INCLUDES}>"
+        "$<INSTALL_INTERFACE:include/>"
+        "$<INSTALL_INTERFACE:${ARILES_CORE_DEPENDENCY_INCLUDES}>"
+    )
 
 
     # --------------
@@ -316,87 +318,76 @@ if (NOT ${ARILES_ENABLE_CORE} STREQUAL "OFF")
     # --------------
 
     list(APPEND DEB_ARCHIVE_FILES "./include" "./extra_adapters")
-endif()
 
 
+    # --------------
+    set(ARILES_COMPONENT "core") # required in arilesConfig
 
-#####################################
-## Package config files & Installation
-#####################################
-
-if (${ARILES_ENABLE_CORE} STREQUAL "ON")
     cpack_add_component("core"
         DISPLAY_NAME "Ariles core"
         DESCRIPTION "Core headers and STL adapters"
         ARCHIVE_FILE "${CPACK_PACKAGE_NAME}-core-${CPACK_PACKAGE_VERSION}")
 
 
-    set(ARILES_COMPONENT_NAME "core")
-    set(ariles_LIBRARIES "${PROJECT_NAME}-${ARILES_COMPONENT_NAME}_LIBRARIES")
-    set(ariles_INCLUDE_DIRS "${PROJECT_NAME}-${ARILES_COMPONENT_NAME}_INCLUDE_DIRS")
-    set(ariles_LIBRARY_DIRS "${PROJECT_NAME}-${ARILES_COMPONENT_NAME}_LIBRARY_DIRS")
+    set(ariles_LIBRARIES "${PROJECT_NAME}-core_LIBRARIES")
+    set(ARILES_LIBRARIES "${PROJECT_NAME}-core")
 
+    set(ARILES_COMPONENT_CMAKE_DIR "share/${PROJECT_NAME}-core/")
 
-    set(ARILES_LIBRARIES            "")
-    set(ARILES_INCLUDES             "${CMAKE_INSTALL_PREFIX}/include")
-    set(ARILES_DEPENDENCY_INCLUDES  "${ARILES_CORE_DEPENDENCY_INCLUDES}")
-    set(ARILES_LIBRARY_DIRS         "")
-
-
-    list(REMOVE_DUPLICATES ARILES_INCLUDES)
-    list(REMOVE_DUPLICATES ARILES_DEPENDENCY_INCLUDES)
-    list(REMOVE_DUPLICATES ARILES_LIBRARIES)
-    list(REMOVE_ITEM ARILES_INCLUDES "")
-    list(REMOVE_ITEM ARILES_DEPENDENCY_INCLUDES "")
-    list(REMOVE_ITEM ARILES_LIBRARIES "")
 
     configure_package_config_file(  "cmake/arilesConfig.cmake.in"
-                                    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}-${ARILES_COMPONENT_NAME}Config.cmake"
-                                    INSTALL_DESTINATION "${CMAKE_INSTALL_PREFIX}/share/${PROJECT_NAME}-${ARILES_COMPONENT_NAME}/"
-                                    PATH_VARS ARILES_INCLUDES
+                                    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}-coreConfig.cmake"
+                                    INSTALL_DESTINATION "${ARILES_COMPONENT_CMAKE_DIR}/"
                                     NO_SET_AND_CHECK_MACRO
                                     NO_CHECK_REQUIRED_COMPONENTS_MACRO)
-    install (FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}-${ARILES_COMPONENT_NAME}Config.cmake"
-             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/${PROJECT_NAME}-${ARILES_COMPONENT_NAME}/"
-             COMPONENT ${ARILES_COMPONENT_NAME})
+    install (FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}-coreConfig.cmake"
+             DESTINATION "${ARILES_COMPONENT_CMAKE_DIR}"
+             COMPONENT core)
 
     write_basic_package_version_file(
-        ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-${ARILES_COMPONENT_NAME}ConfigVersion.cmake
+        ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-coreConfigVersion.cmake
         VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}
         COMPATIBILITY SameMajorVersion)
-    install (FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}-${ARILES_COMPONENT_NAME}ConfigVersion.cmake"
-             DESTINATION "${CMAKE_INSTALL_PREFIX}/share/${PROJECT_NAME}-${ARILES_COMPONENT_NAME}/"
-             COMPONENT ${ARILES_COMPONENT_NAME})
+    install (FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}-coreConfigVersion.cmake"
+             DESTINATION "${ARILES_COMPONENT_CMAKE_DIR}"
+             COMPONENT core)
+
+
+    install(
+        TARGETS ${PROJECT_NAME}-core EXPORT core_targets
+        LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        COMPONENT core
+        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        COMPONENT core
+    )
+
+    install (DIRECTORY "${ARILES_CORE_BUILD_INCLUDES}/"
+             DESTINATION "include/"
+             COMPONENT core)
 
 
     if(ARILES_PKGCONFIG_INSTALL_PATH)
-        string(REPLACE ";" " -I" ARILES_INCLUDES_FLAGS "${ARILES_INCLUDES}")
-        set(ARILES_INCLUDES_FLAGS "-I${ARILES_INCLUDES_FLAGS}")
-        string(REPLACE ";" " -l" ARILES_LIBRARIES_FLAGS "${ARILES_LIBRARIES}")
-        set(ARILES_LIBRARIES_FLAGS "-l${ARILES_LIBRARIES_FLAGS}")
-        configure_file("cmake/ariles.pc.in"             "${PROJECT_BINARY_DIR}/${PROJECT_NAME}.pc" @ONLY)
+        set(ARILES_INCLUDES_FLAGS "-I${CMAKE_INSTALL_PREFIX}/include")
+        configure_file("cmake/ariles.pc.in" "${PROJECT_BINARY_DIR}/${PROJECT_NAME}.pc" @ONLY)
 
         install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}.pc"
                 DESTINATION "${ARILES_PKGCONFIG_INSTALL_PATH}"
-                COMPONENT ${ARILES_COMPONENT_NAME})
+                COMPONENT core)
     endif()
 
 
-    install (DIRECTORY "${ARILES_CORE_BUILD_INCLUDES}/"
-             DESTINATION "${ARILES_INCLUDES}/"
-             COMPONENT "${ARILES_COMPONENT_NAME}")
+    install(
+        EXPORT core_targets
+        DESTINATION ${ARILES_COMPONENT_CMAKE_DIR}
+        COMPONENT core
+    )
+
 
     set(DEB_CMAKE_FLAGS_core "-DARILES_ENABLE_CORE=ON")
     set(DEB_core_DEPENDS "libboost-all-dev;libeigen3-dev")
+    # --------------
 else()
-    if (${ARILES_ENABLE_CORE} STREQUAL "OFF")
-        find_package(${PROJECT_NAME}-core REQUIRED)
-    else()
-        if (${ARILES_ENABLE_CORE} STREQUAL "BUILD")
-        else()
-            message(FATAL_ERROR "Unsupported value of ARILES_ENABLE_CORE=${ARILES_ENABLE_CORE}")
-        endif()
-    endif()
+    find_package(${PROJECT_NAME}-core REQUIRED)
 endif()
 
 

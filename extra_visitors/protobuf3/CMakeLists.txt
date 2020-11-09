@@ -1,4 +1,5 @@
 set (TGT_ARILES_VISITOR_LIB      "${PROJECT_NAME}_visitor_${ARILES_VISITOR}")
+add_library(${TGT_ARILES_VISITOR_LIB} INTERFACE)
 
 if(NOT ARILES_DEB_TARGETS)
     find_package(Protobuf REQUIRED)

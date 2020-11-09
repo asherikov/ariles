@@ -198,11 +198,13 @@ Dependencies and compilation
 Dependencies
 ------------
 
-`ariles` does not depend on new C++ features and is C++11 compliant.
+- `cmake` >= 3.0
+- `C++11` compatible compiler
+- `boost`
 
 Support of any data format, and corresponding dependency, can be enabled or
 disabled via cmake options. The same applies to data types which depend on
-external libraries. The only mandatory requirement is `Boost`.
+external libraries.
 
 
 Compilation with catkin
