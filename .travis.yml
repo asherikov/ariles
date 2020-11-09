@@ -16,22 +16,10 @@ jobs:
     include:
 
 # special cases
-      - name: "disabled_core"
-        dist: trusty
-        compiler: gcc
-        before_install:
-          - make travis-apt-clean
-          - sudo apt update
-          - sudo apt install -y cmake libboost-all-dev libeigen3-dev
-        script:
-          - make build TYPE=Debug OPTIONS=no_core TARGETS="all"
-
-
       - name: "test_cmake"
-        dist: trusty
+        dist: xenial
         compiler: gcc
         before_install:
-          - make travis-apt-clean
           - sudo apt update
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
           - sudo apt install -y octave libpugixml-dev libyaml-cpp-dev
@@ -41,11 +29,11 @@ jobs:
 
 
       - name: "deb_packages"
-        dist: trusty
+        dist: xenial
         compiler: gcc
 
         env:
-          - ROS_DISTRO=indigo
+          - ROS_DISTRO=kinetic
           - CI_SOURCE_PATH=$(pwd)
           - ROS_CI_DESKTOP=${TRAVIS_DIST}
           - ROSINSTALL_FILE=$CI_SOURCE_PATH/dependencies.rosinstall
@@ -56,12 +44,11 @@ jobs:
 
         # Install system dependencies, namely a very barebones ROS setup.
         before_install:
-          - make travis-apt-clean
           - sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
           - source /opt/ros/${ROS_DISTRO}/setup.bash
           - rosdep update
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
-          - sudo apt install -y devscripts build-essential octave libpugixml-dev libyaml-cpp-dev fakeroot
+          - sudo apt install -y devscripts build-essential octave libpugixml-dev libyaml-cpp-dev fakeroot rapidjson-dev
           - sudo apt install -y libprotobuf-dev protobuf-compiler
 
         script:
@@ -101,10 +88,9 @@ jobs:
 
 
       - name: "gcc_cpp11_noros"
-        dist: trusty
+        dist: xenial
         compiler: gcc
         before_install:
-          - make travis-apt-clean
           - sudo apt update
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
           - sudo apt install -y octave libpugixml-dev libyaml-cpp-dev graphviz
@@ -114,10 +100,9 @@ jobs:
           - make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_${TRAVIS_DIST} TARGETS="all" ARGS=-V
 
       - name: "clang_cpp11_noros"
-        dist: trusty
+        dist: xenial
         compiler: clang
         before_install:
-          - make travis-apt-clean
           - sudo apt update
           - sudo apt install -y cmake libboost-all-dev libeigen3-dev
           - sudo apt install -y octave libpugixml-dev libyaml-cpp-dev graphviz
@@ -142,11 +127,11 @@ jobs:
 
     # based on https://github.com/felixduvallet/ros-travis-integration/blob/master/.travis.yml
       - name: "gcc_cpp11_ros"
-        dist: trusty
+        dist: xenial
         compiler: gcc
 
         env:
-          - ROS_DISTRO=indigo
+          - ROS_DISTRO=kinetic
           - CI_SOURCE_PATH=$(pwd)
           - ROS_CI_DESKTOP=${TRAVIS_DIST}
           - ROSINSTALL_FILE=$CI_SOURCE_PATH/dependencies.rosinstall
@@ -157,7 +142,6 @@ jobs:
 
         # Install system dependencies, namely a very barebones ROS setup.
         before_install:
-          - make travis-apt-clean
           - sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
           - source /opt/ros/${ROS_DISTRO}/setup.bash
           - rosdep update
@@ -170,11 +154,11 @@ jobs:
           - make build-tests TYPE=Debug OPTIONS=ros TARGETS="all" ARGS=-V
 
       - name: "clang_cpp11_ros"
-        dist: trusty
+        dist: xenial
         compiler: clang
 
         env:
-          - ROS_DISTRO=indigo
+          - ROS_DISTRO=kinetic
           - CI_SOURCE_PATH=$(pwd)
           - ROS_CI_DESKTOP=${TRAVIS_DIST}
           - ROSINSTALL_FILE=$CI_SOURCE_PATH/dependencies.rosinstall
@@ -185,7 +169,6 @@ jobs:
 
         # Install system dependencies, namely a very barebones ROS setup.
         before_install:
-          - make travis-apt-clean
           - sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
           - source /opt/ros/${ROS_DISTRO}/setup.bash
           - rosdep update
