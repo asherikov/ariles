@@ -1,0 +1,29 @@
+on:
+    push:
+        branches: [ head_2 ]
+    pull_request:
+        branches: [ head_2 ]
+
+jobs:
+    ubuntu_deps:
+        steps:
+            - run: sudo apt update
+            - run: sudo apt install -y cmake libboost-all-dev libeigen3-dev
+            - run: sudo apt install -y octave libpugixml-dev libyaml-cpp-dev graphviz
+            - run: sudo apt install -y libprotobuf-dev protobuf-compiler
+
+    gcc_cpp11_noros:
+        runs-on: ubuntu-16.04
+        needs: ubuntu_deps
+        steps:
+            - uses: actions/checkout@v2
+            - run: sudo make install-jsonnet
+            - run: make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_${TRAVIS_DIST} TARGETS="all" TC=gcc ARGS=-V
+
+    clang_cpp11_noros:
+        runs-on: ubuntu-16.04
+        needs: ubuntu_deps
+        steps:
+            - uses: actions/checkout@v2
+            - run: sudo make install-jsonnet
+            - run: make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_${TRAVIS_DIST} TARGETS="all" TC=clang ARGS=-V
