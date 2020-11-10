@@ -1,0 +1,63 @@
+on:
+    push:
+        branches: [ pkg_catkin_2 ]
+
+defaults:
+    run:
+        shell: bash
+
+jobs:
+#    # bionic
+#    bionic_melodic_catkin_old:
+#        container: ros:melodic-ros-base-bionic
+#        runs-on: ubuntu-latest
+#        steps:
+#            - uses: actions/checkout@v2
+#            - run: |
+#                source /opt/ros/melodic/setup.bash
+#                make catkin_test_old ROS_DISTRO=melodic UBUNTU_DISTRO=bionic
+#
+#    bionic_melodic_catkin_new:
+#        container: ros:melodic-ros-base-bionic
+#        runs-on: ubuntu-latest
+#        steps:
+#            - uses: actions/checkout@v2
+#            - run: |
+#                source /opt/ros/melodic/setup.bash
+#                make catkin_test_new ROS_DISTRO=melodic UBUNTU_DISTRO=bionic
+#
+#
+#    # xenial
+#    xenial_kinetic_catkin_old:
+#        container: ros:kinetic-ros-base-xenial
+#        runs-on: ubuntu-latest
+#        steps:
+#            - uses: actions/checkout@v2
+#            - run: |
+#                source /opt/ros/kinetic/setup.bash
+#                make catkin_test_old ROS_DISTRO=kinetic UBUNTU_DISTRO=xenial
+#
+#    xenial_kinetic_catkin_new:
+#        container: ros:kinetic-ros-base-xenial
+#        runs-on: ubuntu-latest
+#        steps:
+#            - uses: actions/checkout@v2
+#            - run: |
+#                source /opt/ros/kinetic/setup.bash
+#                make catkin_test_new ROS_DISTRO=kinetic UBUNTU_DISTRO=xenial
+
+
+    prerelease:
+        runs-on: ubuntu-16.04
+        steps:
+            #            - uses: actions/checkout@v2
+            #              with:
+            #      fetch-depth: 0
+            - run: echo ${GITHUB_SHA}
+            - run: git branch --show-current
+            - run: git branch --contains ${GITHUB_SHA} -a --format "%(refname:short)"
+            - run: git branch --contains ${GITHUB_SHA} -a
+            - run: git rev-parse HEAD
+            - run: git status
+            - run: git branch -a
+#                make ros_prerelease ROS_DISTRO=melodic UBUNTU_DISTRO=bionic BRANCH=`git branch --show-current`
