@@ -1,0 +1,65 @@
+on:
+    push:
+        branches: [ pkg_catkin_2 ]
+    pull_request:
+        branches: [ pkg_catkin_2 ]
+
+defaults:
+    run:
+        shell: bash
+
+jobs:
+    # bionic
+    bionic_melodic_catkin_old:
+        container: ros:melodic-ros-base-bionic
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - run: |
+                source /opt/ros/melodic/setup.bash
+                make catkin_test_old ROS_DISTRO=melodic UBUNTU_DISTRO=bionic
+
+    bionic_melodic_catkin_new:
+        container: ros:melodic-ros-base-bionic
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - run: |
+                source /opt/ros/melodic/setup.bash
+                make catkin_test_new ROS_DISTRO=melodic UBUNTU_DISTRO=bionic
+
+
+    # xenial
+    xenial_kinetic_catkin_old:
+        container: ros:kinetic-ros-base-xenial
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - run: |
+                source /opt/ros/kinetic/setup.bash
+                make catkin_test_old ROS_DISTRO=kinetic UBUNTU_DISTRO=xenial
+
+    xenial_kinetic_catkin_new:
+        container: ros:kinetic-ros-base-xenial
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - run: |
+                source /opt/ros/kinetic/setup.bash
+                make catkin_test_new ROS_DISTRO=kinetic UBUNTU_DISTRO=xenial
+
+
+    prerelease:
+        runs-on: ubuntu-16.04
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+            # fuck fuck fuck
+            - run: git log --pretty=%H | sed -n '2p' > sha
+            - run: cat sha
+            - run: git branch --contains `cat sha` -a --format "%(refname:short)" | grep origin | sed "s=origin/\([[:alnum:]]\)=\1=" > branch
+            - run: cat branch
+            - run: make ros_prerelease ROS_DISTRO=melodic UBUNTU_DISTRO=bionic BRANCH=`cat branch`
+              env:
+                  CCACHE_DIR: ${GITHUB_WORKSPACE}/.ccache
