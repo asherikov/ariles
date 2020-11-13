@@ -16,6 +16,7 @@ CATKIN_TARGETS=all test
 CATKIN_WORKING_DIR=./build/catkin_workspace
 CATKIN_PKGS_PATH=${CATKIN_WORKING_DIR}/src/${PROJECT}
 
+APT_INSTALL=apt install -y --no-install-recommends
 
 # release
 #----------------------------------------------
@@ -41,22 +42,23 @@ ros_add_repos:
 		|| apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 6B05F25D762E3157 \
 		|| apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 6B05F25D762E3157"
 	apt-get update -qq
-	apt-get install dpkg
+	${APT_INSTALL} dpkg
 	apt update -y
 
 ros_install:
-	apt-get install -y ros-${ROS_DISTRO}-ros-base
+	${APT_INSTALL} -y ros-${ROS_DISTRO}-ros-base
 	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; rosdep init'
 
 ros_install_deps:
 	apt update
 	#apt upgrade -y
-	apt install -y ${DEBIAN_SYSTEM_DEPENDENCIES}
-	apt install -y \
+	${APT_INSTALL} ${DEBIAN_SYSTEM_DEPENDENCIES}
+	${APT_INSTALL} \
 		python-bloom \
 		devscripts \
-		debhelper
-	apt install -y python-catkin-tools
+		debhelper \
+		fakeroot
+	${APT_INSTALL} python-catkin-tools
 
 
 catkin_test_deb_pkg:
@@ -138,7 +140,7 @@ catkin_test_new: ros_install_deps
 
 ros_prerelease_deps:
 	sudo ${MAKE} ros_add_repos UBUNTU_DISTRO=${UBUNTU_DISTRO}
-	sudo apt-get install python3-ros-buildfarm
+	sudo ${APT_INSTALL} python3-ros-buildfarm
 
 ros_prerelease: ros_prerelease_deps
 	# sudo apt install docker.io
@@ -150,7 +152,11 @@ ros_prerelease: ros_prerelease_deps
 		--output-dir ./build/ros_prerelease
 	# dirty fix to break interactive part of the script
 	cd ./build/ros_prerelease; sed -i -e "/_ls_prerelease_scripts=/d" prerelease.sh
-	cd ./build/ros_prerelease; env ABORT_ON_TEST_FAILURE=1 ./prerelease.sh
+	# shell script debug
+	cd ./build/ros_prerelease; sed -i 's=\(#!.*sh\)=#!/bin/sh -x=' *.sh
+	# dirty workaround for ccache permissions issue
+	cd ./build/ros_prerelease; sed -i "s|\(-e=TRAVIS\)|-eCCACHE_DIR=./.ccache/ \1|" *.sh
+	cd ./build/ros_prerelease; env ABORT_ON_TEST_FAILURE=1 CCACHE_DIR=`pwd`/.ccache ./prerelease.sh
 
 
 # docker
