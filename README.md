@@ -198,7 +198,7 @@ Dependencies and compilation
 Dependencies
 ------------
 
-`ariles` does not depend on new C++ features and is C++03 compliant.
+`ariles` does not depend on new C++ features and is C++11 compliant.
 
 Support of any data format, and corresponding dependency, can be enabled or
 disabled via cmake options. The same applies to data types which depend on
