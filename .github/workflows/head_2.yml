@@ -1,8 +1,4 @@
-on:
-    push:
-        branches: [ head_2 ]
-    pull_request:
-        branches: [ head_2 ]
+on: [push, pull_request]
 
 env:
     APT: apt install -y --no-install-recommends
