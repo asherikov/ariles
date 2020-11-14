@@ -38,7 +38,7 @@ option (ARILES_ADAPTER_BETTER_ENUMS     "Enable support for beter enums." ON)
 option (ARILES_ADAPTER_ROSMSG           "ROS message conversions." ON)
 
 # build parameters
-set    (ARILES_CPP_STANDARD             "c++03" CACHE STRING "C++ standard version")
+set    (ARILES_CPP_STANDARD             "c++11" CACHE STRING "C++ standard version")
 option (ARILES_CPP_SANITIZERS           "Enable sanitizers"                 OFF)
 option (ARILES_VERBOSE                  "Verbose build"                     ON)
 option (ARILES_BUILD_REGRESSION_TESTS   "Build regression tests."           ON)

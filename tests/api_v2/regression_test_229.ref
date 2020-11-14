@@ -45,9 +45,4 @@ ariles_visitors_yaml_cpp_dependencies[label="dependencies"];
 ariles_visitors_yaml_cpp->ariles_visitors_yaml_cpp_dependencies;
 yaml_cpp[label="https://github.com/jbeder/yaml-cpp",URL="https://github.com/jbeder/yaml-cpp"];
 ariles_visitors_yaml_cpp_dependencies->yaml_cpp;
-ariles_visitors_yaml_cpp03[label="yaml_cpp03",URL="https://asherikov.github.io/ariles/2/group__yaml__cpp03.html"];
-ariles_visitors->ariles_visitors_yaml_cpp03;
-ariles_visitors_yaml_cpp03_dependencies[label="dependencies"];
-ariles_visitors_yaml_cpp03->ariles_visitors_yaml_cpp03_dependencies;
-ariles_visitors_yaml_cpp03_dependencies->yaml_cpp;
 }

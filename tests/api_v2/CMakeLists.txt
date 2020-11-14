@@ -58,11 +58,7 @@ ariles_define_regression_test("220" "")                                     # co
 ariles_define_regression_test("221" "namevalue")                            # namevalue
 ariles_define_regression_test("222" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # flags
 ariles_define_regression_test("223" "rapidjson")                            # json floats, flags
-if (NOT ${ARILES_VISITOR_yaml_cpp} STREQUAL "OFF")
-    ariles_define_regression_test("224" "yaml_cpp")                         # missing entries
-elseif (NOT ${ARILES_VISITOR_yaml_cpp03} STREQUAL "OFF")
-    ariles_define_regression_test("224" "yaml_cpp03")                       # missing entries
-endif()
+ariles_define_regression_test("224" "yaml_cpp")                             # missing entries
 ariles_define_regression_test("225" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # 201, but with sloppy pairs and maps
 ariles_define_regression_test("226" "graphviz")                             # graphviz: complex, pointers
 ariles_define_regression_test("229" "graphviz")                             # graphviz: ariles_diagram

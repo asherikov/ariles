@@ -29,3 +29,5 @@ Removed
 * `ARILES_DEFAULT_CONFIGURABLE_FLAGS` cmake parameter, can still be set using
   preprocessor. Corresponding test cases have also been dropped.
 * Ubuntu 14.04 (Trusty) tests.
+* yaml-cpp03 support.
+* C++03 tests.

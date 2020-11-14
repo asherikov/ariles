@@ -12,17 +12,6 @@ env:
     CATKIN_OPTIONS: $GITHUB_WORKSPACE/catkin.options
 
 jobs:
-    test_cmake:
-        runs-on: ubuntu-16.04
-        steps:
-            - uses: actions/checkout@v2
-            - run: sudo apt update
-            - run: sudo $APT cmake libboost-all-dev libeigen3-dev
-            - run: sudo $APT octave libpugixml-dev libyaml-cpp-dev
-            - run: sudo make install-jsonnet
-            - run: make test-cmake
-
-
     deb_packages:
         runs-on: ubuntu-16.04
 
