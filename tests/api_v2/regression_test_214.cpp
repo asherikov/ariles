@@ -10,10 +10,6 @@
 
 #include "utility.h"
 
-#ifdef ARILES_VISITOR_yaml_cpp03
-#    include <ariles2/visitors/yaml_cpp03.h>
-#endif
-
 #ifdef ARILES_VISITOR_yaml_cpp
 #    include <ariles2/visitors/yaml_cpp.h>
 #endif
@@ -70,10 +66,6 @@ ARILES_TESTS_SHORTCUT(msgpack, FilenameInitializer)
 #    define ComparisonMultiFixture ComparisonSimpleFixture
 ARILES_TESTS_SHORTCUT(msgpack_compact, FilenameInitializer)
 #    undef ComparisonMultiFixture
-#endif
-
-#ifdef ARILES2_VISITOR_INCLUDED_yaml_cpp03
-ARILES_TESTS_SHORTCUT(yaml_cpp03, FilenameInitializer)
 #endif
 
 #ifdef ARILES2_VISITOR_INCLUDED_yaml_cpp
