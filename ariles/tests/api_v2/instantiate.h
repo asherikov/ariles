@@ -19,11 +19,6 @@ ARILES_TESTS_SHORTCUT(msgpack_compact, StreamInitializer)
 #    endif
 #endif
 
-#ifdef ARILES2_VISITOR_INCLUDED_yaml_cpp03
-ARILES_TESTS_SHORTCUT(yaml_cpp03, FilenameInitializer)
-ARILES_TESTS_SHORTCUT(yaml_cpp03, StreamInitializer)
-#endif
-
 #ifdef ARILES2_VISITOR_INCLUDED_yaml_cpp
 ARILES_TESTS_SHORTCUT(yaml_cpp, FilenameInitializer)
 ARILES_TESTS_SHORTCUT(yaml_cpp, StreamInitializer)

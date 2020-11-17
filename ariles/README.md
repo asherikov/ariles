@@ -18,11 +18,20 @@ Ariles
   </tr>
   <tr>
     <th>CI status</th>
-    <td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=head_2" alt="Build Status"></a></td>
-    <td align="center"><a href="https://travis-ci.org/asherikov/ariles"><img src="https://travis-ci.org/asherikov/ariles.svg?branch=pkg_catkin_2" alt="Build Status"></a></td>
+    <td align="center">
+        <a href="https://github.com/asherikov/ariles/actions?query=workflow%3A.github%2Fworkflows%2Fhead_2.yml+branch%3Ahead_2">
+        <img src="https://github.com/asherikov/ariles/workflows/.github/workflows/head_2.yml/badge.svg?branch=head_2" alt="Build Status">
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/asherikov/ariles/actions?query=workflow%3A.github%2Fworkflows%2Fcatkin_2.yml+branch%3Apkg_catkin_2">
+        <img src="https://github.com/asherikov/ariles/workflows/.github/workflows/catkin_2.yml/badge.svg?branch=pkg_catkin_2" alt="Build Status">
+        </a>
+    </td>
     <td align="center"></td>
   </tr>
 </table>
+
 
 
 Contents
@@ -42,7 +51,6 @@ Links
 =====
 * Documentation (Doxygen): https://asherikov.github.io/ariles/2/
 * GitHub: https://github.com/asherikov/ariles
-* Travis CI: https://travis-ci.org/asherikov/ariles
 * Legacy 1.x.x version: https://github.com/asherikov/ariles/tree/head_1
   (migration guide https://asherikov.github.io/ariles/2/md_doc_migration_1to2.html)
 
@@ -190,11 +198,13 @@ Dependencies and compilation
 Dependencies
 ------------
 
-`ariles` does not depend on new C++ features and is C++03 compliant.
+- `cmake` >= 3.0
+- `C++11` compatible compiler
+- `boost`
 
 Support of any data format, and corresponding dependency, can be enabled or
 disabled via cmake options. The same applies to data types which depend on
-external libraries. The only mandatory requirement is `Boost`.
+external libraries.
 
 
 Compilation with catkin

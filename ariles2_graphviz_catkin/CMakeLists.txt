@@ -5,10 +5,6 @@ project(ariles2_graphviz_catkin VERSION 2.0.0)
 option(ARILES_ROS_ENABLE_TESTS "Enable tests." OFF)
 
 #-----
-# ARILES
-set(ARILES_ENABLE_CORE          "OFF"   CACHE STRING "")
-set(ARILES_VISITOR_graphviz     "ON"    CACHE STRING "")
-
 set(ARILES_COMPONENTS  graphviz)
 #-----
 

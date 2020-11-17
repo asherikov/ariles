@@ -175,7 +175,7 @@ foreach(UBUNTU_NAME ${DEB_UBUNTU_CODENAMES})
         set(PACKAGE ${CPACK_DEBIAN_PACKAGE_NAME}-${COMPONENT})
         file(APPEND ${DEBIAN_RULES}
             "	mkdir ${BUILDDIR}\n"
-            "	cd ${BUILDDIR}; cmake -DCMAKE_INSTALL_PREFIX=../${PATH}/usr ${DEB_COMMON_CMAKE_ARGS} ${DEB_CMAKE_FLAGS_${COMPONENT}} ..\n"
+            "	cd ${BUILDDIR}; cmake -DCMAKE_INSTALL_PREFIX=../${PATH}/usr -DCMAKE_PREFIX_PATH=`pwd`/../debian/tmp_core/usr ${DEB_COMMON_CMAKE_ARGS} ${DEB_CMAKE_FLAGS_${COMPONENT}} ..\n"
             "	cd ${BUILDDIR}; make install\n"
             "	mkdir -p ${PATH}/DEBIAN\n"
             "	dpkg-gencontrol -p${PACKAGE} -P${PATH}\n"

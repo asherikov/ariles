@@ -150,10 +150,6 @@ namespace ariles_tests
             visitors_["yaml_cpp"] = ArilesVisitor();
             visitors_["yaml_cpp"].dependencies_.push_back(
                     ArilesDependency("yaml_cpp", "https://github.com/jbeder/yaml-cpp"));
-
-            visitors_["yaml_cpp03"] = ArilesVisitor();
-            visitors_["yaml_cpp03"].dependencies_.push_back(
-                    ArilesDependency("yaml_cpp", "https://github.com/jbeder/yaml-cpp"));
         }
 
         void randomize()

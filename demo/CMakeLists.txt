@@ -45,13 +45,6 @@ else()
     find_package(ariles2_yamlcpp_catkin REQUIRED)
     find_package(ariles2_octave_catkin REQUIRED)
 
-    include_directories(
-        ${ariles2_core_catkin_INCLUDE_DIRS}
-        ${ariles2_rosparam_catkin_INCLUDE_DIRS}
-        ${ariles2_rapidjson_catkin_INCLUDE_DIRS}
-        ${ariles2_yamlcpp_catkin_INCLUDE_DIRS}
-        ${ariles2_octave_catkin_INCLUDE_DIRS}
-    )
 
     add_executable(demo demo.cpp)
     target_link_libraries(demo

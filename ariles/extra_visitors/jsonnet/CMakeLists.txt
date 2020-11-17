@@ -1,5 +1,9 @@
 set (TGT_ARILES_VISITOR_LIB      "${PROJECT_NAME}_visitor_${ARILES_VISITOR}")
 
+add_library(${TGT_ARILES_VISITOR_LIB} SHARED
+    ${ARILES_VISITOR_${ARILES_VISITOR}_DIR}/src/reader.cpp
+)
+
 if(NOT ARILES_DEB_TARGETS)
     find_library("ARILES_VISITOR_${ARILES_VISITOR}_LIBS" "jsonnet")
     if (NOT ARILES_VISITOR_${ARILES_VISITOR}_LIBS)
@@ -10,12 +14,6 @@ if(NOT ARILES_DEB_TARGETS)
     if (NOT ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES)
         message(FATAL_ERROR "Could not find jsonnet headers. ${ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES}")
     endif()
-
-    link_directories(${ARILES_VISITOR_${ARILES_VISITOR}_LIBRARY_DIRS})
-
-    add_library(${TGT_ARILES_VISITOR_LIB} SHARED
-        ${ARILES_VISITOR_${ARILES_VISITOR}_DIR}/src/reader.cpp)
-    target_include_directories(${TGT_ARILES_VISITOR_LIB} SYSTEM PRIVATE ${ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES})
 endif()
 
 include(ariles_install_component)

@@ -113,16 +113,16 @@ deb-uninstall:
 
 cmake_dependency: clean
 	mkdir -p build/cmake_dependency_test
-	cd build/cmake_dependency_test; cmake ../../tests/cmake/dependency/ -DARILES_COMPONENTS="core;rosparam;yaml-cpp;octave"
+	cd build/cmake_dependency_test; cmake ../../tests/cmake/dependency/ -DARILES_COMPONENTS="rosparam;yaml-cpp;octave"
 	cd build/cmake_dependency_test; ${MAKE} ${MAKE_FLAGS}
 
-ppa-upload:
-	cd build/generic-Release-OPTIONS_deb_packages_trusty/Debian/trusty/; \
-		ftp -au ppa.launchpad.net:~asherikov/ubuntu/ppa/ \
-			${PKG_NAME}_*~${DEB_TARGET}.dsc \
-			${PKG_NAME}_*~${DEB_TARGET}.tar.xz \
-			${PKG_NAME}_*~${DEB_TARGET}_source.buildinfo \
-			${PKG_NAME}_*~${DEB_TARGET}_source.changes
+#ppa-upload:
+#	cd build/generic-Release-OPTIONS_deb_packages_trusty/Debian/trusty/; \
+#		ftp -au ppa.launchpad.net:~asherikov/ubuntu/ppa/ \
+#			${PKG_NAME}_*~${DEB_TARGET}.dsc \
+#			${PKG_NAME}_*~${DEB_TARGET}.tar.xz \
+#			${PKG_NAME}_*~${DEB_TARGET}_source.buildinfo \
+#			${PKG_NAME}_*~${DEB_TARGET}_source.changes
 
 
 #----------------------------------------------
@@ -136,15 +136,10 @@ test-ros: clean
 
 
 test-noros: clean
-	${MAKE} build TC=${TC} TYPE=Debug OPTIONS=no_core TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp11_on_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
-	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp03_on_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 	${MAKE} cppcheck
 	${MAKE} spell
 
-
-test-cmake:
-	/bin/sh -c "! ${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=conflict TARGETS='${TARGETS}' EXTRA_CMAKE_PARAM='${EXTRA_CMAKE_PARAM}'"
 
 #----------------------------------------------
 # other
@@ -294,7 +289,7 @@ spell:
 		| xargs ${SPELL_XARGS_ARG} scspell --use-builtin-base-dict --override-dictionary ./qa/scspell.dict
 
 travis-apt-clean:
-	sudo rm \
+	-sudo rm -f \
 		/etc/apt/sources.list.d/cassandra.list \
 		/etc/apt/sources.list.d/cassandra.list.save \
 		/etc/apt/sources.list.d/heroku-toolbelt.list \

@@ -5,7 +5,6 @@ project(ariles2_core_catkin VERSION 2.0.0)
 option(ARILES_ROS_ENABLE_TESTS "Enable tests." OFF)
 
 #-----
-# ARILES
 set(ARILES_COMPONENTS  core)
 #-----
 

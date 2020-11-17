@@ -5,12 +5,21 @@ set(ARILES_DIR             "${CMAKE_CURRENT_SOURCE_DIR}/../ariles")
 
 #-----
 # ARILES
-set(ARILES_CPP_STANDARD             "c++11" CACHE STRING "")
-
 set(ARILES_VISITORS_DEFAULT_MODE    "OFF"   CACHE STRING "")
 set(ARILES_CCACHE                   "OFF"   CACHE STRING "")
 
 set(ARILES_BUILD_REGRESSION_TESTS   "${ARILES_ROS_ENABLE_TESTS}"   CACHE STRING "")
+
+foreach(ARILES_COMPONENT  @ARILES_COMPONENTS@)
+    string(REGEX REPLACE "-" "_" ARILES_VISITOR "${ARILES_COMPONENT}")
+
+    if (ARILES_COMPONENT STREQUAL "core")
+        set(ARILES_ENABLE_CORE                  "ON"    CACHE STRING "")
+    else()
+        set(ARILES_ENABLE_CORE                  "OFF"   CACHE STRING "")
+        set(ARILES_VISITOR_${ARILES_VISITOR}    "ON"    CACHE STRING "")
+    endif()
+endforeach()
 #-----
 
 
