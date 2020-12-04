@@ -40,7 +40,7 @@ Contents
 * [Introduction](#intro)
     * [Use cases](#uses)
 * [Minimal example](#example)
-* [Supported formats](#formats)
+* [Visitors](#visitors)
 * [Supported types](#types)
 * [Dependencies and compilation](#compilation)
 * [Related software](#related)
@@ -59,14 +59,11 @@ Links
 Introduction
 ============
 
-`ariles` is a C++ meta-programming (reflection?) library with focus on
-serialization and configuration. It employs preprocessor macro to automatically
-generate boilerplate code which facilitates implementation of generic
-processors (visitors) for classes. A number of visitors is included in the
-library, in particular parsers and emitters of data in various formats, such as
-`YAML`, `JSON`, `XML`, `ROS` parameter server. `ariles` also provides
-predefined serialization wrappers for some common types, e.g., standard
-containers, smart pointers, `Eigen` matrices.
+Loosely speaking, `ariles` is a C++ reflection library, i.e., it provides
+meta-programming APIs for implementation of class visitors (processors). It
+also provides a number of (de)serializers based on these APIs, e.g., `YAML`,
+`JSON`, `XML`, `ROS` parameter server; and serialization wrappers for some
+types, e.g., `STL` containers, smart pointers, `Eigen` matrices, etc.
 
 
 <a name="uses"></a>
@@ -78,21 +75,19 @@ Use cases
    flexible while parsing by:
     - silently ignoring unused entries (if possible),
     - ignoring ordering of entries (if possible),
-    - not discriminating attributes from childs in XML,
+    - not discriminating attributes from childs in `XML`,
     - optionally ignoring missing entries.
 
 2. Conversion between different formats, for example, `YAML` <-> `ROS`
    parameter server. Note that the conversion is not data-agnostic, i.e., the
-   complete structure of the data must be represented in C++ code.
+   complete data structure must be represented in C++ code.
 
-3. Collection of time-series data by flattening a class hierarchy to a list of
-   name-value pairs (string-double).
+3. Flattening of a class hierarchy to a list of name-value pairs
+   (string-double), which is useful for collection of time-series data.
 
-4. `ariles` can emit `Octave` script code containing all data, which is useful
-   for debugging of numerical software.
+4. Exporting of numerical data to an `Octave` script for debugging purposes.
 
-5. Due to flexibile parsing, `ariles` can be used to process generic file
-   formats, e.g., `URDF`.
+5. Implemetation of parsers for specific data formats, e.g., `URDF`.
 
 
 
@@ -100,13 +95,12 @@ Use cases
 Minimal example
 ===============
 
-Demo: https://asherikov.github.io/ariles/2/DEMO.html [`./tests/api_v2/demo_api_v2.cpp`]
-
 
 Class [`./tests/api_v2/types/minimal.h`]:
 ```
 class Configurable : public ariles2::DefaultBase
 {
+    #define ARILES2_DEFAULT_ID "ConfigurableEntryName" // optional, defaults to 'ariles'
     #define ARILES2_ENTRIES(v) \
         ARILES2_TYPED_ENTRY(v, integer_member, int)
     #include ARILES2_INITIALIZE
@@ -116,6 +110,7 @@ class Configurable : public ariles2::DefaultBase
 Serialization:
 ```
 Configurable configurable;
+configurable.integer_member = 10;
 ariles2::apply<ariles2::yaml_cpp::Writer>("config.yaml", configurable);
 ariles2::apply<ariles2::yaml_cpp::Writer>(std::cout, configurable);
 ```
@@ -123,7 +118,7 @@ ariles2::apply<ariles2::yaml_cpp::Writer>(std::cout, configurable);
 Result:
 ```
 ConfigurableEntryName:
-    integer_member: 0
+    integer_member: 10
 ```
 
 Deserialization:
@@ -139,14 +134,17 @@ ariles2::apply<ariles2::yaml_cpp::Reader>("config.yaml", configurable);
 ariles2::apply<ariles2::rosparam::Writer>(nh, configurable, "/some_namespace/");
 ```
 
+See demo for more exaples: https://asherikov.github.io/ariles/2/DEMO.html
+[`./tests/api_v2/demo_api_v2.cpp`]
 
 
-<a name="formats"></a>
-Supported data representation formats
-=====================================
 
-`ariles` includes a number of optional modules that allow to work with
-specific data representation formats, for example:
+<a name="visitors"></a>
+Visitors
+========
+
+`ariles` includes a number of optional visitors that support various data
+representation formats, in particular:
 
 * `YAML` via `yaml-cpp`:
   https://asherikov.github.io/ariles/2/group__yaml__cpp.html.
@@ -183,7 +181,9 @@ https://asherikov.github.io/ariles/2/modules.html
 Supported data types
 ====================
 
-* Fundametal types: signed/unsigned integers, floats, booleans.
+`ariles` provides serialization wrappers for the follwing types:
+
+* Fundametal types: integers, floats, booleans.
 * Some STL classes (WIP): `std::string`, `std::vector`, `std::map`, `std::pair`, `std::shared_ptr`, `std::unique_ptr`.
 * `Eigen` types: matrices, transforms, quaternions.
 * `Boost` classes: `boost::optional`, `boost::movelib::unique_ptr`. `boost::shared_ptr`.
@@ -202,16 +202,15 @@ Dependencies
 - `C++11` compatible compiler
 - `boost`
 
-Support of any data format, and corresponding dependency, can be enabled or
-disabled via cmake options. The same applies to data types which depend on
-external libraries.
+Visitors and corresponding dependencies can be enabled or disabled via cmake
+options, the same applies to data types which depend on external libraries.
 
 
 Compilation with catkin
 -----------------------
 
-An example catkin package is provided in `pkg_ros` branch of the main
-repository -> https://github.com/asherikov/ariles/tree/pkg_ros.
+An example catkin package is provided in `pkg_catkin_2` branch of the main
+repository -> https://github.com/asherikov/ariles/tree/pkg_catkin_2.
 
 
 
