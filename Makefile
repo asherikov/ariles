@@ -14,18 +14,14 @@ plist:
 	cd port; ${MAKE} makeplist > pkg-plist
 	cd port; ${MAKE} makeplist > pkg-plist.tmp
 	cd port; echo ${VISITORS} | tr ' ' '\n' | xargs -I {}  /bin/sh -c "grep -i {} pkg-plist.tmp > pkg-plist.{}"
-	cd port; grep -i yaml pkg-plist.tmp > pkg-plist.yamlcpp; \
-		cp pkg-plist.yamlcpp 	pkg-plist.yamlcpp03; \
-		sed -i "" 's/yaml_cpp/yaml_cpp03/g'  pkg-plist.yamlcpp03; \
-		sed -i "" 's/yaml-cpp/yaml-cpp03/g'  pkg-plist.yamlcpp03
+	cd port; grep -i yaml pkg-plist.tmp > pkg-plist.yamlcpp
 	cd port; echo ${VISITORS} | tr ' ' '\n' | xargs -I {}  sed -i '' "/{}/d" pkg-plist.tmp;
-	cd port; sed -i '' "/yaml/d" 		pkg-plist.tmp;
-	cd port; sed -i '' "/makeplist/d" 	pkg-plist.tmp;
+	cd port; sed -i '' "/yaml/d" pkg-plist.tmp
+	cd port; sed -i '' "/makeplist/d" 	pkg-plist.tmp
 	cd port; mv pkg-plist.tmp pkg-plist
 	cd port; echo ${VISITORS} | tr ' ' '\n' | xargs -I {} \
 		/bin/sh -c 'UPPER=`echo {} | tr "[:lower:]" "[:upper:]"`; sed "s/^/%%$${UPPER}%%/" pkg-plist.{} >> pkg-plist'
-	cd port; sed "s/^/%%YAMLCPP%%/"		pkg-plist.yamlcpp 	>> 	pkg-plist
-	cd port; sed "s/^/%%YAMLCPP03%%/"	pkg-plist.yamlcpp03	>> 	pkg-plist
+	cd port; sed "s/^/%%YAMLCPP%%/" pkg-plist.yamlcpp >> pkg-plist
 	cd port; rm	 pkg-plist\.*
 
 test: #user

@@ -39,6 +39,7 @@ include/ariles2/visitors/serialization.h
 include/ariles2/visitors/write.h
 %%DATADIR%%2-core/ariles2-coreConfig.cmake
 %%DATADIR%%2-core/ariles2-coreConfigVersion.cmake
+%%DATADIR%%2-core/core_targets.cmake
 %%JSONNET%%include/ariles2/visitors/jsonnet.h
 %%JSONNET%%include/ariles2/visitors/jsonnet/reader.h
 %%JSONNET%%lib/libariles2_visitor_jsonnet.so
@@ -82,7 +83,6 @@ include/ariles2/visitors/write.h
 %%NAMEVALUE%%include/ariles2/visitors/namevalue/writer.h
 %%NAMEVALUE%%%%DATADIR%%2-namevalue/ariles2-namevalueConfig.cmake
 %%NAMEVALUE%%%%DATADIR%%2-namevalue/ariles2-namevalueConfigVersion.cmake
-%%NAMEVALUE%%%%DATADIR%%2-namevalue/namevalue_targets-%%CMAKE_BUILD_TYPE%%.cmake
 %%NAMEVALUE%%%%DATADIR%%2-namevalue/namevalue_targets.cmake
 %%GRAPHVIZ%%include/ariles2/visitors/graphviz.h
 %%GRAPHVIZ%%lib/libariles2_visitor_graphviz.so
@@ -98,11 +98,3 @@ include/ariles2/visitors/write.h
 %%YAMLCPP%%%%DATADIR%%2-yaml-cpp/ariles2-yaml-cppConfigVersion.cmake
 %%YAMLCPP%%%%DATADIR%%2-yaml-cpp/yaml-cpp_targets-%%CMAKE_BUILD_TYPE%%.cmake
 %%YAMLCPP%%%%DATADIR%%2-yaml-cpp/yaml-cpp_targets.cmake
-%%YAMLCPP03%%include/ariles2/visitors/yaml_cpp03.h
-%%YAMLCPP03%%include/ariles2/visitors/yaml_cpp03/reader.h
-%%YAMLCPP03%%include/ariles2/visitors/yaml_cpp03/writer.h
-%%YAMLCPP03%%lib/libariles2_visitor_yaml_cpp03.so
-%%YAMLCPP03%%%%DATADIR%%2-yaml-cpp03/ariles2-yaml-cpp03Config.cmake
-%%YAMLCPP03%%%%DATADIR%%2-yaml-cpp03/ariles2-yaml-cpp03ConfigVersion.cmake
-%%YAMLCPP03%%%%DATADIR%%2-yaml-cpp03/yaml-cpp03_targets-%%CMAKE_BUILD_TYPE%%.cmake
-%%YAMLCPP03%%%%DATADIR%%2-yaml-cpp03/yaml-cpp03_targets.cmake
