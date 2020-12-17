@@ -372,7 +372,6 @@ namespace ariles2
             void visit(t_Entry &entry, const t_Subtree &subtree, const Parameters &param)
             {
                 ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_VALUE(name);
                 ARILES2_TRACE_TYPE(entry);
 
 

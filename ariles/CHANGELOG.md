@@ -1,5 +1,13 @@
+CHANGELOG
+=========
+
+
 Unreleased
 ==========
+
+
+2.0.0
+=====
 
 Changed
 -------
@@ -11,8 +19,8 @@ Changed
 Added
 -----
 
-* `graphviz` vizitor for diagram generation.
-* `copyto` & `copyfrom` vizitors to exchange data with arbitrary non-ariles
+* `graphviz` visitor for diagram generation.
+* `copyto` & `copyfrom` visitors to exchange data with arbitrary non-ariles
   classes, in particular ROS messages.
 * `std::complex` support.
 

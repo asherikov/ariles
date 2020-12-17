@@ -1,5 +1,4 @@
 set (TGT_ARILES_VISITOR_LIB      "${PROJECT_NAME}_visitor_${ARILES_VISITOR}")
-add_library(${TGT_ARILES_VISITOR_LIB} INTERFACE)
 
 if(NOT ARILES_DEB_TARGETS)
     find_package(Protobuf REQUIRED)
@@ -7,5 +6,7 @@ if(NOT ARILES_DEB_TARGETS)
     set(ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES "${Protobuf_INCLUDE_DIRS}")
     set(ARILES_VISITOR_${ARILES_VISITOR}_LIBS "${Protobuf_LIBRARIES}")
 endif()
+
+add_library(${TGT_ARILES_VISITOR_LIB} INTERFACE)
 
 include(ariles_install_component)

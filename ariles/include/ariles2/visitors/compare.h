@@ -150,8 +150,9 @@ namespace ariles2
                 ARILES2_TRACE_TYPE(left);
                 ARILES2_TRACE_TYPE(right);
 
+                const bool equal_check = this->equal_;
                 apply_compare(*this, left, right, param);
-                if (false == this->equal_)
+                if (false == this->equal_ and equal_check != this->equal_)
                 {
                     backtrace_.push_back(name);
                 }
