@@ -12,7 +12,7 @@ if(NOT ARILES_DEB_TARGETS)
                 set(ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES "${${ARILES_VISITOR}_INCLUDE_DIRS}")
                 set(ARILES_VISITOR_${ARILES_VISITOR}_LIBS "${${ARILES_VISITOR}_LIBRARIES}")
 
-                link_directories(${ARILES_VISITOR_${ARILES_VISITOR}_LIBRARY_DIRS})    
+                link_directories(${ARILES_VISITOR_${ARILES_VISITOR}_LIBRARY_DIRS})
             else()
                 message(FATAL_ERROR "${ARILES_VISITOR} is not found.")
             endif()
