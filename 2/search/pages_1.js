@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['license',['LICENSE',['../LICENSE.html',1,'']]]
+  ['changelog',['CHANGELOG',['../md_CHANGELOG.html',1,'']]]
 ];

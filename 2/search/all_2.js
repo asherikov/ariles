@@ -2,6 +2,7 @@ var searchData=
 [
   ['cast',['cast',['../classariles2_1_1Any.html#a477fee627b96ec1dc63d40089c749791',1,'ariles2::Any::cast()'],['../classariles2_1_1Any.html#a0a42fb2c4c27840c3ad98348a2485101',1,'ariles2::Any::cast() const'],['../classariles2_1_1Any.html#a8581a09ccdefa8fcc778b3b7af3a1866',1,'ariles2::Any::cast(const std::string &amp;config_section_id)'],['../classariles2_1_1Any.html#a724be1d6938c5367b2cbf40816fe8411',1,'ariles2::Any::cast(const std::string &amp;config_section_id) const']]],
   ['ch',['Ch',['../classariles2_1_1ns__rapidjson_1_1BasicIStreamWrapper.html#ad9050fd0b15b9d3b51eff9dfe3179e7e',1,'ariles2::ns_rapidjson::BasicIStreamWrapper']]],
+  ['changelog_2emd',['CHANGELOG.md',['../CHANGELOG_8md.html',1,'']]],
   ['checksize',['checkSize',['../classariles2_1_1read_1_1Visitor.html#a1d03deecc0c78fccb1b38206cfe597c9',1,'ariles2::read::Visitor']]],
   ['clear',['clear',['../classariles2_1_1ns__graphviz_1_1impl_1_1Visitor.html#afb2e2d0427d987e3f1347d7b06e93bd2',1,'ariles2::ns_graphviz::impl::Visitor::clear()'],['../classariles2_1_1ns__namevalue_1_1GenericWriter.html#a4d03ced4e84a1462390c060e632f0a41',1,'ariles2::ns_namevalue::GenericWriter::clear()']]],
   ['common_2eh',['common.h',['../include_2ariles2_2visitors_2common_8h.html',1,'(Global Namespace)'],['../extra__visitors_2pugixml_2src_2common_8h.html',1,'(Global Namespace)'],['../extra__visitors_2rapidjson_2src_2common_8h.html',1,'(Global Namespace)'],['../extra__visitors_2rosparam_2src_2common_8h.html',1,'(Global Namespace)']]],
@@ -24,5 +25,6 @@ var searchData=
   ['copyto_2eh',['copyto.h',['../copyto_8h.html',1,'']]],
   ['count',['Count',['../group__count.html#ga9b08acce1af76a27624e35646bc7bb0d',1,'ariles2::Count()'],['../group__count.html',1,'(Global Namespace)']]],
   ['count_2eh',['count.h',['../count_8h.html',1,'']]],
-  ['count_5f',['count_',['../classariles2_1_1ns__rapidjson_1_1BasicIStreamWrapper.html#a821a5866640ae4a00ee9053bb61b890a',1,'ariles2::ns_rapidjson::BasicIStreamWrapper']]]
+  ['count_5f',['count_',['../classariles2_1_1ns__rapidjson_1_1BasicIStreamWrapper.html#a821a5866640ae4a00ee9053bb61b890a',1,'ariles2::ns_rapidjson::BasicIStreamWrapper']]],
+  ['changelog',['CHANGELOG',['../md_CHANGELOG.html',1,'']]]
 ];

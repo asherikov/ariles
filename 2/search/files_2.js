@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['changelog_2emd',['CHANGELOG.md',['../CHANGELOG_8md.html',1,'']]],
   ['common_2eh',['common.h',['../include_2ariles2_2visitors_2common_8h.html',1,'(Global Namespace)'],['../extra__visitors_2pugixml_2src_2common_8h.html',1,'(Global Namespace)'],['../extra__visitors_2rapidjson_2src_2common_8h.html',1,'(Global Namespace)'],['../extra__visitors_2rosparam_2src_2common_8h.html',1,'(Global Namespace)']]],
   ['compare_2eh',['compare.h',['../compare_8h.html',1,'']]],
   ['config_2eh',['config.h',['../config_8h.html',1,'']]],
