@@ -219,7 +219,7 @@ cppcheck:
 
 #
 # make clangcheck SCANBUILD=scan-build-9 OPTIONS=ros
-# make clangcheck SCANBUILD=scan-build80 OPTIONS=cpp11_on_noros
+# make clangcheck SCANBUILD=scan-build11 OPTIONS=cpp11_on_noros_tidy
 #
 clangcheck:
 	${SCANBUILD} \

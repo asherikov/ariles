@@ -37,14 +37,14 @@ namespace ariles2
                 {
                     ariles2::write::Visitor::openFile(config_ofs_, file_name);
                     output_stream_ = &config_ofs_;
-                    node_stack_.push_back(document_);
+                    node_stack_.push_back(document_);  // NOLINT
                 }
 
 
                 explicit Writer(std::ostream &output_stream)
                 {
                     output_stream_ = &output_stream;
-                    node_stack_.push_back(document_);
+                    node_stack_.push_back(document_);  // NOLINT
                 }
 
 

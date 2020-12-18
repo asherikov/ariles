@@ -45,7 +45,8 @@
 
 BOOST_FIXTURE_TEST_CASE(CompareInheritance, ariles_tests::DummyFixture)
 {
-    ariles_tests::ConfigurableDerived configurable1, configurable2;
+    ariles_tests::ConfigurableDerived configurable1;
+    ariles_tests::ConfigurableDerived configurable2;
 
 
     ariles2::Compare visitor;

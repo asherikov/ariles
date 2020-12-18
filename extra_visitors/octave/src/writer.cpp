@@ -47,7 +47,7 @@ namespace ariles2
                 /**
                  * @brief Initialize emitter
                  */
-                void initEmitter()
+                void initEmitter() const
                 {
                     *output_stream_ << std::setprecision(std::numeric_limits<double>::digits10);
                 }
@@ -115,7 +115,7 @@ namespace ariles2
 
         void Writer::startMapEntry(const std::string &map_name)
         {
-            if (0 == impl_->node_stack_.size())
+            if (impl_->node_stack_.empty())
             {
                 impl_->node_stack_.push_back(NodeWrapper(map_name));
             }

@@ -55,7 +55,7 @@ namespace ariles2
 
         void Writer::startMapEntry(const std::string &map_name)
         {
-            if (0 == impl_->node_stack_.size())
+            if (impl_->node_stack_.empty())
             {
                 impl_->root_name_ = map_name;
                 impl_->node_stack_.push_back(&impl_->root_value_);

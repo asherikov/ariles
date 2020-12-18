@@ -22,6 +22,10 @@ namespace ariles2
         {
             class ARILES2_VISIBILITY_ATTRIBUTE Writer
             {
+            public:
+                typedef ARILES2_SHARED_PTR< ::msgpack::packer<std::ostream> > PackerPtr;
+
+
             private:
                 Writer(const Writer &);
                 void operator=(const Writer &);
@@ -34,27 +38,21 @@ namespace ariles2
                 /// output stream
                 std::ostream *output_stream_;
 
-                ::msgpack::packer<std::ostream> *packer_;
+                PackerPtr packer_;
 
             public:
                 explicit Writer(const std::string &file_name)
                 {
                     ariles2::write::Visitor::openFile(config_ofs_, file_name);
                     output_stream_ = &config_ofs_;
-                    packer_ = new ::msgpack::packer<std::ostream>(*output_stream_);
+                    packer_ = PackerPtr(new ::msgpack::packer<std::ostream>(*output_stream_));
                 }
 
 
                 explicit Writer(std::ostream &output_stream)
                 {
                     output_stream_ = &output_stream;
-                    packer_ = new ::msgpack::packer<std::ostream>(*output_stream_);
-                }
-
-
-                ~Writer()
-                {
-                    delete packer_;
+                    packer_ = PackerPtr(new ::msgpack::packer<std::ostream>(*output_stream_));
                 }
             };
         }  // namespace impl

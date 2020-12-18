@@ -78,11 +78,8 @@ namespace ariles2
             {
                 return (false);
             }
-            else
-            {
-                impl_->node_stack_.push_back(impl::Reader::NodeWrapper(&(child->value)));
-                return (true);
-            }
+            impl_->node_stack_.push_back(impl::Reader::NodeWrapper(&(child->value)));
+            return (true);
         }
 
         void Reader::endMapEntry()
@@ -180,7 +177,7 @@ namespace ariles2
 
         void Reader::readElement(float &element)
         {
-            float tmp_value;
+            float tmp_value = 0.0;
             if (true == impl_->getRawNode().IsString())
             {
                 tmp_value = boost::lexical_cast<float>(impl_->getRawNode().GetString());
@@ -197,7 +194,7 @@ namespace ariles2
             }
             else
             {
-                tmp_value = impl_->getRawNode().GetDouble();  // old API compatibility
+                tmp_value = static_cast<float>(impl_->getRawNode().GetDouble());  // old API compatibility
                 // tmp_value = impl_->getRawNode().GetFloat();
             }
             ARILES2_ASSERT(
@@ -209,7 +206,7 @@ namespace ariles2
 
         void Reader::readElement(double &element)
         {
-            double tmp_value;
+            double tmp_value = 0.0;
             if (true == impl_->getRawNode().IsString())
             {
                 tmp_value = boost::lexical_cast<double>(impl_->getRawNode().GetString());

@@ -52,7 +52,7 @@ namespace ariles2
             pugi::xml_parse_result result = impl_->document_.load_file(file_name.c_str(), pugi::parse_minimal);
             ARILES2_ASSERT(
                     true == result, std::string("Parsing of '") + file_name + "' failed: " + result.description());
-            impl_->node_stack_.push_back(impl_->document_);
+            impl_->node_stack_.push_back(impl_->document_);  // NOLINT
         }
 
 
@@ -62,7 +62,7 @@ namespace ariles2
 
             pugi::xml_parse_result result = impl_->document_.load(input_stream, pugi::parse_minimal);
             ARILES2_ASSERT(true == result, std::string("Parsing failed: ") + result.description());
-            impl_->node_stack_.push_back(impl_->document_);
+            impl_->node_stack_.push_back(impl_->document_);  // NOLINT
         }
 
 
@@ -70,26 +70,22 @@ namespace ariles2
         {
             const pugi::xml_node child = impl_->getRawNode().child(child_name.c_str());
 
-            if (child)
+            if (NULL != child)
             {
                 impl_->node_stack_.push_back(child);
                 return (true);
             }
-            else
+
+            const pugi::xml_attribute attribute = impl_->getRawNode().attribute(child_name.c_str());
+            if (NULL != attribute)
             {
-                const pugi::xml_attribute attribute = impl_->getRawNode().attribute(child_name.c_str());
-                if (attribute)
-                {
-                    pugi::xml_node new_child = impl_->getRawNode().append_child(child_name.c_str());
-                    new_child.text() = attribute.value();
-                    impl_->node_stack_.push_back(new_child);
-                    return (true);
-                }
-                else
-                {
-                    return (false);
-                }
+                pugi::xml_node new_child = impl_->getRawNode().append_child(child_name.c_str());
+                new_child.text() = attribute.value();
+                impl_->node_stack_.push_back(new_child);
+                return (true);
             }
+
+            return (false);
         }
 
 
@@ -105,7 +101,7 @@ namespace ariles2
                 const std::size_t /*max*/)
         {
             pugi::xml_node child = impl_->getRawNode().first_child();
-            if (child)
+            if (NULL != child)
             {
                 impl_->node_stack_.push_back(NodeWrapper(child, NodeWrapper::ITERATED_MAP));
                 return (true);
@@ -115,7 +111,7 @@ namespace ariles2
 
         bool Reader::startIteratedMapElement(std::string &entry_name)
         {
-            if (impl_->getRawNode())
+            if (NULL != impl_->getRawNode())
             {
                 entry_name = impl_->getRawNode().name();
                 return (true);
@@ -126,7 +122,7 @@ namespace ariles2
         void Reader::endIteratedMapElement()
         {
             const pugi::xml_node node = impl_->getRawNode();
-            if (node)
+            if (NULL != node)
             {
                 impl_->getRawNode() = node.next_sibling();
             }
@@ -143,8 +139,9 @@ namespace ariles2
         {
             std::size_t size = 0;
             const pugi::xml_node node = impl_->getRawNode();
-            for (pugi::xml_node child = node.child("item"); child; child = child.next_sibling("item"), ++size)
-                ;
+            for (pugi::xml_node child = node.child("item"); NULL != child; child = child.next_sibling("item"), ++size)
+            {
+            }
 
             if (size > 0)
             {
@@ -155,9 +152,10 @@ namespace ariles2
                 // if there are no 'item' childs try to iterate
                 // over childs with the same name in the parent
                 // node
-                for (pugi::xml_node child = impl_->getRawNode(); child;
+                for (pugi::xml_node child = impl_->getRawNode(); NULL != child;
                      child = child.next_sibling(child.name()), ++size)
-                    ;
+                {
+                }
                 impl_->node_stack_.push_back(NodeWrapper(impl_->getRawNode(), 0, size));
             }
 
@@ -194,10 +192,7 @@ namespace ariles2
             {
                 return (startMapEntry("ariles"));
             }
-            else
-            {
-                return (startMapEntry(name));
-            }
+            return (startMapEntry(name));
         }
 
         void Reader::endRoot(const std::string & /*name*/)

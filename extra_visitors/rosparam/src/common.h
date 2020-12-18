@@ -49,10 +49,7 @@ namespace ariles2
                 {
                     return (getRawNode(depth - 1)[node_stack_[depth].index_]);
                 }
-                else
-                {
-                    return (*node_stack_[depth].node_);
-                }
+                return (*node_stack_[depth].node_);
             }
 
 

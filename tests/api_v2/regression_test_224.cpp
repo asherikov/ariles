@@ -36,10 +36,6 @@ namespace ariles_tests
 
         std::string type;
         std::map<std::string, std::string> remappings;
-
-        virtual ~SubstateParams()
-        {
-        }
     };
 
     struct StateMachineParams : public ariles2::RelaxedSloppyBase
@@ -48,10 +44,6 @@ namespace ariles_tests
 #include ARILES2_INITIALIZE
 
         std::map<std::string, SubstateParams> substates;
-
-        virtual ~StateMachineParams()
-        {
-        }
     };
 }  // namespace ariles_tests
 
