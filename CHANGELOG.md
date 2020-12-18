@@ -5,6 +5,10 @@ CHANGELOG
 Unreleased
 ==========
 
+Added
+-----
+* clang-tidy checks.
+
 
 2.0.0
 =====
