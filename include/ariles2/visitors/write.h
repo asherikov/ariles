@@ -139,29 +139,36 @@ namespace ariles2
             virtual void startArray(const std::size_t size, const bool compact = false) = 0;
             virtual void startArrayElement()
             {
+                ARILES2_TRACE_FUNCTION;
             }
             virtual void endArrayElement()
             {
+                ARILES2_TRACE_FUNCTION;
             }
             virtual void endArray()
             {
+                ARILES2_TRACE_FUNCTION;
             }
 
 
             virtual void startVector(const std::size_t size)
             {
+                ARILES2_TRACE_FUNCTION;
                 this->startArray(size, /*compact*/ true);
             }
             virtual void startVectorElement()
             {
+                ARILES2_TRACE_FUNCTION;
                 this->startArrayElement();
             }
             virtual void endVectorElement()
             {
+                ARILES2_TRACE_FUNCTION;
                 this->endArrayElement();
             }
             virtual void endVector()
             {
+                ARILES2_TRACE_FUNCTION;
                 this->endArray();
             }
 
@@ -172,44 +179,75 @@ namespace ariles2
                     const std::size_t rows,
                     const t_Parameters &param)
             {
-                if (true == dynamic or true == param.explicit_matrix_size_)
+                ARILES2_TRACE_FUNCTION;
+                if (param.flat_matrices_)
                 {
-                    this->startMap(param, 3);
+                    if (dynamic or param.explicit_matrix_size_)
+                    {
+                        this->startMap(param, 3);
 
-                    this->startMapEntry("cols");
-                    this->writeElement(cols, param);
-                    this->endMapEntry();
+                        this->startMapEntry("cols");
+                        this->writeElement(cols, param);
+                        this->endMapEntry();
 
-                    this->startMapEntry("rows");
-                    this->writeElement(rows, param);
-                    this->endMapEntry();
+                        this->startMapEntry("rows");
+                        this->writeElement(rows, param);
+                        this->endMapEntry();
 
-                    this->startMapEntry("data");
+                        this->startMapEntry("data");
+                    }
+
+                    this->startVector(cols * rows);
                 }
-
-                this->startArray(cols * rows, true);
+                else
+                {
+                    this->startArray(rows, /*compact=*/true);
+                }
             }
-            virtual void startMatrixRow()
+            virtual void startMatrixRow(const std::size_t cols, const t_Parameters &param)
             {
+                ARILES2_TRACE_FUNCTION;
+                if (not param.flat_matrices_)
+                {
+                    this->startArrayElement();
+                    this->startVector(cols);
+                }
             }
             virtual void startMatrixElement()
             {
-                this->startArrayElement();
+                ARILES2_TRACE_FUNCTION;
+                this->startVectorElement();
             }
             virtual void endMatrixElement()
             {
-                this->endArrayElement();
+                ARILES2_TRACE_FUNCTION;
+                this->endVectorElement();
             }
-            virtual void endMatrixRow()
+            virtual void endMatrixRow(const t_Parameters &param)
             {
-            }
-            virtual void endMatrix(const bool dynamic)
-            {
-                this->endArray();
-                if (true == dynamic)
+                ARILES2_TRACE_FUNCTION;
+                if (not param.flat_matrices_)
                 {
-                    this->endMapEntry();
-                    this->endMap();
+                    this->endVector();
+                    this->endArrayElement();
+                }
+            }
+            virtual void endMatrix(const bool dynamic, const t_Parameters &param)
+            {
+                ARILES2_TRACE_FUNCTION;
+                if (param.flat_matrices_)
+                {
+                    this->endVector();
+
+                    if (dynamic or param.explicit_matrix_size_)
+                    {
+                        this->endMapEntry();
+                        this->endMap();
+                    }
+                }
+                else
+                {
+                    this->endArray();
                 }
             }
 

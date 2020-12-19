@@ -106,6 +106,7 @@ namespace ariles2
 
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
+            ARILES2_TRACE_FUNCTION;
             impl_->getRawNode().SetArray();
             impl_->getRawNode().Reserve(size, impl_->document_.GetAllocator());
             for (std::size_t i = 0; i < size; ++i)
@@ -118,6 +119,7 @@ namespace ariles2
 
         void Writer::startArrayElement()
         {
+            ARILES2_TRACE_FUNCTION;
             ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: namevalue.has more elements than expected.");
@@ -125,12 +127,14 @@ namespace ariles2
 
         void Writer::endArrayElement()
         {
+            ARILES2_TRACE_FUNCTION;
             ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ++impl_->node_stack_.back().index_;
         }
 
         void Writer::endArray()
         {
+            ARILES2_TRACE_FUNCTION;
             impl_->node_stack_.pop_back();
         }
 

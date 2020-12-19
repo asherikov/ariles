@@ -137,6 +137,7 @@ test-ros: clean
 
 test-noros: clean
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp11_on_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+	${MAKE} clangcheck SCANBUILD=scan-build11 OPTIONS=cpp11_on_noros_tidy
 	${MAKE} cppcheck
 	${MAKE} spell
 

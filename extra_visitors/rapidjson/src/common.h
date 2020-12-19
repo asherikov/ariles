@@ -56,10 +56,8 @@ namespace ariles2
                 {
                     return (getRawNode(depth - 1)[node_stack_[depth].index_]);
                 }
-                else
-                {
-                    return (*node_stack_[depth].node_);
-                }
+
+                return (*node_stack_[depth].node_);
             }
 
 
@@ -69,10 +67,8 @@ namespace ariles2
                 {
                     return (document_);
                 }
-                else
-                {
-                    return (getRawNode(node_stack_.size() - 1));
-                }
+
+                return (getRawNode(node_stack_.size() - 1));
             }
         };
     }  // namespace ns_rapidjson

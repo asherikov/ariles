@@ -30,6 +30,7 @@ namespace ariles2
             bool sloppy_pairs_;
             bool explicit_matrix_size_;
             bool fallback_to_string_floats_;
+            bool flat_matrices_;
 
 
         public:
@@ -39,6 +40,7 @@ namespace ariles2
                 sloppy_pairs_ = false;
                 explicit_matrix_size_ = false;
                 fallback_to_string_floats_ = true;
+                flat_matrices_ = true;
             }
         };
 
