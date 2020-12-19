@@ -135,6 +135,8 @@ namespace ariles2
 
         std::size_t Reader::startArray()
         {
+            ARILES2_ASSERT(impl_->getRawNode().IsArray(), "Internal error: expected array.");
+
             std::size_t size = impl_->getRawNode().Size();
             impl_->node_stack_.push_back(impl::Reader::NodeWrapper(0, size));
 
