@@ -19,7 +19,7 @@ if(NOT ARILES_DEB_TARGETS)
     endif()
 endif()
 
-add_library(${TGT_ARILES_VISITOR_LIB} SHARED
+add_library(${TGT_ARILES_VISITOR_LIB}
     ${ARILES_VISITOR_${ARILES_VISITOR}_DIR}/src/reader.cpp
     ${ARILES_VISITOR_${ARILES_VISITOR}_DIR}/src/writer.cpp
     ${ARILES_VISITOR_${ARILES_VISITOR}_DIR}/src/reader_compact.cpp

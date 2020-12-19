@@ -9,6 +9,7 @@ Added
 -----
 * clang-tidy checks.
 * Allow storing matrices as arrays of vectors instead of flat matrices with dimensions.
+* Allow building static libraries.
 
 
 2.0.0

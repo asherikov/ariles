@@ -277,7 +277,7 @@ clangcheck:
 		-enable-checker valist.CopyToSelf \
 		-enable-checker valist.Uninitialized \
 		-enable-checker valist.Unterminated \
-		${MAKE} build TC=${TC} TYPE=${TYPE} OPTIONS=${OPTIONS} TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+		${MAKE} build TC=${TC} TYPE=${TYPE} OPTIONS=${OPTIONS} TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="-DBUILD_SHARED_LIBS=OFF ${EXTRA_CMAKE_PARAM}"
 
 spell_interactive:
 	${MAKE} spell SPELL_XARGS_ARG=-o

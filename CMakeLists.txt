@@ -35,6 +35,9 @@ set    (ARILES_DEB_TARGETS              "" CACHE STRING "Enable debian package g
 # install parameters
 set    (ARILES_PKGCONFIG_INSTALL_PATH   "" CACHE STRING "pkg-config pc-file install path, not installed if empty")
 
+if (NOT DEFINED BUILD_SHARED_LIBS)
+    set (BUILD_SHARED_LIBS ON)
+endif()
 
 
 #####################################
