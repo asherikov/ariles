@@ -54,8 +54,6 @@ include(cmakeut_list_filenames)
 include(cmakeut_dump_variables)
 include(cmakeut_compiler_flags)
 
-include (cmakeut_detect_func_macro)
-cmakeut_detect_func_macro()
 
 
 #####################################
