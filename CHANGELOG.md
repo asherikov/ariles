@@ -11,6 +11,11 @@ Added
 * Allow storing matrices as arrays of vectors instead of flat matrices with dimensions.
 * Allow building static libraries.
 
+Removed
+-------
+
+* Deprecated cmake macro.
+
 
 2.0.0
 =====
