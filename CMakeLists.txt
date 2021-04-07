@@ -16,7 +16,7 @@ else()
     project(ariles VERSION ${ARILES_VERSION_MAJOR}.${ARILES_VERSION_MINOR}.${ARILES_VERSION_PATCH})
 endif()
 
-set(ARILES_HOMEPAGE http://asherikov.github.com/ariles/)
+set(ARILES_HOMEPAGE http://asherikov.github.io/ariles/)
 set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
 
