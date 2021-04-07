@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 3.0.0)
 project(ariles2 VERSION 2.0.0)
 
 
-set(ARILES_HOMEPAGE http://asherikov.github.com/ariles/2)
+set(ARILES_HOMEPAGE http://asherikov.github.io/ariles/2)
 set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
 
