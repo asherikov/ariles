@@ -5,6 +5,11 @@ CHANGELOG
 Unreleased
 ==========
 
+Fixed
+-----
+* Compilation with colcon, when each ariles visitor is installed in a separate
+  directory.
+
 Added
 -----
 * clang-tidy checks.

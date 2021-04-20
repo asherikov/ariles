@@ -32,6 +32,7 @@ else()
 endif()
 
 target_include_directories(${TGT_ARILES_VISITOR_LIB} INTERFACE
+    "$<INSTALL_INTERFACE:include/>"
     "$<INSTALL_INTERFACE:${${PROJECT_NAME}-${ARILES_COMPONENT}_INCLUDE_DIRS}>"
 )
 # ---
