@@ -92,10 +92,7 @@ namespace ariles2
                     {
                         return (getRawNode(depth - 1).via.array.ptr[node_stack_[depth].index_]);
                     }
-                    else
-                    {
-                        return (*node_stack_[depth].node_);
-                    }
+                    return (*node_stack_[depth].node_);
                 }
 
 
@@ -142,7 +139,7 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
             ARILES2_TRACE_VALUE(child_name);
-            if (impl_->node_stack_.size() == 0)
+            if (impl_->node_stack_.empty())
             {
                 for (std::size_t i = 0; i < impl_->handles_.size(); ++i)
                 {
@@ -189,7 +186,7 @@ namespace ariles2
         std::size_t Reader::startArray()
         {
             ARILES2_TRACE_FUNCTION;
-            std::size_t size = impl_->getRawNode().via.array.size;
+            const std::size_t size = impl_->getRawNode().via.array.size;
             impl_->node_stack_.push_back(NodeWrapper(0, size));
 
             return (size);
@@ -230,10 +227,7 @@ namespace ariles2
                 ++impl_->nameless_counter_;
                 return (startMapEntry("ariles"));
             }
-            else
-            {
-                return (startMapEntry(name));
-            }
+            return (startMapEntry(name));
         }
 
         void Reader::endRoot(const std::string & /*name*/)

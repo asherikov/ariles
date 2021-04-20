@@ -46,7 +46,8 @@
 BOOST_FIXTURE_TEST_CASE(CompareComplex, ariles_tests::DummyFixture)
 {
     boost::random::random_device random_generator;
-    ariles_tests::ConfigurableComplex configurable1, configurable2;
+    ariles_tests::ConfigurableComplex configurable1;
+    ariles_tests::ConfigurableComplex configurable2;
 
 
     ariles2::Compare visitor;
@@ -181,7 +182,8 @@ BOOST_FIXTURE_TEST_CASE(CompareComplex, ariles_tests::DummyFixture)
 
 BOOST_FIXTURE_TEST_CASE(SpecialFloats, ariles_tests::DummyFixture)
 {
-    ariles_tests::ConfigurableSpecialFloats configurable1, configurable2;
+    ariles_tests::ConfigurableSpecialFloats configurable1;
+    ariles_tests::ConfigurableSpecialFloats configurable2;
 
 
     ariles2::Compare visitor;

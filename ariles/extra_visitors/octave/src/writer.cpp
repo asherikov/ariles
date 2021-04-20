@@ -47,7 +47,7 @@ namespace ariles2
                 /**
                  * @brief Initialize emitter
                  */
-                void initEmitter()
+                void initEmitter() const
                 {
                     *output_stream_ << std::setprecision(std::numeric_limits<double>::digits10);
                 }
@@ -115,7 +115,7 @@ namespace ariles2
 
         void Writer::startMapEntry(const std::string &map_name)
         {
-            if (0 == impl_->node_stack_.size())
+            if (impl_->node_stack_.empty())
             {
                 impl_->node_stack_.push_back(NodeWrapper(map_name));
             }
@@ -204,7 +204,7 @@ namespace ariles2
             *impl_->output_stream_ << impl_->node_stack_.back().node_;
         }
 
-        void Writer::startMatrixRow()
+        void Writer::startMatrixRow(const std::size_t /*cols*/, const Parameters & /*param*/)
         {
             impl_->node_stack_.back().index_ = 0;
         }
@@ -222,12 +222,12 @@ namespace ariles2
             ++impl_->node_stack_.back().index_;
         }
 
-        void Writer::endMatrixRow()
+        void Writer::endMatrixRow(const Parameters & /*param*/)
         {
             *impl_->output_stream_ << "; ...\n";
         }
 
-        void Writer::endMatrix(const bool /*dynamic*/)
+        void Writer::endMatrix(const bool /*dynamic*/, const Parameters & /*param*/)
         {
             *impl_->output_stream_ << "];\n";
             impl_->node_stack_.pop_back();

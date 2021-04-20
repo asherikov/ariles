@@ -15,7 +15,7 @@ update:
 	${MAKE} cleanup
 
 update_head:
-	${MAKE} update VERSION="origin/master"
+	${MAKE} update VERSION="origin/head_2"
 
 
 # clean

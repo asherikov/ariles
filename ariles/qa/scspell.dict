@@ -74,6 +74,7 @@ msgs
 namevalue
 nocase
 noexcept
+nolint
 npos
 nullptr
 ofstream

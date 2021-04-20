@@ -63,6 +63,8 @@ ariles_define_regression_test("225" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # 20
 ariles_define_regression_test("226" "graphviz")                             # graphviz: complex, pointers
 ariles_define_regression_test("229" "graphviz")                             # graphviz: ariles_diagram
 ariles_define_regression_test("230" "")                                     # copyto, copyfrom
+set(CMAKE_CXX_CLANG_TIDY_BACK "${CMAKE_CXX_CLANG_TIDY}")
+set(CMAKE_CXX_CLANG_TIDY "")
 ariles_define_regression_test("231" "protobuf3")                            # protobuf
 if (${ARILES_VISITOR_protobuf3} STREQUAL "ON")
     protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${CMAKE_CURRENT_LIST_DIR}/types/protobuf/test.proto)
@@ -72,5 +74,6 @@ if (${ARILES_VISITOR_protobuf3} STREQUAL "ON")
     set_property(TARGET ${TGT_TEST} APPEND PROPERTY INCLUDE_DIRECTORIES ${CMAKE_CURRENT_BINARY_DIR})
     target_link_libraries(${TGT_TEST} protobuf_test)
 endif()
+set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY_BACK}")
 ariles_define_regression_test("232" "yaml_cpp")                             # NonNullPointer abstract
 ariles_define_regression_test("233" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # subtree read

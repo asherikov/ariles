@@ -11,7 +11,7 @@ cpack_add_component(
 # ---
 get_target_property(TARGET_TYPE ${TGT_ARILES_VISITOR_LIB} TYPE)
 
-if(TARGET_TYPE STREQUAL "SHARED_LIBRARY")
+if(TARGET_TYPE STREQUAL "SHARED_LIBRARY" OR TARGET_TYPE STREQUAL "STATIC_LIBRARY")
     target_link_libraries(${TGT_ARILES_VISITOR_LIB} PUBLIC ${PROJECT_NAME}-core)
 
     target_include_directories(${TGT_ARILES_VISITOR_LIB} PUBLIC
@@ -32,6 +32,7 @@ else()
 endif()
 
 target_include_directories(${TGT_ARILES_VISITOR_LIB} INTERFACE
+    "$<INSTALL_INTERFACE:include/>"
     "$<INSTALL_INTERFACE:${${PROJECT_NAME}-${ARILES_COMPONENT}_INCLUDE_DIRS}>"
 )
 # ---

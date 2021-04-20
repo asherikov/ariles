@@ -266,7 +266,7 @@ namespace ariles2
                 {
                     ARILES2_PERSISTENT_ASSERT(
                             true == param.allow_missing_entries_,
-                            std::string("Pointer entry does not include 'is_null' subentry."));
+                            "Pointer entry does not include 'is_null' subentry.");
                 }
 
                 if (false == is_null)
@@ -311,27 +311,79 @@ namespace ariles2
 
             virtual void startMatrix(std::size_t &cols, std::size_t &rows, const bool dynamic, const Parameters &param)
             {
-                if (true == dynamic or true == param.explicit_matrix_size_)
+                if (param.flat_matrices_)
                 {
-                    this->startMap(SIZE_LIMIT_EQUAL, 3);
+                    if (true == dynamic or true == param.explicit_matrix_size_)
+                    {
+                        this->startMap(SIZE_LIMIT_EQUAL, 3);
 
-                    ARILES2_ASSERT(true == this->startMapEntry("cols"), "Missing 'cols' in a matrix entry.");
-                    this->readElement(cols);
-                    this->endMapEntry();
+                        ARILES2_ASSERT(true == this->startMapEntry("cols"), "Missing 'cols' in a matrix entry.");
+                        this->readElement(cols);
+                        this->endMapEntry();
 
-                    ARILES2_ASSERT(true == this->startMapEntry("rows"), "Missing 'rows' in a matrix entry.");
-                    this->readElement(rows);
-                    this->endMapEntry();
+                        ARILES2_ASSERT(true == this->startMapEntry("rows"), "Missing 'rows' in a matrix entry.");
+                        this->readElement(rows);
+                        this->endMapEntry();
 
-                    ARILES2_ASSERT(true == this->startMapEntry("data"), "Missing 'data' in a matrix entry.");
+                        ARILES2_ASSERT(true == this->startMapEntry("data"), "Missing 'data' in a matrix entry.");
+
+                        const std::size_t vec_len = this->startVector();
+                        ARILES2_ASSERT(cols*rows == vec_len, "Inconsistent matrix size.");
+                    }
+                    else
+                    {
+                        this->startVector();
+                    }
+                }
+                else
+                {
+                    rows = this->startArray();
+                    if (rows > 0)
+                    {
+                        cols = this->startVector();
+                    }
                 }
             }
-            virtual void endMatrix(const bool dynamic)
+            virtual void startMatrixRow(const std::size_t row_index, const std::size_t cols, const Parameters &param)
             {
-                if (true == dynamic)
+                if (not param.flat_matrices_ and 0 != row_index)
                 {
-                    this->endMapEntry();
-                    this->endMap();
+                    this->startArrayElement();
+                    const std::size_t vec_len = this->startVector();
+                    ARILES2_ASSERT(cols == vec_len, "Inconsistent matrix row length.");
+                }
+            }
+            virtual void startMatrixElement()
+            {
+                this->startVectorElement();
+            }
+            virtual void endMatrixElement()
+            {
+                this->endVectorElement();
+            }
+            virtual void endMatrixRow(const Parameters &param)
+            {
+                if (not param.flat_matrices_)
+                {
+                    this->endVector();
+                    this->endArrayElement();
+                }
+            }
+            virtual void endMatrix(const bool dynamic, const Parameters &param)
+            {
+                if (param.flat_matrices_)
+                {
+                    this->endVector();
+
+                    if (true == dynamic)
+                    {
+                        this->endMapEntry();
+                        this->endMap();
+                    }
+                }
+                else
+                {
+                    this->endArray();
                 }
             }
 
@@ -446,14 +498,24 @@ namespace ariles2
             }
 
             template <typename t_Element>
-            void visitVectorElement(t_Element &element, const Parameters &param)
+            void visitVectorElement(t_Element &element, const Parameters &/*param*/)
             {
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_TYPE(element);
 
                 this->startVectorElement();
-                apply_read(*this, element, param);
+                this->readElement(element);
                 this->endVectorElement();
+            }
+
+            template <typename t_Element>
+            void visitMatrixElement(t_Element &element, const Parameters &/*param*/)
+            {
+                ARILES2_TRACE_FUNCTION;
+
+                this->startMatrixElement();
+                this->readElement(element);
+                this->endMatrixElement();
             }
         };
 

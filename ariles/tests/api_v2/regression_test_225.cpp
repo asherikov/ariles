@@ -12,7 +12,7 @@
 #include "utility.h"
 
 #undef ARILES_TEST_DEFAULT_BASE
-#define ARILES_TEST_DEFAULT_BASE ariles2::RelaxedSloppyBase
+#define ARILES_TEST_DEFAULT_BASE ariles2::NonFlatMatricesRelaxedSloppyBase
 
 
 #include "all_enabled_visitors.h"

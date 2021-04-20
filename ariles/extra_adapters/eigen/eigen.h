@@ -26,7 +26,7 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            std::size_t size = visitor.startVector();
+            const std::size_t size = visitor.startVector();
 
             if (Eigen::Dynamic == t_rows)
             {
@@ -65,14 +65,20 @@ namespace ariles2
             ARILES2_ASSERT(
                     Eigen::Dynamic == t_rows || static_cast<std::size_t>(t_rows) == num_rows, "Wrong number of rows.");
 
-            Eigen::Matrix<t_Scalar, Eigen::Dynamic, 1> v;
-            apply_read(visitor, v, parameters);
 
-            ARILES2_ASSERT(static_cast<std::size_t>(v.rows()) == num_rows * num_cols, "Wrong entry size.");
-            Eigen::Map<Eigen::Matrix<t_Scalar, t_rows, t_cols, Eigen::RowMajor> > map(v.data(), num_rows, num_cols);
-            entry = map;
+            entry.resize(num_rows, num_cols);
 
-            visitor.endMatrix(dynamic);
+            for (std::size_t i = 0; i < num_rows; ++i)
+            {
+                visitor.startMatrixRow(i, num_cols, parameters);
+                for (std::size_t j = 0; j < num_cols; ++j)
+                {
+                    visitor.visitMatrixElement(entry(i, j), parameters);
+                }
+                visitor.endMatrixRow(parameters);
+            }
+
+            visitor.endMatrix(dynamic, parameters);
         }
 
 
@@ -148,14 +154,14 @@ namespace ariles2
             writer.startMatrix(dynamic, cols, rows, param);
             for (EIGEN_DEFAULT_DENSE_INDEX_TYPE i = 0; i < rows; ++i)
             {
-                writer.startMatrixRow();
+                writer.startMatrixRow(cols, param);
                 for (EIGEN_DEFAULT_DENSE_INDEX_TYPE j = 0; j < cols; ++j)
                 {
                     writer.visitMatrixElement(entry(i, j), param);
                 }
-                writer.endMatrixRow();
+                writer.endMatrixRow(param);
             }
-            writer.endMatrix(dynamic);
+            writer.endMatrix(dynamic, param);
         }
 
 

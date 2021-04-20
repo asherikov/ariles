@@ -61,26 +61,21 @@ namespace ariles2
 
         bool Reader::startMapEntry(const std::string &child_name)
         {
-            if (0 == impl_->node_stack_.size())
+            if (impl_->node_stack_.empty())
             {
                 impl_->root_name_ = child_name;
                 impl_->nh_.getParam(impl_->root_name_, impl_->root_value_);
                 impl_->node_stack_.push_back(&impl_->root_value_);
                 return (true);
             }
-            else
+
+            XmlRpc::XmlRpcValue &node = impl_->getRawNode();
+            if ((XmlRpc::XmlRpcValue::TypeStruct == node.getType()) && (true == node.hasMember(child_name)))
             {
-                XmlRpc::XmlRpcValue &node = impl_->getRawNode();
-                if ((XmlRpc::XmlRpcValue::TypeStruct == node.getType()) && (true == node.hasMember(child_name)))
-                {
-                    impl_->node_stack_.push_back(NodeWrapper(&(node[child_name])));
-                    return (true);
-                }
-                else
-                {
-                    return (false);
-                }
+                impl_->node_stack_.push_back(NodeWrapper(&(node[child_name])));
+                return (true);
             }
+            return (false);
         }
 
         void Reader::endMapEntry()
@@ -168,10 +163,7 @@ namespace ariles2
             {
                 return (startMapEntry("ariles"));
             }
-            else
-            {
-                return (startMapEntry(name));
-            }
+            return (startMapEntry(name));
         }
 
         void Reader::endRoot(const std::string & /*name*/)

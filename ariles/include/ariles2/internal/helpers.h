@@ -73,6 +73,8 @@
 
 
 #include "build_config.h"
+
+#define CMAKEUT_COMPILER_SUPPORTS_FUNC_
 #include "cpput_config.h"
 #include "cpput_exception.h"
 #include "cpput_floating_point_utils.h"

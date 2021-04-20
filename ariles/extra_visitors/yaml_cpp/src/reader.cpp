@@ -43,10 +43,7 @@ namespace ariles2
                     {
                         return (getRawNode(depth - 1)[node_stack_[depth].index_]);
                     }
-                    else
-                    {
-                        return (node_stack_[depth].node_);
-                    }
+                    return (node_stack_[depth].node_);
                 }
 
 
@@ -95,11 +92,8 @@ namespace ariles2
             {
                 return (false);
             }
-            else
-            {
-                impl_->node_stack_.push_back(NodeWrapper(child));
-                return (true);
-            }
+            impl_->node_stack_.push_back(NodeWrapper(child));
+            return (true);
         }
 
         void Reader::endMapEntry()

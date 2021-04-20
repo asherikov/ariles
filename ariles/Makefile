@@ -137,6 +137,7 @@ test-ros: clean
 
 test-noros: clean
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp11_on_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+	${MAKE} clangcheck SCANBUILD=scan-build11 OPTIONS=cpp11_on_noros_tidy
 	${MAKE} cppcheck
 	${MAKE} spell
 
@@ -153,7 +154,6 @@ updateutils:
 	git fetch --all
 	git show remotes/cmakeut/master:cmake/FindEigen3.cmake > cmake/FindEigen3.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_compiler_flags.cmake              > cmake/cmakeut_compiler_flags.cmake
-	git show remotes/cmakeut/master:cmake/cmakeut_detect_func_macro.cmake           > cmake/cmakeut_detect_func_macro.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_dump_variables.cmake              > cmake/cmakeut_dump_variables.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_list_filenames.cmake              > cmake/cmakeut_list_filenames.cmake
 	git rm --ignore-unmatch -rf cpput
@@ -219,7 +219,7 @@ cppcheck:
 
 #
 # make clangcheck SCANBUILD=scan-build-9 OPTIONS=ros
-# make clangcheck SCANBUILD=scan-build80 OPTIONS=cpp11_on_noros
+# make clangcheck SCANBUILD=scan-build11 OPTIONS=cpp11_on_noros_tidy
 #
 clangcheck:
 	${SCANBUILD} \
@@ -276,7 +276,7 @@ clangcheck:
 		-enable-checker valist.CopyToSelf \
 		-enable-checker valist.Uninitialized \
 		-enable-checker valist.Unterminated \
-		${MAKE} build TC=${TC} TYPE=${TYPE} OPTIONS=${OPTIONS} TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+		${MAKE} build TC=${TC} TYPE=${TYPE} OPTIONS=${OPTIONS} TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="-DBUILD_SHARED_LIBS=OFF ${EXTRA_CMAKE_PARAM}"
 
 spell_interactive:
 	${MAKE} spell SPELL_XARGS_ARG=-o

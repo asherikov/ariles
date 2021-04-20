@@ -17,74 +17,101 @@
 
 namespace ariles2
 {
+    namespace serialization
+    {
+        namespace parameters
+        {
+            template <class t_Parameters>
+            class SloppyMixin : public t_Parameters
+            {
+            public:
+                SloppyMixin()
+                {
+                    this->sloppy_maps_ = true;
+                    this->sloppy_pairs_ = true;
+                }
+            };
+
+            template <class t_Parameters>
+            class RelaxedMixin : public t_Parameters
+            {
+            public:
+                RelaxedMixin()
+                {
+                    this->allow_missing_entries_ = true;
+                }
+            };
+
+            template <class t_Parameters>
+            class NonFlatMatricesMixin : public t_Parameters
+            {
+            public:
+                NonFlatMatricesMixin()
+                {
+                    this->flat_matrices_ = false;
+                }
+            };
+        }  // namespace parameters
+
+
+        template <class t_ReadParameters, class t_WriteParameters>
+        class NonDefaultBaseTemplate : public DefaultBase
+        {
+        public:
+            using DefaultBase::arilesGetParameters;
+
+            virtual const read::Visitor::Parameters &arilesGetParameters(const read::Visitor &) const
+            {
+                ARILES2_TRACE_FUNCTION;
+                const static t_ReadParameters parameters;
+                return (parameters);
+            }
+
+            virtual const write::Visitor::Parameters &arilesGetParameters(const write::Visitor &) const
+            {
+                ARILES2_TRACE_FUNCTION;
+                const static t_WriteParameters parameters;
+                return (parameters);
+            }
+        };
+    }  // namespace serialization
+
+
     namespace read
     {
-        class SloppyParameters : public Parameters
-        {
-        public:
-            SloppyParameters()
-            {
-                sloppy_maps_ = true;
-                sloppy_pairs_ = true;
-            }
-        };
-
-        class RelaxedSloppyParameters : public SloppyParameters
-        {
-        public:
-            RelaxedSloppyParameters()
-            {
-                allow_missing_entries_ = true;
-            }
-        };
+        typedef serialization::parameters::SloppyMixin<Parameters> SloppyParameters;
+        typedef serialization::parameters::RelaxedMixin<Parameters> RelaxedParameters;
+        typedef serialization::parameters::NonFlatMatricesMixin<Parameters> NonFlatMatricesParameters;
+        typedef serialization::parameters::RelaxedMixin<serialization::parameters::SloppyMixin<Parameters> >
+                RelaxedSloppyParameters;
+        typedef serialization::parameters::NonFlatMatricesMixin<
+                serialization::parameters::RelaxedMixin<serialization::parameters::SloppyMixin<Parameters> > >
+                NonFlatMatricesRelaxedSloppyParameters;
     }  // namespace read
 
     namespace write
     {
-        class SloppyParameters : public Parameters
-        {
-        public:
-            SloppyParameters()
-            {
-                sloppy_maps_ = true;
-                sloppy_pairs_ = true;
-            }
-        };
+        typedef serialization::parameters::SloppyMixin<Parameters> SloppyParameters;
+        typedef serialization::parameters::NonFlatMatricesMixin<Parameters> NonFlatMatricesParameters;
+        typedef serialization::parameters::NonFlatMatricesMixin<serialization::parameters::SloppyMixin<Parameters> >
+                NonFlatMatricesSloppyParameters;
     }  // namespace write
 
 
-    class SloppyBase : public DefaultBase
+    class SloppyBase : public serialization::NonDefaultBaseTemplate<read::SloppyParameters, write::SloppyParameters>
     {
-    public:
-        using DefaultBase::arilesGetParameters;
-
-        virtual const read::Visitor::Parameters &arilesGetParameters(const read::Visitor &) const
-        {
-            ARILES2_TRACE_FUNCTION;
-            const static read::SloppyParameters parameters;
-            return (parameters);
-        }
-
-        virtual const write::Visitor::Parameters &arilesGetParameters(const write::Visitor &) const
-        {
-            ARILES2_TRACE_FUNCTION;
-            const static write::SloppyParameters parameters;
-            return (parameters);
-        }
     };
 
 
-    class RelaxedSloppyBase : public SloppyBase
+    class RelaxedSloppyBase
+      : public serialization::NonDefaultBaseTemplate<read::RelaxedSloppyParameters, write::SloppyParameters>
     {
-    public:
-        using DefaultBase::arilesGetParameters;
+    };
 
-        virtual const read::Visitor::Parameters &arilesGetParameters(const read::Visitor &) const
-        {
-            ARILES2_TRACE_FUNCTION;
-            const static read::RelaxedSloppyParameters parameters;
-            return (parameters);
-        }
+    class NonFlatMatricesRelaxedSloppyBase : public serialization::NonDefaultBaseTemplate<
+                                                     read::NonFlatMatricesRelaxedSloppyParameters,
+                                                     write::NonFlatMatricesSloppyParameters>
+    {
     };
 }  // namespace ariles2
 
@@ -95,6 +122,7 @@ namespace ariles2
     // Some classes may inherit from this
     typedef SloppyBase DefaultBase;
     typedef RelaxedSloppyBase DefaultBase;
+    typedef NonFlatMatricesRelaxedSloppyBase DefaultBase;
 }  // namespace ariles2
 
 #endif

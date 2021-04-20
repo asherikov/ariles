@@ -6,6 +6,27 @@ Unreleased
 ==========
 
 
+2.0.1
+=====
+
+Fixed
+-----
+* Compilation with colcon, when each ariles visitor is installed in a separate
+  directory.
+* ROS core crashes in github actions.
+
+Added
+-----
+* clang-tidy checks.
+* Allow storing matrices as arrays of vectors instead of flat matrices with dimensions.
+* Allow building static libraries.
+
+Removed
+-------
+
+* Deprecated cmake macro.
+
+
 2.0.0
 =====
 

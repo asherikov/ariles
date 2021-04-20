@@ -200,10 +200,7 @@ namespace ariles2
                 return (impl_->node_stack_.back().node_ + "_"
                         + boost::lexical_cast<std::string>(impl_->node_stack_.back().index_));
             }
-            else
-            {
-                return (impl_->node_stack_.back().node_);
-            }
+            return (impl_->node_stack_.back().node_);
         }
 
         std::string Visitor::getDefaultNodeLabel() const
@@ -213,10 +210,7 @@ namespace ariles2
                 return (impl_->node_stack_.back().label_ + "_"
                         + boost::lexical_cast<std::string>(impl_->node_stack_.back().index_));
             }
-            else
-            {
-                return (impl_->node_stack_.back().label_);
-            }
+            return (impl_->node_stack_.back().label_);
         }
 
         void Visitor::startMap(const Parameters &parameters, const Parameters::NodeOptions &node_options)

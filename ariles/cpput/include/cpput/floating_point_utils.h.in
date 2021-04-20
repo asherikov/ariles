@@ -18,7 +18,7 @@
 
 namespace @CPPUT_ID_LOWER_CASE@
 {
-    inline int isNaN(double value)
+    inline bool isNaN(const double value)
     {
         uint64_t raw;
         memcpy(&raw, &value, sizeof(double));
@@ -26,7 +26,7 @@ namespace @CPPUT_ID_LOWER_CASE@
     }
 
 
-    inline int isInfinity(double value)
+    inline bool isInfinity(const double value)
     {
         uint64_t raw;
         memcpy(&raw, &value, sizeof(double));
@@ -34,7 +34,7 @@ namespace @CPPUT_ID_LOWER_CASE@
     }
 
 
-    inline int isNaN(float value)
+    inline bool isNaN(const float value)
     {
         uint32_t raw;
         memcpy(&raw, &value, sizeof(float));
@@ -42,7 +42,7 @@ namespace @CPPUT_ID_LOWER_CASE@
     }
 
 
-    inline int isInfinity(float value)
+    inline bool isInfinity(const float value)
     {
         uint32_t raw;
         memcpy(&raw, &value, sizeof(float));

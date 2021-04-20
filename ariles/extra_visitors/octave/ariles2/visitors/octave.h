@@ -86,11 +86,11 @@ namespace ariles2
                     const std::size_t cols,
                     const std::size_t rows,
                     const Parameters &param);
-            void startMatrixRow();
+            void startMatrixRow(const std::size_t /*cols*/, const Parameters & /*param*/);
             void startMatrixElement();
             void endMatrixElement();
-            void endMatrixRow();
-            void endMatrix(const bool dynamic);
+            void endMatrixRow(const Parameters & /*param*/);
+            void endMatrix(const bool dynamic, const Parameters & /*param*/);
 
 
 #define ARILES2_BASIC_TYPE(type) void writeElement(const type &element, const Parameters &param);

@@ -58,7 +58,7 @@ namespace ariles2
 
                     try
                     {
-                        unpack(handle_, buffer_.data(), buffer_.size(), 0);
+                        unpack(handle_, buffer_.data(), buffer_.size(), NULL);
                         node_stack_.push_back(NodeWrapper(&handle_.get()));
                     }
                     catch (const std::exception &e)
@@ -79,10 +79,7 @@ namespace ariles2
                     {
                         return (getRawNode(depth - 1).via.array.ptr[node_stack_[depth].index_]);
                     }
-                    else
-                    {
-                        return (*node_stack_[depth].node_);
-                    }
+                    return (*node_stack_[depth].node_);
                 }
 
 

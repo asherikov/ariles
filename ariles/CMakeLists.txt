@@ -1,9 +1,9 @@
 # General parameters
 cmake_minimum_required (VERSION 3.0.0)
-project(ariles2 VERSION 2.0.0)
+project(ariles2 VERSION 2.0.1)
 
 
-set(ARILES_HOMEPAGE http://asherikov.github.com/ariles/2)
+set(ARILES_HOMEPAGE http://asherikov.github.io/ariles/2)
 set (CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
 
@@ -26,6 +26,7 @@ option (ARILES_ADAPTER_ROSMSG           "ROS message conversions." ON)
 # build parameters
 set    (ARILES_CPP_STANDARD             "c++11" CACHE STRING "C++ standard version")
 option (ARILES_CPP_SANITIZERS           "Enable sanitizers"                 OFF)
+option (ARILES_CPP_CLANG_TIDY           "Enable clang-tidy"                 OFF)
 option (ARILES_VERBOSE                  "Verbose build"                     ON)
 option (ARILES_BUILD_REGRESSION_TESTS   "Build regression tests."           ON)
 option (ARILES_CCACHE                   "Enable ccache if available"        ON)
@@ -34,6 +35,9 @@ set    (ARILES_DEB_TARGETS              "" CACHE STRING "Enable debian package g
 # install parameters
 set    (ARILES_PKGCONFIG_INSTALL_PATH   "" CACHE STRING "pkg-config pc-file install path, not installed if empty")
 
+if (NOT DEFINED BUILD_SHARED_LIBS)
+    set (BUILD_SHARED_LIBS ON)
+endif()
 
 
 #####################################
@@ -50,8 +54,6 @@ include(cmakeut_list_filenames)
 include(cmakeut_dump_variables)
 include(cmakeut_compiler_flags)
 
-include (cmakeut_detect_func_macro)
-cmakeut_detect_func_macro()
 
 
 #####################################
@@ -204,9 +206,15 @@ if(NOT CMAKE_BUILD_TYPE)
     set (CMAKE_BUILD_TYPE Debug)
 endif (NOT CMAKE_BUILD_TYPE)
 
-set (CMAKEUT_CPP_SANITIZERS ${ARILES_CPP_SANITIZERS})
+set(CMAKEUT_CPP_SANITIZERS  ${ARILES_CPP_SANITIZERS})
+set(CMAKEUT_CLANG_TIDY      ${ARILES_CPP_CLANG_TIDY})
+set(CMAKEUT_CLANG_TIDY_EXTRA_IGNORES
+    "-llvm-namespace-comment,-misc-no-recursion,-readability-const-return-type,-google-default-arguments,-bugprone-macro-parentheses,-cppcoreguidelines-pro-type-union-access,-hicpp-named-parameter,-readability-named-parameter,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-pro-type-union-access,-cppcoreguidelines-avoid-non-const-global-variables,-cert-err58-cpp,-cert-env33-c")
+# TODO C++11 related stuff, that must be enabled eventually
+set(CMAKEUT_CLANG_TIDY_EXTRA_IGNORES
+    "${CMAKEUT_CLANG_TIDY_EXTRA_IGNORES},-bugprone-exception-escape,-modernize-use-override,-hicpp-use-override,-hicpp-use-equals-default,-modernize-use-equals-default,-modernize-make-shared,-readability-simplify-boolean-expr,-hicpp-use-emplace,-modernize-use-emplace,-modernize-use-using,-cppcoreguidelines-special-member-functions,-hicpp-special-member-functions,-hicpp-use-equals-delete,-modernize-use-equals-delete")
 cmakeut_compiler_flags("${ARILES_CPP_STANDARD}")
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKEUT_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKEUT_CXX_FLAGS}")
 
 
 set (RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
@@ -310,10 +318,10 @@ if (${ARILES_ENABLE_CORE})
     # --------------
     # cpput
     # --------------
-    option(CPPUT_EMBEDDED "" ON)
-    set(CPPUT_EMBEDDED_ID "ARILES2"  CACHE STRING "")
-    set(CPPUT_EMBEDDED_COPY_TO_DIR "${ARILES_CORE_BUILD_INCLUDES}/${PROJECT_NAME}/internal/"  CACHE STRING "")
-    set(CPPUT_SELECT_HEADERS "config.h;exception.h;floating_point_utils.h;visibility.h;misc.h;trace.h"  CACHE STRING "")
+    set(CPPUT_EMBEDDED      ON          CACHE BOOL "" FORCE)
+    set(CPPUT_EMBEDDED_ID   "ARILES2"   CACHE STRING "" FORCE)
+    set(CPPUT_EMBEDDED_COPY_TO_DIR "${ARILES_CORE_BUILD_INCLUDES}/${PROJECT_NAME}/internal/"  CACHE STRING "" FORCE)
+    set(CPPUT_SELECT_HEADERS "config.h;exception.h;floating_point_utils.h;visibility.h;misc.h;trace.h"  CACHE STRING "" FORCE)
     add_subdirectory(cpput)
     # --------------
 

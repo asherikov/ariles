@@ -1,7 +1,7 @@
 on: [push, pull_request]
 
 env:
-    APT: apt install -y --no-install-recommends
+    APT: sudo apt install -y --no-install-recommends
     # Set the python path manually to include /usr/-/python2.7/dist-packages
     # as this is where apt-get installs python packages.
     ROSINSTALL_FILE: $GITHUB_WORKSPACE/dependencies.rosinstall
@@ -13,6 +13,7 @@ jobs:
 
         env:
             ROS_DISTRO: kinetic
+            ROS_HOSTNAME: localhost
             ROS_CI_DESKTOP: xenial
             PYTHONPATH: $PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
 
@@ -21,9 +22,9 @@ jobs:
             - uses: actions/checkout@v2
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: rosdep update
-            - run: sudo $APT cmake libboost-all-dev libeigen3-dev
-            - run: sudo $APT devscripts build-essential octave libpugixml-dev libyaml-cpp-dev fakeroot rapidjson-dev
-            - run: sudo $APT libprotobuf-dev protobuf-compiler
+            - run: $APT cmake libboost-all-dev libeigen3-dev
+            - run: $APT devscripts build-essential octave libpugixml-dev libyaml-cpp-dev fakeroot rapidjson-dev
+            - run: $APT libprotobuf-dev protobuf-compiler
             - run: sudo make install-jsonnet
             - run: |
                 source /opt/ros/$ROS_DISTRO/setup.bash
@@ -37,6 +38,7 @@ jobs:
 
         env:
             ROS_DISTRO: melodic
+            ROS_HOSTNAME: localhost
             ROS_CI_DESKTOP: bionic
             PYTHONPATH: $PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
 
@@ -45,9 +47,9 @@ jobs:
             - uses: actions/checkout@v2
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: rosdep update
-            - run: sudo $APT cmake libboost-all-dev libeigen3-dev
-            - run: sudo $APT devscripts build-essential octave libpugixml-dev libyaml-cpp-dev fakeroot rapidjson-dev libmsgpack-dev
-            - run: sudo $APT libprotobuf-dev protobuf-compiler
+            - run: $APT cmake libboost-all-dev libeigen3-dev
+            - run: $APT devscripts build-essential octave libpugixml-dev libyaml-cpp-dev fakeroot rapidjson-dev libmsgpack-dev
+            - run: $APT libprotobuf-dev protobuf-compiler
             - run: sudo make install-jsonnet
             - run: |
                 source /opt/ros/$ROS_DISTRO/setup.bash
@@ -61,9 +63,9 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - run: sudo apt update
-            - run: sudo $APT cmake libboost-all-dev libeigen3-dev
-            - run: sudo $APT octave libpugixml-dev libyaml-cpp-dev rapidjson-dev libmsgpack-dev graphviz
-            - run: sudo $APT libprotobuf-dev protobuf-compiler
+            - run: $APT cmake libboost-all-dev libeigen3-dev
+            - run: $APT octave libpugixml-dev libyaml-cpp-dev rapidjson-dev libmsgpack-dev graphviz
+            - run: $APT libprotobuf-dev protobuf-compiler
             - run: sudo make install-jsonnet
             - run: make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_xenial TARGETS="all" TC=gcc ARGS=-V
 
@@ -73,9 +75,9 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - run: sudo apt update
-            - run: sudo $APT cmake libboost-all-dev libeigen3-dev
-            - run: sudo $APT octave libpugixml-dev libyaml-cpp-dev rapidjson-dev libmsgpack-dev graphviz
-            - run: sudo $APT libprotobuf-dev protobuf-compiler
+            - run: $APT cmake libboost-all-dev libeigen3-dev
+            - run: $APT octave libpugixml-dev libyaml-cpp-dev rapidjson-dev libmsgpack-dev graphviz
+            - run: $APT libprotobuf-dev protobuf-compiler
             - run: sudo make install-jsonnet
             - run: make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_xenial TARGETS="all" TC=clang ARGS=-V
 
@@ -85,9 +87,9 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - run: sudo apt update
-            - run: sudo $APT cmake libboost-all-dev libeigen3-dev
-            - run: sudo $APT octave libpugixml-dev libyaml-cpp-dev rapidjson-dev libmsgpack-dev graphviz
-            - run: sudo $APT libprotobuf-dev protobuf-compiler
+            - run: $APT cmake libboost-all-dev libeigen3-dev
+            - run: $APT octave libpugixml-dev libyaml-cpp-dev rapidjson-dev libmsgpack-dev graphviz
+            - run: $APT libprotobuf-dev protobuf-compiler
             - run: sudo make install-jsonnet
             - run: make build-tests TYPE=Debug OPTIONS=cpp11_on_noros_bionic TARGETS="all" TC=gcc ARGS=-V
 
@@ -97,6 +99,7 @@ jobs:
 
         env:
             ROS_DISTRO: kinetic
+            ROS_HOSTNAME: localhost
             ROS_CI_DESKTOP: xenial
             PYTHONPATH: $PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
 
@@ -105,9 +108,9 @@ jobs:
             - uses: actions/checkout@v2
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: rosdep update
-            - run: sudo $APT cmake libboost-all-dev libeigen3-dev
-            - run: sudo $APT libyaml-cpp-dev octave graphviz
-            - run: sudo $APT libprotobuf-dev protobuf-compiler
+            - run: $APT cmake libboost-all-dev libeigen3-dev
+            - run: $APT libyaml-cpp-dev octave graphviz
+            - run: $APT libprotobuf-dev protobuf-compiler
             - run: sudo make install-jsonnet
             - run: |
                 source /opt/ros/$ROS_DISTRO/setup.bash
@@ -119,6 +122,7 @@ jobs:
 
         env:
             ROS_DISTRO: kinetic
+            ROS_HOSTNAME: localhost
             ROS_CI_DESKTOP: xenial
             PYTHONPATH: $PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
 
@@ -141,6 +145,7 @@ jobs:
 
         env:
             ROS_DISTRO: melodic
+            ROS_HOSTNAME: localhost
             ROS_CI_DESKTOP: bionic
             PYTHONPATH: $PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
 
@@ -149,9 +154,9 @@ jobs:
             - uses: actions/checkout@v2
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: rosdep update
-            - run: sudo $APT cmake libboost-all-dev libeigen3-dev
-            - run: sudo $APT libyaml-cpp-dev octave graphviz
-            - run: sudo $APT libprotobuf-dev protobuf-compiler
+            - run: $APT cmake libboost-all-dev libeigen3-dev
+            - run: $APT libyaml-cpp-dev octave graphviz
+            - run: $APT libprotobuf-dev protobuf-compiler
             - run: sudo make install-jsonnet
             - run: |
                 source /opt/ros/$ROS_DISTRO/setup.bash
@@ -165,8 +170,8 @@ jobs:
             - uses: actions/checkout@v2
             - run: sudo apt update
             - run: sudo apt upgrade
-            - run: sudo $APT cppcheck
-            - run: sudo $APT python3-pip python3-setuptools
+            - run: $APT cppcheck
+            - run: $APT python3-pip python3-setuptools
             - run: sudo pip3 install scspell3k
             - run: make cppcheck
             - run: make spell
@@ -177,6 +182,7 @@ jobs:
 
         env:
             ROS_DISTRO: melodic
+            ROS_HOSTNAME: localhost
             ROS_CI_DESKTOP: bionic
             PYTHONPATH: $PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
 
@@ -185,11 +191,11 @@ jobs:
             - uses: actions/checkout@v2
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: rosdep update
-            - run: sudo $APT cmake libboost-all-dev libeigen3-dev
-            - run: sudo $APT libyaml-cpp-dev octave
-            - run: sudo $APT clang-tools-9
-            - run: sudo $APT libprotobuf-dev protobuf-compiler
+            - run: $APT cmake libboost-all-dev libeigen3-dev
+            - run: $APT libyaml-cpp-dev octave
+            - run: $APT clang-tools-9 clang-tidy-9
+            - run: $APT libprotobuf-dev protobuf-compiler
             - run: sudo make install-jsonnet
             - run: |
                 source /opt/ros/$ROS_DISTRO/setup.bash
-                make clangcheck SCANBUILD=scan-build-9 OPTIONS=ros TC=gcc
+                make clangcheck SCANBUILD=scan-build-9 OPTIONS=ros_tidy TC=gcc

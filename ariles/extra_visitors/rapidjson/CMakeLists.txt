@@ -20,10 +20,13 @@ if(NOT ARILES_DEB_TARGETS)
     endif()
 endif()
 
-add_library(${TGT_ARILES_VISITOR_LIB} SHARED
+set(CMAKE_CXX_CLANG_TIDY_BACK "${CMAKE_CXX_CLANG_TIDY}")
+set(CMAKE_CXX_CLANG_TIDY "")
+add_library(${TGT_ARILES_VISITOR_LIB}
     ${ARILES_VISITOR_${ARILES_VISITOR}_DIR}/src/reader.cpp
     ${ARILES_VISITOR_${ARILES_VISITOR}_DIR}/src/writer.cpp
 )
+set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY_BACK}")
 
 include(ariles_install_component)
 set(DEB_${ARILES_COMPONENT}_DEPENDS "rapidjson-dev")
