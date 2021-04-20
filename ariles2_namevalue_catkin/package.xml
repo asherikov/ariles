@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>ariles2_namevalue_catkin</name>
-  <version>2.0.0</version>
+  <version>2.0.1</version>
   <description>Ariles serialization/configuration library (namevalue module)</description>
 
   <maintainer email="asherikov@yandex.com">Alexander Sherikov</maintainer>
