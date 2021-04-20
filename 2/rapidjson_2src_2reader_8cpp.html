@@ -121,7 +121,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><span class="keywordtype">void</span> Reader::readElement(type &amp;element)                                                                            \</div><div class="line">    {                                                                                                                  \</div><div class="line">        int64_t tmp_value = impl_-&gt;getRawNode().GetInt64();                                                            \</div><div class="line">        ARILES2_ASSERT(                                                                                                \</div><div class="line">                tmp_value &lt;= std::numeric_limits&lt;type&gt;::max() &amp;&amp; tmp_value &gt;= std::numeric_limits&lt;type&gt;::min(),        \</div><div class="line">                <span class="stringliteral">&quot;Value is out of range.&quot;</span>);                                                                             \</div><div class="line">        element = static_cast&lt;type&gt;(tmp_value);                                                                        \</div><div class="line">    }</div></div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="rapidjson_2src_2reader_8cpp_source.html#l00238">238</a> of file <a class="el" href="rapidjson_2src_2reader_8cpp_source.html">reader.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rapidjson_2src_2reader_8cpp_source.html#l00237">237</a> of file <a class="el" href="rapidjson_2src_2reader_8cpp_source.html">reader.cpp</a>.</p>
 
 </div>
 </div>
@@ -141,7 +141,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><span class="keywordtype">void</span> Reader::readElement(type &amp;element)                                                                            \</div><div class="line">    {                                                                                                                  \</div><div class="line">        uint64_t tmp_value = impl_-&gt;getRawNode().GetUint64();                                                          \</div><div class="line">        ARILES2_ASSERT(tmp_value &lt;= std::numeric_limits&lt;type&gt;::max(), <span class="stringliteral">&quot;Value is too large.&quot;</span>);                          \</div><div class="line">        element = static_cast&lt;type&gt;(tmp_value);                                                                        \</div><div class="line">    }</div></div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="rapidjson_2src_2reader_8cpp_source.html#l00238">238</a> of file <a class="el" href="rapidjson_2src_2reader_8cpp_source.html">reader.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rapidjson_2src_2reader_8cpp_source.html#l00237">237</a> of file <a class="el" href="rapidjson_2src_2reader_8cpp_source.html">reader.cpp</a>.</p>
 
 </div>
 </div>

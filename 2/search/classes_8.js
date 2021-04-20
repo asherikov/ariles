@@ -8,5 +8,11 @@ var searchData=
   ['nodeoptions',['NodeOptions',['../classariles2_1_1ns__graphviz_1_1Parameters_1_1NodeOptions.html',1,'ariles2::ns_graphviz::Parameters']]],
   ['nodewrapper',['NodeWrapper',['../classariles2_1_1ns__graphviz_1_1NodeWrapper.html',1,'ariles2::ns_graphviz']]],
   ['nonarilesbaseclass',['NonArilesBaseClass',['../classdemo_1_1NonArilesBaseClass.html',1,'demo']]],
+  ['nondefaultbasetemplate',['NonDefaultBaseTemplate',['../classariles2_1_1serialization_1_1NonDefaultBaseTemplate.html',1,'ariles2::serialization']]],
+  ['nondefaultbasetemplate_3c_20read_3a_3anonflatmatricesrelaxedsloppyparameters_2c_20write_3a_3anonflatmatricessloppyparameters_20_3e',['NonDefaultBaseTemplate&lt; read::NonFlatMatricesRelaxedSloppyParameters, write::NonFlatMatricesSloppyParameters &gt;',['../classariles2_1_1serialization_1_1NonDefaultBaseTemplate.html',1,'ariles2::serialization']]],
+  ['nondefaultbasetemplate_3c_20read_3a_3arelaxedsloppyparameters_2c_20write_3a_3asloppyparameters_20_3e',['NonDefaultBaseTemplate&lt; read::RelaxedSloppyParameters, write::SloppyParameters &gt;',['../classariles2_1_1serialization_1_1NonDefaultBaseTemplate.html',1,'ariles2::serialization']]],
+  ['nondefaultbasetemplate_3c_20read_3a_3asloppyparameters_2c_20write_3a_3asloppyparameters_20_3e',['NonDefaultBaseTemplate&lt; read::SloppyParameters, write::SloppyParameters &gt;',['../classariles2_1_1serialization_1_1NonDefaultBaseTemplate.html',1,'ariles2::serialization']]],
+  ['nonflatmatricesmixin',['NonFlatMatricesMixin',['../classariles2_1_1serialization_1_1parameters_1_1NonFlatMatricesMixin.html',1,'ariles2::serialization::parameters']]],
+  ['nonflatmatricesrelaxedsloppybase',['NonFlatMatricesRelaxedSloppyBase',['../classariles2_1_1NonFlatMatricesRelaxedSloppyBase.html',1,'ariles2']]],
   ['nonnullpointer',['NonNullPointer',['../classariles2_1_1NonNullPointer.html',1,'ariles2']]]
 ];

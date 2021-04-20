@@ -23,6 +23,7 @@ var searchData=
   ['ns_5frapidjson',['ns_rapidjson',['../namespaceariles2_1_1ns__rapidjson.html',1,'ariles2']]],
   ['ns_5frosparam',['ns_rosparam',['../namespaceariles2_1_1ns__rosparam.html',1,'ariles2']]],
   ['ns_5fyaml_5fcpp',['ns_yaml_cpp',['../namespaceariles2_1_1ns__yaml__cpp.html',1,'ariles2']]],
+  ['parameters',['parameters',['../namespaceariles2_1_1serialization_1_1parameters.html',1,'ariles2::serialization']]],
   ['prewrite',['prewrite',['../namespaceariles2_1_1prewrite.html',1,'ariles2']]],
   ['process',['process',['../namespaceariles2_1_1process.html',1,'ariles2']]],
   ['read',['read',['../namespaceariles2_1_1read.html',1,'ariles2']]],

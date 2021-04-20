@@ -66,6 +66,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
@@ -78,14 +79,17 @@ $(function() {
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="writer__compact_8cpp_source.html#l00023">23</a> of file <a class="el" href="writer__compact_8cpp_source.html">writer_compact.cpp</a>.</p>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:af23295a53bb6f40068ebdb25ac05b470"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="helpers_8h.html#a92d55ca26837565442bc0b702e333259">ARILES2_SHARED_PTR</a>&lt; ::msgpack::packer&lt; std::ostream &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack__compact_1_1impl_1_1Writer.html#af23295a53bb6f40068ebdb25ac05b470">PackerPtr</a></td></tr>
+<tr class="separator:af23295a53bb6f40068ebdb25ac05b470"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:afbde832fcfe5c11a08faede073bc18b6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack__compact_1_1impl_1_1Writer.html#afbde832fcfe5c11a08faede073bc18b6">Writer</a> (const std::string &amp;file_name)</td></tr>
 <tr class="separator:afbde832fcfe5c11a08faede073bc18b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d020de9dd754ebcdc3b408cbc7aebe7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack__compact_1_1impl_1_1Writer.html#a7d020de9dd754ebcdc3b408cbc7aebe7">Writer</a> (std::ostream &amp;output_stream)</td></tr>
 <tr class="separator:a7d020de9dd754ebcdc3b408cbc7aebe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac58725293d940f62a685e4a0495d3d95"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack__compact_1_1impl_1_1Writer.html#ac58725293d940f62a685e4a0495d3d95">~Writer</a> ()</td></tr>
-<tr class="separator:ac58725293d940f62a685e4a0495d3d95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -95,8 +99,8 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ada595f092ebfcec3a8534fd51b435800"><td class="memItemLeft" align="right" valign="top">std::ostream *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack__compact_1_1impl_1_1Writer.html#ada595f092ebfcec3a8534fd51b435800">output_stream_</a></td></tr>
 <tr class="memdesc:ada595f092ebfcec3a8534fd51b435800"><td class="mdescLeft">&#160;</td><td class="mdescRight">output stream  <a href="#ada595f092ebfcec3a8534fd51b435800">More...</a><br /></td></tr>
 <tr class="separator:ada595f092ebfcec3a8534fd51b435800"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3530e2f81c269ed6694ef523bfc85a2e"><td class="memItemLeft" align="right" valign="top">::msgpack::packer&lt; std::ostream &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack__compact_1_1impl_1_1Writer.html#a3530e2f81c269ed6694ef523bfc85a2e">packer_</a></td></tr>
-<tr class="separator:a3530e2f81c269ed6694ef523bfc85a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bbc90227eb7702cdcf03edba2182756"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classariles2_1_1ns__msgpack__compact_1_1impl_1_1Writer.html#af23295a53bb6f40068ebdb25ac05b470">PackerPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack__compact_1_1impl_1_1Writer.html#a2bbc90227eb7702cdcf03edba2182756">packer_</a></td></tr>
+<tr class="separator:a2bbc90227eb7702cdcf03edba2182756"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -105,6 +109,23 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a110f4270834d9e5ff7b050ad3e631692"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__msgpack__compact_1_1impl_1_1Writer.html#a110f4270834d9e5ff7b050ad3e631692">operator=</a> (const <a class="el" href="classariles2_1_1ns__msgpack__compact_1_1impl_1_1Writer.html">Writer</a> &amp;)</td></tr>
 <tr class="separator:a110f4270834d9e5ff7b050ad3e631692"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="af23295a53bb6f40068ebdb25ac05b470"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af23295a53bb6f40068ebdb25ac05b470">&#9670;&nbsp;</a></span>PackerPtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="helpers_8h.html#a92d55ca26837565442bc0b702e333259">ARILES2_SHARED_PTR</a>&lt; ::msgpack::packer&lt;std::ostream&gt; &gt; <a class="el" href="classariles2_1_1ns__msgpack__compact_1_1impl_1_1Writer.html#af23295a53bb6f40068ebdb25ac05b470">ariles2::ns_msgpack_compact::impl::Writer::PackerPtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="writer__compact_8cpp_source.html#l00026">26</a> of file <a class="el" href="writer__compact_8cpp_source.html">writer_compact.cpp</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a971e4052c104c05e1ca3a579f621d281"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a971e4052c104c05e1ca3a579f621d281">&#9670;&nbsp;</a></span>Writer() <span class="overload">[1/3]</span></h2>
@@ -156,7 +177,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="writer__compact_8cpp_source.html#l00040">40</a> of file <a class="el" href="writer__compact_8cpp_source.html">writer_compact.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="writer__compact_8cpp_source.html#l00044">44</a> of file <a class="el" href="writer__compact_8cpp_source.html">writer_compact.cpp</a>.</p>
 
 </div>
 </div>
@@ -184,34 +205,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="writer__compact_8cpp_source.html#l00048">48</a> of file <a class="el" href="writer__compact_8cpp_source.html">writer_compact.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac58725293d940f62a685e4a0495d3d95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac58725293d940f62a685e4a0495d3d95">&#9670;&nbsp;</a></span>~Writer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">ariles2::ns_msgpack_compact::impl::Writer::~Writer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="writer__compact_8cpp_source.html#l00055">55</a> of file <a class="el" href="writer__compact_8cpp_source.html">writer_compact.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="writer__compact_8cpp_source.html#l00052">52</a> of file <a class="el" href="writer__compact_8cpp_source.html">writer_compact.cpp</a>.</p>
 
 </div>
 </div>
@@ -257,7 +251,7 @@ Private Member Functions</h2></td></tr>
 
 <p>output file stream </p>
 
-<p class="definition">Definition at line <a class="el" href="writer__compact_8cpp_source.html#l00032">32</a> of file <a class="el" href="writer__compact_8cpp_source.html">writer_compact.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="writer__compact_8cpp_source.html#l00036">36</a> of file <a class="el" href="writer__compact_8cpp_source.html">writer_compact.cpp</a>.</p>
 
 </div>
 </div>
@@ -275,23 +269,23 @@ Private Member Functions</h2></td></tr>
 
 <p>output stream </p>
 
-<p class="definition">Definition at line <a class="el" href="writer__compact_8cpp_source.html#l00035">35</a> of file <a class="el" href="writer__compact_8cpp_source.html">writer_compact.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="writer__compact_8cpp_source.html#l00039">39</a> of file <a class="el" href="writer__compact_8cpp_source.html">writer_compact.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a3530e2f81c269ed6694ef523bfc85a2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3530e2f81c269ed6694ef523bfc85a2e">&#9670;&nbsp;</a></span>packer_</h2>
+<a id="a2bbc90227eb7702cdcf03edba2182756"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bbc90227eb7702cdcf03edba2182756">&#9670;&nbsp;</a></span>packer_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">::msgpack::packer&lt;std::ostream&gt;* ariles2::ns_msgpack_compact::impl::Writer::packer_</td>
+          <td class="memname"><a class="el" href="classariles2_1_1ns__msgpack__compact_1_1impl_1_1Writer.html#af23295a53bb6f40068ebdb25ac05b470">PackerPtr</a> ariles2::ns_msgpack_compact::impl::Writer::packer_</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="writer__compact_8cpp_source.html#l00037">37</a> of file <a class="el" href="writer__compact_8cpp_source.html">writer_compact.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="writer__compact_8cpp_source.html#l00041">41</a> of file <a class="el" href="writer__compact_8cpp_source.html">writer_compact.cpp</a>.</p>
 
 </div>
 </div>

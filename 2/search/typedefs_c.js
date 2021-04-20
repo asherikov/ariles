@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['value',['Value',['../classariles2_1_1PointerHandler_3_01boost_1_1optional_3_01t__Value_01_4_01_4.html#a298999f100f5f445fbfa04e31bfecd40',1,'ariles2::PointerHandler&lt; boost::optional&lt; t_Value &gt; &gt;::Value()'],['../classariles2_1_1PointerHandler_3_01boost_1_1shared__ptr_3_01t__Value_01_4_01_4.html#adf09287d33bc763317131e00091853bc',1,'ariles2::PointerHandler&lt; boost::shared_ptr&lt; t_Value &gt; &gt;::Value()']]],
-  ['visitor',['Visitor',['../structariles2_1_1graphviz.html#a93ddd876c9d4ca507cae10a267b795cb',1,'ariles2::graphviz']]]
+  ['sloppyparameters',['SloppyParameters',['../namespaceariles2_1_1read.html#a1b1b1157dc208e0d8fda1914ebe053e9',1,'ariles2::read::SloppyParameters()'],['../namespaceariles2_1_1write.html#a50ab02d27206ec7c44ad43f6583fdd9d',1,'ariles2::write::SloppyParameters()']]]
 ];
