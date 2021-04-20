@@ -5,10 +5,15 @@ CHANGELOG
 Unreleased
 ==========
 
+
+2.0.1
+=====
+
 Fixed
 -----
 * Compilation with colcon, when each ariles visitor is installed in a separate
   directory.
+* ROS core crashes in github actions.
 
 Added
 -----
