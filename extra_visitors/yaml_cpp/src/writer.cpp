@@ -8,6 +8,7 @@
     @brief
 */
 
+#include <boost/math/special_functions.hpp>
 #include <ariles2/visitors/yaml_cpp.h>
 #include <yaml-cpp/yaml.h>
 
@@ -202,13 +203,13 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
-        if (true == ariles2::isNaN(element))                                                                           \
+        if (true == boost::math::isnan(element))                                                                       \
         {                                                                                                              \
             *impl_->emitter_ << ".nan";                                                                                \
         }                                                                                                              \
         else                                                                                                           \
         {                                                                                                              \
-            if (true == ariles2::isInfinity(element))                                                                  \
+            if (true == boost::math::isinf(element))                                                                   \
             {                                                                                                          \
                 if (element < 0.0)                                                                                     \
                 {                                                                                                      \

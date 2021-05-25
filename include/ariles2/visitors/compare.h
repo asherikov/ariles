@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <boost/math/special_functions.hpp>
 #include "common.h"
 
 /**
@@ -109,9 +110,9 @@ namespace ariles2
             template <typename t_Scalar>
             static bool compareFloats(const t_Scalar left, const t_Scalar right, const Parameters &param)
             {
-                if (isNaN(left))
+                if (boost::math::isnan(left))
                 {
-                    if (isNaN(right))
+                    if (boost::math::isnan(right))
                     {
                         return (param.nan_equal_);
                     }
@@ -121,9 +122,9 @@ namespace ariles2
                     }
                 }
 
-                if (isInfinity(left))
+                if (boost::math::isinf(left))
                 {
-                    if (isInfinity(right))
+                    if (boost::math::isinf(right))
                     {
                         if (((left > 0) && (right > 0)) || ((left < 0) && (right < 0)))
                         {

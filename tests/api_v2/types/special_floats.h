@@ -8,6 +8,7 @@
     @brief
 */
 
+#include <boost/math/special_functions.hpp>
 
 namespace ariles_tests
 {
@@ -86,17 +87,17 @@ namespace ariles_tests
     {
         BOOST_CHECK(true == configurable.finalizeed_);
 
-        BOOST_CHECK(true == ariles2::isNaN(configurable.double_quiet_nan_));
-        BOOST_CHECK(true == ariles2::isNaN(configurable.double_signaling_nan_));
-        BOOST_CHECK(true == ariles2::isInfinity(configurable.double_positive_infinity_));
-        BOOST_CHECK(true == ariles2::isInfinity(configurable.double_negative_infinity_));
+        BOOST_CHECK(true == boost::math::isnan(configurable.double_quiet_nan_));
+        BOOST_CHECK(true == boost::math::isnan(configurable.double_signaling_nan_));
+        BOOST_CHECK(true == boost::math::isinf(configurable.double_positive_infinity_));
+        BOOST_CHECK(true == boost::math::isinf(configurable.double_negative_infinity_));
         BOOST_CHECK(configurable.double_positive_infinity_ > 0.0);
         BOOST_CHECK(configurable.double_negative_infinity_ < 0.0);
 
-        BOOST_CHECK(true == ariles2::isNaN(configurable.double_quiet_nan_));
-        BOOST_CHECK(true == ariles2::isNaN(configurable.double_signaling_nan_));
-        BOOST_CHECK(true == ariles2::isInfinity(configurable.double_positive_infinity_));
-        BOOST_CHECK(true == ariles2::isInfinity(configurable.double_negative_infinity_));
+        BOOST_CHECK(true == boost::math::isnan(configurable.double_quiet_nan_));
+        BOOST_CHECK(true == boost::math::isnan(configurable.double_signaling_nan_));
+        BOOST_CHECK(true == boost::math::isinf(configurable.double_positive_infinity_));
+        BOOST_CHECK(true == boost::math::isinf(configurable.double_negative_infinity_));
         BOOST_CHECK(configurable.double_positive_infinity_ > 0.0);
         BOOST_CHECK(configurable.double_negative_infinity_ < 0.0);
     }

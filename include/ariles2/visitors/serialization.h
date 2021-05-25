@@ -86,7 +86,7 @@ namespace ariles2
             {
                 ARILES2_TRACE_FUNCTION
                 type_ = ARRAY;  // NOLINT
-            } // NOLINT
+            }                   // NOLINT
 
             Node(t_RawNode node, const std::size_t index, const std::size_t size)
               : node_(node), index_(index), size_(size)

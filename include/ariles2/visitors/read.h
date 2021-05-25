@@ -265,8 +265,7 @@ namespace ariles2
                 else
                 {
                     ARILES2_PERSISTENT_ASSERT(
-                            true == param.allow_missing_entries_,
-                            "Pointer entry does not include 'is_null' subentry.");
+                            true == param.allow_missing_entries_, "Pointer entry does not include 'is_null' subentry.");
                 }
 
                 if (false == is_null)
@@ -328,7 +327,7 @@ namespace ariles2
                         ARILES2_ASSERT(true == this->startMapEntry("data"), "Missing 'data' in a matrix entry.");
 
                         const std::size_t vec_len = this->startVector();
-                        ARILES2_ASSERT(cols*rows == vec_len, "Inconsistent matrix size.");
+                        ARILES2_ASSERT(cols * rows == vec_len, "Inconsistent matrix size.");
                     }
                     else
                     {
@@ -498,7 +497,7 @@ namespace ariles2
             }
 
             template <typename t_Element>
-            void visitVectorElement(t_Element &element, const Parameters &/*param*/)
+            void visitVectorElement(t_Element &element, const Parameters & /*param*/)
             {
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_TYPE(element);
@@ -509,7 +508,7 @@ namespace ariles2
             }
 
             template <typename t_Element>
-            void visitMatrixElement(t_Element &element, const Parameters &/*param*/)
+            void visitMatrixElement(t_Element &element, const Parameters & /*param*/)
             {
                 ARILES2_TRACE_FUNCTION;
 

@@ -8,6 +8,7 @@
     @brief
 */
 
+#include <boost/math/special_functions.hpp>
 #include <ariles2/visitors/rapidjson.h>
 #include "common.h"
 
@@ -183,12 +184,12 @@ namespace ariles2
             if (true == impl_->getRawNode().IsString())
             {
                 tmp_value = boost::lexical_cast<float>(impl_->getRawNode().GetString());
-                if (true == ariles2::isNaN(tmp_value))
+                if (true == boost::math::isnan(tmp_value))
                 {
                     element = std::numeric_limits<float>::signaling_NaN();
                     return;
                 }
-                if (true == ariles2::isInfinity(tmp_value))
+                if (true == boost::math::isinf(tmp_value))
                 {
                     element = static_cast<float>(tmp_value);
                     return;
@@ -212,12 +213,12 @@ namespace ariles2
             if (true == impl_->getRawNode().IsString())
             {
                 tmp_value = boost::lexical_cast<double>(impl_->getRawNode().GetString());
-                if (true == ariles2::isNaN(tmp_value))
+                if (true == boost::math::isnan(tmp_value))
                 {
                     element = std::numeric_limits<double>::signaling_NaN();
                     return;
                 }
-                if (true == ariles2::isInfinity(tmp_value))
+                if (true == boost::math::isinf(tmp_value))
                 {
                     element = static_cast<double>(tmp_value);
                     return;

@@ -321,7 +321,7 @@ if (${ARILES_ENABLE_CORE})
     set(CPPUT_EMBEDDED      ON          CACHE BOOL "" FORCE)
     set(CPPUT_EMBEDDED_ID   "ARILES2"   CACHE STRING "" FORCE)
     set(CPPUT_EMBEDDED_COPY_TO_DIR "${ARILES_CORE_BUILD_INCLUDES}/${PROJECT_NAME}/internal/"  CACHE STRING "" FORCE)
-    set(CPPUT_SELECT_HEADERS "config.h;exception.h;floating_point_utils.h;visibility.h;misc.h;trace.h"  CACHE STRING "" FORCE)
+    set(CPPUT_SELECT_HEADERS "config.h;exception.h;visibility.h;misc.h;trace.h"  CACHE STRING "" FORCE)
     add_subdirectory(cpput)
     # --------------
 
