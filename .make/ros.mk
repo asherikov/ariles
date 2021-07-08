@@ -53,12 +53,12 @@ ros_install_deps:
 	apt update
 	#apt upgrade -y
 	${APT_INSTALL} ${DEBIAN_SYSTEM_DEPENDENCIES}
+	bash -c "${APT_INSTALL} python-bloom || ${APT_INSTALL} python3-bloom"
 	${APT_INSTALL} \
-		python-bloom \
 		devscripts \
 		debhelper \
 		fakeroot
-	${APT_INSTALL} python-catkin-tools
+	bash -c "${APT_INSTALL} python-catkin-tools || ${APT_INSTALL} python3-catkin-tools python3-osrf-pycommon"
 
 
 catkin_test_deb_pkg:
