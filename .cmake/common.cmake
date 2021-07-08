@@ -10,7 +10,7 @@ set(ARILES_CCACHE                   "OFF"   CACHE STRING "")
 
 set(ARILES_BUILD_REGRESSION_TESTS   "${ARILES_ROS_ENABLE_TESTS}"   CACHE STRING "")
 
-foreach(ARILES_COMPONENT  @ARILES_COMPONENTS@)
+foreach(ARILES_COMPONENT  ${ARILES_COMPONENTS})
     string(REGEX REPLACE "-" "_" ARILES_VISITOR "${ARILES_COMPONENT}")
 
     if (ARILES_COMPONENT STREQUAL "core")
@@ -30,7 +30,7 @@ endif()
 add_subdirectory("${ARILES_DIR}" "./ariles2_${CMAKE_PROJECT_NAME}")
 
 
-set(ARILES_ROS_CONFIG_INSTALL_DESTINATION "${CMAKE_INSTALL_PREFIX}/share/${CMAKE_PROJECT_NAME}/cmake/")
+set(ARILES_ROS_CONFIG_INSTALL_DESTINATION "share/${CMAKE_PROJECT_NAME}/cmake/")
 
 include(CMakePackageConfigHelpers)
 configure_package_config_file(  "${CMAKE_CURRENT_SOURCE_DIR}/../.cmake/config.cmake.in"

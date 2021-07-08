@@ -5,6 +5,26 @@ defaults:
         shell: bash
 
 jobs:
+    # focal
+    focal_noetic_catkin_old:
+        container: ros:noetic-ros-base-focal
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - run: |
+                source /opt/ros/noetic/setup.bash
+                make catkin_test_old ROS_DISTRO=noetic UBUNTU_DISTRO=focal
+
+    focal_noetic_catkin_new:
+        container: ros:noetic-ros-base-focal
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - run: |
+                source /opt/ros/noetic/setup.bash
+                make catkin_test_new ROS_DISTRO=noetic UBUNTU_DISTRO=focal
+
+
     # bionic
     bionic_melodic_catkin_old:
         container: ros:melodic-ros-base-bionic
@@ -25,28 +45,8 @@ jobs:
                 make catkin_test_new ROS_DISTRO=melodic UBUNTU_DISTRO=bionic
 
 
-    # xenial
-    xenial_kinetic_catkin_old:
-        container: ros:kinetic-ros-base-xenial
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-            - run: |
-                source /opt/ros/kinetic/setup.bash
-                make catkin_test_old ROS_DISTRO=kinetic UBUNTU_DISTRO=xenial
-
-    xenial_kinetic_catkin_new:
-        container: ros:kinetic-ros-base-xenial
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-            - run: |
-                source /opt/ros/kinetic/setup.bash
-                make catkin_test_new ROS_DISTRO=kinetic UBUNTU_DISTRO=xenial
-
-
     prerelease:
-        runs-on: ubuntu-16.04
+        runs-on: ubuntu-18.04
         steps:
             - uses: actions/checkout@v2
               with:
