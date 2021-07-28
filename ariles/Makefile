@@ -195,7 +195,7 @@ install-jsonnet:
 	cd ./jsonnet/build/; make install
 
 format:
-	${FIND_ARILES_SOURCES} | grep -v "better_enum.h" | xargs clang-format80 -verbose -i
+	${FIND_ARILES_SOURCES} | grep -v "better_enum.h" | xargs clang-format10 -verbose -i
 
 cppcheck:
 	# --inconclusive
