@@ -5,6 +5,15 @@ CHANGELOG
 Unreleased
 ==========
 
+Added
+-----
+* CI tests for Ubuntu 20 (Focal).
+* Debian package publication at cloudsmith.
+
+Removed
+-------
+* CI tests for Ubuntu 16 (Xenial).
+
 
 2.0.1
 =====

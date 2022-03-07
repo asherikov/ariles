@@ -34,7 +34,7 @@ Ariles
     <th>package</th>
     <td align="center">
         <a href="https://cloudsmith.io/~asherikov-aV7/repos/all/packages/detail/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fbionic;t=binary/">
-        <img src="https://api-prd.cloudsmith.io/v1/badges/version/asherikov-aV7/all/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fbionic;t=binary/?render=true&show_latest=true" alt="Latest version of 'qpmad' @ Cloudsmith">
+        <img src="https://api-prd.cloudsmith.io/v1/badges/version/asherikov-aV7/all/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fbionic;t=binary/?render=true&show_latest=true" alt="Latest version of 'ariles' @ Cloudsmith">
         </a>
     </td>
     <td align="center"></td>
