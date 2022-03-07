@@ -114,7 +114,7 @@ deb-uninstall:
 
 deb-cloudsmith:
 	ls build/generic-Release-OPTIONS_deb_packages_${DEB_TARGET}/Debian/${DEB_TARGET}/${PKG_NAME}-*.deb \
-		| xargs --no-run-if-empty -I {} cloudsmith push deb asherikov-aV7/all/ubuntu/bionic {}
+		| xargs --no-run-if-empty -I {} cloudsmith push deb asherikov-aV7/all/ubuntu/${DEB_TARGET} {}
 
 cmake_dependency: clean
 	mkdir -p build/cmake_dependency_test

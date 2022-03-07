@@ -34,6 +34,7 @@ jobs:
             - run: pip install --upgrade cloudsmith-cli
             - run: env CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }} make deb-cloudsmith DEB_TARGET=bionic
 
+
     focal_deb_packages_cloudsmith:
         runs-on: ubuntu-20.04
 
@@ -53,6 +54,6 @@ jobs:
             - run: $APT fakeroot devscripts build-essential
             - run: |
                 source /opt/ros/$ROS_DISTRO/setup.bash
-                make deb-build DEB_TARGET=noetic
+                make deb-build DEB_TARGET=focal
             - run: pip install --upgrade cloudsmith-cli
-            - run: env CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }} make deb-cloudsmith DEB_TARGET=noetic
+            - run: env CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }} make deb-cloudsmith DEB_TARGET=focal
