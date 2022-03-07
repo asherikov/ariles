@@ -5,6 +5,9 @@ CHANGELOG
 Unreleased
 ==========
 
+2.0.2
+=====
+
 Added
 -----
 * CI tests for Ubuntu 20 (Focal).
