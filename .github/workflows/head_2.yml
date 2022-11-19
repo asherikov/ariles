@@ -8,28 +8,18 @@ env:
     CATKIN_OPTIONS: $GITHUB_WORKSPACE/catkin.options
 
 jobs:
-    bionic_deb_packages:
-        runs-on: ubuntu-18.04
+    jammy_deb_packages:
+        runs-on: ubuntu-22.04
 
-        env:
-            ROS_DISTRO: melodic
-            ROS_HOSTNAME: localhost
-            ROS_CI_DESKTOP: bionic
-            PYTHONPATH: $PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
-
-        # Install system dependencies, namely a very barebones ROS setup.
         steps:
-            - uses: actions/checkout@v2
-            - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
-            - run: rosdep update
+            - uses: actions/checkout@v3
             - run: sudo make install-deps
             - run: sudo make install-jsonnet
             - run: $APT fakeroot devscripts build-essential
             - run: |
-                source /opt/ros/$ROS_DISTRO/setup.bash
-                make deb-build DEB_TARGET=bionic
-                make deb-install DEB_TARGET=bionic
-                make cmake_dependency
+                make deb-build DEB_TARGET=jammy
+                make deb-install DEB_TARGET=jammy
+                # make cmake_dependency  # requires ROS
 
 
     focal_deb_packages:
@@ -39,11 +29,9 @@ jobs:
             ROS_DISTRO: noetic
             ROS_HOSTNAME: localhost
             ROS_CI_DESKTOP: focal
-            PYTHONPATH: $PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
 
-        # Install system dependencies, namely a very barebones ROS setup.
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: rosdep update
             - run: sudo make install-deps
@@ -56,20 +44,20 @@ jobs:
                 make cmake_dependency
 
 
-    bionic_clang_noros:
-        runs-on: ubuntu-18.04
+    clang_noros:
+        runs-on: ubuntu-22.04
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - run: sudo apt update
             - run: sudo make install-deps
             - run: sudo make install-jsonnet
             - run: make build-tests TYPE=Debug OPTIONS=cpp11_on_noros TARGETS="all" TC=clang ARGS=-V
 
 
-    bionic_gcc_noros:
-        runs-on: ubuntu-18.04
+    jammy_gcc_noros:
+        runs-on: ubuntu-22.04
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - run: sudo apt update
             - run: sudo make install-deps
             - run: sudo make install-jsonnet
@@ -79,46 +67,23 @@ jobs:
     focal_gcc_noros:
         runs-on: ubuntu-20.04
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - run: sudo apt update
             - run: sudo make install-deps
             - run: sudo make install-jsonnet
             - run: make build-tests TYPE=Debug OPTIONS=cpp11_on_noros TARGETS="all" TC=gcc ARGS=-V
 
 
-    bionic_gcc_ros:
-        runs-on: ubuntu-18.04
+    focal_clang_ros:
+        runs-on: ubuntu-20.04
 
         env:
-            ROS_DISTRO: melodic
+            ROS_DISTRO: noetic
             ROS_HOSTNAME: localhost
-            ROS_CI_DESKTOP: bionic
-            PYTHONPATH: $PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
+            ROS_CI_DESKTOP: focal
 
-        # Install system dependencies, namely a very barebones ROS setup.
         steps:
-            - uses: actions/checkout@v2
-            - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
-            - run: rosdep update
-            - run: sudo make install-deps
-            - run: sudo make install-jsonnet
-            - run: |
-                source /opt/ros/$ROS_DISTRO/setup.bash
-                make build-tests TYPE=Debug OPTIONS=ros TARGETS="all" TC=gcc ARGS=-V
-
-
-    bionic_clang_ros:
-        runs-on: ubuntu-18.04
-
-        env:
-            ROS_DISTRO: melodic
-            ROS_HOSTNAME: localhost
-            ROS_CI_DESKTOP: bionic
-            PYTHONPATH: $PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
-
-        # Install system dependencies, namely a very barebones ROS setup.
-        steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: rosdep update
             - run: sudo make install-deps
@@ -135,11 +100,9 @@ jobs:
             ROS_DISTRO: noetic
             ROS_HOSTNAME: localhost
             ROS_CI_DESKTOP: focal
-            PYTHONPATH: $PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
 
-        # Install system dependencies, namely a very barebones ROS setup.
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: rosdep update
             - run: sudo make install-deps
@@ -149,11 +112,11 @@ jobs:
                 make build-tests TYPE=Debug OPTIONS=ros TARGETS="all" TC=gcc ARGS=-V
 
 
-    bionic_static_checks:
-        runs-on: ubuntu-18.04
+    jammy_static_checks:
+        runs-on: ubuntu-22.04
 
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - run: sudo apt update
             - run: sudo apt upgrade
             - run: $APT cppcheck
@@ -163,25 +126,23 @@ jobs:
             - run: make spell
 
 
-    bionic_gcc_ros_scanbuild:
-        runs-on: ubuntu-18.04
+    focal_gcc_ros_scanbuild:
+        runs-on: ubuntu-20.04
 
         env:
-            ROS_DISTRO: melodic
+            ROS_DISTRO: noetic
             ROS_HOSTNAME: localhost
-            ROS_CI_DESKTOP: bionic
-            PYTHONPATH: $PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
+            ROS_CI_DESKTOP: focal
 
-        # Install system dependencies, namely a very barebones ROS setup.
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: rosdep update
             - run: $APT cmake libboost-all-dev libeigen3-dev
             - run: $APT libyaml-cpp-dev octave
-            - run: $APT clang-tools-9 clang-tidy-9
+            - run: $APT clang-tools-12 clang-tidy-12
             - run: $APT libprotobuf-dev protobuf-compiler
             - run: sudo make install-jsonnet
             - run: |
                 source /opt/ros/$ROS_DISTRO/setup.bash
-                make clangcheck SCANBUILD=scan-build-9 OPTIONS=ros_tidy TC=gcc
+                make clangcheck SCANBUILD=scan-build-12 OPTIONS=ros_tidy TC=gcc

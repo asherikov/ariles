@@ -11,28 +11,18 @@ env:
     CATKIN_OPTIONS: $GITHUB_WORKSPACE/catkin.options
 
 jobs:
-    bionic_deb_packages_cloudsmith:
-        runs-on: ubuntu-18.04
-
-        env:
-            ROS_DISTRO: melodic
-            ROS_HOSTNAME: localhost
-            ROS_CI_DESKTOP: bionic
-            PYTHONPATH: $PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
+    jammy_deb_packages_cloudsmith:
+        runs-on: ubuntu-22.04
 
         # Install system dependencies, namely a very barebones ROS setup.
         steps:
-            - uses: actions/checkout@v2
-            - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
-            - run: rosdep update
+            - uses: actions/checkout@v3
             - run: sudo make install-deps
             - run: sudo make install-jsonnet
             - run: $APT fakeroot devscripts build-essential
-            - run: |
-                source /opt/ros/$ROS_DISTRO/setup.bash
-                make deb-build DEB_TARGET=bionic
+            - run: make deb-build DEB_TARGET=jammy
             - run: pip install --upgrade cloudsmith-cli
-            - run: env CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }} make deb-cloudsmith DEB_TARGET=bionic
+            - run: env CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }} make deb-cloudsmith DEB_TARGET=focal
 
 
     focal_deb_packages_cloudsmith:
@@ -42,11 +32,10 @@ jobs:
             ROS_DISTRO: noetic
             ROS_HOSTNAME: localhost
             ROS_CI_DESKTOP: focal
-            PYTHONPATH: $PYTHONPATH:/usr/lib/python2.7/dist-packages:/usr/local/lib/python2.7/dist-packages
 
         # Install system dependencies, namely a very barebones ROS setup.
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: rosdep update
             - run: sudo make install-deps

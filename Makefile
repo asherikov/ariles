@@ -49,7 +49,7 @@ BUILD_SUBDIR=${BUILD_DIR}/${TC}-${TYPE}-OPTIONS_${OPTIONS}
 
 build:
 	mkdir -p ${BUILD_SUBDIR};
-	cd ${BUILD_SUBDIR}; cmake 	-C ${ROOT_DIR}/tests/cmake/configs/options_${OPTIONS}.cmake\
+	cd ${BUILD_SUBDIR}; cmake 	-C ${ROOT_DIR}/cmake/options_${OPTIONS}.cmake\
 								-DCMAKE_BUILD_TYPE=${TYPE} \
 								-DCMAKE_TOOLCHAIN_FILE=${CMAKE_DIR}/toolchain_${TC}.cmake\
 								${EXTRA_CMAKE_PARAM} \
@@ -118,7 +118,7 @@ deb-cloudsmith:
 
 cmake_dependency: clean
 	mkdir -p build/cmake_dependency_test
-	cd build/cmake_dependency_test; cmake ../../tests/cmake/dependency/ -DARILES_COMPONENTS="rosparam;yaml-cpp;octave"
+	cd build/cmake_dependency_test; cmake ../../tests/dependency/ -DARILES_COMPONENTS="rosparam;yaml-cpp;octave"
 	cd build/cmake_dependency_test; ${MAKE} ${MAKE_FLAGS}
 
 #ppa-upload:
@@ -219,6 +219,7 @@ format:
 
 cppcheck:
 	# --inconclusive
+	# false positive: constStatement, unsignedLessThanZero
 	cppcheck \
 		./ \
 		--relative-paths \
@@ -233,6 +234,9 @@ cppcheck:
 		--suppress=syntaxError \
 		--suppress=useInitializationList \
 		--suppress=functionStatic \
+		--suppress=unknownMacro \
+		--suppress=constStatement \
+		--suppress=unsignedLessThanZero \
 		-i ./build \
 	3>&1 1>&2 2>&3 | tee cppcheck.err
 	test 0 -eq `cat cppcheck.err | wc -l && rm cppcheck.err`
