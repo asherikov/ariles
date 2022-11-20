@@ -5,6 +5,18 @@ CHANGELOG
 Unreleased
 ==========
 
+2.0.3
+=====
+
+Added
+-----
+* CI: add Ubuntu 22 tests and packages
+
+Removed
+-------
+* CI: drop Ubuntu 18 support
+
+
 2.0.2
 =====
 

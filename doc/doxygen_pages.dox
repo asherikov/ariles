@@ -13,3 +13,11 @@
  *
  * @include demo_api_v2.cpp
  */
+
+
+/**
+ * @page CHANGELOG Changelog
+ *
+ * @include CHANGELOG.md
+ */
+

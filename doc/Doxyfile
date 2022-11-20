@@ -919,7 +919,7 @@ EXCLUDE_SYMBOLS        =
 # command).
 
 EXAMPLE_PATH           = ../LICENSE \
-                         ../tests/api_v1/demo_api_v1.cpp \
+                         ../CHANGELOG.md \
                          ../tests/api_v2/demo_api_v2.cpp
 
 # If the value of the EXAMPLE_PATH tag contains directories, you can use the

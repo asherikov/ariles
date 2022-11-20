@@ -14,15 +14,17 @@ jobs:
     jammy_deb_packages_cloudsmith:
         runs-on: ubuntu-22.04
 
-        # Install system dependencies, namely a very barebones ROS setup.
+        env:
+            DEB_TARGET: jammy
+
         steps:
             - uses: actions/checkout@v3
             - run: sudo make install-deps
             - run: sudo make install-jsonnet
             - run: $APT fakeroot devscripts build-essential
-            - run: make deb-build DEB_TARGET=jammy
+            - run: make deb-build DEB_TARGET=$DEB_TARGET
             - run: pip install --upgrade cloudsmith-cli
-            - run: env CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }} make deb-cloudsmith DEB_TARGET=focal
+            - run: env CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }} make deb-cloudsmith DEB_TARGET=$DEB_TARGET
 
 
     focal_deb_packages_cloudsmith:
@@ -32,8 +34,8 @@ jobs:
             ROS_DISTRO: noetic
             ROS_HOSTNAME: localhost
             ROS_CI_DESKTOP: focal
+            DEB_TARGET: focal
 
-        # Install system dependencies, namely a very barebones ROS setup.
         steps:
             - uses: actions/checkout@v3
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
@@ -43,6 +45,6 @@ jobs:
             - run: $APT fakeroot devscripts build-essential
             - run: |
                 source /opt/ros/$ROS_DISTRO/setup.bash
-                make deb-build DEB_TARGET=focal
+                make deb-build DEB_TARGET=$DEB_TARGET
             - run: pip install --upgrade cloudsmith-cli
-            - run: env CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }} make deb-cloudsmith DEB_TARGET=focal
+            - run: env CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }} make deb-cloudsmith DEB_TARGET=$DEB_TARGET
