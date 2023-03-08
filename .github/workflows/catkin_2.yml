@@ -8,49 +8,28 @@ jobs:
     # focal
     focal_noetic_catkin_old:
         container: ros:noetic-ros-base-focal
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-20.04
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - run: |
                 source /opt/ros/noetic/setup.bash
                 make catkin_test_old ROS_DISTRO=noetic UBUNTU_DISTRO=focal
 
     focal_noetic_catkin_new:
         container: ros:noetic-ros-base-focal
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-20.04
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - run: |
                 source /opt/ros/noetic/setup.bash
                 make catkin_test_new ROS_DISTRO=noetic UBUNTU_DISTRO=focal
 
-
-    # bionic
-    bionic_melodic_catkin_old:
-        container: ros:melodic-ros-base-bionic
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-            - run: |
-                source /opt/ros/melodic/setup.bash
-                make catkin_test_old ROS_DISTRO=melodic UBUNTU_DISTRO=bionic
-
-    bionic_melodic_catkin_new:
-        container: ros:melodic-ros-base-bionic
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-            - run: |
-                source /opt/ros/melodic/setup.bash
-                make catkin_test_new ROS_DISTRO=melodic UBUNTU_DISTRO=bionic
-
-
     prerelease:
-        runs-on: ubuntu-18.04
+        runs-on: ubuntu-20.04
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
               with:
                   fetch-depth: 0
-            - run: make ros_prerelease ROS_DISTRO=melodic UBUNTU_DISTRO=bionic BRANCH=`git branch --show-current`
+            - run: make ros_prerelease ROS_DISTRO=noetic UBUNTU_DISTRO=focal BRANCH=`git branch --show-current`
               env:
                   CCACHE_DIR: ${GITHUB_WORKSPACE}/.ccache

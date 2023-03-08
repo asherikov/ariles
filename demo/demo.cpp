@@ -18,6 +18,7 @@
 #include <ariles2/visitors/yaml_cpp.h>
 #include <ariles2/visitors/rosparam.h>
 #include <ariles2/visitors/octave.h>
+#include <ariles2/visitors/pugixml.h>
 
 // `adapter` is an Ariles component which adds support for serialization of
 // certain type(s), e.g. Eigen types or Boost pointers.

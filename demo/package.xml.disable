@@ -15,6 +15,7 @@
   <depend>ariles2_rapidjson_catkin</depend>
   <depend>ariles2_yamlcpp_catkin</depend>
   <depend>ariles2_octave_catkin</depend>
+  <depend>ariles2_pugixml_catkin</depend>
 
   <export>
   </export>

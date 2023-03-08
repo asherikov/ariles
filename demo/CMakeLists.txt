@@ -12,6 +12,7 @@ if (DEFINED CATKIN_DEVEL_PREFIX)
         ariles2_rapidjson_catkin
         ariles2_yamlcpp_catkin
         ariles2_octave_catkin
+        ariles2_pugixml_catkin
     )
 
     catkin_package(DEPENDS
@@ -20,6 +21,7 @@ if (DEFINED CATKIN_DEVEL_PREFIX)
         ariles2_rapidjson_catkin
         ariles2_yamlcpp_catkin
         ariles2_octave_catkin
+        ariles2_pugixml_catkin
     )
 
     include_directories(
@@ -44,6 +46,7 @@ else()
     find_package(ariles2_rapidjson_catkin REQUIRED)
     find_package(ariles2_yamlcpp_catkin REQUIRED)
     find_package(ariles2_octave_catkin REQUIRED)
+    find_package(ariles2_pugixml_catkin REQUIRED)
 
 
     add_executable(demo demo.cpp)
@@ -53,5 +56,6 @@ else()
         ${ariles2_rapidjson_catkin_LIBRARIES}
         ${ariles2_yamlcpp_catkin_LIBRARIES}
         ${ariles2_octave_catkin_LIBRARIES}
+        ${ariles2_pugixml_catkin_LIBRARIES}
     )
 endif()

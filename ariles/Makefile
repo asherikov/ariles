@@ -1,3 +1,4 @@
+APT_INSTALL?=env DEBIAN_FRONTEND=noninteractive apt --yes --no-install-recommends install
 MAKE_FLAGS?=-j7
 
 
@@ -48,7 +49,7 @@ BUILD_SUBDIR=${BUILD_DIR}/${TC}-${TYPE}-OPTIONS_${OPTIONS}
 
 build:
 	mkdir -p ${BUILD_SUBDIR};
-	cd ${BUILD_SUBDIR}; cmake 	-C ${ROOT_DIR}/tests/cmake/configs/options_${OPTIONS}.cmake\
+	cd ${BUILD_SUBDIR}; cmake 	-C ${ROOT_DIR}/cmake/options_${OPTIONS}.cmake\
 								-DCMAKE_BUILD_TYPE=${TYPE} \
 								-DCMAKE_TOOLCHAIN_FILE=${CMAKE_DIR}/toolchain_${TC}.cmake\
 								${EXTRA_CMAKE_PARAM} \
@@ -111,9 +112,13 @@ deb-install:
 deb-uninstall:
 	dpkg --get-selections ${PKG_NAME}* | awk '{print $1}' | xargs sudo dpkg -P
 
+deb-cloudsmith:
+	ls build/generic-Release-OPTIONS_deb_packages_${DEB_TARGET}/Debian/${DEB_TARGET}/${PKG_NAME}-*.deb \
+		| xargs --no-run-if-empty -I {} cloudsmith push deb asherikov-aV7/all/ubuntu/${DEB_TARGET} {}
+
 cmake_dependency: clean
 	mkdir -p build/cmake_dependency_test
-	cd build/cmake_dependency_test; cmake ../../tests/cmake/dependency/ -DARILES_COMPONENTS="rosparam;yaml-cpp;octave"
+	cd build/cmake_dependency_test; cmake ../../tests/dependency/ -DARILES_COMPONENTS="rosparam;yaml-cpp;octave"
 	cd build/cmake_dependency_test; ${MAKE} ${MAKE_FLAGS}
 
 #ppa-upload:
@@ -182,10 +187,25 @@ install-ros:
 	    || apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 6B05F25D762E3157 \
 	    || apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 6B05F25D762E3157"
 	apt update -qq
-	apt install dpkg
-	apt install -y ros-${ROS_DISTRO}-ros-base
-	apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+	${APT_INSTALL} dpkg
+	${APT_INSTALL} ros-${ROS_DISTRO}-ros-base
+	${MAKE} install-ros-${ROS_DISTRO}
 	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; rosdep init'
+
+install-ros-%:
+	${APT_INSTALL} python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+
+install-ros-melodic: install-ros-kinetic
+	#
+
+install-ros-kinetic:
+	${APT_INSTALL} python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+
+install-deps:
+	${APT_INSTALL} cmake libboost-all-dev libeigen3-dev
+	${APT_INSTALL} octave libpugixml-dev libyaml-cpp-dev rapidjson-dev libmsgpack-dev graphviz
+	${APT_INSTALL} libprotobuf-dev protobuf-compiler
+
 
 install-jsonnet:
 	git clone https://github.com/asherikov/jsonnet.git
@@ -199,6 +219,7 @@ format:
 
 cppcheck:
 	# --inconclusive
+	# false positive: constStatement, unsignedLessThanZero
 	cppcheck \
 		./ \
 		--relative-paths \
@@ -213,6 +234,9 @@ cppcheck:
 		--suppress=syntaxError \
 		--suppress=useInitializationList \
 		--suppress=functionStatic \
+		--suppress=unknownMacro \
+		--suppress=constStatement \
+		--suppress=unsignedLessThanZero \
 		-i ./build \
 	3>&1 1>&2 2>&3 | tee cppcheck.err
 	test 0 -eq `cat cppcheck.err | wc -l && rm cppcheck.err`

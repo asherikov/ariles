@@ -7,7 +7,8 @@ CATKIN_PKGS= \
 			ariles2_octave_catkin \
 			ariles2_rapidjson_catkin \
 			ariles2_yamlcpp_catkin \
-			ariles2_rosparam_catkin
+			ariles2_rosparam_catkin \
+			ariles2_pugixml_catkin
 
 CATKIN_DEPENDENCY_TEST_PKG=ariles2_catkin_demo
 CATKIN_ARGS=--cmake-args -DARILES_ROS_ENABLE_TESTS=ON
@@ -17,6 +18,8 @@ CATKIN_WORKING_DIR=./build/catkin_workspace
 CATKIN_PKGS_PATH=${CATKIN_WORKING_DIR}/src/${PROJECT}
 
 APT_INSTALL=apt install -y --no-install-recommends
+PIP_INSTALL=sudo python3 -m pip install
+
 
 # release
 #----------------------------------------------
@@ -140,7 +143,7 @@ catkin_test_new: ros_install_deps
 
 ros_prerelease_deps:
 	sudo ${MAKE} ros_add_repos UBUNTU_DISTRO=${UBUNTU_DISTRO}
-	sudo ${APT_INSTALL} python3-ros-buildfarm
+	${PIP_INSTALL} ros_buildfarm
 
 ros_prerelease: ros_prerelease_deps
 	# sudo apt install docker.io

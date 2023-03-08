@@ -5,7 +5,7 @@ VERSION?="XXX__version_not_set__XXX"
 
 REPO=https://github.com/asherikov/ariles.git
 DEPENDENCY_PATH=./demo
-DEBIAN_SYSTEM_DEPENDENCIES=libeigen3-dev octave libyaml-cpp-dev rapidjson-dev
+DEBIAN_SYSTEM_DEPENDENCIES=libeigen3-dev octave libyaml-cpp-dev rapidjson-dev libpugixml-dev
 
 
 update:
@@ -22,12 +22,7 @@ update_head:
 #----------------------------------------------
 
 cleanup:
-	git rm -rf --ignore-unmatch ariles/bridges/jsonnet/jsonnet
-	git rm -rf --ignore-unmatch ariles/bridges/msgpack/msgpack-c
-	git rm -rf --ignore-unmatch ariles/bridges/pugixml/pugixml
-	git rm -rf --ignore-unmatch ariles/bridges/rapidjson/rapidjson
-	git rm -rf --ignore-unmatch ariles/bridges/yaml_cpp/yaml-cpp
-	git rm -rf --ignore-unmatch ariles/bridges/yaml_cpp03/yaml-cpp
+	git rm -rf --ignore-unmatch ariles/.github
 	git rm -rf --ignore-unmatch ariles/.gitmodules
 	git rm -rf --ignore-unmatch ariles/tests/catkin_package/
 	git rm -rf --ignore-unmatch ariles/doc/dox
