@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>ariles2_core_catkin</name>
-  <version>2.0.2</version>
+  <version>2.0.1</version>
   <description>Ariles serialization/configuration library (core module)</description>
 
   <maintainer email="asherikov@yandex.com">Alexander Sherikov</maintainer>

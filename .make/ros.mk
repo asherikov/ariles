@@ -27,7 +27,7 @@ PIP_INSTALL=sudo python3 -m pip install
 ros_release:
 	# 0. Add Forthcoming section to the changelog
 	${MAKE} update_version VERSION=${VERSION}
-	git commit -a
+	-git commit -a
 	catkin_prepare_release -t 'catkin-' --version "${VERSION}" -y
 	# initial release -> https://wiki.ros.org/bloom/Tutorials/FirstTimeRelease
 	# subsequent releases -> bloom-release --rosdistro melodic --track melodic ${PKG}
