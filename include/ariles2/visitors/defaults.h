@@ -116,7 +116,6 @@ namespace ariles2
 
         class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::Base<const defaults::Visitor>
         {
-        public:
         };
 
 

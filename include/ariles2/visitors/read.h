@@ -27,18 +27,7 @@ namespace ariles2
     /// @ingroup read
     namespace read
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public serialization::Parameters
-        {
-        public:
-            bool allow_missing_entries_;
-
-        public:
-            Parameters(const bool override_parameters = true) : serialization::Parameters(override_parameters)
-            {
-                allow_missing_entries_ = false;
-            }
-        };
-
+        using Parameters = serialization::Parameters;
 
 
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public serialization::Base<Visitor, Parameters>

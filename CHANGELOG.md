@@ -4,6 +4,11 @@ CHANGELOG
 Unreleased
 ==========
 
+Added
+-----
+* Writers now take `allow_missing_entries_` parameter into account, omitting
+  'missing' entries, e.g., null pointers.
+
 Removed
 -------
 * Makefile/CI: `install-jsonnet` target

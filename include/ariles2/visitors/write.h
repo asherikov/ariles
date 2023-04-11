@@ -326,6 +326,11 @@ namespace ariles2
                 ARILES2_TRACE_VALUE(entry_name);
                 ARILES2_TRACE_TYPE(entry);
 
+                if (param.allow_missing_entries_ and isMissing(entry))
+                {
+                    return;
+                }
+
                 this->startMapEntry(entry_name);
                 apply_write(static_cast<t_Derived &>(*this), entry, param);
                 this->endMapEntry();

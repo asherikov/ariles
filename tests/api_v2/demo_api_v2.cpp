@@ -24,6 +24,7 @@
 #include <ariles2/adapters/basic.h>
 #include <ariles2/adapters/eigen.h>
 #include <ariles2/adapters/std_vector.h>
+#include <ariles2/adapters/pointer.h>
 #include <ariles2/ariles.h>
 
 
@@ -108,7 +109,9 @@ namespace demo
     class MyContainerClass : public ariles2::DefaultBase
     {
         // Some of the standard containers can be used with Ariles types.
-#define ARILES2_ENTRIES(v) ARILES2_TYPED_ENTRY_(v, my_class_vector, std::vector<MyClass>)
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_TYPED_ENTRY_(v, my_class_vector, std::vector<MyClass>)                                                     \
+    ARILES2_TYPED_ENTRY_(v, ptr, std::shared_ptr<MyClass>)
 #include ARILES2_INITIALIZE
     };
 }  // namespace demo
@@ -152,6 +155,11 @@ int main()
 
             // Sometimes it may be useful to dump configuration to std::cout
             ariles2::apply<ariles2::yaml_cpp::Writer>(std::cout, my_container_class);
+
+            // Adjust visitor parameters
+            ariles2::write::Parameters parameters;
+            parameters.allow_missing_entries_ = true;
+            ariles2::apply<ariles2::yaml_cpp::Writer>(std::cout, my_container_class, parameters);
 
             // In some situations it is more convenient to instantiate Reader and
             // Writer classes explicitly, e.g., if you keep configurations of several

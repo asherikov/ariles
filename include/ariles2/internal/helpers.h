@@ -104,6 +104,13 @@ namespace ariles2
     class ARILES2_VISIBILITY_ATTRIBUTE PointerHandler;
 
 
+    template <class t_Entry>
+    constexpr bool isMissing(const t_Entry & /*entry*/)
+    {
+        return (false);
+    }
+
+
     class ARILES2_VISIBILITY_ATTRIBUTE Ariles
     {
     protected:

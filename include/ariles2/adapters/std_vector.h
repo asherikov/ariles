@@ -13,6 +13,17 @@
 #include <vector>
 #include "../internal/helpers.h"
 
+
+namespace ariles2
+{
+    template <class... t_Args>
+    bool isMissing(const std::vector<t_Args...> &entry)
+    {
+        return (entry.empty());
+    }
+}  // namespace ariles2
+
+
 namespace ariles2
 {
     namespace read

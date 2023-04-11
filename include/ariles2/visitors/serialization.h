@@ -31,6 +31,7 @@ namespace ariles2
             bool explicit_matrix_size_;
             bool fallback_to_string_floats_;
             bool flat_matrices_;
+            bool allow_missing_entries_;
 
 
         public:
@@ -41,6 +42,7 @@ namespace ariles2
                 explicit_matrix_size_ = false;
                 fallback_to_string_floats_ = true;
                 flat_matrices_ = true;
+                allow_missing_entries_ = false;
             }
         };
 

@@ -8,6 +8,17 @@
     @brief
 */
 
+
+namespace ariles2
+{
+    template <class t_Entry>
+    bool isMissing(const ARILES2_POINTER_TYPE<t_Entry> &entry)
+    {
+        return (PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::isNull(entry));
+    }
+}  // namespace ariles2
+
+
 namespace ariles2
 {
     namespace read
