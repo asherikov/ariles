@@ -5,6 +5,7 @@
 #include <vector>
 
 
+// NOLINTBEGIN(*)
 namespace geometry_msgs
 {
     template <class ContainerAllocator>
@@ -34,8 +35,9 @@ namespace geometry_msgs
         _w_type w;
     };  // struct Quaternion_
 
-    typedef ::geometry_msgs::Quaternion_<std::allocator<void> > Quaternion;
+    typedef ::geometry_msgs::Quaternion_<std::allocator<void>> Quaternion;
 }  // namespace geometry_msgs
+// NOLINTEND(*)
 
 
 namespace ariles_tests

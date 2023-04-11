@@ -33,7 +33,7 @@ namespace ariles2
         class ARILES2_LIB_LOCAL ImplBase
         {
         public:
-            typedef serialization::Node<t_Node *> NodeWrapper;
+            using NodeWrapper = serialization::Node<t_Node *>;
 
 
         public:
@@ -63,7 +63,7 @@ namespace ariles2
 
             t_Node &getRawNode()
             {
-                if (true == node_stack_.empty())
+                if (node_stack_.empty())
                 {
                     return (document_);
                 }

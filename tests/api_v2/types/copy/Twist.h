@@ -6,6 +6,7 @@
 
 #include "Vector3.h"
 
+// NOLINTBEGIN(*)
 namespace geometry_msgs
 {
     template <class ContainerAllocator>
@@ -30,8 +31,9 @@ namespace geometry_msgs
         _angular_type angular;
     };  // struct Twist_
 
-    typedef ::geometry_msgs::Twist_<std::allocator<void> > Twist;
+    typedef ::geometry_msgs::Twist_<std::allocator<void>> Twist;
 }  // namespace geometry_msgs
+// NOLINTEND(*)
 
 
 

@@ -249,11 +249,11 @@ namespace ariles_tests
 
         BOOST_CHECK_EQUAL(configurable_out.std_map_.size(), configurable_in.std_map_.size());
 
-        for (std::map<std::string, std::vector<std::string> >::const_iterator it = configurable_in.std_map_.begin();
+        for (std::map<std::string, std::vector<std::string>>::const_iterator it = configurable_in.std_map_.begin();
              it != configurable_in.std_map_.end();
              ++it)
         {
-            std::map<std::string, std::vector<std::string> >::const_iterator search =
+            std::map<std::string, std::vector<std::string>>::const_iterator search =
                     configurable_out.std_map_.find(it->first);
             BOOST_CHECK(search != configurable_out.std_map_.end());
             if (search == configurable_out.std_map_.end())

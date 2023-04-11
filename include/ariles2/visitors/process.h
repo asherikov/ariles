@@ -27,7 +27,7 @@ namespace ariles2
           : public ariles2::visitor::Base<visitor::GenericVisitor, t_Parameters>
         {
         public:
-            typedef t_Parameters Parameters;
+            using Parameters = t_Parameters;
 
 
         public:

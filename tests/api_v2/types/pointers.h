@@ -74,7 +74,7 @@ namespace ariles_tests
 
 
 #ifndef ARILES_TESTS_RANDOMIZE_DISABLED
-            void randomize()
+            void randomize() override
             {
                 ARILES2_TRACE_FUNCTION;
                 MinimalBase::randomize();
@@ -120,7 +120,7 @@ namespace ariles_tests
 #    define ARILES2_ENTRIES_1(v)                                                                                       \
         ARILES2_ENTRIES_0(v)                                                                                           \
         ARILES2_TYPED_ENTRY_(v, std_shared_ptr_test, std::shared_ptr<Minimal>)                                         \
-        ARILES2_TYPED_ENTRY_(v, std_shared_ptr_test_non_null, ariles2::NonNullPointer<std::shared_ptr<Minimal> >)      \
+        ARILES2_TYPED_ENTRY_(v, std_shared_ptr_test_non_null, ariles2::NonNullPointer<std::shared_ptr<Minimal>>)       \
         ARILES2_TYPED_ENTRY_(v, std_unique_ptr_test, std::unique_ptr<Minimal>)
 #else
 #    define ARILES2_ENTRIES_1(v) ARILES2_ENTRIES_0(v)
@@ -133,13 +133,13 @@ namespace ariles_tests
             ARILES2_ENTRIES_1(v)                                                                                       \
             ARILES2_TYPED_ENTRY_(v, shared_ptr_test, boost::shared_ptr<Minimal>)                                       \
             ARILES2_TYPED_ENTRY_(v, shared_ptr_test_null, boost::shared_ptr<Minimal>)                                  \
-            ARILES2_TYPED_ENTRY_(v, shared_ptr_test_non_null, ariles2::NonNullPointer<boost::shared_ptr<Minimal> >)    \
+            ARILES2_TYPED_ENTRY_(v, shared_ptr_test_non_null, ariles2::NonNullPointer<boost::shared_ptr<Minimal>>)     \
             ARILES2_TYPED_ENTRY_(v, unique_ptr_test, boost::movelib::unique_ptr<Minimal>)
 #    else
 #        define ARILES2_ENTRIES_2(v)                                                                                   \
             ARILES2_ENTRIES_1(v)                                                                                       \
             ARILES2_TYPED_ENTRY_(v, shared_ptr_test, boost::shared_ptr<Minimal>)                                       \
-            ARILES2_TYPED_ENTRY_(v, shared_ptr_test_non_null, ariles2::NonNullPointer<boost::shared_ptr<Minimal> >)    \
+            ARILES2_TYPED_ENTRY_(v, shared_ptr_test_non_null, ariles2::NonNullPointer<boost::shared_ptr<Minimal>>)     \
             ARILES2_TYPED_ENTRY_(v, shared_ptr_test_null, boost::shared_ptr<Minimal>)
 #    endif
 #else
@@ -201,7 +201,7 @@ namespace ariles_tests
             std_shared_ptr_test_ = std::make_shared<Minimal>();
             std_shared_ptr_test_->randomize();
 
-            BOOST_CHECK(false == std_shared_ptr_test_non_null_.isNull());
+            BOOST_CHECK(not std_shared_ptr_test_non_null_.isNull());
             std_shared_ptr_test_non_null_->randomize();
 
             std_unique_ptr_test_.reset(new Minimal());
@@ -212,7 +212,7 @@ namespace ariles_tests
             shared_ptr_test_ = boost::make_shared<Minimal>();
             shared_ptr_test_->randomize();
 
-            BOOST_CHECK(false == shared_ptr_test_non_null_.isNull());
+            BOOST_CHECK(not shared_ptr_test_non_null_.isNull());
             shared_ptr_test_non_null_->randomize();
 
 #        if BOOST_VERSION >= 105800
@@ -269,8 +269,8 @@ namespace ariles_tests
             compareMinimal(configurable_out.std_unique_ptr_test_, configurable_in.std_unique_ptr_test_);
         }
 
-        BOOST_CHECK(false == configurable_in.std_shared_ptr_test_non_null_.isNull());
-        BOOST_CHECK(false == configurable_out.std_shared_ptr_test_non_null_.isNull());
+        BOOST_CHECK(not configurable_in.std_shared_ptr_test_non_null_.isNull());
+        BOOST_CHECK(not configurable_out.std_shared_ptr_test_non_null_.isNull());
         compareMinimal(configurable_out.std_shared_ptr_test_non_null_, configurable_in.std_shared_ptr_test_non_null_);
         BOOST_CHECK(configurable_in.std_shared_ptr_test_non_null_->defaults_check_flag_);
         BOOST_CHECK(configurable_in.std_shared_ptr_test_non_null_->finalize_check_flag_);
@@ -306,8 +306,8 @@ namespace ariles_tests
         BOOST_CHECK(configurable_out.shared_ptr_test_null_ == NULL);
         BOOST_CHECK_EQUAL(configurable_out.shared_ptr_test_null_, configurable_in.shared_ptr_test_null_);
 
-        BOOST_CHECK(false == configurable_in.shared_ptr_test_non_null_.isNull());
-        BOOST_CHECK(false == configurable_out.shared_ptr_test_non_null_.isNull());
+        BOOST_CHECK(not configurable_in.shared_ptr_test_non_null_.isNull());
+        BOOST_CHECK(not configurable_out.shared_ptr_test_non_null_.isNull());
         compareMinimal(configurable_out.shared_ptr_test_non_null_, configurable_in.shared_ptr_test_non_null_);
         BOOST_CHECK(configurable_in.shared_ptr_test_non_null_->defaults_check_flag_);
         BOOST_CHECK(configurable_in.shared_ptr_test_non_null_->finalize_check_flag_);

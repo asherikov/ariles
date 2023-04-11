@@ -79,22 +79,21 @@ namespace ariles2
 
     namespace read
     {
-        typedef serialization::parameters::SloppyMixin<Parameters> SloppyParameters;
-        typedef serialization::parameters::RelaxedMixin<Parameters> RelaxedParameters;
-        typedef serialization::parameters::NonFlatMatricesMixin<Parameters> NonFlatMatricesParameters;
-        typedef serialization::parameters::RelaxedMixin<serialization::parameters::SloppyMixin<Parameters> >
-                RelaxedSloppyParameters;
-        typedef serialization::parameters::NonFlatMatricesMixin<
-                serialization::parameters::RelaxedMixin<serialization::parameters::SloppyMixin<Parameters> > >
-                NonFlatMatricesRelaxedSloppyParameters;
+        using SloppyParameters = serialization::parameters::SloppyMixin<Parameters>;
+        using RelaxedParameters = serialization::parameters::RelaxedMixin<Parameters>;
+        using NonFlatMatricesParameters = serialization::parameters::NonFlatMatricesMixin<Parameters>;
+        using RelaxedSloppyParameters =
+                serialization::parameters::RelaxedMixin<serialization::parameters::SloppyMixin<Parameters>>;
+        using NonFlatMatricesRelaxedSloppyParameters = serialization::parameters::NonFlatMatricesMixin<
+                serialization::parameters::RelaxedMixin<serialization::parameters::SloppyMixin<Parameters>>>;
     }  // namespace read
 
     namespace write
     {
-        typedef serialization::parameters::SloppyMixin<Parameters> SloppyParameters;
-        typedef serialization::parameters::NonFlatMatricesMixin<Parameters> NonFlatMatricesParameters;
-        typedef serialization::parameters::NonFlatMatricesMixin<serialization::parameters::SloppyMixin<Parameters> >
-                NonFlatMatricesSloppyParameters;
+        using SloppyParameters = serialization::parameters::SloppyMixin<Parameters>;
+        using NonFlatMatricesParameters = serialization::parameters::NonFlatMatricesMixin<Parameters>;
+        using NonFlatMatricesSloppyParameters =
+                serialization::parameters::NonFlatMatricesMixin<serialization::parameters::SloppyMixin<Parameters>>;
     }  // namespace write
 
 
@@ -120,9 +119,9 @@ namespace ariles2
 namespace ariles2
 {
     // Some classes may inherit from this
-    typedef SloppyBase DefaultBase;
-    typedef RelaxedSloppyBase DefaultBase;
-    typedef NonFlatMatricesRelaxedSloppyBase DefaultBase;
+    using DefaultBase = SloppyBase;
+    using DefaultBase = RelaxedSloppyBase;
+    using DefaultBase = NonFlatMatricesRelaxedSloppyBase;
 }  // namespace ariles2
 
 #endif

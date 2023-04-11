@@ -20,7 +20,6 @@ jobs:
         steps:
             - uses: actions/checkout@v3
             - run: sudo make install-deps
-            - run: sudo make install-jsonnet
             - run: $APT fakeroot devscripts build-essential
             - run: make deb-build DEB_TARGET=$DEB_TARGET
             - run: pip install --upgrade cloudsmith-cli
@@ -41,7 +40,6 @@ jobs:
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: rosdep update
             - run: sudo make install-deps
-            - run: sudo make install-jsonnet
             - run: $APT fakeroot devscripts build-essential
             - run: |
                 source /opt/ros/$ROS_DISTRO/setup.bash

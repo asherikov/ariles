@@ -42,7 +42,7 @@ namespace ariles2
     {
         Reader::Reader(const ::ros::NodeHandle &nh)
         {
-            impl_ = ImplPtr(new Impl(nh));
+            makeImplPtr(nh);
         }
 
 
@@ -65,14 +65,14 @@ namespace ariles2
             {
                 impl_->root_name_ = child_name;
                 impl_->nh_.getParam(impl_->root_name_, impl_->root_value_);
-                impl_->node_stack_.push_back(&impl_->root_value_);
+                impl_->node_stack_.emplace_back(&impl_->root_value_);
                 return (true);
             }
 
             XmlRpc::XmlRpcValue &node = impl_->getRawNode();
-            if ((XmlRpc::XmlRpcValue::TypeStruct == node.getType()) && (true == node.hasMember(child_name)))
+            if ((XmlRpc::XmlRpcValue::TypeStruct == node.getType()) && (node.hasMember(child_name)))
             {
-                impl_->node_stack_.push_back(NodeWrapper(&(node[child_name])));
+                impl_->node_stack_.emplace_back(&(node[child_name]));
                 return (true);
             }
             return (false);
@@ -105,7 +105,7 @@ namespace ariles2
         {
             if (impl_->iterator_stack_.back() != impl_->getRawNode().end())
             {
-                impl_->node_stack_.push_back(&impl_->iterator_stack_.back()->second);
+                impl_->node_stack_.emplace_back(&impl_->iterator_stack_.back()->second);
                 entry_name = impl_->iterator_stack_.back()->first;
                 return (true);
             }
@@ -132,7 +132,7 @@ namespace ariles2
             ARILES2_ASSERT(XmlRpc::XmlRpcValue::TypeArray == impl_->getRawNode().getType(), "Expected array.");
 
             std::size_t size = impl_->getRawNode().size();
-            impl_->node_stack_.push_back(NodeWrapper(0, size));
+            impl_->node_stack_.emplace_back(0, size);
 
             return (size);
         }
@@ -146,7 +146,7 @@ namespace ariles2
 
         void Reader::endArrayElement()
         {
-            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ++impl_->node_stack_.back().index_;
         }
 
@@ -159,7 +159,7 @@ namespace ariles2
         bool Reader::startRoot(const std::string &name)
         {
             ARILES2_TRACE_FUNCTION;
-            if (true == name.empty())
+            if (name.empty())
             {
                 return (startMapEntry("ariles"));
             }

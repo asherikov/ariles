@@ -60,7 +60,7 @@ namespace ariles2
                 config_ofs.open(file_name.c_str());
 
                 ARILES2_PERSISTENT_ASSERT(
-                        true == config_ofs.good(),
+                        config_ofs.good(),
                         std::string("Could not open configuration file for writing: ") + file_name.c_str());
             }
 
@@ -69,7 +69,7 @@ namespace ariles2
             virtual void startRoot(const std::string &name, const t_Parameters & /*param*/)
             {
                 ARILES2_TRACE_FUNCTION;
-                if (false == name.empty())
+                if (not name.empty())
                 {
                     startMapEntry(name);
                 }
@@ -77,7 +77,7 @@ namespace ariles2
             virtual void endRoot(const std::string &name)
             {
                 ARILES2_TRACE_FUNCTION;
-                if (false == name.empty())
+                if (not name.empty())
                 {
                     endMapEntry();
                 }
@@ -255,7 +255,7 @@ namespace ariles2
 
             void startPointer(const bool is_null, const t_Parameters &param)
             {
-                if (true == is_null)
+                if (is_null)
                 {
                     this->startMap(param, 1);
                     this->startMapEntry("is_null");
@@ -273,7 +273,7 @@ namespace ariles2
             }
             void endPointer(const bool is_null)
             {
-                if (false == is_null)
+                if (not is_null)
                 {
                     this->endMapEntry();
                 }
@@ -412,5 +412,5 @@ namespace ariles2
 
 
     /// @ingroup write
-    typedef write::Visitor Write;
+    using Write = write::Visitor;
 }  // namespace ariles2

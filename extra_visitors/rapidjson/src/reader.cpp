@@ -22,14 +22,14 @@ namespace ariles2
             class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ariles2::ns_rapidjson::ImplBase<const ::rapidjson::Value>
             {
             public:
-                std::vector< ::rapidjson::Value::ConstMemberIterator> iterator_stack_;
+                std::vector<::rapidjson::Value::ConstMemberIterator> iterator_stack_;
 
             public:
                 void initialize(std::istream &input_stream)
                 {
                     ariles2::ns_rapidjson::IStreamWrapper isw(input_stream);
                     document_.ParseStream(isw);
-                    ARILES2_ASSERT(false == document_.HasParseError(), "Parsing failed");
+                    ARILES2_ASSERT(not document_.HasParseError(), "Parsing failed");
                 }
             };
         }  // namespace impl
@@ -79,7 +79,7 @@ namespace ariles2
             {
                 return (false);
             }
-            impl_->node_stack_.push_back(impl::Reader::NodeWrapper(&(child->value)));
+            impl_->node_stack_.emplace_back(&(child->value));
             return (true);
         }
 
@@ -100,7 +100,7 @@ namespace ariles2
 
             const ::rapidjson::Value &selected_node = impl_->getRawNode();
 
-            if (true == selected_node.IsObject())
+            if (selected_node.IsObject())
             {
                 impl_->iterator_stack_.push_back(selected_node.MemberBegin());
                 return (true);
@@ -112,7 +112,7 @@ namespace ariles2
         {
             if (impl_->iterator_stack_.back() != impl_->getRawNode().MemberEnd())
             {
-                impl_->node_stack_.push_back(impl::Reader::NodeWrapper(&(impl_->iterator_stack_.back()->value)));
+                impl_->node_stack_.emplace_back(&(impl_->iterator_stack_.back()->value));
                 entry_name = impl_->iterator_stack_.back()->name.GetString();
                 return (true);
             }
@@ -139,7 +139,7 @@ namespace ariles2
             ARILES2_ASSERT(impl_->getRawNode().IsArray(), "Internal error: expected array.");
 
             std::size_t size = impl_->getRawNode().Size();
-            impl_->node_stack_.push_back(impl::Reader::NodeWrapper(0, size));
+            impl_->node_stack_.emplace_back(0, size);
 
             return (size);
         }
@@ -155,7 +155,7 @@ namespace ariles2
 
         void Reader::endArrayElement()
         {
-            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ++impl_->node_stack_.back().index_;
         }
 
@@ -181,15 +181,15 @@ namespace ariles2
         void Reader::readElement(float &element)
         {
             float tmp_value = 0.0;
-            if (true == impl_->getRawNode().IsString())
+            if (impl_->getRawNode().IsString())
             {
                 tmp_value = boost::lexical_cast<float>(impl_->getRawNode().GetString());
-                if (true == boost::math::isnan(tmp_value))
+                if (boost::math::isnan(tmp_value))
                 {
                     element = std::numeric_limits<float>::signaling_NaN();
                     return;
                 }
-                if (true == boost::math::isinf(tmp_value))
+                if (boost::math::isinf(tmp_value))
                 {
                     element = static_cast<float>(tmp_value);
                     return;
@@ -210,15 +210,15 @@ namespace ariles2
         void Reader::readElement(double &element)
         {
             double tmp_value = 0.0;
-            if (true == impl_->getRawNode().IsString())
+            if (impl_->getRawNode().IsString())
             {
                 tmp_value = boost::lexical_cast<double>(impl_->getRawNode().GetString());
-                if (true == boost::math::isnan(tmp_value))
+                if (boost::math::isnan(tmp_value))
                 {
                     element = std::numeric_limits<double>::signaling_NaN();
                     return;
                 }
-                if (true == boost::math::isinf(tmp_value))
+                if (boost::math::isinf(tmp_value))
                 {
                     element = static_cast<double>(tmp_value);
                     return;

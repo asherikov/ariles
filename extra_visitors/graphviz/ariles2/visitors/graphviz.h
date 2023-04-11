@@ -191,12 +191,12 @@ namespace ariles2
      */
     struct ARILES2_VISIBILITY_ATTRIBUTE graphviz
     {
-        typedef ns_graphviz::Parameters Parameters;
-        typedef ns_graphviz::Visitor Visitor;
-        typedef ns_graphviz::Visitor Writer;
-        typedef ns_graphviz::Base Base;
+        using Parameters = ns_graphviz::Parameters;
+        using Visitor = ns_graphviz::Visitor;
+        using Writer = ns_graphviz::Visitor;
+        using Base = ns_graphviz::Base;
     };
 
     /// @ingroup graphviz
-    typedef graphviz::Visitor Graphviz;
+    using Graphviz = graphviz::Visitor;
 }  // namespace ariles2

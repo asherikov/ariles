@@ -46,7 +46,7 @@ namespace ariles_tests
             }
         };
 
-        typedef FilenameReaderInitializer<FilenameReaderBase> FilenameReaderInitializer015;
+        using FilenameReaderInitializer015 = FilenameReaderInitializer<FilenameReaderBase>;
     }  // namespace initializers
 }  // namespace ariles_tests
 

@@ -25,7 +25,7 @@ namespace ariles2
         class NodeWrapper : public serialization::Node<std::string>
         {
         public:
-            typedef serialization::Node<std::string> Base;
+            using Base = serialization::Node<std::string>;
 
         public:
             std::string actual_id_;
@@ -115,15 +115,15 @@ namespace ariles2
                     // node
                     node_stack_.back().actual_id_ = node_options.id_;
 
-                    if (true == all_ids_.insert(node_stack_.back().actual_id_).second)
+                    if (all_ids_.insert(node_stack_.back().actual_id_).second)
                     {
                         *output_stream_ << node_options.id_;
                         *output_stream_ << "[";
-                        if (false == node_options.label_.empty())
+                        if (not node_options.label_.empty())
                         {
                             *output_stream_ << "label=\"" << node_options.label_ << "\"";
                         }
-                        if (false == node_options.options_.empty())
+                        if (not node_options.options_.empty())
                         {
                             *output_stream_ << "," << node_options.options_;
                         }
@@ -151,13 +151,13 @@ namespace ariles2
     {
         Visitor::Visitor(const std::string &file_name)
         {
-            impl_ = ImplPtr(new Impl(file_name));
+            makeImplPtr(file_name);
         }
 
 
         Visitor::Visitor(std::ostream &output_stream)
         {
-            impl_ = ImplPtr(new Impl(output_stream));
+            makeImplPtr(output_stream);
         }
 
 
@@ -172,13 +172,13 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             impl_->clear();
             impl_->parameters_ = &parameters;
-            if (true == name.empty())
+            if (name.empty())
             {
-                impl_->node_stack_.push_back(NodeWrapper("ariles"));
+                impl_->node_stack_.emplace_back("ariles");
             }
             else
             {
-                impl_->node_stack_.push_back(NodeWrapper(name));
+                impl_->node_stack_.emplace_back(name);
             }
             *impl_->output_stream_                                          //
                     << "digraph graph_" << impl_->node_stack_.back().node_  //
@@ -195,7 +195,7 @@ namespace ariles2
 
         std::string Visitor::getDefaultNodeId() const
         {
-            if (true == impl_->node_stack_.back().isArray())
+            if (impl_->node_stack_.back().isArray())
             {
                 return (impl_->node_stack_.back().node_ + "_"
                         + boost::lexical_cast<std::string>(impl_->node_stack_.back().index_));
@@ -205,7 +205,7 @@ namespace ariles2
 
         std::string Visitor::getDefaultNodeLabel() const
         {
-            if (true == impl_->node_stack_.back().isArray())
+            if (impl_->node_stack_.back().isArray())
             {
                 return (impl_->node_stack_.back().label_ + "_"
                         + boost::lexical_cast<std::string>(impl_->node_stack_.back().index_));
@@ -216,7 +216,7 @@ namespace ariles2
         void Visitor::startMap(const Parameters &parameters, const Parameters::NodeOptions &node_options)
         {
             ARILES2_TRACE_FUNCTION;
-            if (false == impl_->parameters_->override_parameters_)
+            if (not impl_->parameters_->override_parameters_)
             {
                 impl_->parameters_ = &parameters;
             }
@@ -226,7 +226,7 @@ namespace ariles2
         void Visitor::startMap(const Parameters &parameters, const std::size_t /*num_entries*/)
         {
             ARILES2_TRACE_FUNCTION;
-            if (false == impl_->parameters_->override_parameters_)
+            if (not impl_->parameters_->override_parameters_)
             {
                 impl_->parameters_ = &parameters;
             }
@@ -237,18 +237,18 @@ namespace ariles2
         void Visitor::startMapEntry(const std::string &name)
         {
             ARILES2_TRACE_FUNCTION;
-            if (true == impl_->node_stack_.back().isArray())
+            if (impl_->node_stack_.back().isArray())
             {
                 std::string node = impl_->node_stack_.back().node_;
                 node += "_";
                 node += boost::lexical_cast<std::string>(impl_->node_stack_.back().index_);
                 node += "_";
                 node += name;
-                impl_->node_stack_.push_back(NodeWrapper(node, name));
+                impl_->node_stack_.emplace_back(node, name);
             }
             else
             {
-                impl_->node_stack_.push_back(NodeWrapper(impl_->node_stack_.back().node_ + "_" + name, name));
+                impl_->node_stack_.emplace_back(impl_->node_stack_.back().node_ + "_" + name, name);
             }
         }
 
@@ -262,15 +262,15 @@ namespace ariles2
         void Visitor::startArray(const std::size_t size, const bool compact)
         {
             ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(false == impl_->node_stack_.empty(), "Internal error: empty stack.");
+            ARILES2_ASSERT(not impl_->node_stack_.empty(), "Internal error: empty stack.");
 
-            if (size > 0 || false == compact)
+            if (size > 0 || not compact)
             {
                 impl_->writeNodeAndConnection(
                         impl_->parameters_->getDefaultNodeOptions(getDefaultNodeId(), getDefaultNodeLabel()));
             }
 
-            if (true == impl_->node_stack_.back().isArray())
+            if (impl_->node_stack_.back().isArray())
             {
                 std::string node = impl_->node_stack_.back().node_;
                 std::string label = impl_->node_stack_.back().label_;
@@ -278,18 +278,18 @@ namespace ariles2
                 node += boost::lexical_cast<std::string>(impl_->node_stack_.back().index_);
                 label += "_";
                 label += boost::lexical_cast<std::string>(impl_->node_stack_.back().index_);
-                impl_->node_stack_.push_back(NodeWrapper(node, label, 0, size));
+                impl_->node_stack_.emplace_back(node, label, 0, size);
             }
             else
             {
-                impl_->node_stack_.push_back(
-                        NodeWrapper(impl_->node_stack_.back().node_, impl_->node_stack_.back().label_, 0, size));
+                impl_->node_stack_.emplace_back(
+                        impl_->node_stack_.back().node_, impl_->node_stack_.back().label_, 0, size);
             }
         }
 
         void Visitor::endArrayElement()
         {
-            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: array expected.");
+            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: array expected.");
             ++impl_->node_stack_.back().index_;
         }
 

@@ -23,7 +23,7 @@ namespace ariles_tests
     ARILES2_TYPED_ENTRY_(v, complex_float, std::complex<float>)                                                        \
     ARILES2_TYPED_ENTRY_(v, string, std::string)                                                                       \
     ARILES2_TYPED_ENTRY_(v, std_vector, std::vector<double>)                                                           \
-    ARILES2_TYPED_ENTRY_(v, std_nested_vector, std::vector<std::vector<double> >)                                      \
+    ARILES2_TYPED_ENTRY_(v, std_nested_vector, std::vector<std::vector<double>>)                                       \
     ARILES2_TYPED_ENTRY_(v, some_enum, SomeEnum)                                                                       \
     ARILES2_TYPED_ENTRY_(v, boolean_true, bool)                                                                        \
     ARILES2_TYPED_ENTRY_(v, boolean_false, bool)                                                                       \
@@ -39,7 +39,7 @@ namespace ariles_tests
         ARILES2_TYPED_ENTRY_(v, matrix_x, Eigen::MatrixXd)                                                             \
         ARILES2_TYPED_ENTRY_(v, matrix_complex_double, Eigen::Matrix3cd)                                               \
         ARILES2_TYPED_ENTRY_(v, std_vector_evector, std::vector<Eigen::Vector3d>)                                      \
-        ARILES2_TYPED_ENTRY_(v, std_nested_vector_evector, std::vector<std::vector<Eigen::Vector3d> >)                 \
+        ARILES2_TYPED_ENTRY_(v, std_nested_vector_evector, std::vector<std::vector<Eigen::Vector3d>>)                  \
         ARILES2_TYPED_ENTRY_(v, isometry, Eigen::Isometry3d)                                                           \
         ARILES2_TYPED_ENTRY_(v, quaternion, Eigen::Quaterniond)
 #else
@@ -64,7 +64,7 @@ namespace ariles_tests
 
     public:
         std::pair<std::string, double> std_pair_;
-        std::map<std::string, std::vector<std::string> > std_map_;
+        std::map<std::string, std::vector<std::string>> std_map_;
 
 
     public:

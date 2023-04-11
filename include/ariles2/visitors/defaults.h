@@ -58,7 +58,7 @@ namespace ariles2
           : public ariles2::visitor::Base<visitor::GenericVisitor, defaults::Parameters>
         {
         public:
-            typedef defaults::Parameters Parameters;
+            using Parameters = defaults::Parameters;
 
 
         public:
@@ -145,7 +145,7 @@ namespace ariles2
      * @{
      */
     namespace preread = defaults;
-    typedef preread::Visitor PreRead;
-    typedef defaults::Visitor Defaults;
+    using PreRead = preread::Visitor;
+    using Defaults = defaults::Visitor;
     /// @}
 }  // namespace ariles2

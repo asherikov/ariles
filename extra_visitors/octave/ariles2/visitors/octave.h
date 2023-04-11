@@ -42,16 +42,8 @@ namespace ariles2
         /**
          * @brief Configuration writer class
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ariles2::write::Visitor
+        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::PIMPLVisitor<write::Visitor, impl::Writer>
         {
-        protected:
-            typedef impl::Writer Impl;
-            typedef ARILES2_SHARED_PTR<impl::Writer> ImplPtr;
-
-        protected:
-            ImplPtr impl_;
-
-
         public:
             explicit Writer(const std::string &file_name);
             explicit Writer(std::ostream &output_stream);
@@ -112,6 +104,6 @@ namespace ariles2
      */
     struct ARILES2_VISIBILITY_ATTRIBUTE octave
     {
-        typedef ariles2::cfgwrite::Visitor<ns_octave::Writer> Writer;
+        using Writer = ariles2::cfgwrite::Visitor<ns_octave::Writer>;
     };
 }  // namespace ariles2

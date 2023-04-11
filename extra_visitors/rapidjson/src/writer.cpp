@@ -24,7 +24,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ariles2::ns_rapidjson::ImplBase< ::rapidjson::Value>
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ariles2::ns_rapidjson::ImplBase<::rapidjson::Value>
             {
             public:
                 /// output file stream
@@ -72,7 +72,7 @@ namespace ariles2
         void Writer::flush()
         {
             ::rapidjson::StringBuffer buffer;
-            ::rapidjson::PrettyWriter< ::rapidjson::StringBuffer> writer(buffer);
+            ::rapidjson::PrettyWriter<::rapidjson::StringBuffer> writer(buffer);
             impl_->document_.Accept(writer);
             *impl_->output_stream_ << buffer.GetString() << std::endl;
             impl_->output_stream_->flush();
@@ -95,7 +95,7 @@ namespace ariles2
             // hack, we assume that the last added
             // child is the last in the list
             const ::rapidjson::Value::MemberIterator child = --(impl_->getRawNode().MemberEnd());
-            impl_->node_stack_.push_back(impl::Writer::NodeWrapper(&(child->value)));
+            impl_->node_stack_.emplace_back(&(child->value));
         }
 
         void Writer::endMapEntry()
@@ -114,7 +114,7 @@ namespace ariles2
                 ::rapidjson::Value value;
                 impl_->getRawNode().PushBack(value, impl_->document_.GetAllocator());
             }
-            impl_->node_stack_.push_back(impl::Writer::NodeWrapper(0, size));
+            impl_->node_stack_.emplace_back(0, size);
         }
 
         void Writer::startArrayElement()
@@ -128,7 +128,7 @@ namespace ariles2
         void Writer::endArrayElement()
         {
             ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ++impl_->node_stack_.back().index_;
         }
 
@@ -157,7 +157,7 @@ namespace ariles2
 
         void Writer::writeElement(const float &element, const Parameters &param)
         {
-            if (true == param.fallback_to_string_floats_)
+            if (param.fallback_to_string_floats_)
             {
                 impl_->getRawNode().SetString(
                         boost::lexical_cast<std::string>(element).c_str(), impl_->document_.GetAllocator());
@@ -172,7 +172,7 @@ namespace ariles2
 
         void Writer::writeElement(const double &element, const Parameters &param)
         {
-            if (true == param.fallback_to_string_floats_)
+            if (param.fallback_to_string_floats_)
             {
                 impl_->getRawNode().SetString(
                         boost::lexical_cast<std::string>(element).c_str(), impl_->document_.GetAllocator());

@@ -17,7 +17,7 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Writer : public visitor::Base<visitor::Visitor, visitor::Parameters>
         {
         public:
-            typedef visitor::Parameters Parameters;
+            using Parameters = visitor::Parameters;
 
 
         public:

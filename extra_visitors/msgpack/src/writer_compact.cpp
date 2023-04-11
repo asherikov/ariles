@@ -23,7 +23,7 @@ namespace ariles2
             class ARILES2_VISIBILITY_ATTRIBUTE Writer
             {
             public:
-                typedef ARILES2_SHARED_PTR< ::msgpack::packer<std::ostream> > PackerPtr;
+                using PackerPtr = std::shared_ptr<::msgpack::packer<std::ostream>>;
 
 
             private:
@@ -66,13 +66,13 @@ namespace ariles2
     {
         Writer::Writer(const std::string &file_name)
         {
-            impl_ = ImplPtr(new Impl(file_name));
+            makeImplPtr(file_name);
         }
 
 
         Writer::Writer(std::ostream &output_stream)
         {
-            impl_ = ImplPtr(new Impl(output_stream));
+            makeImplPtr(output_stream);
         }
 
 

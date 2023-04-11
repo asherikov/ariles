@@ -84,23 +84,23 @@ namespace ariles_tests
 
             std::ifstream &getReaderInitializer(const std::string &string_id)
             {
-                if (true == input_file_stream_.is_open())
+                if (input_file_stream_.is_open())
                 {
                     input_file_stream_.close();
                 }
                 input_file_stream_.open(string_id.c_str());
-                ARILES2_PERSISTENT_ASSERT(true == input_file_stream_.good(), "Could not open file.");
+                ARILES2_PERSISTENT_ASSERT(input_file_stream_.good(), "Could not open file.");
                 return (input_file_stream_);
             }
 
             std::ofstream &getWriterInitializer(const std::string &string_id)
             {
-                if (true == output_file_stream_.is_open())
+                if (output_file_stream_.is_open())
                 {
                     output_file_stream_.close();
                 }
                 output_file_stream_.open(string_id.c_str());
-                ARILES2_PERSISTENT_ASSERT(true == output_file_stream_.good(), "Could not open file.");
+                ARILES2_PERSISTENT_ASSERT(output_file_stream_.good(), "Could not open file.");
                 return (output_file_stream_);
             }
         };
@@ -148,7 +148,7 @@ namespace ariles_tests
                     default:  // parent
                         int argn = 0;
                         ros::init(argn, NULL, "FixtureBase");
-                        while (false == ros::master::check())
+                        while (not ros::master::check())
                         {
                             usleep(20000);
                         }

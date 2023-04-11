@@ -17,11 +17,11 @@
 namespace ariles2
 {
     template <class t_Value>
-    class PointerHandler<boost::shared_ptr<t_Value> >
+    class PointerHandler<boost::shared_ptr<t_Value>>
     {
     public:
-        typedef boost::shared_ptr<t_Value> Pointer;
-        typedef t_Value Value;
+        using Pointer = boost::shared_ptr<t_Value>;
+        using Value = t_Value;
 
 
     public:
@@ -54,11 +54,11 @@ namespace ariles2
 namespace ariles2
 {
     template <class t_Value>
-    class PointerHandler<boost::movelib::unique_ptr<t_Value> >
+    class PointerHandler<boost::movelib::unique_ptr<t_Value>>
     {
     public:
-        typedef boost::movelib::unique_ptr<t_Value> Pointer;
-        typedef t_Value Value;
+        using Pointer = boost::movelib::unique_ptr<t_Value>;
+        using Value = t_Value;
 
 
     public:

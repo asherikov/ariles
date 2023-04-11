@@ -17,17 +17,17 @@ namespace ariles2
 {
     namespace read
     {
-        template <class t_Visitor, typename t_VectorEntryType, class t_Allocator>
+        template <class t_Visitor, class... t_Args>
         void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
                 t_Visitor &visitor,
-                std::vector<t_VectorEntryType, t_Allocator> &entry,
+                std::vector<t_Args...> &entry,
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
             entry.resize(visitor.startArray());
-            for (std::size_t i = 0; i < entry.size(); ++i)
+            for (typename std::vector<t_Args...>::value_type &value : entry)
             {
-                visitor.visitArrayElement(entry[i], param);
+                visitor.visitArrayElement(value, param);
             }
             visitor.endArray();
         }
@@ -39,17 +39,17 @@ namespace ariles2
 {
     namespace write
     {
-        template <class t_Visitor, typename t_VectorEntryType, class t_Allocator>
+        template <class t_Visitor, class... t_Args>
         void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
                 t_Visitor &writer,
-                const std::vector<t_VectorEntryType, t_Allocator> &entry,
+                const std::vector<t_Args...> &entry,
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
             writer.startArray(entry.size(), param.compact_arrays_);
-            for (std::size_t i = 0; i < entry.size(); ++i)
+            for (const typename std::vector<t_Args...>::value_type &value : entry)
             {
-                writer.visitArrayElement(entry[i], param);
+                writer.visitArrayElement(value, param);
             }
             writer.endArray();
         }
@@ -61,18 +61,18 @@ namespace ariles2
 {
     namespace compare
     {
-        template <class t_Visitor, typename t_VectorEntryType, class t_Allocator>
+        template <class t_Visitor, class... t_Args>
         void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
                 t_Visitor &visitor,
-                const std::vector<t_VectorEntryType, t_Allocator> &left,
-                const std::vector<t_VectorEntryType, t_Allocator> &right,
+                const std::vector<t_Args...> &left,
+                const std::vector<t_Args...> &right,
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
 
             visitor.equal_ &= (left.size() == right.size());
 
-            for (std::size_t i = 0; i < left.size() and true == visitor.equal_; ++i)
+            for (std::size_t i = 0; i < left.size() and visitor.equal_; ++i)
             {
                 apply_compare(visitor, left[i], right[i], param);
             }
@@ -85,10 +85,10 @@ namespace ariles2
 {
     namespace defaults
     {
-        template <class t_Visitor, typename t_VectorEntryType, class t_Allocator>
+        template <class t_Visitor, class... t_Args>
         void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
                 const t_Visitor & /*visitor*/,
-                std::vector<t_VectorEntryType, t_Allocator> &entry,
+                std::vector<t_Args...> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
         {
             ARILES2_TRACE_FUNCTION;
@@ -103,16 +103,16 @@ namespace ariles2
 {
     namespace process
     {
-        template <class t_Visitor, typename t_VectorEntryType, class t_Allocator>
+        template <class t_Visitor, class... t_Args>
         void ARILES2_VISIBILITY_ATTRIBUTE apply_process(
                 const t_Visitor &visitor,
-                std::vector<t_VectorEntryType, t_Allocator> &entry,
+                std::vector<t_Args...> &entry,
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            for (std::size_t i = 0; i < entry.size(); ++i)
+            for (typename std::vector<t_Args...>::value_type &value : entry)
             {
-                apply_process(visitor, entry[i], param);
+                apply_process(visitor, value, param);
             }
         }
     }  // namespace process
@@ -123,27 +123,22 @@ namespace ariles2
 {
     namespace copyfrom
     {
-        template <
-                class t_Visitor,
-                typename t_VectorEntryTypeLeft,
-                class t_AllocatorLeft,
-                typename t_VectorEntryTypeRight,
-                class t_AllocatorRight>
+        template <class t_Visitor, class... t_LeftArgs, class... t_RightArgs>
         void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
                 t_Visitor &visitor,
-                std::vector<t_VectorEntryTypeLeft, t_AllocatorLeft> &left,
-                const std::vector<t_VectorEntryTypeRight, t_AllocatorRight> &right,
+                std::vector<t_LeftArgs...> &left,
+                const std::vector<t_RightArgs...> &right,
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
 
             left.clear();
             left.reserve(right.size());
-            for (std::size_t i = 0; i < right.size(); ++i)
+            for (const typename std::vector<t_RightArgs...>::value_type &right_value : right)
             {
-                t_VectorEntryTypeLeft value;
-                apply_copyfrom(visitor, value, right[i], param);
-                left.push_back(value);
+                typename std::vector<t_LeftArgs...>::value_type left_value;
+                apply_copyfrom(visitor, left_value, right_value, param);
+                left.push_back(std::move(left_value));
             }
         }
     }  // namespace copyfrom
@@ -151,27 +146,22 @@ namespace ariles2
 
     namespace copyto
     {
-        template <
-                class t_Visitor,
-                typename t_VectorEntryTypeLeft,
-                class t_AllocatorLeft,
-                typename t_VectorEntryTypeRight,
-                class t_AllocatorRight>
+        template <class t_Visitor, class... t_LeftArgs, class... t_RightArgs>
         void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
                 t_Visitor &visitor,
-                const std::vector<t_VectorEntryTypeLeft, t_AllocatorLeft> &left,
-                std::vector<t_VectorEntryTypeRight, t_AllocatorRight> &right,
+                const std::vector<t_LeftArgs...> &left,
+                std::vector<t_RightArgs...> &right,
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
 
             right.clear();
             right.reserve(left.size());
-            for (std::size_t i = 0; i < left.size(); ++i)
+            for (const typename std::vector<t_LeftArgs...>::value_type &left_value : left)
             {
-                t_VectorEntryTypeRight value;
-                apply_copyto(visitor, left[i], value, param);
-                right.push_back(value);
+                typename std::vector<t_RightArgs...>::value_type right_value;
+                apply_copyto(visitor, left_value, right_value, param);
+                right.push_back(std::move(right_value));
             }
         }
     }  // namespace copyto

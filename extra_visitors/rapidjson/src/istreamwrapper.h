@@ -52,7 +52,7 @@ namespace ariles2
         class ARILES2_LIB_LOCAL BasicIStreamWrapper
         {
         public:
-            typedef typename StreamType::char_type Ch;
+            using Ch = typename StreamType::char_type;
             explicit BasicIStreamWrapper(StreamType &stream) : stream_(stream), count_(), peekBuffer_()
             {
             }
@@ -131,8 +131,8 @@ namespace ariles2
             mutable Ch peekBuffer_[4];
         };
 
-        typedef BasicIStreamWrapper<std::istream> IStreamWrapper;
-        typedef BasicIStreamWrapper<std::wistream> WIStreamWrapper;
+        using IStreamWrapper = BasicIStreamWrapper<std::istream>;
+        using WIStreamWrapper = BasicIStreamWrapper<std::wistream>;
 
     }  // namespace ns_rapidjson
 }  // namespace ariles2

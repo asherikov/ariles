@@ -39,10 +39,10 @@ namespace ariles2
      */
     struct ARILES2_VISIBILITY_ATTRIBUTE rapidjson
     {
-        typedef ns_rapidjson::Reader ReaderBase;
-        typedef ns_rapidjson::Writer WriterBase;
+        using ReaderBase = ns_rapidjson::Reader;
+        using WriterBase = ns_rapidjson::Writer;
 
-        typedef ariles2::cfgread::Visitor<ns_rapidjson::Reader> Reader;
-        typedef ariles2::cfgwrite::Visitor<ns_rapidjson::Writer> Writer;
+        using Reader = ariles2::cfgread::Visitor<ns_rapidjson::Reader>;
+        using Writer = ariles2::cfgwrite::Visitor<ns_rapidjson::Writer>;
     };
 }  // namespace ariles2

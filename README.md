@@ -182,11 +182,18 @@ representation formats, in particular:
 * `ROS` parameter server, via standard `ROS` libs:
   https://asherikov.github.io/ariles/2/group__ros.html
 
-* A set of key-value pairs, output only, no dependencies:
+* A set of flattened key-value pairs, output only, no dependencies:
   https://asherikov.github.io/ariles/2/group__namevalue.html
 
 * `graphviz` dot files for diagram generation:
   https://asherikov.github.io/ariles/2/group__graphviz.html
+
+
+There are also a few utility visitors, e.g.,
+
+* `compare` for class comparison;
+* `copyto` for copying data to non-`ariles` classes;
+* `copyfrom` for copying data from non-`ariles` classes.
 
 
 The complete list of modules is available at

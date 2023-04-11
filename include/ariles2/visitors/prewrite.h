@@ -67,5 +67,5 @@ namespace ariles2
 
 
     /// @ingroup prewrite
-    typedef prewrite::Visitor PreWrite;
+    using PreWrite = prewrite::Visitor;
 }  // namespace ariles2

@@ -24,7 +24,6 @@ option (ARILES_ADAPTER_BETTER_ENUMS     "Enable support for beter enums." ON)
 option (ARILES_ADAPTER_ROSMSG           "ROS message conversions." ON)
 
 # build parameters
-set    (ARILES_CPP_STANDARD             "c++11" CACHE STRING "C++ standard version")
 option (ARILES_CPP_SANITIZERS           "Enable sanitizers"                 OFF)
 option (ARILES_CPP_CLANG_TIDY           "Enable clang-tidy"                 OFF)
 option (ARILES_VERBOSE                  "Verbose build"                     ON)
@@ -209,11 +208,8 @@ endif (NOT CMAKE_BUILD_TYPE)
 set(CMAKEUT_CPP_SANITIZERS  ${ARILES_CPP_SANITIZERS})
 set(CMAKEUT_CLANG_TIDY      ${ARILES_CPP_CLANG_TIDY})
 set(CMAKEUT_CLANG_TIDY_EXTRA_IGNORES
-    "-llvm-namespace-comment,-misc-no-recursion,-readability-const-return-type,-google-default-arguments,-bugprone-macro-parentheses,-cppcoreguidelines-pro-type-union-access,-hicpp-named-parameter,-readability-named-parameter,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-pro-type-union-access,-cppcoreguidelines-avoid-non-const-global-variables,-cert-err58-cpp,-cert-env33-c")
-# TODO C++11 related stuff, that must be enabled eventually
-set(CMAKEUT_CLANG_TIDY_EXTRA_IGNORES
-    "${CMAKEUT_CLANG_TIDY_EXTRA_IGNORES},-bugprone-exception-escape,-modernize-use-override,-hicpp-use-override,-hicpp-use-equals-default,-modernize-use-equals-default,-modernize-make-shared,-readability-simplify-boolean-expr,-hicpp-use-emplace,-modernize-use-emplace,-modernize-use-using,-cppcoreguidelines-special-member-functions,-hicpp-special-member-functions,-hicpp-use-equals-delete,-modernize-use-equals-delete")
-cmakeut_compiler_flags("${ARILES_CPP_STANDARD}")
+    "-cppcoreguidelines-special-member-functions,-hicpp-special-member-functions,-altera-struct-pack-align,-llvm-namespace-comment,-misc-no-recursion,-readability-const-return-type,-google-default-arguments,-bugprone-macro-parentheses,-cppcoreguidelines-pro-type-union-access,-hicpp-named-parameter,-readability-named-parameter,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-pro-type-union-access,-cppcoreguidelines-avoid-non-const-global-variables,-cert-err58-cpp,-cert-env33-c")
+cmakeut_compiler_flags("c++11")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKEUT_CXX_FLAGS}")
 
 
@@ -445,8 +441,7 @@ if(ARILES_DEB_TARGETS)
     set(DEB_UBUNTU_CODENAMES ${ARILES_DEB_TARGETS}) # xenial, bionic, ...
 
     set(DEB_COMMON_CMAKE_ARGS
-        "-DARILES_CPP_STANDARD=${ARILES_CPP_STANDARD} \
-         -DARILES_BUILD_REGRESSION_TESTS=${ARILES_BUILD_REGRESSION_TESTS} \
+        "-DARILES_BUILD_REGRESSION_TESTS=${ARILES_BUILD_REGRESSION_TESTS} \
          -DARILES_VISITORS_DEFAULT_MODE=OFF")
 
     include(pkg_debian)

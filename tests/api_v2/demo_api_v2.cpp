@@ -49,7 +49,7 @@ namespace demo
 #include ARILES2_INITIALIZE
 
     public:
-        virtual ~ArilesBaseClass(){};  // added to suppress compiler warnings
+        virtual ~ArilesBaseClass() = default;  // added to suppress compiler warnings
 
         // This method is called every time you deserialize a class. If
         // omitted, the default automatically generated method is used.
@@ -85,7 +85,7 @@ namespace demo
 
 
     public:
-        virtual ~MyClass(){};  // added to suppress compiler warnings
+        ~MyClass() override = default;  // added to suppress compiler warnings
 
 
         void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
@@ -122,77 +122,85 @@ namespace demo
 
 int main()
 {
-    demo::MyContainerClass my_container_class;
-
-    // access members as usual
-    my_container_class.my_class_vector_.size();
-    my_container_class.my_class_vector_.push_back(demo::MyClass());
-    ariles2::apply<ariles2::Defaults>(my_container_class.my_class_vector_[0]);
-
-
-    // YAML
-    /*
-     * When you serialize `my_container_class` to YAML you get the following:
-     * -----
-        MyContainerClass:
-          my_class_vector:
-            - real_member: 100
-              integer_member: 12
-              eigen_vector: [0, 0, 0]
-     * -----
-     * Note that the trailing underscores are omitted for all members. This
-     * applies to all supported representations.
-     */
+    try
     {
-        // You can read and write YAML configuration files as follows:
-        ariles2::apply<ariles2::yaml_cpp::Writer>("config.yaml", my_container_class);
-        ariles2::apply<ariles2::yaml_cpp::Reader>("config.yaml", my_container_class);
+        demo::MyContainerClass my_container_class;
 
-        // Sometimes it may be useful to dump configuration to std::cout
-        ariles2::apply<ariles2::yaml_cpp::Writer>(std::cout, my_container_class);
+        // access members as usual
+        my_container_class.my_class_vector_.size();
+        my_container_class.my_class_vector_.emplace_back();
+        ariles2::apply<ariles2::Defaults>(my_container_class.my_class_vector_[0]);
 
-        // In some situations it is more convenient to instantiate Reader and
-        // Writer classes explicitly, e.g., if you keep configurations of several
-        // classes in the same file
-        ariles2::yaml_cpp::Writer writer("config.yaml");
-        ariles2::apply(writer, my_container_class);
 
-        ariles2::yaml_cpp::Reader reader("config.yaml");
-        ariles2::apply(reader, my_container_class);
+        // YAML
+        /*
+         * When you serialize `my_container_class` to YAML you get the following:
+         * -----
+            MyContainerClass:
+              my_class_vector:
+                - real_member: 100
+                  integer_member: 12
+                  eigen_vector: [0, 0, 0]
+         * -----
+         * Note that the trailing underscores are omitted for all members. This
+         * applies to all supported representations.
+         */
+        {
+            // You can read and write YAML configuration files as follows:
+            ariles2::apply<ariles2::yaml_cpp::Writer>("config.yaml", my_container_class);
+            ariles2::apply<ariles2::yaml_cpp::Reader>("config.yaml", my_container_class);
+
+            // Sometimes it may be useful to dump configuration to std::cout
+            ariles2::apply<ariles2::yaml_cpp::Writer>(std::cout, my_container_class);
+
+            // In some situations it is more convenient to instantiate Reader and
+            // Writer classes explicitly, e.g., if you keep configurations of several
+            // classes in the same file
+            ariles2::yaml_cpp::Writer writer("config.yaml");
+            ariles2::apply(writer, my_container_class);
+
+            ariles2::yaml_cpp::Reader reader("config.yaml");
+            ariles2::apply(reader, my_container_class);
+        }
+
+
+        // ROS parameter server
+        {
+            ros::NodeHandle nh;
+
+            // read/write
+            ariles2::apply<ariles2::rosparam::Writer>(nh, my_container_class);
+            ariles2::apply<ariles2::rosparam::Reader>(nh, my_container_class);
+            // parameters can be uploaded to parameter server in advance using
+            // roslaunch, see http://wiki.ros.org/roslaunch/XML/rosparam
+
+            // read/write with namespace
+            ariles2::apply<ariles2::rosparam::Writer>(nh, my_container_class, "/some_namespace/");
+            ariles2::apply<ariles2::rosparam::Reader>(nh, my_container_class, "/some_namespace/");
+
+            // Reader / Writer classes
+            ariles2::rosparam::Writer writer(nh);
+            ariles2::apply(writer, my_container_class);
+
+            ariles2::rosparam::Reader reader(nh);
+            ariles2::apply(reader, my_container_class);
+        }
+
+
+        // Octave
+        {
+            // Octave visitor supports only writing
+            ariles2::apply<ariles2::octave::Writer>("debug.m", my_container_class);
+            // the generated file can later be loaded in Octave with
+            // 'source debug.m' for debugging
+        }
+    }
+    catch (const std::exception &e)
+    {
+        std::cout << e.what() << std::endl;
+        return (EXIT_FAILURE);
     }
 
 
-    // ROS parameter server
-    {
-        ros::NodeHandle nh;
-
-        // read/write
-        ariles2::apply<ariles2::rosparam::Writer>(nh, my_container_class);
-        ariles2::apply<ariles2::rosparam::Reader>(nh, my_container_class);
-        // parameters can be uploaded to parameter server in advance using
-        // roslaunch, see http://wiki.ros.org/roslaunch/XML/rosparam
-
-        // read/write with namespace
-        ariles2::apply<ariles2::rosparam::Writer>(nh, my_container_class, "/some_namespace/");
-        ariles2::apply<ariles2::rosparam::Reader>(nh, my_container_class, "/some_namespace/");
-
-        // Reader / Writer classes
-        ariles2::rosparam::Writer writer(nh);
-        ariles2::apply(writer, my_container_class);
-
-        ariles2::rosparam::Reader reader(nh);
-        ariles2::apply(reader, my_container_class);
-    }
-
-
-    // Octave
-    {
-        // Octave visitor supports only writing
-        ariles2::apply<ariles2::octave::Writer>("debug.m", my_container_class);
-        // the generated file can later be loaded in Octave with
-        // 'source debug.m' for debugging
-    }
-
-
-    return (0);
+    return (EXIT_SUCCESS);
 }

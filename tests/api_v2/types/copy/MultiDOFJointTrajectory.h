@@ -7,6 +7,7 @@
 #include "Header.h"
 #include "MultiDOFJointTrajectoryPoint.h"
 
+// NOLINTBEGIN(*)
 namespace trajectory_msgs
 {
     template <class ContainerAllocator>
@@ -35,20 +36,21 @@ namespace trajectory_msgs
                 typename ContainerAllocator::template rebind<std::basic_string<
                         char,
                         std::char_traits<char>,
-                        typename ContainerAllocator::template rebind<char>::other> >::other>
+                        typename ContainerAllocator::template rebind<char>::other>>::other>
                 _joint_names_type;
         _joint_names_type joint_names;
 
         typedef std::vector<
                 ::trajectory_msgs::MultiDOFJointTrajectoryPoint_<ContainerAllocator>,
                 typename ContainerAllocator::template rebind<
-                        ::trajectory_msgs::MultiDOFJointTrajectoryPoint_<ContainerAllocator> >::other>
+                        ::trajectory_msgs::MultiDOFJointTrajectoryPoint_<ContainerAllocator>>::other>
                 _points_type;
         _points_type points;
     };  // struct MultiDOFJointTrajectory_
 
-    typedef ::trajectory_msgs::MultiDOFJointTrajectory_<std::allocator<void> > MultiDOFJointTrajectory;
+    typedef ::trajectory_msgs::MultiDOFJointTrajectory_<std::allocator<void>> MultiDOFJointTrajectory;
 }  // namespace trajectory_msgs
+// NOLINTEND(*)
 
 
 

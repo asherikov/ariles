@@ -39,7 +39,7 @@ namespace ariles2
      */
     struct ARILES2_VISIBILITY_ATTRIBUTE pugixml
     {
-        typedef ariles2::cfgread::Visitor<ns_pugixml::Reader> Reader;
-        typedef ariles2::cfgwrite::Visitor<ns_pugixml::Writer> Writer;
+        using Reader = ariles2::cfgread::Visitor<ns_pugixml::Reader>;
+        using Writer = ariles2::cfgwrite::Visitor<ns_pugixml::Writer>;
     };
 }  // namespace ariles2

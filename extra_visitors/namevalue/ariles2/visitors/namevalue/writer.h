@@ -20,7 +20,7 @@ namespace ariles2
 {
     namespace ns_namevalue
     {
-        typedef std::pair<std::string, double> NameValuePair;
+        using NameValuePair = std::pair<std::string, double>;
 
 
         template <class t_NameValuePair>
@@ -52,7 +52,7 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE GenericWriter : public ariles2::write::Visitor
         {
         protected:
-            typedef serialization::Node<std::string> NodeWrapper;
+            using NodeWrapper = serialization::Node<std::string>;
 
 
         protected:
@@ -122,7 +122,7 @@ namespace ariles2
 
             void reset(const bool initialize_structure = true)
             {
-                if (true == initialize_structure)
+                if (initialize_structure)
                 {
                     clear();
                 }
@@ -134,7 +134,7 @@ namespace ariles2
 
             virtual void startMap(const Parameters &, const std::size_t num_entries)
             {
-                if (true == initialize_structure_)
+                if (initialize_structure_)
                 {
                     expandReserve(num_entries);
                 }
@@ -142,34 +142,39 @@ namespace ariles2
 
             virtual void startMapEntry(const std::string &map_name)
             {
-                if (true == initialize_structure_)
+                if (initialize_structure_)
                 {
                     if (0 == node_stack_.size())
                     {
-                        node_stack_.push_back(map_name);
+                        node_stack_.emplace_back(map_name);
                     }
                     else
                     {
-                        if (true == node_stack_.back().isArray())
+                        std::string node;
+                        if (node_stack_.back().isArray())
                         {
-                            std::string node = node_stack_.back().node_;
+                            node.reserve(node_stack_.back().node_.size() + map_name.size() + 15);
+
+                            node = node_stack_.back().node_;
                             node += "{";
                             node += boost::lexical_cast<std::string>(node_stack_.back().index_);
                             node += "}.";
-                            node += map_name;
-                            node_stack_.push_back(node);
                         }
                         else
                         {
-                            node_stack_.push_back(node_stack_.back().node_ + "." + map_name);
+                            node.reserve(node_stack_.back().node_.size() + map_name.size() + 1);
+                            node = node_stack_.back().node_;
+                            node += ".";
                         }
+                        node += map_name;
+                        node_stack_.emplace_back(std::move(node));
                     }
                 }
             }
 
             virtual void endMapEntry()
             {
-                if (true == initialize_structure_)
+                if (initialize_structure_)
                 {
                     node_stack_.pop_back();
                 }
@@ -187,35 +192,37 @@ namespace ariles2
 
             virtual void startArray(const std::size_t size, const bool /*compact*/ = false)
             {
-                if (true == initialize_structure_)
+                if (initialize_structure_)
                 {
                     expandReserve(size);
-                    if (true == node_stack_.back().isArray())
+                    if (node_stack_.back().isArray())
                     {
-                        std::string node = node_stack_.back().node_;
+                        std::string node;
+                        node.reserve(node_stack_.back().node_.size() + 15);
+                        node = node_stack_.back().node_;
                         node += "_";
                         node += boost::lexical_cast<std::string>(node_stack_.back().index_);
-                        node_stack_.push_back(NodeWrapper(node, 0, size));
+                        node_stack_.emplace_back(std::move(node), 0, size);
                     }
                     else
                     {
-                        node_stack_.push_back(NodeWrapper(node_stack_.back().node_, 0, size));
+                        node_stack_.emplace_back(node_stack_.back().node_, 0, size);
                     }
                 }
             }
 
             virtual void endArrayElement()
             {
-                if (true == initialize_structure_)
+                if (initialize_structure_)
                 {
-                    ARILES2_ASSERT(true == node_stack_.back().isArray(), "Internal error: array expected.");
+                    ARILES2_ASSERT(node_stack_.back().isArray(), "Internal error: array expected.");
                     ++node_stack_.back().index_;
                 }
             }
 
             virtual void endArray()
             {
-                if (true == initialize_structure_)
+                if (initialize_structure_)
                 {
                     node_stack_.pop_back();
                 }
@@ -226,10 +233,10 @@ namespace ariles2
     void writeElement(const type &element, const Parameters &)                                                         \
     {                                                                                                                  \
         expand();                                                                                                      \
-        if (true == initialize_structure_)                                                                             \
+        if (initialize_structure_)                                                                                     \
         {                                                                                                              \
             NameValuePairHandler<t_NameValuePair>::name((*name_value_pairs_)[index_]) = node_stack_.back().node_;      \
-            if (true == node_stack_.back().isArray())                                                                  \
+            if (node_stack_.back().isArray())                                                                          \
             {                                                                                                          \
                 NameValuePairHandler<t_NameValuePair>::name((*name_value_pairs_)[index_]) += "_";                      \
                 NameValuePairHandler<t_NameValuePair>::name((*name_value_pairs_)[index_]) +=                           \
@@ -251,6 +258,6 @@ namespace ariles2
         };
 
 
-        typedef GenericWriter<NameValuePair> Writer;
+        using Writer = GenericWriter<NameValuePair>;
     }  // namespace ns_namevalue
 }  // namespace ariles2

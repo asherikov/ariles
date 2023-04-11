@@ -79,8 +79,8 @@ namespace ariles_tests
         {
         }
 
-        virtual const ariles2::graphviz::Parameters &arilesGetParameters(
-                const ariles2::graphviz::Visitor & /*visitor*/) const
+        const ariles2::graphviz::Parameters &arilesGetParameters(
+                const ariles2::graphviz::Visitor & /*visitor*/) const override
         {
             return (parameters_);
         }
@@ -100,8 +100,8 @@ namespace ariles_tests
         {
         }
 
-        virtual const ariles2::graphviz::Parameters &arilesGetParameters(
-                const ariles2::graphviz::Visitor & /*visitor*/) const
+        const ariles2::graphviz::Parameters &arilesGetParameters(
+                const ariles2::graphviz::Visitor & /*visitor*/) const override
         {
             static const ArilesVisitorParameters parameters;
             return (parameters);

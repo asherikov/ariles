@@ -100,7 +100,7 @@ namespace ariles2
 
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
-            impl_->node_stack_.push_back(NodeWrapper(impl_->getRawNode(), 0, size));
+            impl_->node_stack_.emplace_back(impl_->getRawNode(), 0, size);
         }
 
         void Writer::startArrayElement()
@@ -114,7 +114,7 @@ namespace ariles2
         void Writer::endArrayElement()
         {
             impl_->node_stack_.pop_back();
-            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ++impl_->node_stack_.back().index_;
         }
 
@@ -127,7 +127,7 @@ namespace ariles2
         void Writer::startRoot(const std::string &name, const Parameters &)
         {
             ARILES2_TRACE_FUNCTION;
-            if (true == name.empty())
+            if (name.empty())
             {
                 startMapEntry("ariles");
             }

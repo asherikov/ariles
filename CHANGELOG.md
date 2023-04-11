@@ -1,9 +1,15 @@
 CHANGELOG
 =========
 
-
 Unreleased
 ==========
+
+Removed
+-------
+* Makefile/CI: `install-jsonnet` target
+* Redundant `cmake/options_cpp11_on_noros_*.cmake`
+* C++03 compatibility
+
 
 2.0.3
 =====

@@ -50,8 +50,7 @@ namespace ariles2
             impl_ = ImplPtr(new impl::Reader());
 
             pugi::xml_parse_result result = impl_->document_.load_file(file_name.c_str(), pugi::parse_minimal);
-            ARILES2_ASSERT(
-                    true == result, std::string("Parsing of '") + file_name + "' failed: " + result.description());
+            ARILES2_ASSERT(result, std::string("Parsing of '") + file_name + "' failed: " + result.description());
             impl_->node_stack_.push_back(impl_->document_);  // NOLINT
         }
 
@@ -61,7 +60,7 @@ namespace ariles2
             impl_ = ImplPtr(new impl::Reader());
 
             pugi::xml_parse_result result = impl_->document_.load(input_stream, pugi::parse_minimal);
-            ARILES2_ASSERT(true == result, std::string("Parsing failed: ") + result.description());
+            ARILES2_ASSERT(result, std::string("Parsing failed: ") + result.description());
             impl_->node_stack_.push_back(impl_->document_);  // NOLINT
         }
 
@@ -103,7 +102,7 @@ namespace ariles2
             pugi::xml_node child = impl_->getRawNode().first_child();
             if (NULL != child)
             {
-                impl_->node_stack_.push_back(NodeWrapper(child, NodeWrapper::ITERATED_MAP));
+                impl_->node_stack_.emplace_back(child, NodeWrapper::ITERATED_MAP);
                 return (true);
             }
             return (false);
@@ -145,7 +144,7 @@ namespace ariles2
 
             if (size > 0)
             {
-                impl_->node_stack_.push_back(NodeWrapper(node.child("item"), 0, size));
+                impl_->node_stack_.emplace_back(node.child("item"), 0, size);
             }
             else
             {
@@ -156,7 +155,7 @@ namespace ariles2
                      child = child.next_sibling(child.name()), ++size)
                 {
                 }
-                impl_->node_stack_.push_back(NodeWrapper(impl_->getRawNode(), 0, size));
+                impl_->node_stack_.emplace_back(impl_->getRawNode(), 0, size);
             }
 
             return (size);
@@ -173,7 +172,7 @@ namespace ariles2
 
         void Reader::endArrayElement()
         {
-            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             impl_->node_stack_.back().node_ = impl_->getRawNode().next_sibling(impl_->getRawNode().name());
             ++impl_->node_stack_.back().index_;
         }
@@ -188,7 +187,7 @@ namespace ariles2
         bool Reader::startRoot(const std::string &name)
         {
             ARILES2_TRACE_FUNCTION;
-            if (true == name.empty())
+            if (name.empty())
             {
                 return (startMapEntry("ariles"));
             }
@@ -211,7 +210,7 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
-        ARILES2_ASSERT(false == impl_->getRawNode().text().empty(), "Empty integer elements are not allowed.");        \
+        ARILES2_ASSERT(not impl_->getRawNode().text().empty(), "Empty integer elements are not allowed.");             \
         element = boost::lexical_cast<type>(impl_->getRawNode().text().as_string());                                   \
     }
 

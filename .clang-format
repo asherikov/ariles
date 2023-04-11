@@ -54,5 +54,5 @@
     "PointerAlignment": "Right",
     "FixNamespaceComments": true,
     "IndentWrappedFunctionNames": true,
-    "Standard": "Cpp03",
+    "Standard": "Cpp11",
 }

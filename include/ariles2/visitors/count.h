@@ -36,7 +36,7 @@ namespace ariles2
           : public ariles2::visitor::Base<visitor::Visitor, count::Parameters, std::size_t>
         {
         public:
-            typedef count::Parameters Parameters;
+            using Parameters = count::Parameters;
 
 
         public:
@@ -91,8 +91,8 @@ namespace ariles2
     }
 
 #define ARILES2_METHODS_count                                                                                          \
-    virtual std::size_t arilesVirtualVisit(                                                                            \
-            const ariles2::count::Visitor &visitor, const ariles2::count::Visitor::Parameters &param) const            \
+    std::size_t arilesVirtualVisit(                                                                                    \
+            const ariles2::count::Visitor &visitor, const ariles2::count::Visitor::Parameters &param) const override   \
     {                                                                                                                  \
         ARILES2_TRACE_FUNCTION;                                                                                        \
         return (this->arilesVisit(visitor, param));                                                                    \
@@ -104,5 +104,5 @@ namespace ariles2
 
 
     /// @ingroup count
-    typedef count::Visitor Count;
+    using Count = count::Visitor;
 }  // namespace ariles2

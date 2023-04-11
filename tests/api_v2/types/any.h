@@ -59,7 +59,7 @@ namespace ariles_tests
 
     public:
 #ifndef ARILES_TESTS_RANDOMIZE_DISABLED
-        void randomize()
+        void randomize() override
         {
             Base::randomize();
             boost::random::random_device random_generator;
@@ -98,7 +98,7 @@ namespace ariles_tests
 
     public:
 #ifndef ARILES_TESTS_RANDOMIZE_DISABLED
-        void randomize()
+        void randomize() override
         {
             Base::randomize();
             boost::random::random_device random_generator;
@@ -135,15 +135,15 @@ namespace ariles_tests
         void randomize()
         {
             boost::random::random_device random_generator;
-            BOOST_CHECK(false == this->isInitialized());
+            BOOST_CHECK(not this->isInitialized());
 
             this->id_ = "test";
-            BOOST_CHECK(false == this->isInitialized());
+            BOOST_CHECK(not this->isInitialized());
 
             BOOST_CHECK_THROW(this->build("test"), std::exception);
 
             BOOST_CHECK_NO_THROW(this->build("Derived1"));
-            BOOST_CHECK(true == this->isInitialized());
+            BOOST_CHECK(this->isInitialized());
 
             BOOST_CHECK(NULL != this->template cast<Derived1>());
             BOOST_CHECK(NULL != this->template cast<Derived1>("Derived1"));

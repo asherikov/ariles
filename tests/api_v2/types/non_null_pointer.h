@@ -94,7 +94,7 @@ namespace ariles_tests
 #if __cplusplus >= 201103L
 #    define ARILES2_ENTRIES_1(v)                                                                                       \
         ARILES2_ENTRIES_0(v)                                                                                           \
-        ARILES2_TYPED_ENTRY_(v, std_shared_ptr_test_non_null, ariles2::NonNullPointer<std::shared_ptr<MinimalBase> >)
+        ARILES2_TYPED_ENTRY_(v, std_shared_ptr_test_non_null, ariles2::NonNullPointer<std::shared_ptr<MinimalBase>>)
 #else
 #    define ARILES2_ENTRIES_1(v) ARILES2_ENTRIES_0(v)
 #endif
@@ -103,7 +103,7 @@ namespace ariles_tests
 #ifdef ARILES_ADAPTER_BOOST_POINTER
 #    define ARILES2_ENTRIES_2(v)                                                                                       \
         ARILES2_ENTRIES_1(v)                                                                                           \
-        ARILES2_TYPED_ENTRY_(v, shared_ptr_test_non_null, ariles2::NonNullPointer<boost::shared_ptr<MinimalBase> >)
+        ARILES2_TYPED_ENTRY_(v, shared_ptr_test_non_null, ariles2::NonNullPointer<boost::shared_ptr<MinimalBase>>)
 #else
 #    define ARILES2_ENTRIES_2(v) ARILES2_ENTRIES_1(v)
 #endif
@@ -126,12 +126,12 @@ namespace ariles_tests
         void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
 #if __cplusplus >= 201103L
-            BOOST_CHECK(false == std_shared_ptr_test_non_null_.isNull());
+            BOOST_CHECK(not std_shared_ptr_test_non_null_.isNull());
             std_shared_ptr_test_non_null_ = std::make_shared<Minimal>();
 #endif
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
-            BOOST_CHECK(false == shared_ptr_test_non_null_.isNull());
+            BOOST_CHECK(not shared_ptr_test_non_null_.isNull());
             shared_ptr_test_non_null_ = boost::make_shared<Minimal>();
 #endif
         }

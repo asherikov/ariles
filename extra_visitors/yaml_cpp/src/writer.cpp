@@ -22,7 +22,7 @@ namespace ariles2
             class ARILES2_VISIBILITY_ATTRIBUTE Writer
             {
             public:
-                typedef ARILES2_SHARED_PTR<YAML::Emitter> EmitterPtr;
+                using EmitterPtr = std::shared_ptr<YAML::Emitter>;
 
 
             public:
@@ -43,7 +43,7 @@ namespace ariles2
                 void initEmitter()
                 {
                     ARILES2_TRACE_FUNCTION;
-                    emitter_ = EmitterPtr(new YAML::Emitter);
+                    emitter_ = std::make_shared<YAML::Emitter>();
                     emitter_->SetDoublePrecision(std::numeric_limits<double>::digits10);
                     if (output_stream_->tellp() != 0)
                     {
@@ -98,13 +98,13 @@ namespace ariles2
     {
         Writer::Writer(const std::string &file_name)
         {
-            impl_ = ImplPtr(new impl::Writer(file_name));
+            makeImplPtr(file_name);
         }
 
 
         Writer::Writer(std::ostream &output_stream)
         {
-            impl_ = ImplPtr(new impl::Writer(output_stream));
+            makeImplPtr(output_stream);
         }
 
 
@@ -112,7 +112,7 @@ namespace ariles2
         void Writer::startMap(const Parameters &, const std::size_t /*num_entries*/)
         {
             ARILES2_TRACE_FUNCTION;
-            if (impl_->map_depth_ > 0 or false == impl_->skip_root_map_)
+            if (impl_->map_depth_ > 0 or not impl_->skip_root_map_)
             {
                 *impl_->emitter_ << YAML::BeginMap;
             }
@@ -132,7 +132,7 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             ARILES2_ASSERT(impl_->map_depth_ > 0, "Internal logic error.");
             --impl_->map_depth_;
-            if (impl_->map_depth_ > 0 or false == impl_->skip_root_map_)
+            if (impl_->map_depth_ > 0 or not impl_->skip_root_map_)
             {
                 *impl_->emitter_ << YAML::EndMap;
             }
@@ -149,7 +149,7 @@ namespace ariles2
         void Writer::startArray(const std::size_t /*size*/, const bool compact)
         {
             ARILES2_TRACE_FUNCTION;
-            if (true == compact)
+            if (compact)
             {
                 *impl_->emitter_ << YAML::Flow;
             }
@@ -168,7 +168,7 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
             ARILES2_TRACE_VALUE(name);
-            if (true == name.empty())
+            if (name.empty())
             {
                 impl_->skip_root_map_ = true;
             }
@@ -181,7 +181,7 @@ namespace ariles2
         void Writer::endRoot(const std::string &name)
         {
             ARILES2_TRACE_FUNCTION;
-            if (false == name.empty())
+            if (not name.empty())
             {
                 endMapEntry();
             }
@@ -203,13 +203,13 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
-        if (true == boost::math::isnan(element))                                                                       \
+        if (boost::math::isnan(element))                                                                               \
         {                                                                                                              \
             *impl_->emitter_ << ".nan";                                                                                \
         }                                                                                                              \
         else                                                                                                           \
         {                                                                                                              \
-            if (true == boost::math::isinf(element))                                                                   \
+            if (boost::math::isinf(element))                                                                           \
             {                                                                                                          \
                 if (element < 0.0)                                                                                     \
                 {                                                                                                      \

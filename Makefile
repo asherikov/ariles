@@ -205,17 +205,11 @@ install-deps:
 	${APT_INSTALL} cmake libboost-all-dev libeigen3-dev
 	${APT_INSTALL} octave libpugixml-dev libyaml-cpp-dev rapidjson-dev libmsgpack-dev graphviz
 	${APT_INSTALL} libprotobuf-dev protobuf-compiler
+	${APT_INSTALL} libjsonnet-dev libjsonnet0
 
-
-install-jsonnet:
-	git clone https://github.com/asherikov/jsonnet.git
-	cd jsonnet; git checkout as_cmake_fix
-	mkdir ./jsonnet/build
-	cd ./jsonnet/build/; cmake -DBUILD_JSONNET=OFF -DBUILD_TESTS=OFF -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ ..
-	cd ./jsonnet/build/; make install
 
 format:
-	${FIND_ARILES_SOURCES} | grep -v "better_enum.h" | xargs clang-format10 -verbose -i
+	${FIND_ARILES_SOURCES} | grep -v "better_enum.h" | xargs clang-format-12 -verbose -i
 
 cppcheck:
 	# --inconclusive
@@ -225,7 +219,7 @@ cppcheck:
 		--relative-paths \
 		--quiet --verbose --force \
 		--template='[{file}:{line}]  {severity}  {id}  {message}' \
-		--language=c++ --std=c++03 \
+		--language=c++ --std=c++11 \
 	 	--enable=warning \
 		--enable=style \
 		--enable=performance \
@@ -237,7 +231,8 @@ cppcheck:
 		--suppress=unknownMacro \
 		--suppress=constStatement \
 		--suppress=unsignedLessThanZero \
-		-i ./build \
+		-i build \
+		-i tests/api_v2/regression_test_230.cpp \
 	3>&1 1>&2 2>&3 | tee cppcheck.err
 	test 0 -eq `cat cppcheck.err | wc -l && rm cppcheck.err`
 
@@ -282,6 +277,7 @@ clangcheck:
 		-enable-checker optin.performance.GCDAntipattern \
 		-enable-checker optin.performance.Padding \
 		-enable-checker optin.portability.UnixAPI \
+		-enable-checker optin.cplusplus.VirtualCall \
 		-enable-checker security.FloatLoopCounter \
 		-enable-checker security.insecureAPI.DeprecatedOrUnsafeBufferHandling \
 		-enable-checker security.insecureAPI.UncheckedReturn \
