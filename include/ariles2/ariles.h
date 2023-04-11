@@ -29,6 +29,7 @@
 #include "visitors/prewrite.h"
 #include "visitors/finalize.h"
 #include "visitors/count.h"
+#include "visitors/count_missing.h"
 #include "visitors/read.h"
 #include "visitors/write.h"
 #include "visitors/config.h"
@@ -54,6 +55,7 @@
 #    ifndef ARILES2_DEFAULT_VISITORS
 #        define ARILES2_DEFAULT_VISITORS                                                                               \
             ARILES2_VISITOR(count)                                                                                     \
+            ARILES2_VISITOR(count_missing)                                                                             \
             ARILES2_VISITOR(finalize)                                                                                  \
             ARILES2_VISITOR(prewrite)                                                                                  \
             ARILES2_VISITOR(defaults)                                                                                  \

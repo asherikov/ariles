@@ -67,7 +67,10 @@ namespace ariles_tests
                 t_Configurable configurable;
 
                 typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
-                ariles2::apply(writer, configurable);
+                typename t_Visitor::Writer::Parameters parameters;
+                parameters.write_.allow_missing_entries_ = true;
+
+                ariles2::apply(writer, configurable, parameters);
             }
 
             {
@@ -88,7 +91,11 @@ namespace ariles_tests
 
             {
                 t_Configurable configurable;
-                ariles2::apply<typename t_Visitor::Writer>(getWriterInitializer("configurable2.cfg"), configurable);
+                typename t_Visitor::Writer::Parameters parameters;
+                parameters.write_.allow_missing_entries_ = true;
+
+                ariles2::apply<typename t_Visitor::Writer>(
+                        getWriterInitializer("configurable2.cfg"), configurable, parameters);
             }
 
             {

@@ -226,7 +226,7 @@ namespace ariles2
 
 
     public:
-        t_Pointer value_;
+        BasePointer value_;
 
 
     protected:
@@ -302,14 +302,6 @@ namespace ariles2
             }
         }
 
-        void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
-        {
-            ARILES2_TRACE_FUNCTION;
-            Handler::allocate(value_);
-            value_->arilesVirtualVisit(visitor, param);
-        }
-
-
 
         bool isNull() const
         {
@@ -323,7 +315,10 @@ namespace ariles2
                 const
         {
             ARILES2_TRACE_FUNCTION;
-            value_->arilesVisit(visitor, *other.value_, param);
+            if (value_.get() != other.value_.get())
+            {
+                value_->arilesVisit(visitor, *other.value_, param);
+            }
         }
 #endif
 
@@ -397,6 +392,23 @@ namespace ariles2
         }
 
 
+        std::size_t arilesVisit(const ariles2::CountMissing &visitor, const ariles2::CountMissing::Parameters &param)
+                const
+        {
+            ARILES2_TRACE_FUNCTION;
+            ARILES2_ASSERT(not this->isNull(), "Not initialized");
+            return (this->value_->arilesVirtualVisit(visitor, param));
+        }
+
+
+        void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+            CustomPointerBase<t_Pointer>::Handler::allocate(this->value_);
+            this->value_->arilesVirtualVisit(visitor, param);
+        }
+
+
 
 #ifdef ARILES2_METHODS_graphviz
         void arilesVisit(ariles2::Graphviz &writer, const ariles2::Graphviz::Parameters &parameters) const
@@ -407,4 +419,110 @@ namespace ariles2
         }
 #endif
     };
+
+
+
+    template <class t_Pointer>
+    class ARILES2_VISIBILITY_ATTRIBUTE OptionalPointer : public CustomPointerBase<t_Pointer>,
+                                                         public ariles2::DefaultBase
+    {
+#include ARILES2_INITIALIZE
+
+
+    public:
+        OptionalPointer()
+        {
+            ariles2::apply<ariles2::Defaults>(*this);
+        }
+        using CustomPointerBase<t_Pointer>::CustomPointerBase;
+        using CustomPointerBase<t_Pointer>::operator=;
+        using CustomPointerBase<t_Pointer>::arilesVisit;
+
+
+
+        void arilesVisit(ariles2::Write &writer, const ariles2::Write::Parameters &parameters) const
+        {
+            ARILES2_TRACE_FUNCTION;
+            ARILES2_ASSERT(
+                    parameters.allow_missing_entries_, "Missing entries must be allowed when using OptionalPointer");
+            // should never happen
+            ARILES2_ASSERT(not this->isNull(), "Could not write config: entry is not initialized");
+            this->value_->arilesVirtualVisit(writer, parameters);
+        }
+
+
+        void arilesVisit(ariles2::Read &reader, const ariles2::Read::Parameters &parameters)
+        {
+            ARILES2_TRACE_FUNCTION;
+            if (this->isNull())
+            {
+                CustomPointerBase<t_Pointer>::Handler::allocate(this->value_);
+                ariles2::apply<ariles2::Defaults>(*this->value_);
+            }
+            this->value_->arilesVirtualVisit(reader, parameters);
+        }
+
+
+        void arilesVisit(const ariles2::Finalize &visitor, const ariles2::Finalize::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+            if (not this->isNull())
+            {
+                this->value_->arilesVirtualVisit(visitor, param);
+            }
+        }
+
+
+        std::size_t arilesVisit(const ariles2::Count &visitor, const ariles2::Count::Parameters &param) const
+        {
+            ARILES2_TRACE_FUNCTION;
+            if (not this->isNull())
+            {
+                return (this->value_->arilesVirtualVisit(visitor, param));
+            }
+            return (0);
+        }
+
+
+        std::size_t arilesVisit(const ariles2::CountMissing &visitor, const ariles2::CountMissing::Parameters &param)
+                const
+        {
+            ARILES2_TRACE_FUNCTION;
+            if (not this->isNull())
+            {
+                return (this->value_->arilesVirtualVisit(visitor, param));
+            }
+            return (0);
+        }
+
+
+        void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
+        {
+            ARILES2_TRACE_FUNCTION;
+            if (not this->isNull())
+            {
+                this->value_->arilesVirtualVisit(visitor, param);
+            }
+        }
+
+
+
+#ifdef ARILES2_METHODS_graphviz
+        void arilesVisit(ariles2::Graphviz &writer, const ariles2::Graphviz::Parameters &parameters) const
+        {
+            ARILES2_TRACE_FUNCTION;
+            if (not this->isNull())
+            {
+                this->value_->arilesVirtualVisit(writer, parameters);
+            }
+        }
+#endif
+    };
+
+
+    template <class t_Entry>
+    bool isMissing(const OptionalPointer<t_Entry> &entry)
+    {
+        return (entry.isNull());
+    }
 }  // namespace ariles2

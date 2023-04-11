@@ -84,6 +84,8 @@ namespace ariles2
         using NonFlatMatricesParameters = serialization::parameters::NonFlatMatricesMixin<Parameters>;
         using RelaxedSloppyParameters =
                 serialization::parameters::RelaxedMixin<serialization::parameters::SloppyMixin<Parameters>>;
+        using NonFlatMatricesSloppyParameters =
+                serialization::parameters::NonFlatMatricesMixin<serialization::parameters::SloppyMixin<Parameters>>;
         using NonFlatMatricesRelaxedSloppyParameters = serialization::parameters::NonFlatMatricesMixin<
                 serialization::parameters::RelaxedMixin<serialization::parameters::SloppyMixin<Parameters>>>;
     }  // namespace read
@@ -91,9 +93,14 @@ namespace ariles2
     namespace write
     {
         using SloppyParameters = serialization::parameters::SloppyMixin<Parameters>;
+        using RelaxedParameters = serialization::parameters::RelaxedMixin<Parameters>;
         using NonFlatMatricesParameters = serialization::parameters::NonFlatMatricesMixin<Parameters>;
+        using RelaxedSloppyParameters =
+                serialization::parameters::RelaxedMixin<serialization::parameters::SloppyMixin<Parameters>>;
         using NonFlatMatricesSloppyParameters =
                 serialization::parameters::NonFlatMatricesMixin<serialization::parameters::SloppyMixin<Parameters>>;
+        using NonFlatMatricesRelaxedSloppyParameters = serialization::parameters::NonFlatMatricesMixin<
+                serialization::parameters::RelaxedMixin<serialization::parameters::SloppyMixin<Parameters>>>;
     }  // namespace write
 
 
@@ -103,13 +110,13 @@ namespace ariles2
 
 
     class RelaxedSloppyBase
-      : public serialization::NonDefaultBaseTemplate<read::RelaxedSloppyParameters, write::SloppyParameters>
+      : public serialization::NonDefaultBaseTemplate<read::RelaxedSloppyParameters, write::RelaxedSloppyParameters>
     {
     };
 
     class NonFlatMatricesRelaxedSloppyBase : public serialization::NonDefaultBaseTemplate<
                                                      read::NonFlatMatricesRelaxedSloppyParameters,
-                                                     write::NonFlatMatricesSloppyParameters>
+                                                     write::NonFlatMatricesRelaxedSloppyParameters>
     {
     };
 }  // namespace ariles2
@@ -119,9 +126,9 @@ namespace ariles2
 namespace ariles2
 {
     // Some classes may inherit from this
-    using DefaultBase = SloppyBase;
-    using DefaultBase = RelaxedSloppyBase;
-    using DefaultBase = NonFlatMatricesRelaxedSloppyBase;
+    using SloppyBase = DefaultBase;
+    using RelaxedSloppyBase = DefaultBase;
+    using NonFlatMatricesRelaxedSloppyBase = DefaultBase;
 }  // namespace ariles2
 
 #endif

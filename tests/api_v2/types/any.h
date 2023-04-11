@@ -201,7 +201,6 @@ namespace ariles_tests
 #endif
 
 
-#if __cplusplus >= 201103L
     class StdPtrInstantiator
     {
     public:
@@ -219,7 +218,6 @@ namespace ariles_tests
             return (std::shared_ptr<Base>());
         }
     };
-#endif
 
 
     class ConfigurableAny : public ariles2::DefaultBase
@@ -227,15 +225,11 @@ namespace ariles_tests
     public:
 #define ARILES2_ENTRIES_0(v)
 
-#if __cplusplus >= 201103L
         CommonAny<std::shared_ptr, StdPtrInstantiator> std_any_;
 
-#    define ARILES2_ENTRIES_1(v)                                                                                       \
-        ARILES2_ENTRIES_0(v)                                                                                           \
-        ARILES2_ENTRY_(v, std_any)
-#else
-#    define ARILES2_ENTRIES_1(v) ARILES2_ENTRIES_0(v)
-#endif
+#define ARILES2_ENTRIES_1(v)                                                                                           \
+    ARILES2_ENTRIES_0(v)                                                                                               \
+    ARILES2_ENTRY_(v, std_any)
 
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
@@ -266,9 +260,7 @@ namespace ariles_tests
         void randomize()
         {
             boost::random::random_device random_generator;
-#    if __cplusplus >= 201103L
             std_any_.randomize();
-#    endif
 
 #    ifdef ARILES_ADAPTER_BOOST_POINTER
             boost_any_.randomize();
@@ -282,7 +274,6 @@ namespace ariles_tests
     template <class t_Configurable_out, class t_Configurable_in>
     void compare(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)
     {
-#    if __cplusplus >= 201103L
         BOOST_CHECK_EQUAL(configurable_out.std_any_.id_, configurable_in.std_any_.id_);
         BOOST_CHECK_CLOSE((*configurable_out.std_any_).real_, (*configurable_in.std_any_).real_, g_tolerance);
         if ("Derived1" == configurable_out.std_any_.id_)
@@ -309,7 +300,6 @@ namespace ariles_tests
         }
         BOOST_CHECK(configurable_in.std_any_->defaults_check_flag_);
         BOOST_CHECK(configurable_in.std_any_->finalize_check_flag_);
-#    endif
 
 
 #    ifdef ARILES_ADAPTER_BOOST_POINTER

@@ -55,7 +55,8 @@ namespace ariles2
             }
             else
             {
-                ARILES2_PERSISTENT_ASSERT(0 == min and min == max, "Expected struct.");
+                ARILES2_PERSISTENT_ASSERT(
+                        SIZE_LIMIT_NONE == limit_type or (0 == min and min == max), "Expected struct.");
             }
         }
 

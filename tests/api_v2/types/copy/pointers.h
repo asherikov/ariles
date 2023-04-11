@@ -35,11 +35,9 @@ namespace ariles_tests
 
 
     public:
-#if __cplusplus >= 201103L
         std::shared_ptr<Minimal> std_shared_ptr_test;
         std::shared_ptr<Minimal> std_shared_ptr_test_non_null;
         std::unique_ptr<Minimal> std_unique_ptr_test;
-#endif
 
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER

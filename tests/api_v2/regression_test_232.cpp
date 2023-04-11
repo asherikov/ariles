@@ -25,7 +25,7 @@
 // TYPES
 // ===============================================================
 
-#include "types/non_null_pointer.h"
+#include "types/abstract_pointer.h"
 
 
 // ===============================================================
@@ -40,6 +40,11 @@
 // ===============================================================
 // TESTS
 // ===============================================================
+
+namespace ariles_tests
+{
+    using AbstractNonNullPointer = ariles_tests::AbstractPointer<ariles2::NonNullPointer>;
+}
 
 #define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                                               \
     ARILES_FIXTURE_TEST_CASE(DiffFixture, VISITOR_ID, NAMESPACE, AbstractNonNullPointer, INITIALIZER)

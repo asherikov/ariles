@@ -77,3 +77,4 @@ endif()
 set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY_BACK}")
 ariles_define_regression_test("232" "yaml_cpp")                             # NonNullPointer abstract
 ariles_define_regression_test("233" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # subtree read
+ariles_define_regression_test("234" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # OptionalPointer

@@ -116,15 +116,11 @@ namespace ariles_tests
 #define ARILES2_DEFAULT_ID "ConfigurablePointers"
 #define ARILES2_ENTRIES_0(v)
 
-#if __cplusplus >= 201103L
-#    define ARILES2_ENTRIES_1(v)                                                                                       \
-        ARILES2_ENTRIES_0(v)                                                                                           \
-        ARILES2_TYPED_ENTRY_(v, std_shared_ptr_test, std::shared_ptr<Minimal>)                                         \
-        ARILES2_TYPED_ENTRY_(v, std_shared_ptr_test_non_null, ariles2::NonNullPointer<std::shared_ptr<Minimal>>)       \
-        ARILES2_TYPED_ENTRY_(v, std_unique_ptr_test, std::unique_ptr<Minimal>)
-#else
-#    define ARILES2_ENTRIES_1(v) ARILES2_ENTRIES_0(v)
-#endif
+#define ARILES2_ENTRIES_1(v)                                                                                           \
+    ARILES2_ENTRIES_0(v)                                                                                               \
+    ARILES2_TYPED_ENTRY_(v, std_shared_ptr_test, std::shared_ptr<Minimal>)                                             \
+    ARILES2_TYPED_ENTRY_(v, std_shared_ptr_test_non_null, ariles2::NonNullPointer<std::shared_ptr<Minimal>>)           \
+    ARILES2_TYPED_ENTRY_(v, std_unique_ptr_test, std::unique_ptr<Minimal>)
 
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
@@ -173,10 +169,8 @@ namespace ariles_tests
 
         void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
-#if __cplusplus >= 201103L
             std_shared_ptr_test_.reset();
             std_unique_ptr_test_.reset();
-#endif
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
             shared_ptr_test_.reset();
@@ -197,7 +191,6 @@ namespace ariles_tests
         void randomize()
         {
             boost::random::random_device random_generator;
-#    if __cplusplus >= 201103L
             std_shared_ptr_test_ = std::make_shared<Minimal>();
             std_shared_ptr_test_->randomize();
 
@@ -206,7 +199,6 @@ namespace ariles_tests
 
             std_unique_ptr_test_.reset(new Minimal());
             std_unique_ptr_test_->randomize();
-#    endif
 
 #    ifdef ARILES_ADAPTER_BOOST_POINTER
             shared_ptr_test_ = boost::make_shared<Minimal>();
@@ -249,7 +241,6 @@ namespace ariles_tests
     template <class t_Configurable_out, class t_Configurable_in>
     void compare(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)
     {
-#    if __cplusplus >= 201103L
         if (configurable_in.std_shared_ptr_test_ == NULL)
         {
             BOOST_CHECK_EQUAL(configurable_out.std_shared_ptr_test_, configurable_in.std_shared_ptr_test_);
@@ -274,7 +265,6 @@ namespace ariles_tests
         compareMinimal(configurable_out.std_shared_ptr_test_non_null_, configurable_in.std_shared_ptr_test_non_null_);
         BOOST_CHECK(configurable_in.std_shared_ptr_test_non_null_->defaults_check_flag_);
         BOOST_CHECK(configurable_in.std_shared_ptr_test_non_null_->finalize_check_flag_);
-#    endif
 
 
 #    ifdef ARILES_ADAPTER_BOOST_POINTER

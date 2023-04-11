@@ -1,7 +1,7 @@
-AbstractNonNullPointer:
-  std_shared_ptr_test_non_null:
+AbstractPointer:
+  std_shared_ptr_test:
     real: 123.4
     integer_member: 414
-  shared_ptr_test_non_null:
+  shared_ptr_test:
     real: 123.4
     integer_member: 414

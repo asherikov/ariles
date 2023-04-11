@@ -13,9 +13,7 @@
 
 #ifdef ARILES_ADAPTER_EIGEN
 #    ifdef ARILES_ADAPTER_ROSMSG
-#        if __cplusplus >= 201103L
-#            define ENABLE_ROSMSG
-#        endif
+#        define ENABLE_ROSMSG
 #    endif
 #endif
 
@@ -23,6 +21,7 @@
 
 #define ARILES2_DEFAULT_VISITORS                                                                                       \
     ARILES2_VISITOR(count)                                                                                             \
+    ARILES2_VISITOR(count_missing)                                                                                     \
     ARILES2_VISITOR(finalize)                                                                                          \
     ARILES2_VISITOR(prewrite)                                                                                          \
     ARILES2_VISITOR(defaults)                                                                                          \

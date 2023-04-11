@@ -12,6 +12,7 @@
 
 #include "serialization.h"
 #include "count.h"
+#include "count_missing.h"
 
 /**
 @defgroup write Write
@@ -383,7 +384,12 @@ namespace ariles2
             template <class t_Entry>
             void startMap(t_Entry &entry, const Parameters &parameters)
             {
-                startMap(parameters, ariles2::apply<ariles2::Count>(entry));
+                std::size_t map_size = ariles2::apply<ariles2::Count>(entry);
+                if (parameters.allow_missing_entries_)
+                {
+                    map_size -= ariles2::apply<ariles2::CountMissing>(entry);
+                }
+                startMap(parameters, map_size);
             }
 
             using write::VisitorBase<Visitor, Parameters>::startMap;
