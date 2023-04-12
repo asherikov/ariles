@@ -12,6 +12,7 @@
 
 #include "serialization.h"
 #include "count.h"
+#include "count_missing.h"
 
 /**
 @defgroup write Write
@@ -60,7 +61,7 @@ namespace ariles2
                 config_ofs.open(file_name.c_str());
 
                 ARILES2_PERSISTENT_ASSERT(
-                        true == config_ofs.good(),
+                        config_ofs.good(),
                         std::string("Could not open configuration file for writing: ") + file_name.c_str());
             }
 
@@ -69,7 +70,7 @@ namespace ariles2
             virtual void startRoot(const std::string &name, const t_Parameters & /*param*/)
             {
                 ARILES2_TRACE_FUNCTION;
-                if (false == name.empty())
+                if (not name.empty())
                 {
                     startMapEntry(name);
                 }
@@ -77,7 +78,7 @@ namespace ariles2
             virtual void endRoot(const std::string &name)
             {
                 ARILES2_TRACE_FUNCTION;
-                if (false == name.empty())
+                if (not name.empty())
                 {
                     endMapEntry();
                 }
@@ -255,7 +256,7 @@ namespace ariles2
 
             void startPointer(const bool is_null, const t_Parameters &param)
             {
-                if (true == is_null)
+                if (is_null)
                 {
                     this->startMap(param, 1);
                     this->startMapEntry("is_null");
@@ -273,7 +274,7 @@ namespace ariles2
             }
             void endPointer(const bool is_null)
             {
-                if (false == is_null)
+                if (not is_null)
                 {
                     this->endMapEntry();
                 }
@@ -325,6 +326,11 @@ namespace ariles2
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_VALUE(entry_name);
                 ARILES2_TRACE_TYPE(entry);
+
+                if (param.allow_missing_entries_ and isMissing(entry))
+                {
+                    return;
+                }
 
                 this->startMapEntry(entry_name);
                 apply_write(static_cast<t_Derived &>(*this), entry, param);
@@ -378,7 +384,12 @@ namespace ariles2
             template <class t_Entry>
             void startMap(t_Entry &entry, const Parameters &parameters)
             {
-                startMap(parameters, ariles2::apply<ariles2::Count>(entry));
+                std::size_t map_size = ariles2::apply<ariles2::Count>(entry);
+                if (parameters.allow_missing_entries_)
+                {
+                    map_size -= ariles2::apply<ariles2::CountMissing>(entry);
+                }
+                startMap(parameters, map_size);
             }
 
             using write::VisitorBase<Visitor, Parameters>::startMap;
@@ -412,5 +423,5 @@ namespace ariles2
 
 
     /// @ingroup write
-    typedef write::Visitor Write;
+    using Write = write::Visitor;
 }  // namespace ariles2

@@ -10,18 +10,18 @@
 
 #pragma once
 
-#include "common.h"
+#include "count.h"
 
 /**
-@defgroup count Count
+@defgroup count_missing Count missing entries
 
-@brief Counts number of entries.
+@brief Counts number of missing entries.
 */
 
 namespace ariles2
 {
-    /// @ingroup count
-    namespace count
+    /// @ingroup count_missing
+    namespace count_missing
     {
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
         {
@@ -59,7 +59,6 @@ namespace ariles2
         };
 
 
-
         class ARILES2_VISIBILITY_ATTRIBUTE Base
         {
         public:
@@ -73,36 +72,36 @@ namespace ariles2
         };
 
 
+#define ARILES2_NAMED_ENTRY_count_missing(v, entry, name) +ariles2::isMissing(entry)
+#define ARILES2_PARENT_count_missing(v, entry) +entry::arilesVisit(visitor, parameters)
 
-#define ARILES2_NAMED_ENTRY_count(v, entry, name) +1
-#define ARILES2_PARENT_count(v, entry) +entry::arilesVisit(visitor, parameters)
-
-#define ARILES2_VISIT_count                                                                                            \
+#define ARILES2_VISIT_count_missing                                                                                    \
     template <class t_Visitor>                                                                                         \
     std::size_t arilesVisit(                                                                                           \
             const t_Visitor &visitor,                                                                                  \
             const typename t_Visitor::Parameters &parameters,                                                          \
-            ARILES2_IS_BASE_ENABLER(ariles2::count::Visitor, t_Visitor)) const                                         \
+            ARILES2_IS_BASE_ENABLER(ariles2::count_missing::Visitor, t_Visitor)) const                                 \
     {                                                                                                                  \
         ARILES2_UNUSED_ARG(visitor);                                                                                   \
         ARILES2_UNUSED_ARG(parameters);                                                                                \
         ARILES2_TRACE_FUNCTION;                                                                                        \
-        return (0 ARILES2_ENTRIES(count));                                                                             \
+        return (0 ARILES2_ENTRIES(count_missing));                                                                     \
     }
 
-#define ARILES2_METHODS_count                                                                                          \
+#define ARILES2_METHODS_count_missing                                                                                  \
     std::size_t arilesVirtualVisit(                                                                                    \
-            const ariles2::count::Visitor &visitor, const ariles2::count::Visitor::Parameters &param) const override   \
+            const ariles2::count_missing::Visitor &visitor, const ariles2::count_missing::Visitor::Parameters &param)  \
+            const override                                                                                             \
     {                                                                                                                  \
         ARILES2_TRACE_FUNCTION;                                                                                        \
         return (this->arilesVisit(visitor, param));                                                                    \
     }                                                                                                                  \
-    using ariles2::count::Base::arilesGetParameters;
+    using ariles2::count_missing::Base::arilesGetParameters;
 
-#define ARILES2_BASE_METHODS_count ARILES2_BASE_METHODS(count)
-    }  // namespace count
+#define ARILES2_BASE_METHODS_count_missing ARILES2_BASE_METHODS(count_missing)
+    }  // namespace count_missing
 
 
-    /// @ingroup count
-    using Count = count::Visitor;
+    /// @ingroup count_missing
+    using CountMissing = count_missing::Visitor;
 }  // namespace ariles2

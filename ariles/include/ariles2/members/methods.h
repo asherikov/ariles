@@ -29,20 +29,16 @@ public:
 
 // -----
 // Define node name
-#    ifdef ARILES2_DEFAULT_ID
+#    ifndef ARILES2_DEFAULT_ID
+#        define ARILES2_DEFAULT_ID ""
+#    endif
+
         const std::string &
-        arilesDefaultID() const
+        arilesDefaultID() const override
 {
     static const std::string name(ARILES2_DEFAULT_ID);
     return (name);
 }
-#    else
-const std::string &arilesDefaultID() const
-{
-    static const std::string name("");
-    return (name);
-}
-#    endif
 // -----
 
 

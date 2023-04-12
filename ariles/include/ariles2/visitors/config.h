@@ -63,11 +63,10 @@ namespace ariles2
 
 
         template <class t_Reader>
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor
-          : public visitor::Base<visitor::GenericVisitor, Parameters<t_Reader> >
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::GenericVisitor, Parameters<t_Reader>>
         {
         public:
-            typedef cfgread::Parameters<t_Reader> Parameters;
+            using Parameters = cfgread::Parameters<t_Reader>;
 
 
         public:
@@ -127,9 +126,9 @@ namespace ariles2
             {
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_TYPE(entry);
-                ariles2::apply(preread_, entry, true == subtree.empty() ? "" : subtree.back(), param.preread_);
+                ariles2::apply(preread_, entry, subtree.empty() ? "" : subtree.back(), param.preread_);
                 ariles2::apply(read_, entry, subtree, param.read_);
-                ariles2::apply(postread_, entry, true == subtree.empty() ? "" : subtree.back(), param.postread_);
+                ariles2::apply(postread_, entry, subtree.empty() ? "" : subtree.back(), param.postread_);
             }
 
 
@@ -178,11 +177,10 @@ namespace ariles2
 
 
         template <class t_Writer>
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor
-          : public visitor::Base<visitor::GenericVisitor, Parameters<t_Writer> >
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::GenericVisitor, Parameters<t_Writer>>
         {
         public:
-            typedef cfgwrite::Parameters<t_Writer> Parameters;
+            using Parameters = cfgwrite::Parameters<t_Writer>;
 
 
         public:

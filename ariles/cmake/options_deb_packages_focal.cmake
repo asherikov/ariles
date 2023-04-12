@@ -1,7 +1,5 @@
 set(ARILES_DEB_TARGETS              "focal"             CACHE STRING "")
 
-set(ARILES_CPP_STANDARD             "c++11"             CACHE STRING "")
-
 set(ARILES_BUILD_REGRESSION_TESTS   "OFF"               CACHE STRING "")
 
 

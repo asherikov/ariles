@@ -40,7 +40,7 @@ namespace ariles2
      */
     struct ARILES2_VISIBILITY_ATTRIBUTE yaml_cpp
     {
-        typedef ariles2::cfgread::Visitor<ns_yaml_cpp::Reader> Reader;
-        typedef ariles2::cfgwrite::Visitor<ns_yaml_cpp::Writer> Writer;
+        using Reader = ariles2::cfgread::Visitor<ns_yaml_cpp::Reader>;
+        using Writer = ariles2::cfgwrite::Visitor<ns_yaml_cpp::Writer>;
     };
 }  // namespace ariles2

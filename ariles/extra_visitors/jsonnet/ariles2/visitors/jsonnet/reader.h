@@ -22,7 +22,7 @@ namespace ariles2
             class ARILES2_VISIBILITY_ATTRIBUTE Reader
             {
             protected:
-                typedef ARILES2_SHARED_PTR<JsonnetPreprocessor> JsonnetPreprocessorPtr;
+                using JsonnetPreprocessorPtr = std::shared_ptr<JsonnetPreprocessor>;
 
             protected:
                 JsonnetPreprocessorPtr preprocessor_;

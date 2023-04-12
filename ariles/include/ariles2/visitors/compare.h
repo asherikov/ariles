@@ -67,7 +67,7 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::Visitor, compare::Parameters, bool>
         {
         public:
-            typedef compare::Parameters Parameters;
+            using Parameters = compare::Parameters;
 
 
         public:
@@ -93,7 +93,7 @@ namespace ariles2
                 {
                     equal_ = true;
                     this->visitMapEntry(left, right, name, param);
-                    if (false == equal_)
+                    if (not equal_)
                     {
                         backtrace_.push_back(name);
                     }
@@ -153,7 +153,7 @@ namespace ariles2
 
                 const bool equal_check = this->equal_;
                 apply_compare(*this, left, right, param);
-                if (false == this->equal_ and equal_check != this->equal_)
+                if (not this->equal_ and equal_check != this->equal_)
                 {
                     backtrace_.push_back(name);
                 }
@@ -208,5 +208,5 @@ namespace ariles2
 
 
     /// @ingroup compare
-    typedef compare::Visitor Compare;
+    using Compare = compare::Visitor;
 }  // namespace ariles2

@@ -7,6 +7,7 @@
 #include "Vector3.h"
 #include "Quaternion.h"
 
+// NOLINTBEGIN(*)
 namespace geometry_msgs
 {
     template <class ContainerAllocator>
@@ -31,8 +32,9 @@ namespace geometry_msgs
         _rotation_type rotation;
     };  // struct Transform_
 
-    typedef ::geometry_msgs::Transform_<std::allocator<void> > Transform;
+    typedef ::geometry_msgs::Transform_<std::allocator<void>> Transform;
 }  // namespace geometry_msgs
+// NOLINTEND(*)
 
 
 

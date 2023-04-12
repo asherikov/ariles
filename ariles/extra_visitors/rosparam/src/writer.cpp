@@ -37,7 +37,7 @@ namespace ariles2
     {
         Writer::Writer(const ::ros::NodeHandle &nh)
         {
-            impl_ = ImplPtr(new Impl(nh));
+            makeImplPtr(nh);
         }
 
 
@@ -58,11 +58,11 @@ namespace ariles2
             if (impl_->node_stack_.empty())
             {
                 impl_->root_name_ = map_name;
-                impl_->node_stack_.push_back(&impl_->root_value_);
+                impl_->node_stack_.emplace_back(&impl_->root_value_);
             }
             else
             {
-                impl_->node_stack_.push_back(NodeWrapper(&(impl_->getRawNode()[map_name])));
+                impl_->node_stack_.emplace_back(&(impl_->getRawNode()[map_name]));
             }
         }
 
@@ -74,8 +74,8 @@ namespace ariles2
 
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
-            impl_->getRawNode().setSize(size);
-            impl_->node_stack_.push_back(NodeWrapper(0, size));
+            impl_->getRawNode().setSize(static_cast<int>(size));
+            impl_->node_stack_.emplace_back(0, size);
         }
 
         void Writer::startArrayElement()
@@ -87,7 +87,7 @@ namespace ariles2
 
         void Writer::endArrayElement()
         {
-            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ++impl_->node_stack_.back().index_;
         }
 
@@ -117,7 +117,7 @@ namespace ariles2
             impl_->root_name_ = "";
             impl_->root_value_.clear();
 
-            if (true == name.empty())
+            if (name.empty())
             {
                 startMapEntry("ariles");
             }

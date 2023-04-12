@@ -16,14 +16,10 @@ namespace ariles_tests
 #define ARILES2_DEFAULT_ID "ConfigurablePointersScalar"
 #define ARILES2_ENTRIES_0(v)
 
-#if __cplusplus >= 201103L
-#    define ARILES2_ENTRIES_1(v)                                                                                       \
-        ARILES2_ENTRIES_0(v)                                                                                           \
-        ARILES2_TYPED_ENTRY_(v, std_shared_ptr_real, std::shared_ptr<double>)                                          \
-        ARILES2_TYPED_ENTRY_(v, std_unique_ptr_real, std::unique_ptr<double>)
-#else
-#    define ARILES2_ENTRIES_1(v) ARILES2_ENTRIES_0(v)
-#endif
+#define ARILES2_ENTRIES_1(v)                                                                                           \
+    ARILES2_ENTRIES_0(v)                                                                                               \
+    ARILES2_TYPED_ENTRY_(v, std_shared_ptr_real, std::shared_ptr<double>)                                              \
+    ARILES2_TYPED_ENTRY_(v, std_unique_ptr_real, std::unique_ptr<double>)
 
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
@@ -71,10 +67,8 @@ namespace ariles_tests
 
         void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
-#if __cplusplus >= 201103L
             std_shared_ptr_real_.reset();
             std_unique_ptr_real_.reset();
-#endif
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
             shared_ptr_real_.reset();
@@ -95,13 +89,11 @@ namespace ariles_tests
         void randomize()
         {
             boost::random::random_device random_generator;
-#    if __cplusplus >= 201103L
             std_shared_ptr_real_ = std::make_shared<double>();
             *std_shared_ptr_real_ = GET_RANDOM_REAL;
 
             std_unique_ptr_real_.reset(new double());
             *std_unique_ptr_real_ = GET_RANDOM_REAL;
-#    endif
 
 #    ifdef ARILES_ADAPTER_BOOST_POINTER
             shared_ptr_real_ = boost::make_shared<double>();
@@ -128,7 +120,6 @@ namespace ariles_tests
     template <class t_Configurable_out, class t_Configurable_in>
     void compare(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)
     {
-#    if __cplusplus >= 201103L
         if (configurable_in.std_shared_ptr_real_ == NULL)
         {
             BOOST_CHECK_EQUAL(configurable_out.std_shared_ptr_real_, configurable_in.std_shared_ptr_real_);
@@ -149,7 +140,6 @@ namespace ariles_tests
             BOOST_CHECK_CLOSE(
                     *configurable_out.std_unique_ptr_real_, *configurable_in.std_unique_ptr_real_, g_tolerance);
         }
-#    endif
 
 
 #    ifdef ARILES_ADAPTER_BOOST_POINTER

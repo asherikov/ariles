@@ -66,8 +66,11 @@ namespace ariles_tests
                 t_Configurable configurable;
                 configurable.randomize();
 
+                typename t_Visitor::Writer::Parameters parameters;
+                parameters.write_.allow_missing_entries_ = true;
+
                 typename t_Visitor::Writer writer(std::string("configurable3") + ".cfg");
-                ariles2::apply(writer, configurable);
+                ariles2::apply(writer, configurable, parameters);
             }
 
             {
@@ -87,7 +90,12 @@ namespace ariles_tests
             {
                 t_Configurable configurable;
                 configurable.randomize();
-                ariles2::apply<typename t_Visitor::Writer>(std::string("configurable4") + ".cfg", configurable);
+
+                typename t_Visitor::Writer::Parameters parameters;
+                parameters.write_.allow_missing_entries_ = true;
+
+                ariles2::apply<typename t_Visitor::Writer>(
+                        std::string("configurable4") + ".cfg", configurable, parameters);
             }
 
             {

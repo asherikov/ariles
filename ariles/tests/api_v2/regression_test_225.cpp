@@ -20,6 +20,7 @@
 
 #define ARILES2_DEFAULT_VISITORS                                                                                       \
     ARILES2_VISITOR(count)                                                                                             \
+    ARILES2_VISITOR(count_missing)                                                                                     \
     ARILES2_VISITOR(finalize)                                                                                          \
     ARILES2_VISITOR(prewrite)                                                                                          \
     ARILES2_VISITOR(defaults)                                                                                          \

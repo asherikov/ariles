@@ -75,6 +75,8 @@ namevalue
 nocase
 noexcept
 nolint
+nolintbegin
+nolintend
 npos
 nullptr
 ofstream

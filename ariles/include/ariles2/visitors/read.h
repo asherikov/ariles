@@ -27,18 +27,7 @@ namespace ariles2
     /// @ingroup read
     namespace read
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public serialization::Parameters
-        {
-        public:
-            bool allow_missing_entries_;
-
-        public:
-            Parameters(const bool override_parameters = true) : serialization::Parameters(override_parameters)
-            {
-                allow_missing_entries_ = false;
-            }
-        };
-
+        using Parameters = serialization::Parameters;
 
 
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public serialization::Base<Visitor, Parameters>
@@ -101,8 +90,7 @@ namespace ariles2
                     config_ifs.open(file_name_default.c_str());
                 }
                 ARILES2_PERSISTENT_ASSERT(
-                        true == config_ifs.good(),
-                        std::string("Could not open configuration file: ") + file_name.c_str());
+                        config_ifs.good(), std::string("Could not open configuration file: ") + file_name.c_str());
             }
 
 
@@ -111,7 +99,7 @@ namespace ariles2
                 ARILES2_TRACE_FUNCTION;
                 ARILES2_TRACE_VALUE(name);
 
-                if (false == name.empty())
+                if (not name.empty())
                 {
                     return (startMapEntry(name));
                 }
@@ -121,7 +109,7 @@ namespace ariles2
             virtual void endRoot(const std::string &name)
             {
                 ARILES2_TRACE_FUNCTION;
-                if (false == name.empty())
+                if (not name.empty())
                 {
                     endMapEntry();
                 }
@@ -140,7 +128,7 @@ namespace ariles2
                 else
                 {
                     result = this->startRoot(subtree[0]);
-                    for (std::size_t i = 1; i < subtree.size() and true == result; ++i)
+                    for (std::size_t i = 1; i < subtree.size() and result; ++i)
                     {
                         this->startMap(SIZE_LIMIT_MIN, 1);
                         result &= (this->startMapEntry(subtree[i]));
@@ -265,19 +253,19 @@ namespace ariles2
                 else
                 {
                     ARILES2_PERSISTENT_ASSERT(
-                            true == param.allow_missing_entries_, "Pointer entry does not include 'is_null' subentry.");
+                            param.allow_missing_entries_, "Pointer entry does not include 'is_null' subentry.");
                 }
 
-                if (false == is_null)
+                if (not is_null)
                 {
-                    ARILES2_ASSERT(true == this->startMapEntry("value"), "Missing value in a pointer entry.");
+                    ARILES2_ASSERT(this->startMapEntry("value"), "Missing value in a pointer entry.");
                 }
 
                 return (is_null);
             }
             void endPointer(const bool is_null)
             {
-                if (false == is_null)
+                if (not is_null)
                 {
                     this->endMapEntry();
                 }
@@ -312,19 +300,19 @@ namespace ariles2
             {
                 if (param.flat_matrices_)
                 {
-                    if (true == dynamic or true == param.explicit_matrix_size_)
+                    if (dynamic or param.explicit_matrix_size_)
                     {
                         this->startMap(SIZE_LIMIT_EQUAL, 3);
 
-                        ARILES2_ASSERT(true == this->startMapEntry("cols"), "Missing 'cols' in a matrix entry.");
+                        ARILES2_ASSERT(this->startMapEntry("cols"), "Missing 'cols' in a matrix entry.");
                         this->readElement(cols);
                         this->endMapEntry();
 
-                        ARILES2_ASSERT(true == this->startMapEntry("rows"), "Missing 'rows' in a matrix entry.");
+                        ARILES2_ASSERT(this->startMapEntry("rows"), "Missing 'rows' in a matrix entry.");
                         this->readElement(rows);
                         this->endMapEntry();
 
-                        ARILES2_ASSERT(true == this->startMapEntry("data"), "Missing 'data' in a matrix entry.");
+                        ARILES2_ASSERT(this->startMapEntry("data"), "Missing 'data' in a matrix entry.");
 
                         const std::size_t vec_len = this->startVector();
                         ARILES2_ASSERT(cols * rows == vec_len, "Inconsistent matrix size.");
@@ -374,7 +362,7 @@ namespace ariles2
                 {
                     this->endVector();
 
-                    if (true == dynamic)
+                    if (dynamic)
                     {
                         this->endMapEntry();
                         this->endMap();
@@ -444,7 +432,7 @@ namespace ariles2
                 else
                 {
                     ARILES2_PERSISTENT_ASSERT(
-                            true == param.allow_missing_entries_,
+                            param.allow_missing_entries_,
                             std::string("Configuration file does not contain entry '") + convertSubtreeToString(subtree)
                                     + "'.");
                 }
@@ -479,7 +467,7 @@ namespace ariles2
                 else
                 {
                     ARILES2_PERSISTENT_ASSERT(
-                            false == override_missing_entries_locally and true == param.allow_missing_entries_,
+                            not override_missing_entries_locally and param.allow_missing_entries_,
                             std::string("Configuration file does not contain entry '") + name + "'.");
                     return (false);
                 }
@@ -546,5 +534,5 @@ namespace ariles2
 
 
     /// @ingroup read
-    typedef read::Visitor Read;
+    using Read = read::Visitor;
 }  // namespace ariles2

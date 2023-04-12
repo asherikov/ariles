@@ -34,6 +34,6 @@ namespace ariles2
      */
     struct ARILES2_VISIBILITY_ATTRIBUTE namevalue
     {
-        typedef ariles2::cfgwrite::Visitor<ns_namevalue::Writer> Writer;
+        using Writer = ariles2::cfgwrite::Visitor<ns_namevalue::Writer>;
     };
 }  // namespace ariles2

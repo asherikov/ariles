@@ -5,6 +5,7 @@
 #include <vector>
 
 
+// NOLINTBEGIN(*)
 namespace std_msgs
 {
     template <class ContainerAllocator>
@@ -34,5 +35,6 @@ namespace std_msgs
         _frame_id_type frame_id;
     };  // struct Header_
 
-    typedef ::std_msgs::Header_<std::allocator<void> > Header;
+    typedef ::std_msgs::Header_<std::allocator<void>> Header;
 }  // namespace std_msgs
+// NOLINTEND(*)

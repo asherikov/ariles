@@ -57,8 +57,8 @@ namespace ariles_tests
             }
         };
 
-        typedef FilenameReaderInitializer<FilenameReaderBaseString> FilenameReaderInitializer223_String;
-        typedef FilenameReaderInitializer<FilenameReaderBaseFloat> FilenameReaderInitializer223_Float;
+        using FilenameReaderInitializer223_String = FilenameReaderInitializer<FilenameReaderBaseString>;
+        using FilenameReaderInitializer223_Float = FilenameReaderInitializer<FilenameReaderBaseFloat>;
     }  // namespace initializers
 
 
@@ -76,20 +76,22 @@ namespace ariles_tests
             t_Configurable configurable;
 
 
-            BOOST_CHECK_NO_THROW({
-                typename t_Visitor::Writer::Parameters parameters;
-                parameters.write_.fallback_to_string_floats_ = false;
-                typename t_Visitor::Writer writer("configurable.cfg");
-                ariles2::apply(writer, configurable, parameters);
-            });
+            BOOST_CHECK_NO_THROW(
+                    {
+                        typename t_Visitor::Writer::Parameters parameters;
+                        parameters.write_.fallback_to_string_floats_ = false;
+                        typename t_Visitor::Writer writer("configurable.cfg");
+                        ariles2::apply(writer, configurable, parameters);
+                    });
 
             BOOST_CHECK_EQUAL(0, system("cmp configurable.cfg regression_test_223_float.json"));
 
 
-            BOOST_CHECK_NO_THROW({
-                typename t_Visitor::Writer writer("configurable.cfg");
-                ariles2::apply(writer, configurable);
-            });
+            BOOST_CHECK_NO_THROW(
+                    {
+                        typename t_Visitor::Writer writer("configurable.cfg");
+                        ariles2::apply(writer, configurable);
+                    });
 
             BOOST_CHECK_EQUAL(0, system("cmp configurable.cfg regression_test_223_string.json"));
         }

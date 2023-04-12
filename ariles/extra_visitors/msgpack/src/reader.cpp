@@ -20,7 +20,7 @@ namespace ariles2
 {
     namespace ns_msgpack
     {
-        typedef serialization::Node<const ::msgpack::object *> NodeWrapper;
+        using NodeWrapper = serialization::Node<const ::msgpack::object *>;
     }
 }  // namespace ariles2
 
@@ -36,7 +36,7 @@ namespace ariles2
             public:
                 std::string buffer_;
 
-                std::vector<ARILES2_SHARED_PTR< ::msgpack::object_handle> > handles_;
+                std::vector<std::shared_ptr<::msgpack::object_handle>> handles_;
 
                 /// Stack of nodes.
                 std::vector<NodeWrapper> node_stack_;
@@ -65,8 +65,7 @@ namespace ariles2
 
                         while (buffer_offset != buffer_.size())
                         {
-                            handles_.push_back(
-                                    ARILES2_SHARED_PTR< ::msgpack::object_handle>(new ::msgpack::object_handle));
+                            handles_.push_back(std::shared_ptr<::msgpack::object_handle>(new ::msgpack::object_handle));
 
                             unpack(*handles_[handles_.size() - 1], buffer_.data(), buffer_.size(), buffer_offset);
                         }
@@ -115,14 +114,14 @@ namespace ariles2
         {
             std::ifstream config_ifs;
             read::Visitor::openFile(config_ifs, file_name);
-            impl_ = ImplPtr(new Impl());
+            makeImplPtr();
             impl_->initialize(config_ifs);
         }
 
 
         Reader::Reader(std::istream &input_stream)
         {
-            impl_ = ImplPtr(new Impl());
+            makeImplPtr();
             impl_->initialize(input_stream);
         }
 
@@ -149,8 +148,7 @@ namespace ariles2
                         {
                             if (::msgpack::type::MAP == impl_->handles_[i]->get().via.map.ptr[0].val.type)
                             {
-                                impl_->node_stack_.push_back(
-                                        NodeWrapper(&(impl_->handles_[i]->get().via.map.ptr[0].val)));
+                                impl_->node_stack_.emplace_back(&(impl_->handles_[i]->get().via.map.ptr[0].val));
                                 return (true);
                             }
                         }
@@ -165,7 +163,7 @@ namespace ariles2
                     {
                         if (child_name == impl_->getRawNode().via.map.ptr[i].key.as<std::string>())
                         {
-                            impl_->node_stack_.push_back(NodeWrapper(&(impl_->getRawNode().via.map.ptr[i].val)));
+                            impl_->node_stack_.emplace_back(&(impl_->getRawNode().via.map.ptr[i].val));
                             return (true);
                         }
                     }
@@ -187,7 +185,7 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
             const std::size_t size = impl_->getRawNode().via.array.size;
-            impl_->node_stack_.push_back(NodeWrapper(0, size));
+            impl_->node_stack_.emplace_back(0, size);
 
             return (size);
         }
@@ -211,7 +209,7 @@ namespace ariles2
         void Reader::endArrayElement()
         {
             ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(true == impl_->node_stack_.back().isArray(), "Internal error: expected array.");
+            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
             ++impl_->node_stack_.back().index_;
         }
 
@@ -219,7 +217,7 @@ namespace ariles2
         bool Reader::startRoot(const std::string &name)
         {
             ARILES2_TRACE_FUNCTION;
-            if (true == name.empty())
+            if (name.empty())
             {
                 ARILES2_ASSERT(
                         0 == impl_->nameless_counter_,

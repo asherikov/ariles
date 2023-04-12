@@ -9,20 +9,18 @@
 
 #pragma once
 
-#if __cplusplus >= 201103L
-
-#    include <memory>
-#    include "../internal/helpers.h"
+#include <memory>
+#include "../internal/helpers.h"
 
 
 namespace ariles2
 {
     template <class t_Value>
-    class ARILES2_VISIBILITY_ATTRIBUTE PointerHandler<std::shared_ptr<t_Value> >
+    class ARILES2_VISIBILITY_ATTRIBUTE PointerHandler<std::shared_ptr<t_Value>>
     {
     public:
-        typedef std::shared_ptr<t_Value> Pointer;
-        typedef t_Value Value;
+        using Pointer = std::shared_ptr<t_Value>;
+        using Value = t_Value;
 
 
     public:
@@ -44,11 +42,11 @@ namespace ariles2
 
 
     template <class t_Value>
-    class ARILES2_VISIBILITY_ATTRIBUTE PointerHandler<std::unique_ptr<t_Value> >
+    class ARILES2_VISIBILITY_ATTRIBUTE PointerHandler<std::unique_ptr<t_Value>>
     {
     public:
-        typedef std::unique_ptr<t_Value> Pointer;
-        typedef t_Value Value;
+        using Pointer = std::unique_ptr<t_Value>;
+        using Value = t_Value;
 
 
     public:
@@ -69,11 +67,9 @@ namespace ariles2
     };
 }  // namespace ariles2
 
-#    define ARILES2_POINTER_TYPE std::shared_ptr
-#    include <ariles2/adapters/generic_pointer.h>
+#define ARILES2_POINTER_TYPE std::shared_ptr
+#include <ariles2/adapters/generic_pointer.h>
 
 
-#    define ARILES2_POINTER_TYPE std::unique_ptr
-#    include <ariles2/adapters/generic_pointer.h>
-
-#endif
+#define ARILES2_POINTER_TYPE std::unique_ptr
+#include <ariles2/adapters/generic_pointer.h>

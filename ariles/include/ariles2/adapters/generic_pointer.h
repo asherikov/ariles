@@ -8,6 +8,17 @@
     @brief
 */
 
+
+namespace ariles2
+{
+    template <class t_Entry>
+    bool isMissing(const ARILES2_POINTER_TYPE<t_Entry> &entry)
+    {
+        return (PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::isNull(entry));
+    }
+}  // namespace ariles2
+
+
 namespace ariles2
 {
     namespace read
@@ -20,13 +31,13 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
             const bool is_null = reader.startPointer(parameters);
-            if (true == is_null)
+            if (is_null)
             {
-                PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::reset(entry);
+                PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::reset(entry);
             }
             else
             {
-                PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::allocate(entry);
+                PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::allocate(entry);
                 apply_read(reader, *entry, parameters);
             }
             reader.endPointer(is_null);
@@ -47,10 +58,10 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
 
-            const bool is_null = PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(entry);
+            const bool is_null = PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::isNull(entry);
 
             writer.startPointer(is_null, param);
-            if (false == is_null)
+            if (not is_null)
             {
                 apply_write(writer, *entry, param);
             }
@@ -72,16 +83,16 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(left))
+            if (PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::isNull(left))
             {
-                if (false == PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(right))
+                if (not PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::isNull(right))
                 {
                     visitor.equal_ = false;
                 }
             }
             else
             {
-                if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(right))
+                if (PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::isNull(right))
                 {
                     visitor.equal_ = false;
                 }
@@ -106,7 +117,7 @@ namespace ariles2
                 const typename t_Visitor::Parameters & /*param*/)
         {
             ARILES2_TRACE_FUNCTION;
-            PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::reset(entry);
+            PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::reset(entry);
         }
     }  // namespace defaults
 }  // namespace ariles2
@@ -123,7 +134,7 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            if (false == (PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(entry)))
+            if (not(PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::isNull(entry)))
             {
                 apply_process(visitor, *entry, param);
             }
@@ -144,17 +155,17 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            if (true == param.deep_copy_)
+            if (param.deep_copy_)
             {
-                if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(right))
+                if (PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::isNull(right))
                 {
-                    PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::reset(left);
+                    PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::reset(left);
                 }
                 else
                 {
-                    if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(left))
+                    if (PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::isNull(left))
                     {
-                        PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::allocate(left);
+                        PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::allocate(left);
                     }
 
                     apply_copyfrom(visitor, *left, *right, param);
@@ -174,17 +185,17 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            if (true == param.deep_copy_)
+            if (param.deep_copy_)
             {
-                if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Right> >::isNull(right))
+                if (PointerHandler<ARILES2_POINTER_TYPE<t_Right>>::isNull(right))
                 {
-                    PointerHandler<ARILES2_POINTER_TYPE<t_Left> >::reset(left);
+                    PointerHandler<ARILES2_POINTER_TYPE<t_Left>>::reset(left);
                 }
                 else
                 {
-                    if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Left> >::isNull(left))
+                    if (PointerHandler<ARILES2_POINTER_TYPE<t_Left>>::isNull(left))
                     {
-                        PointerHandler<ARILES2_POINTER_TYPE<t_Left> >::allocate(left);
+                        PointerHandler<ARILES2_POINTER_TYPE<t_Left>>::allocate(left);
                     }
 
                     apply_copyfrom(visitor, *left, *right, param);
@@ -192,9 +203,9 @@ namespace ariles2
             }
             else
             {
-                if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Right> >::isNull(right))
+                if (PointerHandler<ARILES2_POINTER_TYPE<t_Right>>::isNull(right))
                 {
-                    PointerHandler<ARILES2_POINTER_TYPE<t_Left> >::reset(left);
+                    PointerHandler<ARILES2_POINTER_TYPE<t_Left>>::reset(left);
                 }
                 else
                 {
@@ -215,17 +226,17 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            if (true == param.deep_copy_)
+            if (param.deep_copy_)
             {
-                if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(left))
+                if (PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::isNull(left))
                 {
-                    PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::reset(right);
+                    PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::reset(right);
                 }
                 else
                 {
-                    if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::isNull(right))
+                    if (PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::isNull(right))
                     {
-                        PointerHandler<ARILES2_POINTER_TYPE<t_Entry> >::allocate(right);
+                        PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::allocate(right);
                     }
 
                     apply_copyto(visitor, *left, *right, param);
@@ -245,17 +256,17 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            if (true == param.deep_copy_)
+            if (param.deep_copy_)
             {
-                if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Left> >::isNull(left))
+                if (PointerHandler<ARILES2_POINTER_TYPE<t_Left>>::isNull(left))
                 {
-                    PointerHandler<ARILES2_POINTER_TYPE<t_Right> >::reset(right);
+                    PointerHandler<ARILES2_POINTER_TYPE<t_Right>>::reset(right);
                 }
                 else
                 {
-                    if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Right> >::isNull(right))
+                    if (PointerHandler<ARILES2_POINTER_TYPE<t_Right>>::isNull(right))
                     {
-                        PointerHandler<ARILES2_POINTER_TYPE<t_Right> >::allocate(right);
+                        PointerHandler<ARILES2_POINTER_TYPE<t_Right>>::allocate(right);
                     }
 
                     apply_copyto(visitor, *left, *right, param);
@@ -263,9 +274,9 @@ namespace ariles2
             }
             else
             {
-                if (true == PointerHandler<ARILES2_POINTER_TYPE<t_Left> >::isNull(left))
+                if (PointerHandler<ARILES2_POINTER_TYPE<t_Left>>::isNull(left))
                 {
-                    PointerHandler<ARILES2_POINTER_TYPE<t_Right> >::reset(right);
+                    PointerHandler<ARILES2_POINTER_TYPE<t_Right>>::reset(right);
                 }
                 else
                 {

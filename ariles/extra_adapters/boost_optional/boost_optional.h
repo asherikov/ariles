@@ -16,11 +16,11 @@
 namespace ariles2
 {
     template <class t_Value>
-    class PointerHandler<boost::optional<t_Value> >
+    class PointerHandler<boost::optional<t_Value>>
     {
     public:
-        typedef boost::optional<t_Value> Pointer;
-        typedef t_Value Value;
+        using Pointer = boost::optional<t_Value>;
+        using Value = t_Value;
 
 
     public:

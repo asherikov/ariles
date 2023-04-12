@@ -101,8 +101,8 @@ namespace ariles2
      */
     struct ARILES2_VISIBILITY_ATTRIBUTE protobuf3
     {
-        typedef ns_protobuf3::Base Base;
-        typedef ns_protobuf3::Reader Reader;
-        typedef ns_protobuf3::Writer Writer;
+        using Base = ns_protobuf3::Base;
+        using Reader = ns_protobuf3::Reader;
+        using Writer = ns_protobuf3::Writer;
     };
 }  // namespace ariles2

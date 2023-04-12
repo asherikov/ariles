@@ -13,6 +13,7 @@
 
 #define ARILES2_DEFAULT_VISITORS                                                                                       \
     ARILES2_VISITOR(count)                                                                                             \
+    ARILES2_VISITOR(count_missing)                                                                                     \
     ARILES2_VISITOR(finalize)                                                                                          \
     ARILES2_VISITOR(prewrite)                                                                                          \
     ARILES2_VISITOR(defaults)                                                                                          \
@@ -57,8 +58,8 @@ BOOST_FIXTURE_TEST_CASE(CompareInheritance, ariles_tests::DummyFixture)
 
     configurable1.randomize();
     configurable2 = configurable1;
-    BOOST_CHECK(true == ariles2::apply(visitor, configurable1, configurable2, param));
+    BOOST_CHECK(ariles2::apply(visitor, configurable1, configurable2, param));
 
     configurable1.randomize();
-    BOOST_CHECK(false == ariles2::apply(visitor, configurable1, configurable2, param));
+    BOOST_CHECK(not ariles2::apply(visitor, configurable1, configurable2, param));
 }

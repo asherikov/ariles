@@ -50,7 +50,7 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Base : public t_Visitor
         {
         public:
-            typedef t_ReturnType ReturnType;
+            using ReturnType = t_ReturnType;
 
         protected:
             Base(){};
@@ -70,9 +70,9 @@ namespace ariles2
     using Namespace::Base::arilesGetParameters;
 
 #define ARILES2_METHODS(Namespace, VisitorQualifier, MethodQualifier)                                                  \
-    virtual void arilesVirtualVisit(                                                                                   \
+    void arilesVirtualVisit(                                                                                           \
             VisitorQualifier ariles2::Namespace::Visitor &visitor,                                                     \
-            const ariles2::Namespace::Visitor::Parameters &param) MethodQualifier                                      \
+            const ariles2::Namespace::Visitor::Parameters &param) MethodQualifier override                             \
     {                                                                                                                  \
         ARILES2_TRACE_FUNCTION;                                                                                        \
         this->arilesVisit(visitor, param);                                                                             \
@@ -387,32 +387,15 @@ namespace ariles2
 
 namespace ariles2
 {
-    // -----
-    template <class t_One, class t_Two, class t_Three, class t_Four, class t_Five>
-    void apply(t_One, t_Two, t_Three, t_Four, t_Five)
+    template <class t_Visitor, class... t_Args>
+    void apply(t_Args &&.../*args*/)
     {
     }
 
-    template <class t_One, class t_Two, class t_Three, class t_Four>
-    void apply(t_One, t_Two, t_Three, t_Four)
+    template <class... t_Args>
+    void apply(t_Args &&.../*args*/)
     {
     }
-
-    template <class t_One, class t_Two, class t_Three>
-    void apply(t_One, t_Two, t_Three)
-    {
-    }
-
-    template <class t_One, class t_Two>
-    void apply(t_One, t_Two)
-    {
-    }
-
-    template <class t_One, class t_Two>
-    void apply(t_Two)
-    {
-    }
-    // -----
 }  // namespace ariles2
 
 #endif

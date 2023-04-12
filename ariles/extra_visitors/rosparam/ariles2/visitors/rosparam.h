@@ -37,7 +37,7 @@ namespace ariles2
      */
     struct ARILES2_VISIBILITY_ATTRIBUTE rosparam
     {
-        typedef ariles2::cfgread::Visitor<ns_rosparam::Reader> Reader;
-        typedef ariles2::cfgwrite::Visitor<ns_rosparam::Writer> Writer;
+        using Reader = ariles2::cfgread::Visitor<ns_rosparam::Reader>;
+        using Writer = ariles2::cfgwrite::Visitor<ns_rosparam::Writer>;
     };
 }  // namespace ariles2

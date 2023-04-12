@@ -1,9 +1,20 @@
 CHANGELOG
 =========
 
-
 Unreleased
 ==========
+
+Added
+-----
+* Writers now take `allow_missing_entries_` parameter into account, omitting
+  'missing' entries, e.g., null pointers.
+
+Removed
+-------
+* Makefile/CI: `install-jsonnet` target
+* Redundant `cmake/options_cpp11_on_noros_*.cmake`
+* C++03 compatibility
+
 
 2.0.3
 =====

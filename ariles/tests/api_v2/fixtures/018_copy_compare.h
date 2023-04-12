@@ -27,7 +27,7 @@ namespace ariles_tests
             ariles2::apply<t_Writer>(configurable1, configurable_copy);
             ariles2::apply<t_Reader>(configurable2, configurable_copy);
 
-            BOOST_CHECK(true == ariles2::apply<ariles2::Compare>(configurable1, configurable2));
+            BOOST_CHECK(ariles2::apply<ariles2::Compare>(configurable1, configurable2));
         }
     };
 }  // namespace ariles_tests

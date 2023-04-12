@@ -1,2 +1,1 @@
-set(ARILES_CPP_STANDARD         "c++11" CACHE STRING "")
 set(ARILES_CPP_SANITIZERS       "ON"    CACHE STRING "")

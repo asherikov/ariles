@@ -41,8 +41,8 @@ namespace ariles2
      */
     struct ARILES2_VISIBILITY_ATTRIBUTE msgpack
     {
-        typedef ariles2::cfgread::Visitor<ns_msgpack::Reader> Reader;
-        typedef ariles2::cfgwrite::Visitor<ns_msgpack::Writer> Writer;
+        using Reader = ariles2::cfgread::Visitor<ns_msgpack::Reader>;
+        using Writer = ariles2::cfgwrite::Visitor<ns_msgpack::Writer>;
     };
 }  // namespace ariles2
 
@@ -57,7 +57,7 @@ namespace ariles2
      */
     struct ARILES2_VISIBILITY_ATTRIBUTE msgpack_compact
     {
-        typedef ariles2::cfgread::Visitor<ns_msgpack_compact::Reader> Reader;
-        typedef ariles2::cfgwrite::Visitor<ns_msgpack_compact::Writer> Writer;
+        using Reader = ariles2::cfgread::Visitor<ns_msgpack_compact::Reader>;
+        using Writer = ariles2::cfgwrite::Visitor<ns_msgpack_compact::Writer>;
     };
 }  // namespace ariles2

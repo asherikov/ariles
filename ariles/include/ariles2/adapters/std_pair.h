@@ -41,11 +41,10 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             // size = 0 is ok if missing entries are allowed (fallback to standard logic which is going to fail)
             // size > 1 is never ok, due to ambiguity.
-            if (true == parameters.sloppy_pairs_ and true == visitor.startIteratedMap(t_Visitor::SIZE_LIMIT_EQUAL, 1))
+            if (parameters.sloppy_pairs_ and visitor.startIteratedMap(t_Visitor::SIZE_LIMIT_EQUAL, 1))
             {
                 ARILES2_ASSERT(
-                        true == visitor.startIteratedMapElement(entry.first),
-                        "Could not read first element of a sloppy pair.");
+                        visitor.startIteratedMapElement(entry.first), "Could not read first element of a sloppy pair.");
                 apply_read(visitor, entry.second, parameters);
                 visitor.endIteratedMapElement();
                 visitor.endIteratedMap();
@@ -85,9 +84,9 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            if (true == param.sloppy_pairs_)
+            if (param.sloppy_pairs_)
             {
-                if (true == writer.startIteratedMap(1, param))
+                if (writer.startIteratedMap(1, param))
                 {
                     writer.startIteratedMapElement(entry.first);
                     apply_write(writer, entry.second, param);

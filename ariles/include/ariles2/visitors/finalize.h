@@ -71,7 +71,7 @@ namespace ariles2
      * @{
      */
     namespace postread = finalize;
-    typedef postread::Visitor PostRead;
-    typedef finalize::Visitor Finalize;
+    using PostRead = postread::Visitor;
+    using Finalize = finalize::Visitor;
     /// @}
 }  // namespace ariles2

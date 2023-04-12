@@ -39,7 +39,7 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::Visitor, copyto::Parameters>
         {
         public:
-            typedef copyto::Parameters Parameters;
+            using Parameters = copyto::Parameters;
 
 
         public:
@@ -120,5 +120,5 @@ namespace ariles2
 
 
     /// @ingroup copyto
-    typedef copyto::Visitor CopyTo;
+    using CopyTo = copyto::Visitor;
 }  // namespace ariles2

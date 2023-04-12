@@ -26,7 +26,7 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
 
-            if (true == parameters.override_parameters_)
+            if (parameters.override_parameters_)
             {
                 visitor.startMap(entry, parameters);
                 entry.arilesVirtualVisit(visitor, parameters);
@@ -90,7 +90,7 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
 
-            if (true == parameters.override_parameters_)
+            if (parameters.override_parameters_)
             {
                 writer.startMap(entry, parameters);
                 entry.arilesVirtualVisit(writer, parameters);
@@ -113,7 +113,7 @@ namespace ariles2
                 ARILES2_IS_ENUM_ENABLER(t_Enumeration))
         {
             ARILES2_TRACE_FUNCTION;
-            int tmp_value = entry;
+            const int tmp_value = entry;
             writer.writeElement(tmp_value, param);
         }
 
@@ -151,7 +151,7 @@ namespace ariles2
                 ARILES2_IS_BASE_ENABLER(ariles2::Ariles, t_Left))
         {
             ARILES2_TRACE_FUNCTION;
-            if (true == param.compare_number_of_entries_)
+            if (param.compare_number_of_entries_)
             {
                 visitor.equal_ &= (ariles2::apply<ariles2::Count>(left) == ariles2::apply<ariles2::Count>(right));
             }

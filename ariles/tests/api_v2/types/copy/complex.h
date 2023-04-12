@@ -22,7 +22,7 @@ namespace ariles_tests
 
 
         std::vector<double> std_vector;
-        std::vector<std::vector<double> > std_nested_vector;
+        std::vector<std::vector<double>> std_nested_vector;
 
         std::string string;
 
@@ -33,7 +33,7 @@ namespace ariles_tests
         BetterEnum better_enum;
 
         std::pair<std::string, double> std_pair;
-        std::map<std::string, std::vector<std::string> > std_map;
+        std::map<std::string, std::vector<std::string>> std_map;
 
 
 #ifdef ARILES_ADAPTER_EIGEN
@@ -43,7 +43,7 @@ namespace ariles_tests
         Eigen::Matrix3cd matrix_complex_double;
 
         std::vector<Eigen::Vector3d> std_vector_evector;
-        std::vector<std::vector<Eigen::Vector3d> > std_nested_vector_evector;
+        std::vector<std::vector<Eigen::Vector3d>> std_nested_vector_evector;
 
         Eigen::Isometry3d isometry;
 

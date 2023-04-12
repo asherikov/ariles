@@ -31,6 +31,7 @@ namespace ariles2
             bool explicit_matrix_size_;
             bool fallback_to_string_floats_;
             bool flat_matrices_;
+            bool allow_missing_entries_;
 
 
         public:
@@ -41,6 +42,7 @@ namespace ariles2
                 explicit_matrix_size_ = false;
                 fallback_to_string_floats_ = true;
                 flat_matrices_ = true;
+                allow_missing_entries_ = false;
             }
         };
 
@@ -121,8 +123,8 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE PIMPLVisitor : public t_Visitor
         {
         protected:
-            typedef t_Implementation Impl;
-            typedef ARILES2_SHARED_PTR<t_Implementation> ImplPtr;
+            using Impl = t_Implementation;
+            using ImplPtr = std::shared_ptr<t_Implementation>;
 
         protected:
             ImplPtr impl_;
@@ -134,6 +136,12 @@ namespace ariles2
         protected:
             PIMPLVisitor(){};
             ~PIMPLVisitor(){};
+
+            template <class... t_Args>
+            void makeImplPtr(t_Args &&...args)
+            {
+                impl_ = std::make_shared<Impl>(std::forward<t_Args>(args)...);
+            }
         };
 
 
@@ -141,7 +149,7 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Base : public visitor::Base<visitor::GenericVisitor, t_Parameters>
         {
         public:
-            typedef t_Parameters Parameters;
+            using Parameters = t_Parameters;
 
 
         public:
