@@ -115,22 +115,5 @@ function(cmakeut_compiler_flags STANDARD)
     set(CXX_GENERIC "-std=${STANDARD} ${CXX_WARNINGS} ${CXX_OTHER} ${CXX_SANITIZERS}")
 
 
-    if ("${STANDARD}" STREQUAL "c++11")
-
-        # -Wsuggest-override -Wsuggest-final-methods
-        set (CMAKEUT_CXX_FLAGS "${CXX_GENERIC}" PARENT_SCOPE)
-
-    elseif ("${STANDARD}" STREQUAL "c++03")
-
-        set (CMAKEUT_CXX_FLAGS "${CXX_GENERIC}" PARENT_SCOPE)
-
-    elseif ("${STANDARD}" STREQUAL "c++98")
-
-        set (CMAKEUT_CXX_FLAGS "${CXX_GENERIC}" PARENT_SCOPE)
-
-    else()
-
-        message(FATAL_ERROR "Unknown standard")
-
-    endif()
+    set (CMAKEUT_CXX_FLAGS "${CXX_GENERIC}" PARENT_SCOPE)
 endfunction()

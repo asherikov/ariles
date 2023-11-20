@@ -263,3 +263,5 @@ Related software
 * Serialization libraries, e.g., `boost::serialization`,
   https://github.com/USCiLab/cereal.
 
+* A library with similar functionality in C++17
+  https://github.com/injae/serdepp.

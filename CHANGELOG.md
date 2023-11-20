@@ -8,6 +8,10 @@ Added
 -----
 * Writers now take `allow_missing_entries_` parameter into account, omitting
   'missing' entries, e.g., null pointers.
+* Searching for `find_package()` with yaml-cpp.
+* `ARILES_CPP_STANDARD` cmake flag.
+* `ariles::write::Parameters`: +`allow_missing_entries_`
+* `OptionalPointer` wrapper class for pointers that can be NULL if entry is missing.
 
 Removed
 -------

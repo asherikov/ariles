@@ -30,6 +30,7 @@ option (ARILES_VERBOSE                  "Verbose build"                     ON)
 option (ARILES_BUILD_REGRESSION_TESTS   "Build regression tests."           ON)
 option (ARILES_CCACHE                   "Enable ccache if available"        ON)
 set    (ARILES_DEB_TARGETS              "" CACHE STRING "Enable debian package generation.")
+set    (ARILES_CPP_STANDARD             "11" CACHE STRING "14 is required for boost >= 1.82, 11 is still ok for ariles")
 
 # install parameters
 set    (ARILES_PKGCONFIG_INSTALL_PATH   "" CACHE STRING "pkg-config pc-file install path, not installed if empty")
@@ -209,7 +210,7 @@ set(CMAKEUT_CPP_SANITIZERS  ${ARILES_CPP_SANITIZERS})
 set(CMAKEUT_CLANG_TIDY      ${ARILES_CPP_CLANG_TIDY})
 set(CMAKEUT_CLANG_TIDY_EXTRA_IGNORES
     "-cppcoreguidelines-special-member-functions,-hicpp-special-member-functions,-altera-struct-pack-align,-llvm-namespace-comment,-misc-no-recursion,-readability-const-return-type,-google-default-arguments,-bugprone-macro-parentheses,-cppcoreguidelines-pro-type-union-access,-hicpp-named-parameter,-readability-named-parameter,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-pro-type-union-access,-cppcoreguidelines-avoid-non-const-global-variables,-cert-err58-cpp,-cert-env33-c")
-cmakeut_compiler_flags("c++11")
+cmakeut_compiler_flags("c++${ARILES_CPP_STANDARD}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKEUT_CXX_FLAGS}")
 
 
