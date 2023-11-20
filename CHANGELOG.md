@@ -4,6 +4,10 @@ CHANGELOG
 Unreleased
 ==========
 
+
+2.1.0
+=====
+
 Added
 -----
 * Writers now take `allow_missing_entries_` parameter into account, omitting
