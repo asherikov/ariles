@@ -149,7 +149,7 @@ namespace ariles2
 
         std::size_t Reader::startArray()
         {
-            std::size_t size = impl_->getRawNode().via.array.size;
+            const std::size_t size = impl_->getRawNode().via.array.size;
             impl_->node_stack_.emplace_back(0, size);
 
             return (size);

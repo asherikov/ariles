@@ -47,9 +47,9 @@ namespace ariles2
     {
         Reader::Reader(const std::string &file_name)
         {
-            impl_ = ImplPtr(new impl::Reader());
+            impl_ = std::make_shared<impl::Reader>();
 
-            pugi::xml_parse_result result = impl_->document_.load_file(file_name.c_str(), pugi::parse_minimal);
+            const pugi::xml_parse_result result = impl_->document_.load_file(file_name.c_str(), pugi::parse_minimal);
             ARILES2_ASSERT(result, std::string("Parsing of '") + file_name + "' failed: " + result.description());
             impl_->node_stack_.push_back(impl_->document_);  // NOLINT
         }
@@ -57,9 +57,9 @@ namespace ariles2
 
         Reader::Reader(std::istream &input_stream)
         {
-            impl_ = ImplPtr(new impl::Reader());
+            impl_ = std::make_shared<impl::Reader>();
 
-            pugi::xml_parse_result result = impl_->document_.load(input_stream, pugi::parse_minimal);
+            const pugi::xml_parse_result result = impl_->document_.load(input_stream, pugi::parse_minimal);
             ARILES2_ASSERT(result, std::string("Parsing failed: ") + result.description());
             impl_->node_stack_.push_back(impl_->document_);  // NOLINT
         }
@@ -71,16 +71,16 @@ namespace ariles2
 
             if (NULL != child)
             {
-                impl_->node_stack_.push_back(child);
+                impl_->node_stack_.emplace_back(child);
                 return (true);
             }
 
             const pugi::xml_attribute attribute = impl_->getRawNode().attribute(child_name.c_str());
             if (NULL != attribute)
             {
-                pugi::xml_node new_child = impl_->getRawNode().append_child(child_name.c_str());
+                const pugi::xml_node new_child = impl_->getRawNode().append_child(child_name.c_str());
                 new_child.text() = attribute.value();
-                impl_->node_stack_.push_back(new_child);
+                impl_->node_stack_.emplace_back(new_child);
                 return (true);
             }
 
@@ -99,7 +99,7 @@ namespace ariles2
                 const std::size_t /*min*/,
                 const std::size_t /*max*/)
         {
-            pugi::xml_node child = impl_->getRawNode().first_child();
+            const pugi::xml_node child = impl_->getRawNode().first_child();
             if (NULL != child)
             {
                 impl_->node_stack_.emplace_back(child, NodeWrapper::ITERATED_MAP);

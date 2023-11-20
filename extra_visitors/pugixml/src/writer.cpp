@@ -69,13 +69,13 @@ namespace ariles2
     {
         Writer::Writer(const std::string &file_name)
         {
-            impl_ = ImplPtr(new impl::Writer(file_name));
+            impl_ = std::make_shared<impl::Writer>(file_name);
         }
 
 
         Writer::Writer(std::ostream &output_stream)
         {
-            impl_ = ImplPtr(new impl::Writer(output_stream));
+            impl_ = std::make_shared<impl::Writer>(output_stream);
         }
 
 
@@ -89,7 +89,7 @@ namespace ariles2
 
         void Writer::startMapEntry(const std::string &map_name)
         {
-            impl_->node_stack_.push_back(impl_->getRawNode().append_child(map_name.c_str()));
+            impl_->node_stack_.emplace_back(impl_->getRawNode().append_child(map_name.c_str()));
         }
 
         void Writer::endMapEntry()
@@ -108,7 +108,7 @@ namespace ariles2
             ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
                     "Internal error: namevalue.has more elements than expected.");
-            impl_->node_stack_.push_back(impl_->getRawNode().append_child("item"));
+            impl_->node_stack_.emplace_back(impl_->getRawNode().append_child("item"));
         }
 
         void Writer::endArrayElement()

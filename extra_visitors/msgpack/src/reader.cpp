@@ -65,9 +65,9 @@ namespace ariles2
 
                         while (buffer_offset != buffer_.size())
                         {
-                            handles_.push_back(std::shared_ptr<::msgpack::object_handle>(new ::msgpack::object_handle));
+                            handles_.push_back(std::make_shared<::msgpack::object_handle>());
 
-                            unpack(*handles_[handles_.size() - 1], buffer_.data(), buffer_.size(), buffer_offset);
+                            unpack(*handles_.back(), buffer_.data(), buffer_.size(), buffer_offset);
                         }
                     }
                     catch (const std::exception &e)

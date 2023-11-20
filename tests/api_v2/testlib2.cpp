@@ -42,6 +42,8 @@ namespace testlib_2
             ariles2::apply<ariles2::Defaults>(*this);
         }
 
+        virtual ~ConfigurableVerbose() = default;
+
 
         void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {

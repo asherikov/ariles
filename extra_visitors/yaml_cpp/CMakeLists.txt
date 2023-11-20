@@ -5,7 +5,11 @@ if(NOT ARILES_DEB_TARGETS)
 
     if(yaml-cpp_FOUND)
         set(ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES "${YAML_CPP_INCLUDE_DIR}")
-        set(ARILES_VISITOR_${ARILES_VISITOR}_LIBS "yaml-cpp")
+        if(TARGET yaml-cpp)
+            set(ARILES_VISITOR_${ARILES_VISITOR}_LIBS "yaml-cpp")
+        else()
+            set(ARILES_VISITOR_${ARILES_VISITOR}_LIBS "yaml-cpp::yaml-cpp")
+        endif()
     else()
         pkg_search_module(${ARILES_VISITOR} REQUIRED yaml-cpp>=0.5.1)
 

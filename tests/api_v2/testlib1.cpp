@@ -43,6 +43,9 @@ namespace testlib_1
         }
 
 
+        virtual ~ConfigurableVerbose() = default;
+
+
         void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
             integer_ = 10;

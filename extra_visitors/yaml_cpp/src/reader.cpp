@@ -86,7 +86,7 @@ namespace ariles2
         bool Reader::startMapEntry(const std::string &child_name)
         {
             ARILES2_TRACE_FUNCTION;
-            YAML::Node child = impl_->getRawNode()[child_name];
+            const YAML::Node child = impl_->getRawNode()[child_name];
 
             if (not child.IsDefined() or child.IsNull())
             {
@@ -156,7 +156,7 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             ARILES2_ASSERT(impl_->getRawNode().IsSequence(), "Entry is not an array.");
 
-            std::size_t size = impl_->getRawNode().size();
+            const std::size_t size = impl_->getRawNode().size();
             impl_->node_stack_.emplace_back(0, size);
 
             return (size);

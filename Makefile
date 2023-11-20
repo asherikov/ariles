@@ -1,5 +1,5 @@
 APT_INSTALL?=env DEBIAN_FRONTEND=noninteractive apt --yes --no-install-recommends install
-MAKE_FLAGS?=-j7
+MAKE_FLAGS?=-j14
 
 
 CMAKE_DIR=./cmake/
@@ -141,8 +141,8 @@ test-ros: clean
 
 
 test-noros: clean
-	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp11_on_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
-	${MAKE} clangcheck SCANBUILD=scan-build11 OPTIONS=cpp11_on_noros_tidy
+	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+	${MAKE} clangcheck SCANBUILD=scan-build15 OPTIONS=noros_tidy
 	${MAKE} cppcheck
 	${MAKE} spell
 
@@ -209,7 +209,7 @@ install-deps:
 
 
 format:
-	${FIND_ARILES_SOURCES} | grep -v "better_enum.h" | xargs clang-format-12 -verbose -i
+	${FIND_ARILES_SOURCES} | grep -v "better_enum.h" | xargs clang-format15 -verbose -i
 
 cppcheck:
 	# --inconclusive
@@ -231,6 +231,7 @@ cppcheck:
 		--suppress=unknownMacro \
 		--suppress=constStatement \
 		--suppress=unsignedLessThanZero \
+		--suppress=duplInheritedMember \
 		-i build \
 		-i tests/api_v2/regression_test_230.cpp \
 	3>&1 1>&2 2>&3 | tee cppcheck.err

@@ -26,11 +26,6 @@ namespace ariles2
                 using PackerPtr = std::shared_ptr<::msgpack::packer<std::ostream>>;
 
 
-            private:
-                Writer(const Writer &);
-                void operator=(const Writer &);
-
-
             public:
                 /// output file stream
                 std::ofstream config_ofs_;
@@ -41,18 +36,22 @@ namespace ariles2
                 PackerPtr packer_;
 
             public:
+                Writer(const Writer &) = delete;
+                void operator=(const Writer &) = delete;
+
+
                 explicit Writer(const std::string &file_name)
                 {
                     ariles2::write::Visitor::openFile(config_ofs_, file_name);
                     output_stream_ = &config_ofs_;
-                    packer_ = PackerPtr(new ::msgpack::packer<std::ostream>(*output_stream_));
+                    packer_ = std::make_shared<::msgpack::packer<std::ostream>>(*output_stream_);
                 }
 
 
                 explicit Writer(std::ostream &output_stream)
                 {
                     output_stream_ = &output_stream;
-                    packer_ = PackerPtr(new ::msgpack::packer<std::ostream>(*output_stream_));
+                    packer_ = std::make_shared<::msgpack::packer<std::ostream>>(*output_stream_);
                 }
             };
         }  // namespace impl

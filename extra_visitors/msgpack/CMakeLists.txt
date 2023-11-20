@@ -1,20 +1,31 @@
 set (TGT_ARILES_VISITOR_LIB      "${PROJECT_NAME}_visitor_${ARILES_VISITOR}")
 
 if(NOT ARILES_DEB_TARGETS)
-    find_library("ARILES_VISITOR_${ARILES_VISITOR}_LIBS" NAMES ${ARILES_VISITOR})
-    find_path("ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES" NAMES msgpack.hpp)
+    find_package(msgpack-cxx)
 
-    if (NOT ARILES_VISITOR_${ARILES_VISITOR}_LIBS OR NOT ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES)
-        pkg_search_module(${ARILES_VISITOR} msgpack)
-
-        if (${ARILES_VISITOR}_FOUND)
-            set(ARILES_VISITOR_${ARILES_VISITOR}_LIBRARY_DIRS "${${ARILES_VISITOR}_LIBRARY_DIRS}")
-            set(ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES "${${ARILES_VISITOR}_INCLUDE_DIRS}")
-            set(ARILES_VISITOR_${ARILES_VISITOR}_LIBS "${${ARILES_VISITOR}_LIBRARIES}")
-
-            link_directories(${ARILES_VISITOR_${ARILES_VISITOR}_LIBRARY_DIRS})
+    if (msgpack-cxx_FOUND)
+        set(ARILES_VISITOR_${ARILES_VISITOR}_LIBS "msgpack-cxx")
+    else()
+        find_package(msgpack)
+        if (msgpack_FOUND AND TARGET msgpackc-cxx)
+            set(ARILES_VISITOR_${ARILES_VISITOR}_LIBS "msgpackc-cxx")
         else()
-            message(FATAL_ERROR "${ARILES_VISITOR} is not found.")
+            find_library("ARILES_VISITOR_${ARILES_VISITOR}_LIBS" NAMES ${ARILES_VISITOR})
+            find_path("ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES" NAMES msgpack.hpp)
+
+            if (NOT ARILES_VISITOR_${ARILES_VISITOR}_LIBS OR NOT ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES)
+                pkg_search_module(${ARILES_VISITOR} msgpack)
+
+                if (${ARILES_VISITOR}_FOUND)
+                    set(ARILES_VISITOR_${ARILES_VISITOR}_LIBRARY_DIRS "${${ARILES_VISITOR}_LIBRARY_DIRS}")
+                    set(ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES "${${ARILES_VISITOR}_INCLUDE_DIRS}")
+                    set(ARILES_VISITOR_${ARILES_VISITOR}_LIBS "${${ARILES_VISITOR}_LIBRARIES}")
+
+                    link_directories(${ARILES_VISITOR_${ARILES_VISITOR}_LIBRARY_DIRS})
+                else()
+                    message(FATAL_ERROR "${ARILES_VISITOR} is not found.")
+                endif()
+            endif()
         endif()
     endif()
 endif()
