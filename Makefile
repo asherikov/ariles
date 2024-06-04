@@ -140,6 +140,11 @@ test-ros: clean
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=ros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 
 
+test-ros2: clean
+	#${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=default TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=ros2 TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+
+
 test-noros: clean
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 	${MAKE} clangcheck SCANBUILD=scan-build15 OPTIONS=noros_tidy
@@ -179,27 +184,25 @@ dox: doxclean clean
 
 
 install-ros:
-	sh -c "echo \"deb http://packages.ros.org/ros/ubuntu ${UBUNTU_DISTRO} main\" > /etc/apt/sources.list.d/ros-latest.list"
-	sh -c "apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 \
-	    || apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 \
-	    || apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654"
-	sh -c "apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 6B05F25D762E3157 \
-	    || apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 6B05F25D762E3157 \
-	    || apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 6B05F25D762E3157"
-	apt update -qq
-	${APT_INSTALL} dpkg
-	${APT_INSTALL} ros-${ROS_DISTRO}-ros-base
+	wget -qO- https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo tee /etc/apt/trusted.gpg.d/ros.asc
 	${MAKE} install-ros-${ROS_DISTRO}
+	${APT_INSTALL} dpkg
+	${APT_INSTALL} python3-rosdep python3-rosinstall python3-rosinstall-generator build-essential
 	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; rosdep init'
+	rosdep update
 
-install-ros-%:
-	${APT_INSTALL} python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+install-ros-noetic:
+	sh -c 'test -f /etc/apt/sources.list.d/ros-latest.list \
+        || (echo "deb http://packages.ros.org/ros/ubuntu ${UBUNTU_DISTRO} main" > /etc/apt/sources.list.d/ros-latest.list)'
+	apt update -qq
+	${APT_INSTALL} ros-${ROS_DISTRO}-ros-base
 
-install-ros-melodic: install-ros-kinetic
-	#
+install-ros-humble:
+	sh -c 'test -f /etc/apt/sources.list.d/ros2-latest.list \
+        || (echo "deb [arch=amd64,arm64] http://repo.ros2.org/ubuntu/main ${UBUNTU_DISTRO} main" > /etc/apt/sources.list.d/ros2-latest.list)'
+	apt update -qq
+	${APT_INSTALL} ros-${ROS_DISTRO}-rclcpp
 
-install-ros-kinetic:
-	${APT_INSTALL} python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
 
 install-deps:
 	${APT_INSTALL} cmake libboost-all-dev libeigen3-dev

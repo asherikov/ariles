@@ -153,7 +153,7 @@ namespace ariles2
                         std::string node;
                         if (node_stack_.back().isArray())
                         {
-                            node.reserve(node_stack_.back().node_.size() + map_name.size() + 15);
+                            node.reserve(node_stack_.back().node_.size() + map_name.size() + num_chars_for_index_reserve + 3);
 
                             node = node_stack_.back().node_;
                             node += "{";

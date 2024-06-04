@@ -141,7 +141,7 @@ namespace ariles2
         void Reader::endMap()
         {
             ARILES2_ASSERT(
-                    impl_->node_stack_.back().isAllParsed(),
+                    impl_->node_stack_.back().isCompleted(),
                     "Some entries were not parsed, which is not allowed by this visitor.");
             impl_->node_stack_.pop_back();
         }
@@ -166,7 +166,7 @@ namespace ariles2
         {
             ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
-                    "Internal error: namevalue.has more elements than expected.");
+                    "Internal error: array has more elements than expected.");
         }
 
 

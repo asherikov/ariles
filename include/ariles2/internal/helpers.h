@@ -16,6 +16,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <complex>
+#include <limits>
 
 
 #include <type_traits>
@@ -57,11 +58,14 @@
     ARILES2_BASIC_TYPE(long long)                                                                                      \
     ARILES2_BASIC_TYPE(char)
 
-#define ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST                                                                      \
+#define ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST_WITHOUT_BYTE                                                         \
     ARILES2_BASIC_TYPE(unsigned int)                                                                                   \
     ARILES2_BASIC_TYPE(unsigned short)                                                                                 \
     ARILES2_BASIC_TYPE(unsigned long)                                                                                  \
-    ARILES2_BASIC_TYPE(unsigned long long)                                                                             \
+    ARILES2_BASIC_TYPE(unsigned long long)
+
+#define ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST                                                                      \
+    ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST_WITHOUT_BYTE                                                             \
     ARILES2_BASIC_TYPE(unsigned char)
 
 
@@ -99,6 +103,9 @@
 
 namespace ariles2
 {
+    // 20
+    const uint8_t num_chars_for_index_reserve = std::numeric_limits<std::size_t>::digits10 + 1;
+
     // intentionally not defined
     template <class t_Pointer>
     class ARILES2_VISIBILITY_ATTRIBUTE PointerHandler;

@@ -12,7 +12,7 @@ jobs:
         runs-on: ubuntu-22.04
 
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - run: sudo make install-deps
             - run: $APT fakeroot devscripts build-essential
             - run: |
@@ -30,9 +30,8 @@ jobs:
             ROS_CI_DESKTOP: focal
 
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
-            - run: rosdep update
             - run: sudo make install-deps
             - run: $APT fakeroot devscripts build-essential
             - run: |
@@ -45,7 +44,7 @@ jobs:
     clang_noros:
         runs-on: ubuntu-22.04
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - run: sudo apt update
             - run: sudo make install-deps
             - run: make build-tests TYPE=Debug OPTIONS=noros TARGETS="all" TC=clang ARGS=-V
@@ -54,16 +53,31 @@ jobs:
     jammy_gcc_noros:
         runs-on: ubuntu-22.04
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - run: sudo apt update
             - run: sudo make install-deps
             - run: make build-tests TYPE=Debug OPTIONS=noros TARGETS="all" TC=gcc ARGS=-V
+
+    jammy_gcc_ros:
+        runs-on: ubuntu-22.04
+
+        env:
+            ROS_DISTRO: humble
+            ROS_CI_DESKTOP: jammy
+
+        steps:
+            - uses: actions/checkout@v4
+            - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
+            - run: sudo make install-deps
+            - run: |
+                source /opt/ros/$ROS_DISTRO/setup.bash
+                make build-tests TYPE=Debug OPTIONS=ros2 TARGETS="all" TC=gcc ARGS=-V
 
 
     focal_gcc_noros:
         runs-on: ubuntu-20.04
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - run: sudo apt update
             - run: sudo make install-deps
             - run: make build-tests TYPE=Debug OPTIONS=noros TARGETS="all" TC=gcc ARGS=-V
@@ -78,9 +92,8 @@ jobs:
             ROS_CI_DESKTOP: focal
 
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
-            - run: rosdep update
             - run: sudo make install-deps
             - run: |
                 source /opt/ros/$ROS_DISTRO/setup.bash
@@ -96,9 +109,8 @@ jobs:
             ROS_CI_DESKTOP: focal
 
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
-            - run: rosdep update
             - run: sudo make install-deps
             - run: |
                 source /opt/ros/$ROS_DISTRO/setup.bash
@@ -109,7 +121,7 @@ jobs:
         runs-on: ubuntu-22.04
 
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - run: sudo apt update
             - run: $APT cppcheck
             - run: $APT python3-pip python3-setuptools
@@ -127,9 +139,8 @@ jobs:
             ROS_CI_DESKTOP: focal
 
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
-            - run: rosdep update
             - run: sudo make install-deps
             - run: $APT clang-tools-12 clang-tidy-12
             - run: |
@@ -137,12 +148,29 @@ jobs:
                 make clangcheck SCANBUILD=scan-build-12 OPTIONS=ros_tidy TC=gcc
 
 
+    jammy_gcc_ros_scanbuild:
+        runs-on: ubuntu-22.04
+
+        env:
+            ROS_DISTRO: humble
+            ROS_CI_DESKTOP: jammy
+
+        steps:
+            - uses: actions/checkout@v4
+            - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
+            - run: sudo make install-deps
+            - run: $APT clang-tools-15 clang-tidy-15
+            - run: |
+                source /opt/ros/$ROS_DISTRO/setup.bash
+                make clangcheck SCANBUILD=scan-build-15 OPTIONS=ros2_tidy TC=gcc
+
+
     jammy_gcc_noros_scanbuild:
         runs-on: ubuntu-22.04
 
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - run: sudo apt update
             - run: sudo make install-deps
-            - run: $APT clang-tools-14 clang-tidy-14
-            - run: make clangcheck SCANBUILD=scan-build-14 OPTIONS=noros TC=gcc
+            - run: $APT clang-tools-15 clang-tidy-15
+            - run: make clangcheck SCANBUILD=scan-build-15 OPTIONS=noros TC=gcc

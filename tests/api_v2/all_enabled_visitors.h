@@ -34,6 +34,10 @@
 #    include <ariles2/visitors/pugixml.h>
 #endif
 
+#ifdef ARILES_VISITOR_ros2param
+#    include <ariles2/visitors/ros2param.h>
+#endif
+
 // Do not have Reader and therefore are excluded from most of the tests
 //
 // #ifdef ARILES_VISITOR_octave

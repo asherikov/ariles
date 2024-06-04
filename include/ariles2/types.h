@@ -317,7 +317,14 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             if (value_.get() != other.value_.get())
             {
-                value_->arilesVisit(visitor, *other.value_, param);
+                if (nullptr != value_ and nullptr != other.value_)
+                {
+                    value_->arilesVisit(visitor, *other.value_, param);
+                }
+                else
+                {
+                    visitor.equal_ = false;
+                }
             }
         }
 #endif

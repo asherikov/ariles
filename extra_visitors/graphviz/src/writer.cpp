@@ -33,7 +33,8 @@ namespace ariles2
 
 
         public:
-            explicit NodeWrapper(const std::string &node, const Base::Type type = Base::GENERIC) : Base(node, type)
+            explicit NodeWrapper(const std::string &node, const Base::Type type = Base::Type::GENERIC)
+              : Base(node, type)
             {
                 label_ = node;
                 actual_id_ = node;
@@ -42,7 +43,7 @@ namespace ariles2
             explicit NodeWrapper(
                     const std::string &node,
                     const std::string &label,
-                    const Base::Type type = Base::GENERIC)
+                    const Base::Type type = Base::Type::GENERIC)
               : Base(node, type)
             {
                 label_ = label;

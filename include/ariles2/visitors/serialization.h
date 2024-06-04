@@ -51,7 +51,7 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Node
         {
         public:
-            enum Type
+            enum class Type
             {
                 UNDEFINED = 0,
                 GENERIC = 1,
@@ -70,13 +70,13 @@ namespace ariles2
 
 
         public:
-            Node(const Type type = GENERIC)
+            Node(const Type type = Type::GENERIC)
             {
                 ARILES2_TRACE_FUNCTION
                 type_ = type;
             }
 
-            Node(t_RawNode node, const Type type = GENERIC) : node_(node)
+            Node(t_RawNode node, const Type type = Type::GENERIC) : node_(node)
             {
                 ARILES2_TRACE_FUNCTION
                 type_ = type;
@@ -87,34 +87,34 @@ namespace ariles2
             Node(const std::size_t index, const std::size_t size) : index_(index), size_(size)
             {
                 ARILES2_TRACE_FUNCTION
-                type_ = ARRAY;  // NOLINT
-            }                   // NOLINT
+                type_ = Type::ARRAY;  // NOLINT
+            }                         // NOLINT
 
             Node(t_RawNode node, const std::size_t index, const std::size_t size)
               : node_(node), index_(index), size_(size)
             {
                 ARILES2_TRACE_FUNCTION
-                type_ = ARRAY;
+                type_ = Type::ARRAY;
             }
 
             bool isMatrix() const
             {
-                return (MATRIX == type_);
+                return (Type::MATRIX == type_);
             }
 
             bool isVector() const
             {
-                return (VECTOR == type_);
+                return (Type::VECTOR == type_);
             }
 
             bool isArray() const
             {
-                return (ARRAY == type_);
+                return (Type::ARRAY == type_);
             }
 
-            bool isAllParsed() const
+            bool isCompleted() const
             {
-                return (index_ == size_);
+                return (index_ >= size_);
             }
         };
 

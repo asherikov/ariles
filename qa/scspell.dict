@@ -3,12 +3,14 @@ alexander
 apache
 arenastring
 argn
+argv
 ariles
 asherikov
 auxillary
 backtrace
 cfgread
 cfgwrite
+classrclcpp
 cmakeut
 constexpr
 copyfrom
@@ -73,6 +75,7 @@ msgpack
 msgs
 namevalue
 nocase
+nodiscard
 noexcept
 nolint
 nolintbegin
@@ -99,6 +102,7 @@ putback
 quaterniond
 rankdir
 rapidjson
+rclcpp
 rdbuf
 reinitializes
 remappings

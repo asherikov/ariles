@@ -18,7 +18,7 @@ jobs:
             DEB_TARGET: jammy
 
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - run: sudo make install-deps
             - run: $APT fakeroot devscripts build-essential
             - run: make deb-build DEB_TARGET=$DEB_TARGET
@@ -36,7 +36,7 @@ jobs:
             DEB_TARGET: focal
 
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: rosdep update
             - run: sudo make install-deps

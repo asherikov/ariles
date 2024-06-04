@@ -30,7 +30,7 @@ option (ARILES_VERBOSE                  "Verbose build"                     ON)
 option (ARILES_BUILD_REGRESSION_TESTS   "Build regression tests."           ON)
 option (ARILES_CCACHE                   "Enable ccache if available"        ON)
 set    (ARILES_DEB_TARGETS              "" CACHE STRING "Enable debian package generation.")
-set    (ARILES_CPP_STANDARD             "11" CACHE STRING "14 is required for boost >= 1.82, 11 is still ok for ariles")
+set    (ARILES_CPP_STANDARD             "17" CACHE STRING "must not be older than 17")
 
 # install parameters
 set    (ARILES_PKGCONFIG_INSTALL_PATH   "" CACHE STRING "pkg-config pc-file install path, not installed if empty")

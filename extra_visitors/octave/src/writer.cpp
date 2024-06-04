@@ -124,7 +124,7 @@ namespace ariles2
                 std::string node;
                 if (impl_->node_stack_.back().isArray())
                 {
-                    node.reserve(impl_->node_stack_.back().node_.size() + map_name.size() + 15);
+                    node.reserve(impl_->node_stack_.back().node_.size() + map_name.size() + num_chars_for_index_reserve + 3);
 
                     node = impl_->node_stack_.back().node_;
                     node += "{";
@@ -153,7 +153,7 @@ namespace ariles2
             if (impl_->node_stack_.back().isArray())
             {
                 std::string node;
-                node.reserve(impl_->node_stack_.back().node_.size() + 15);
+                node.reserve(impl_->node_stack_.back().node_.size() + num_chars_for_index_reserve + 2);
                 node = impl_->node_stack_.back().node_;
                 node += "{";
                 node += boost::lexical_cast<std::string>(impl_->node_stack_.back().index_ + 1);
@@ -180,7 +180,7 @@ namespace ariles2
 
         void Writer::startVector(const std::size_t /*size*/)
         {
-            impl_->node_stack_.emplace_back(impl_->node_stack_.back().node_ + " = [", NodeWrapper::MATRIX);
+            impl_->node_stack_.emplace_back(impl_->node_stack_.back().node_ + " = [", NodeWrapper::Type::MATRIX);
             *impl_->output_stream_ << impl_->node_stack_.back().node_;
         }
 
@@ -206,7 +206,7 @@ namespace ariles2
                 const std::size_t /*rows*/,
                 const Parameters & /*param*/)
         {
-            impl_->node_stack_.emplace_back(impl_->node_stack_.back().node_ + " = [...\n", NodeWrapper::MATRIX);
+            impl_->node_stack_.emplace_back(impl_->node_stack_.back().node_ + " = [...\n", NodeWrapper::Type::MATRIX);
             *impl_->output_stream_ << impl_->node_stack_.back().node_;
         }
 

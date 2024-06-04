@@ -327,6 +327,7 @@ namespace ariles2
                     rows = this->startArray();
                     if (rows > 0)
                     {
+                        this->startArrayElement();
                         cols = this->startVector();
                     }
                 }

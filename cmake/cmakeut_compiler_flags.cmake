@@ -91,6 +91,8 @@ function(cmakeut_compiler_flags STANDARD)
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-cppcoreguidelines-pro-bounds-array-to-pointer-decay,-hicpp-no-array-decay")
         # long functions are ok
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-google-readability-function-size,-readability-function-size,-hicpp-function-size")
+        # do not enforce nested namespace concatenation
+        set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-modernize-concat-nested-namespaces")
 
 
         # overly restrictive fuchsia stuff

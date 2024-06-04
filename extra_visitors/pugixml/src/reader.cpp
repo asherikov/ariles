@@ -102,7 +102,7 @@ namespace ariles2
             const pugi::xml_node child = impl_->getRawNode().first_child();
             if (NULL != child)
             {
-                impl_->node_stack_.emplace_back(child, NodeWrapper::ITERATED_MAP);
+                impl_->node_stack_.emplace_back(child, NodeWrapper::Type::ITERATED_MAP);
                 return (true);
             }
             return (false);
@@ -166,7 +166,7 @@ namespace ariles2
         {
             ARILES2_ASSERT(
                     impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
-                    "Internal error: namevalue.has more elements than expected.");
+                    "Internal error: array has more elements than expected.");
         }
 
 

@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <utility>
 #include <vector>
 #include "../internal/helpers.h"
 
@@ -200,6 +201,7 @@ namespace ariles2
     template <class t_Visitor, class t_Ariles>
     typename t_Visitor::ReturnType apply(
             t_Ariles &ariles_class,
+            ARILES2_IS_BASE_ENABLER(ariles2::Ariles, t_Ariles),
             ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
@@ -211,118 +213,41 @@ namespace ariles2
 
 
     // -----
-    template <class t_Visitor, class t_Ariles, class t_Arg>
-    typename t_Visitor::ReturnType apply(
-            t_Arg &arg,
-            t_Ariles &ariles_class,
-            ARILES2_IS_BASE_DISABLER(ariles2::Ariles, t_Arg),
-            ARILES2_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+    template <
+            class t_Visitor,
+            typename t_Arg,
+            typename... t_Args,
+            typename = std::enable_if_t<not std::is_base_of<ariles2::visitor::Visitor, t_Arg>::value>,
+            typename = std::enable_if_t<not std::is_base_of<ariles2::Ariles, t_Arg>::value>,
+            typename = std::enable_if_t<not std::is_same<std::string, std::decay_t<t_Arg>>::value>>
+    typename t_Visitor::ReturnType apply(t_Arg &arg, t_Args &&...args)
     {
         ARILES2_TRACE_FUNCTION;
         t_Visitor visitor(arg);
-        return (ariles2::apply(visitor, ariles_class));
+        return (ariles2::apply(visitor, std::forward<t_Args>(args)...));
     }
 
 
-    template <class t_Visitor, class t_Ariles, class t_Arg>
-    typename t_Visitor::ReturnType apply(
-            t_Arg &arg,
-            t_Ariles &ariles_class,
-            const char *name,
-            ARILES2_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+    template <
+            class t_Visitor,
+            typename t_Arg,
+            typename... t_Args,
+            typename = std::enable_if_t<not std::is_base_of<ariles2::visitor::Visitor, t_Arg>::value>,
+            typename = std::enable_if_t<not std::is_same<char, std::decay_t<t_Arg>>::value>>
+    typename t_Visitor::ReturnType apply(t_Arg *arg, t_Args &&...args)
     {
         ARILES2_TRACE_FUNCTION;
         t_Visitor visitor(arg);
-        return (ariles2::apply(visitor, ariles_class, name));
+        return (ariles2::apply(visitor, std::forward<t_Args>(args)...));
     }
 
 
-    template <class t_Visitor, class t_Ariles, class t_Arg>
-    typename t_Visitor::ReturnType apply(
-            const t_Arg &arg,
-            t_Ariles &ariles_class,
-            ARILES2_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+    template <class t_Visitor, typename... t_Args>
+    typename t_Visitor::ReturnType apply(const std::string &arg, t_Args &&...args)
     {
         ARILES2_TRACE_FUNCTION;
         t_Visitor visitor(arg);
-        return (ariles2::apply(visitor, ariles_class));
-    }
-
-
-    template <class t_Visitor, class t_Ariles, class t_Arg>
-    typename t_Visitor::ReturnType apply(
-            t_Arg &arg,
-            t_Ariles &ariles_class,
-            const typename t_Visitor::Parameters &param,
-            ARILES2_IS_BASE_DISABLER(std::string, t_Arg),
-            ARILES2_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
-    {
-        ARILES2_TRACE_FUNCTION;
-        t_Visitor visitor(arg);
-        return (ariles2::apply(visitor, ariles_class, param));
-    }
-
-
-    template <class t_Visitor, class t_Ariles, class t_Arg, class t_Subtree>
-    typename t_Visitor::ReturnType apply(
-            t_Arg &arg,
-            t_Ariles &ariles_class,
-            const t_Subtree &subtree,
-            ARILES2_IS_ANY_OF(t_Subtree, const std::string, const std::vector<std::string>),
-            ARILES2_IS_BASE_DISABLER(std::string, t_Arg),
-            ARILES2_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
-    {
-        ARILES2_TRACE_FUNCTION;
-        t_Visitor visitor(arg);
-        return (ariles2::apply(visitor, ariles_class, subtree));
-    }
-
-
-    template <class t_Visitor, class t_Ariles, class t_Arg>
-    typename t_Visitor::ReturnType apply(
-            t_Arg &arg,
-            t_Ariles &ariles_class,
-            const char *name,
-            const typename t_Visitor::Parameters &param,
-            ARILES2_IS_BASE_DISABLER(std::string, t_Arg),
-            ARILES2_IS_BASE_DISABLER(ariles2::visitor::Visitor, t_Arg),
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
-    {
-        ARILES2_TRACE_FUNCTION;
-        t_Visitor visitor(arg);
-        return (ariles2::apply(visitor, ariles_class, name, param));
-    }
-
-
-    template <class t_Visitor, class t_Ariles>
-    typename t_Visitor::ReturnType apply(
-            const std::string &arg,
-            t_Ariles &ariles_class,
-            const typename t_Visitor::Parameters &param,
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
-    {
-        ARILES2_TRACE_FUNCTION;
-        t_Visitor visitor(arg);
-        return (ariles2::apply(visitor, ariles_class, param));
-    }
-
-
-    template <class t_Visitor, class t_Ariles, class t_Subtree>
-    typename t_Visitor::ReturnType apply(
-            const std::string &arg,
-            t_Ariles &ariles_class,
-            const t_Subtree &subtree,
-            ARILES2_IS_ANY_OF(t_Subtree, const std::string, const std::vector<std::string>),
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
-    {
-        ARILES2_TRACE_FUNCTION;
-        t_Visitor visitor(arg);
-        return (ariles2::apply(visitor, ariles_class, subtree));
+        return (ariles2::apply(visitor, std::forward<t_Args>(args)...));
     }
     // -----
 

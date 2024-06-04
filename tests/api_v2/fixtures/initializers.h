@@ -190,5 +190,66 @@ namespace ariles_tests
             }
         };
 #endif
+
+
+#ifdef ARILES2_VISITOR_INCLUDED_ros2param
+#    include <rclcpp/rclcpp.hpp>
+
+
+        class ROS2Initializer
+        {
+        private:
+            inline static std::atomic<std::size_t> counter_{ 0 };
+
+            ROS2Initializer(const ROS2Initializer &);
+            void operator=(const ROS2Initializer &);
+
+
+        public:
+            rclcpp::Node::SharedPtr nh_;
+
+
+        public:
+            ROS2Initializer()
+            {
+                nh_ = nullptr;
+
+                if (not rclcpp::ok())
+                {
+                    rclcpp::init(/*argn=*/0, /*argv=*/nullptr);
+                }
+
+                nh_ = rclcpp::Node::make_shared(
+                        std::string("FixtureBase") + boost::lexical_cast<std::string>(counter_++),
+                        rclcpp::NodeOptions()
+                                .allow_undeclared_parameters(true)
+                                .automatically_declare_parameters_from_overrides(true));
+            }
+
+            ~ROS2Initializer()
+            {
+                /*
+                rcl_interfaces::msg::ListParametersResult parameters = nh_->list_parameters({}, 100);
+                std::cout << ">>>>>>>>>" << std::endl;
+                for (const std::string & name : parameters.names)
+                {
+                    std::cout << name << " = " << nh_->get_parameter(name).value_to_string() << std::endl;
+                }
+                std::cout << ">>>>>>>>>" << std::endl;
+                */
+                rclcpp::shutdown();
+            }
+
+            const rclcpp::Node *getReaderInitializer(const std::string & /*string_id*/)
+            {
+                return (nh_.get());
+            }
+
+            rclcpp::Node *getWriterInitializer(const std::string & /*string_id*/)
+            {
+                return (nh_.get());
+            }
+        };
+#endif
     }  // namespace initializers
 }  // namespace ariles_tests

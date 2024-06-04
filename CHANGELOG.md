@@ -4,6 +4,21 @@ CHANGELOG
 Unreleased
 ==========
 
+Added
+-----
+* ROS2 parameters support.
+
+Changed
+-------
+* Switched to C++17.
+* Disable sanitizers: broken in Ubuntu, a workaround needed.
+
+Fixed
+-----
+* Matrix reading logic.
+* Exception messages.
+* Null pointer handling.
+
 
 2.1.0
 =====
