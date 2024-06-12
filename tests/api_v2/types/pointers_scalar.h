@@ -120,51 +120,51 @@ namespace ariles_tests
     template <class t_Configurable_out, class t_Configurable_in>
     void compare(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)
     {
-        if (configurable_in.std_shared_ptr_real_ == NULL)
+        if (configurable_in.std_shared_ptr_real_ == nullptr)
         {
             BOOST_CHECK_EQUAL(configurable_out.std_shared_ptr_real_, configurable_in.std_shared_ptr_real_);
         }
         else
         {
-            BOOST_CHECK(configurable_out.std_shared_ptr_real_ != NULL);
+            BOOST_CHECK(configurable_out.std_shared_ptr_real_ != nullptr);
             BOOST_CHECK_CLOSE(
                     *configurable_out.std_shared_ptr_real_, *configurable_in.std_shared_ptr_real_, g_tolerance);
         }
-        if (configurable_in.std_unique_ptr_real_ == NULL)
+        if (configurable_in.std_unique_ptr_real_ == nullptr)
         {
             BOOST_CHECK(configurable_out.std_unique_ptr_real_ == configurable_in.std_unique_ptr_real_);
         }
         else
         {
-            BOOST_CHECK(configurable_out.std_unique_ptr_real_ != NULL);
+            BOOST_CHECK(configurable_out.std_unique_ptr_real_ != nullptr);
             BOOST_CHECK_CLOSE(
                     *configurable_out.std_unique_ptr_real_, *configurable_in.std_unique_ptr_real_, g_tolerance);
         }
 
 
 #    ifdef ARILES_ADAPTER_BOOST_POINTER
-        if (configurable_in.shared_ptr_real_ == NULL)
+        if (configurable_in.shared_ptr_real_ == nullptr)
         {
             BOOST_CHECK_EQUAL(configurable_out.shared_ptr_real_, configurable_in.shared_ptr_real_);
         }
         else
         {
-            BOOST_CHECK(configurable_out.shared_ptr_real_ != NULL);
+            BOOST_CHECK(configurable_out.shared_ptr_real_ != nullptr);
             BOOST_CHECK_CLOSE(*configurable_out.shared_ptr_real_, *configurable_in.shared_ptr_real_, g_tolerance);
         }
 #        if BOOST_VERSION >= 105800
-        if (configurable_in.unique_ptr_real_ == NULL)
+        if (configurable_in.unique_ptr_real_ == nullptr)
         {
             BOOST_CHECK(configurable_out.unique_ptr_real_ == configurable_in.unique_ptr_real_);
         }
         else
         {
-            BOOST_CHECK(configurable_out.unique_ptr_real_ != NULL);
+            BOOST_CHECK(configurable_out.unique_ptr_real_ != nullptr);
             BOOST_CHECK_CLOSE(*configurable_out.unique_ptr_real_, *configurable_in.unique_ptr_real_, g_tolerance);
         }
 #        endif
 
-        BOOST_CHECK(configurable_out.shared_ptr_real_null_ == NULL);
+        BOOST_CHECK(configurable_out.shared_ptr_real_null_ == nullptr);
         BOOST_CHECK_EQUAL(configurable_out.shared_ptr_real_null_, configurable_in.shared_ptr_real_null_);
 #    endif
 

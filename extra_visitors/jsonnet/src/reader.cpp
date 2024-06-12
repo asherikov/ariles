@@ -32,7 +32,7 @@ namespace ariles2
             {
                 preprocessor_ = std::make_shared<JsonnetPreprocessor>();
                 preprocessor_->vm_ = static_cast<struct JsonnetVm *>(::jsonnet_make());
-                ARILES2_ASSERT(NULL != preprocessor_->vm_, "Could not initialize jsonnet preprocessor.");
+                ARILES2_ASSERT(nullptr != preprocessor_->vm_, "Could not initialize jsonnet preprocessor.");
             }
 
 

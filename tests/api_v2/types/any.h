@@ -145,9 +145,9 @@ namespace ariles_tests
             BOOST_CHECK_NO_THROW(this->build("Derived1"));
             BOOST_CHECK(this->isInitialized());
 
-            BOOST_CHECK(NULL != this->template cast<Derived1>());
-            BOOST_CHECK(NULL != this->template cast<Derived1>("Derived1"));
-            BOOST_CHECK(NULL == this->template cast<Derived1>("Derived2"));
+            BOOST_CHECK(nullptr != this->template cast<Derived1>());
+            BOOST_CHECK(nullptr != this->template cast<Derived1>("Derived1"));
+            BOOST_CHECK(nullptr == this->template cast<Derived1>("Derived2"));
 
             double test = 0.0;
 

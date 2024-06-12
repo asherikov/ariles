@@ -69,14 +69,14 @@ namespace ariles2
         {
             const pugi::xml_node child = impl_->getRawNode().child(child_name.c_str());
 
-            if (NULL != child)
+            if (nullptr != child)
             {
                 impl_->node_stack_.emplace_back(child);
                 return (true);
             }
 
             const pugi::xml_attribute attribute = impl_->getRawNode().attribute(child_name.c_str());
-            if (NULL != attribute)
+            if (nullptr != attribute)
             {
                 const pugi::xml_node new_child = impl_->getRawNode().append_child(child_name.c_str());
                 new_child.text() = attribute.value();
@@ -100,7 +100,7 @@ namespace ariles2
                 const std::size_t /*max*/)
         {
             const pugi::xml_node child = impl_->getRawNode().first_child();
-            if (NULL != child)
+            if (nullptr != child)
             {
                 impl_->node_stack_.emplace_back(child, NodeWrapper::Type::ITERATED_MAP);
                 return (true);
@@ -110,7 +110,7 @@ namespace ariles2
 
         bool Reader::startIteratedMapElement(std::string &entry_name)
         {
-            if (NULL != impl_->getRawNode())
+            if (nullptr != impl_->getRawNode())
             {
                 entry_name = impl_->getRawNode().name();
                 return (true);
@@ -121,7 +121,7 @@ namespace ariles2
         void Reader::endIteratedMapElement()
         {
             const pugi::xml_node node = impl_->getRawNode();
-            if (NULL != node)
+            if (nullptr != node)
             {
                 impl_->getRawNode() = node.next_sibling();
             }
@@ -138,7 +138,7 @@ namespace ariles2
         {
             std::size_t size = 0;
             const pugi::xml_node node = impl_->getRawNode();
-            for (pugi::xml_node child = node.child("item"); NULL != child; child = child.next_sibling("item"), ++size)
+            for (pugi::xml_node child = node.child("item"); nullptr != child; child = child.next_sibling("item"), ++size)
             {
             }
 
@@ -151,7 +151,7 @@ namespace ariles2
                 // if there are no 'item' childs try to iterate
                 // over childs with the same name in the parent
                 // node
-                for (pugi::xml_node child = impl_->getRawNode(); NULL != child;
+                for (pugi::xml_node child = impl_->getRawNode(); nullptr != child;
                      child = child.next_sibling(child.name()), ++size)
                 {
                 }

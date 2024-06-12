@@ -311,8 +311,8 @@ namespace ariles2
                 t_Left &left,
                 const t_Right &right,
                 const typename t_Visitor::Parameters & /*param*/,
-                const typename t_Left::Scalar * = NULL,
-                const typename t_Right::Scalar * = NULL)
+                const typename t_Left::Scalar * = nullptr,
+                const typename t_Right::Scalar * = nullptr)
         {
             ARILES2_TRACE_FUNCTION;
             left = right;
@@ -328,8 +328,8 @@ namespace ariles2
                 const t_Left &left,
                 t_Right &right,
                 const typename t_Visitor::Parameters & /*param*/,
-                const typename t_Left::Scalar * = NULL,
-                const typename t_Right::Scalar * = NULL)
+                const typename t_Left::Scalar * = nullptr,
+                const typename t_Right::Scalar * = nullptr)
         {
             ARILES2_TRACE_FUNCTION;
             right = left;

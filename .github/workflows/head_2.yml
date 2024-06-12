@@ -173,4 +173,4 @@ jobs:
             - run: sudo apt update
             - run: sudo make install-deps
             - run: $APT clang-tools-15 clang-tidy-15
-            - run: make clangcheck SCANBUILD=scan-build-15 OPTIONS=noros TC=gcc
+            - run: make clangcheck SCANBUILD=scan-build-15 OPTIONS=noros_tidy TC=gcc

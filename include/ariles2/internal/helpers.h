@@ -22,21 +22,21 @@
 #include <type_traits>
 #include <memory>
 
-#define ARILES2_IS_ENUM_ENABLER(Enum) const typename std::enable_if<(std::is_enum<Enum>::value)>::type * = NULL
+#define ARILES2_IS_ENUM_ENABLER(Enum) const typename std::enable_if<(std::is_enum<Enum>::value)>::type * = nullptr
 
 #define ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(Real) std::enable_if<(std::is_floating_point<Real>::value)>::type *
 
 #define ARILES2_IS_BASE_OF(Base, Derived) std::is_base_of<Base, Derived>::value
 
 #define ARILES2_IS_BASE_ENABLER(Base, Derived)                                                                         \
-    const typename std::enable_if<(ARILES2_IS_BASE_OF(Base, Derived))>::type * = NULL
+    const typename std::enable_if<(ARILES2_IS_BASE_OF(Base, Derived))>::type * = nullptr
 
 #define ARILES2_IS_BASE_DISABLER(Base, Derived)                                                                        \
-    const typename std::enable_if<not(ARILES2_IS_BASE_OF(Base, Derived))>::type * = NULL
+    const typename std::enable_if<not(ARILES2_IS_BASE_OF(Base, Derived))>::type * = nullptr
 
 #define ARILES2_IS_ANY_OF(Type, Type1, Type2)                                                                          \
     const typename std::enable_if<std::is_base_of<Type1, Type>::value or std::is_base_of<Type2, Type>::value>::type    \
-            * = NULL
+            * = nullptr
 
 
 

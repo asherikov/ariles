@@ -23,12 +23,12 @@ namespace ariles2
     protected:
         bool isConsistent() const
         {
-            if (("" != id_) && (NULL != value_.get()))
+            if (("" != id_) && (nullptr != value_.get()))
             {
                 return (true);
             }
 
-            if (("" == id_) && (NULL == value_.get()))
+            if (("" == id_) && (nullptr == value_.get()))
             {
                 return (true);
             }
@@ -54,13 +54,13 @@ namespace ariles2
         {
             id_ = id;
             value_ = t_Instantiator::instantiate(id_);
-            ARILES2_ASSERT(NULL != value_.get(), "Could not instantiate class.");
+            ARILES2_ASSERT(nullptr != value_.get(), "Could not instantiate class.");
         }
 
 
         bool isInitialized() const
         {
-            return ("" != id_ && NULL != value_.get());
+            return ("" != id_ && nullptr != value_.get());
         }
 
 
@@ -68,7 +68,7 @@ namespace ariles2
         /**
          * @brief Cast methods are potentially dangerous, no id checks are
          * performed. If value is not initialized the returned pointer may
-         * be NULL.
+         * be nullptr.
          */
         template <class t_Derived>
         t_Derived *cast()
@@ -100,7 +100,7 @@ namespace ariles2
                     return (dynamic_cast<t_Derived *>(value_.get()));
                 }
             }
-            return (NULL);
+            return (nullptr);
         }
 
 
@@ -114,7 +114,7 @@ namespace ariles2
                     return (dynamic_cast<t_Derived *>(value_.get()));
                 }
             }
-            return (NULL);
+            return (nullptr);
         }
         /// @}
 

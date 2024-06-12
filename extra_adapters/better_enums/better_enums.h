@@ -21,11 +21,11 @@ namespace ariles2
                 t_Visitor &visitor,
                 t_BetterEnum &entry,
                 const t_Flags & /*param*/,
-                const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
+                const typename t_BetterEnum::_integral * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_value_iterable * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_name_iterable * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_value_iterator * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_name_iterator * /*dummy*/ = nullptr)
         {
             ARILES2_TRACE_FUNCTION;
             std::string enum_value;
@@ -45,11 +45,11 @@ namespace ariles2
                 t_Visitor &writer,
                 const t_BetterEnum &entry,
                 const t_Flags &param,
-                const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
+                const typename t_BetterEnum::_integral * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_value_iterable * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_name_iterable * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_value_iterator * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_name_iterator * /*dummy*/ = nullptr)
         {
             ARILES2_TRACE_FUNCTION;
             writer.writeElement(std::string(entry._to_string()), param);
@@ -68,11 +68,11 @@ namespace ariles2
                 const t_BetterEnum &left,
                 const t_BetterEnum &right,
                 const typename t_Visitor::Parameters & /*param*/,
-                const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
+                const typename t_BetterEnum::_integral * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_value_iterable * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_name_iterable * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_value_iterator * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_name_iterator * /*dummy*/ = nullptr)
         {
             ARILES2_TRACE_FUNCTION;
             visitor.equal_ &= (left == right);
@@ -91,11 +91,11 @@ namespace ariles2
                 t_Visitor & /*visitor*/,
                 t_BetterEnum &entry,
                 const typename t_Visitor::Parameters & /*param*/,
-                const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
+                const typename t_BetterEnum::_integral * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_value_iterable * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_name_iterable * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_value_iterator * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_name_iterator * /*dummy*/ = nullptr)
         {
             ARILES2_TRACE_FUNCTION;
             if (t_BetterEnum::_size() > 0)
@@ -118,11 +118,11 @@ namespace ariles2
                 t_BetterEnum &left,
                 const t_BetterEnum &right,
                 const typename t_Visitor::Parameters & /*param*/,
-                const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
+                const typename t_BetterEnum::_integral * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_value_iterable * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_name_iterable * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_value_iterator * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_name_iterator * /*dummy*/ = nullptr)
         {
             ARILES2_TRACE_FUNCTION;
             left = right;
@@ -138,11 +138,11 @@ namespace ariles2
                 const t_BetterEnum &left,
                 t_BetterEnum &right,
                 const typename t_Visitor::Parameters & /*param*/,
-                const typename t_BetterEnum::_integral * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_value_iterable * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_name_iterable * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_value_iterator * /*dummy*/ = NULL,
-                const typename t_BetterEnum::_name_iterator * /*dummy*/ = NULL)
+                const typename t_BetterEnum::_integral * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_value_iterable * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_name_iterable * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_value_iterator * /*dummy*/ = nullptr,
+                const typename t_BetterEnum::_name_iterator * /*dummy*/ = nullptr)
         {
             ARILES2_TRACE_FUNCTION;
             right = left;

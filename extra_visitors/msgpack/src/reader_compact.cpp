@@ -58,7 +58,7 @@ namespace ariles2
 
                     try
                     {
-                        unpack(handle_, buffer_.data(), buffer_.size(), NULL);
+                        unpack(handle_, buffer_.data(), buffer_.size(), nullptr);
                         node_stack_.emplace_back(&handle_.get());
                     }
                     catch (const std::exception &e)

@@ -130,7 +130,7 @@ namespace ariles_tests
         public:
             ROSInitializer()
             {
-                nh_ = NULL;
+                nh_ = nullptr;
                 pid_ = fork();
 
                 switch (pid_)
@@ -141,13 +141,13 @@ namespace ariles_tests
 
                     case 0:  // child
                         // close(STDOUT_FILENO);
-                        execlp("roscore", "roscore", (char *)NULL);
+                        execlp("roscore", "roscore", (char *)nullptr);
                         ARILES2_THROW("execve() failed");
                         break;
 
                     default:  // parent
                         int argn = 0;
-                        ros::init(argn, NULL, "FixtureBase");
+                        ros::init(argn, nullptr, "FixtureBase");
                         while (not ros::master::check())
                         {
                             usleep(20000);
@@ -160,7 +160,7 @@ namespace ariles_tests
 
             ~ROSInitializer()
             {
-                if (NULL != nh_)
+                if (nullptr != nh_)
                 {
                     delete nh_;
                 }

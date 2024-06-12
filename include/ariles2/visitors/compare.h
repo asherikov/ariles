@@ -54,7 +54,7 @@ namespace ariles2
 
 
             template <typename t_Scalar>
-            t_Scalar getTolerance(const typename ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(t_Scalar) = NULL) const;
+            t_Scalar getTolerance(const typename ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(t_Scalar) = nullptr) const;
 
             template <class t_Complex>
             typename t_Complex::value_type getTolerance() const
