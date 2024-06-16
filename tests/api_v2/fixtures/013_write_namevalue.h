@@ -33,12 +33,12 @@ namespace ariles_tests
                 typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
                 ariles2::apply(writer, configurable);
 
-                BOOST_CHECK_EQUAL(writer.getWriter().index_, writer.getWriter().name_value_pairs_->size());
+                BOOST_CHECK_EQUAL(writer.template get<ariles2::write::Visitor>().index_, writer.template get<ariles2::write::Visitor>().name_value_pairs_->size());
 
-                for (std::size_t i = 0; i < writer.getWriter().name_value_pairs_->size(); ++i)
+                for (std::size_t i = 0; i < writer.template get<ariles2::write::Visitor>().name_value_pairs_->size(); ++i)
                 {
-                    std::cout << (*writer.getWriter().name_value_pairs_)[i].first << " = "
-                              << (*writer.getWriter().name_value_pairs_)[i].second << std::endl;
+                    std::cout << (*writer.template get<ariles2::write::Visitor>().name_value_pairs_)[i].first << " = "
+                              << (*writer.template get<ariles2::write::Visitor>().name_value_pairs_)[i].second << std::endl;
                 }
             }
 
@@ -51,12 +51,12 @@ namespace ariles_tests
                 typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
                 ariles2::apply(writer, configurable, std::string("id"));
 
-                BOOST_CHECK_EQUAL(writer.getWriter().index_, writer.getWriter().name_value_pairs_->size());
+                BOOST_CHECK_EQUAL(writer.template get<ariles2::write::Visitor>().index_, writer.template get<ariles2::write::Visitor>().name_value_pairs_->size());
 
-                for (std::size_t i = 0; i < writer.getWriter().name_value_pairs_->size(); ++i)
+                for (std::size_t i = 0; i < writer.template get<ariles2::write::Visitor>().name_value_pairs_->size(); ++i)
                 {
-                    std::cout << (*writer.getWriter().name_value_pairs_)[i].first << " = "
-                              << (*writer.getWriter().name_value_pairs_)[i].second << std::endl;
+                    std::cout << (*writer.template get<ariles2::write::Visitor>().name_value_pairs_)[i].first << " = "
+                              << (*writer.template get<ariles2::write::Visitor>().name_value_pairs_)[i].second << std::endl;
                 }
             }
 
@@ -71,7 +71,7 @@ namespace ariles_tests
                 typename t_Visitor::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
                 ariles2::apply(writer, configurable);
 
-                BOOST_CHECK_EQUAL(writer.getWriter().index_, name_value_pairs.size());
+                BOOST_CHECK_EQUAL(writer.template get<ariles2::write::Visitor>().index_, name_value_pairs.size());
             }
 
 
@@ -85,14 +85,14 @@ namespace ariles_tests
                 typename t_Visitor::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
                 ariles2::apply(writer, configurable);
 
-                BOOST_CHECK_EQUAL(writer.getWriter().index_, name_value_pairs.size());
+                BOOST_CHECK_EQUAL(writer.template get<ariles2::write::Visitor>().index_, name_value_pairs.size());
 
                 std::vector<ariles2::ns_namevalue::NameValuePair> name_value_pairs_back = name_value_pairs;
-                writer.getWriter().reset();
+                writer.template get<ariles2::write::Visitor>().reset();
 
                 ariles2::apply(writer, configurable);
 
-                BOOST_CHECK_EQUAL(writer.getWriter().index_, name_value_pairs.size());
+                BOOST_CHECK_EQUAL(writer.template get<ariles2::write::Visitor>().index_, name_value_pairs.size());
 
                 BOOST_CHECK_EQUAL(name_value_pairs_back.size(), name_value_pairs.size());
 
@@ -114,16 +114,16 @@ namespace ariles_tests
                 typename t_Visitor::Writer writer(&name_value_pairs, getWriterInitializer("configurable.cfg"));
                 ariles2::apply(writer, configurable);
 
-                BOOST_CHECK_EQUAL(writer.getWriter().index_, name_value_pairs.size());
+                BOOST_CHECK_EQUAL(writer.template get<ariles2::write::Visitor>().index_, name_value_pairs.size());
 
                 // ---
 
                 std::vector<ariles2::ns_namevalue::NameValuePair> name_value_pairs_back = name_value_pairs;
-                writer.getWriter().reset(initialize_structure);
+                writer.template get<ariles2::write::Visitor>().reset(initialize_structure);
 
                 ariles2::apply(writer, configurable);
 
-                BOOST_CHECK_EQUAL(writer.getWriter().index_, name_value_pairs.size());
+                BOOST_CHECK_EQUAL(writer.template get<ariles2::write::Visitor>().index_, name_value_pairs.size());
                 BOOST_CHECK_EQUAL(name_value_pairs_back.size(), name_value_pairs.size());
 
                 for (std::size_t i = 0; i < name_value_pairs.size(); ++i)
@@ -134,12 +134,12 @@ namespace ariles_tests
 
                 // ---
 
-                writer.getWriter().reset(initialize_structure);
+                writer.template get<ariles2::write::Visitor>().reset(initialize_structure);
                 name_value_pairs.clear();
 
                 ariles2::apply(writer, configurable);
 
-                BOOST_CHECK_EQUAL(writer.getWriter().index_, name_value_pairs.size());
+                BOOST_CHECK_EQUAL(writer.template get<ariles2::write::Visitor>().index_, name_value_pairs.size());
                 BOOST_CHECK_EQUAL(name_value_pairs_back.size(), name_value_pairs.size());
 
                 for (std::size_t i = 0; i < name_value_pairs.size(); ++i)

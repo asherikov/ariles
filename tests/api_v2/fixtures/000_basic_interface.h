@@ -73,8 +73,8 @@ namespace ariles_tests
                 t_Configurable configurable;
 
                 typename t_Visitor::Reader::Parameters parameters;
-                parameters.read_.override_parameters_ = false;
-                parameters.read_.allow_missing_entries_ = true;
+                parameters.template get<ariles2::read::Parameters>().override_parameters_ = false;
+                parameters.template get<ariles2::read::Parameters>().allow_missing_entries_ = true;
                 typename t_Visitor::Reader reader(getReaderInitializer("configurable.cfg"));
                 ariles2::apply(reader, configurable, parameters);
             }

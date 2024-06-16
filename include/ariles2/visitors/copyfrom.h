@@ -36,22 +36,13 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::Visitor, copyfrom::Parameters>
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<Visitor, copyfrom::Parameters>
         {
         public:
             using Parameters = copyfrom::Parameters;
 
 
         public:
-            using visitor::Base<visitor::Visitor, Parameters>::getDefaultParameters;
-
-            template <class t_Ariles>
-            const Parameters &getParameters(const t_Ariles &ariles_class) const
-            {
-                return (ariles_class.arilesGetParameters(*this));
-            }
-
-
             template <class t_Left, class t_Right>
             void visit(t_Left &left, const t_Right &right, const std::string &name, const Parameters &param)
             {

@@ -6,7 +6,8 @@ Unreleased
 
 Added
 -----
-* ROS2 parameters support.
+* aggregate visitor: container for multiple visitors applied sequentially.
+* ros2param visitor: ROS2 parameters support.
 
 Changed
 -------

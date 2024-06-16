@@ -55,26 +55,24 @@ namespace ariles2
 
 
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor
-          : public ariles2::visitor::Base<visitor::GenericVisitor, defaults::Parameters>
+          : public ariles2::visitor::Base<Visitor, defaults::Parameters>
         {
         public:
             using Parameters = defaults::Parameters;
 
 
         public:
-            using visitor::Base<visitor::GenericVisitor, Parameters>::getDefaultParameters;
-
-            template <class t_Ariles>
-            const Parameters &getParameters(const t_Ariles &ariles_class) const
-            {
-                return (ariles_class.arilesGetParameters(*this));
-            }
-
             template <class t_Entry>
             void visit(t_Entry &entry, const std::string &name, const Parameters &param) const
             {
                 ARILES2_TRACE_FUNCTION;
                 this->visitMapEntry(entry, name, param);
+            }
+
+            template <class t_Entry>
+            void visit(t_Entry &entry, const std::vector<std::string> &subtree, const Parameters &param) const
+            {
+                visit(entry, subtree.empty() ? "" : subtree.back(), param);
             }
 
 
@@ -143,8 +141,6 @@ namespace ariles2
      * @ingroup defaults
      * @{
      */
-    namespace preread = defaults;
-    using PreRead = preread::Visitor;
     using Defaults = defaults::Visitor;
     /// @}
 }  // namespace ariles2

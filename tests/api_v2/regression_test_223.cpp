@@ -79,7 +79,7 @@ namespace ariles_tests
 
             BOOST_CHECK_NO_THROW({
                 typename t_Visitor::Writer::Parameters parameters;
-                parameters.write_.fallback_to_string_floats_ = false;
+                parameters.template get<ariles2::write::Parameters>().fallback_to_string_floats_ = false;
                 typename t_Visitor::Writer writer("configurable.cfg");
                 ariles2::apply(writer, configurable, parameters);
             });

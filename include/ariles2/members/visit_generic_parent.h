@@ -14,7 +14,7 @@
     void arilesVisitParents(                                                                                           \
             t_Visitor &visitor,                                                                                        \
             const typename t_Visitor::Parameters &parameters,                                                          \
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::GenericVisitor, t_Visitor))                                      \
+            ARILES2_IS_VISITOR_ENABLER(t_Visitor))                                      \
     {                                                                                                                  \
         ARILES2_UNUSED_ARG(visitor);                                                                                   \
         ARILES2_UNUSED_ARG(parameters);                                                                                \
@@ -25,7 +25,7 @@
     void arilesVisitParents(                                                                                           \
             t_Visitor &visitor,                                                                                        \
             const typename t_Visitor::Parameters &parameters,                                                          \
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::GenericVisitor, t_Visitor)) const                                \
+            ARILES2_IS_VISITOR_ENABLER(t_Visitor)) const                                \
     {                                                                                                                  \
         ARILES2_UNUSED_ARG(visitor);                                                                                   \
         ARILES2_UNUSED_ARG(parameters);                                                                                \

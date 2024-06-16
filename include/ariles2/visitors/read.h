@@ -44,10 +44,6 @@ namespace ariles2
 
 
         protected:
-            Visitor(){};
-            ~Visitor(){};
-
-
             void checkSize(
                     const SizeLimitEnforcementType limit_type,
                     const std::size_t size = 0,

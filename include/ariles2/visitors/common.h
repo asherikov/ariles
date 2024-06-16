@@ -31,7 +31,7 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor
+        class Visitor
         {
         protected:
             Visitor(){};
@@ -39,28 +39,24 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE GenericVisitor : public Visitor
-        {
-        protected:
-            GenericVisitor(){};
-            ~GenericVisitor(){};
-        };
-
-
-        template <class t_Visitor, class t_Parameters, class t_ReturnType = void>
-        class ARILES2_VISIBILITY_ATTRIBUTE Base : public t_Visitor
+        template <class t_Derived, class t_Parameters, class t_ReturnType = void>
+        class ARILES2_VISIBILITY_ATTRIBUTE Base : public Visitor
         {
         public:
             using ReturnType = t_ReturnType;
+            using Parameters = t_Parameters;
 
-        protected:
-            Base(){};
-            ~Base(){};
-
+        public:
             const t_Parameters &getDefaultParameters() const
             {
                 const static t_Parameters parameters(false);
                 return parameters;
+            }
+
+            template <class t_Ariles>
+            const t_Parameters &getParameters(const t_Ariles &ariles_class) const
+            {
+                return (ariles_class.arilesGetParameters(*static_cast<const t_Derived *>(this)));
             }
         };
     }  // namespace visitor
@@ -130,7 +126,7 @@ namespace ariles2
             const t_Subtree &subtree,
             const typename t_Visitor::Parameters &param,
             ARILES2_IS_ANY_OF(t_Subtree, std::string, std::vector<std::string>),
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_VISITOR_ENABLER(t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
         return (visitor.visit(ariles_class, subtree, param));
@@ -143,7 +139,7 @@ namespace ariles2
             t_Ariles &ariles_class,
             const char *name,
             const typename t_Visitor::Parameters &param,
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_VISITOR_ENABLER(t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
         return (visitor.visit(ariles_class, name, param));
@@ -155,7 +151,7 @@ namespace ariles2
             t_Visitor &visitor,
             t_Ariles &ariles_class,
             const typename t_Visitor::Parameters &param,
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_VISITOR_ENABLER(t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
         return (ariles2::apply(visitor, ariles_class, ariles_class.arilesDefaultID(), param));
@@ -168,7 +164,7 @@ namespace ariles2
             t_Ariles &ariles_class,
             const t_Subtree &subtree,
             ARILES2_IS_ANY_OF(t_Subtree, std::string, std::vector<std::string>),
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_VISITOR_ENABLER(t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
         return (visitor.visit(ariles_class, subtree, visitor.getParameters(ariles_class)));
@@ -180,7 +176,7 @@ namespace ariles2
             t_Visitor &visitor,
             t_Ariles &ariles_class,
             const char *name,
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_VISITOR_ENABLER(t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
         return (visitor.visit(ariles_class, name, visitor.getParameters(ariles_class)));
@@ -191,7 +187,7 @@ namespace ariles2
     typename t_Visitor::ReturnType apply(
             t_Visitor &visitor,
             t_Ariles &ariles_class,
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_VISITOR_ENABLER(t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
         return (ariles2::apply(visitor, ariles_class, ariles_class.arilesDefaultID()));
@@ -201,8 +197,8 @@ namespace ariles2
     template <class t_Visitor, class t_Ariles>
     typename t_Visitor::ReturnType apply(
             t_Ariles &ariles_class,
-            ARILES2_IS_BASE_ENABLER(ariles2::Ariles, t_Ariles),
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_ARILES_ENABLER(t_Ariles),
+            ARILES2_IS_VISITOR_ENABLER(t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
         t_Visitor visitor;
@@ -257,8 +253,8 @@ namespace ariles2
     typename t_Visitor::ReturnType apply(
             t_Left &left,
             t_Right &right,
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor),
-            ARILES2_IS_BASE_ENABLER(ariles2::Ariles, t_Left))
+            ARILES2_IS_VISITOR_ENABLER(t_Visitor),
+            ARILES2_IS_ARILES_ENABLER(t_Left))
     {
         ARILES2_TRACE_FUNCTION;
         t_Visitor visitor;
@@ -273,7 +269,7 @@ namespace ariles2
             t_Right &right,
             const std::string &name,
             const typename t_Visitor::Parameters &param,
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_VISITOR_ENABLER(t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
         return (visitor.visit(left, right, name, param));
@@ -287,7 +283,7 @@ namespace ariles2
             t_Right &right,
             ARILES2_IS_BASE_DISABLER(typename t_Visitor::Parameters, t_Right),
             ARILES2_IS_BASE_DISABLER(std::string, t_Right),
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_VISITOR_ENABLER(t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
         return (visitor.visit(left, right, left.arilesDefaultID(), visitor.getParameters(left)));
@@ -300,7 +296,7 @@ namespace ariles2
             t_Left &left,
             t_Right &right,
             const typename t_Visitor::Parameters &param,
-            ARILES2_IS_BASE_ENABLER(ariles2::visitor::Visitor, t_Visitor))
+            ARILES2_IS_VISITOR_ENABLER(t_Visitor))
     {
         ARILES2_TRACE_FUNCTION;
         return (ariles2::apply(visitor, left, right, left.arilesDefaultID(), param));

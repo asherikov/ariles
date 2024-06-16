@@ -24,22 +24,13 @@ namespace ariles2
     {
         template <class t_Derived, class t_Parameters>
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor
-          : public ariles2::visitor::Base<visitor::GenericVisitor, t_Parameters>
+          : public ariles2::visitor::Base<t_Derived, t_Parameters>
         {
         public:
             using Parameters = t_Parameters;
 
 
         public:
-            using visitor::Base<visitor::GenericVisitor, t_Parameters>::getDefaultParameters;
-
-            template <class t_Ariles>
-            const t_Parameters &getParameters(const t_Ariles &ariles_class) const
-            {
-                return (ariles_class.arilesGetParameters(*(static_cast<t_Derived *>(this))));
-            }
-
-
             template <class t_Entry>
             void visit(t_Entry &entry, const std::string &name, const Parameters &param) const
             {

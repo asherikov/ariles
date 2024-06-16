@@ -30,7 +30,7 @@ namespace std_msgs
         _stamp_type stamp;
 
         typedef std::
-                basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other>
+                basic_string<char, std::char_traits<char>>
                         _frame_id_type;
         _frame_id_type frame_id;
     };  // struct Header_

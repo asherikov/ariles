@@ -64,7 +64,7 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<visitor::Visitor, compare::Parameters, bool>
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<Visitor, compare::Parameters, bool>
         {
         public:
             using Parameters = compare::Parameters;
@@ -76,15 +76,6 @@ namespace ariles2
 
 
         public:
-            using visitor::Base<visitor::Visitor, Parameters, bool>::getDefaultParameters;
-
-            template <class t_Ariles>
-            const Parameters &getParameters(const t_Ariles &ariles_class) const
-            {
-                return (ariles_class.arilesGetParameters(*this));
-            }
-
-
             template <class t_Left, class t_Right>
             bool visit(const t_Left &left, const t_Right &right, const std::string &name, const Parameters &param)
             {

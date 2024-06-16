@@ -26,18 +26,24 @@
 
 #define ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(Real) std::enable_if<(std::is_floating_point<Real>::value)>::type *
 
-#define ARILES2_IS_BASE_OF(Base, Derived) std::is_base_of<Base, Derived>::value
-
 #define ARILES2_IS_BASE_ENABLER(Base, Derived)                                                                         \
-    const typename std::enable_if<(ARILES2_IS_BASE_OF(Base, Derived))>::type * = nullptr
+    const typename std::enable_if<std::is_base_of<Base, Derived>::value>::type * = nullptr
 
 #define ARILES2_IS_BASE_DISABLER(Base, Derived)                                                                        \
-    const typename std::enable_if<not(ARILES2_IS_BASE_OF(Base, Derived))>::type * = nullptr
+    const typename std::enable_if<not std::is_base_of<Base, Derived>::value>::type * = nullptr
 
 #define ARILES2_IS_ANY_OF(Type, Type1, Type2)                                                                          \
     const typename std::enable_if<std::is_base_of<Type1, Type>::value or std::is_base_of<Type2, Type>::value>::type    \
             * = nullptr
 
+#define ARILES2_IS_VISITOR_ENABLER(Derived)                                                                            \
+    const typename std::enable_if<std::is_base_of<ariles2::visitor::Visitor, Derived>::value>::type * = nullptr
+
+#define ARILES2_IS_ARILES_ENABLER(Derived)                                                                             \
+    const typename std::enable_if<std::is_base_of<ariles2::Ariles, Derived>::value>::type * = nullptr
+
+#define ARILES2_IS_ARILES_DISABLER(Derived)                                                                            \
+    const typename std::enable_if<not std::is_base_of<ariles2::Ariles, Derived>::value>::type * = nullptr
 
 
 #include "build_config.h"

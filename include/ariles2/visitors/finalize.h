@@ -37,6 +37,14 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor
           : public ariles2::process::Visitor<const finalize::Visitor, finalize::Parameters>
         {
+        public:
+            using ariles2::process::Visitor<const finalize::Visitor, finalize::Parameters>::visit;
+
+            template <class t_Entry>
+            void visit(t_Entry &entry, const std::vector<std::string> &subtree, const Parameters &param) const
+            {
+                visit(entry, subtree.empty() ? "" : subtree.back(), param);
+            }
         };
 
 
@@ -70,8 +78,6 @@ namespace ariles2
      * @ingroup defaults
      * @{
      */
-    namespace postread = finalize;
-    using PostRead = postread::Visitor;
     using Finalize = finalize::Visitor;
     /// @}
 }  // namespace ariles2

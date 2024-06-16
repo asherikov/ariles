@@ -148,7 +148,7 @@ namespace ariles2
                 const t_Left &left,
                 const t_Right &right,
                 const typename t_Visitor::Parameters &param,
-                ARILES2_IS_BASE_ENABLER(ariles2::Ariles, t_Left))
+                ARILES2_IS_ARILES_ENABLER(t_Left))
         {
             ARILES2_TRACE_FUNCTION;
             if (param.compare_number_of_entries_)
@@ -294,7 +294,7 @@ namespace ariles2
                 const t_Visitor &visitor,
                 t_Entry &entry,
                 const typename t_Visitor::Parameters &param,
-                ARILES2_IS_BASE_ENABLER(ariles2::Ariles, t_Entry))
+                ARILES2_IS_ARILES_ENABLER(t_Entry))
         {
             ARILES2_TRACE_FUNCTION;
             entry.arilesVirtualVisit(visitor, param);
@@ -306,7 +306,7 @@ namespace ariles2
                 const t_Visitor &,
                 t_Entry &,
                 const typename t_Visitor::Parameters &,
-                ARILES2_IS_BASE_DISABLER(ariles2::Ariles, t_Entry))
+                ARILES2_IS_ARILES_DISABLER(t_Entry))
         {
             ARILES2_TRACE_FUNCTION;
         }
@@ -325,7 +325,7 @@ namespace ariles2
                 t_Left &left,
                 const t_Right &right,
                 const typename t_Visitor::Parameters &param,
-                ARILES2_IS_BASE_ENABLER(ariles2::Ariles, t_Left))
+                ARILES2_IS_ARILES_ENABLER(t_Left))
         {
             ARILES2_TRACE_FUNCTION;
             ARILES2_TRACE_TYPE(left);
@@ -371,7 +371,7 @@ namespace ariles2
                 const t_Left &left,
                 t_Right &right,
                 const typename t_Visitor::Parameters &param,
-                ARILES2_IS_BASE_ENABLER(ariles2::Ariles, t_Left))
+                ARILES2_IS_ARILES_ENABLER(t_Left))
         {
             ARILES2_TRACE_FUNCTION;
             ARILES2_TRACE_TYPE(left);
