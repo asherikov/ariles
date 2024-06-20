@@ -25,12 +25,9 @@ namespace ariles2
         using NodeWrapper = serialization::Node<XmlRpc::XmlRpcValue *>;
 
 
-        class ARILES2_LIB_LOCAL ImplBase
+        class ARILES2_LIB_LOCAL ImplBase : public serialization::NodeStackBase<NodeWrapper>
         {
         public:
-            /// Stack of nodes.
-            std::vector<NodeWrapper> node_stack_;
-
             std::string root_name_;
             XmlRpc::XmlRpcValue root_value_;
 

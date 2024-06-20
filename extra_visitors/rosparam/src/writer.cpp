@@ -55,45 +55,44 @@ namespace ariles2
 
         void Writer::startMapEntry(const std::string &map_name)
         {
-            if (impl_->node_stack_.empty())
+            if (impl_->empty())
             {
                 impl_->root_name_ = map_name;
-                impl_->node_stack_.emplace_back(&impl_->root_value_);
+                impl_->emplace(&impl_->root_value_);
             }
             else
             {
-                impl_->node_stack_.emplace_back(&(impl_->getRawNode()[map_name]));
+                impl_->emplace(&(impl_->getRawNode()[map_name]));
             }
         }
 
         void Writer::endMapEntry()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
             impl_->getRawNode().setSize(static_cast<int>(size));
-            impl_->node_stack_.emplace_back(0, size);
+            impl_->emplace(0, size);
         }
 
         void Writer::startArrayElement()
         {
             ARILES2_ASSERT(
-                    impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
+                    impl_->back().index_ < impl_->back().size_,
                     "Internal error: array has more elements than expected.");
         }
 
         void Writer::endArrayElement()
         {
-            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ++impl_->node_stack_.back().index_;
+            impl_->shiftArray();
         }
 
         void Writer::endArray()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 

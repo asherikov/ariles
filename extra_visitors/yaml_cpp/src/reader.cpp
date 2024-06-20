@@ -27,11 +27,9 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<NodeWrapper>
             {
             public:
-                /// Stack of nodes.
-                std::vector<NodeWrapper> node_stack_;
                 std::vector<YAML::const_iterator> iterator_stack_;
 
 
@@ -65,14 +63,14 @@ namespace ariles2
         Reader::Reader(const std::string &file_name)
         {
             makeImplPtr();
-            impl_->node_stack_.emplace_back(YAML::LoadFile(file_name));
+            impl_->emplace(YAML::LoadFile(file_name));
         }
 
 
         Reader::Reader(std::istream &input_stream)
         {
             makeImplPtr();
-            impl_->node_stack_.emplace_back(YAML::Load(input_stream));
+            impl_->emplace(YAML::Load(input_stream));
         }
 
 
@@ -92,14 +90,14 @@ namespace ariles2
             {
                 return (false);
             }
-            impl_->node_stack_.emplace_back(child);
+            impl_->emplace(child);
             return (true);
         }
 
         void Reader::endMapEntry()
         {
             ARILES2_TRACE_FUNCTION;
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
@@ -127,7 +125,7 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             if (impl_->iterator_stack_.back() != impl_->getRawNode().end())
             {
-                impl_->node_stack_.emplace_back(impl_->iterator_stack_.back()->second);
+                impl_->emplace(impl_->iterator_stack_.back()->second);
                 entry_name = impl_->iterator_stack_.back()->first.as<std::string>();
                 return (true);
             }
@@ -138,7 +136,7 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
             ++impl_->iterator_stack_.back();
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
         void Reader::endIteratedMap()
@@ -157,7 +155,7 @@ namespace ariles2
             ARILES2_ASSERT(impl_->getRawNode().IsSequence(), "Entry is not an array.");
 
             const std::size_t size = impl_->getRawNode().size();
-            impl_->node_stack_.emplace_back(0, size);
+            impl_->emplace(0, size);
 
             return (size);
         }
@@ -167,23 +165,21 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
             ARILES2_ASSERT(
-                    impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
+                    impl_->back().index_ < impl_->back().size_,
                     "Internal error: array has more elements than expected.");
         }
 
 
         void Reader::endArrayElement()
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ++impl_->node_stack_.back().index_;
+            impl_->shiftArray();
         }
 
 
         void Reader::endArray()
         {
             ARILES2_TRACE_FUNCTION;
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 

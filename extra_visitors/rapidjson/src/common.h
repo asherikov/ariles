@@ -30,18 +30,14 @@ namespace ariles2
     namespace ns_rapidjson
     {
         template <class t_Node>
-        class ARILES2_LIB_LOCAL ImplBase
+        class ARILES2_LIB_LOCAL ImplBase : public serialization::NodeStackBase<serialization::Node<t_Node *>>
         {
         public:
-            using NodeWrapper = serialization::Node<t_Node *>;
-
+            using serialization::NodeStackBase<serialization::Node<t_Node *>>::node_stack_;
 
         public:
             /// instance of the parser
             ::rapidjson::Document document_;
-
-            /// Stack of nodes.
-            std::vector<NodeWrapper> node_stack_;
 
 
         public:

@@ -17,12 +17,10 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<NodeWrapper>
             {
             public:
                 pugi::xml_document document_;
-
-                std::vector<NodeWrapper> node_stack_;
 
 
             public:
@@ -33,7 +31,7 @@ namespace ariles2
                  */
                 pugi::xml_node &getRawNode()
                 {
-                    return (node_stack_.back().node_);
+                    return (back().node_);
                 }
             };
         }  // namespace impl
@@ -71,7 +69,7 @@ namespace ariles2
 
             if (nullptr != child)
             {
-                impl_->node_stack_.emplace_back(child);
+                impl_->emplace(child);
                 return (true);
             }
 
@@ -80,7 +78,7 @@ namespace ariles2
             {
                 const pugi::xml_node new_child = impl_->getRawNode().append_child(child_name.c_str());
                 new_child.text() = attribute.value();
-                impl_->node_stack_.emplace_back(new_child);
+                impl_->emplace(new_child);
                 return (true);
             }
 
@@ -90,7 +88,7 @@ namespace ariles2
 
         void Reader::endMapEntry()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
@@ -102,7 +100,7 @@ namespace ariles2
             const pugi::xml_node child = impl_->getRawNode().first_child();
             if (nullptr != child)
             {
-                impl_->node_stack_.emplace_back(child, NodeWrapper::Type::ITERATED_MAP);
+                impl_->emplace(child, NodeWrapper::Type::ITERATED_MAP);
                 return (true);
             }
             return (false);
@@ -130,7 +128,7 @@ namespace ariles2
         void Reader::endIteratedMap()
         {
             ARILES2_ASSERT(!impl_->getRawNode(), "End of iterated map has not been reached.");
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
@@ -138,13 +136,14 @@ namespace ariles2
         {
             std::size_t size = 0;
             const pugi::xml_node node = impl_->getRawNode();
-            for (pugi::xml_node child = node.child("item"); nullptr != child; child = child.next_sibling("item"), ++size)
+            for (pugi::xml_node child = node.child("item"); nullptr != child;
+                 child = child.next_sibling("item"), ++size)
             {
             }
 
             if (size > 0)
             {
-                impl_->node_stack_.emplace_back(node.child("item"), 0, size);
+                impl_->emplace(node.child("item"), 0, size);
             }
             else
             {
@@ -155,7 +154,7 @@ namespace ariles2
                      child = child.next_sibling(child.name()), ++size)
                 {
                 }
-                impl_->node_stack_.emplace_back(impl_->getRawNode(), 0, size);
+                impl_->emplace(impl_->getRawNode(), 0, size);
             }
 
             return (size);
@@ -165,22 +164,22 @@ namespace ariles2
         void Reader::startArrayElement()
         {
             ARILES2_ASSERT(
-                    impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
+                    impl_->back().index_ < impl_->back().size_,
                     "Internal error: array has more elements than expected.");
         }
 
 
         void Reader::endArrayElement()
         {
-            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            impl_->node_stack_.back().node_ = impl_->getRawNode().next_sibling(impl_->getRawNode().name());
-            ++impl_->node_stack_.back().index_;
+            ARILES2_ASSERT(impl_->back().isArray(), "Internal error: expected array.");
+            impl_->back().node_ = impl_->getRawNode().next_sibling(impl_->getRawNode().name());
+            ++impl_->back().index_;
         }
 
 
         void Reader::endArray()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 

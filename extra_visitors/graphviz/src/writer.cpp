@@ -71,10 +71,9 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Visitor
+            class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public serialization::NodeStackBase<NodeWrapper>
             {
             public:
-                std::vector<NodeWrapper> node_stack_;
                 /// output file stream
                 std::ofstream config_ofs_;
 
@@ -83,6 +82,8 @@ namespace ariles2
 
                 std::set<std::string> all_ids_;
                 const Parameters *parameters_;
+
+                const std::string separator_ = "_";
 
 
             public:
@@ -114,9 +115,9 @@ namespace ariles2
                     ARILES2_ASSERT(0 < stack_size, "Internal error: stack must contain at least 2 entries.");
 
                     // node
-                    node_stack_.back().actual_id_ = node_options.id_;
+                    back().actual_id_ = node_options.id_;
 
-                    if (all_ids_.insert(node_stack_.back().actual_id_).second)
+                    if (all_ids_.insert(back().actual_id_).second)
                     {
                         *output_stream_ << node_options.id_;
                         *output_stream_ << "[";
@@ -137,7 +138,7 @@ namespace ariles2
                         *output_stream_                                    //
                                 << node_stack_[stack_size - 2].actual_id_  //
                                 << "->"                                    //
-                                << node_stack_.back().actual_id_ << ";\n";
+                                << back().actual_id_ << ";\n";
                     }
                 }
             };
@@ -175,16 +176,16 @@ namespace ariles2
             impl_->parameters_ = &parameters;
             if (name.empty())
             {
-                impl_->node_stack_.emplace_back("ariles");
+                impl_->emplace("ariles");
             }
             else
             {
-                impl_->node_stack_.emplace_back(name);
+                impl_->emplace(name);
             }
-            *impl_->output_stream_                                          //
-                    << "digraph graph_" << impl_->node_stack_.back().node_  //
-                    << " {\n"                                               //
-                    << parameters.graph_options_;                           //
+            *impl_->output_stream_                              //
+                    << "digraph graph_" << impl_->back().node_  //
+                    << " {\n"                                   //
+                    << parameters.graph_options_;               //
         }
 
 
@@ -196,22 +197,20 @@ namespace ariles2
 
         std::string Visitor::getDefaultNodeId() const
         {
-            if (impl_->node_stack_.back().isArray())
+            if (impl_->back().isArray())
             {
-                return (impl_->node_stack_.back().node_ + "_"
-                        + boost::lexical_cast<std::string>(impl_->node_stack_.back().index_));
+                return (impl_->back().node_ + "_" + boost::lexical_cast<std::string>(impl_->back().index_));
             }
-            return (impl_->node_stack_.back().node_);
+            return (impl_->back().node_);
         }
 
         std::string Visitor::getDefaultNodeLabel() const
         {
-            if (impl_->node_stack_.back().isArray())
+            if (impl_->back().isArray())
             {
-                return (impl_->node_stack_.back().label_ + "_"
-                        + boost::lexical_cast<std::string>(impl_->node_stack_.back().index_));
+                return (impl_->back().label_ + "_" + boost::lexical_cast<std::string>(impl_->back().index_));
             }
-            return (impl_->node_stack_.back().label_);
+            return (impl_->back().label_);
         }
 
         void Visitor::startMap(const Parameters &parameters, const Parameters::NodeOptions &node_options)
@@ -238,32 +237,33 @@ namespace ariles2
         void Visitor::startMapEntry(const std::string &name)
         {
             ARILES2_TRACE_FUNCTION;
-            if (impl_->node_stack_.back().isArray())
+            if (impl_->back().isArray())
             {
-                std::string node = impl_->node_stack_.back().node_;
-                node += "_";
-                node += boost::lexical_cast<std::string>(impl_->node_stack_.back().index_);
-                node += "_";
-                node += name;
-                impl_->node_stack_.emplace_back(node, name);
+                impl_->emplace(
+                        impl_->concatWithNode(
+                                impl_->separator_,
+                                boost::lexical_cast<std::string>(impl_->back().index_),
+                                impl_->separator_,
+                                name),
+                        name);
             }
             else
             {
-                impl_->node_stack_.emplace_back(impl_->node_stack_.back().node_ + "_" + name, name);
+                impl_->emplace(impl_->concatWithNode(impl_->separator_, name), name);
             }
         }
 
         void Visitor::endMapEntry()
         {
             ARILES2_TRACE_FUNCTION;
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
         void Visitor::startArray(const std::size_t size, const bool compact)
         {
             ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(not impl_->node_stack_.empty(), "Internal error: empty stack.");
+            ARILES2_ASSERT(not impl_->empty(), "Internal error: empty stack.");
 
             if (size > 0 || not compact)
             {
@@ -271,33 +271,30 @@ namespace ariles2
                         impl_->parameters_->getDefaultNodeOptions(getDefaultNodeId(), getDefaultNodeLabel()));
             }
 
-            if (impl_->node_stack_.back().isArray())
+            if (impl_->back().isArray())
             {
-                std::string node = impl_->node_stack_.back().node_;
-                std::string label = impl_->node_stack_.back().label_;
-                node += "_";
-                node += boost::lexical_cast<std::string>(impl_->node_stack_.back().index_);
-                label += "_";
-                label += boost::lexical_cast<std::string>(impl_->node_stack_.back().index_);
-                impl_->node_stack_.emplace_back(node, label, 0, size);
+                const std::string index = boost::lexical_cast<std::string>(impl_->back().index_);
+                impl_->emplace(
+                        impl_->concatWithNode(impl_->separator_, index),
+                        impl_->concatenate(impl_->back().label_, impl_->separator_, index),
+                        0,
+                        size);
             }
             else
             {
-                impl_->node_stack_.emplace_back(
-                        impl_->node_stack_.back().node_, impl_->node_stack_.back().label_, 0, size);
+                impl_->emplace(impl_->back().node_, impl_->back().label_, 0, size);
             }
         }
 
         void Visitor::endArrayElement()
         {
-            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: array expected.");
-            ++impl_->node_stack_.back().index_;
+            impl_->shiftArray();
         }
 
         void Visitor::endArray()
         {
             ARILES2_TRACE_FUNCTION;
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 

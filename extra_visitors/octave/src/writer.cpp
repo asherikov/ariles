@@ -31,16 +31,18 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::NodeStackBase<NodeWrapper>
             {
             public:
-                std::vector<NodeWrapper> node_stack_;
-
                 /// output file stream
                 std::ofstream config_ofs_;
 
                 /// output stream
                 std::ostream *output_stream_;
+
+                const std::string separator_ = ".";
+                const std::string bracket_left_ = "{";
+                const std::string bracket_right_ = "}";
 
 
             protected:
@@ -70,16 +72,16 @@ namespace ariles2
                 template <typename t_Scalar>
                 void writeComplex(const std::complex<t_Scalar> &element)
                 {
-                    if (node_stack_.back().isMatrix())
+                    if (back().isMatrix())
                     {
                         *output_stream_ << element.real() << " + " << element.imag() << "i";
                     }
                     else
                     {
-                        *output_stream_ << node_stack_.back().node_;
-                        if (node_stack_.back().isArray())
+                        *output_stream_ << back().node_;
+                        if (back().isArray())
                         {
-                            *output_stream_ << "{" << node_stack_.back().index_ + 1 << "}";
+                            *output_stream_ << "{" << back().index_ + 1 << "}";
                         }
                         *output_stream_ << " = " << element.real() << " + " << element.imag() << "i"
                                         << ";\n";
@@ -115,73 +117,67 @@ namespace ariles2
 
         void Writer::startMapEntry(const std::string &map_name)
         {
-            if (impl_->node_stack_.empty())
+            if (impl_->empty())
             {
-                impl_->node_stack_.emplace_back(map_name);
+                impl_->emplace(map_name);
             }
             else
             {
-                std::string node;
-                if (impl_->node_stack_.back().isArray())
+                if (impl_->back().isArray())
                 {
-                    node.reserve(impl_->node_stack_.back().node_.size() + map_name.size() + num_chars_for_index_reserve + 3);
-
-                    node = impl_->node_stack_.back().node_;
-                    node += "{";
-                    node += boost::lexical_cast<std::string>(impl_->node_stack_.back().index_ + 1);
-                    node += "}.";
+                    impl_->concatWithNodeAndEmplace(
+                            impl_->bracket_left_,
+                            boost::lexical_cast<std::string>(impl_->back().index_ + 1),
+                            impl_->bracket_right_,
+                            impl_->separator_,
+                            map_name);
                 }
                 else
                 {
-                    node.reserve(impl_->node_stack_.back().node_.size() + map_name.size() + 1);
-                    node = impl_->node_stack_.back().node_;
-                    node += ".";
+                    impl_->concatWithNodeAndEmplace(impl_->separator_, map_name);
                 }
-                node += map_name;
-                impl_->node_stack_.emplace_back(std::move(node));
             }
         }
 
         void Writer::endMapEntry()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
-            if (impl_->node_stack_.back().isArray())
+            if (impl_->back().isArray())
             {
-                std::string node;
-                node.reserve(impl_->node_stack_.back().node_.size() + num_chars_for_index_reserve + 2);
-                node = impl_->node_stack_.back().node_;
-                node += "{";
-                node += boost::lexical_cast<std::string>(impl_->node_stack_.back().index_ + 1);
-                node += "}";
-                impl_->node_stack_.emplace_back(std::move(node), 0, size);
+                impl_->emplace(
+                        impl_->concatWithNode(
+                                impl_->bracket_left_,
+                                boost::lexical_cast<std::string>(impl_->back().index_ + 1),
+                                impl_->bracket_right_),
+                        0,
+                        size);
             }
             else
             {
-                impl_->node_stack_.emplace_back(impl_->node_stack_.back().node_, 0, size);
+                impl_->emplace(impl_->back().node_, 0, size);
             }
         }
 
         void Writer::endArrayElement()
         {
-            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: array expected.");
-            ++impl_->node_stack_.back().index_;
+            impl_->shiftArray();
         }
 
         void Writer::endArray()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
         void Writer::startVector(const std::size_t /*size*/)
         {
-            impl_->node_stack_.emplace_back(impl_->node_stack_.back().node_ + " = [", NodeWrapper::Type::MATRIX);
-            *impl_->output_stream_ << impl_->node_stack_.back().node_;
+            impl_->emplace(impl_->back().node_ + " = [", NodeWrapper::Type::MATRIX);
+            *impl_->output_stream_ << impl_->back().node_;
         }
 
         void Writer::startVectorElement()
@@ -196,7 +192,7 @@ namespace ariles2
         void Writer::endVector()
         {
             *impl_->output_stream_ << "];\n";
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
@@ -206,18 +202,18 @@ namespace ariles2
                 const std::size_t /*rows*/,
                 const Parameters & /*param*/)
         {
-            impl_->node_stack_.emplace_back(impl_->node_stack_.back().node_ + " = [...\n", NodeWrapper::Type::MATRIX);
-            *impl_->output_stream_ << impl_->node_stack_.back().node_;
+            impl_->emplace(impl_->back().node_ + " = [...\n", NodeWrapper::Type::MATRIX);
+            *impl_->output_stream_ << impl_->back().node_;
         }
 
         void Writer::startMatrixRow(const std::size_t /*cols*/, const Parameters & /*param*/)
         {
-            impl_->node_stack_.back().index_ = 0;
+            impl_->back().index_ = 0;
         }
 
         void Writer::startMatrixElement()
         {
-            if (0 != impl_->node_stack_.back().index_)
+            if (0 != impl_->back().index_)
             {
                 *impl_->output_stream_ << ", ";
             }
@@ -225,7 +221,7 @@ namespace ariles2
 
         void Writer::endMatrixElement()
         {
-            ++impl_->node_stack_.back().index_;
+            ++impl_->back().index_;
         }
 
         void Writer::endMatrixRow(const Parameters & /*param*/)
@@ -236,23 +232,23 @@ namespace ariles2
         void Writer::endMatrix(const bool /*dynamic*/, const Parameters & /*param*/)
         {
             *impl_->output_stream_ << "];\n";
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
-        if (impl_->node_stack_.back().isMatrix())                                                                      \
+        if (impl_->back().isMatrix())                                                                                  \
         {                                                                                                              \
             *impl_->output_stream_ << element;                                                                         \
         }                                                                                                              \
         else                                                                                                           \
         {                                                                                                              \
-            *impl_->output_stream_ << impl_->node_stack_.back().node_;                                                 \
-            if (impl_->node_stack_.back().isArray())                                                                   \
+            *impl_->output_stream_ << impl_->back().node_;                                                             \
+            if (impl_->back().isArray())                                                                               \
             {                                                                                                          \
-                *impl_->output_stream_ << "{" << impl_->node_stack_.back().index_ + 1 << "}";                          \
+                *impl_->output_stream_ << "{" << impl_->back().index_ + 1 << "}";                                      \
             }                                                                                                          \
             *impl_->output_stream_ << " = " << element << ";\n";                                                       \
         }                                                                                                              \
@@ -265,10 +261,10 @@ namespace ariles2
 
         void Writer::writeElement(const std::string &element, const Parameters &)
         {
-            *impl_->output_stream_ << impl_->node_stack_.back().node_;
-            if (impl_->node_stack_.back().isArray())
+            *impl_->output_stream_ << impl_->back().node_;
+            if (impl_->back().isArray())
             {
-                *impl_->output_stream_ << "{" << impl_->node_stack_.back().index_ + 1 << "}";
+                *impl_->output_stream_ << "{" << impl_->back().index_ + 1 << "}";
             }
             *impl_->output_stream_ << " = '" << element << "';\n";
         }

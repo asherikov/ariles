@@ -62,18 +62,18 @@ namespace ariles2
 
         bool Reader::startMapEntry(const std::string &child_name)
         {
-            if (impl_->node_stack_.empty())
+            if (impl_->empty())
             {
                 impl_->root_name_ = child_name;
                 impl_->nh_.getParam(impl_->root_name_, impl_->root_value_);
-                impl_->node_stack_.emplace_back(&impl_->root_value_);
+                impl_->emplace(&impl_->root_value_);
                 return (true);
             }
 
             XmlRpc::XmlRpcValue &node = impl_->getRawNode();
             if ((XmlRpc::XmlRpcValue::TypeStruct == node.getType()) && (node.hasMember(child_name)))
             {
-                impl_->node_stack_.emplace_back(&(node[child_name]));
+                impl_->emplace(&(node[child_name]));
                 return (true);
             }
             return (false);
@@ -81,7 +81,7 @@ namespace ariles2
 
         void Reader::endMapEntry()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
@@ -106,7 +106,7 @@ namespace ariles2
         {
             if (impl_->iterator_stack_.back() != impl_->getRawNode().end())
             {
-                impl_->node_stack_.emplace_back(&impl_->iterator_stack_.back()->second);
+                impl_->emplace(&impl_->iterator_stack_.back()->second);
                 entry_name = impl_->iterator_stack_.back()->first;
                 return (true);
             }
@@ -116,7 +116,7 @@ namespace ariles2
         void Reader::endIteratedMapElement()
         {
             ++impl_->iterator_stack_.back();
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
         void Reader::endIteratedMap()
@@ -133,7 +133,7 @@ namespace ariles2
             ARILES2_ASSERT(XmlRpc::XmlRpcValue::TypeArray == impl_->getRawNode().getType(), "Expected array.");
 
             std::size_t size = impl_->getRawNode().size();
-            impl_->node_stack_.emplace_back(0, size);
+            impl_->emplace(0, size);
 
             return (size);
         }
@@ -141,19 +141,18 @@ namespace ariles2
         void Reader::startArrayElement()
         {
             ARILES2_ASSERT(
-                    impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
+                    impl_->back().index_ < impl_->back().size_,
                     "Internal error: array has more elements than expected.");
         }
 
         void Reader::endArrayElement()
         {
-            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ++impl_->node_stack_.back().index_;
+            impl_->shiftArray();
         }
 
         void Reader::endArray()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 

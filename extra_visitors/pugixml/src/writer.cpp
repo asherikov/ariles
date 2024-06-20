@@ -16,13 +16,10 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::NodeStackBase<NodeWrapper>
             {
             public:
                 pugi::xml_document document_;
-
-                std::vector<NodeWrapper> node_stack_;
-
 
                 /// output file stream
                 std::ofstream config_ofs_;
@@ -55,7 +52,7 @@ namespace ariles2
                  */
                 pugi::xml_node &getRawNode()
                 {
-                    return (node_stack_.back().node_);
+                    return (back().node_);
                 }
             };
         }  // namespace impl
@@ -89,38 +86,37 @@ namespace ariles2
 
         void Writer::startMapEntry(const std::string &map_name)
         {
-            impl_->node_stack_.emplace_back(impl_->getRawNode().append_child(map_name.c_str()));
+            impl_->emplace(impl_->getRawNode().append_child(map_name.c_str()));
         }
 
         void Writer::endMapEntry()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
-            impl_->node_stack_.emplace_back(impl_->getRawNode(), 0, size);
+            impl_->emplace(impl_->getRawNode(), 0, size);
         }
 
         void Writer::startArrayElement()
         {
             ARILES2_ASSERT(
-                    impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
+                    impl_->back().index_ < impl_->back().size_,
                     "Internal error: array has more elements than expected.");
-            impl_->node_stack_.emplace_back(impl_->getRawNode().append_child("item"));
+            impl_->emplace(impl_->getRawNode().append_child("item"));
         }
 
         void Writer::endArrayElement()
         {
-            impl_->node_stack_.pop_back();
-            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ++impl_->node_stack_.back().index_;
+            impl_->pop();
+            impl_->shiftArray();
         }
 
         void Writer::endArray()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 

@@ -79,13 +79,13 @@ namespace ariles2
             {
                 return (false);
             }
-            impl_->node_stack_.emplace_back(&(child->value));
+            impl_->emplace(&(child->value));
             return (true);
         }
 
         void Reader::endMapEntry()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
@@ -112,7 +112,7 @@ namespace ariles2
         {
             if (impl_->iterator_stack_.back() != impl_->getRawNode().MemberEnd())
             {
-                impl_->node_stack_.emplace_back(&(impl_->iterator_stack_.back()->value));
+                impl_->emplace(&(impl_->iterator_stack_.back()->value));
                 entry_name = impl_->iterator_stack_.back()->name.GetString();
                 return (true);
             }
@@ -122,7 +122,7 @@ namespace ariles2
         void Reader::endIteratedMapElement()
         {
             ++impl_->iterator_stack_.back();
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
         void Reader::endIteratedMap()
@@ -139,7 +139,7 @@ namespace ariles2
             ARILES2_ASSERT(impl_->getRawNode().IsArray(), "Internal error: expected array.");
 
             std::size_t size = impl_->getRawNode().Size();
-            impl_->node_stack_.emplace_back(0, size);
+            impl_->emplace(0, size);
 
             return (size);
         }
@@ -148,21 +148,20 @@ namespace ariles2
         void Reader::startArrayElement()
         {
             ARILES2_ASSERT(
-                    impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
+                    impl_->back().index_ < impl_->back().size_,
                     "Internal error: array has more elements than expected.");
         }
 
 
         void Reader::endArrayElement()
         {
-            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ++impl_->node_stack_.back().index_;
+            impl_->shiftArray();
         }
 
 
         void Reader::endArray()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 

@@ -119,6 +119,76 @@ namespace ariles2
         };
 
 
+        template <class t_Node>
+        class NodeStackBase
+        {
+        public:
+            std::vector<t_Node> node_stack_;
+
+        public:
+            [[nodiscard]] t_Node &back()
+            {
+                return (node_stack_.back());
+            }
+
+            [[nodiscard]] const t_Node &back() const
+            {
+                return (node_stack_.back());
+            }
+
+            void clear()
+            {
+                node_stack_.clear();
+            }
+
+            template <class... t_Args>
+            void emplace(t_Args &&...args)
+            {
+                node_stack_.emplace_back(std::forward<t_Args>(args)...);
+            }
+
+            void pop()
+            {
+                node_stack_.pop_back();
+            }
+
+            void shiftArray()
+            {
+                ARILES2_ASSERT(back().isArray(), "Internal error: expected array.");
+                ++back().index_;
+            }
+
+            bool empty() const
+            {
+                return (node_stack_.empty());
+            }
+
+
+            // adopted from
+            // https://codereview.stackexchange.com/questions/195530/variadic-strcat-for-c17
+            template <typename... t_String>
+            std::string concatenate(const t_String &...strings) const
+            {
+                std::string result;
+                result.reserve((strings.size() + ...));
+                (result += ... += strings);
+                return (result);
+            }
+
+            template <typename... t_String>
+            std::string concatWithNode(t_String &&...strings) const
+            {
+                return (concatenate(back().node_, std::forward<t_String>(strings)...));
+            }
+
+            template <typename... t_String>
+            void concatWithNodeAndEmplace(t_String &&...strings)
+            {
+                emplace(concatWithNode(std::forward<t_String>(strings)...));
+            }
+        };
+
+
         template <class t_Visitor, class t_Implementation>
         class ARILES2_VISIBILITY_ATTRIBUTE PIMPLVisitor : public t_Visitor
         {
@@ -145,7 +215,7 @@ namespace ariles2
         };
 
 
-        template<class t_Derived, class t_Parameters>
+        template <class t_Derived, class t_Parameters>
         using Base = visitor::Base<t_Derived, t_Parameters>;
     }  // namespace serialization
 }  // namespace ariles2

@@ -109,9 +109,6 @@
 
 namespace ariles2
 {
-    // 20
-    const uint8_t num_chars_for_index_reserve = std::numeric_limits<std::size_t>::digits10 + 1;
-
     // intentionally not defined
     template <class t_Pointer>
     class ARILES2_VISIBILITY_ATTRIBUTE PointerHandler;

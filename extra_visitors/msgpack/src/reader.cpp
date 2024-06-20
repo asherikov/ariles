@@ -31,15 +31,12 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<NodeWrapper>
             {
             public:
                 std::string buffer_;
 
                 std::vector<std::shared_ptr<::msgpack::object_handle>> handles_;
-
-                /// Stack of nodes.
-                std::vector<NodeWrapper> node_stack_;
 
                 std::size_t nameless_counter_;
 
@@ -138,7 +135,7 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
             ARILES2_TRACE_VALUE(child_name);
-            if (impl_->node_stack_.empty())
+            if (impl_->empty())
             {
                 for (std::size_t i = 0; i < impl_->handles_.size(); ++i)
                 {
@@ -148,7 +145,7 @@ namespace ariles2
                         {
                             if (::msgpack::type::MAP == impl_->handles_[i]->get().via.map.ptr[0].val.type)
                             {
-                                impl_->node_stack_.emplace_back(&(impl_->handles_[i]->get().via.map.ptr[0].val));
+                                impl_->emplace(&(impl_->handles_[i]->get().via.map.ptr[0].val));
                                 return (true);
                             }
                         }
@@ -163,7 +160,7 @@ namespace ariles2
                     {
                         if (child_name == impl_->getRawNode().via.map.ptr[i].key.as<std::string>())
                         {
-                            impl_->node_stack_.emplace_back(&(impl_->getRawNode().via.map.ptr[i].val));
+                            impl_->emplace(&(impl_->getRawNode().via.map.ptr[i].val));
                             return (true);
                         }
                     }
@@ -177,7 +174,7 @@ namespace ariles2
         void Reader::endMapEntry()
         {
             ARILES2_TRACE_FUNCTION;
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
@@ -185,7 +182,7 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
             const std::size_t size = impl_->getRawNode().via.array.size;
-            impl_->node_stack_.emplace_back(0, size);
+            impl_->emplace(0, size);
 
             return (size);
         }
@@ -194,14 +191,14 @@ namespace ariles2
         void Reader::endArray()
         {
             ARILES2_TRACE_FUNCTION;
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
         void Reader::startArrayElement()
         {
             ARILES2_ASSERT(
-                    impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
+                    impl_->back().index_ < impl_->back().size_,
                     "Internal error: array has more elements than expected.");
         }
 
@@ -209,8 +206,7 @@ namespace ariles2
         void Reader::endArrayElement()
         {
             ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ++impl_->node_stack_.back().index_;
+            impl_->shiftArray();
         }
 
 

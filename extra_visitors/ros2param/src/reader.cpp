@@ -151,16 +151,15 @@ namespace ariles2
 
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<ReaderNodeWrapper>
             {
             public:
-                /// Stack of nodes.
-                std::vector<ReaderNodeWrapper> node_stack_;
-
                 // https://docs.ros2.org/latest/api/rclcpp/classrclcpp_1_1Node.html
                 const rclcpp::Node *nh_;
 
                 std::vector<std::string> parameter_names_;
+
+                const std::string separator_ = ".";
 
 
             public:
@@ -169,15 +168,6 @@ namespace ariles2
                     nh_ = nh;
                 }
 
-                ReaderNodeWrapper &back()
-                {
-                    return (node_stack_.back());
-                }
-
-                [[nodiscard]] const ReaderNodeWrapper &back() const
-                {
-                    return (node_stack_.back());
-                }
 
                 bool getParameter(rclcpp::Parameter &parameter) const
                 {
@@ -202,7 +192,7 @@ namespace ariles2
 
                 void reset()
                 {
-                    node_stack_.clear();
+                    clear();
 
                     rcl_interfaces::msg::ListParametersResult list_msg;
                     parameter_names_ = std::move(nh_->list_parameters({}, std::numeric_limits<uint64_t>::max()).names);
@@ -240,7 +230,7 @@ namespace ariles2
                 {
                     std::size_t substr_start = 0;
 
-                    if (not node_stack_.empty())
+                    if (not empty())
                     {
                         substr_start = back().node_.size() + 1;  // + 1 for dot
                     }
@@ -311,20 +301,15 @@ namespace ariles2
         bool Reader::startMapEntry(const std::string &child_name)
         {
             ARILES2_TRACE_FUNCTION;
-            if (impl_->node_stack_.empty())
+            if (impl_->empty())
             {
-                impl_->node_stack_.emplace_back(child_name);
+                impl_->emplace(child_name);
             }
             else
             {
                 ARILES2_ASSERT(not impl_->back().isBuiltinArray(), "Unexpected parent type (builtin array).");
 
-                std::string node;
-                node.reserve(impl_->back().node_.size() + child_name.size() + 1);
-                node = impl_->back().node_;
-                node += ".";
-                node += child_name;
-                impl_->node_stack_.emplace_back(std::move(node));
+                impl_->concatWithNodeAndEmplace(impl_->separator_, child_name);
             }
 
             return (impl_->hasParameterPrefix());
@@ -333,7 +318,7 @@ namespace ariles2
         void Reader::endMapEntry()
         {
             ARILES2_TRACE_FUNCTION;
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
@@ -349,7 +334,7 @@ namespace ariles2
 
             checkSize(limit_type, name_list.size(), min, max);
 
-            impl_->node_stack_.emplace_back(impl_->back().node_, std::move(name_list));
+            impl_->emplace(impl_->back().node_, std::move(name_list));
             return (true);
         }
 
@@ -362,20 +347,14 @@ namespace ariles2
             }
 
             entry_name = impl_->back().getChildName();
-
-            std::string node;
-            node.reserve(impl_->back().node_.size() + entry_name.size() + 1);
-            node = impl_->back().node_;
-            node += ".";
-            node += entry_name;
-            impl_->node_stack_.emplace_back(std::move(node));
+            impl_->concatWithNodeAndEmplace(impl_->separator_, entry_name);
 
             return (true);
         }
 
         void Reader::endIteratedMapElement()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
             ++(impl_->back().index_);
         }
 
@@ -383,7 +362,7 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
             ARILES2_ASSERT(impl_->back().isCompleted(), "End of iterated map has not been reached.");
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
@@ -391,15 +370,15 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
 
-            if (not impl_->node_stack_.empty() and impl_->isParameter())
+            if (not impl_->empty() and impl_->isParameter())
             {
                 rclcpp::Parameter values;
                 impl_->getParameter(values);
-                impl_->node_stack_.emplace_back(std::move(values));
+                impl_->emplace(std::move(values));
             }
             else
             {
-                impl_->node_stack_.emplace_back(impl_->back().node_, 0, impl_->listParameters().size());
+                impl_->emplace(impl_->back().node_, 0, impl_->listParameters().size());
             }
 
             return (impl_->back().size_);
@@ -412,13 +391,7 @@ namespace ariles2
             ARILES2_ASSERT(not impl_->back().isCompleted(), "Internal error: array has more elements than expected.");
             if (impl_->back().isNonBuiltinArray())
             {
-                std::string node;
-                node.reserve(impl_->back().node_.size() + num_chars_for_index_reserve + 1);
-                node = impl_->back().node_;
-                node += ".";
-                node += boost::lexical_cast<std::string>(impl_->back().index_);
-
-                impl_->node_stack_.emplace_back(std::move(node));
+                impl_->concatWithNodeAndEmplace(impl_->separator_, boost::lexical_cast<std::string>(impl_->back().index_));
             }
         }
 
@@ -427,16 +400,15 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             if (not impl_->back().isBuiltinArray())
             {
-                impl_->node_stack_.pop_back();
+                impl_->pop();
             }
-            ARILES2_ASSERT(impl_->back().isArray(), "Internal error: expected array.");
-            ++(impl_->back().index_);
+            impl_->shiftArray();
         }
 
         void Reader::endArray()
         {
             ARILES2_TRACE_FUNCTION;
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 

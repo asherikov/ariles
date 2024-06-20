@@ -103,16 +103,15 @@ namespace ariles2
 
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::NodeStackBase<WriterNodeWrapper>
             {
             public:
-                /// Stack of nodes.
-                std::vector<WriterNodeWrapper> node_stack_;
-
                 // https://docs.ros2.org/latest/api/rclcpp/classrclcpp_1_1Node.html
                 rclcpp::Node *nh_;
 
                 std::vector<rclcpp::Parameter> parameters_;
+
+                const std::string separator_ = ".";
 
             public:
                 explicit Writer(::rclcpp::Node *nh)
@@ -120,15 +119,6 @@ namespace ariles2
                     nh_ = nh;
                 }
 
-                WriterNodeWrapper &back()
-                {
-                    return (node_stack_.back());
-                }
-
-                [[nodiscard]] const WriterNodeWrapper &back() const
-                {
-                    return (node_stack_.back());
-                }
 
                 [[nodiscard]] bool publishParameters() const
                 {
@@ -187,35 +177,31 @@ namespace ariles2
         {
             ARILES2_TRACE_FUNCTION;
             ARILES2_TRACE_VALUE(child_name);
-            if (impl_->node_stack_.empty())
+            if (impl_->empty())
             {
-                impl_->node_stack_.emplace_back(child_name);
+                impl_->emplace(child_name);
             }
             else
             {
-                std::string node;
                 if (impl_->back().isArray())
                 {
-                    node.reserve(impl_->back().node_.size() + child_name.size() + num_chars_for_index_reserve + 3);
-                    node = impl_->back().node_;
-                    node += ".";
-                    node += boost::lexical_cast<std::string>(impl_->back().index_);
+                    impl_->concatWithNodeAndEmplace(
+                            impl_->separator_,
+                            boost::lexical_cast<std::string>(impl_->back().index_),
+                            impl_->separator_,
+                            child_name);
                 }
                 else
                 {
-                    node.reserve(impl_->back().node_.size() + child_name.size() + 1);
-                    node = impl_->back().node_;
+                    impl_->concatWithNodeAndEmplace(impl_->separator_, child_name);
                 }
-                node += ".";
-                node += child_name;
-                impl_->node_stack_.emplace_back(std::move(node));
             }
         }
 
         void Writer::endMapEntry()
         {
             ARILES2_TRACE_FUNCTION;
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
@@ -224,16 +210,15 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             if (impl_->back().isArray())
             {
-                std::string node;
-                node.reserve(impl_->back().node_.size() + num_chars_for_index_reserve + 1);
-                node = impl_->back().node_;
-                node += ".";
-                node += boost::lexical_cast<std::string>(impl_->back().index_);
-                impl_->node_stack_.emplace_back(node, /*index=*/0, size);
+                impl_->emplace(
+                        impl_->concatWithNode(
+                                impl_->separator_, boost::lexical_cast<std::string>(impl_->back().index_)),
+                        /*index=*/0,
+                        size);
             }
             else
             {
-                impl_->node_stack_.emplace_back(impl_->back().node_, /*index=*/0, size);
+                impl_->emplace(impl_->back().node_, /*index=*/0, size);
             }
         }
 
@@ -246,15 +231,14 @@ namespace ariles2
         void Writer::endArrayElement()
         {
             ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(impl_->back().isArray(), "Internal error: expected array.");
-            ++impl_->back().index_;
+            impl_->shiftArray();
         }
 
         void Writer::endArray()
         {
             ARILES2_TRACE_FUNCTION;
             impl_->setParameter();
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 

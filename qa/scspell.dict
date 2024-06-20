@@ -12,6 +12,7 @@ cfgread
 cfgwrite
 classrclcpp
 cmakeut
+codereview
 constexpr
 copyfrom
 copyto
@@ -120,6 +121,7 @@ sighandler
 sigint
 sint
 sstream
+stackexchange
 stdexcept
 stringbuffer
 stringized
@@ -138,6 +140,7 @@ typeid
 ulonglong
 unistd
 usleep
+variadic
 waitpid
 wfstream
 wifstream
