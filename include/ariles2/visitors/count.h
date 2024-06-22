@@ -23,13 +23,7 @@ namespace ariles2
     /// @ingroup count
     namespace count
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
-        {
-        public:
-            Parameters(const bool override_parameters = true) : visitor::Parameters(override_parameters)
-            {
-            }
-        };
+        using Parameters = ARILES2_VISIBILITY_ATTRIBUTE visitor::Parameters;
 
 
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor
@@ -50,19 +44,7 @@ namespace ariles2
         };
 
 
-
-        class ARILES2_VISIBILITY_ATTRIBUTE Base
-        {
-        public:
-            virtual std::size_t arilesVirtualVisit(const Visitor &, const Visitor::Parameters &) const = 0;
-
-            virtual const Visitor::Parameters &arilesGetParameters(const Visitor &visitor) const
-            {
-                ARILES2_TRACE_FUNCTION;
-                return (visitor.getDefaultParameters());
-            }
-        };
-
+        using Base = ARILES2_VISIBILITY_ATTRIBUTE entry::ConstBase<const Visitor, std::size_t>;
 
 
 #define ARILES2_NAMED_ENTRY_count(v, entry, name) +1

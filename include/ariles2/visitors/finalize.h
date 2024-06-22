@@ -25,13 +25,7 @@ namespace ariles2
     /// @ingroup finalize
     namespace finalize
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
-        {
-        public:
-            Parameters(const bool override_parameters = true) : visitor::Parameters(override_parameters)
-            {
-            }
-        };
+        using Parameters = ARILES2_VISIBILITY_ATTRIBUTE visitor::Parameters;
 
 
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor
@@ -48,9 +42,7 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::Base<const finalize::Visitor>
-        {
-        };
+        using Base = ARILES2_VISIBILITY_ATTRIBUTE entry::Base<const finalize::Visitor>;
 
 
 #define ARILES2_NAMED_ENTRY_finalize(v, entry, name) visitor.visitMapEntry(entry, #name, parameters);

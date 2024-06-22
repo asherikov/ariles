@@ -25,24 +25,14 @@ namespace ariles2
     /// @ingroup prewrite
     namespace prewrite
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
-        {
-        public:
-            Parameters(const bool override_parameters = true) : visitor::Parameters(override_parameters)
-            {
-            }
-        };
-
+        using Parameters = ARILES2_VISIBILITY_ATTRIBUTE visitor::Parameters;
 
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor
           : public ariles2::process::Visitor<const prewrite::Visitor, prewrite::Parameters>
         {
         };
 
-
-        class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::Base<const prewrite::Visitor>
-        {
-        };
+        using Base = ARILES2_VISIBILITY_ATTRIBUTE entry::Base<const prewrite::Visitor>;
 
 
 #define ARILES2_NAMED_ENTRY_prewrite(v, entry, name) visitor.visitMapEntry(entry, #name, parameters);

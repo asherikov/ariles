@@ -27,7 +27,7 @@ namespace ariles2
     /// @ingroup read
     namespace read
     {
-        using Parameters = serialization::Parameters;
+        using Parameters = ARILES2_VISIBILITY_ATTRIBUTE serialization::Parameters;
 
 
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public serialization::Base<Visitor, Parameters>
@@ -504,9 +504,7 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::Base<read::Visitor>
-        {
-        };
+        using Base = ARILES2_VISIBILITY_ATTRIBUTE entry::Base<read::Visitor>;
 
 
 #define ARILES2_NAMED_ENTRY_read(v, entry, name) visitor.visitMapEntry(entry, #name, parameters);

@@ -103,9 +103,7 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::Base<const defaults::Visitor>
-        {
-        };
+        using Base = ARILES2_VISIBILITY_ATTRIBUTE entry::Base<const defaults::Visitor>;
 
 
 #define ARILES2_NAMED_ENTRY_defaults(v, entry, name) visitor.visitMapEntry(entry, #name, parameters);

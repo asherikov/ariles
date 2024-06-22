@@ -80,11 +80,11 @@ namespace ariles2
 
     namespace entry
     {
-        template <class t_Visitor>
+        template <class t_Visitor, typename t_VisitReturnValue = void>
         class ARILES2_VISIBILITY_ATTRIBUTE Base
         {
         public:
-            virtual void arilesVirtualVisit(t_Visitor &, const typename t_Visitor::Parameters &) = 0;
+            virtual t_VisitReturnValue arilesVirtualVisit(t_Visitor &, const typename t_Visitor::Parameters &) = 0;
 
             virtual const typename t_Visitor::Parameters &arilesGetParameters(const t_Visitor &visitor) const
             {
@@ -94,11 +94,12 @@ namespace ariles2
         };
 
 
-        template <class t_Visitor>
+        template <class t_Visitor, typename t_VisitReturnValue = void>
         class ARILES2_VISIBILITY_ATTRIBUTE ConstBase
         {
         public:
-            virtual void arilesVirtualVisit(t_Visitor &, const typename t_Visitor::Parameters &) const = 0;
+            virtual t_VisitReturnValue arilesVirtualVisit(t_Visitor &, const typename t_Visitor::Parameters &)
+                    const = 0;
 
             virtual const typename t_Visitor::Parameters &arilesGetParameters(const t_Visitor &visitor) const
             {
