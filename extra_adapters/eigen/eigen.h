@@ -28,7 +28,7 @@ namespace ariles2
             ARILES2_TRACE_FUNCTION;
             const std::size_t size = visitor.startVector();
 
-            if (Eigen::Dynamic == t_rows)
+            if constexpr (Eigen::Dynamic == t_rows)
             {
                 entry.resize(size);
             }
@@ -252,9 +252,9 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            if (Eigen::Dynamic == t_rows)
+            if constexpr (Eigen::Dynamic == t_rows)
             {
-                if (Eigen::Dynamic == t_cols)
+                if constexpr (Eigen::Dynamic == t_cols)
                 {
                     entry.resize(0, 0);
                 }
@@ -265,7 +265,7 @@ namespace ariles2
             }
             else
             {
-                if (Eigen::Dynamic == t_cols)
+                if constexpr (Eigen::Dynamic == t_cols)
                 {
                     entry.resize(t_rows, 0);
                 }

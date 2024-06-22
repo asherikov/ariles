@@ -49,6 +49,22 @@ namespace ariles2
             template <typename t_Scalar>
             inline t_Scalar getDefault() const
             {
+                if constexpr (std::is_same_v<double, t_Scalar>)
+                {
+                    return default_double_value_;
+                }
+                if constexpr (std::is_same_v<float, t_Scalar>)
+                {
+                    return default_float_value_;
+                }
+                if constexpr (std::is_same_v<bool, t_Scalar>)
+                {
+                    return false;
+                }
+                if constexpr (std::is_same_v<std::string, t_Scalar>)
+                {
+                    return "";
+                }
                 return 0;
             }
         };
@@ -85,30 +101,6 @@ namespace ariles2
                 apply_defaults(*this, entry, param);
             }
         };
-
-        template <>
-        inline double Visitor::Parameters::getDefault<double>() const
-        {
-            return default_double_value_;
-        }
-
-        template <>
-        inline float Visitor::Parameters::getDefault<float>() const
-        {
-            return default_float_value_;
-        }
-
-        template <>
-        inline bool Visitor::Parameters::getDefault<bool>() const
-        {
-            return false;
-        }
-
-        template <>
-        inline std::string Visitor::Parameters::getDefault<std::string>() const
-        {
-            return "";
-        }
 
 
         class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::Base<const defaults::Visitor>

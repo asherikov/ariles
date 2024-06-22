@@ -112,8 +112,7 @@ namespace ariles2
                 apply_write(t_Visitor &writer, const t_Enumeration entry, const typename t_Visitor::Parameters &param)
         {
             ARILES2_TRACE_FUNCTION;
-            const int tmp_value = entry;
-            writer.writeElement(tmp_value, param);
+            writer.writeElement(static_cast<int>(entry), param);
         }
 
 
