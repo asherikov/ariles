@@ -20,6 +20,10 @@ Fixed
 * Exception messages.
 * Null pointer handling.
 
+Removed
+-------
+* `ARILES_CPP_STANDARD` cmake option.
+
 
 2.1.0
 =====
