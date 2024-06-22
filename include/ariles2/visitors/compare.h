@@ -27,7 +27,7 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
         {
         public:
-            double float_tolerance_;
+            float float_tolerance_;
             double double_tolerance_;
             bool compare_number_of_entries_;
             bool nan_equal_;
@@ -53,8 +53,19 @@ namespace ariles2
             }
 
 
-            template <typename t_Scalar>
-            t_Scalar getTolerance(const typename ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(t_Scalar) = nullptr) const;
+            template <typename t_Scalar, typename = std::enable_if_t<std::is_floating_point_v<t_Scalar>>>
+            t_Scalar getTolerance() const
+            {
+                if constexpr (std::is_same_v<t_Scalar, double>)
+                {
+                    return (double_tolerance_);
+                }
+                if constexpr (std::is_same_v<t_Scalar, float>)
+                {
+                    return (float_tolerance_);
+                }
+            }
+
 
             template <class t_Complex>
             typename t_Complex::value_type getTolerance() const
@@ -150,20 +161,6 @@ namespace ariles2
                 }
             }
         };
-
-
-        template <>
-        inline double Visitor::Parameters::getTolerance<double>(
-                const ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(double)) const
-        {
-            return (double_tolerance_);
-        }
-
-        template <>
-        inline float Visitor::Parameters::getTolerance<float>(const ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(float)) const
-        {
-            return (float_tolerance_);
-        }
 
 
         class ARILES2_VISIBILITY_ATTRIBUTE Base
