@@ -34,14 +34,16 @@ namespace ariles2
           : public aggregate::Visitor<cfgread::Visitor<t_Reader>, Defaults, t_Reader, Finalize>
         {
         public:
-            using AggregateBase =
-                    aggregate::Visitor<cfgread::Visitor<t_Reader>, Defaults, t_Reader, Finalize>;
+            using AggregateBase = aggregate::Visitor<cfgread::Visitor<t_Reader>, Defaults, t_Reader, Finalize>;
 
 
         public:
             template <class... t_Initializers>
             Visitor(t_Initializers &&...initializers)
-              : AggregateBase(std::tuple<>(), std::forward_as_tuple(std::forward<t_Initializers>(initializers)...), std::tuple<>())
+              : AggregateBase(
+                      std::tuple<>(),
+                      std::forward_as_tuple(std::forward<t_Initializers>(initializers)...),
+                      std::tuple<>())
             {
                 ARILES2_TRACE_FUNCTION;
             }

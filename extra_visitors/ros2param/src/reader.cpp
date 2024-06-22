@@ -391,7 +391,8 @@ namespace ariles2
             ARILES2_ASSERT(not impl_->back().isCompleted(), "Internal error: array has more elements than expected.");
             if (impl_->back().isNonBuiltinArray())
             {
-                impl_->concatWithNodeAndEmplace(impl_->separator_, boost::lexical_cast<std::string>(impl_->back().index_));
+                impl_->concatWithNodeAndEmplace(
+                        impl_->separator_, boost::lexical_cast<std::string>(impl_->back().index_));
             }
         }
 

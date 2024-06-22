@@ -33,12 +33,16 @@ namespace ariles_tests
                 typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
                 ariles2::apply(writer, configurable);
 
-                BOOST_CHECK_EQUAL(writer.template get<ariles2::write::Visitor>().index_, writer.template get<ariles2::write::Visitor>().name_value_pairs_->size());
+                BOOST_CHECK_EQUAL(
+                        writer.template get<ariles2::write::Visitor>().index_,
+                        writer.template get<ariles2::write::Visitor>().name_value_pairs_->size());
 
-                for (std::size_t i = 0; i < writer.template get<ariles2::write::Visitor>().name_value_pairs_->size(); ++i)
+                for (std::size_t i = 0; i < writer.template get<ariles2::write::Visitor>().name_value_pairs_->size();
+                     ++i)
                 {
                     std::cout << (*writer.template get<ariles2::write::Visitor>().name_value_pairs_)[i].first << " = "
-                              << (*writer.template get<ariles2::write::Visitor>().name_value_pairs_)[i].second << std::endl;
+                              << (*writer.template get<ariles2::write::Visitor>().name_value_pairs_)[i].second
+                              << std::endl;
                 }
             }
 
@@ -51,12 +55,16 @@ namespace ariles_tests
                 typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
                 ariles2::apply(writer, configurable, std::string("id"));
 
-                BOOST_CHECK_EQUAL(writer.template get<ariles2::write::Visitor>().index_, writer.template get<ariles2::write::Visitor>().name_value_pairs_->size());
+                BOOST_CHECK_EQUAL(
+                        writer.template get<ariles2::write::Visitor>().index_,
+                        writer.template get<ariles2::write::Visitor>().name_value_pairs_->size());
 
-                for (std::size_t i = 0; i < writer.template get<ariles2::write::Visitor>().name_value_pairs_->size(); ++i)
+                for (std::size_t i = 0; i < writer.template get<ariles2::write::Visitor>().name_value_pairs_->size();
+                     ++i)
                 {
                     std::cout << (*writer.template get<ariles2::write::Visitor>().name_value_pairs_)[i].first << " = "
-                              << (*writer.template get<ariles2::write::Visitor>().name_value_pairs_)[i].second << std::endl;
+                              << (*writer.template get<ariles2::write::Visitor>().name_value_pairs_)[i].second
+                              << std::endl;
                 }
             }
 

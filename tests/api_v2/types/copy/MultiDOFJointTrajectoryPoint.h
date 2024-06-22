@@ -26,19 +26,13 @@ namespace trajectory_msgs
 
 
 
-        typedef std::vector<
-                ::geometry_msgs::Transform_<ContainerAllocator>>
-                _transforms_type;
+        typedef std::vector<::geometry_msgs::Transform_<ContainerAllocator>> _transforms_type;
         _transforms_type transforms;
 
-        typedef std::vector<
-                ::geometry_msgs::Twist_<ContainerAllocator>>
-                _velocities_type;
+        typedef std::vector<::geometry_msgs::Twist_<ContainerAllocator>> _velocities_type;
         _velocities_type velocities;
 
-        typedef std::vector<
-                ::geometry_msgs::Twist_<ContainerAllocator>>
-                _accelerations_type;
+        typedef std::vector<::geometry_msgs::Twist_<ContainerAllocator>> _accelerations_type;
         _accelerations_type accelerations;
 
         typedef uint64_t _time_from_start_type;

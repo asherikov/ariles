@@ -23,8 +23,7 @@ namespace ariles2
     namespace process
     {
         template <class t_Derived, class t_Parameters>
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor
-          : public ariles2::visitor::Base<t_Derived, t_Parameters>
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public ariles2::visitor::Base<t_Derived, t_Parameters>
         {
         public:
             using Parameters = t_Parameters;

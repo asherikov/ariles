@@ -54,8 +54,7 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor
-          : public ariles2::visitor::Base<Visitor, defaults::Parameters>
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public ariles2::visitor::Base<Visitor, defaults::Parameters>
         {
         public:
             using Parameters = defaults::Parameters;

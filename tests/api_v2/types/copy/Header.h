@@ -29,9 +29,7 @@ namespace std_msgs
         typedef uint64_t _stamp_type;
         _stamp_type stamp;
 
-        typedef std::
-                basic_string<char, std::char_traits<char>>
-                        _frame_id_type;
+        typedef std::basic_string<char, std::char_traits<char>> _frame_id_type;
         _frame_id_type frame_id;
     };  // struct Header_
 

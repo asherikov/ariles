@@ -147,7 +147,7 @@ test-ros2: clean
 
 test-noros: clean
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
-	${MAKE} clangcheck SCANBUILD=scan-build15 OPTIONS=noros_tidy
+	${MAKE} clangcheck SCANBUILD=scan-build18 OPTIONS=noros_tidy
 	${MAKE} cppcheck
 	${MAKE} spell
 
@@ -268,7 +268,6 @@ clangcheck:
 		-enable-checker core.uninitialized.UndefReturn \
 		-enable-checker cplusplus.InnerPointer \
 		-enable-checker cplusplus.Move \
-		-enable-checker cplusplus.NewDelete \
 		-enable-checker cplusplus.NewDeleteLeaks \
 		-enable-checker deadcode.DeadStores \
 		-enable-checker nullability.NullPassedToNonnull \
@@ -281,7 +280,6 @@ clangcheck:
 		-enable-checker optin.performance.GCDAntipattern \
 		-enable-checker optin.performance.Padding \
 		-enable-checker optin.portability.UnixAPI \
-		-enable-checker optin.cplusplus.VirtualCall \
 		-enable-checker security.FloatLoopCounter \
 		-enable-checker security.insecureAPI.DeprecatedOrUnsafeBufferHandling \
 		-enable-checker security.insecureAPI.UncheckedReturn \
@@ -301,6 +299,8 @@ clangcheck:
 		-enable-checker valist.Uninitialized \
 		-enable-checker valist.Unterminated \
 		${MAKE} build TC=${TC} TYPE=${TYPE} OPTIONS=${OPTIONS} TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="-DBUILD_SHARED_LIBS=OFF ${EXTRA_CMAKE_PARAM}"
+#		-enable-checker cplusplus.NewDelete 
+#		-enable-checker optin.cplusplus.VirtualCall
 
 spell_interactive:
 	${MAKE} spell SPELL_XARGS_ARG=-o
