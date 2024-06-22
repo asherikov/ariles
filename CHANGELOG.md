@@ -23,6 +23,7 @@ Fixed
 Removed
 -------
 * `ARILES_CPP_STANDARD` cmake option.
+* `ARILES2_INCLUDED` define.
 
 
 2.1.0

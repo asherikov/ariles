@@ -104,21 +104,14 @@ namespace ariles2
     }  // namespace write
 
 
-    class SloppyBase : public serialization::NonDefaultBaseTemplate<read::SloppyParameters, write::SloppyParameters>
-    {
-    };
+    using SloppyBase = serialization::NonDefaultBaseTemplate<read::SloppyParameters, write::SloppyParameters>;
 
+    using RelaxedSloppyBase =
+            serialization::NonDefaultBaseTemplate<read::RelaxedSloppyParameters, write::RelaxedSloppyParameters>;
 
-    class RelaxedSloppyBase
-      : public serialization::NonDefaultBaseTemplate<read::RelaxedSloppyParameters, write::RelaxedSloppyParameters>
-    {
-    };
-
-    class NonFlatMatricesRelaxedSloppyBase : public serialization::NonDefaultBaseTemplate<
-                                                     read::NonFlatMatricesRelaxedSloppyParameters,
-                                                     write::NonFlatMatricesRelaxedSloppyParameters>
-    {
-    };
+    using NonFlatMatricesRelaxedSloppyBase = serialization::NonDefaultBaseTemplate<
+            read::NonFlatMatricesRelaxedSloppyParameters,
+            write::NonFlatMatricesRelaxedSloppyParameters>;
 }  // namespace ariles2
 
 #else

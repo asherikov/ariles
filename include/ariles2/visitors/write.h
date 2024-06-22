@@ -391,7 +391,7 @@ namespace ariles2
         };
 
 
-        using Base = ARILES2_VISIBILITY_ATTRIBUTE entry::ConstBase<write::Visitor>;
+        using Base = entry::ConstBase<write::Visitor>;
 
 
 #define ARILES2_NAMED_ENTRY_write(v, entry, name) visitor.visitMapEntry(entry, #name, parameters);

@@ -23,7 +23,7 @@ namespace ariles2
     /// @ingroup count
     namespace count
     {
-        using Parameters = ARILES2_VISIBILITY_ATTRIBUTE visitor::Parameters;
+        using Parameters = visitor::Parameters;
 
 
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor
@@ -44,7 +44,7 @@ namespace ariles2
         };
 
 
-        using Base = ARILES2_VISIBILITY_ATTRIBUTE entry::ConstBase<const Visitor, std::size_t>;
+        using Base = entry::ConstBase<const Visitor>;
 
 
 #define ARILES2_NAMED_ENTRY_count(v, entry, name) +1
