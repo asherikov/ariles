@@ -1,0 +1,62 @@
+/**
+    @file
+    @author Alexander Sherikov
+
+    @copyright 2017-2024 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
+    (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
+
+    @brief
+*/
+
+#include "node_wrapper.h"
+
+
+namespace ariles2
+{
+    namespace ns_ros2param
+    {
+        class ARILES2_VISIBILITY_ATTRIBUTE ModifierImplBase : public serialization::NodeStackBase<ModifierNode>
+        {
+        public:
+            // https://docs.ros2.org/latest/api/rclcpp/classrclcpp_1_1Node.html
+            rclcpp::Node *nh_;
+
+            std::vector<rclcpp::Parameter> parameters_;
+
+            const std::string separator_ = ".";
+
+        public:
+            explicit ModifierImplBase(::rclcpp::Node *nh)
+            {
+                nh_ = nh;
+            }
+
+
+            template <class t_Element>
+            void setParameter(const t_Element element)
+            {
+                ARILES2_TRACE_FUNCTION;
+                ARILES2_TRACE_VALUE(back().node_);
+                ARILES2_TRACE_TYPE(t_Element);
+
+                parameters_.emplace_back(back().node_, element);
+            }
+
+            void setParameter(const std::string &element)
+            {
+                ARILES2_TRACE_FUNCTION;
+                ARILES2_TRACE_VALUE(back().node_);
+                parameters_.emplace_back(back().node_, element);
+            }
+
+            void setParameter()
+            {
+                ARILES2_TRACE_FUNCTION;
+                if (back().isBuiltinArray())
+                {
+                    std::visit([this](auto &&arg) { setParameter(arg); }, back().array_values_);
+                }
+            }
+        };
+    }  // namespace ns_ros2param
+}  // namespace ariles2

@@ -14,27 +14,25 @@
 
 #include <ariles2/visitors/ros2param.h>
 
+#include "node_wrapper.h"
+
 
 namespace ariles2
 {
     namespace ns_ros2param
     {
-        class ReaderNodeWrapper : public serialization::Node<std::string>
+        class ReaderNodeWrapper : public NodeBase
         {
-        protected:
-            using Parent = serialization::Node<std::string>;
-
         protected:
             std::set<std::string> childs_;
             std::set<std::string>::const_iterator childs_iterator_;
             const rclcpp::Parameter parameter_;
-            const bool is_builtin_array_ = false;
 
         public:
-            using Parent::Parent;
+            using NodeBase::NodeBase;
 
             ReaderNodeWrapper(const std::string &name, std::set<std::string> childs)
-              : Parent(name, Parent::Type::ITERATED_MAP), childs_(std::move(childs))
+              : NodeBase(name, NodeBase::Type::ITERATED_MAP), childs_(std::move(childs))
             {
                 size_ = childs_.size();
                 childs_iterator_ = childs_.begin();
@@ -46,9 +44,11 @@ namespace ariles2
             }
 
             explicit ReaderNodeWrapper(const rclcpp::Parameter &&parameter)
-              : Parent(Parent::Type::ARRAY), parameter_(parameter), is_builtin_array_(true)
+              : NodeBase(NodeBase::Type::ARRAY), parameter_(parameter)
             {
                 index_ = 0;
+                array_type_ = ArrayType::BUILTIN;
+
                 switch (parameter_.get_type())
                 {
                     case rclcpp::ParameterType::PARAMETER_BYTE_ARRAY:
@@ -136,16 +136,6 @@ namespace ariles2
                     }
                 }
                 return (false);
-            }
-
-            [[nodiscard]] bool isNonBuiltinArray() const
-            {
-                return (not is_builtin_array_ and isArray());
-            }
-
-            [[nodiscard]] bool isBuiltinArray() const
-            {
-                return (is_builtin_array_ and isArray());
             }
         };
 

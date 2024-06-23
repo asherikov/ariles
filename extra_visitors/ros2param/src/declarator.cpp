@@ -23,14 +23,23 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ModifierImplBase
+            class ARILES2_VISIBILITY_ATTRIBUTE Declarator : public ModifierImplBase
             {
             public:
                 using ModifierImplBase::ModifierImplBase;
 
                 [[nodiscard]] bool publishParameters() const
                 {
-                    return (nh_->set_parameters_atomically(parameters_).successful);
+                    for (const rclcpp::Parameter &parameter : parameters_)
+                    {
+                        const rclcpp::ParameterValue &declared_value =
+                                nh_->declare_parameter(parameter.get_name(), parameter.get_parameter_value());
+
+                        ARILES2_ASSERT(
+                                declared_value.get_type() == parameter.get_type(),
+                                std::string("Parameter type mismatch: ") + parameter.get_name());
+                    }
+                    return (true);
                 }
             };
         }  // namespace impl
@@ -42,20 +51,20 @@ namespace ariles2
 {
     namespace ns_ros2param
     {
-        Writer::Writer(::rclcpp::Node *nh)
+        Declarator::Declarator(::rclcpp::Node *nh)
         {
             makeImplPtr(nh);
         }
 
 
-        void Writer::flush()
+        void Declarator::flush()
         {
             ARILES2_TRACE_FUNCTION;
             ARILES2_ASSERT(impl_->publishParameters(), "Failed to set parameters.");
         }
 
 
-        void Writer::startMapEntry(const std::string &child_name)
+        void Declarator::startMapEntry(const std::string &child_name)
         {
             ARILES2_TRACE_FUNCTION;
             ARILES2_TRACE_VALUE(child_name);
@@ -80,14 +89,14 @@ namespace ariles2
             }
         }
 
-        void Writer::endMapEntry()
+        void Declarator::endMapEntry()
         {
             ARILES2_TRACE_FUNCTION;
             impl_->pop();
         }
 
 
-        void Writer::startArray(const std::size_t size, const bool /*compact*/)
+        void Declarator::startArray(const std::size_t size, const bool /*compact*/)
         {
             ARILES2_TRACE_FUNCTION;
             if (impl_->back().isArray())
@@ -104,19 +113,19 @@ namespace ariles2
             }
         }
 
-        void Writer::startArrayElement()
+        void Declarator::startArrayElement()
         {
             ARILES2_TRACE_FUNCTION;
             ARILES2_ASSERT(not impl_->back().isCompleted(), "Internal error: array has more elements than expected.");
         }
 
-        void Writer::endArrayElement()
+        void Declarator::endArrayElement()
         {
             ARILES2_TRACE_FUNCTION;
             impl_->shiftArray();
         }
 
-        void Writer::endArray()
+        void Declarator::endArray()
         {
             ARILES2_TRACE_FUNCTION;
             impl_->setParameter();
@@ -124,7 +133,7 @@ namespace ariles2
         }
 
 
-        void Writer::writeElement(const unsigned char &element, const Parameters &)
+        void Declarator::writeElement(const unsigned char &element, const Parameters &)
         {
             ARILES2_TRACE_FUNCTION;
             if (not impl_->back().tryPushArray<uint8_t>(element))
@@ -134,7 +143,7 @@ namespace ariles2
         }
 
 
-        void Writer::writeElement(const float &element, const Parameters &)
+        void Declarator::writeElement(const float &element, const Parameters &)
         {
             ARILES2_TRACE_FUNCTION;
             if (not impl_->back().tryPushArray<double>(element))
@@ -151,7 +160,7 @@ namespace ariles2
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
-    void Writer::writeElement(const type &element, const Parameters &)                                                 \
+    void Declarator::writeElement(const type &element, const Parameters &)                                             \
     {                                                                                                                  \
         ARILES2_TRACE_FUNCTION;                                                                                        \
         if (not impl_->back().tryPushArray(element))                                                                   \
@@ -166,7 +175,7 @@ namespace ariles2
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
-    void Writer::writeElement(const type &element, const Parameters &)                                                 \
+    void Declarator::writeElement(const type &element, const Parameters &)                                             \
     {                                                                                                                  \
         ARILES2_TRACE_FUNCTION;                                                                                        \
         if (not impl_->back().tryPushArray<int64_t>(element))                                                          \
@@ -181,7 +190,7 @@ namespace ariles2
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
-    void Writer::writeElement(const type &element, const Parameters &)                                                 \
+    void Declarator::writeElement(const type &element, const Parameters &)                                             \
     {                                                                                                                  \
         ARILES2_TRACE_FUNCTION;                                                                                        \
         ARILES2_ASSERT(                                                                                                \

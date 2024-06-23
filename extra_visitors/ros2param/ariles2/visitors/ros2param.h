@@ -28,6 +28,7 @@
 
 #include "./ros2param/reader.h"
 #include "./ros2param/writer.h"
+#include "./ros2param/declarator.h"
 
 namespace ariles2
 {
@@ -39,5 +40,24 @@ namespace ariles2
     {
         using Reader = ariles2::cfgread::Visitor<ns_ros2param::Reader>;
         using Writer = ariles2::cfgwrite::Visitor<ns_ros2param::Writer>;
+
+
+        class ARILES2_VISIBILITY_ATTRIBUTE Declarator
+          : public aggregate::Visitor<ros2param::Declarator, Defaults, ns_ros2param::Declarator>
+        {
+        public:
+            using AggregateBase = aggregate::Visitor<ros2param::Declarator, Defaults, ns_ros2param::Declarator>;
+
+
+        public:
+            template <class... t_Initializers>
+            Declarator(t_Initializers &&...initializers)
+              : AggregateBase(
+                      std::tuple<>(),
+                      std::forward_as_tuple(std::forward<t_Initializers>(initializers)...))
+            {
+                ARILES2_TRACE_FUNCTION;
+            }
+        };
     };
 }  // namespace ariles2

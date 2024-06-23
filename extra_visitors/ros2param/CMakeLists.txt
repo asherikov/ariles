@@ -8,6 +8,7 @@ endif()
 add_library(${TGT_ARILES_VISITOR_LIB}
     ${ARILES_VISITOR_${ARILES_VISITOR}_DIR}/src/reader.cpp
     ${ARILES_VISITOR_${ARILES_VISITOR}_DIR}/src/writer.cpp
+    ${ARILES_VISITOR_${ARILES_VISITOR}_DIR}/src/declarator.cpp
 )
 
 if(NOT ARILES_DEB_TARGETS)
