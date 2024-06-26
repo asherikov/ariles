@@ -29,6 +29,7 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY     "${PROJECT_BINARY_DIR}/tests_bin_api_v2/
 ##############################################################################
 
 ariles_define_test(${PROJECT_NAME} "demo_api_v2" "yaml_cpp;rosparam;octave" "")
+ariles_define_test(${PROJECT_NAME} "demo_api_v2_ros2" "yaml_cpp;ros2param" "")
 
 # basic test for missing inlines
 add_library(testlib_api_v2 SHARED testlib1.cpp testlib2.cpp)

@@ -102,7 +102,5 @@ namespace ariles2
                 return (false);
             }
         };
-    }
-}
-
-
+    }  // namespace ns_ros2param
+}  // namespace ariles2

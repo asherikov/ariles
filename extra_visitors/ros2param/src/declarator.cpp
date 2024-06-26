@@ -32,12 +32,19 @@ namespace ariles2
                 {
                     for (const rclcpp::Parameter &parameter : parameters_)
                     {
-                        const rclcpp::ParameterValue &declared_value =
-                                nh_->declare_parameter(parameter.get_name(), parameter.get_parameter_value());
+                        if (not nh_->has_parameter(parameter.get_name()))
+                        {
+                            const rclcpp::ParameterValue &declared_value =
+                                    nh_->declare_parameter(parameter.get_name(), parameter.get_parameter_value());
 
-                        ARILES2_ASSERT(
-                                declared_value.get_type() == parameter.get_type(),
-                                std::string("Parameter type mismatch: ") + parameter.get_name());
+                            ARILES2_ASSERT(
+                                    declared_value.get_type() == parameter.get_type(),
+                                    std::string("Parameter type mismatch: ") + parameter.get_name());
+                        }
+
+                        // https://github.com/ros2/rclcpp/blob/master/rclcpp/src/rclcpp/node_interfaces/node_parameters.cpp#L652
+                        // "cannot undeclare a statically typed parameter"
+                        // nh_->undeclare_parameter(parameter.get_name());
                     }
                     return (true);
                 }
@@ -51,7 +58,7 @@ namespace ariles2
 {
     namespace ns_ros2param
     {
-        Declarator::Declarator(::rclcpp::Node *nh)
+        Declarator::Declarator(const rclcpp::node_interfaces::NodeParametersInterface::SharedPtr &nh)
         {
             makeImplPtr(nh);
         }

@@ -49,19 +49,22 @@ namespace ariles_tests
                 rclcpp::shutdown();
             }
 
-            rclcpp::Node *getDeclaratorInitializer(const std::string & /*string_id*/)
+            rclcpp::node_interfaces::NodeParametersInterface::SharedPtr getDeclaratorInitializer(
+                    const std::string & /*string_id*/)
             {
-                return (nh_.get());
+                return (nh_->get_node_parameters_interface());
             }
 
-            const rclcpp::Node *getReaderInitializer(const std::string & /*string_id*/)
+            rclcpp::node_interfaces::NodeParametersInterface::SharedPtr getReaderInitializer(
+                    const std::string & /*string_id*/)
             {
-                return (nh_.get());
+                return (nh_->get_node_parameters_interface());
             }
 
-            rclcpp::Node *getWriterInitializer(const std::string & /*string_id*/)
+            rclcpp::node_interfaces::NodeParametersInterface::SharedPtr getWriterInitializer(
+                    const std::string & /*string_id*/)
             {
-                return (nh_.get());
+                return (nh_->get_node_parameters_interface());
             }
         };
 #endif

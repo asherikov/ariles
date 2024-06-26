@@ -29,7 +29,7 @@ namespace ariles2
           : public serialization::PIMPLVisitor<write::Visitor, impl::Declarator>
         {
         public:
-            explicit Declarator(::rclcpp::Node *nh);
+            explicit Declarator(const rclcpp::node_interfaces::NodeParametersInterface::SharedPtr &nh);
 
 
             void flush();

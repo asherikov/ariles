@@ -36,7 +36,7 @@ namespace ariles2
              *
              * @param[in] nh NodeHandle
              */
-            explicit Reader(const ::rclcpp::Node *nh);
+            explicit Reader(const rclcpp::node_interfaces::NodeParametersInterface::SharedPtr &nh);
 
 
             bool startRoot(const std::string &name);

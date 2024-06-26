@@ -145,7 +145,7 @@ namespace ariles2
             {
             public:
                 // https://docs.ros2.org/latest/api/rclcpp/classrclcpp_1_1Node.html
-                const rclcpp::Node *nh_;
+                rclcpp::node_interfaces::NodeParametersInterface::SharedPtr nh_;
 
                 std::vector<std::string> parameter_names_;
 
@@ -153,7 +153,7 @@ namespace ariles2
 
 
             public:
-                explicit Reader(const ::rclcpp::Node *nh)
+                explicit Reader(const rclcpp::node_interfaces::NodeParametersInterface::SharedPtr &nh)
                 {
                     nh_ = nh;
                 }
@@ -272,7 +272,7 @@ namespace ariles2
 {
     namespace ns_ros2param
     {
-        Reader::Reader(const ::rclcpp::Node *nh)
+        Reader::Reader(const rclcpp::node_interfaces::NodeParametersInterface::SharedPtr &nh)
         {
             makeImplPtr(nh);
         }

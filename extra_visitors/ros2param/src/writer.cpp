@@ -42,7 +42,7 @@ namespace ariles2
 {
     namespace ns_ros2param
     {
-        Writer::Writer(::rclcpp::Node *nh)
+        Writer::Writer(const rclcpp::node_interfaces::NodeParametersInterface::SharedPtr &nh)
         {
             makeImplPtr(nh);
         }

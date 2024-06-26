@@ -9,10 +9,10 @@
 */
 
 /**
-@defgroup ros2param ROS
+@defgroup ros2param ROS2 parameters
 @ingroup config
 
-@brief ROS parameter server serialization.
+@brief ROS2 parameters.
 */
 
 
@@ -52,9 +52,7 @@ namespace ariles2
         public:
             template <class... t_Initializers>
             Declarator(t_Initializers &&...initializers)
-              : AggregateBase(
-                      std::tuple<>(),
-                      std::forward_as_tuple(std::forward<t_Initializers>(initializers)...))
+              : AggregateBase(std::tuple<>(), std::forward_as_tuple(std::forward<t_Initializers>(initializers)...))
             {
                 ARILES2_TRACE_FUNCTION;
             }

@@ -87,7 +87,7 @@ namespace ariles2
             /**
              * @brief Starts a nested map in the configuration file
              *
-             * @param[in] instance_id instance id
+             * @param[in] param parameters
              * @param[in] num_entries number of child entries
              */
             virtual void startMap(const t_Parameters & /*param*/, const std::size_t /*num_entries*/)

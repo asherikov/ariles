@@ -9,7 +9,7 @@ Ariles
     </td>
     <td align="center">
         <a href="https://github.com/asherikov/ariles/tree/pkg_catkin_2">pkg_catkin_2</a><br/>
-        (ROS/catkin package)
+        (ROS/ROS2 packages)
     </td>
     <td align="center">
         <a href="https://github.com/asherikov/ariles/tree/pkg_freebsd_2">pkg_freebsd_2</a><br/>
@@ -66,10 +66,10 @@ Contents
 <a name="links"></a>
 Links
 =====
-* Documentation (Doxygen): https://asherikov.github.io/ariles/2/
-* GitHub: https://github.com/asherikov/ariles
-* Legacy 1.x.x version: https://github.com/asherikov/ariles/tree/head_1
-  (migration guide https://asherikov.github.io/ariles/2/md_doc_migration_1to2.html)
+* Documentation (Doxygen): <https://asherikov.github.io/ariles/2/>
+* GitHub: <https://github.com/asherikov/ariles>
+* Legacy 1.x.x version: <https://github.com/asherikov/ariles/tree/head_1>
+  (migration guide <https://asherikov.github.io/ariles/2/md_doc_migration_1to2.html>)
 
 
 <a name="intro"></a>
@@ -79,8 +79,9 @@ Introduction
 Loosely speaking, `ariles` is a C++ reflection library, i.e., it provides
 meta-programming APIs for implementation of class visitors (processors). It
 also provides a number of (de)serializers based on these APIs, e.g., `YAML`,
-`JSON`, `XML`, `ROS` parameter server; and serialization wrappers for some
-types, e.g., `STL` containers, smart pointers, `Eigen` matrices, etc.
+`JSON`, `XML`, `ROS` parameter server, `ROS2` parameters; and serialization
+wrappers for some types, e.g., `STL` containers, smart pointers, `Eigen`
+matrices, etc.
 
 
 <a name="uses"></a>
@@ -151,7 +152,10 @@ ariles2::apply<ariles2::yaml_cpp::Reader>("config.yaml", configurable);
 ariles2::apply<ariles2::rosparam::Writer>(nh, configurable, "/some_namespace/");
 ```
 
-See demo for more exaples: https://asherikov.github.io/ariles/2/DEMO.html
+Note that ROS/ROS2 packages are available in a separate branch
+<https://github.com/asherikov/ariles/tree/pkg_catkin_2>.
+
+See demo for more exaples: <https://asherikov.github.io/ariles/2/DEMO.html>
 [`./tests/api_v2/demo_api_v2.cpp`]
 
 
@@ -164,30 +168,37 @@ Visitors
 representation formats, in particular:
 
 * `YAML` via `yaml-cpp`:
-  https://asherikov.github.io/ariles/2/group__yaml__cpp.html.
+  <https://asherikov.github.io/ariles/2/group__yaml__cpp.html>.
 
 * `msgpack` via `msgpack-c`:
-  https://asherikov.github.io/ariles/2/group__msgpack.html.
+  <https://asherikov.github.io/ariles/2/group__msgpack.html>.
 
 * `JSON` via `RapidJSON`, with optional Jsonnet preprocessing:
-  https://asherikov.github.io/ariles/2/group__rapidjson.html and
-  https://asherikov.github.io/ariles/2/group__jsonnet.html.
+  <https://asherikov.github.io/ariles/2/group__rapidjson.html> and
+  <https://asherikov.github.io/ariles/2/group__jsonnet.html>.
 
 * `XML` via `PugiXML`:
-  https://asherikov.github.io/ariles/2/group__pugixml.html
+  <https://asherikov.github.io/ariles/2/group__pugixml.html>
 
 * `Octave` script, output only, no dependencies:
-  https://asherikov.github.io/ariles/2/group__octave.html
+  <https://asherikov.github.io/ariles/2/group__octave.html>
 
 * `ROS` parameter server, via standard `ROS` libs:
-  https://asherikov.github.io/ariles/2/group__ros.html
+  <https://asherikov.github.io/ariles/2/group__rosparam.html>
 
 * A set of flattened key-value pairs, output only, no dependencies:
-  https://asherikov.github.io/ariles/2/group__namevalue.html
+  <https://asherikov.github.io/ariles/2/group__namevalue.html>
 
 * `graphviz` dot files for diagram generation:
-  https://asherikov.github.io/ariles/2/group__graphviz.html
+  <https://asherikov.github.io/ariles/2/group__graphviz.html>
 
+* `ROS2` parameters, via standard `rclcpp` lib:
+  <https://asherikov.github.io/ariles/2/group__ros2param.html> `ROS2`
+  parameters is not designed to fully reflect yaml structure as explained here
+  <https://github.com/ros2/rcl/issues/463>, so while `ariles` can dump and read
+  anything, there are certain workarounds in place that are described in more
+  details in the `ROS2` demo [`./tests/api_v2/demo_api_v2_ros2.cpp`]
+  <https://asherikov.github.io/ariles/2/DEMO_ROS2.html>.
 
 There are also a few utility visitors, e.g.,
 
@@ -197,7 +208,7 @@ There are also a few utility visitors, e.g.,
 
 
 The complete list of modules is available at
-https://asherikov.github.io/ariles/2/modules.html
+<https://asherikov.github.io/ariles/2/modules.html>
 
 
 
@@ -211,7 +222,7 @@ Supported data types
 * Some STL classes (WIP): `std::string`, `std::vector`, `std::map`, `std::pair`, `std::shared_ptr`, `std::unique_ptr`.
 * `Eigen` types: matrices, transforms, quaternions.
 * `Boost` classes: `boost::optional`, `boost::movelib::unique_ptr`. `boost::shared_ptr`.
-* Better enums -> https://github.com/aantron/better-enums.
+* Better enums -> <https://github.com/aantron/better-enums>.
 
 
 
@@ -222,8 +233,8 @@ Dependencies and compilation
 Dependencies
 ------------
 
-- `cmake` >= 3.0
-- `C++11` compatible compiler
+- `cmake` >= 3.1
+- `C++17` compatible compiler
 - `boost`
 
 Visitors and corresponding dependencies can be enabled or disabled via cmake
@@ -234,7 +245,7 @@ Compilation with catkin
 -----------------------
 
 An example catkin package is provided in `pkg_catkin_2` branch of the main
-repository -> https://github.com/asherikov/ariles/tree/pkg_catkin_2.
+repository -> <https://github.com/asherikov/ariles/tree/pkg_catkin_2>.
 
 
 
@@ -242,26 +253,26 @@ repository -> https://github.com/asherikov/ariles/tree/pkg_catkin_2.
 Related software
 ================
 
-* https://github.com/PickNikRobotics/rosparam_shortcuts: a set of wrapper
+* <https://github.com/PickNikRobotics/rosparam_shortcuts>: a set of wrapper
   functions to read individual parameters from ROS parameter server. This tool
   serves pretty much the same purpose as `ariles2::rosparam::Reader`, but its
   functionality is more limited.
 
-* https://billyquith.github.io/ponder/: C++14 reflection library, supports
+* <https://billyquith.github.io/ponder/>: C++14 reflection library, supports
   serialization to XML and JSON. Unlike `ariles` it is more focused on
   reflection per se rather than applications, for example, it allows to set
   value by string name of a class member, handles class methods, etc. `Ponder`
   does not rely as much on preprocessor macro, but is more verbose.
 
-* https://github.com/bytemaster/boost_reflect: discontinued C++ reflection
+* <https://github.com/bytemaster/boost_reflect>: discontinued C++ reflection
   library, similar to `ponder`. Partially inspired `ariles` 2.x.x API.
 
-* https://github.com/apolukhin/magic_get (aka `pfr`): C++14 library providing
+* <https://github.com/apolukhin/magic_get> (aka `pfr`): C++14 library providing
   tuple like methods for aggregate initializable structures. Addresses a
   somewhat different but related problem.
 
 * Serialization libraries, e.g., `boost::serialization`,
-  https://github.com/USCiLab/cereal.
+  <https://github.com/USCiLab/cereal>.
 
 * A library with similar functionality in C++17
-  https://github.com/injae/serdepp.
+  <https://github.com/injae/serdepp>.

@@ -28,7 +28,7 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::PIMPLVisitor<write::Visitor, impl::Writer>
         {
         public:
-            explicit Writer(::rclcpp::Node *nh);
+            explicit Writer(const rclcpp::node_interfaces::NodeParametersInterface::SharedPtr &nh);
 
 
             void flush();

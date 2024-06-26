@@ -19,14 +19,14 @@ namespace ariles2
         {
         public:
             // https://docs.ros2.org/latest/api/rclcpp/classrclcpp_1_1Node.html
-            rclcpp::Node *nh_;
+            rclcpp::node_interfaces::NodeParametersInterface::SharedPtr nh_;
 
             std::vector<rclcpp::Parameter> parameters_;
 
             const std::string separator_ = ".";
 
         public:
-            explicit ModifierImplBase(::rclcpp::Node *nh)
+            explicit ModifierImplBase(const rclcpp::node_interfaces::NodeParametersInterface::SharedPtr &nh)
             {
                 nh_ = nh;
             }

@@ -45,7 +45,7 @@
 
 
 #include "fixtures/initializer_ros2_with_declarator.h"
-#include "fixtures/010_ros2_with_declarator.h"
+#include "fixtures/022_ros2_with_declarator.h"
 
 
 // ===============================================================

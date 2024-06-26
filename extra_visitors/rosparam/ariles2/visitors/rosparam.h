@@ -9,7 +9,7 @@
 */
 
 /**
-@defgroup rosparam ROS
+@defgroup rosparam ROS parameter server
 @ingroup config
 
 @brief ROS parameter server serialization.

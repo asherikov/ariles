@@ -28,7 +28,11 @@ namespace ariles_tests
         {
             t_Configurable configurable_decl;
             BOOST_CHECK_NO_THROW(ariles2::apply<typename t_Visitor::Declarator>(
-                                         getDeclaratorInitializer("configurable_match_simple.cfg"), configurable_decl));
+                    getDeclaratorInitializer("configurable_match_simple.cfg"), configurable_decl));
+
+            // double declaration should be ok
+            BOOST_CHECK_NO_THROW(ariles2::apply<typename t_Visitor::Declarator>(
+                    getDeclaratorInitializer("configurable_match_simple.cfg"), configurable_decl));
 
             // -------
 
