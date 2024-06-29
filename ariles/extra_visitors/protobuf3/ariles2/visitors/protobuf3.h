@@ -52,10 +52,10 @@ namespace ariles2
             t_Other &other,                                                                                            \
             const typename ariles2::protobuf3::Writer::Parameters &parameters) const                                   \
     {                                                                                                                  \
-        ARILES2_UNUSED_ARG(visitor);                                                                                   \
-        ARILES2_UNUSED_ARG(other);                                                                                     \
-        ARILES2_UNUSED_ARG(parameters);                                                                                \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_UNUSED_ARG(visitor);                                                                                     \
+        CPPUT_UNUSED_ARG(other);                                                                                       \
+        CPPUT_UNUSED_ARG(parameters);                                                                                  \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         ARILES2_ENTRIES(protobuf3_write)                                                                               \
     }                                                                                                                  \
     template <class t_Other>                                                                                           \
@@ -64,10 +64,10 @@ namespace ariles2
             const t_Other &other,                                                                                      \
             const typename ariles2::protobuf3::Reader::Parameters &parameters)                                         \
     {                                                                                                                  \
-        ARILES2_UNUSED_ARG(visitor);                                                                                   \
-        ARILES2_UNUSED_ARG(other);                                                                                     \
-        ARILES2_UNUSED_ARG(parameters);                                                                                \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_UNUSED_ARG(visitor);                                                                                     \
+        CPPUT_UNUSED_ARG(other);                                                                                       \
+        CPPUT_UNUSED_ARG(parameters);                                                                                  \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         ARILES2_ENTRIES(protobuf3_read)                                                                                \
     }
 
@@ -75,12 +75,12 @@ namespace ariles2
 #define ARILES2_METHODS_protobuf3                                                                                      \
     const ariles2::protobuf3::Writer::Parameters &arilesGetParameters(const ariles2::protobuf3::Writer &visitor) const \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         return (visitor.getDefaultParameters());                                                                       \
     }                                                                                                                  \
     const ariles2::protobuf3::Reader::Parameters &arilesGetParameters(const ariles2::protobuf3::Reader &visitor) const \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         return (visitor.getDefaultParameters());                                                                       \
     }
 

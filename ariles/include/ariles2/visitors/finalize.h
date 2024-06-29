@@ -25,24 +25,24 @@ namespace ariles2
     /// @ingroup finalize
     namespace finalize
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
-        {
-        public:
-            Parameters(const bool override_parameters = true) : visitor::Parameters(override_parameters)
-            {
-            }
-        };
+        using Parameters = visitor::Parameters;
 
 
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor
           : public ariles2::process::Visitor<const finalize::Visitor, finalize::Parameters>
         {
+        public:
+            using ariles2::process::Visitor<const finalize::Visitor, finalize::Parameters>::visit;
+
+            template <class t_Entry>
+            void visit(t_Entry &entry, const std::vector<std::string> &subtree, const Parameters &param) const
+            {
+                visit(entry, subtree.empty() ? "" : subtree.back(), param);
+            }
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::Base<const finalize::Visitor>
-        {
-        };
+        using Base = entry::Base<const finalize::Visitor>;
 
 
 #define ARILES2_NAMED_ENTRY_finalize(v, entry, name) visitor.visitMapEntry(entry, #name, parameters);
@@ -54,9 +54,9 @@ namespace ariles2
             const typename t_Visitor::Parameters &parameters,                                                          \
             ARILES2_IS_BASE_ENABLER(ariles2::finalize::Visitor, t_Visitor))                                            \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
-        ARILES2_UNUSED_ARG(visitor);                                                                                   \
-        ARILES2_UNUSED_ARG(parameters);                                                                                \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
+        CPPUT_UNUSED_ARG(visitor);                                                                                     \
+        CPPUT_UNUSED_ARG(parameters);                                                                                  \
         arilesVisitParents(visitor, parameters);                                                                       \
         ARILES2_ENTRIES(finalize)                                                                                      \
     }
@@ -70,8 +70,6 @@ namespace ariles2
      * @ingroup defaults
      * @{
      */
-    namespace postread = finalize;
-    using PostRead = postread::Visitor;
     using Finalize = finalize::Visitor;
     /// @}
 }  // namespace ariles2

@@ -37,10 +37,10 @@ namespace ariles_tests
         void test()
         {
             typename t_Visitor::Writer::Parameters writer_parameters;
-            writer_parameters.write_.allow_missing_entries_ = true;
+            writer_parameters.template get<ariles2::write::Parameters>().allow_missing_entries_ = true;
 
             typename t_Visitor::Reader::Parameters reader_parameters;
-            reader_parameters.read_.allow_missing_entries_ = true;
+            reader_parameters.template get<ariles2::read::Parameters>().allow_missing_entries_ = true;
 
             {
                 t_Configurable configurable_out;

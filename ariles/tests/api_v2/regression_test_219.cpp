@@ -137,7 +137,7 @@ BOOST_FIXTURE_TEST_CASE(CompareComplex, ariles_tests::DummyFixture)
     configurable1 = configurable2;
 
 
-    configurable1.std_map_["2two"].push_back("compare_map");
+    configurable1.std_map_["2two"].emplace_back("compare_map");
     BOOST_CHECK(not ariles2::apply(visitor, configurable1, configurable2, param));
     configurable1 = configurable2;
 

@@ -14,15 +14,13 @@ namespace ariles2
 {
     namespace ns_protobuf3
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public visitor::Base<visitor::Visitor, visitor::Parameters>
+        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public visitor::Base<Writer, visitor::Parameters>
         {
         public:
             using Parameters = visitor::Parameters;
 
 
         public:
-            using visitor::Base<visitor::Visitor, Parameters>::getDefaultParameters;
-
             template <class t_Ariles>
             const Parameters &getParameters(const t_Ariles &ariles_class) const
             {
@@ -33,14 +31,14 @@ namespace ariles2
             template <class t_Left, class t_Right>
             void visit(const t_Left &left, t_Right &right, const std::string & /*name*/, const Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 try
                 {
                     left.arilesVisit(*this, right, param);
                 }
                 catch (std::exception &e)
                 {
-                    ARILES2_THROW(std::string("Copying failed: ") + e.what());
+                    CPPUT_THROW(std::string("Copying failed: ") + e.what());
                 }
             }
         };

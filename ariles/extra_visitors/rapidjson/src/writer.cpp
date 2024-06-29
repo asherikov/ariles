@@ -95,18 +95,18 @@ namespace ariles2
             // hack, we assume that the last added
             // child is the last in the list
             const ::rapidjson::Value::MemberIterator child = --(impl_->getRawNode().MemberEnd());
-            impl_->node_stack_.emplace_back(&(child->value));
+            impl_->emplace(&(child->value));
         }
 
         void Writer::endMapEntry()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             impl_->getRawNode().SetArray();
             impl_->getRawNode().Reserve(size, impl_->document_.GetAllocator());
             for (std::size_t i = 0; i < size; ++i)
@@ -114,28 +114,27 @@ namespace ariles2
                 ::rapidjson::Value value;
                 impl_->getRawNode().PushBack(value, impl_->document_.GetAllocator());
             }
-            impl_->node_stack_.emplace_back(0, size);
+            impl_->emplace(0, size);
         }
 
         void Writer::startArrayElement()
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(
-                    impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
-                    "Internal error: namevalue.has more elements than expected.");
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(
+                    impl_->back().index_ < impl_->back().size_,
+                    "Internal error: array has more elements than expected.");
         }
 
         void Writer::endArrayElement()
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ++impl_->node_stack_.back().index_;
+            CPPUT_TRACE_FUNCTION;
+            impl_->shiftArray();
         }
 
         void Writer::endArray()
         {
-            ARILES2_TRACE_FUNCTION;
-            impl_->node_stack_.pop_back();
+            CPPUT_TRACE_FUNCTION;
+            impl_->pop();
         }
 
 
@@ -191,7 +190,7 @@ namespace ariles2
         impl_->getRawNode().SetInt64(element);                                                                         \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
 
@@ -202,7 +201,7 @@ namespace ariles2
         impl_->getRawNode().SetUint64(element);                                                                        \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
     }  // namespace ns_rapidjson

@@ -14,15 +14,13 @@ namespace ariles2
 {
     namespace ns_protobuf3
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Reader : public visitor::Base<visitor::Visitor, visitor::Parameters>
+        class ARILES2_VISIBILITY_ATTRIBUTE Reader : public visitor::Base<Reader, visitor::Parameters>
         {
         public:
             using Parameters = visitor::Parameters;
 
 
         public:
-            using visitor::Base<visitor::Visitor, Parameters>::getDefaultParameters;
-
             template <class t_Ariles>
             const Parameters &getParameters(const t_Ariles &ariles_class) const
             {
@@ -33,14 +31,14 @@ namespace ariles2
             template <class t_Left, class t_Right>
             void visit(t_Left &left, const t_Right &right, const std::string &name, const Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 try
                 {
                     this->visitMapEntry(left, right, name, param);
                 }
                 catch (std::exception &e)
                 {
-                    ARILES2_THROW(std::string("Copying failed: ") + e.what());
+                    CPPUT_THROW(std::string("Copying failed: ") + e.what());
                 }
             }
 
@@ -48,10 +46,10 @@ namespace ariles2
             template <class t_Left, class t_Right>
             void visitMapEntry(t_Left &left, const t_Right &right, const std::string &name, const Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_VALUE(name);
-                ARILES2_TRACE_TYPE(left);
-                ARILES2_TRACE_TYPE(right);
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_TRACE_VALUE(name);
+                CPPUT_TRACE_TYPE(left);
+                CPPUT_TRACE_TYPE(right);
 
                 try
                 {
@@ -59,7 +57,7 @@ namespace ariles2
                 }
                 catch (const std::exception &e)
                 {
-                    ARILES2_THROW("entry: " + name + " // " + std::string(e.what()));
+                    CPPUT_THROW("entry: " + name + " // " + std::string(e.what()));
                 }
             }
         };

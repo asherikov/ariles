@@ -16,6 +16,13 @@
 
 
 /**
+ * @page DEMO_ROS2 ROS2 API demo
+ *
+ * @include demo_api_v2_ros2.cpp
+ */
+
+
+/**
  * @page CHANGELOG Changelog
  *
  * @include CHANGELOG.md

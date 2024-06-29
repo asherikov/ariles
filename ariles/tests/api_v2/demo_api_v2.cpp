@@ -158,7 +158,7 @@ int main()
 
             // Adjust visitor parameters
             ariles2::yaml_cpp::Writer::Parameters parameters;
-            parameters.write_.allow_missing_entries_ = true;
+            parameters.get<ariles2::write::Parameters>().allow_missing_entries_ = true;
             ariles2::apply<ariles2::yaml_cpp::Writer>(std::cout, my_container_class, parameters);
 
             // In some situations it is more convenient to instantiate Reader and

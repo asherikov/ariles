@@ -43,7 +43,7 @@ namespace ariles_tests
 
         void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             real_ = 0.0;
         }
     };
@@ -74,14 +74,14 @@ namespace ariles_tests
 
         void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             arilesVisit<ariles2::Defaults>(visitor, param);
             defaults_check_flag_ = true;
         }
 
         void arilesVisit(const ariles2::Finalize &visitor, const ariles2::Finalize::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             arilesVisit<ariles2::Finalize>(visitor, param);
             finalize_check_flag_ = true;
         }
@@ -113,14 +113,14 @@ namespace ariles_tests
 
         void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             arilesVisit<ariles2::Defaults>(visitor, param);
             defaults_check_flag_ = true;
         }
 
         void arilesVisit(const ariles2::Finalize &visitor, const ariles2::Finalize::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             arilesVisit<ariles2::Finalize>(visitor, param);
             finalize_check_flag_ = true;
         }
@@ -145,9 +145,9 @@ namespace ariles_tests
             BOOST_CHECK_NO_THROW(this->build("Derived1"));
             BOOST_CHECK(this->isInitialized());
 
-            BOOST_CHECK(NULL != this->template cast<Derived1>());
-            BOOST_CHECK(NULL != this->template cast<Derived1>("Derived1"));
-            BOOST_CHECK(NULL == this->template cast<Derived1>("Derived2"));
+            BOOST_CHECK(nullptr != this->template cast<Derived1>());
+            BOOST_CHECK(nullptr != this->template cast<Derived1>("Derived1"));
+            BOOST_CHECK(nullptr == this->template cast<Derived1>("Derived2"));
 
             double test = 0.0;
 

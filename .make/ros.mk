@@ -143,6 +143,7 @@ catkin_test_new: ros_install_deps
 
 ros_prerelease_deps:
 	sudo ${MAKE} ros_add_repos UBUNTU_DISTRO=${UBUNTU_DISTRO}
+	${PIP_INSTALL} empy==3.3.4
 	${PIP_INSTALL} ros_buildfarm
 
 ros_prerelease: ros_prerelease_deps

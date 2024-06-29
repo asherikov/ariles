@@ -55,45 +55,44 @@ namespace ariles2
 
         void Writer::startMapEntry(const std::string &map_name)
         {
-            if (impl_->node_stack_.empty())
+            if (impl_->empty())
             {
                 impl_->root_name_ = map_name;
-                impl_->node_stack_.emplace_back(&impl_->root_value_);
+                impl_->emplace(&impl_->root_value_);
             }
             else
             {
-                impl_->node_stack_.emplace_back(&(impl_->getRawNode()[map_name]));
+                impl_->emplace(&(impl_->getRawNode()[map_name]));
             }
         }
 
         void Writer::endMapEntry()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
             impl_->getRawNode().setSize(static_cast<int>(size));
-            impl_->node_stack_.emplace_back(0, size);
+            impl_->emplace(0, size);
         }
 
         void Writer::startArrayElement()
         {
-            ARILES2_ASSERT(
-                    impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
-                    "Internal error: namevalue.has more elements than expected.");
+            CPPUT_ASSERT(
+                    impl_->back().index_ < impl_->back().size_,
+                    "Internal error: array has more elements than expected.");
         }
 
         void Writer::endArrayElement()
         {
-            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ++impl_->node_stack_.back().index_;
+            impl_->shiftArray();
         }
 
         void Writer::endArray()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
@@ -112,7 +111,7 @@ namespace ariles2
 
         void Writer::startRoot(const std::string &name, const Parameters &)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
 
             impl_->root_name_ = "";
             impl_->root_value_.clear();
@@ -129,7 +128,7 @@ namespace ariles2
 
         void Writer::endRoot(const std::string & /*name*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             endMapEntry();
         }
 
@@ -140,7 +139,7 @@ namespace ariles2
         impl_->getRawNode() = element;                                                                                 \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_REAL_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_REAL_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
 
@@ -149,14 +148,14 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
-        ARILES2_ASSERT(                                                                                                \
+        CPPUT_ASSERT(                                                                                                  \
                 static_cast<int64_t>(element) <= std::numeric_limits<int>::max()                                       \
                         && static_cast<int64_t>(element) >= static_cast<int64_t>(std::numeric_limits<int>::min()),     \
                 "Value is out of range.");                                                                             \
         impl_->getRawNode() = static_cast<int>(element);                                                               \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
 
@@ -164,13 +163,13 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
-        ARILES2_ASSERT(                                                                                                \
+        CPPUT_ASSERT(                                                                                                  \
                 static_cast<uint64_t>(element) <= static_cast<uint64_t>(std::numeric_limits<int>::max()),              \
                 "Value is too large.");                                                                                \
         impl_->getRawNode() = static_cast<int>(element);                                                               \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
     }  // namespace ns_rosparam

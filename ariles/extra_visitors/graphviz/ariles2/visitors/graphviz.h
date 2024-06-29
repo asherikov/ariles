@@ -149,8 +149,8 @@ namespace ariles2
 
 #define ARILES2_BASIC_TYPE(type) void writeElement(const type &element, const Parameters &param);
 
-            ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
-            ARILES2_MACRO_SUBSTITUTE(ARILES2_COMPLEX_NUMBER_TYPES_LIST)
+            CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
+            CPPUT_MACRO_SUBSTITUTE(ARILES2_COMPLEX_NUMBER_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
         };
@@ -170,9 +170,9 @@ namespace ariles2
             const typename t_Visitor::Parameters &parameters,                                                          \
             ARILES2_IS_BASE_ENABLER(ariles2::graphviz::Visitor, t_Visitor)) const                                      \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
-        ARILES2_UNUSED_ARG(visitor);                                                                                   \
-        ARILES2_UNUSED_ARG(parameters);                                                                                \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
+        CPPUT_UNUSED_ARG(visitor);                                                                                     \
+        CPPUT_UNUSED_ARG(parameters);                                                                                  \
         arilesVisitParents(visitor, parameters);                                                                       \
         ARILES2_ENTRIES(graphviz)                                                                                      \
     }

@@ -87,8 +87,8 @@ namespace ariles2
 
 #define ARILES2_BASIC_TYPE(type) void writeElement(const type &element, const Parameters &param);
 
-            ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
-            ARILES2_MACRO_SUBSTITUTE(ARILES2_COMPLEX_NUMBER_TYPES_LIST)
+            CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
+            CPPUT_MACRO_SUBSTITUTE(ARILES2_COMPLEX_NUMBER_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
         };

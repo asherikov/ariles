@@ -23,12 +23,12 @@ namespace ariles2
     protected:
         bool isConsistent() const
         {
-            if (("" != id_) && (NULL != value_.get()))
+            if (("" != id_) && (nullptr != value_.get()))
             {
                 return (true);
             }
 
-            if (("" == id_) && (NULL == value_.get()))
+            if (("" == id_) && (nullptr == value_.get()))
             {
                 return (true);
             }
@@ -54,13 +54,13 @@ namespace ariles2
         {
             id_ = id;
             value_ = t_Instantiator::instantiate(id_);
-            ARILES2_ASSERT(NULL != value_.get(), "Could not instantiate class.");
+            CPPUT_ASSERT(nullptr != value_.get(), "Could not instantiate class.");
         }
 
 
         bool isInitialized() const
         {
-            return ("" != id_ && NULL != value_.get());
+            return ("" != id_ && nullptr != value_.get());
         }
 
 
@@ -68,7 +68,7 @@ namespace ariles2
         /**
          * @brief Cast methods are potentially dangerous, no id checks are
          * performed. If value is not initialized the returned pointer may
-         * be NULL.
+         * be nullptr.
          */
         template <class t_Derived>
         t_Derived *cast()
@@ -100,7 +100,7 @@ namespace ariles2
                     return (dynamic_cast<t_Derived *>(value_.get()));
                 }
             }
-            return (NULL);
+            return (nullptr);
         }
 
 
@@ -114,35 +114,35 @@ namespace ariles2
                     return (dynamic_cast<t_Derived *>(value_.get()));
                 }
             }
-            return (NULL);
+            return (nullptr);
         }
         /// @}
 
 
         t_Base *operator->()
         {
-            ARILES2_ASSERT(isInitialized(), "Not initialized");
+            CPPUT_ASSERT(isInitialized(), "Not initialized");
             return (value_.get());
         }
 
 
         const t_Base *operator->() const
         {
-            ARILES2_ASSERT(isInitialized(), "Not initialized");
+            CPPUT_ASSERT(isInitialized(), "Not initialized");
             return (value_.get());
         }
 
 
         t_Base &operator*()
         {
-            ARILES2_ASSERT(isInitialized(), "Not initialized");
+            CPPUT_ASSERT(isInitialized(), "Not initialized");
             return (*value_);
         }
 
 
         const t_Base &operator*() const
         {
-            ARILES2_ASSERT(isInitialized(), "Not initialized");
+            CPPUT_ASSERT(isInitialized(), "Not initialized");
             return (*value_);
         }
 
@@ -151,8 +151,8 @@ namespace ariles2
 
         void arilesVisit(ariles2::Write &visitor, const ariles2::Write::Parameters &param) const
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(
                     isConsistent(),
                     "Could not write config: entry is in an inconsistent (partially initialized) state.");
 
@@ -166,13 +166,13 @@ namespace ariles2
 
         void arilesVisit(ariles2::Read &visitor, const ariles2::Read::Parameters &parameters)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
 
             if (visitor.visitMapEntry(id_, "id", parameters))
             {
                 if ("" == id_)
                 {
-                    ARILES2_ASSERT(parameters.allow_missing_entries_, "Id is empty, value cannot be read.");
+                    CPPUT_ASSERT(parameters.allow_missing_entries_, "Id is empty, value cannot be read.");
                 }
                 else
                 {
@@ -185,7 +185,7 @@ namespace ariles2
 
         void arilesVisit(const ariles2::Finalize &visitor, const ariles2::Finalize::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (isInitialized())
             {
                 value_->arilesVirtualVisit(visitor, param);
@@ -195,7 +195,7 @@ namespace ariles2
 
         void arilesVisit(const ariles2::PreWrite &visitor, const ariles2::PreWrite::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (isInitialized())
             {
                 value_->arilesVirtualVisit(visitor, param);
@@ -205,7 +205,7 @@ namespace ariles2
 
         void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (isInitialized())
             {
                 value_->arilesVirtualVisit(visitor, param);
@@ -270,14 +270,14 @@ namespace ariles2
 
         typename Handler::Value *operator->() const
         {
-            ARILES2_ASSERT(not isNull(), "Not initialized");
+            CPPUT_ASSERT(not isNull(), "Not initialized");
             return (value_.get());
         }
 
 
         typename Handler::Value &operator*() const
         {
-            ARILES2_ASSERT(not isNull(), "Not initialized");
+            CPPUT_ASSERT(not isNull(), "Not initialized");
             return (*value_);
         }
 
@@ -295,7 +295,7 @@ namespace ariles2
 
         void arilesVisit(const ariles2::PreWrite &visitor, const ariles2::PreWrite::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (not isNull())
             {
                 value_->arilesVirtualVisit(visitor, param);
@@ -314,10 +314,17 @@ namespace ariles2
         void arilesVisit(ariles2::Compare &visitor, const t_Other &other, const ariles2::Compare::Parameters &param)
                 const
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (value_.get() != other.value_.get())
             {
-                value_->arilesVisit(visitor, *other.value_, param);
+                if (nullptr != value_ and nullptr != other.value_)
+                {
+                    value_->arilesVisit(visitor, *other.value_, param);
+                }
+                else
+                {
+                    visitor.equal_ = false;
+                }
             }
         }
 #endif
@@ -326,7 +333,7 @@ namespace ariles2
         template <class t_Other>
         void arilesVisit(ariles2::CopyTo &visitor, t_Other &other, const ariles2::CopyTo::Parameters &param) const
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             ariles2::copyto::apply_copyto(visitor, value_, other, param);
         }
 #endif
@@ -335,7 +342,7 @@ namespace ariles2
         template <class t_Other>
         void arilesVisit(ariles2::CopyFrom &visitor, const t_Other &other, const ariles2::CopyFrom::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             ariles2::copyfrom::apply_copyfrom(visitor, value_, other, param);
         }
 #endif
@@ -362,32 +369,32 @@ namespace ariles2
 
         void arilesVisit(ariles2::Write &writer, const ariles2::Write::Parameters &parameters) const
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(not this->isNull(), "Could not write config: entry is not initialized");
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(not this->isNull(), "Could not write config: entry is not initialized");
             this->value_->arilesVirtualVisit(writer, parameters);
         }
 
 
         void arilesVisit(ariles2::Read &reader, const ariles2::Read::Parameters &parameters)
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(not this->isNull(), "Not initialized");
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(not this->isNull(), "Not initialized");
             this->value_->arilesVirtualVisit(reader, parameters);
         }
 
 
         void arilesVisit(const ariles2::Finalize &visitor, const ariles2::Finalize::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(not this->isNull(), "Not initialized");
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(not this->isNull(), "Not initialized");
             this->value_->arilesVirtualVisit(visitor, param);
         }
 
 
         std::size_t arilesVisit(const ariles2::Count &visitor, const ariles2::Count::Parameters &param) const
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(not this->isNull(), "Not initialized");
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(not this->isNull(), "Not initialized");
             return (this->value_->arilesVirtualVisit(visitor, param));
         }
 
@@ -395,15 +402,15 @@ namespace ariles2
         std::size_t arilesVisit(const ariles2::CountMissing &visitor, const ariles2::CountMissing::Parameters &param)
                 const
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(not this->isNull(), "Not initialized");
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(not this->isNull(), "Not initialized");
             return (this->value_->arilesVirtualVisit(visitor, param));
         }
 
 
         void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             CustomPointerBase<t_Pointer>::Handler::allocate(this->value_);
             this->value_->arilesVirtualVisit(visitor, param);
         }
@@ -413,8 +420,8 @@ namespace ariles2
 #ifdef ARILES2_METHODS_graphviz
         void arilesVisit(ariles2::Graphviz &writer, const ariles2::Graphviz::Parameters &parameters) const
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(not this->isNull(), "Could not write config: entry is not initialized");
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(not this->isNull(), "Could not write config: entry is not initialized");
             this->value_->arilesVirtualVisit(writer, parameters);
         }
 #endif
@@ -442,18 +449,18 @@ namespace ariles2
 
         void arilesVisit(ariles2::Write &writer, const ariles2::Write::Parameters &parameters) const
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(
                     parameters.allow_missing_entries_, "Missing entries must be allowed when using OptionalPointer");
             // should never happen
-            ARILES2_ASSERT(not this->isNull(), "Could not write config: entry is not initialized");
+            CPPUT_ASSERT(not this->isNull(), "Could not write config: entry is not initialized");
             this->value_->arilesVirtualVisit(writer, parameters);
         }
 
 
         void arilesVisit(ariles2::Read &reader, const ariles2::Read::Parameters &parameters)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (this->isNull())
             {
                 CustomPointerBase<t_Pointer>::Handler::allocate(this->value_);
@@ -465,7 +472,7 @@ namespace ariles2
 
         void arilesVisit(const ariles2::Finalize &visitor, const ariles2::Finalize::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (not this->isNull())
             {
                 this->value_->arilesVirtualVisit(visitor, param);
@@ -475,7 +482,7 @@ namespace ariles2
 
         std::size_t arilesVisit(const ariles2::Count &visitor, const ariles2::Count::Parameters &param) const
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (not this->isNull())
             {
                 return (this->value_->arilesVirtualVisit(visitor, param));
@@ -487,7 +494,7 @@ namespace ariles2
         std::size_t arilesVisit(const ariles2::CountMissing &visitor, const ariles2::CountMissing::Parameters &param)
                 const
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (not this->isNull())
             {
                 return (this->value_->arilesVirtualVisit(visitor, param));
@@ -498,7 +505,7 @@ namespace ariles2
 
         void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (not this->isNull())
             {
                 this->value_->arilesVirtualVisit(visitor, param);
@@ -510,7 +517,7 @@ namespace ariles2
 #ifdef ARILES2_METHODS_graphviz
         void arilesVisit(ariles2::Graphviz &writer, const ariles2::Graphviz::Parameters &parameters) const
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (not this->isNull())
             {
                 this->value_->arilesVirtualVisit(writer, parameters);

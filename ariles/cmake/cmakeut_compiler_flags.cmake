@@ -59,7 +59,7 @@ function(cmakeut_compiler_flags STANDARD)
 
 
     if (CMAKEUT_CLANG_TIDY)
-        find_program(CLANG_TIDY_EXECUTABLE NAMES clang-tidy clang-tidy-12 clang-tidy-14 REQUIRED)
+        find_program(CLANG_TIDY_EXECUTABLE NAMES clang-tidy clang-tidy18 clang-tidy15 clang-tidy-14 clang-tidy-12 REQUIRED)
 
         set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXECUTABLE};-warnings-as-errors=*;-checks=*")
 
@@ -74,7 +74,7 @@ function(cmakeut_compiler_flags STANDARD)
         # member variables can be public/protected
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-cppcoreguidelines-non-private-member-variables-in-classes,-misc-non-private-member-variables-in-classes")
         # member initialization in constructors -- false positives
-        set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-cppcoreguidelines-pro-type-member-init,-hicpp-member-init")
+        set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-cppcoreguidelines-pro-type-member-init,-hicpp-member-init,-cppcoreguidelines-prefer-member-initializer")
         # default member initialization scatters initializations -- initialization must be done via constructors
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-modernize-use-default-member-init")
         # calling virtual functions from desctructors is well defined and generally safe
@@ -91,6 +91,8 @@ function(cmakeut_compiler_flags STANDARD)
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-cppcoreguidelines-pro-bounds-array-to-pointer-decay,-hicpp-no-array-decay")
         # long functions are ok
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-google-readability-function-size,-readability-function-size,-hicpp-function-size")
+        # do not enforce nested namespace concatenation
+        set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-modernize-concat-nested-namespaces")
 
 
         # overly restrictive fuchsia stuff
@@ -99,6 +101,13 @@ function(cmakeut_compiler_flags STANDARD)
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-cppcoreguidelines-macro-usage")
         # llvmlibc stuff
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-llvmlibc-*")
+
+        # noisy
+        set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-altera-unroll-loops,-altera-id-dependent-backward-branch,-readability-identifier-length,-misc-include-cleaner")
+        # false positives?
+        set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-bugprone-exception-escape,-clang-analyzer-cplusplus.NewDelete")
+        # may be later
+        set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-cppcoreguidelines-avoid-const-or-ref-data-members")
 
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},${CMAKEUT_CLANG_TIDY_EXTRA_IGNORES}")
 
@@ -115,22 +124,5 @@ function(cmakeut_compiler_flags STANDARD)
     set(CXX_GENERIC "-std=${STANDARD} ${CXX_WARNINGS} ${CXX_OTHER} ${CXX_SANITIZERS}")
 
 
-    if ("${STANDARD}" STREQUAL "c++11")
-
-        # -Wsuggest-override -Wsuggest-final-methods
-        set (CMAKEUT_CXX_FLAGS "${CXX_GENERIC}" PARENT_SCOPE)
-
-    elseif ("${STANDARD}" STREQUAL "c++03")
-
-        set (CMAKEUT_CXX_FLAGS "${CXX_GENERIC}" PARENT_SCOPE)
-
-    elseif ("${STANDARD}" STREQUAL "c++98")
-
-        set (CMAKEUT_CXX_FLAGS "${CXX_GENERIC}" PARENT_SCOPE)
-
-    else()
-
-        message(FATAL_ERROR "Unknown standard")
-
-    endif()
+    set (CMAKEUT_CXX_FLAGS "${CXX_GENERIC}" PARENT_SCOPE)
 endfunction()

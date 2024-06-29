@@ -1,5 +1,5 @@
 APT_INSTALL?=env DEBIAN_FRONTEND=noninteractive apt --yes --no-install-recommends install
-MAKE_FLAGS?=-j7
+MAKE_FLAGS?=-j14
 
 
 CMAKE_DIR=./cmake/
@@ -140,9 +140,14 @@ test-ros: clean
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=ros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
 
 
+test-ros2: clean
+	#${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=default TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=ros2 TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+
+
 test-noros: clean
-	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=cpp11_on_noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
-	${MAKE} clangcheck SCANBUILD=scan-build11 OPTIONS=cpp11_on_noros_tidy
+	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
+	${MAKE} clangcheck SCANBUILD=scan-build18 OPTIONS=noros_tidy
 	${MAKE} cppcheck
 	${MAKE} spell
 
@@ -152,18 +157,21 @@ test-noros: clean
 #----------------------------------------------
 
 addutils:
-	git remote add --no-tags cmakeut https://github.com/asherikov/cmakeut
-	git remote add --no-tags cpput https://github.com/asherikov/cpput
+	-git remote add --no-tags cmakeut https://github.com/asherikov/cmakeut
+	-git remote add --no-tags cpput https://github.com/asherikov/cpput
 
-updateutils:
+updateutils: addutils
 	git fetch --all
-	git show remotes/cmakeut/master:cmake/FindEigen3.cmake > cmake/FindEigen3.cmake
-	git show remotes/cmakeut/master:cmake/cmakeut_compiler_flags.cmake              > cmake/cmakeut_compiler_flags.cmake
-	git show remotes/cmakeut/master:cmake/cmakeut_dump_variables.cmake              > cmake/cmakeut_dump_variables.cmake
-	git show remotes/cmakeut/master:cmake/cmakeut_list_filenames.cmake              > cmake/cmakeut_list_filenames.cmake
-	git rm --ignore-unmatch -rf cpput
-	git read-tree --prefix=cpput -u cpput/master
-	git rm --ignore-unmatch -rf cpput/package.xml
+	git show remotes/cmakeut/master:cmake/FindEigen3.cmake             > cmake/FindEigen3.cmake
+	git show remotes/cmakeut/master:cmake/cmakeut_compiler_flags.cmake > cmake/cmakeut_compiler_flags.cmake
+	git show remotes/cmakeut/master:cmake/cmakeut_dump_variables.cmake > cmake/cmakeut_dump_variables.cmake
+	git show remotes/cmakeut/master:cmake/cmakeut_list_filenames.cmake > cmake/cmakeut_list_filenames.cmake
+	#
+	git show remotes/cpput/master:include/cpput/exception.h  > include/ariles2/internal/exception.h
+	git show remotes/cpput/master:include/cpput/visibility.h > include/ariles2/internal/visibility.h
+	git show remotes/cpput/master:include/cpput/misc.h       > include/ariles2/internal/misc.h
+	git show remotes/cpput/master:include/cpput/trace.h      > include/ariles2/internal/trace.h
+	git show remotes/cpput/master:include/cpput/concat.h     > include/ariles2/internal/concat.h
 
 
 update:
@@ -179,27 +187,25 @@ dox: doxclean clean
 
 
 install-ros:
-	sh -c "echo \"deb http://packages.ros.org/ros/ubuntu ${UBUNTU_DISTRO} main\" > /etc/apt/sources.list.d/ros-latest.list"
-	sh -c "apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 \
-	    || apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 \
-	    || apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654"
-	sh -c "apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 6B05F25D762E3157 \
-	    || apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 6B05F25D762E3157 \
-	    || apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 6B05F25D762E3157"
-	apt update -qq
-	${APT_INSTALL} dpkg
-	${APT_INSTALL} ros-${ROS_DISTRO}-ros-base
+	wget -qO- https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo tee /etc/apt/trusted.gpg.d/ros.asc
 	${MAKE} install-ros-${ROS_DISTRO}
+	${APT_INSTALL} dpkg
+	${APT_INSTALL} python3-rosdep python3-rosinstall python3-rosinstall-generator build-essential
 	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; rosdep init'
+	rosdep update
 
-install-ros-%:
-	${APT_INSTALL} python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+install-ros-noetic:
+	sh -c 'test -f /etc/apt/sources.list.d/ros-latest.list \
+        || (echo "deb http://packages.ros.org/ros/ubuntu ${UBUNTU_DISTRO} main" > /etc/apt/sources.list.d/ros-latest.list)'
+	apt update -qq
+	${APT_INSTALL} ros-${ROS_DISTRO}-ros-base
 
-install-ros-melodic: install-ros-kinetic
-	#
+install-ros-humble:
+	sh -c 'test -f /etc/apt/sources.list.d/ros2-latest.list \
+        || (echo "deb [arch=amd64,arm64] http://repo.ros2.org/ubuntu/main ${UBUNTU_DISTRO} main" > /etc/apt/sources.list.d/ros2-latest.list)'
+	apt update -qq
+	${APT_INSTALL} ros-${ROS_DISTRO}-rclcpp
 
-install-ros-kinetic:
-	${APT_INSTALL} python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
 
 install-deps:
 	${APT_INSTALL} cmake libboost-all-dev libeigen3-dev
@@ -209,7 +215,7 @@ install-deps:
 
 
 format:
-	${FIND_ARILES_SOURCES} | grep -v "better_enum.h" | xargs clang-format-12 -verbose -i
+	${FIND_ARILES_SOURCES} | grep -v "better_enum.h" | xargs clang-format15 -verbose -i
 
 cppcheck:
 	# --inconclusive
@@ -231,6 +237,7 @@ cppcheck:
 		--suppress=unknownMacro \
 		--suppress=constStatement \
 		--suppress=unsignedLessThanZero \
+		--suppress=duplInheritedMember \
 		-i build \
 		-i tests/api_v2/regression_test_230.cpp \
 	3>&1 1>&2 2>&3 | tee cppcheck.err
@@ -264,7 +271,6 @@ clangcheck:
 		-enable-checker core.uninitialized.UndefReturn \
 		-enable-checker cplusplus.InnerPointer \
 		-enable-checker cplusplus.Move \
-		-enable-checker cplusplus.NewDelete \
 		-enable-checker cplusplus.NewDeleteLeaks \
 		-enable-checker deadcode.DeadStores \
 		-enable-checker nullability.NullPassedToNonnull \
@@ -277,7 +283,6 @@ clangcheck:
 		-enable-checker optin.performance.GCDAntipattern \
 		-enable-checker optin.performance.Padding \
 		-enable-checker optin.portability.UnixAPI \
-		-enable-checker optin.cplusplus.VirtualCall \
 		-enable-checker security.FloatLoopCounter \
 		-enable-checker security.insecureAPI.DeprecatedOrUnsafeBufferHandling \
 		-enable-checker security.insecureAPI.UncheckedReturn \
@@ -297,6 +302,8 @@ clangcheck:
 		-enable-checker valist.Uninitialized \
 		-enable-checker valist.Unterminated \
 		${MAKE} build TC=${TC} TYPE=${TYPE} OPTIONS=${OPTIONS} TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="-DBUILD_SHARED_LIBS=OFF ${EXTRA_CMAKE_PARAM}"
+#		-enable-checker cplusplus.NewDelete
+#		-enable-checker optin.cplusplus.VirtualCall
 
 spell_interactive:
 	${MAKE} spell SPELL_XARGS_ARG=-o
@@ -307,36 +314,5 @@ spell:
 		| grep -v "./tests/common/better_enum.h" \
 		| grep -v "./extra_visitors/rapidjson/src/istreamwrapper.h" \
 		| xargs ${SPELL_XARGS_ARG} scspell --use-builtin-base-dict --override-dictionary ./qa/scspell.dict
-
-travis-apt-clean:
-	-sudo rm -f \
-		/etc/apt/sources.list.d/cassandra.list \
-		/etc/apt/sources.list.d/cassandra.list.save \
-		/etc/apt/sources.list.d/heroku-toolbelt.list \
-		/etc/apt/sources.list.d/heroku-toolbelt.list.save \
-		/etc/apt/sources.list.d/chris-lea-redis-server.list \
-		/etc/apt/sources.list.d/chris-lea-redis-server.list.save \
-		/etc/apt/sources.list.d/mongodb-3.4.list \
-		/etc/apt/sources.list.d/mongodb-3.4.list.save \
-		/etc/apt/sources.list.d/computology_apt-backport.list \
-		/etc/apt/sources.list.d/computology_apt-backport.list.save \
-		/etc/apt/sources.list.d/openjdk-r-java-ppa.list \
-		/etc/apt/sources.list.d/openjdk-r-java-ppa.list.save \
-		/etc/apt/sources.list.d/couchdb.list \
-		/etc/apt/sources.list.d/couchdb.list.save \
-		/etc/apt/sources.list.d/pgdg.list \
-		/etc/apt/sources.list.d/pgdg.list.save \
-		/etc/apt/sources.list.d/pollinate.list \
-		/etc/apt/sources.list.d/pollinate.list.save \
-		/etc/apt/sources.list.d/github_git-lfs.list \
-		/etc/apt/sources.list.d/github_git-lfs.list.save \
-		/etc/apt/sources.list.d/rabbitmq_rabbitmq-server.list \
-		/etc/apt/sources.list.d/rabbitmq_rabbitmq-server.list.save \
-		/etc/apt/sources.list.d/git-ppa.list \
-		/etc/apt/sources.list.d/git-ppa.list.save \
-		/etc/apt/sources.list.d/webupd8team-java-ppa.list \
-		/etc/apt/sources.list.d/webupd8team-java-ppa.list.save \
-		/etc/apt/sources.list.d/google-chrome.list \
-		/etc/apt/sources.list.d/google-chrome.list.save
 
 .PHONY: clean cmake build

@@ -68,7 +68,7 @@ namespace ariles_tests
 
                 typename t_Visitor::Writer writer(getWriterInitializer("configurable.cfg"));
                 typename t_Visitor::Writer::Parameters parameters;
-                parameters.write_.allow_missing_entries_ = true;
+                parameters.template get<ariles2::write::Parameters>().allow_missing_entries_ = true;
 
                 ariles2::apply(writer, configurable, parameters);
             }
@@ -78,8 +78,8 @@ namespace ariles_tests
 
                 configurable.defaults_check_flag_ = false;
                 typename t_Visitor::Reader::Parameters parameters;
-                parameters.read_.override_parameters_ = false;
-                parameters.read_.allow_missing_entries_ = true;
+                parameters.template get<ariles2::read::Parameters>().override_parameters_ = false;
+                parameters.template get<ariles2::read::Parameters>().allow_missing_entries_ = true;
                 typename t_Visitor::Reader reader(getReaderInitializer("configurable.cfg"));
                 ariles2::apply(reader, configurable, parameters);
                 BOOST_CHECK(configurable.defaults_check_flag_);
@@ -92,7 +92,7 @@ namespace ariles_tests
             {
                 t_Configurable configurable;
                 typename t_Visitor::Writer::Parameters parameters;
-                parameters.write_.allow_missing_entries_ = true;
+                parameters.template get<ariles2::write::Parameters>().allow_missing_entries_ = true;
 
                 ariles2::apply<typename t_Visitor::Writer>(
                         getWriterInitializer("configurable2.cfg"), configurable, parameters);

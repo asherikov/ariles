@@ -2,14 +2,18 @@ NATURAL:
 alexander
 apache
 arenastring
+argc
 argn
+argv
 ariles
 asherikov
 auxillary
 backtrace
 cfgread
 cfgwrite
+classrclcpp
 cmakeut
+codereview
 constexpr
 copyfrom
 copyto
@@ -73,6 +77,7 @@ msgpack
 msgs
 namevalue
 nocase
+nodiscard
 noexcept
 nolint
 nolintbegin
@@ -99,6 +104,7 @@ putback
 quaterniond
 rankdir
 rapidjson
+rclcpp
 rdbuf
 reinitializes
 remappings
@@ -116,6 +122,7 @@ sighandler
 sigint
 sint
 sstream
+stackexchange
 stdexcept
 stringbuffer
 stringized
@@ -134,6 +141,7 @@ typeid
 ulonglong
 unistd
 usleep
+variadic
 waitpid
 wfstream
 wifstream

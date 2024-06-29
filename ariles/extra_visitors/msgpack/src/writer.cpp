@@ -27,11 +27,6 @@ namespace ariles2
                 using PackerPtr = std::shared_ptr<::msgpack::packer<std::ostream>>;
 
 
-            private:
-                Writer(const Writer &);
-                void operator=(const Writer &);
-
-
             public:
                 /// output file stream
                 std::ofstream config_ofs_;
@@ -45,11 +40,15 @@ namespace ariles2
 
 
             public:
+                Writer(const Writer &) = delete;
+                void operator=(const Writer &) = delete;
+
+
                 explicit Writer(const std::string &file_name)
                 {
                     ariles2::write::Visitor::openFile(config_ofs_, file_name);
                     output_stream_ = &config_ofs_;
-                    packer_ = PackerPtr(new ::msgpack::packer<std::ostream>(*output_stream_));
+                    packer_ = std::make_shared<::msgpack::packer<std::ostream>>(*output_stream_);
 
                     nameless_counter_ = 0;
                 }
@@ -58,7 +57,7 @@ namespace ariles2
                 explicit Writer(std::ostream &output_stream)
                 {
                     output_stream_ = &output_stream;
-                    packer_ = PackerPtr(new ::msgpack::packer<std::ostream>(*output_stream_));
+                    packer_ = std::make_shared<::msgpack::packer<std::ostream>>(*output_stream_);
 
                     nameless_counter_ = 0;
                 }
@@ -86,29 +85,29 @@ namespace ariles2
 
         void Writer::startMap(const Parameters &, const std::size_t num_entries)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             impl_->packer_->pack_map(num_entries);
         }
 
         void Writer::startMapEntry(const std::string &map_name)
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_TRACE_VALUE(map_name);
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_TRACE_VALUE(map_name);
             impl_->packer_->pack(map_name);
         }
 
 
         void Writer::flush()
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             impl_->output_stream_->flush();
         }
 
 
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(size <= std::numeric_limits<uint32_t>::max(), "Vector is too long.");
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(size <= std::numeric_limits<uint32_t>::max(), "Vector is too long.");
 
             impl_->packer_->pack_array(size);
         }
@@ -116,10 +115,10 @@ namespace ariles2
 
         void Writer::startRoot(const std::string &name, const Parameters &)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (name.empty())
             {
-                ARILES2_ASSERT(
+                CPPUT_ASSERT(
                         0 == impl_->nameless_counter_,
                         "Multiple nameless root entries are not supported, specify root names explicitly.");
                 ++impl_->nameless_counter_;
@@ -135,7 +134,7 @@ namespace ariles2
 
         void Writer::endRoot(const std::string & /*name*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             endMapEntry();
         }
 
@@ -143,11 +142,11 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         impl_->packer_->pack(element);                                                                                 \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
     }  // namespace ns_msgpack

@@ -16,35 +16,19 @@
 #include <cmath>
 #include <cstdlib>
 #include <complex>
+#include <limits>
 
 
 #include <type_traits>
 #include <memory>
 
-#define ARILES2_IS_ENUM_ENABLER(Enum) const typename std::enable_if<(std::is_enum<Enum>::value)>::type * = NULL
-
-#define ARILES2_IS_FLOATING_POINT_ENABLER_TYPE(Real) std::enable_if<(std::is_floating_point<Real>::value)>::type *
-
-#define ARILES2_IS_BASE_OF(Base, Derived) std::is_base_of<Base, Derived>::value
-
 #define ARILES2_IS_BASE_ENABLER(Base, Derived)                                                                         \
-    const typename std::enable_if<(ARILES2_IS_BASE_OF(Base, Derived))>::type * = NULL
-
-#define ARILES2_IS_BASE_DISABLER(Base, Derived)                                                                        \
-    const typename std::enable_if<not(ARILES2_IS_BASE_OF(Base, Derived))>::type * = NULL
-
-#define ARILES2_IS_ANY_OF(Type, Type1, Type2)                                                                          \
-    const typename std::enable_if<std::is_base_of<Type1, Type>::value or std::is_base_of<Type2, Type>::value>::type    \
-            * = NULL
-
-
+    const typename std::enable_if<std::is_base_of<Base, Derived>::value>::type * = nullptr
 
 #include "build_config.h"
 
-#define CMAKEUT_COMPILER_SUPPORTS_FUNC_
-#include "cpput_config.h"
-#include "cpput_exception.h"
-#include "cpput_misc.h"
+#include "exception.h"
+#include "misc.h"
 
 
 #define ARILES2_EMPTY_MACRO
@@ -57,11 +41,14 @@
     ARILES2_BASIC_TYPE(long long)                                                                                      \
     ARILES2_BASIC_TYPE(char)
 
-#define ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST                                                                      \
+#define ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST_WITHOUT_BYTE                                                         \
     ARILES2_BASIC_TYPE(unsigned int)                                                                                   \
     ARILES2_BASIC_TYPE(unsigned short)                                                                                 \
     ARILES2_BASIC_TYPE(unsigned long)                                                                                  \
-    ARILES2_BASIC_TYPE(unsigned long long)                                                                             \
+    ARILES2_BASIC_TYPE(unsigned long long)
+
+#define ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST                                                                      \
+    ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST_WITHOUT_BYTE                                                             \
     ARILES2_BASIC_TYPE(unsigned char)
 
 
@@ -88,13 +75,13 @@
 
 
 #ifndef ARILES2_VISIBILITY_ATTRIBUTE
-#    include "cpput_visibility.h"
-#    define ARILES2_VISIBILITY_ATTRIBUTE ARILES2_LIB_EXPORT
+#    include "visibility.h"
+#    define ARILES2_VISIBILITY_ATTRIBUTE CPPUT_LIB_EXPORT
 #endif
 
 
-// #define ARILES2_TRACE_ENABLE
-#include "cpput_trace.h"
+// #define CPPUT_TRACE_ENABLE
+#include "trace.h"
 
 
 namespace ariles2

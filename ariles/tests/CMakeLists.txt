@@ -11,6 +11,6 @@ include(ariles_define_test)
 include(ariles_parse_test_dependencies)
 
 set(ARILES_TEST_FILE_VISITORS "yaml_cpp;msgpack;rapidjson;jsonnet;pugixml")
-set(ARILES_TEST_ALL_VISITORS "${ARILES_TEST_FILE_VISITORS};rosparam")
+set(ARILES_TEST_ALL_VISITORS "${ARILES_TEST_FILE_VISITORS};rosparam;ros2param")
 
 add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/api_v2")

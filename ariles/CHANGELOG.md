@@ -1,13 +1,42 @@
 CHANGELOG
 =========
 
-Unreleased
-==========
+2.2.0
+=====
+
+Added
+-----
+* aggregate visitor: container for multiple visitors applied sequentially.
+* ros2param visitor: ROS2 parameters support.
+
+Changed
+-------
+* Switched to C++17.
+* Disable sanitizers: broken in Ubuntu, a workaround needed.
+
+Fixed
+-----
+* Matrix reading logic.
+* Exception messages.
+* Null pointer handling.
+
+Removed
+-------
+* `ARILES_CPP_STANDARD` cmake option.
+* `ARILES2_INCLUDED` define.
+
+
+2.1.0
+=====
 
 Added
 -----
 * Writers now take `allow_missing_entries_` parameter into account, omitting
   'missing' entries, e.g., null pointers.
+* Searching for `yaml-cpp` and `msgpack` with `find_package()`.
+* `ARILES_CPP_STANDARD` cmake flag.
+* `ariles::write::Parameters`: +`allow_missing_entries_`
+* `OptionalPointer` wrapper class for pointers that can be NULL if entry is missing.
 
 Removed
 -------

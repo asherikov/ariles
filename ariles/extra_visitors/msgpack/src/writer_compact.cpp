@@ -26,11 +26,6 @@ namespace ariles2
                 using PackerPtr = std::shared_ptr<::msgpack::packer<std::ostream>>;
 
 
-            private:
-                Writer(const Writer &);
-                void operator=(const Writer &);
-
-
             public:
                 /// output file stream
                 std::ofstream config_ofs_;
@@ -41,18 +36,22 @@ namespace ariles2
                 PackerPtr packer_;
 
             public:
+                Writer(const Writer &) = delete;
+                void operator=(const Writer &) = delete;
+
+
                 explicit Writer(const std::string &file_name)
                 {
                     ariles2::write::Visitor::openFile(config_ofs_, file_name);
                     output_stream_ = &config_ofs_;
-                    packer_ = PackerPtr(new ::msgpack::packer<std::ostream>(*output_stream_));
+                    packer_ = std::make_shared<::msgpack::packer<std::ostream>>(*output_stream_);
                 }
 
 
                 explicit Writer(std::ostream &output_stream)
                 {
                     output_stream_ = &output_stream;
-                    packer_ = PackerPtr(new ::msgpack::packer<std::ostream>(*output_stream_));
+                    packer_ = std::make_shared<::msgpack::packer<std::ostream>>(*output_stream_);
                 }
             };
         }  // namespace impl
@@ -90,7 +89,7 @@ namespace ariles2
 
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
-            ARILES2_ASSERT(size <= std::numeric_limits<uint32_t>::max(), "Vector is too long.");
+            CPPUT_ASSERT(size <= std::numeric_limits<uint32_t>::max(), "Vector is too long.");
             impl_->packer_->pack_array(size);
         }
 
@@ -101,7 +100,7 @@ namespace ariles2
         impl_->packer_->pack(element);                                                                                 \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
     }  // namespace ns_msgpack_compact

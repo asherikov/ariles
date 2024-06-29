@@ -1,6 +1,6 @@
 # General parameters
-cmake_minimum_required (VERSION 3.0.0)
-project(ariles2 VERSION 2.0.3)
+cmake_minimum_required (VERSION 3.1.0)
+project(ariles2 VERSION 2.2.0)
 
 
 set(ARILES_HOMEPAGE http://asherikov.github.io/ariles/2)
@@ -209,8 +209,10 @@ set(CMAKEUT_CPP_SANITIZERS  ${ARILES_CPP_SANITIZERS})
 set(CMAKEUT_CLANG_TIDY      ${ARILES_CPP_CLANG_TIDY})
 set(CMAKEUT_CLANG_TIDY_EXTRA_IGNORES
     "-cppcoreguidelines-special-member-functions,-hicpp-special-member-functions,-altera-struct-pack-align,-llvm-namespace-comment,-misc-no-recursion,-readability-const-return-type,-google-default-arguments,-bugprone-macro-parentheses,-cppcoreguidelines-pro-type-union-access,-hicpp-named-parameter,-readability-named-parameter,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-pro-type-union-access,-cppcoreguidelines-avoid-non-const-global-variables,-cert-err58-cpp,-cert-env33-c")
-cmakeut_compiler_flags("c++11")
+set(CMAKE_CXX_STANDARD "17")
+cmakeut_compiler_flags("c++${CMAKE_CXX_STANDARD}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKEUT_CXX_FLAGS}")
+
 
 
 set (RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
@@ -277,6 +279,7 @@ if (${ARILES_ENABLE_CORE})
         "$<INSTALL_INTERFACE:include/>"
         "$<INSTALL_INTERFACE:${ARILES_CORE_DEPENDENCY_INCLUDES}>"
     )
+    target_compile_features(${PROJECT_NAME}-core INTERFACE "cxx_std_${CMAKE_CXX_STANDARD}")
 
 
     # --------------
@@ -310,16 +313,6 @@ if (${ARILES_ENABLE_CORE})
     endforeach()
     # --------------
 
-
-    # --------------
-    # cpput
-    # --------------
-    set(CPPUT_EMBEDDED      ON          CACHE BOOL "" FORCE)
-    set(CPPUT_EMBEDDED_ID   "ARILES2"   CACHE STRING "" FORCE)
-    set(CPPUT_EMBEDDED_COPY_TO_DIR "${ARILES_CORE_BUILD_INCLUDES}/${PROJECT_NAME}/internal/"  CACHE STRING "" FORCE)
-    set(CPPUT_SELECT_HEADERS "config.h;exception.h;visibility.h;misc.h;trace.h"  CACHE STRING "" FORCE)
-    add_subdirectory(cpput)
-    # --------------
 
     list(APPEND DEB_ARCHIVE_FILES "./include" "./extra_adapters")
 

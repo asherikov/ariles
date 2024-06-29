@@ -25,24 +25,14 @@ namespace ariles2
     /// @ingroup prewrite
     namespace prewrite
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
-        {
-        public:
-            Parameters(const bool override_parameters = true) : visitor::Parameters(override_parameters)
-            {
-            }
-        };
-
+        using Parameters = visitor::Parameters;
 
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor
           : public ariles2::process::Visitor<const prewrite::Visitor, prewrite::Parameters>
         {
         };
 
-
-        class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::Base<const prewrite::Visitor>
-        {
-        };
+        using Base = entry::Base<const prewrite::Visitor>;
 
 
 #define ARILES2_NAMED_ENTRY_prewrite(v, entry, name) visitor.visitMapEntry(entry, #name, parameters);
@@ -54,9 +44,9 @@ namespace ariles2
             const typename t_Visitor::Parameters &parameters,                                                          \
             ARILES2_IS_BASE_ENABLER(ariles2::prewrite::Visitor, t_Visitor))                                            \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
-        ARILES2_UNUSED_ARG(visitor);                                                                                   \
-        ARILES2_UNUSED_ARG(parameters);                                                                                \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
+        CPPUT_UNUSED_ARG(visitor);                                                                                     \
+        CPPUT_UNUSED_ARG(parameters);                                                                                  \
         arilesVisitParents(visitor, parameters);                                                                       \
         ARILES2_ENTRIES(prewrite)                                                                                      \
     }

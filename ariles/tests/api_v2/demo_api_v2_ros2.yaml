@@ -1,0 +1,17 @@
+/demo_api_v2_ros2:
+    ros__parameters:
+        my_class_vector:
+            0:
+                real_member: 100.
+                integer_member: 12
+                eigen_vector: [0., 0., 0.]
+            1:
+                real_member: 110.
+                integer_member: 1
+                eigen_vector: [0., 1.0, 0.]
+            2:
+                real_member: 111.
+                integer_member: 21
+                eigen_vector: [1.0, 1.0, 0.]
+        ptr:
+            is_null: true

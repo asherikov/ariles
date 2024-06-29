@@ -49,74 +49,61 @@ namespace ariles2
             template <typename t_Scalar>
             inline t_Scalar getDefault() const
             {
+                if constexpr (std::is_same_v<double, t_Scalar>)
+                {
+                    return default_double_value_;
+                }
+                if constexpr (std::is_same_v<float, t_Scalar>)
+                {
+                    return default_float_value_;
+                }
+                if constexpr (std::is_same_v<bool, t_Scalar>)
+                {
+                    return false;
+                }
+                if constexpr (std::is_same_v<std::string, t_Scalar>)
+                {
+                    return "";
+                }
                 return 0;
             }
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor
-          : public ariles2::visitor::Base<visitor::GenericVisitor, defaults::Parameters>
+        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public ariles2::visitor::Base<Visitor, defaults::Parameters>
         {
         public:
             using Parameters = defaults::Parameters;
 
 
         public:
-            using visitor::Base<visitor::GenericVisitor, Parameters>::getDefaultParameters;
-
-            template <class t_Ariles>
-            const Parameters &getParameters(const t_Ariles &ariles_class) const
-            {
-                return (ariles_class.arilesGetParameters(*this));
-            }
-
             template <class t_Entry>
             void visit(t_Entry &entry, const std::string &name, const Parameters &param) const
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 this->visitMapEntry(entry, name, param);
+            }
+
+            template <class t_Entry>
+            void visit(t_Entry &entry, const std::vector<std::string> &subtree, const Parameters &param) const
+            {
+                visit(entry, subtree.empty() ? "" : subtree.back(), param);
             }
 
 
             template <class t_Entry>
             void visitMapEntry(t_Entry &entry, const std::string &name, const Parameters &param) const
             {
-                ARILES2_UNUSED_ARG(name);
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_VALUE(name);
-                ARILES2_TRACE_TYPE(entry);
+                CPPUT_UNUSED_ARG(name);
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_TRACE_VALUE(name);
+                CPPUT_TRACE_TYPE(entry);
                 apply_defaults(*this, entry, param);
             }
         };
 
-        template <>
-        inline double Visitor::Parameters::getDefault<double>() const
-        {
-            return default_double_value_;
-        }
 
-        template <>
-        inline float Visitor::Parameters::getDefault<float>() const
-        {
-            return default_float_value_;
-        }
-
-        template <>
-        inline bool Visitor::Parameters::getDefault<bool>() const
-        {
-            return false;
-        }
-
-        template <>
-        inline std::string Visitor::Parameters::getDefault<std::string>() const
-        {
-            return "";
-        }
-
-
-        class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::Base<const defaults::Visitor>
-        {
-        };
+        using Base = entry::Base<const defaults::Visitor>;
 
 
 #define ARILES2_NAMED_ENTRY_defaults(v, entry, name) visitor.visitMapEntry(entry, #name, parameters);
@@ -128,9 +115,9 @@ namespace ariles2
             const typename t_Visitor::Parameters &parameters,                                                          \
             ARILES2_IS_BASE_ENABLER(ariles2::defaults::Visitor, t_Visitor))                                            \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
-        ARILES2_UNUSED_ARG(visitor);                                                                                   \
-        ARILES2_UNUSED_ARG(parameters);                                                                                \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
+        CPPUT_UNUSED_ARG(visitor);                                                                                     \
+        CPPUT_UNUSED_ARG(parameters);                                                                                  \
         arilesVisitParents(visitor, parameters);                                                                       \
         ARILES2_ENTRIES(defaults)                                                                                      \
     }
@@ -143,8 +130,6 @@ namespace ariles2
      * @ingroup defaults
      * @{
      */
-    namespace preread = defaults;
-    using PreRead = preread::Visitor;
     using Defaults = defaults::Visitor;
     /// @}
 }  // namespace ariles2

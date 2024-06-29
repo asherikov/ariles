@@ -40,7 +40,7 @@ namespace ariles_tests
 #ifndef ARILES_TESTS_RANDOMIZE_DISABLED
             virtual void randomize()
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 boost::random::random_device random_generator;
                 real_ = GET_RANDOM_REAL;
             }
@@ -48,7 +48,7 @@ namespace ariles_tests
 
             void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 real_ = 0.0;
             }
         };
@@ -76,7 +76,7 @@ namespace ariles_tests
 #ifndef ARILES_TESTS_RANDOMIZE_DISABLED
             void randomize() override
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 MinimalBase::randomize();
                 boost::random::random_device random_generator;
                 integer_member_ = GET_RANDOM_INT;
@@ -97,7 +97,7 @@ namespace ariles_tests
 
             void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 arilesVisitParents(visitor, param);
                 integer_member_ = 0;
                 defaults_check_flag_ = true;
@@ -105,7 +105,7 @@ namespace ariles_tests
 
             void arilesVisit(const ariles2::Finalize &visitor, const ariles2::Finalize::Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 arilesVisitParents(visitor, param);
                 finalize_check_flag_ = true;
             }
@@ -241,22 +241,22 @@ namespace ariles_tests
     template <class t_Configurable_out, class t_Configurable_in>
     void compare(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)
     {
-        if (configurable_in.std_shared_ptr_test_ == NULL)
+        if (configurable_in.std_shared_ptr_test_ == nullptr)
         {
             BOOST_CHECK_EQUAL(configurable_out.std_shared_ptr_test_, configurable_in.std_shared_ptr_test_);
         }
         else
         {
-            BOOST_CHECK(configurable_out.std_shared_ptr_test_ != NULL);
+            BOOST_CHECK(configurable_out.std_shared_ptr_test_ != nullptr);
             compareMinimal(configurable_out.std_shared_ptr_test_, configurable_in.std_shared_ptr_test_);
         }
-        if (configurable_in.std_unique_ptr_test_ == NULL)
+        if (configurable_in.std_unique_ptr_test_ == nullptr)
         {
             BOOST_CHECK(configurable_out.std_unique_ptr_test_ == configurable_in.std_unique_ptr_test_);
         }
         else
         {
-            BOOST_CHECK(configurable_out.std_unique_ptr_test_ != NULL);
+            BOOST_CHECK(configurable_out.std_unique_ptr_test_ != nullptr);
             compareMinimal(configurable_out.std_unique_ptr_test_, configurable_in.std_unique_ptr_test_);
         }
 
@@ -268,32 +268,32 @@ namespace ariles_tests
 
 
 #    ifdef ARILES_ADAPTER_BOOST_POINTER
-        if (configurable_in.shared_ptr_test_ == NULL)
+        if (configurable_in.shared_ptr_test_ == nullptr)
         {
             BOOST_CHECK_EQUAL(configurable_out.shared_ptr_test_, configurable_in.shared_ptr_test_);
         }
         else
         {
-            BOOST_CHECK(configurable_out.shared_ptr_test_ != NULL);
+            BOOST_CHECK(configurable_out.shared_ptr_test_ != nullptr);
             compareMinimal(configurable_out.shared_ptr_test_, configurable_in.shared_ptr_test_);
             BOOST_CHECK(configurable_in.shared_ptr_test_->defaults_check_flag_);
             BOOST_CHECK(configurable_in.shared_ptr_test_->finalize_check_flag_);
         }
 #        if BOOST_VERSION >= 105800
-        if (configurable_in.unique_ptr_test_ == NULL)
+        if (configurable_in.unique_ptr_test_ == nullptr)
         {
             BOOST_CHECK(configurable_out.unique_ptr_test_ == configurable_in.unique_ptr_test_);
         }
         else
         {
-            BOOST_CHECK(configurable_out.unique_ptr_test_ != NULL);
+            BOOST_CHECK(configurable_out.unique_ptr_test_ != nullptr);
             compareMinimal(configurable_out.unique_ptr_test_, configurable_in.unique_ptr_test_);
             BOOST_CHECK(configurable_in.unique_ptr_test_->defaults_check_flag_);
             BOOST_CHECK(configurable_in.unique_ptr_test_->finalize_check_flag_);
         }
 #        endif
 
-        BOOST_CHECK(configurable_out.shared_ptr_test_null_ == NULL);
+        BOOST_CHECK(configurable_out.shared_ptr_test_null_ == nullptr);
         BOOST_CHECK_EQUAL(configurable_out.shared_ptr_test_null_, configurable_in.shared_ptr_test_null_);
 
         BOOST_CHECK(not configurable_in.shared_ptr_test_non_null_.isNull());

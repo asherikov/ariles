@@ -42,7 +42,7 @@ namespace ariles2
             public:
                 void initEmitter()
                 {
-                    ARILES2_TRACE_FUNCTION;
+                    CPPUT_TRACE_FUNCTION;
                     emitter_ = std::make_shared<YAML::Emitter>();
                     emitter_->SetDoublePrecision(std::numeric_limits<double>::digits10);
                     if (output_stream_->tellp() != 0)
@@ -57,7 +57,7 @@ namespace ariles2
 
                 void destroyEmitter()
                 {
-                    ARILES2_TRACE_FUNCTION;
+                    CPPUT_TRACE_FUNCTION;
                     *emitter_ << YAML::EndMap;
                     *output_stream_ << emitter_->c_str();
                     emitter_.reset();
@@ -111,7 +111,7 @@ namespace ariles2
 
         void Writer::startMap(const Parameters &, const std::size_t /*num_entries*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (impl_->map_depth_ > 0 or not impl_->skip_root_map_)
             {
                 *impl_->emitter_ << YAML::BeginMap;
@@ -121,16 +121,16 @@ namespace ariles2
 
         void Writer::startMapEntry(const std::string &map_name)
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_TRACE_VALUE(map_name);
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_TRACE_VALUE(map_name);
             *impl_->emitter_ << YAML::Key << map_name;
             *impl_->emitter_ << YAML::Value;
         }
 
         void Writer::endMap()
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(impl_->map_depth_ > 0, "Internal logic error.");
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(impl_->map_depth_ > 0, "Internal logic error.");
             --impl_->map_depth_;
             if (impl_->map_depth_ > 0 or not impl_->skip_root_map_)
             {
@@ -141,14 +141,14 @@ namespace ariles2
 
         void Writer::flush()
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             impl_->flush();
         }
 
 
         void Writer::startArray(const std::size_t /*size*/, const bool compact)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (compact)
             {
                 *impl_->emitter_ << YAML::Flow;
@@ -159,15 +159,15 @@ namespace ariles2
 
         void Writer::endArray()
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             *impl_->emitter_ << YAML::EndSeq;
         }
 
 
         void Writer::startRoot(const std::string &name, const Parameters &)
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_TRACE_VALUE(name);
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_TRACE_VALUE(name);
             if (name.empty())
             {
                 impl_->skip_root_map_ = true;
@@ -180,7 +180,7 @@ namespace ariles2
 
         void Writer::endRoot(const std::string &name)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (not name.empty())
             {
                 endMapEntry();
@@ -195,7 +195,7 @@ namespace ariles2
         *impl_->emitter_ << element;                                                                                   \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_INTEGER_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_INTEGER_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
 
@@ -227,7 +227,7 @@ namespace ariles2
         }                                                                                                              \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_REAL_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_REAL_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
 

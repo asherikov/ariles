@@ -31,15 +31,12 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<NodeWrapper>
             {
             public:
                 std::string buffer_;
 
                 std::vector<std::shared_ptr<::msgpack::object_handle>> handles_;
-
-                /// Stack of nodes.
-                std::vector<NodeWrapper> node_stack_;
 
                 std::size_t nameless_counter_;
 
@@ -52,7 +49,7 @@ namespace ariles2
                  */
                 void initialize(std::istream &input_stream)
                 {
-                    ARILES2_TRACE_FUNCTION;
+                    CPPUT_TRACE_FUNCTION;
                     std::stringstream str_stream;
                     str_stream << input_stream.rdbuf();
                     buffer_ = str_stream.str();
@@ -65,14 +62,14 @@ namespace ariles2
 
                         while (buffer_offset != buffer_.size())
                         {
-                            handles_.push_back(std::shared_ptr<::msgpack::object_handle>(new ::msgpack::object_handle));
+                            handles_.push_back(std::make_shared<::msgpack::object_handle>());
 
-                            unpack(*handles_[handles_.size() - 1], buffer_.data(), buffer_.size(), buffer_offset);
+                            unpack(*handles_.back(), buffer_.data(), buffer_.size(), buffer_offset);
                         }
                     }
                     catch (const std::exception &e)
                     {
-                        ARILES2_THROW(std::string("Failed to parse the configuration file: ") + e.what());
+                        CPPUT_THROW(std::string("Failed to parse the configuration file: ") + e.what());
                     }
 
                     nameless_counter_ = 0;
@@ -86,7 +83,7 @@ namespace ariles2
                  */
                 const ::msgpack::object &getRawNode(const std::size_t depth)
                 {
-                    ARILES2_TRACE_FUNCTION;
+                    CPPUT_TRACE_FUNCTION;
                     if (node_stack_[depth].isArray())
                     {
                         return (getRawNode(depth - 1).via.array.ptr[node_stack_[depth].index_]);
@@ -97,7 +94,7 @@ namespace ariles2
 
                 const ::msgpack::object &getRawNode()
                 {
-                    ARILES2_TRACE_FUNCTION;
+                    CPPUT_TRACE_FUNCTION;
                     return (getRawNode(node_stack_.size() - 1));
                 }
             };
@@ -128,7 +125,7 @@ namespace ariles2
 
         void Reader::startMap(const SizeLimitEnforcementType limit_type, const std::size_t min, const std::size_t max)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             checkSize(limit_type, impl_->getRawNode().via.map.size, min, max);
         }
 
@@ -136,9 +133,9 @@ namespace ariles2
 
         bool Reader::startMapEntry(const std::string &child_name)
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_TRACE_VALUE(child_name);
-            if (impl_->node_stack_.empty())
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_TRACE_VALUE(child_name);
+            if (impl_->empty())
             {
                 for (std::size_t i = 0; i < impl_->handles_.size(); ++i)
                 {
@@ -148,7 +145,7 @@ namespace ariles2
                         {
                             if (::msgpack::type::MAP == impl_->handles_[i]->get().via.map.ptr[0].val.type)
                             {
-                                impl_->node_stack_.emplace_back(&(impl_->handles_[i]->get().via.map.ptr[0].val));
+                                impl_->emplace(&(impl_->handles_[i]->get().via.map.ptr[0].val));
                                 return (true);
                             }
                         }
@@ -163,7 +160,7 @@ namespace ariles2
                     {
                         if (child_name == impl_->getRawNode().via.map.ptr[i].key.as<std::string>())
                         {
-                            impl_->node_stack_.emplace_back(&(impl_->getRawNode().via.map.ptr[i].val));
+                            impl_->emplace(&(impl_->getRawNode().via.map.ptr[i].val));
                             return (true);
                         }
                     }
@@ -176,16 +173,16 @@ namespace ariles2
 
         void Reader::endMapEntry()
         {
-            ARILES2_TRACE_FUNCTION;
-            impl_->node_stack_.pop_back();
+            CPPUT_TRACE_FUNCTION;
+            impl_->pop();
         }
 
 
         std::size_t Reader::startArray()
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             const std::size_t size = impl_->getRawNode().via.array.size;
-            impl_->node_stack_.emplace_back(0, size);
+            impl_->emplace(0, size);
 
             return (size);
         }
@@ -193,33 +190,32 @@ namespace ariles2
 
         void Reader::endArray()
         {
-            ARILES2_TRACE_FUNCTION;
-            impl_->node_stack_.pop_back();
+            CPPUT_TRACE_FUNCTION;
+            impl_->pop();
         }
 
 
         void Reader::startArrayElement()
         {
-            ARILES2_ASSERT(
-                    impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
-                    "Internal error: namevalue.has more elements than expected.");
+            CPPUT_ASSERT(
+                    impl_->back().index_ < impl_->back().size_,
+                    "Internal error: array has more elements than expected.");
         }
 
 
         void Reader::endArrayElement()
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ++impl_->node_stack_.back().index_;
+            CPPUT_TRACE_FUNCTION;
+            impl_->shiftArray();
         }
 
 
         bool Reader::startRoot(const std::string &name)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (name.empty())
             {
-                ARILES2_ASSERT(
+                CPPUT_ASSERT(
                         0 == impl_->nameless_counter_,
                         "Multiple nameless root entries are not supported, specify root names explicitly.");
                 ++impl_->nameless_counter_;
@@ -230,7 +226,7 @@ namespace ariles2
 
         void Reader::endRoot(const std::string & /*name*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             endMapEntry();
         }
 
@@ -238,11 +234,11 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         impl_->getRawNode() >> element;                                                                                \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
     }  // namespace ns_msgpack

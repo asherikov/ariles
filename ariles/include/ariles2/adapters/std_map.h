@@ -35,7 +35,7 @@ namespace ariles2
         void ARILES2_VISIBILITY_ATTRIBUTE
                 apply_read(t_Visitor &visitor, std::map<t_Args...> &entry, const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             const std::size_t size = visitor.startArray();
             entry.clear();
             for (std::size_t i = 0; i < size; ++i)
@@ -57,7 +57,7 @@ namespace ariles2
                 std::map<std::string, t_Args...> &entry,
                 const typename t_Visitor::Parameters &parameters)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (parameters.sloppy_maps_ and visitor.startIteratedMap(t_Visitor::SIZE_LIMIT_MIN, 1))
             {
                 entry.clear();
@@ -88,7 +88,7 @@ namespace ariles2
                 const std::map<t_Args...> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             writer.startArray(entry.size(), param.compact_arrays_);
             for (const typename std::map<t_Args...>::value_type &value : entry)
             {
@@ -104,7 +104,7 @@ namespace ariles2
                 const std::map<std::string, t_Args...> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (param.sloppy_maps_)
             {
                 if (writer.startIteratedMap(entry.size(), param))
@@ -136,7 +136,7 @@ namespace ariles2
                 const std::map<t_Args...> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
 
             visitor.equal_ &= (left.size() == right.size());
 
@@ -164,7 +164,7 @@ namespace ariles2
                 std::map<t_Args...> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             entry.clear();
         }
     }  // namespace defaults
@@ -181,7 +181,7 @@ namespace ariles2
                 std::map<t_Args...> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             for (typename std::map<t_Args...>::value_type &value : entry)
             {
                 apply_process(visitor, value.first, param);
@@ -203,7 +203,7 @@ namespace ariles2
                 const std::map<t_ArgsRight...> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
 
             typename std::map<t_ArgsRight...>::const_iterator right_it = right.begin();
 
@@ -229,7 +229,7 @@ namespace ariles2
                 std::map<t_ArgsRight...> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
 
             typename std::map<t_ArgsLeft...>::const_iterator left_it = left.begin();
 

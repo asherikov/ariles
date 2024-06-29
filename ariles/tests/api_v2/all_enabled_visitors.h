@@ -34,16 +34,20 @@
 #    include <ariles2/visitors/pugixml.h>
 #endif
 
+#ifdef ARILES_VISITOR_ros2param
+#    include <ariles2/visitors/ros2param.h>
+#endif
+
 // Do not have Reader and therefore are excluded from most of the tests
 //
-//#ifdef ARILES_VISITOR_octave
-//#include <ariles2/visitors/octave.h>
-//#endif
+// #ifdef ARILES_VISITOR_octave
+// #include <ariles2/visitors/octave.h>
+// #endif
 //
-//#ifdef ARILES_VISITOR_namevalue
-//#include <ariles2/visitors/namevalue.h>
-//#endif
+// #ifdef ARILES_VISITOR_namevalue
+// #include <ariles2/visitors/namevalue.h>
+// #endif
 //
-//#ifdef ARILES_VISITOR_graphviz
-//#include <ariles2/visitors/namevalue.h>
-//#endif
+// #ifdef ARILES_VISITOR_graphviz
+// #include <ariles2/visitors/namevalue.h>
+// #endif

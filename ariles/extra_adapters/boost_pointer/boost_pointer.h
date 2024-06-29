@@ -37,7 +37,7 @@ namespace ariles2
 
         static bool isNull(const Pointer &ptr)
         {
-            return (NULL == ptr);
+            return (nullptr == ptr);
         }
     };
 }  // namespace ariles2
@@ -74,7 +74,7 @@ namespace ariles2
 
         static bool isNull(const Pointer &ptr)
         {
-            return (NULL == ptr);
+            return (nullptr == ptr);
         }
     };
 }  // namespace ariles2

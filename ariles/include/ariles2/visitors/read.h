@@ -44,10 +44,6 @@ namespace ariles2
 
 
         protected:
-            Visitor(){};
-            ~Visitor(){};
-
-
             void checkSize(
                     const SizeLimitEnforcementType limit_type,
                     const std::size_t size = 0,
@@ -59,17 +55,17 @@ namespace ariles2
                     case SIZE_LIMIT_NONE:
                         return;
                     case SIZE_LIMIT_EQUAL:
-                        ARILES2_ASSERT(size == min, "Actual number of entries is not the same as expected.");
+                        CPPUT_ASSERT(size == min, "Actual number of entries is not the same as expected.");
                         return;
                     case SIZE_LIMIT_RANGE:
-                        ARILES2_ASSERT(min <= size, "Actual number of entries is lower than expected.");
-                        ARILES2_ASSERT(max >= size, "Actual number of entries is larger than expected.");
+                        CPPUT_ASSERT(min <= size, "Actual number of entries is lower than expected.");
+                        CPPUT_ASSERT(max >= size, "Actual number of entries is larger than expected.");
                         return;
                     case SIZE_LIMIT_MIN:
-                        ARILES2_ASSERT(min <= size, "Actual number of entries is lower than expected.");
+                        CPPUT_ASSERT(min <= size, "Actual number of entries is lower than expected.");
                         return;
                     default:
-                        ARILES2_THROW("Internal logic error.");
+                        CPPUT_THROW("Internal logic error.");
                         return;
                 }
             }
@@ -89,15 +85,15 @@ namespace ariles2
                     std::string file_name_default = file_name;
                     config_ifs.open(file_name_default.c_str());
                 }
-                ARILES2_PERSISTENT_ASSERT(
+                CPPUT_PERSISTENT_ASSERT(
                         config_ifs.good(), std::string("Could not open configuration file: ") + file_name.c_str());
             }
 
 
             virtual bool startRoot(const std::string &name)
             {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_VALUE(name);
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_TRACE_VALUE(name);
 
                 if (not name.empty())
                 {
@@ -108,7 +104,7 @@ namespace ariles2
 
             virtual void endRoot(const std::string &name)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 if (not name.empty())
                 {
                     endMapEntry();
@@ -118,7 +114,7 @@ namespace ariles2
 
             virtual bool startRoot(const std::vector<std::string> &subtree)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
 
                 bool result = false;
                 if (0 == subtree.size())
@@ -140,7 +136,7 @@ namespace ariles2
 
             virtual void endRoot(const std::vector<std::string> &subtree)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 for (std::size_t i = 1; i < subtree.size(); ++i)
                 {
                     this->endMapEntry();
@@ -202,8 +198,8 @@ namespace ariles2
              */
             virtual bool startMapEntry(const std::string &child_name)
             {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_UNUSED_ARG(child_name)
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_UNUSED_ARG(child_name)
                 return (true);
             }
 
@@ -226,7 +222,7 @@ namespace ariles2
             }
             virtual bool startIteratedMapElement(std::string & /*entry_name*/)
             {
-                ARILES2_THROW("startIteratedMapElement() is not supported.");
+                CPPUT_THROW("startIteratedMapElement() is not supported.");
                 return (false);
             }
             virtual void endIteratedMapElement()
@@ -239,7 +235,7 @@ namespace ariles2
 
             bool startPointer(const Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
 
                 bool is_null = true;
 
@@ -252,13 +248,13 @@ namespace ariles2
                 }
                 else
                 {
-                    ARILES2_PERSISTENT_ASSERT(
+                    CPPUT_PERSISTENT_ASSERT(
                             param.allow_missing_entries_, "Pointer entry does not include 'is_null' subentry.");
                 }
 
                 if (not is_null)
                 {
-                    ARILES2_ASSERT(this->startMapEntry("value"), "Missing value in a pointer entry.");
+                    CPPUT_ASSERT(this->startMapEntry("value"), "Missing value in a pointer entry.");
                 }
 
                 return (is_null);
@@ -304,18 +300,18 @@ namespace ariles2
                     {
                         this->startMap(SIZE_LIMIT_EQUAL, 3);
 
-                        ARILES2_ASSERT(this->startMapEntry("cols"), "Missing 'cols' in a matrix entry.");
+                        CPPUT_ASSERT(this->startMapEntry("cols"), "Missing 'cols' in a matrix entry.");
                         this->readElement(cols);
                         this->endMapEntry();
 
-                        ARILES2_ASSERT(this->startMapEntry("rows"), "Missing 'rows' in a matrix entry.");
+                        CPPUT_ASSERT(this->startMapEntry("rows"), "Missing 'rows' in a matrix entry.");
                         this->readElement(rows);
                         this->endMapEntry();
 
-                        ARILES2_ASSERT(this->startMapEntry("data"), "Missing 'data' in a matrix entry.");
+                        CPPUT_ASSERT(this->startMapEntry("data"), "Missing 'data' in a matrix entry.");
 
                         const std::size_t vec_len = this->startVector();
-                        ARILES2_ASSERT(cols * rows == vec_len, "Inconsistent matrix size.");
+                        CPPUT_ASSERT(cols * rows == vec_len, "Inconsistent matrix size.");
                     }
                     else
                     {
@@ -327,6 +323,7 @@ namespace ariles2
                     rows = this->startArray();
                     if (rows > 0)
                     {
+                        this->startArrayElement();
                         cols = this->startVector();
                     }
                 }
@@ -337,7 +334,7 @@ namespace ariles2
                 {
                     this->startArrayElement();
                     const std::size_t vec_len = this->startVector();
-                    ARILES2_ASSERT(cols == vec_len, "Inconsistent matrix row length.");
+                    CPPUT_ASSERT(cols == vec_len, "Inconsistent matrix row length.");
                 }
             }
             virtual void startMatrixElement()
@@ -378,7 +375,7 @@ namespace ariles2
             template <class t_Scalar>
             void readElement(std::complex<t_Scalar> &entry)
             {
-                ARILES2_PERSISTENT_ASSERT(2 == this->startArray(), "Wrong number of elements in a complex number");
+                CPPUT_PERSISTENT_ASSERT(2 == this->startArray(), "Wrong number of elements in a complex number");
                 t_Scalar value;
                 this->startArrayElement();
                 this->readElement(value);
@@ -410,8 +407,8 @@ namespace ariles2
             template <class t_Entry, class t_Subtree>
             void visit(t_Entry &entry, const t_Subtree &subtree, const Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_TYPE(entry);
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_TRACE_TYPE(entry);
 
 
                 if (this->startRoot(subtree))
@@ -422,7 +419,7 @@ namespace ariles2
                     }
                     catch (const std::exception &e)
                     {
-                        ARILES2_THROW(
+                        CPPUT_THROW(
                                 std::string("Failed to parse entry <") + convertSubtreeToString(subtree) + "> ||  "
                                 + e.what());
                     }
@@ -431,7 +428,7 @@ namespace ariles2
                 }
                 else
                 {
-                    ARILES2_PERSISTENT_ASSERT(
+                    CPPUT_PERSISTENT_ASSERT(
                             param.allow_missing_entries_,
                             std::string("Configuration file does not contain entry '") + convertSubtreeToString(subtree)
                                     + "'.");
@@ -446,9 +443,9 @@ namespace ariles2
                     const Parameters &param,
                     const bool override_missing_entries_locally = false)
             {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_VALUE(name);
-                ARILES2_TRACE_TYPE(entry);
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_TRACE_VALUE(name);
+                CPPUT_TRACE_TYPE(entry);
 
                 if (this->startMapEntry(name))
                 {
@@ -458,7 +455,7 @@ namespace ariles2
                     }
                     catch (const std::exception &e)
                     {
-                        ARILES2_THROW(std::string("Failed to parse entry <") + name + "> ||  " + e.what());
+                        CPPUT_THROW(std::string("Failed to parse entry <") + name + "> ||  " + e.what());
                     }
 
                     this->endMapEntry();
@@ -466,7 +463,7 @@ namespace ariles2
                 }
                 else
                 {
-                    ARILES2_PERSISTENT_ASSERT(
+                    CPPUT_PERSISTENT_ASSERT(
                             not override_missing_entries_locally and param.allow_missing_entries_,
                             std::string("Configuration file does not contain entry '") + name + "'.");
                     return (false);
@@ -476,8 +473,8 @@ namespace ariles2
             template <typename t_Element>
             void visitArrayElement(t_Element &element, const Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_TYPE(element);
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_TRACE_TYPE(element);
 
                 this->startArrayElement();
                 apply_read(*this, element, param);
@@ -487,8 +484,8 @@ namespace ariles2
             template <typename t_Element>
             void visitVectorElement(t_Element &element, const Parameters & /*param*/)
             {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_TYPE(element);
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_TRACE_TYPE(element);
 
                 this->startVectorElement();
                 this->readElement(element);
@@ -498,7 +495,7 @@ namespace ariles2
             template <typename t_Element>
             void visitMatrixElement(t_Element &element, const Parameters & /*param*/)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
 
                 this->startMatrixElement();
                 this->readElement(element);
@@ -507,9 +504,7 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::Base<read::Visitor>
-        {
-        };
+        using Base = entry::Base<read::Visitor>;
 
 
 #define ARILES2_NAMED_ENTRY_read(v, entry, name) visitor.visitMapEntry(entry, #name, parameters);
@@ -521,9 +516,9 @@ namespace ariles2
             const typename t_Visitor::Parameters &parameters,                                                          \
             ARILES2_IS_BASE_ENABLER(ariles2::read::Visitor, t_Visitor))                                                \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
-        ARILES2_UNUSED_ARG(visitor);                                                                                   \
-        ARILES2_UNUSED_ARG(parameters);                                                                                \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
+        CPPUT_UNUSED_ARG(visitor);                                                                                     \
+        CPPUT_UNUSED_ARG(parameters);                                                                                  \
         arilesVisitParents(visitor, parameters);                                                                       \
         ARILES2_ENTRIES(read)                                                                                          \
     }

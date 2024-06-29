@@ -16,13 +16,10 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::NodeStackBase<NodeWrapper>
             {
             public:
                 pugi::xml_document document_;
-
-                std::vector<NodeWrapper> node_stack_;
-
 
                 /// output file stream
                 std::ofstream config_ofs_;
@@ -55,7 +52,7 @@ namespace ariles2
                  */
                 pugi::xml_node &getRawNode()
                 {
-                    return (node_stack_.back().node_);
+                    return (back().node_);
                 }
             };
         }  // namespace impl
@@ -69,13 +66,13 @@ namespace ariles2
     {
         Writer::Writer(const std::string &file_name)
         {
-            impl_ = ImplPtr(new impl::Writer(file_name));
+            impl_ = std::make_shared<impl::Writer>(file_name);
         }
 
 
         Writer::Writer(std::ostream &output_stream)
         {
-            impl_ = ImplPtr(new impl::Writer(output_stream));
+            impl_ = std::make_shared<impl::Writer>(output_stream);
         }
 
 
@@ -89,44 +86,43 @@ namespace ariles2
 
         void Writer::startMapEntry(const std::string &map_name)
         {
-            impl_->node_stack_.push_back(impl_->getRawNode().append_child(map_name.c_str()));
+            impl_->emplace(impl_->getRawNode().append_child(map_name.c_str()));
         }
 
         void Writer::endMapEntry()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
-            impl_->node_stack_.emplace_back(impl_->getRawNode(), 0, size);
+            impl_->emplace(impl_->getRawNode(), 0, size);
         }
 
         void Writer::startArrayElement()
         {
-            ARILES2_ASSERT(
-                    impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
-                    "Internal error: namevalue.has more elements than expected.");
-            impl_->node_stack_.push_back(impl_->getRawNode().append_child("item"));
+            CPPUT_ASSERT(
+                    impl_->back().index_ < impl_->back().size_,
+                    "Internal error: array has more elements than expected.");
+            impl_->emplace(impl_->getRawNode().append_child("item"));
         }
 
         void Writer::endArrayElement()
         {
-            impl_->node_stack_.pop_back();
-            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ++impl_->node_stack_.back().index_;
+            impl_->pop();
+            impl_->shiftArray();
         }
 
         void Writer::endArray()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
         void Writer::startRoot(const std::string &name, const Parameters &)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (name.empty())
             {
                 startMapEntry("ariles");
@@ -139,7 +135,7 @@ namespace ariles2
 
         void Writer::endRoot(const std::string & /*name*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             endMapEntry();
         }
 
@@ -156,7 +152,7 @@ namespace ariles2
         impl_->getRawNode().text() = (boost::lexical_cast<std::string>(element)).c_str();                              \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_NUMERIC_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_NUMERIC_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
     }  // namespace ns_pugixml

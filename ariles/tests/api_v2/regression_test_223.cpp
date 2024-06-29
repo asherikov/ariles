@@ -26,6 +26,7 @@
 // ===============================================================
 
 #undef ARILES_VISITOR_rosparam
+#undef ARILES_VISITOR_ros2param
 #include "fixtures/initializers.h"
 #include "fixtures/015_read_compare.h"
 
@@ -76,24 +77,22 @@ namespace ariles_tests
             t_Configurable configurable;
 
 
-            BOOST_CHECK_NO_THROW(
-                    {
-                        typename t_Visitor::Writer::Parameters parameters;
-                        parameters.write_.fallback_to_string_floats_ = false;
-                        typename t_Visitor::Writer writer("configurable.cfg");
-                        ariles2::apply(writer, configurable, parameters);
-                    });
+            BOOST_CHECK_NO_THROW({
+                typename t_Visitor::Writer::Parameters parameters;
+                parameters.template get<ariles2::write::Parameters>().fallback_to_string_floats_ = false;
+                typename t_Visitor::Writer writer("configurable.cfg");
+                ariles2::apply(writer, configurable, parameters);
+            });
 
-            BOOST_CHECK_EQUAL(0, system("cmp configurable.cfg regression_test_223_float.json"));
+            BOOST_CHECK_EQUAL(0, system("cmp configurable.cfg regression_test_223_float.json"));  // NOLINT
 
 
-            BOOST_CHECK_NO_THROW(
-                    {
-                        typename t_Visitor::Writer writer("configurable.cfg");
-                        ariles2::apply(writer, configurable);
-                    });
+            BOOST_CHECK_NO_THROW({
+                typename t_Visitor::Writer writer("configurable.cfg");
+                ariles2::apply(writer, configurable);
+            });
 
-            BOOST_CHECK_EQUAL(0, system("cmp configurable.cfg regression_test_223_string.json"));
+            BOOST_CHECK_EQUAL(0, system("cmp configurable.cfg regression_test_223_string.json"));  // NOLINT
         }
     };
 }  // namespace ariles_tests

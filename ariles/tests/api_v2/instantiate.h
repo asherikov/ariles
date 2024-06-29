@@ -41,6 +41,10 @@ ARILES_TESTS(rapidjson_jsonnet, jsonnet<ariles2::rapidjson>, StreamInitializer)
 ARILES_TESTS_SHORTCUT(rosparam, ROSInitializer)
 #endif
 
+#ifdef ARILES2_VISITOR_INCLUDED_ros2param
+ARILES_TESTS_SHORTCUT(ros2param, ROS2Initializer)
+#endif
+
 #ifdef ARILES2_VISITOR_INCLUDED_octave
 ARILES_TESTS_SHORTCUT(octave, FilenameInitializer)
 #endif

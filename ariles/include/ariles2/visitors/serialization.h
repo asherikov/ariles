@@ -51,7 +51,7 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Node
         {
         public:
-            enum Type
+            enum class Type
             {
                 UNDEFINED = 0,
                 GENERIC = 1,
@@ -70,15 +70,15 @@ namespace ariles2
 
 
         public:
-            Node(const Type type = GENERIC)
+            Node(const Type type = Type::GENERIC)
             {
-                ARILES2_TRACE_FUNCTION
+                CPPUT_TRACE_FUNCTION
                 type_ = type;
             }
 
-            Node(t_RawNode node, const Type type = GENERIC) : node_(node)
+            Node(t_RawNode node, const Type type = Type::GENERIC) : node_(node)
             {
-                ARILES2_TRACE_FUNCTION
+                CPPUT_TRACE_FUNCTION
                 type_ = type;
                 index_ = 0;
                 size_ = 0;
@@ -86,35 +86,94 @@ namespace ariles2
 
             Node(const std::size_t index, const std::size_t size) : index_(index), size_(size)
             {
-                ARILES2_TRACE_FUNCTION
-                type_ = ARRAY;  // NOLINT
-            }                   // NOLINT
+                CPPUT_TRACE_FUNCTION
+                type_ = Type::ARRAY;  // NOLINT
+            }                         // NOLINT
 
             Node(t_RawNode node, const std::size_t index, const std::size_t size)
               : node_(node), index_(index), size_(size)
             {
-                ARILES2_TRACE_FUNCTION
-                type_ = ARRAY;
+                CPPUT_TRACE_FUNCTION
+                type_ = Type::ARRAY;
             }
 
             bool isMatrix() const
             {
-                return (MATRIX == type_);
+                return (Type::MATRIX == type_);
             }
 
             bool isVector() const
             {
-                return (VECTOR == type_);
+                return (Type::VECTOR == type_);
             }
 
             bool isArray() const
             {
-                return (ARRAY == type_);
+                return (Type::ARRAY == type_);
             }
 
-            bool isAllParsed() const
+            bool isCompleted() const
             {
-                return (index_ == size_);
+                return (index_ >= size_);
+            }
+        };
+
+
+        template <class t_Node>
+        class NodeStackBase
+        {
+        public:
+            std::vector<t_Node> node_stack_;
+
+        public:
+            [[nodiscard]] t_Node &back()
+            {
+                return (node_stack_.back());
+            }
+
+            [[nodiscard]] const t_Node &back() const
+            {
+                return (node_stack_.back());
+            }
+
+            void clear()
+            {
+                node_stack_.clear();
+            }
+
+            template <class... t_Args>
+            void emplace(t_Args &&...args)
+            {
+                node_stack_.emplace_back(std::forward<t_Args>(args)...);
+            }
+
+            void pop()
+            {
+                node_stack_.pop_back();
+            }
+
+            void shiftArray()
+            {
+                CPPUT_ASSERT(back().isArray(), "Internal error: expected array.");
+                ++back().index_;
+            }
+
+            bool empty() const
+            {
+                return (node_stack_.empty());
+            }
+
+
+            template <typename... t_String>
+            std::string concatWithNode(t_String &&...strings) const
+            {
+                return (cpput::concat::simple(back().node_, std::forward<t_String>(strings)...));
+            }
+
+            template <typename... t_String>
+            void concatWithNodeAndEmplace(t_String &&...strings)
+            {
+                emplace(concatWithNode(std::forward<t_String>(strings)...));
             }
         };
 
@@ -146,20 +205,6 @@ namespace ariles2
 
 
         template <class t_Derived, class t_Parameters>
-        class ARILES2_VISIBILITY_ATTRIBUTE Base : public visitor::Base<visitor::GenericVisitor, t_Parameters>
-        {
-        public:
-            using Parameters = t_Parameters;
-
-
-        public:
-            using visitor::Base<visitor::GenericVisitor, t_Parameters>::getDefaultParameters;
-
-            template <class t_Ariles>
-            const t_Parameters &getParameters(const t_Ariles &ariles_class) const
-            {
-                return (ariles_class.arilesGetParameters(*static_cast<const t_Derived *>(this)));
-            }
-        };
+        using Base = visitor::Base<t_Derived, t_Parameters>;
     }  // namespace serialization
 }  // namespace ariles2

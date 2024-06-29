@@ -23,55 +23,28 @@ namespace ariles2
     /// @ingroup count
     namespace count
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
-        {
-        public:
-            Parameters(const bool override_parameters = true) : visitor::Parameters(override_parameters)
-            {
-            }
-        };
+        using Parameters = visitor::Parameters;
 
 
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor
-          : public ariles2::visitor::Base<visitor::Visitor, count::Parameters, std::size_t>
+          : public ariles2::visitor::Base<Visitor, count::Parameters, std::size_t>
         {
         public:
             using Parameters = count::Parameters;
 
 
         public:
-            using visitor::Base<visitor::Visitor, Parameters, std::size_t>::getDefaultParameters;
-
-            template <class t_Ariles>
-            const Parameters &getParameters(const t_Ariles &ariles_class) const
-            {
-                return (ariles_class.arilesGetParameters(*this));
-            }
-
-
             template <class t_Entry>
             std::size_t visit(const t_Entry &entry, const std::string &, const Parameters &param) const
             {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_TYPE(entry);
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_TRACE_TYPE(entry);
                 return (entry.arilesVirtualVisit(*this, param));
             }
         };
 
 
-
-        class ARILES2_VISIBILITY_ATTRIBUTE Base
-        {
-        public:
-            virtual std::size_t arilesVirtualVisit(const Visitor &, const Visitor::Parameters &) const = 0;
-
-            virtual const Visitor::Parameters &arilesGetParameters(const Visitor &visitor) const
-            {
-                ARILES2_TRACE_FUNCTION;
-                return (visitor.getDefaultParameters());
-            }
-        };
-
+        using Base = entry::ConstBase<const Visitor>;
 
 
 #define ARILES2_NAMED_ENTRY_count(v, entry, name) +1
@@ -84,9 +57,9 @@ namespace ariles2
             const typename t_Visitor::Parameters &parameters,                                                          \
             ARILES2_IS_BASE_ENABLER(ariles2::count::Visitor, t_Visitor)) const                                         \
     {                                                                                                                  \
-        ARILES2_UNUSED_ARG(visitor);                                                                                   \
-        ARILES2_UNUSED_ARG(parameters);                                                                                \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_UNUSED_ARG(visitor);                                                                                     \
+        CPPUT_UNUSED_ARG(parameters);                                                                                  \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         return (0 ARILES2_ENTRIES(count));                                                                             \
     }
 
@@ -94,7 +67,7 @@ namespace ariles2
     std::size_t arilesVirtualVisit(                                                                                    \
             const ariles2::count::Visitor &visitor, const ariles2::count::Visitor::Parameters &param) const override   \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         return (this->arilesVisit(visitor, param));                                                                    \
     }                                                                                                                  \
     using ariles2::count::Base::arilesGetParameters;

@@ -33,15 +33,12 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<NodeWrapper>
             {
             public:
                 std::string buffer_;
 
                 ::msgpack::object_handle handle_;
-
-                /// Stack of nodes.
-                std::vector<NodeWrapper> node_stack_;
 
 
             public:
@@ -58,12 +55,12 @@ namespace ariles2
 
                     try
                     {
-                        unpack(handle_, buffer_.data(), buffer_.size(), NULL);
-                        node_stack_.emplace_back(&handle_.get());
+                        unpack(handle_, buffer_.data(), buffer_.size(), nullptr);
+                        emplace(&handle_.get());
                     }
                     catch (const std::exception &e)
                     {
-                        ARILES2_THROW(std::string("Failed to parse the configuration file: ") + e.what());
+                        CPPUT_THROW(std::string("Failed to parse the configuration file: ") + e.what());
                     }
                 }
 
@@ -118,12 +115,12 @@ namespace ariles2
         {
             const std::size_t size = impl_->getRawNode().via.array.size;
             checkSize(limit_type, size, min, max);
-            impl_->node_stack_.emplace_back(0, size);
+            impl_->emplace(0, size);
         }
 
         bool Reader::startMapEntry(const std::string &)
         {
-            if (impl_->node_stack_.back().isArray())
+            if (impl_->back().isArray())
             {
                 startArrayElement();
             }
@@ -132,7 +129,7 @@ namespace ariles2
 
         void Reader::endMapEntry()
         {
-            if (impl_->node_stack_.back().isArray())
+            if (impl_->back().isArray())
             {
                 endArrayElement();
             }
@@ -140,17 +137,16 @@ namespace ariles2
 
         void Reader::endMap()
         {
-            ARILES2_ASSERT(
-                    impl_->node_stack_.back().isAllParsed(),
-                    "Some entries were not parsed, which is not allowed by this visitor.");
-            impl_->node_stack_.pop_back();
+            CPPUT_ASSERT(
+                    impl_->back().isCompleted(), "Some entries were not parsed, which is not allowed by this visitor.");
+            impl_->pop();
         }
 
 
         std::size_t Reader::startArray()
         {
-            std::size_t size = impl_->getRawNode().via.array.size;
-            impl_->node_stack_.emplace_back(0, size);
+            const std::size_t size = impl_->getRawNode().via.array.size;
+            impl_->emplace(0, size);
 
             return (size);
         }
@@ -158,22 +154,21 @@ namespace ariles2
 
         void Reader::endArray()
         {
-            impl_->node_stack_.pop_back();
+            impl_->pop();
         }
 
 
         void Reader::startArrayElement()
         {
-            ARILES2_ASSERT(
-                    impl_->node_stack_.back().index_ < impl_->node_stack_.back().size_,
-                    "Internal error: namevalue.has more elements than expected.");
+            CPPUT_ASSERT(
+                    impl_->back().index_ < impl_->back().size_,
+                    "Internal error: array has more elements than expected.");
         }
 
 
         void Reader::endArrayElement()
         {
-            ARILES2_ASSERT(impl_->node_stack_.back().isArray(), "Internal error: expected array.");
-            ++impl_->node_stack_.back().index_;
+            impl_->shiftArray();
         }
 
 
@@ -183,7 +178,7 @@ namespace ariles2
         impl_->getRawNode() >> element;                                                                                \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
     }  // namespace ns_msgpack_compact

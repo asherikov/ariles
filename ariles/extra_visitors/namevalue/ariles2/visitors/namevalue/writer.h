@@ -49,19 +49,20 @@ namespace ariles2
          * @brief Configuration writer class
          */
         template <class t_NameValuePair>
-        class ARILES2_VISIBILITY_ATTRIBUTE GenericWriter : public ariles2::write::Visitor
+        class ARILES2_VISIBILITY_ATTRIBUTE GenericWriter
+          : public ariles2::write::Visitor,
+            public serialization::NodeStackBase<serialization::Node<std::string>>
         {
         protected:
-            using NodeWrapper = serialization::Node<std::string>;
-
-
-        protected:
-            std::vector<NodeWrapper> node_stack_;
             std::size_t reserve_;
 
             std::vector<t_NameValuePair> buffer_name_value_pairs_;
 
             bool initialize_structure_;
+
+            const std::string separator_ = ".";
+            const std::string bracket_left_ = "{";
+            const std::string bracket_right_ = "}";
 
 
         public:
@@ -144,30 +145,25 @@ namespace ariles2
             {
                 if (initialize_structure_)
                 {
-                    if (0 == node_stack_.size())
+                    if (empty())
                     {
-                        node_stack_.emplace_back(map_name);
+                        emplace(map_name);
                     }
                     else
                     {
-                        std::string node;
-                        if (node_stack_.back().isArray())
+                        if (back().isArray())
                         {
-                            node.reserve(node_stack_.back().node_.size() + map_name.size() + 15);
-
-                            node = node_stack_.back().node_;
-                            node += "{";
-                            node += boost::lexical_cast<std::string>(node_stack_.back().index_);
-                            node += "}.";
+                            concatWithNodeAndEmplace(
+                                    bracket_left_,
+                                    boost::lexical_cast<std::string>(back().index_),
+                                    bracket_right_,
+                                    separator_,
+                                    map_name);
                         }
                         else
                         {
-                            node.reserve(node_stack_.back().node_.size() + map_name.size() + 1);
-                            node = node_stack_.back().node_;
-                            node += ".";
+                            concatWithNodeAndEmplace(separator_, map_name);
                         }
-                        node += map_name;
-                        node_stack_.emplace_back(std::move(node));
                     }
                 }
             }
@@ -176,7 +172,7 @@ namespace ariles2
             {
                 if (initialize_structure_)
                 {
-                    node_stack_.pop_back();
+                    pop();
                 }
             }
 
@@ -195,18 +191,15 @@ namespace ariles2
                 if (initialize_structure_)
                 {
                     expandReserve(size);
-                    if (node_stack_.back().isArray())
+                    if (back().isArray())
                     {
-                        std::string node;
-                        node.reserve(node_stack_.back().node_.size() + 15);
-                        node = node_stack_.back().node_;
-                        node += "_";
-                        node += boost::lexical_cast<std::string>(node_stack_.back().index_);
-                        node_stack_.emplace_back(std::move(node), 0, size);
+                        emplace(concatWithNode(std::string("_"), boost::lexical_cast<std::string>(back().index_)),
+                                0,
+                                size);
                     }
                     else
                     {
-                        node_stack_.emplace_back(node_stack_.back().node_, 0, size);
+                        emplace(back().node_, 0, size);
                     }
                 }
             }
@@ -215,8 +208,7 @@ namespace ariles2
             {
                 if (initialize_structure_)
                 {
-                    ARILES2_ASSERT(node_stack_.back().isArray(), "Internal error: array expected.");
-                    ++node_stack_.back().index_;
+                    shiftArray();
                 }
             }
 
@@ -224,7 +216,7 @@ namespace ariles2
             {
                 if (initialize_structure_)
                 {
-                    node_stack_.pop_back();
+                    pop();
                 }
             }
 
@@ -235,19 +227,19 @@ namespace ariles2
         expand();                                                                                                      \
         if (initialize_structure_)                                                                                     \
         {                                                                                                              \
-            NameValuePairHandler<t_NameValuePair>::name((*name_value_pairs_)[index_]) = node_stack_.back().node_;      \
-            if (node_stack_.back().isArray())                                                                          \
+            NameValuePairHandler<t_NameValuePair>::name((*name_value_pairs_)[index_]) = back().node_;                  \
+            if (back().isArray())                                                                                      \
             {                                                                                                          \
                 NameValuePairHandler<t_NameValuePair>::name((*name_value_pairs_)[index_]) += "_";                      \
                 NameValuePairHandler<t_NameValuePair>::name((*name_value_pairs_)[index_]) +=                           \
-                        boost::lexical_cast<std::string>(node_stack_.back().index_);                                   \
+                        boost::lexical_cast<std::string>(back().index_);                                               \
             }                                                                                                          \
         }                                                                                                              \
         NameValuePairHandler<t_NameValuePair>::value((*name_value_pairs_)[index_]) = element;                          \
         ++index_;                                                                                                      \
     }
 
-            ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_NUMERIC_TYPES_LIST)
+            CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_NUMERIC_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
 
