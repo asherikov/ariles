@@ -24,7 +24,7 @@ namespace ariles2
                 std::pair<t_First, t_Second> &entry,
                 const typename t_Visitor::Parameters &parameters)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             visitor.startMap(t_Visitor::SIZE_LIMIT_EQUAL, 2);
             visitor.visitMapEntry(entry.first, "first", parameters, true);
             visitor.visitMapEntry(entry.second, "second", parameters, true);
@@ -38,12 +38,12 @@ namespace ariles2
                 std::pair<std::string, t_Second> &entry,
                 const typename t_Visitor::Parameters &parameters)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             // size = 0 is ok if missing entries are allowed (fallback to standard logic which is going to fail)
             // size > 1 is never ok, due to ambiguity.
             if (parameters.sloppy_pairs_ and visitor.startIteratedMap(t_Visitor::SIZE_LIMIT_EQUAL, 1))
             {
-                ARILES2_ASSERT(
+                CPPUT_ASSERT(
                         visitor.startIteratedMapElement(entry.first), "Could not read first element of a sloppy pair.");
                 apply_read(visitor, entry.second, parameters);
                 visitor.endIteratedMapElement();
@@ -68,7 +68,7 @@ namespace ariles2
                 const std::pair<t_First, t_Second> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             writer.startMap(param, 2);
             writer.visitMapEntry(entry.first, "first", param);
             writer.visitMapEntry(entry.second, "second", param);
@@ -83,7 +83,7 @@ namespace ariles2
                 const std::pair<std::string, t_Second> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (param.sloppy_pairs_)
             {
                 if (writer.startIteratedMap(1, param))
@@ -118,7 +118,7 @@ namespace ariles2
                 const std::pair<t_First, t_Second> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
 
             apply_compare(visitor, left.first, right.first, param);
             apply_compare(visitor, left.second, right.second, param);
@@ -138,7 +138,7 @@ namespace ariles2
                 std::pair<t_First, t_Second> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             apply_defaults(visitor, entry.first, param);
             apply_defaults(visitor, entry.second, param);
         }
@@ -157,7 +157,7 @@ namespace ariles2
                 std::pair<t_First, t_Second> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             apply_process(visitor, entry.first, param);
             apply_process(visitor, entry.second, param);
         }
@@ -181,7 +181,7 @@ namespace ariles2
                 const std::pair<t_FirstRight, t_SecondRight> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
 
             apply_copyfrom(visitor, left.first, right.first, param);
             apply_copyfrom(visitor, left.second, right.second, param);
@@ -202,7 +202,7 @@ namespace ariles2
                 std::pair<t_FirstRight, t_SecondRight> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
 
             apply_copyto(visitor, left.first, right.first, param);
             apply_copyto(visitor, left.second, right.second, param);

@@ -72,7 +72,7 @@ namespace ariles2
             VisitorQualifier ariles2::Namespace::Visitor &visitor,                                                     \
             const ariles2::Namespace::Visitor::Parameters &param) MethodQualifier override                             \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         this->arilesVisit(visitor, param);                                                                             \
     }                                                                                                                  \
     using ariles2::Namespace::Base::arilesGetParameters;
@@ -90,7 +90,7 @@ namespace ariles2
 
             virtual const typename t_Visitor::Parameters &arilesGetParameters(const t_Visitor &visitor) const
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 return (visitor.getDefaultParameters());
             }
         };
@@ -106,7 +106,7 @@ namespace ariles2
 
             virtual const typename t_Visitor::Parameters &arilesGetParameters(const t_Visitor &visitor) const
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 return (visitor.getDefaultParameters());
             }
         };
@@ -166,7 +166,7 @@ namespace ariles2
             t_Subtree &&subtree,
             const typename t_Visitor::Parameters &param)
     {
-        ARILES2_TRACE_FUNCTION;
+        CPPUT_TRACE_FUNCTION;
         return (visitor.visit(ariles_class, std::forward<t_Subtree>(subtree), param));
     }
 
@@ -177,7 +177,7 @@ namespace ariles2
             t_Ariles &ariles_class,
             const typename t_Visitor::Parameters &param)
     {
-        ARILES2_TRACE_FUNCTION;
+        CPPUT_TRACE_FUNCTION;
         return (visitor.visit(ariles_class, ariles_class.arilesDefaultID(), param));
     }
 
@@ -190,7 +190,7 @@ namespace ariles2
             typename = traits::is_visitor_t<t_Visitor>>
     typename t_Visitor::ReturnType apply(t_Visitor &visitor, t_Ariles &ariles_class, t_Subtree &&subtree)
     {
-        ARILES2_TRACE_FUNCTION;
+        CPPUT_TRACE_FUNCTION;
         return (visitor.visit(ariles_class, std::forward<t_Subtree>(subtree), visitor.getParameters(ariles_class)));
     }
 
@@ -198,7 +198,7 @@ namespace ariles2
     template <class t_Visitor, class t_Ariles, typename = traits::is_visitor_t<t_Visitor>>
     typename t_Visitor::ReturnType apply(t_Visitor &visitor, t_Ariles &ariles_class)
     {
-        ARILES2_TRACE_FUNCTION;
+        CPPUT_TRACE_FUNCTION;
         return (ariles2::apply(visitor, ariles_class, ariles_class.arilesDefaultID()));
     }
 
@@ -210,7 +210,7 @@ namespace ariles2
             typename = traits::is_ariles_t<t_Ariles>>
     typename t_Visitor::ReturnType apply(t_Ariles &ariles_class)
     {
-        ARILES2_TRACE_FUNCTION;
+        CPPUT_TRACE_FUNCTION;
         t_Visitor visitor;
         return (ariles2::apply(visitor, ariles_class));
     }
@@ -227,7 +227,7 @@ namespace ariles2
             typename = traits::is_not_ariles_t<t_Arg>>
     typename t_Visitor::ReturnType apply(t_Arg &&arg, t_Args &&...args)
     {
-        ARILES2_TRACE_FUNCTION;
+        CPPUT_TRACE_FUNCTION;
         t_Visitor visitor(std::forward<t_Arg>(arg));
         return (ariles2::apply(visitor, std::forward<t_Args>(args)...));
     }
@@ -244,7 +244,7 @@ namespace ariles2
             typename = traits::is_not_subtree_t<t_Right>>
     typename t_Visitor::ReturnType apply(t_Left &left, t_Right &right)
     {
-        ARILES2_TRACE_FUNCTION;
+        CPPUT_TRACE_FUNCTION;
         t_Visitor visitor;
         return (visitor.visit(left, right, left.arilesDefaultID(), visitor.getParameters(left)));
     }
@@ -263,7 +263,7 @@ namespace ariles2
             const std::string &name,
             const typename t_Visitor::Parameters &param)
     {
-        ARILES2_TRACE_FUNCTION;
+        CPPUT_TRACE_FUNCTION;
         return (visitor.visit(left, right, name, param));
     }
 
@@ -277,7 +277,7 @@ namespace ariles2
             typename = std::enable_if_t<not std::is_base_of_v<typename t_Visitor::Parameters, t_Right>>>
     typename t_Visitor::ReturnType apply(t_Visitor &visitor, t_Left &left, t_Right &right)
     {
-        ARILES2_TRACE_FUNCTION;
+        CPPUT_TRACE_FUNCTION;
         return (visitor.visit(left, right, left.arilesDefaultID(), visitor.getParameters(left)));
     }
 
@@ -294,7 +294,7 @@ namespace ariles2
             t_Right &right,
             const typename t_Visitor::Parameters &param)
     {
-        ARILES2_TRACE_FUNCTION;
+        CPPUT_TRACE_FUNCTION;
         return (ariles2::apply(visitor, left, right, left.arilesDefaultID(), param));
     }
     // -----

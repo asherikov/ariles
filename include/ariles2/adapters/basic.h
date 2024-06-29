@@ -24,7 +24,7 @@ namespace ariles2
                 const typename t_Visitor::Parameters &parameters,
                 ARILES2_IS_BASE_ENABLER(ariles2::read::Base, t_Entry))
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
 
             if (parameters.override_parameters_)
             {
@@ -51,7 +51,7 @@ namespace ariles2
         void ARILES2_VISIBILITY_ATTRIBUTE
                 apply_read(t_Visitor &visitor, t_Enumeration &entry, const typename t_Visitor::Parameters & /*param*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             int tmp_value = 0;
             visitor.readElement(tmp_value);
             entry = static_cast<t_Enumeration>(tmp_value);
@@ -63,8 +63,8 @@ namespace ariles2
     void ARILES2_VISIBILITY_ATTRIBUTE apply_read(                                                                      \
             t_Visitor &visitor, type &entry, const typename t_Visitor::Parameters &param)                              \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
-        ARILES2_UNUSED_ARG(param);                                                                                     \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
+        CPPUT_UNUSED_ARG(param);                                                                                       \
         visitor.readElement(entry);                                                                                    \
     }
 
@@ -87,7 +87,7 @@ namespace ariles2
                 const typename t_Visitor::Parameters &parameters,
                 ARILES2_IS_BASE_ENABLER(ariles2::write::Base, t_Entry))
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
 
             if (parameters.override_parameters_)
             {
@@ -111,7 +111,7 @@ namespace ariles2
         void ARILES2_VISIBILITY_ATTRIBUTE
                 apply_write(t_Visitor &writer, const t_Enumeration entry, const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             writer.writeElement(static_cast<int>(entry), param);
         }
 
@@ -121,7 +121,7 @@ namespace ariles2
     void ARILES2_VISIBILITY_ATTRIBUTE apply_write(                                                                     \
             t_Visitor &writer, const type &entry, const typename t_Visitor::Parameters &param)                         \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         writer.writeElement(entry, param);                                                                             \
     }
 
@@ -147,7 +147,7 @@ namespace ariles2
                 const t_Right &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (param.compare_number_of_entries_)
             {
                 visitor.equal_ &= (ariles2::apply<ariles2::Count>(left) == ariles2::apply<ariles2::Count>(right));
@@ -239,7 +239,7 @@ namespace ariles2
                 const typename t_Visitor::Parameters &param,
                 ARILES2_IS_BASE_ENABLER(ariles2::defaults::Base, t_Entry))
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             entry.arilesVirtualVisit(visitor, param);
         }
 
@@ -253,7 +253,7 @@ namespace ariles2
                 t_Enumeration & /*entry*/,
                 const typename t_Visitor::Parameters & /*param*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
         }
 
 
@@ -263,7 +263,7 @@ namespace ariles2
                 std::complex<t_Scalar> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             entry.real(param.template getDefault<t_Scalar>());
             entry.imag(param.template getDefault<t_Scalar>());
         }
@@ -274,7 +274,7 @@ namespace ariles2
     void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(                                                                  \
             const t_Visitor &, type &entry, const typename t_Visitor::Parameters &param)                               \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         entry = param.template getDefault<type>();                                                                     \
     }
 
@@ -294,7 +294,7 @@ namespace ariles2
         void ARILES2_VISIBILITY_ATTRIBUTE
                 apply_process(const t_Visitor &visitor, t_Entry &entry, const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if constexpr (std::is_base_of_v<ariles2::Ariles, t_Entry>)
             {
                 entry.arilesVirtualVisit(visitor, param);
@@ -316,9 +316,9 @@ namespace ariles2
                 const t_Right &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_TRACE_TYPE(left);
-            ARILES2_TRACE_TYPE(right);
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_TRACE_TYPE(left);
+            CPPUT_TRACE_TYPE(right);
 
             left.arilesVisit(visitor, right, param);
         }
@@ -329,7 +329,7 @@ namespace ariles2
     void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(                                                                  \
             t_Visitor &, type &left, const type &right, const typename t_Visitor::Parameters &)                        \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         left = right;                                                                                                  \
     }
 
@@ -348,7 +348,7 @@ namespace ariles2
                 const t_Enumeration &right,
                 const typename t_Visitor::Parameters &)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             left = right;
         }
     }  // namespace copyfrom
@@ -363,9 +363,9 @@ namespace ariles2
                 t_Right &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_TRACE_TYPE(left);
-            ARILES2_TRACE_TYPE(right);
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_TRACE_TYPE(left);
+            CPPUT_TRACE_TYPE(right);
 
             left.arilesVisit(visitor, right, param);
         }
@@ -376,7 +376,7 @@ namespace ariles2
     void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(                                                                    \
             t_Visitor &, const type &left, type &right, const typename t_Visitor::Parameters &)                        \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         right = left;                                                                                                  \
     }
 
@@ -395,7 +395,7 @@ namespace ariles2
                 t_Enumeration &right,
                 const typename t_Visitor::Parameters &)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             right = left;
         }
     }  // namespace copyto

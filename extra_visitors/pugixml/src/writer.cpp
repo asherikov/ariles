@@ -102,7 +102,7 @@ namespace ariles2
 
         void Writer::startArrayElement()
         {
-            ARILES2_ASSERT(
+            CPPUT_ASSERT(
                     impl_->back().index_ < impl_->back().size_,
                     "Internal error: array has more elements than expected.");
             impl_->emplace(impl_->getRawNode().append_child("item"));
@@ -122,7 +122,7 @@ namespace ariles2
 
         void Writer::startRoot(const std::string &name, const Parameters &)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (name.empty())
             {
                 startMapEntry("ariles");
@@ -135,7 +135,7 @@ namespace ariles2
 
         void Writer::endRoot(const std::string & /*name*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             endMapEntry();
         }
 
@@ -152,7 +152,7 @@ namespace ariles2
         impl_->getRawNode().text() = (boost::lexical_cast<std::string>(element)).c_str();                              \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_NUMERIC_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_NUMERIC_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
     }  // namespace ns_pugixml

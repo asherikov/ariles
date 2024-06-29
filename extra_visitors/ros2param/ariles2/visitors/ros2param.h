@@ -54,7 +54,7 @@ namespace ariles2
             Declarator(t_Initializers &&...initializers)
               : AggregateBase(std::tuple<>(), std::forward_as_tuple(std::forward<t_Initializers>(initializers)...))
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
             }
         };
     };

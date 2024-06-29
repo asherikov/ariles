@@ -35,23 +35,23 @@ namespace ariles2
             template <class t_Element>
             void setParameter(const t_Element element)
             {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_VALUE(back().node_);
-                ARILES2_TRACE_TYPE(t_Element);
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_TRACE_VALUE(back().node_);
+                CPPUT_TRACE_TYPE(t_Element);
 
                 parameters_.emplace_back(back().node_, element);
             }
 
             void setParameter(const std::string &element)
             {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_VALUE(back().node_);
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_TRACE_VALUE(back().node_);
                 parameters_.emplace_back(back().node_, element);
             }
 
             void setParameter()
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 if (back().isBuiltinArray())
                 {
                     std::visit([this](auto &&arg) { setParameter(arg); }, back().array_values_);

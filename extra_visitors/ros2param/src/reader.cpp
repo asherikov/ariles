@@ -67,7 +67,7 @@ namespace ariles2
                         size_ = parameter_.as_string_array().size();
                         return;
                     default:
-                        ARILES2_THROW("Unexpected value type");
+                        CPPUT_THROW("Unexpected value type");
                 }
             }
 
@@ -84,7 +84,7 @@ namespace ariles2
                             value = parameter_.as_integer_array()[index_];
                             return (true);
                         default:
-                            ARILES2_THROW("Unexpected array value type");
+                            CPPUT_THROW("Unexpected array value type");
                     }
                 }
                 return (false);
@@ -100,7 +100,7 @@ namespace ariles2
                             value = parameter_.as_double_array()[index_];
                             return (true);
                         default:
-                            ARILES2_THROW("Unexpected array value type");
+                            CPPUT_THROW("Unexpected array value type");
                     }
                 }
                 return (false);
@@ -116,7 +116,7 @@ namespace ariles2
                             value = parameter_.as_string_array()[index_];
                             return (true);
                         default:
-                            ARILES2_THROW("Unexpected array value type");
+                            CPPUT_THROW("Unexpected array value type");
                     }
                 }
                 return (false);
@@ -132,7 +132,7 @@ namespace ariles2
                             value = parameter_.as_bool_array()[index_];
                             return (true);
                         default:
-                            ARILES2_THROW("Unexpected array value type");
+                            CPPUT_THROW("Unexpected array value type");
                     }
                 }
                 return (false);
@@ -161,8 +161,8 @@ namespace ariles2
 
                 bool getParameter(rclcpp::Parameter &parameter) const
                 {
-                    ARILES2_TRACE_FUNCTION;
-                    ARILES2_TRACE_VALUE(back().node_);
+                    CPPUT_TRACE_FUNCTION;
+                    CPPUT_TRACE_VALUE(back().node_);
 
                     return (nh_->get_parameter(back().node_, parameter));
                 }
@@ -253,12 +253,12 @@ namespace ariles2
                 template <int t_expected_parameter_type, class t_Element>
                 void readElement(t_Element &element)
                 {
-                    ARILES2_TRACE_FUNCTION;
+                    CPPUT_TRACE_FUNCTION;
                     if (not back().tryReadArray(element))
                     {
                         rclcpp::Parameter parameter;
-                        ARILES2_ASSERT(getParameter(parameter), std::string("Cannot read parameter: ") + back().node_);
-                        ARILES2_ASSERT(t_expected_parameter_type == parameter.get_type(), "Unexpected parameter type.");
+                        CPPUT_ASSERT(getParameter(parameter), std::string("Cannot read parameter: ") + back().node_);
+                        CPPUT_ASSERT(t_expected_parameter_type == parameter.get_type(), "Unexpected parameter type.");
                         element = parameter.get_value<t_Element>();
                     }
                 }
@@ -280,8 +280,8 @@ namespace ariles2
 
         bool Reader::startRoot(const std::string &name)
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_TRACE_VALUE(name);
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_TRACE_VALUE(name);
 
             impl_->reset();
             return (Parent::startRoot(name));
@@ -290,14 +290,14 @@ namespace ariles2
 
         bool Reader::startMapEntry(const std::string &child_name)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (impl_->empty())
             {
                 impl_->emplace(child_name);
             }
             else
             {
-                ARILES2_ASSERT(not impl_->back().isBuiltinArray(), "Unexpected parent type (builtin array).");
+                CPPUT_ASSERT(not impl_->back().isBuiltinArray(), "Unexpected parent type (builtin array).");
 
                 impl_->concatWithNodeAndEmplace(impl_->separator_, child_name);
             }
@@ -307,7 +307,7 @@ namespace ariles2
 
         void Reader::endMapEntry()
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             impl_->pop();
         }
 
@@ -318,7 +318,7 @@ namespace ariles2
                 const std::size_t min,
                 const std::size_t max)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
 
             std::set<std::string> name_list = impl_->listParameters();
 
@@ -330,7 +330,7 @@ namespace ariles2
 
         bool Reader::startIteratedMapElement(std::string &entry_name)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (impl_->back().isCompleted())
             {
                 return (false);
@@ -350,15 +350,15 @@ namespace ariles2
 
         void Reader::endIteratedMap()
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(impl_->back().isCompleted(), "End of iterated map has not been reached.");
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(impl_->back().isCompleted(), "End of iterated map has not been reached.");
             impl_->pop();
         }
 
 
         std::size_t Reader::startArray()
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
 
             if (not impl_->empty() and impl_->isParameter())
             {
@@ -376,9 +376,9 @@ namespace ariles2
 
         void Reader::startArrayElement()
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
 
-            ARILES2_ASSERT(not impl_->back().isCompleted(), "Internal error: array has more elements than expected.");
+            CPPUT_ASSERT(not impl_->back().isCompleted(), "Internal error: array has more elements than expected.");
             if (impl_->back().isNonBuiltinArray())
             {
                 impl_->concatWithNodeAndEmplace(
@@ -388,7 +388,7 @@ namespace ariles2
 
         void Reader::endArrayElement()
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (not impl_->back().isBuiltinArray())
             {
                 impl_->pop();
@@ -398,7 +398,7 @@ namespace ariles2
 
         void Reader::endArray()
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             impl_->pop();
         }
 
@@ -409,13 +409,13 @@ namespace ariles2
     {                                                                                                                  \
         int64_t tmp_value;                                                                                             \
         impl_->readElement<rclcpp::ParameterType::PARAMETER_INTEGER>(tmp_value);                                       \
-        ARILES2_ASSERT(                                                                                                \
+        CPPUT_ASSERT(                                                                                                  \
                 tmp_value <= std::numeric_limits<type>::max() && tmp_value >= std::numeric_limits<type>::min(),        \
                 "Value is out of range.");                                                                             \
         element = static_cast<type>(tmp_value);                                                                        \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
 
@@ -423,15 +423,15 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         int64_t tmp_value;                                                                                             \
         impl_->readElement<rclcpp::ParameterType::PARAMETER_INTEGER>(tmp_value);                                       \
-        ARILES2_ASSERT(tmp_value >= 0, "Expected positive value.");                                                    \
-        ARILES2_ASSERT(static_cast<uint64_t>(tmp_value) <= std::numeric_limits<type>::max(), "Value is too large.");   \
+        CPPUT_ASSERT(tmp_value >= 0, "Expected positive value.");                                                      \
+        CPPUT_ASSERT(static_cast<uint64_t>(tmp_value) <= std::numeric_limits<type>::max(), "Value is too large.");     \
         element = static_cast<type>(tmp_value);                                                                        \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
 
@@ -439,27 +439,27 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         double tmp_value;                                                                                              \
         impl_->readElement<rclcpp::ParameterType::PARAMETER_DOUBLE>(tmp_value);                                        \
         element = static_cast<type>(tmp_value);                                                                        \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_REAL_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_REAL_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
 
 
         void Reader::readElement(std::string &element)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             impl_->readElement<rclcpp::ParameterType::PARAMETER_STRING>(element);
         }
 
 
         void Reader::readElement(bool &element)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             impl_->readElement<rclcpp::ParameterType::PARAMETER_BOOL>(element);
         }
     }  // namespace ns_ros2param

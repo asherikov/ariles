@@ -72,13 +72,13 @@ namespace ariles2
         public:
             Node(const Type type = Type::GENERIC)
             {
-                ARILES2_TRACE_FUNCTION
+                CPPUT_TRACE_FUNCTION
                 type_ = type;
             }
 
             Node(t_RawNode node, const Type type = Type::GENERIC) : node_(node)
             {
-                ARILES2_TRACE_FUNCTION
+                CPPUT_TRACE_FUNCTION
                 type_ = type;
                 index_ = 0;
                 size_ = 0;
@@ -86,14 +86,14 @@ namespace ariles2
 
             Node(const std::size_t index, const std::size_t size) : index_(index), size_(size)
             {
-                ARILES2_TRACE_FUNCTION
+                CPPUT_TRACE_FUNCTION
                 type_ = Type::ARRAY;  // NOLINT
             }                         // NOLINT
 
             Node(t_RawNode node, const std::size_t index, const std::size_t size)
               : node_(node), index_(index), size_(size)
             {
-                ARILES2_TRACE_FUNCTION
+                CPPUT_TRACE_FUNCTION
                 type_ = Type::ARRAY;
             }
 
@@ -154,7 +154,7 @@ namespace ariles2
 
             void shiftArray()
             {
-                ARILES2_ASSERT(back().isArray(), "Internal error: expected array.");
+                CPPUT_ASSERT(back().isArray(), "Internal error: expected array.");
                 ++back().index_;
             }
 

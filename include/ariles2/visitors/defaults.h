@@ -80,7 +80,7 @@ namespace ariles2
             template <class t_Entry>
             void visit(t_Entry &entry, const std::string &name, const Parameters &param) const
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 this->visitMapEntry(entry, name, param);
             }
 
@@ -94,10 +94,10 @@ namespace ariles2
             template <class t_Entry>
             void visitMapEntry(t_Entry &entry, const std::string &name, const Parameters &param) const
             {
-                ARILES2_UNUSED_ARG(name);
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_VALUE(name);
-                ARILES2_TRACE_TYPE(entry);
+                CPPUT_UNUSED_ARG(name);
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_TRACE_VALUE(name);
+                CPPUT_TRACE_TYPE(entry);
                 apply_defaults(*this, entry, param);
             }
         };
@@ -115,9 +115,9 @@ namespace ariles2
             const typename t_Visitor::Parameters &parameters,                                                          \
             ARILES2_IS_BASE_ENABLER(ariles2::defaults::Visitor, t_Visitor))                                            \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
-        ARILES2_UNUSED_ARG(visitor);                                                                                   \
-        ARILES2_UNUSED_ARG(parameters);                                                                                \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
+        CPPUT_UNUSED_ARG(visitor);                                                                                     \
+        CPPUT_UNUSED_ARG(parameters);                                                                                  \
         arilesVisitParents(visitor, parameters);                                                                       \
         ARILES2_ENTRIES(defaults)                                                                                      \
     }

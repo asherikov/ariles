@@ -31,14 +31,14 @@ namespace ariles2
             template <class t_Left, class t_Right>
             void visit(const t_Left &left, t_Right &right, const std::string & /*name*/, const Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 try
                 {
                     left.arilesVisit(*this, right, param);
                 }
                 catch (std::exception &e)
                 {
-                    ARILES2_THROW(std::string("Copying failed: ") + e.what());
+                    CPPUT_THROW(std::string("Copying failed: ") + e.what());
                 }
             }
         };

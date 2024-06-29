@@ -29,7 +29,7 @@ namespace ariles2
                 {
                     ariles2::ns_rapidjson::IStreamWrapper isw(input_stream);
                     document_.ParseStream(isw);
-                    ARILES2_ASSERT(not document_.HasParseError(), "Parsing failed");
+                    CPPUT_ASSERT(not document_.HasParseError(), "Parsing failed");
                 }
             };
         }  // namespace impl
@@ -67,7 +67,7 @@ namespace ariles2
 
         void Reader::startMap(const SizeLimitEnforcementType limit_type, const std::size_t min, const std::size_t max)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             checkSize(limit_type, impl_->getRawNode().MemberCount(), min, max);
         }
 
@@ -94,7 +94,7 @@ namespace ariles2
                 const std::size_t min,
                 const std::size_t max)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             checkSize(limit_type, impl_->getRawNode().MemberCount(), min, max);
 
 
@@ -127,7 +127,7 @@ namespace ariles2
 
         void Reader::endIteratedMap()
         {
-            ARILES2_ASSERT(
+            CPPUT_ASSERT(
                     impl_->iterator_stack_.back() == impl_->getRawNode().MemberEnd(),
                     "End of iterated map has not been reached.");
             impl_->iterator_stack_.pop_back();
@@ -136,7 +136,7 @@ namespace ariles2
 
         std::size_t Reader::startArray()
         {
-            ARILES2_ASSERT(impl_->getRawNode().IsArray(), "Internal error: expected array.");
+            CPPUT_ASSERT(impl_->getRawNode().IsArray(), "Internal error: expected array.");
 
             std::size_t size = impl_->getRawNode().Size();
             impl_->emplace(0, size);
@@ -147,7 +147,7 @@ namespace ariles2
 
         void Reader::startArrayElement()
         {
-            ARILES2_ASSERT(
+            CPPUT_ASSERT(
                     impl_->back().index_ < impl_->back().size_,
                     "Internal error: array has more elements than expected.");
         }
@@ -199,7 +199,7 @@ namespace ariles2
                 tmp_value = static_cast<float>(impl_->getRawNode().GetDouble());  // old API compatibility
                 // tmp_value = impl_->getRawNode().GetFloat();
             }
-            ARILES2_ASSERT(
+            CPPUT_ASSERT(
                     tmp_value <= std::numeric_limits<float>::max() && tmp_value >= -std::numeric_limits<float>::max(),
                     "Value is out of range.");
             element = static_cast<float>(tmp_value);
@@ -227,7 +227,7 @@ namespace ariles2
             {
                 tmp_value = impl_->getRawNode().GetDouble();
             }
-            ARILES2_ASSERT(
+            CPPUT_ASSERT(
                     tmp_value <= std::numeric_limits<double>::max() && tmp_value >= -std::numeric_limits<double>::max(),
                     "Value is out of range.");
             element = static_cast<double>(tmp_value);
@@ -238,13 +238,13 @@ namespace ariles2
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
         int64_t tmp_value = impl_->getRawNode().GetInt64();                                                            \
-        ARILES2_ASSERT(                                                                                                \
+        CPPUT_ASSERT(                                                                                                  \
                 tmp_value <= std::numeric_limits<type>::max() && tmp_value >= std::numeric_limits<type>::min(),        \
                 "Value is out of range.");                                                                             \
         element = static_cast<type>(tmp_value);                                                                        \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
 
@@ -253,11 +253,11 @@ namespace ariles2
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
         uint64_t tmp_value = impl_->getRawNode().GetUint64();                                                          \
-        ARILES2_ASSERT(tmp_value <= std::numeric_limits<type>::max(), "Value is too large.");                          \
+        CPPUT_ASSERT(tmp_value <= std::numeric_limits<type>::max(), "Value is too large.");                            \
         element = static_cast<type>(tmp_value);                                                                        \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
     }  // namespace ns_rapidjson

@@ -89,7 +89,7 @@ namespace ariles_tests
                     input_file_stream_.close();
                 }
                 input_file_stream_.open(string_id.c_str());
-                ARILES2_PERSISTENT_ASSERT(input_file_stream_.good(), "Could not open file.");
+                CPPUT_PERSISTENT_ASSERT(input_file_stream_.good(), "Could not open file.");
                 return (input_file_stream_);
             }
 
@@ -100,7 +100,7 @@ namespace ariles_tests
                     output_file_stream_.close();
                 }
                 output_file_stream_.open(string_id.c_str());
-                ARILES2_PERSISTENT_ASSERT(output_file_stream_.good(), "Could not open file.");
+                CPPUT_PERSISTENT_ASSERT(output_file_stream_.good(), "Could not open file.");
                 return (output_file_stream_);
             }
         };
@@ -136,13 +136,13 @@ namespace ariles_tests
                 switch (pid_)
                 {
                     case -1:  // fail
-                        ARILES2_THROW("fork() failed");
+                        CPPUT_THROW("fork() failed");
                         break;
 
                     case 0:  // child
                         // close(STDOUT_FILENO);
                         execlp("roscore", "roscore", (char *)nullptr);
-                        ARILES2_THROW("execve() failed");
+                        CPPUT_THROW("execve() failed");
                         break;
 
                     default:  // parent

@@ -36,7 +36,7 @@ namespace ariles2
             public:
                 const YAML::Node getRawNode(const std::size_t depth)
                 {
-                    ARILES2_TRACE_FUNCTION;
+                    CPPUT_TRACE_FUNCTION;
                     if (node_stack_[depth].isArray())
                     {
                         return (getRawNode(depth - 1)[node_stack_[depth].index_]);
@@ -47,7 +47,7 @@ namespace ariles2
 
                 const YAML::Node getRawNode()
                 {
-                    ARILES2_TRACE_FUNCTION;
+                    CPPUT_TRACE_FUNCTION;
                     return (getRawNode(node_stack_.size() - 1));
                 }
             };
@@ -77,13 +77,13 @@ namespace ariles2
 
         void Reader::startMap(const SizeLimitEnforcementType limit_type, const std::size_t min, const std::size_t max)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             checkSize(limit_type, impl_->getRawNode().size(), min, max);
         }
 
         bool Reader::startMapEntry(const std::string &child_name)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             const YAML::Node child = impl_->getRawNode()[child_name];
 
             if (not child.IsDefined() or child.IsNull())
@@ -96,7 +96,7 @@ namespace ariles2
 
         void Reader::endMapEntry()
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             impl_->pop();
         }
 
@@ -107,7 +107,7 @@ namespace ariles2
                 const std::size_t min,
                 const std::size_t max)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             checkSize(limit_type, impl_->getRawNode().size(), min, max);
 
             YAML::Node selected_node = impl_->getRawNode();
@@ -122,7 +122,7 @@ namespace ariles2
 
         bool Reader::startIteratedMapElement(std::string &entry_name)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (impl_->iterator_stack_.back() != impl_->getRawNode().end())
             {
                 impl_->emplace(impl_->iterator_stack_.back()->second);
@@ -134,15 +134,15 @@ namespace ariles2
 
         void Reader::endIteratedMapElement()
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             ++impl_->iterator_stack_.back();
             impl_->pop();
         }
 
         void Reader::endIteratedMap()
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(
                     impl_->iterator_stack_.back() == impl_->getRawNode().end(),
                     "End of iterated map has not been reached.");
             impl_->iterator_stack_.pop_back();
@@ -151,8 +151,8 @@ namespace ariles2
 
         std::size_t Reader::startArray()
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(impl_->getRawNode().IsSequence(), "Entry is not an array.");
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(impl_->getRawNode().IsSequence(), "Entry is not an array.");
 
             const std::size_t size = impl_->getRawNode().size();
             impl_->emplace(0, size);
@@ -163,8 +163,8 @@ namespace ariles2
 
         void Reader::startArrayElement()
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(
                     impl_->back().index_ < impl_->back().size_,
                     "Internal error: array has more elements than expected.");
         }
@@ -178,7 +178,7 @@ namespace ariles2
 
         void Reader::endArray()
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             impl_->pop();
         }
 
@@ -186,11 +186,11 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         element = impl_->getRawNode().as<type>();                                                                      \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
     }  // namespace ns_yaml_cpp

@@ -40,7 +40,7 @@ namespace ariles_tests
 #ifndef ARILES_TESTS_RANDOMIZE_DISABLED
             virtual void randomize()
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 boost::random::random_device random_generator;
                 real_ = GET_RANDOM_REAL;
             }
@@ -48,7 +48,7 @@ namespace ariles_tests
 
             void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 real_ = 0.0;
             }
         };
@@ -76,7 +76,7 @@ namespace ariles_tests
 #ifndef ARILES_TESTS_RANDOMIZE_DISABLED
             void randomize() override
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 MinimalBase::randomize();
                 boost::random::random_device random_generator;
                 integer_member_ = GET_RANDOM_INT;
@@ -97,7 +97,7 @@ namespace ariles_tests
 
             void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 arilesVisitParents(visitor, param);
                 integer_member_ = 0;
                 defaults_check_flag_ = true;
@@ -105,7 +105,7 @@ namespace ariles_tests
 
             void arilesVisit(const ariles2::Finalize &visitor, const ariles2::Finalize::Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 arilesVisitParents(visitor, param);
                 finalize_check_flag_ = true;
             }

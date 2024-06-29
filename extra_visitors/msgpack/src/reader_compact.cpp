@@ -60,7 +60,7 @@ namespace ariles2
                     }
                     catch (const std::exception &e)
                     {
-                        ARILES2_THROW(std::string("Failed to parse the configuration file: ") + e.what());
+                        CPPUT_THROW(std::string("Failed to parse the configuration file: ") + e.what());
                     }
                 }
 
@@ -137,7 +137,7 @@ namespace ariles2
 
         void Reader::endMap()
         {
-            ARILES2_ASSERT(
+            CPPUT_ASSERT(
                     impl_->back().isCompleted(), "Some entries were not parsed, which is not allowed by this visitor.");
             impl_->pop();
         }
@@ -160,7 +160,7 @@ namespace ariles2
 
         void Reader::startArrayElement()
         {
-            ARILES2_ASSERT(
+            CPPUT_ASSERT(
                     impl_->back().index_ < impl_->back().size_,
                     "Internal error: array has more elements than expected.");
         }
@@ -178,7 +178,7 @@ namespace ariles2
         impl_->getRawNode() >> element;                                                                                \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
     }  // namespace ns_msgpack_compact

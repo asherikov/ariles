@@ -108,11 +108,11 @@ namespace ariles2
 
                 void writeNodeAndConnection(const Parameters::NodeOptions &node_options)
                 {
-                    ARILES2_TRACE_FUNCTION;
+                    CPPUT_TRACE_FUNCTION;
 
                     const std::size_t stack_size = node_stack_.size();
 
-                    ARILES2_ASSERT(0 < stack_size, "Internal error: stack must contain at least 2 entries.");
+                    CPPUT_ASSERT(0 < stack_size, "Internal error: stack must contain at least 2 entries.");
 
                     // node
                     back().actual_id_ = node_options.id_;
@@ -171,7 +171,7 @@ namespace ariles2
 
         void Visitor::startRoot(const std::string &name, const Parameters &parameters)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             impl_->clear();
             impl_->parameters_ = &parameters;
             if (name.empty())
@@ -191,7 +191,7 @@ namespace ariles2
 
         void Visitor::endRoot(const std::string & /*name*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             *impl_->output_stream_ << "}\n";
         }
 
@@ -215,7 +215,7 @@ namespace ariles2
 
         void Visitor::startMap(const Parameters &parameters, const Parameters::NodeOptions &node_options)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (not impl_->parameters_->override_parameters_)
             {
                 impl_->parameters_ = &parameters;
@@ -225,7 +225,7 @@ namespace ariles2
 
         void Visitor::startMap(const Parameters &parameters, const std::size_t /*num_entries*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (not impl_->parameters_->override_parameters_)
             {
                 impl_->parameters_ = &parameters;
@@ -236,7 +236,7 @@ namespace ariles2
 
         void Visitor::startMapEntry(const std::string &name)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (impl_->back().isArray())
             {
                 impl_->emplace(
@@ -255,15 +255,15 @@ namespace ariles2
 
         void Visitor::endMapEntry()
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             impl_->pop();
         }
 
 
         void Visitor::startArray(const std::size_t size, const bool compact)
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(not impl_->empty(), "Internal error: empty stack.");
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(not impl_->empty(), "Internal error: empty stack.");
 
             if (size > 0 || not compact)
             {
@@ -293,7 +293,7 @@ namespace ariles2
 
         void Visitor::endArray()
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             impl_->pop();
         }
 
@@ -305,8 +305,8 @@ namespace ariles2
                 impl_->parameters_->getDefaultNodeOptions(getDefaultNodeId(), getDefaultNodeLabel()));                 \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_COMPLEX_NUMBER_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_COMPLEX_NUMBER_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
     }  // namespace ns_graphviz

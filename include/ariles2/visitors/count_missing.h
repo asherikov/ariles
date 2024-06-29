@@ -37,8 +37,8 @@ namespace ariles2
             template <class t_Entry>
             std::size_t visit(const t_Entry &entry, const std::string &, const Parameters &param) const
             {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_TYPE(entry);
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_TRACE_TYPE(entry);
                 return (entry.arilesVirtualVisit(*this, param));
             }
         };
@@ -57,9 +57,9 @@ namespace ariles2
             const typename t_Visitor::Parameters &parameters,                                                          \
             ARILES2_IS_BASE_ENABLER(ariles2::count_missing::Visitor, t_Visitor)) const                                 \
     {                                                                                                                  \
-        ARILES2_UNUSED_ARG(visitor);                                                                                   \
-        ARILES2_UNUSED_ARG(parameters);                                                                                \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_UNUSED_ARG(visitor);                                                                                     \
+        CPPUT_UNUSED_ARG(parameters);                                                                                  \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         return (0 ARILES2_ENTRIES(count_missing));                                                                     \
     }
 
@@ -68,7 +68,7 @@ namespace ariles2
             const ariles2::count_missing::Visitor &visitor, const ariles2::count_missing::Visitor::Parameters &param)  \
             const override                                                                                             \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         return (this->arilesVisit(visitor, param));                                                                    \
     }                                                                                                                  \
     using ariles2::count_missing::Base::arilesGetParameters;

@@ -34,7 +34,7 @@ namespace ariles2
                 std::vector<t_Args...> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             entry.resize(visitor.startArray());
             for (typename std::vector<t_Args...>::value_type &value : entry)
             {
@@ -56,7 +56,7 @@ namespace ariles2
                 const std::vector<t_Args...> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             writer.startArray(entry.size(), param.compact_arrays_);
             for (const typename std::vector<t_Args...>::value_type &value : entry)
             {
@@ -79,7 +79,7 @@ namespace ariles2
                 const std::vector<t_Args...> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
 
             visitor.equal_ &= (left.size() == right.size());
 
@@ -102,7 +102,7 @@ namespace ariles2
                 std::vector<t_Args...> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             entry.clear();
         }
     }  // namespace defaults
@@ -120,7 +120,7 @@ namespace ariles2
                 std::vector<t_Args...> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             for (typename std::vector<t_Args...>::value_type &value : entry)
             {
                 apply_process(visitor, value, param);
@@ -141,7 +141,7 @@ namespace ariles2
                 const std::vector<t_RightArgs...> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
 
             left.clear();
             left.reserve(right.size());
@@ -164,7 +164,7 @@ namespace ariles2
                 std::vector<t_RightArgs...> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
 
             right.clear();
             right.reserve(left.size());

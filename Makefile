@@ -157,18 +157,21 @@ test-noros: clean
 #----------------------------------------------
 
 addutils:
-	git remote add --no-tags cmakeut https://github.com/asherikov/cmakeut
-	git remote add --no-tags cpput https://github.com/asherikov/cpput
+	-git remote add --no-tags cmakeut https://github.com/asherikov/cmakeut
+	-git remote add --no-tags cpput https://github.com/asherikov/cpput
 
-updateutils:
+updateutils: addutils
 	git fetch --all
-	git show remotes/cmakeut/master:cmake/FindEigen3.cmake > cmake/FindEigen3.cmake
-	git show remotes/cmakeut/master:cmake/cmakeut_compiler_flags.cmake              > cmake/cmakeut_compiler_flags.cmake
-	git show remotes/cmakeut/master:cmake/cmakeut_dump_variables.cmake              > cmake/cmakeut_dump_variables.cmake
-	git show remotes/cmakeut/master:cmake/cmakeut_list_filenames.cmake              > cmake/cmakeut_list_filenames.cmake
-	git rm --ignore-unmatch -rf cpput
-	git read-tree --prefix=cpput -u cpput/master
-	git rm --ignore-unmatch -rf cpput/package.xml
+	git show remotes/cmakeut/master:cmake/FindEigen3.cmake             > cmake/FindEigen3.cmake
+	git show remotes/cmakeut/master:cmake/cmakeut_compiler_flags.cmake > cmake/cmakeut_compiler_flags.cmake
+	git show remotes/cmakeut/master:cmake/cmakeut_dump_variables.cmake > cmake/cmakeut_dump_variables.cmake
+	git show remotes/cmakeut/master:cmake/cmakeut_list_filenames.cmake > cmake/cmakeut_list_filenames.cmake
+	#
+	git show remotes/cpput/master:include/cpput/exception.h  > include/ariles2/internal/exception.h
+	git show remotes/cpput/master:include/cpput/visibility.h > include/ariles2/internal/visibility.h
+	git show remotes/cpput/master:include/cpput/misc.h       > include/ariles2/internal/misc.h
+	git show remotes/cpput/master:include/cpput/trace.h      > include/ariles2/internal/trace.h
+	git show remotes/cpput/master:include/cpput/concat.h     > include/ariles2/internal/concat.h
 
 
 update:
@@ -299,7 +302,7 @@ clangcheck:
 		-enable-checker valist.Uninitialized \
 		-enable-checker valist.Unterminated \
 		${MAKE} build TC=${TC} TYPE=${TYPE} OPTIONS=${OPTIONS} TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="-DBUILD_SHARED_LIBS=OFF ${EXTRA_CMAKE_PARAM}"
-#		-enable-checker cplusplus.NewDelete 
+#		-enable-checker cplusplus.NewDelete
 #		-enable-checker optin.cplusplus.VirtualCall
 
 spell_interactive:

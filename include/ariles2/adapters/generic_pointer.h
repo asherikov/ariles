@@ -29,7 +29,7 @@ namespace ariles2
                 ARILES2_POINTER_TYPE<t_Entry> &entry,
                 const typename t_Visitor::Parameters &parameters)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             const bool is_null = reader.startPointer(parameters);
             if (is_null)
             {
@@ -56,7 +56,7 @@ namespace ariles2
                 const ARILES2_POINTER_TYPE<t_Entry> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
 
             const bool is_null = PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::isNull(entry);
 
@@ -82,7 +82,7 @@ namespace ariles2
                 const ARILES2_POINTER_TYPE<t_Entry> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::isNull(left))
             {
                 if (not PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::isNull(right))
@@ -116,7 +116,7 @@ namespace ariles2
                 ARILES2_POINTER_TYPE<t_Entry> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::reset(entry);
         }
     }  // namespace defaults
@@ -133,7 +133,7 @@ namespace ariles2
                 ARILES2_POINTER_TYPE<t_Entry> &entry,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (not(PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::isNull(entry)))
             {
                 apply_process(visitor, *entry, param);
@@ -154,7 +154,7 @@ namespace ariles2
                 const ARILES2_POINTER_TYPE<t_Entry> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (param.deep_copy_)
             {
                 if (PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::isNull(right))
@@ -184,7 +184,7 @@ namespace ariles2
                 const ARILES2_POINTER_TYPE<t_Right> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (param.deep_copy_)
             {
                 if (PointerHandler<ARILES2_POINTER_TYPE<t_Right>>::isNull(right))
@@ -209,7 +209,7 @@ namespace ariles2
                 }
                 else
                 {
-                    ARILES2_THROW("Shallow copies of pointers of different types are not supported.");
+                    CPPUT_THROW("Shallow copies of pointers of different types are not supported.");
                 }
             }
         }
@@ -225,7 +225,7 @@ namespace ariles2
                 ARILES2_POINTER_TYPE<t_Entry> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (param.deep_copy_)
             {
                 if (PointerHandler<ARILES2_POINTER_TYPE<t_Entry>>::isNull(left))
@@ -255,7 +255,7 @@ namespace ariles2
                 ARILES2_POINTER_TYPE<t_Right> &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (param.deep_copy_)
             {
                 if (PointerHandler<ARILES2_POINTER_TYPE<t_Left>>::isNull(left))
@@ -280,7 +280,7 @@ namespace ariles2
                 }
                 else
                 {
-                    ARILES2_THROW("Shallow copies of pointers of different types are not supported.");
+                    CPPUT_THROW("Shallow copies of pointers of different types are not supported.");
                 }
             }
         }

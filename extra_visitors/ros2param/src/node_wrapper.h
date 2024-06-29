@@ -67,9 +67,9 @@ namespace ariles2
             template <class t_Value>
             bool tryPushArray(const t_Value value)
             {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_VALUE(node_);
-                ARILES2_TRACE_TYPE(t_Value);
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_TRACE_VALUE(node_);
+                CPPUT_TRACE_TYPE(t_Value);
                 if (isArray())
                 {
                     if (ArrayType::UNDEFINED == array_type_)
@@ -86,8 +86,8 @@ namespace ariles2
 
             bool tryPushArray(const std::string &value)
             {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_VALUE(node_);
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_TRACE_VALUE(node_);
                 if (isArray())
                 {
                     if (ArrayType::UNDEFINED == array_type_)

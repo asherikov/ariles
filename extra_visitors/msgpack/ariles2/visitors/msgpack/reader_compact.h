@@ -63,18 +63,18 @@ namespace ariles2
 
             bool startRoot(const std::vector<std::string> &)
             {
-                ARILES2_THROW("Subtree reading is impossible with msgpack_compact");
+                CPPUT_THROW("Subtree reading is impossible with msgpack_compact");
                 return (false);
             }
 
             void endRoot(const std::vector<std::string> &)
             {
-                ARILES2_THROW("Subtree reading is impossible with msgpack_compact");
+                CPPUT_THROW("Subtree reading is impossible with msgpack_compact");
             }
 
 #define ARILES2_BASIC_TYPE(type) void readElement(type &element);
 
-            ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
+            CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
         };

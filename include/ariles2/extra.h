@@ -62,14 +62,14 @@ namespace ariles2
 
             virtual const read::Visitor::Parameters &arilesGetParameters(const read::Visitor &) const
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 const static t_ReadParameters parameters;
                 return (parameters);
             }
 
             virtual const write::Visitor::Parameters &arilesGetParameters(const write::Visitor &) const
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 const static t_WriteParameters parameters;
                 return (parameters);
             }

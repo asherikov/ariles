@@ -13,16 +13,16 @@
     template <class t_Visitor, typename = ariles2::traits::is_visitor_t<t_Visitor>>                                    \
     void arilesVisitParents(t_Visitor &visitor, const typename t_Visitor::Parameters &parameters)                      \
     {                                                                                                                  \
-        ARILES2_UNUSED_ARG(visitor);                                                                                   \
-        ARILES2_UNUSED_ARG(parameters);                                                                                \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_UNUSED_ARG(visitor);                                                                                     \
+        CPPUT_UNUSED_ARG(parameters);                                                                                  \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         ARILES2_ENTRIES(generic_parent)                                                                                \
     }                                                                                                                  \
     template <class t_Visitor, typename = ariles2::traits::is_visitor_t<t_Visitor>>                                    \
     void arilesVisitParents(t_Visitor &visitor, const typename t_Visitor::Parameters &parameters) const                \
     {                                                                                                                  \
-        ARILES2_UNUSED_ARG(visitor);                                                                                   \
-        ARILES2_UNUSED_ARG(parameters);                                                                                \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_UNUSED_ARG(visitor);                                                                                     \
+        CPPUT_UNUSED_ARG(parameters);                                                                                  \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         ARILES2_ENTRIES(generic_parent)                                                                                \
     }

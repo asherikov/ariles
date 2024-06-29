@@ -89,7 +89,7 @@ namespace ariles2
 
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
-            ARILES2_ASSERT(size <= std::numeric_limits<uint32_t>::max(), "Vector is too long.");
+            CPPUT_ASSERT(size <= std::numeric_limits<uint32_t>::max(), "Vector is too long.");
             impl_->packer_->pack_array(size);
         }
 
@@ -100,7 +100,7 @@ namespace ariles2
         impl_->packer_->pack(element);                                                                                 \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
     }  // namespace ns_msgpack_compact

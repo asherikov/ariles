@@ -90,7 +90,7 @@ namespace ariles2
             template <class t_Left, class t_Right>
             bool visit(const t_Left &left, const t_Right &right, const std::string &name, const Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 try
                 {
                     equal_ = true;
@@ -148,10 +148,10 @@ namespace ariles2
                     const std::string &name,
                     const Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_VALUE(name);
-                ARILES2_TRACE_TYPE(left);
-                ARILES2_TRACE_TYPE(right);
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_TRACE_VALUE(name);
+                CPPUT_TRACE_TYPE(left);
+                CPPUT_TRACE_TYPE(right);
 
                 const bool equal_check = this->equal_;
                 apply_compare(*this, left, right, param);
@@ -178,17 +178,17 @@ namespace ariles2
             const t_Other &other,                                                                                      \
             const typename ariles2::compare::Visitor::Parameters &parameters) const                                    \
     {                                                                                                                  \
-        ARILES2_UNUSED_ARG(visitor);                                                                                   \
-        ARILES2_UNUSED_ARG(other);                                                                                     \
-        ARILES2_UNUSED_ARG(parameters);                                                                                \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_UNUSED_ARG(visitor);                                                                                     \
+        CPPUT_UNUSED_ARG(other);                                                                                       \
+        CPPUT_UNUSED_ARG(parameters);                                                                                  \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         ARILES2_ENTRIES(compare)                                                                                       \
     }
 
 #define ARILES2_METHODS_compare                                                                                        \
     const ariles2::compare::Visitor::Parameters &arilesGetParameters(const ariles2::compare::Visitor &visitor) const   \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         return (visitor.getDefaultParameters());                                                                       \
     }
 #define ARILES2_BASE_METHODS_compare

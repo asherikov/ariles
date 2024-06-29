@@ -11,31 +11,31 @@
 #pragma once
 
 
-#ifndef H_@CPPUT_ID@_TRACE
-#define H_@CPPUT_ID@_TRACE
+#ifndef H_CPPUT_TRACE
+#    define H_CPPUT_TRACE
 
 
-#ifdef @CPPUT_ID@_TRACE_ENABLE
-#    include <iostream>
-#    include <libgen.h>
-#    include <typeinfo>
-#    include <cxxabi.h>
+#    ifdef CPPUT_TRACE_ENABLE
+#        include <iostream>
+#        include <libgen.h>
+#        include <typeinfo>
+#        include <cxxabi.h>
 
-#    ifndef @CPPUT_ID@_TRACE_FUNCTION_NAME
+#        ifndef CPPUT_TRACE_FUNCTION_NAME
 // __PRETTY_FUNCTION__
-#        define @CPPUT_ID@_TRACE_FUNCTION_NAME __func__
-#    endif
+#            define CPPUT_TRACE_FUNCTION_NAME __func__
+#        endif
 
-#    ifndef @CPPUT_ID@_VISIBILITY_ATTRIBUTE
-#        include "visibility.h"
-#        define @CPPUT_ID@_VISIBILITY_ATTRIBUTE @CPPUT_ID@_LIB_LOCAL
-#    endif
+#        ifndef CPPUT_VISIBILITY_ATTRIBUTE
+#            include "visibility.h"
+#            define CPPUT_VISIBILITY_ATTRIBUTE CPPUT_LIB_LOCAL
+#        endif
 
-namespace @CPPUT_ID_LOWER_CASE@
+namespace cpput
 {
     namespace trace
     {
-        class @CPPUT_ID@_VISIBILITY_ATTRIBUTE Tracer
+        class CPPUT_VISIBILITY_ATTRIBUTE Tracer
         {
         public:
             std::string tabulation_;
@@ -58,7 +58,7 @@ namespace @CPPUT_ID_LOWER_CASE@
             }
 
             template <class t_First, class... t_Args>
-            void outputFirst(t_First &&first, t_Args &&... args)
+            void outputFirst(t_First &&first, t_Args &&...args)
             {
                 std::cout << first;
                 outputFirst(std::forward<t_Args>(args)...);
@@ -94,7 +94,7 @@ namespace @CPPUT_ID_LOWER_CASE@
 
 
             template <class... t_Args>
-            void output(t_Args &&... args)
+            void output(t_Args &&...args)
             {
                 std::cout << tabulation_;
                 outputFirst(std::forward<t_Args>(args)...);
@@ -120,17 +120,17 @@ namespace @CPPUT_ID_LOWER_CASE@
             }
         };
     }  // namespace trace
-}
+}  // namespace cpput
 
-#    define @CPPUT_ID@_TRACE_FUNCTION                                                                                   \
-        char trace_path[] = __FILE__;                                                                                   \
-        ariles2::trace::Tracer tracer(@CPPUT_ID@_TRACE_FUNCTION_NAME, basename(trace_path), __LINE__);
-#    define @CPPUT_ID@_TRACE_VALUE(variable) tracer.output("Value: ", #variable, " = ", variable);
-#    define @CPPUT_ID@_TRACE_TYPE(variable) tracer.output("Type: ", tracer.demangle(typeid(variable).name()));
-#else
-#    define @CPPUT_ID@_TRACE_FUNCTION
-#    define @CPPUT_ID@_TRACE_VALUE(value)
-#    define @CPPUT_ID@_TRACE_TYPE(type)
-#endif
+#        define CPPUT_TRACE_FUNCTION                                                                                   \
+            char trace_path[] = __FILE__;                                                                              \
+            cpput::trace::Tracer tracer(CPPUT_TRACE_FUNCTION_NAME, basename(trace_path), __LINE__);
+#        define CPPUT_TRACE_VALUE(variable) tracer.output("Value: ", #variable, " = ", variable);
+#        define CPPUT_TRACE_TYPE(variable) tracer.output("Type: ", tracer.demangle(typeid(variable).name()));
+#    else
+#        define CPPUT_TRACE_FUNCTION
+#        define CPPUT_TRACE_VALUE(value)
+#        define CPPUT_TRACE_TYPE(type)
+#    endif
 
 #endif

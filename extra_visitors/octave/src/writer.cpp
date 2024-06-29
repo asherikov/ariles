@@ -254,7 +254,7 @@ namespace ariles2
         }                                                                                                              \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_NUMERIC_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_NUMERIC_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
 

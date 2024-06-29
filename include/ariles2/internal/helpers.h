@@ -27,10 +27,8 @@
 
 #include "build_config.h"
 
-#define CMAKEUT_COMPILER_SUPPORTS_FUNC_
-#include "cpput_config.h"
-#include "cpput_exception.h"
-#include "cpput_misc.h"
+#include "exception.h"
+#include "misc.h"
 
 
 #define ARILES2_EMPTY_MACRO
@@ -77,13 +75,13 @@
 
 
 #ifndef ARILES2_VISIBILITY_ATTRIBUTE
-#    include "cpput_visibility.h"
-#    define ARILES2_VISIBILITY_ATTRIBUTE ARILES2_LIB_EXPORT
+#    include "visibility.h"
+#    define ARILES2_VISIBILITY_ATTRIBUTE CPPUT_LIB_EXPORT
 #endif
 
 
-// #define ARILES2_TRACE_ENABLE
-#include "cpput_trace.h"
+// #define CPPUT_TRACE_ENABLE
+#include "trace.h"
 
 
 namespace ariles2

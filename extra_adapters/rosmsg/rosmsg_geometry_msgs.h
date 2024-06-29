@@ -24,7 +24,7 @@ namespace ariles2
                 const geometry_msgs::Vector3 &right,
                 const typename t_Visitor::Parameters & /*param*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             left.x() = right.x;
             left.y() = right.y;
             left.z() = right.z;
@@ -37,7 +37,7 @@ namespace ariles2
                 const geometry_msgs::Vector3 &right,
                 const typename t_Visitor::Parameters & /*param*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             left.resize(3);
             left(0) = right.x;
             left(1) = right.y;
@@ -52,7 +52,7 @@ namespace ariles2
                 const geometry_msgs::Quaternion &right,
                 const typename t_Visitor::Parameters & /*param*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             left.x() = right.x;
             left.y() = right.y;
             left.z() = right.z;
@@ -67,7 +67,7 @@ namespace ariles2
                 const geometry_msgs::Transform &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
 
             Eigen::Quaternion<t_Scalar> quaternion;
             Eigen::Matrix<t_Scalar, 3, 1> translation;
@@ -91,7 +91,7 @@ namespace ariles2
                 geometry_msgs::Vector3 &right,
                 const typename t_Visitor::Parameters & /*param*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             right.x = left.x();
             right.y = left.y();
             right.z = left.z();
@@ -104,7 +104,7 @@ namespace ariles2
                 geometry_msgs::Vector3 &right,
                 const typename t_Visitor::Parameters & /*param*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             right.x = left(0);
             right.y = left(1);
             right.z = left(2);
@@ -117,8 +117,8 @@ namespace ariles2
                 geometry_msgs::Vector3 &right,
                 const typename t_Visitor::Parameters & /*param*/)
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(3 == left.size(), "Wrong entry size.");
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(3 == left.size(), "Wrong entry size.");
             right.x = left(0);
             right.y = left(1);
             right.z = left(2);
@@ -132,7 +132,7 @@ namespace ariles2
                 geometry_msgs::Quaternion &right,
                 const typename t_Visitor::Parameters & /*param*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             right.x = left.x();
             right.y = left.y();
             right.z = left.z();
@@ -147,7 +147,7 @@ namespace ariles2
                 geometry_msgs::Transform &right,
                 const typename t_Visitor::Parameters &param)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             apply_copyto(visitor, Eigen::Quaternion<t_Scalar>(left.linear()), right.rotation, param);
             apply_copyto(visitor, left.translation(), right.translation, param);
         }

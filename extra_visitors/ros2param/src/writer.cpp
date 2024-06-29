@@ -50,15 +50,15 @@ namespace ariles2
 
         void Writer::flush()
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(impl_->publishParameters(), "Failed to set parameters.");
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(impl_->publishParameters(), "Failed to set parameters.");
         }
 
 
         void Writer::startMapEntry(const std::string &child_name)
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_TRACE_VALUE(child_name);
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_TRACE_VALUE(child_name);
             if (impl_->empty())
             {
                 impl_->emplace(child_name);
@@ -82,14 +82,14 @@ namespace ariles2
 
         void Writer::endMapEntry()
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             impl_->pop();
         }
 
 
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (impl_->back().isArray())
             {
                 impl_->emplace(
@@ -106,19 +106,19 @@ namespace ariles2
 
         void Writer::startArrayElement()
         {
-            ARILES2_TRACE_FUNCTION;
-            ARILES2_ASSERT(not impl_->back().isCompleted(), "Internal error: array has more elements than expected.");
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(not impl_->back().isCompleted(), "Internal error: array has more elements than expected.");
         }
 
         void Writer::endArrayElement()
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             impl_->shiftArray();
         }
 
         void Writer::endArray()
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             impl_->setParameter();
             impl_->pop();
         }
@@ -126,7 +126,7 @@ namespace ariles2
 
         void Writer::writeElement(const unsigned char &element, const Parameters &)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (not impl_->back().tryPushArray<uint8_t>(element))
             {
                 impl_->setParameter(static_cast<int64_t>(element));
@@ -136,7 +136,7 @@ namespace ariles2
 
         void Writer::writeElement(const float &element, const Parameters &)
         {
-            ARILES2_TRACE_FUNCTION;
+            CPPUT_TRACE_FUNCTION;
             if (not impl_->back().tryPushArray<double>(element))
             {
                 impl_->setParameter(static_cast<double>(element));
@@ -153,14 +153,14 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         if (not impl_->back().tryPushArray(element))                                                                   \
         {                                                                                                              \
             impl_->setParameter(element);                                                                              \
         }                                                                                                              \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_ROS2PARAM_NATIVE_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_ROS2PARAM_NATIVE_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
 
@@ -168,14 +168,14 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         if (not impl_->back().tryPushArray<int64_t>(element))                                                          \
         {                                                                                                              \
             impl_->setParameter(static_cast<int64_t>(element));                                                        \
         }                                                                                                              \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST)
 
 #undef ARILES2_BASIC_TYPE
 
@@ -183,8 +183,8 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
-        ARILES2_ASSERT(                                                                                                \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
+        CPPUT_ASSERT(                                                                                                  \
                 static_cast<uint64_t>(element) <= static_cast<uint64_t>(std::numeric_limits<int64_t>::max()),          \
                 "Value is too large.");                                                                                \
         if (not impl_->back().tryPushArray<int64_t>(element))                                                          \
@@ -193,7 +193,7 @@ namespace ariles2
         }                                                                                                              \
     }
 
-        ARILES2_MACRO_SUBSTITUTE(ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST_WITHOUT_BYTE)
+        CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST_WITHOUT_BYTE)
 
 #undef ARILES2_BASIC_TYPE
     }  // namespace ns_ros2param

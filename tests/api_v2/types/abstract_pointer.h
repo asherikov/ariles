@@ -40,7 +40,7 @@ namespace ariles_tests
 
             void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 real_ = 123.4;
             }
         };
@@ -80,7 +80,7 @@ namespace ariles_tests
 
             void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 arilesVisitParents(visitor, param);
                 integer_member_ = 414;
                 this->defaults_check_flag_ = true;

@@ -46,14 +46,14 @@ namespace ariles2
             template <class t_Left, class t_Right>
             void visit(const t_Left &left, t_Right &right, const std::string &name, const Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 try
                 {
                     this->visitMapEntry(left, right, name, param);
                 }
                 catch (std::exception &e)
                 {
-                    ARILES2_THROW(std::string("Copying failed: ") + e.what());
+                    CPPUT_THROW(std::string("Copying failed: ") + e.what());
                 }
             }
 
@@ -61,10 +61,10 @@ namespace ariles2
             template <class t_Left, class t_Right>
             void visitMapEntry(const t_Left &left, t_Right &right, const std::string &name, const Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_VALUE(name);
-                ARILES2_TRACE_TYPE(left);
-                ARILES2_TRACE_TYPE(right);
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_TRACE_VALUE(name);
+                CPPUT_TRACE_TYPE(left);
+                CPPUT_TRACE_TYPE(right);
 
                 try
                 {
@@ -72,7 +72,7 @@ namespace ariles2
                 }
                 catch (const std::exception &e)
                 {
-                    ARILES2_THROW("entry: " + name + " // " + std::string(e.what()));
+                    CPPUT_THROW("entry: " + name + " // " + std::string(e.what()));
                 }
             }
         };
@@ -93,17 +93,17 @@ namespace ariles2
             t_Other &other,                                                                                            \
             const typename ariles2::copyto::Visitor::Parameters &parameters) const                                     \
     {                                                                                                                  \
-        ARILES2_UNUSED_ARG(visitor);                                                                                   \
-        ARILES2_UNUSED_ARG(other);                                                                                     \
-        ARILES2_UNUSED_ARG(parameters);                                                                                \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_UNUSED_ARG(visitor);                                                                                     \
+        CPPUT_UNUSED_ARG(other);                                                                                       \
+        CPPUT_UNUSED_ARG(parameters);                                                                                  \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         ARILES2_ENTRIES(copyto)                                                                                        \
     }
 
 #define ARILES2_METHODS_copyto                                                                                         \
     const ariles2::copyto::Visitor::Parameters &arilesGetParameters(const ariles2::copyto::Visitor &visitor) const     \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
         return (visitor.getDefaultParameters());                                                                       \
     }
 #define ARILES2_BASE_METHODS_copyto

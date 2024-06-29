@@ -32,7 +32,7 @@ namespace ariles2
             {
                 preprocessor_ = std::make_shared<JsonnetPreprocessor>();
                 preprocessor_->vm_ = ::jsonnet_make();
-                ARILES2_ASSERT(nullptr != preprocessor_->vm_, "Could not initialize jsonnet preprocessor.");
+                CPPUT_ASSERT(nullptr != preprocessor_->vm_, "Could not initialize jsonnet preprocessor.");
             }
 
 
@@ -46,7 +46,7 @@ namespace ariles2
             {
                 int error = 0;
                 const char *jsonnet_output = ::jsonnet_evaluate_file(preprocessor_->vm_, file_name.c_str(), &error);
-                ARILES2_ASSERT(0 == error, jsonnet_output);
+                CPPUT_ASSERT(0 == error, jsonnet_output);
                 return (jsonnet_output);
             }
 
@@ -56,7 +56,7 @@ namespace ariles2
                 int error = 0;
                 const char *jsonnet_output =
                         ::jsonnet_evaluate_snippet(preprocessor_->vm_, "<input steam>", input_string.c_str(), &error);
-                ARILES2_ASSERT(0 == error, jsonnet_output);
+                CPPUT_ASSERT(0 == error, jsonnet_output);
                 return (jsonnet_output);
             }
         }  // namespace impl

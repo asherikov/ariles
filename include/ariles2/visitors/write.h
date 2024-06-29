@@ -55,7 +55,7 @@ namespace ariles2
             {
                 config_ofs.open(file_name.c_str());
 
-                ARILES2_PERSISTENT_ASSERT(
+                CPPUT_PERSISTENT_ASSERT(
                         config_ofs.good(),
                         std::string("Could not open configuration file for writing: ") + file_name.c_str());
             }
@@ -64,7 +64,7 @@ namespace ariles2
         public:
             virtual void startRoot(const std::string &name, const t_Parameters & /*param*/)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 if (not name.empty())
                 {
                     startMapEntry(name);
@@ -72,7 +72,7 @@ namespace ariles2
             }
             virtual void endRoot(const std::string &name)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 if (not name.empty())
                 {
                     endMapEntry();
@@ -100,7 +100,7 @@ namespace ariles2
              */
             virtual void startMapEntry(const std::string &map_name)
             {
-                ARILES2_UNUSED_ARG(map_name)
+                CPPUT_UNUSED_ARG(map_name)
             }
             virtual void endMapEntry()
             {
@@ -135,36 +135,36 @@ namespace ariles2
             virtual void startArray(const std::size_t size, const bool compact = false) = 0;
             virtual void startArrayElement()
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
             }
             virtual void endArrayElement()
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
             }
             virtual void endArray()
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
             }
 
 
             virtual void startVector(const std::size_t size)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 this->startArray(size, /*compact*/ true);
             }
             virtual void startVectorElement()
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 this->startArrayElement();
             }
             virtual void endVectorElement()
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 this->endArrayElement();
             }
             virtual void endVector()
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 this->endArray();
             }
 
@@ -175,7 +175,7 @@ namespace ariles2
                     const std::size_t rows,
                     const t_Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 if (param.flat_matrices_)
                 {
                     if (dynamic or param.explicit_matrix_size_)
@@ -202,7 +202,7 @@ namespace ariles2
             }
             virtual void startMatrixRow(const std::size_t cols, const t_Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 if (not param.flat_matrices_)
                 {
                     this->startArrayElement();
@@ -211,17 +211,17 @@ namespace ariles2
             }
             virtual void startMatrixElement()
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 this->startVectorElement();
             }
             virtual void endMatrixElement()
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 this->endVectorElement();
             }
             virtual void endMatrixRow(const t_Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 if (not param.flat_matrices_)
                 {
                     this->endVector();
@@ -230,7 +230,7 @@ namespace ariles2
             }
             virtual void endMatrix(const bool dynamic, const t_Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 if (param.flat_matrices_)
                 {
                     this->endVector();
@@ -308,7 +308,7 @@ namespace ariles2
             template <typename t_Entry>
             void visit(const t_Entry &entry, const std::string &entry_name, const t_Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
                 this->startRoot(entry_name, param);
                 apply_write(static_cast<t_Derived &>(*this), entry, param);
                 this->endRoot(entry_name);
@@ -318,9 +318,9 @@ namespace ariles2
             template <typename t_Entry>
             void visitMapEntry(const t_Entry &entry, const std::string &entry_name, const t_Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_VALUE(entry_name);
-                ARILES2_TRACE_TYPE(entry);
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_TRACE_VALUE(entry_name);
+                CPPUT_TRACE_TYPE(entry);
 
                 if (param.allow_missing_entries_ and isMissing(entry))
                 {
@@ -335,8 +335,8 @@ namespace ariles2
             template <typename t_Element>
             void visitArrayElement(const t_Element &element, const t_Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
-                ARILES2_TRACE_TYPE(element);
+                CPPUT_TRACE_FUNCTION;
+                CPPUT_TRACE_TYPE(element);
 
                 this->startArrayElement();
                 apply_write(static_cast<t_Derived &>(*this), element, param);
@@ -346,7 +346,7 @@ namespace ariles2
             template <typename t_Element>
             void visitVectorElement(const t_Element &element, const t_Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
 
                 this->startVectorElement();
                 this->writeElement(element, param);
@@ -356,7 +356,7 @@ namespace ariles2
             template <typename t_Element>
             void visitMatrixElement(const t_Element &element, const t_Parameters &param)
             {
-                ARILES2_TRACE_FUNCTION;
+                CPPUT_TRACE_FUNCTION;
 
                 this->startMatrixElement();
                 this->writeElement(element, param);
@@ -403,9 +403,9 @@ namespace ariles2
             const typename t_Visitor::Parameters &parameters,                                                          \
             ARILES2_IS_BASE_ENABLER(ariles2::write::Visitor, t_Visitor)) const                                         \
     {                                                                                                                  \
-        ARILES2_TRACE_FUNCTION;                                                                                        \
-        ARILES2_UNUSED_ARG(visitor);                                                                                   \
-        ARILES2_UNUSED_ARG(parameters);                                                                                \
+        CPPUT_TRACE_FUNCTION;                                                                                          \
+        CPPUT_UNUSED_ARG(visitor);                                                                                     \
+        CPPUT_UNUSED_ARG(parameters);                                                                                  \
         arilesVisitParents(visitor, parameters);                                                                       \
         ARILES2_ENTRIES(write)                                                                                         \
     }
