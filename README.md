@@ -20,12 +20,12 @@ Ariles
     <th>CI status</th>
     <td align="center">
         <a href="https://github.com/asherikov/ariles/actions?query=workflow%3A.github%2Fworkflows%2Fhead_2.yml+branch%3Ahead_2">
-        <img src="https://github.com/asherikov/ariles/workflows/.github/workflows/head_2.yml/badge.svg?branch=head_2" alt="Build Status">
+        <img src="https://github.com/asherikov/ariles/actions/workflows/.github/workflows/head_2.yml/badge.svg?branch=head_2" alt="Build Status">
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/asherikov/ariles/actions?query=workflow%3A.github%2Fworkflows%2Fcatkin_2.yml+branch%3Apkg_catkin_2">
-        <img src="https://github.com/asherikov/ariles/workflows/.github/workflows/catkin_2.yml/badge.svg?branch=pkg_catkin_2" alt="Build Status">
+        <img src="https://github.com/asherikov/ariles/actions/workflows/.github/workflows/catkin_2.yml/badge.svg?branch=pkg_catkin_2" alt="Build Status">
         </a>
     </td>
     <td align="center"></td>
