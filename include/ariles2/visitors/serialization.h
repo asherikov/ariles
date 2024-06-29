@@ -164,21 +164,10 @@ namespace ariles2
             }
 
 
-            // adopted from
-            // https://codereview.stackexchange.com/questions/195530/variadic-strcat-for-c17
-            template <typename... t_String>
-            std::string concatenate(const t_String &...strings) const
-            {
-                std::string result;
-                result.reserve((strings.size() + ...));
-                (result += ... += strings);
-                return (result);
-            }
-
             template <typename... t_String>
             std::string concatWithNode(t_String &&...strings) const
             {
-                return (concatenate(back().node_, std::forward<t_String>(strings)...));
+                return (cpput::concat::simple(back().node_, std::forward<t_String>(strings)...));
             }
 
             template <typename... t_String>

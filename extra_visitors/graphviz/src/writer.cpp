@@ -276,7 +276,7 @@ namespace ariles2
                 const std::string index = boost::lexical_cast<std::string>(impl_->back().index_);
                 impl_->emplace(
                         impl_->concatWithNode(impl_->separator_, index),
-                        impl_->concatenate(impl_->back().label_, impl_->separator_, index),
+                        cpput::concat::simple(impl_->back().label_, impl_->separator_, index),
                         0,
                         size);
             }
