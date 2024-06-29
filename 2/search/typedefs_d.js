@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['value_938',['Value',['../classariles2_1_1PointerHandler_3_01boost_1_1optional_3_01t__Value_01_4_01_4.html#a298999f100f5f445fbfa04e31bfecd40',1,'ariles2::PointerHandler&lt; boost::optional&lt; t_Value &gt; &gt;::Value()'],['../classariles2_1_1PointerHandler_3_01boost_1_1shared__ptr_3_01t__Value_01_4_01_4.html#adf09287d33bc763317131e00091853bc',1,'ariles2::PointerHandler&lt; boost::shared_ptr&lt; t_Value &gt; &gt;::Value()']]],
-  ['visitor_939',['Visitor',['../structariles2_1_1graphviz.html#a93ddd876c9d4ca507cae10a267b795cb',1,'ariles2::graphviz']]]
+  ['sloppybase_0',['SloppyBase',['../namespaceariles2.html#a376209f52564482f116ea7cb8bdf87fa',1,'ariles2']]],
+  ['sloppyparameters_1',['SloppyParameters',['../namespaceariles2_1_1read.html#af99423ed02ea868cb7a4cdac3911f446',1,'ariles2::read::SloppyParameters()'],['../namespaceariles2_1_1write.html#ac734f91150e00de5a4cbf321a04287d3',1,'ariles2::write::SloppyParameters()']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['generic_947',['GENERIC',['../classariles2_1_1serialization_1_1Node.html#ae800807405ac740c8719510c511a85d2a0d4d6fd5a95d5627ab93ee123a7ecf40',1,'ariles2::serialization::Node']]]
+  ['builtin_0',['BUILTIN',['../classariles2_1_1ns__ros2param_1_1NodeBase.html#a1197da1bebfb1e38dd754b4117845327afbb600bf3200d9d665bf61bb07f29472',1,'ariles2::ns_ros2param::NodeBase']]]
 ];
