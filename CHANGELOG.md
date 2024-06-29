@@ -1,8 +1,8 @@
 CHANGELOG
 =========
 
-Unreleased
-==========
+2.2.0
+=====
 
 Added
 -----
