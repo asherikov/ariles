@@ -11,10 +11,6 @@ Ariles
         <a href="https://github.com/asherikov/ariles/tree/pkg_catkin_2">pkg_catkin_2</a><br/>
         (ROS/ROS2 packages)
     </td>
-    <td align="center">
-        <a href="https://github.com/asherikov/ariles/tree/pkg_freebsd_2">pkg_freebsd_2</a><br/>
-        (FreeBSD package)
-    </td>
   </tr>
   <tr>
     <th>CI status</th>
@@ -28,7 +24,6 @@ Ariles
         <img src="https://github.com/asherikov/ariles/actions/workflows/.github/workflows/catkin_2.yml/badge.svg?branch=pkg_catkin_2" alt="Build Status">
         </a>
     </td>
-    <td align="center"></td>
   </tr>
   <tr>
     <th>package</th>
@@ -44,7 +39,6 @@ Ariles
         <img src="https://api-prd.cloudsmith.io/v1/badges/version/asherikov-aV7/all/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fjammy;t=binary/?render=true&show_latest=true" alt="Latest version of 'ariles' @ Cloudsmith">
         </a>
     </td>
-    <td align="center"></td>
     <td align="center"></td>
   </tr>
 </table>
