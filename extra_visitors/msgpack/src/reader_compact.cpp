@@ -60,7 +60,7 @@ namespace ariles2
                     }
                     catch (const std::exception &e)
                     {
-                        CPPUT_THROW(std::string("Failed to parse the configuration file: ") + e.what());
+                        CPPUT_THROW("Failed to parse the configuration file: ", e.what());
                     }
                 }
 

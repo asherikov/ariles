@@ -20,16 +20,16 @@
     CPPUT_THROW_EXCEPTION(std::runtime_error, cpput::concat::simple("In ", __func__, "() // ", __VA_ARGS__))
 
 
-#define CPPUT_PERSISTENT_ASSERT(condition, message)                                                                    \
+#define CPPUT_PERSISTENT_ASSERT(condition, ...)                                                                        \
     if (!(condition))                                                                                                  \
     {                                                                                                                  \
-        CPPUT_THROW(message);                                                                                          \
+        CPPUT_THROW(__VA_ARGS__);                                                                                      \
     };
 
 #ifdef DNDEBUG
-#    define CPPUT_ASSERT(condition, message)
+#    define CPPUT_ASSERT(condition, ...)
 #else
-#    define CPPUT_ASSERT(condition, message) CPPUT_PERSISTENT_ASSERT(condition, message)
+#    define CPPUT_ASSERT(condition, ...) CPPUT_PERSISTENT_ASSERT(condition, __VA_ARGS__)
 #endif
 
 #endif
