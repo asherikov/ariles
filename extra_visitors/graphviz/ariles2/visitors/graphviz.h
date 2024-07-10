@@ -131,12 +131,12 @@ namespace ariles2
             void endArrayElement();
             void endArray();
 
-
-            template <class t_Ariles>
-            const Parameters getParameters(const t_Ariles &ariles_class) const
-            {
-                return (ariles_class.arilesGetParameters(*this));
-            }
+            /*
+                        template <class t_Ariles>
+                        const Parameters getParameters(const t_Ariles &ariles_class) const
+                        {
+                            return (ariles_class.arilesGetParameters(*this));
+                        }*/
 
             template <class t_Entry>
             void startMap(t_Entry &, const Parameters &parameters)

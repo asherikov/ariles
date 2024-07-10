@@ -53,6 +53,10 @@ ARILES_TESTS_SHORTCUT(octave, FilenameInitializer)
 ARILES_TESTS_SHORTCUT(namevalue, SizeInitializer)
 #endif
 
+#ifdef ARILES2_VISITOR_INCLUDED_namevalue2
+ARILES_TESTS_SHORTCUT(namevalue2, SizeInitializer)
+#endif
+
 #ifdef ARILES2_VISITOR_INCLUDED_pugixml
 // A dirty hack to avoid fixture, which is known to fail for XML.
 #    define ComparisonMultiFixture ComparisonSimpleFixture

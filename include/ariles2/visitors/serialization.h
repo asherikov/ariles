@@ -26,12 +26,13 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
         {
         public:
-            bool sloppy_maps_;
-            bool sloppy_pairs_;
-            bool explicit_matrix_size_;
-            bool fallback_to_string_floats_;
-            bool flat_matrices_;
-            bool allow_missing_entries_;
+            bool sloppy_maps_;                /// Treat key values in maps as entry names if they are strings
+            bool sloppy_pairs_;               /// Treat first entry in an std::pair as entry name if it is a string
+            bool explicit_matrix_size_;       /// Specify matrix size even if it is known to be constant
+            bool fallback_to_string_floats_;  /// Allow saving floats as strings if necessary
+            bool flat_matrices_;              /// Save matrix as a single vector
+            bool allow_missing_entries_;      /// Do not treat missing entries as errors
+            bool persistent_structure_;       /// Hint: expect Ariles classes with constant number of entries
 
 
         public:
@@ -43,6 +44,7 @@ namespace ariles2
                 fallback_to_string_floats_ = true;
                 flat_matrices_ = true;
                 allow_missing_entries_ = false;
+                persistent_structure_ = false;
             }
         };
 

@@ -181,7 +181,7 @@ representation formats, in particular:
   <https://asherikov.github.io/ariles/2/group__rosparam.html>
 
 * A set of flattened key-value pairs, output only, no dependencies:
-  <https://asherikov.github.io/ariles/2/group__namevalue.html>
+  <https://asherikov.github.io/ariles/2/group__namevalue2.html>
 
 * `graphviz` dot files for diagram generation:
   <https://asherikov.github.io/ariles/2/group__graphviz.html>
