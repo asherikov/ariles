@@ -140,6 +140,7 @@ var menudata={children:[
 {text:"h",url:"functions_type.html#index_h"},
 {text:"i",url:"functions_type.html#index_i"},
 {text:"j",url:"functions_type.html#index_j"},
+{text:"n",url:"functions_type.html#index_n"},
 {text:"p",url:"functions_type.html#index_p"},
 {text:"r",url:"functions_type.html#index_r"},
 {text:"v",url:"functions_type.html#index_v"},
