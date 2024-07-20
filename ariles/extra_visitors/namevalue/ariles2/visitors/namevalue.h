@@ -12,8 +12,9 @@
 @defgroup namevalue NameValue
 @ingroup config
 
-@brief Generates a vector of <std::string, double> pairs with flattened member names,
-e.g., <"ariles_class.class_member.real_member", 3.4>.
+@brief DEPRECATED
+
+@deprecated Deprecated in favor of namevalue2 visitor
 */
 
 
