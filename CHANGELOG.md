@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+2.3.0
+=====
+
+Added
+-----
+* namevalue2 visitor: improved version of now deprecated `namevalue`.
+
+
 2.2.0
 =====
 

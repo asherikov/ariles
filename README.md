@@ -8,7 +8,7 @@ Ariles
         <a href="https://github.com/asherikov/ariles/tree/head_2">HEAD v2</a>
     </td>
     <td align="center">
-        <a href="https://github.com/asherikov/ariles/tree/pkg_catkin_2">pkg_catkin_2</a><br/>
+        <a href="https://github.com/asherikov/ariles/tree/pkg_ws_2">pkg_ws_2</a><br/>
         (ROS/ROS2 packages)
     </td>
   </tr>
@@ -20,8 +20,8 @@ Ariles
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/asherikov/ariles/actions?query=workflow%3A.github%2Fworkflows%2Fcatkin_2.yml+branch%3Apkg_catkin_2">
-        <img src="https://github.com/asherikov/ariles/actions/workflows/.github/workflows/catkin_2.yml/badge.svg?branch=pkg_catkin_2" alt="Build Status">
+        <a href="https://github.com/asherikov/ariles/actions?query=workflow%3A.github%2Fworkflows%2Fws_2.yml+branch%3Apkg_ws_2">
+        <img src="https://github.com/asherikov/ariles/actions/workflows/.github/workflows/ws_2.yml/badge.svg?branch=pkg_ws_2" alt="Build Status">
         </a>
     </td>
   </tr>
@@ -146,8 +146,8 @@ ariles2::apply<ariles2::yaml_cpp::Reader>("config.yaml", configurable);
 ariles2::apply<ariles2::rosparam::Writer>(nh, configurable, "/some_namespace/");
 ```
 
-Note that ROS/ROS2 packages are available in a separate branch
-<https://github.com/asherikov/ariles/tree/pkg_catkin_2>.
+Note that ROS/ROS2 compatible packages are available in a separate branch
+<https://github.com/asherikov/ariles/tree/pkg_ws_2>.
 
 See demo for more exaples: <https://asherikov.github.io/ariles/2/DEMO.html>
 [`./tests/api_v2/demo_api_v2.cpp`]
@@ -235,11 +235,11 @@ Visitors and corresponding dependencies can be enabled or disabled via cmake
 options, the same applies to data types which depend on external libraries.
 
 
-Compilation with catkin
------------------------
+Compilation in a ROS1/ROS2 wrokspace
+------------------------------------
 
-An example catkin package is provided in `pkg_catkin_2` branch of the main
-repository -> <https://github.com/asherikov/ariles/tree/pkg_catkin_2>.
+ROS1/ROS2 compatible packages are provided in `pkg_ws_2` branch of the main
+repository -> <https://github.com/asherikov/ariles/tree/pkg_ws_2>.
 
 
 
