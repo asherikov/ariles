@@ -80,3 +80,4 @@ ariles_define_regression_test("232" "yaml_cpp")                             # No
 ariles_define_regression_test("233" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # subtree read
 ariles_define_regression_test("234" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # OptionalPointer
 ariles_define_regression_test("235" "ros2param")                            # Parameter declaration
+ariles_define_regression_test("236" "namevalue2")                           # namevalue2

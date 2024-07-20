@@ -48,6 +48,10 @@
 // #include <ariles2/visitors/namevalue.h>
 // #endif
 //
+// #ifdef ARILES_VISITOR_namevalue2
+// #include <ariles2/visitors/namevalue2.h>
+// #endif
+//
 // #ifdef ARILES_VISITOR_graphviz
-// #include <ariles2/visitors/namevalue.h>
+// #include <ariles2/visitors/graphviz.h>
 // #endif

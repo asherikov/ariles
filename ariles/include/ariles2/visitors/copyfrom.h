@@ -53,7 +53,7 @@ namespace ariles2
                 }
                 catch (std::exception &e)
                 {
-                    CPPUT_THROW(std::string("Copying failed: ") + e.what());
+                    CPPUT_THROW("Copying failed: ", e.what());
                 }
             }
 
@@ -72,7 +72,7 @@ namespace ariles2
                 }
                 catch (const std::exception &e)
                 {
-                    CPPUT_THROW("entry: " + name + " // " + std::string(e.what()));
+                    CPPUT_THROW("entry: ", name, " // ", e.what());
                 }
             }
         };

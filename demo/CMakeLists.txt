@@ -4,24 +4,24 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 
 
 if (DEFINED CATKIN_DEVEL_PREFIX)
-    project(ariles2_catkin_demo)
+    project(ariles2_ws_demo)
 
     find_package(catkin REQUIRED
-        ariles2_core_catkin
-        ariles2_rosparam_catkin
-        ariles2_rapidjson_catkin
-        ariles2_yamlcpp_catkin
-        ariles2_octave_catkin
-        ariles2_pugixml_catkin
+        ariles2_core_ws
+        ariles2_rosparam_ws
+        ariles2_rapidjson_ws
+        ariles2_yamlcpp_ws
+        ariles2_octave_ws
+        ariles2_pugixml_ws
     )
 
     catkin_package(DEPENDS
-        ariles2_core_catkin
-        ariles2_rosparam_catkin
-        ariles2_rapidjson_catkin
-        ariles2_yamlcpp_catkin
-        ariles2_octave_catkin
-        ariles2_pugixml_catkin
+        ariles2_core_ws
+        ariles2_rosparam_ws
+        ariles2_rapidjson_ws
+        ariles2_yamlcpp_ws
+        ariles2_octave_ws
+        ariles2_pugixml_ws
     )
 
     include_directories(
@@ -41,21 +41,21 @@ if (DEFINED CATKIN_DEVEL_PREFIX)
 else()
     project(ariles2_demo)
 
-    find_package(ariles2_core_catkin REQUIRED)
-    find_package(ariles2_rosparam_catkin REQUIRED)
-    find_package(ariles2_rapidjson_catkin REQUIRED)
-    find_package(ariles2_yamlcpp_catkin REQUIRED)
-    find_package(ariles2_octave_catkin REQUIRED)
-    find_package(ariles2_pugixml_catkin REQUIRED)
+    find_package(ariles2_core_ws REQUIRED)
+    find_package(ariles2_rosparam_ws REQUIRED)
+    find_package(ariles2_rapidjson_ws REQUIRED)
+    find_package(ariles2_yamlcpp_ws REQUIRED)
+    find_package(ariles2_octave_ws REQUIRED)
+    find_package(ariles2_pugixml_ws REQUIRED)
 
 
     add_executable(demo demo.cpp)
     target_link_libraries(demo
-        ${ariles2_core_catkin_LIBRARIES}
-        ${ariles2_rosparam_catkin_LIBRARIES}
-        ${ariles2_rapidjson_catkin_LIBRARIES}
-        ${ariles2_yamlcpp_catkin_LIBRARIES}
-        ${ariles2_octave_catkin_LIBRARIES}
-        ${ariles2_pugixml_catkin_LIBRARIES}
+        ${ariles2_core_ws_LIBRARIES}
+        ${ariles2_rosparam_ws_LIBRARIES}
+        ${ariles2_rapidjson_ws_LIBRARIES}
+        ${ariles2_yamlcpp_ws_LIBRARIES}
+        ${ariles2_octave_ws_LIBRARIES}
+        ${ariles2_pugixml_ws_LIBRARIES}
     )
 endif()

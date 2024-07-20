@@ -56,8 +56,7 @@ namespace ariles2
                 config_ofs.open(file_name.c_str());
 
                 CPPUT_PERSISTENT_ASSERT(
-                        config_ofs.good(),
-                        std::string("Could not open configuration file for writing: ") + file_name.c_str());
+                        config_ofs.good(), "Could not open configuration file for writing: ", file_name.c_str());
             }
 
 

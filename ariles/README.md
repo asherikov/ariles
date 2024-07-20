@@ -11,24 +11,19 @@ Ariles
         <a href="https://github.com/asherikov/ariles/tree/pkg_catkin_2">pkg_catkin_2</a><br/>
         (ROS/ROS2 packages)
     </td>
-    <td align="center">
-        <a href="https://github.com/asherikov/ariles/tree/pkg_freebsd_2">pkg_freebsd_2</a><br/>
-        (FreeBSD package)
-    </td>
   </tr>
   <tr>
     <th>CI status</th>
     <td align="center">
         <a href="https://github.com/asherikov/ariles/actions?query=workflow%3A.github%2Fworkflows%2Fhead_2.yml+branch%3Ahead_2">
-        <img src="https://github.com/asherikov/ariles/workflows/.github/workflows/head_2.yml/badge.svg?branch=head_2" alt="Build Status">
+        <img src="https://github.com/asherikov/ariles/actions/workflows/.github/workflows/head_2.yml/badge.svg?branch=head_2" alt="Build Status">
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/asherikov/ariles/actions?query=workflow%3A.github%2Fworkflows%2Fcatkin_2.yml+branch%3Apkg_catkin_2">
-        <img src="https://github.com/asherikov/ariles/workflows/.github/workflows/catkin_2.yml/badge.svg?branch=pkg_catkin_2" alt="Build Status">
+        <img src="https://github.com/asherikov/ariles/actions/workflows/.github/workflows/catkin_2.yml/badge.svg?branch=pkg_catkin_2" alt="Build Status">
         </a>
     </td>
-    <td align="center"></td>
   </tr>
   <tr>
     <th>package</th>
@@ -44,7 +39,6 @@ Ariles
         <img src="https://api-prd.cloudsmith.io/v1/badges/version/asherikov-aV7/all/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fjammy;t=binary/?render=true&show_latest=true" alt="Latest version of 'ariles' @ Cloudsmith">
         </a>
     </td>
-    <td align="center"></td>
     <td align="center"></td>
   </tr>
 </table>
@@ -187,7 +181,7 @@ representation formats, in particular:
   <https://asherikov.github.io/ariles/2/group__rosparam.html>
 
 * A set of flattened key-value pairs, output only, no dependencies:
-  <https://asherikov.github.io/ariles/2/group__namevalue.html>
+  <https://asherikov.github.io/ariles/2/group__namevalue2.html>
 
 * `graphviz` dot files for diagram generation:
   <https://asherikov.github.io/ariles/2/group__graphviz.html>

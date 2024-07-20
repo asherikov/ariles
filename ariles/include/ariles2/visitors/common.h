@@ -48,7 +48,7 @@ namespace ariles2
             using Parameters = t_Parameters;
 
         public:
-            const t_Parameters &getDefaultParameters() const
+            virtual const t_Parameters &getDefaultParameters() const
             {
                 const static t_Parameters parameters(false);
                 return parameters;

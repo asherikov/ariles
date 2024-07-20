@@ -85,8 +85,7 @@ namespace ariles2
                     std::string file_name_default = file_name;
                     config_ifs.open(file_name_default.c_str());
                 }
-                CPPUT_PERSISTENT_ASSERT(
-                        config_ifs.good(), std::string("Could not open configuration file: ") + file_name.c_str());
+                CPPUT_PERSISTENT_ASSERT(config_ifs.good(), "Could not open configuration file: ", file_name.c_str());
             }
 
 
@@ -419,9 +418,7 @@ namespace ariles2
                     }
                     catch (const std::exception &e)
                     {
-                        CPPUT_THROW(
-                                std::string("Failed to parse entry <") + convertSubtreeToString(subtree) + "> ||  "
-                                + e.what());
+                        CPPUT_THROW("Failed to parse entry <", convertSubtreeToString(subtree), "> ||  ", e.what());
                     }
 
                     this->endRoot(subtree);
@@ -430,8 +427,9 @@ namespace ariles2
                 {
                     CPPUT_PERSISTENT_ASSERT(
                             param.allow_missing_entries_,
-                            std::string("Configuration file does not contain entry '") + convertSubtreeToString(subtree)
-                                    + "'.");
+                            "Configuration file does not contain entry '",
+                            convertSubtreeToString(subtree),
+                            "'.");
                 }
             }
 
@@ -455,7 +453,7 @@ namespace ariles2
                     }
                     catch (const std::exception &e)
                     {
-                        CPPUT_THROW(std::string("Failed to parse entry <") + name + "> ||  " + e.what());
+                        CPPUT_THROW("Failed to parse entry <", name, "> ||  ", e.what());
                     }
 
                     this->endMapEntry();
@@ -465,7 +463,9 @@ namespace ariles2
                 {
                     CPPUT_PERSISTENT_ASSERT(
                             not override_missing_entries_locally and param.allow_missing_entries_,
-                            std::string("Configuration file does not contain entry '") + name + "'.");
+                            "Configuration file does not contain entry '",
+                            name,
+                            "'.");
                     return (false);
                 }
             }

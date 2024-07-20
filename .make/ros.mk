@@ -1,16 +1,16 @@
 PROJECT=ariles2
 
-CATKIN_PKGS= \
-			ariles2_core_catkin \
-			ariles2_namevalue_catkin \
-			ariles2_graphviz_catkin \
-			ariles2_octave_catkin \
-			ariles2_rapidjson_catkin \
-			ariles2_yamlcpp_catkin \
-			ariles2_rosparam_catkin \
-			ariles2_pugixml_catkin
+WS_PKGS= \
+			ariles2_core_ws \
+			ariles2_namevalue2_ws \
+			ariles2_graphviz_ws \
+			ariles2_octave_ws \
+			ariles2_rapidjson_ws \
+			ariles2_yamlcpp_ws \
+			ariles2_rosparam_ws \
+			ariles2_pugixml_ws
 
-CATKIN_DEPENDENCY_TEST_PKG=ariles2_catkin_demo
+CATKIN_DEPENDENCY_TEST_PKG=ariles2_ws_demo
 CATKIN_ARGS=--cmake-args -DARILES_ROS_ENABLE_TESTS=ON
 CATKIN_TARGETS=all test
 
@@ -28,7 +28,7 @@ ros_release:
 	# 0. Add Forthcoming section to the changelog
 	${MAKE} update_version VERSION=${VERSION}
 	-git commit -a
-	catkin_prepare_release -t 'catkin-' --version "${VERSION}" -y
+	catkin_prepare_release -t 'ws-' --version "${VERSION}" -y
 	# initial release -> https://wiki.ros.org/bloom/Tutorials/FirstTimeRelease
 	# subsequent releases -> bloom-release --rosdistro melodic --track melodic ${PKG}
 
@@ -73,7 +73,7 @@ catkin_test_deb: clean
 	${MAKE} catkin_prepare_workspace
 	${MAKE} catkin_fake_rosdep
 	mkdir -p build/dependency_test
-	echo ${CATKIN_PKGS} | tr " " "\n" | xargs -I {} ${MAKE} catkin_test_deb_pkg PKG="{}" ROS_DISTRO=${ROS_DISTRO}
+	echo ${WS_PKGS} | tr " " "\n" | xargs -I {} ${MAKE} catkin_test_deb_pkg PKG="{}" ROS_DISTRO=${ROS_DISTRO}
 	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; \
 		cd build/dependency_test; \
 		cmake ../../${DEPENDENCY_PATH}/; \
@@ -88,14 +88,14 @@ catkin_fake_rosdep:
 	# https://answers.ros.org/question/280213/generate-deb-from-dependent-res-package-locally/#280235
 	sudo /bin/sh -c 'echo "yaml file:///tmp/rosdep.yaml" > /etc/ros/rosdep/sources.list.d/50-ariles2.list'
 	sudo rm -Rf /tmp/rosdep.yaml
-	echo ${CATKIN_PKGS} | tr " " "\n" | \
+	echo ${WS_PKGS} | tr " " "\n" | \
 		xargs -I {} sudo /bin/sh -c 'echo "{}:" >> /tmp/rosdep.yaml; echo "  ubuntu: [ros-${ROS_DISTRO}-{}]" | tr "_" "-" >> /tmp/rosdep.yaml'
 	rosdep update
 
 
 catkin_old_build: catkin_prepare_workspace
 	cd ${CATKIN_WORKING_DIR}/src; catkin_init_workspace
-	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated --pkg ${CATKIN_PKGS} ${CATKIN_ARGS} --make-args ${CATKIN_TARGETS} # old
+	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated --pkg ${WS_PKGS} ${CATKIN_ARGS} --make-args ${CATKIN_TARGETS} # old
 
 catkin_old_build_with_dependent: catkin_prepare_workspace
 	cd ${CATKIN_WORKING_DIR}/src; catkin_init_workspace
@@ -113,7 +113,7 @@ catkin_old_deb: catkin_prepare_workspace
 
 catkin_new_build: catkin_prepare_workspace
 	cd ${CATKIN_WORKING_DIR}; catkin init
-	cd ${CATKIN_WORKING_DIR}; catkin build -i --verbose --summary ${CATKIN_PKGS} --make-args ${CATKIN_TARGETS} ${CATKIN_ARGS}
+	cd ${CATKIN_WORKING_DIR}; catkin build -i --verbose --summary ${WS_PKGS} --make-args ${CATKIN_TARGETS} ${CATKIN_ARGS}
 
 catkin_new_build_with_dependent: catkin_prepare_workspace
 	cd ${CATKIN_PKGS_PATH}/demo; mv package.xml.disable package.xml

@@ -21,11 +21,13 @@ namespace ariles2
 
 
         public:
+            /*
             template <class t_Ariles>
             const Parameters &getParameters(const t_Ariles &ariles_class) const
             {
                 return (ariles_class.arilesGetParameters(*this));
             }
+            */
 
 
             template <class t_Left, class t_Right>
@@ -38,7 +40,7 @@ namespace ariles2
                 }
                 catch (std::exception &e)
                 {
-                    CPPUT_THROW(std::string("Copying failed: ") + e.what());
+                    CPPUT_THROW("Copying failed: ", e.what());
                 }
             }
         };
