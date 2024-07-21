@@ -150,6 +150,7 @@ namespace ariles_tests
                 BOOST_CHECK_EQUAL(writer.template get<ariles2::write::Visitor>().index_, name_value_pairs.size());
                 BOOST_CHECK_EQUAL(name_value_pairs_back.size(), name_value_pairs.size());
 
+                // cppcheck-suppress unsignedLessThanZero
                 for (std::size_t i = 0; i < name_value_pairs.size(); ++i)
                 {
                     BOOST_CHECK_EQUAL(name_value_pairs[i].first, "");

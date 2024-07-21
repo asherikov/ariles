@@ -174,3 +174,28 @@ jobs:
             - run: sudo make install-deps
             - run: $APT clang-tools-15 clang-tidy-15
             - run: make clangcheck SCANBUILD=scan-build-15 OPTIONS=noros_tidy TC=gcc
+
+    jammy_ccws:
+        runs-on: ubuntu-22.04
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                repository: asherikov/ccws
+            - uses: actions/checkout@v4
+              with:
+                ref: pkg_ws_2
+                path: src/ariles_ws
+            - run: cd src/ariles_ws; make update VERSION=${GITHUB_SHA}; rm -Rf ariles2_rosparam_ws demo
+            - run: make bp_install_build BUILD_PROFILE=static_checks
+            - run: make BUILD_PROFILE=static_checks
+            - run: make bp_install_build BUILD_PROFILE=scan_build
+            - run: make dep_install PKG=ariles2_core_ws
+            - run: make dep_install PKG=ariles2_graphviz_ws
+            - run: make dep_install PKG=ariles2_namevalue2_ws
+            - run: make dep_install PKG=ariles2_octave_ws
+            - run: make dep_install PKG=ariles2_pugixml_ws
+            - run: make dep_install PKG=ariles2_rapidjson_ws
+            - run: make dep_install PKG=ariles2_ros2param_ws
+            - run: make dep_install PKG=ariles2_yamlcpp_ws
+            - run: make _ws BUILD_PROFILE=scan_build
+

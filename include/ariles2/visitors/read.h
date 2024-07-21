@@ -307,6 +307,7 @@ namespace ariles2
 
                         CPPUT_ASSERT(this->startMapEntry("data"), "Missing 'data' in a matrix entry.");
 
+                        // cppcheck-suppress unreadVariable
                         const std::size_t vec_len = this->startVector();
                         CPPUT_ASSERT(cols * rows == vec_len, "Inconsistent matrix size.");
                     }
@@ -330,6 +331,7 @@ namespace ariles2
                 if (not param.flat_matrices_ and 0 != row_index)
                 {
                     this->startArrayElement();
+                    // cppcheck-suppress unreadVariable
                     const std::size_t vec_len = this->startVector();
                     CPPUT_ASSERT(cols == vec_len, "Inconsistent matrix row length.");
                 }
