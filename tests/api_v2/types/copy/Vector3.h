@@ -16,7 +16,7 @@ namespace geometry_msgs
         Vector3_() : x(0.0), y(0.0), z(0.0)
         {
         }
-        Vector3_(const ContainerAllocator &_alloc) : x(0.0), y(0.0), z(0.0)
+        explicit Vector3_(const ContainerAllocator &_alloc) : x(0.0), y(0.0), z(0.0)
         {
             (void)_alloc;
         }

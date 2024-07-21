@@ -17,6 +17,7 @@ codereview
 constexpr
 copyfrom
 copyto
+cppcheck
 cpput
 cstring
 ctor

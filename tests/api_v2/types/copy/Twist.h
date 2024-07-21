@@ -17,7 +17,7 @@ namespace geometry_msgs
         Twist_() : linear(), angular()
         {
         }
-        Twist_(const ContainerAllocator &_alloc) : linear(_alloc), angular(_alloc)
+        explicit Twist_(const ContainerAllocator &_alloc) : linear(_alloc), angular(_alloc)
         {
             (void)_alloc;
         }

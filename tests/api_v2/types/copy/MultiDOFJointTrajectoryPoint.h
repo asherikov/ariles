@@ -18,7 +18,7 @@ namespace trajectory_msgs
         MultiDOFJointTrajectoryPoint_() : transforms(), velocities(), accelerations(), time_from_start()
         {
         }
-        MultiDOFJointTrajectoryPoint_(const ContainerAllocator &_alloc)
+        explicit MultiDOFJointTrajectoryPoint_(const ContainerAllocator &_alloc)
           : transforms(_alloc), velocities(_alloc), accelerations(_alloc), time_from_start()
         {
             (void)_alloc;

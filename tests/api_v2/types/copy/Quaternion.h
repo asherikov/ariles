@@ -16,7 +16,7 @@ namespace geometry_msgs
         Quaternion_() : x(0.0), y(0.0), z(0.0), w(0.0)
         {
         }
-        Quaternion_(const ContainerAllocator &_alloc) : x(0.0), y(0.0), z(0.0), w(0.0)
+        explicit Quaternion_(const ContainerAllocator &_alloc) : x(0.0), y(0.0), z(0.0), w(0.0)
         {
             (void)_alloc;
         }

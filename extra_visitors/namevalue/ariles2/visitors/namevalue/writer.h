@@ -33,12 +33,12 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE NameValuePairHandler<NameValuePair>
         {
         public:
-            static inline std::string &name(NameValuePair &pair)
+            static inline std::string &name(NameValuePair &pair)  // cppcheck-suppress constParameter
             {
                 return (pair.first);
             }
 
-            static inline double &value(NameValuePair &pair)
+            static inline double &value(NameValuePair &pair)  // cppcheck-suppress constParameter
             {
                 return (pair.second);
             }

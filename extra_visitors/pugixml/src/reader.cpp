@@ -49,7 +49,7 @@ namespace ariles2
 
             const pugi::xml_parse_result result = impl_->document_.load_file(file_name.c_str(), pugi::parse_minimal);
             CPPUT_ASSERT(result, std::string("Parsing of '") + file_name + "' failed: " + result.description());
-            impl_->node_stack_.push_back(impl_->document_);  // NOLINT
+            impl_->node_stack_.emplace_back(impl_->document_);
         }
 
 
@@ -59,7 +59,7 @@ namespace ariles2
 
             const pugi::xml_parse_result result = impl_->document_.load(input_stream, pugi::parse_minimal);
             CPPUT_ASSERT(result, std::string("Parsing failed: ") + result.description());
-            impl_->node_stack_.push_back(impl_->document_);  // NOLINT
+            impl_->node_stack_.emplace_back(impl_->document_);
         }
 
 

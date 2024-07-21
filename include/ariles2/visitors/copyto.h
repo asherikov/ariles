@@ -29,7 +29,7 @@ namespace ariles2
             bool deep_copy_;
 
         public:
-            Parameters(const bool override_parameters = true) : visitor::Parameters(override_parameters)
+            explicit Parameters(const bool override_parameters = true) : visitor::Parameters(override_parameters)
             {
                 deep_copy_ = true;
             }

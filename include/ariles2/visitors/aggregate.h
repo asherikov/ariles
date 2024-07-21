@@ -25,11 +25,11 @@ namespace ariles2
             typename t_Visitor::Parameters parameters_;
 
         public:
-            ParametersWrapper(const bool override_parameters = true) : parameters_(override_parameters)
+            explicit ParametersWrapper(const bool override_parameters = true) : parameters_(override_parameters)
             {
             }
 
-            ParametersWrapper(const typename t_Visitor::Parameters &parameters) : parameters_(parameters)
+            explicit ParametersWrapper(const typename t_Visitor::Parameters &parameters) : parameters_(parameters)
             {
             }
 
@@ -61,7 +61,7 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters<>
         {
         public:
-            Parameters(const bool){};
+            explicit Parameters(const bool){};
             Parameters(){};
 
             void get(){};
@@ -72,12 +72,13 @@ namespace ariles2
                                                                                   public Parameters<t_Visitors...>
         {
         public:
-            Parameters(const bool override_parameters = true)
+            explicit Parameters(const bool override_parameters = true)
               : ParametersWrapper<t_Visitor>(override_parameters), Parameters<t_Visitors...>(override_parameters)
             {
             }
 
             template <class... t_Parameters>
+            // cppcheck-suppress noExplicitConstructor
             Parameters(const typename t_Visitor::Parameters &parameters, t_Parameters &&...other_parameters)
               : ParametersWrapper<t_Visitor>(parameters)
               , Parameters<t_Visitors...>(std::forward<t_Parameters>(other_parameters)...)
@@ -85,12 +86,14 @@ namespace ariles2
             }
 
             template <class t_Parameters>
+            // cppcheck-suppress noExplicitConstructor
             Parameters(const t_Parameters &parameters, const bool override_parameters = true)
               : ParametersWrapper<t_Visitor>(override_parameters)
               , Parameters<t_Visitors...>(parameters, override_parameters)
             {
             }
 
+            // cppcheck-suppress noExplicitConstructor
             Parameters(const typename t_Visitor::Parameters &parameters, const bool override_parameters = true)
               : ParametersWrapper<t_Visitor>(parameters), Parameters<t_Visitors...>(override_parameters)
             {
@@ -110,7 +113,8 @@ namespace ariles2
 
         public:
             template <class... t_Args>
-            BaseVisitorWrapper(const std::tuple<t_Args...> &args_tuple) : visitor_(std::get<t_Args>(args_tuple)...)
+            explicit BaseVisitorWrapper(const std::tuple<t_Args...> &args_tuple)
+              : visitor_(std::get<t_Args>(args_tuple)...)
             {
             }
 
@@ -191,7 +195,7 @@ namespace ariles2
 
         public:
             template <class... t_Args>
-            Visitor(t_Args &&...args) : BaseVisitor<t_Visitors...>(std::forward<t_Args>(args)...)
+            explicit Visitor(t_Args &&...args) : BaseVisitor<t_Visitors...>(std::forward<t_Args>(args)...)
             {
             }
 

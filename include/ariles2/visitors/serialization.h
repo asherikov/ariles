@@ -36,7 +36,7 @@ namespace ariles2
 
 
         public:
-            Parameters(const bool override_parameters = true) : visitor::Parameters(override_parameters)
+            explicit Parameters(const bool override_parameters = true) : visitor::Parameters(override_parameters)
             {
                 sloppy_maps_ = false;
                 sloppy_pairs_ = false;
@@ -72,13 +72,13 @@ namespace ariles2
 
 
         public:
-            Node(const Type type = Type::GENERIC)
+            explicit Node(const Type type = Type::GENERIC)
             {
                 CPPUT_TRACE_FUNCTION
                 type_ = type;
             }
 
-            Node(t_RawNode node, const Type type = Type::GENERIC) : node_(node)
+            explicit Node(t_RawNode node, const Type type = Type::GENERIC) : node_(node)
             {
                 CPPUT_TRACE_FUNCTION
                 type_ = type;

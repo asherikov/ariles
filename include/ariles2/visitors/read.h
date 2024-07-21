@@ -66,7 +66,6 @@ namespace ariles2
                         return;
                     default:
                         CPPUT_THROW("Internal logic error.");
-                        return;
                 }
             }
 
@@ -222,7 +221,6 @@ namespace ariles2
             virtual bool startIteratedMapElement(std::string & /*entry_name*/)
             {
                 CPPUT_THROW("startIteratedMapElement() is not supported.");
-                return (false);
             }
             virtual void endIteratedMapElement()
             {
