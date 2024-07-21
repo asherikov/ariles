@@ -36,7 +36,7 @@ namespace ariles2
 
 
         public:
-            Parameters(const bool override_parameters = true) : visitor::Parameters(override_parameters)
+            explicit Parameters(const bool override_parameters = true) : visitor::Parameters(override_parameters)
             {
                 setDefaults();
             }

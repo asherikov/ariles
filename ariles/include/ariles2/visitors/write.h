@@ -33,7 +33,7 @@ namespace ariles2
 
 
         public:
-            Parameters(const bool override_parameters = true) : serialization::Parameters(override_parameters)
+            explicit Parameters(const bool override_parameters = true) : serialization::Parameters(override_parameters)
             {
                 compact_arrays_ = false;
             }

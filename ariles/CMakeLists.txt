@@ -1,6 +1,6 @@
 # General parameters
-cmake_minimum_required (VERSION 3.1.0)
-project(ariles2 VERSION 2.3.0)
+cmake_minimum_required (VERSION 3.5.0)
+project(ariles2 VERSION 2.3.1)
 
 
 set(ARILES_HOMEPAGE http://asherikov.github.io/ariles/2)

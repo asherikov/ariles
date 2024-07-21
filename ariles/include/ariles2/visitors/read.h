@@ -66,7 +66,6 @@ namespace ariles2
                         return;
                     default:
                         CPPUT_THROW("Internal logic error.");
-                        return;
                 }
             }
 
@@ -222,7 +221,6 @@ namespace ariles2
             virtual bool startIteratedMapElement(std::string & /*entry_name*/)
             {
                 CPPUT_THROW("startIteratedMapElement() is not supported.");
-                return (false);
             }
             virtual void endIteratedMapElement()
             {
@@ -309,6 +307,7 @@ namespace ariles2
 
                         CPPUT_ASSERT(this->startMapEntry("data"), "Missing 'data' in a matrix entry.");
 
+                        // cppcheck-suppress unreadVariable
                         const std::size_t vec_len = this->startVector();
                         CPPUT_ASSERT(cols * rows == vec_len, "Inconsistent matrix size.");
                     }
@@ -332,6 +331,7 @@ namespace ariles2
                 if (not param.flat_matrices_ and 0 != row_index)
                 {
                     this->startArrayElement();
+                    // cppcheck-suppress unreadVariable
                     const std::size_t vec_len = this->startVector();
                     CPPUT_ASSERT(cols == vec_len, "Inconsistent matrix row length.");
                 }

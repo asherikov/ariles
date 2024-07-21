@@ -222,6 +222,7 @@ cppcheck:
 	# false positive: constStatement, unsignedLessThanZero
 	cppcheck \
 		./ \
+		--inline-suppr \
 		--relative-paths \
 		--quiet --verbose --force \
 		--template='[{file}:{line}]  {severity}  {id}  {message}' \
@@ -240,6 +241,36 @@ cppcheck:
 		--suppress=duplInheritedMember \
 		-i build \
 		-i tests/api_v2/regression_test_230.cpp \
+		{} \
+	3>&1 1>&2 2>&3 | tee cppcheck.err
+	test 0 -eq `cat cppcheck.err | wc -l && rm cppcheck.err`
+	# check headers
+	find ./ -type f -iname '*.hpp' -or -iname "*.h" \
+		| grep -v "better_enum.h" \
+		| grep -v ".*build/.*" \
+		| xargs --max-procs=1 --no-run-if-empty -I {} \
+	cppcheck \
+		--inline-suppr \
+		--relative-paths \
+		--quiet --verbose --force \
+		--template='[{file}:{line}]  {severity}  {id}  {message}' \
+		--language=c++ --std=c++11 \
+	 	--enable=warning \
+		--enable=style \
+		--enable=performance \
+		--enable=portability \
+		--suppress=uninitMemberVar \
+		--suppress=syntaxError \
+		--suppress=useInitializationList \
+		--suppress=functionStatic \
+		--suppress=unknownMacro \
+		--suppress=constStatement \
+		--suppress=unsignedLessThanZero \
+		--suppress=duplInheritedMember \
+		--suppress=unreadVariable \
+		--suppress=unusedStructMember \
+		-i tests/api_v2/regression_test_230.cpp \
+		{} \
 	3>&1 1>&2 2>&3 | tee cppcheck.err
 	test 0 -eq `cat cppcheck.err | wc -l && rm cppcheck.err`
 

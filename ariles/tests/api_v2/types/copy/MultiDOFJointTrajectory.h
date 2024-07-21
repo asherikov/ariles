@@ -18,7 +18,8 @@ namespace trajectory_msgs
         MultiDOFJointTrajectory_() : header(), joint_names(), points()
         {
         }
-        MultiDOFJointTrajectory_(const ContainerAllocator &_alloc) : header(_alloc), joint_names(_alloc), points(_alloc)
+        explicit MultiDOFJointTrajectory_(const ContainerAllocator &_alloc)
+          : header(_alloc), joint_names(_alloc), points(_alloc)
         {
             (void)_alloc;
         }

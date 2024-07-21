@@ -25,7 +25,7 @@ namespace ariles2
             bool override_parameters_;
 
         public:
-            Parameters(const bool override_parameters = true)
+            explicit Parameters(const bool override_parameters = true)
             {
                 override_parameters_ = override_parameters;
             }

@@ -18,7 +18,7 @@ namespace geometry_msgs
         Transform_() : translation(), rotation()
         {
         }
-        Transform_(const ContainerAllocator &_alloc) : translation(_alloc), rotation(_alloc)
+        explicit Transform_(const ContainerAllocator &_alloc) : translation(_alloc), rotation(_alloc)
         {
             (void)_alloc;
         }

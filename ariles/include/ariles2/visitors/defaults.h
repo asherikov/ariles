@@ -31,7 +31,7 @@ namespace ariles2
             float default_float_value_;
 
         public:
-            Parameters(const bool override_parameters = true) : visitor::Parameters(override_parameters)
+            explicit Parameters(const bool override_parameters = true) : visitor::Parameters(override_parameters)
             {
 #ifdef ARILES2_DEFAULT_DOUBLE_VALUE
                 default_double_value_ = ARILES2_DEFAULT_DOUBLE_VALUE;

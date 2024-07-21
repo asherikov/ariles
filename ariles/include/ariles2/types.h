@@ -234,12 +234,12 @@ namespace ariles2
         {
         }
 
-        CustomPointerBase(const t_Pointer &value)
+        explicit CustomPointerBase(const t_Pointer &value)
         {
             value_ = value;
         }
 
-        CustomPointerBase(const typename Handler::Value &value)
+        explicit CustomPointerBase(const typename Handler::Value &value)
         {
             Handler::allocate(value_);
             *value_ = value;

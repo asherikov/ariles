@@ -16,7 +16,7 @@ namespace std_msgs
         Header_() : seq(0), stamp(), frame_id()
         {
         }
-        Header_(const ContainerAllocator &_alloc) : seq(0), stamp(), frame_id(_alloc)
+        explicit Header_(const ContainerAllocator &_alloc) : seq(0), stamp(), frame_id(_alloc)
         {
             (void)_alloc;
         }
