@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+2.3.1
+=====
+
+Fixed
+-----
+* Static check errors.
+
+
 2.3.0
 =====
 
