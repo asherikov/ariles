@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+2.3.2
+=====
+
+Fixed
+-----
+* std::vector<bool> support
+
+
 2.3.1
 =====
 
