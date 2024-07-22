@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(ariles2_graphviz_ws VERSION 2.3.1)
+project(ariles2_graphviz_ws VERSION 2.3.2)
 
 
 option(ARILES_ROS_ENABLE_TESTS "Enable tests." OFF)

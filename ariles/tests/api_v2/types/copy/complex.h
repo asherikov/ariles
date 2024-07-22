@@ -22,6 +22,7 @@ namespace ariles_tests
 
 
         std::vector<double> std_vector;
+        std::vector<bool> std_vector_bool;
         std::vector<std::vector<double>> std_nested_vector;
 
         std::string string;
