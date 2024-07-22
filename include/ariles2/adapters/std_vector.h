@@ -42,6 +42,23 @@ namespace ariles2
             }
             visitor.endArray();
         }
+
+        template <class t_Visitor, class... t_Args>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
+                t_Visitor &visitor,
+                std::vector<bool, t_Args...> &entry,
+                const typename t_Visitor::Parameters &param)
+        {
+            CPPUT_TRACE_FUNCTION;
+            entry.resize(visitor.startArray());
+            for (std::size_t i = 0; i < entry.size(); ++i)
+            {
+                bool value;
+                visitor.visitArrayElement(value, param);
+                entry[i] = value;
+            }
+            visitor.endArray();
+        }
     }  // namespace read
 }  // namespace ariles2
 
@@ -124,6 +141,21 @@ namespace ariles2
             for (typename std::vector<t_Args...>::value_type &value : entry)
             {
                 apply_process(visitor, value, param);
+            }
+        }
+
+        template <class t_Visitor, class... t_Args>
+        void ARILES2_VISIBILITY_ATTRIBUTE apply_process(
+                const t_Visitor &visitor,
+                std::vector<bool, t_Args...> &entry,
+                const typename t_Visitor::Parameters &param)
+        {
+            CPPUT_TRACE_FUNCTION;
+            for (std::size_t i = 0; i < entry.size(); ++i)
+            {
+                bool value = entry[i];
+                apply_process(visitor, value, param);
+                entry[i] = value;
             }
         }
     }  // namespace process

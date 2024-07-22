@@ -23,6 +23,7 @@ namespace ariles_tests
     ARILES2_TYPED_ENTRY_(v, complex_float, std::complex<float>)                                                        \
     ARILES2_TYPED_ENTRY_(v, string, std::string)                                                                       \
     ARILES2_TYPED_ENTRY_(v, std_vector, std::vector<double>)                                                           \
+    ARILES2_TYPED_ENTRY_(v, std_vector_bool, std::vector<bool>)                                                        \
     ARILES2_TYPED_ENTRY_(v, std_nested_vector, std::vector<std::vector<double>>)                                       \
     ARILES2_TYPED_ENTRY_(v, some_enum, SomeEnum)                                                                       \
     ARILES2_TYPED_ENTRY_(v, boolean_true, bool)                                                                        \

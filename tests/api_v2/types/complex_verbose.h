@@ -24,6 +24,7 @@ namespace ariles_tests
     ARILES2_ENTRY_(v, complex_float)                                                                                   \
     ARILES2_ENTRY_(v, string)                                                                                          \
     ARILES2_ENTRY_(v, std_vector)                                                                                      \
+    ARILES2_ENTRY_(v, std_vector_bool)                                                                                 \
     ARILES2_ENTRY_(v, std_nested_vector)                                                                               \
     ARILES2_ENTRY_(v, some_enum)                                                                                       \
     ARILES2_ENTRY_(v, boolean_true)                                                                                    \
@@ -71,6 +72,7 @@ namespace ariles_tests
 
 
         std::vector<double> std_vector_;
+        std::vector<bool> std_vector_bool_;
         std::vector<std::vector<double>> std_nested_vector_;
 
         std::string string_;
