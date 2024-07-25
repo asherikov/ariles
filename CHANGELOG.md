@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+UNRELEASED
+==========
+
+Added
+-----
+* `ariles2::Any2`: a replacement for deprecated `ariles2::Any`.
+
+
 2.3.2
 =====
 

@@ -51,7 +51,7 @@ namespace ariles_tests
                 impl->std_vector_[i] = i * 5.22 + 2.3;
             }
 
-            impl->std_vector_bool_ = {false, false, true, false};
+            impl->std_vector_bool_ = { false, false, true, false };
 
             impl->std_nested_vector_.resize(3);
             for (std::size_t i = 0; i < impl->std_nested_vector_.size(); ++i)
@@ -133,7 +133,7 @@ namespace ariles_tests
                 impl->std_vector_[i] = GET_RANDOM_REAL;
             }
 
-            impl->std_vector_bool_ = {false, true, false};
+            impl->std_vector_bool_ = { false, true, false };
 
             impl->std_nested_vector_.resize(3);
             for (std::size_t i = 0; i < impl->std_nested_vector_.size(); ++i)

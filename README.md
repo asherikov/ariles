@@ -270,3 +270,10 @@ Related software
 
 * A library with similar functionality in C++17
   <https://github.com/injae/serdepp>.
+
+
+Deprecated
+==========
+
+- `ariles2::namevalue`
+- `ariles2::Any`
