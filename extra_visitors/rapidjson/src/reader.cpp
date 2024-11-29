@@ -38,7 +38,7 @@ namespace ariles2
 
                 void initialize()
                 {
-                    ariles2::ns_rapidjson::IStreamWrapper isw(*input_stream_);
+                    ariles2::ns_rapidjson::IStreamWrapper isw(*input_streams_.back());
                     document_.ParseStream(isw);
                     CPPUT_ASSERT(not document_.HasParseError(), "Parsing failed");
                 }

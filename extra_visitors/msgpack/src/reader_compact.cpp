@@ -56,7 +56,7 @@ namespace ariles2
                 void initialize()
                 {
                     std::stringstream str_stream;
-                    str_stream << input_stream_->rdbuf();
+                    str_stream << input_streams_.back()->rdbuf();
                     buffer_ = str_stream.str();
 
                     try

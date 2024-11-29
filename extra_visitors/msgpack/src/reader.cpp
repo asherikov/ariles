@@ -57,7 +57,7 @@ namespace ariles2
                 {
                     CPPUT_TRACE_FUNCTION;
                     std::stringstream str_stream;
-                    str_stream << input_stream_->rdbuf();
+                    str_stream << input_streams_.back()->rdbuf();
                     buffer_ = str_stream.str();
 
 

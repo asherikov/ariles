@@ -489,39 +489,44 @@ namespace ariles2
         class FileVisitorImplementation
         {
         protected:
-            std::ifstream config_ifs_;
-
-            std::istream *input_stream_;
+            std::vector<std::ifstream> config_ifs_;
+            std::vector<std::istream *> input_streams_;
 
         protected:
             FileVisitorImplementation() = default;
 
-            explicit FileVisitorImplementation(const std::string &file_name)
+            explicit FileVisitorImplementation(const std::vector<std::string> &file_names)
             {
-                openFile(file_name);
-                input_stream_ = &config_ifs_;
+                for (const std::string &file_name : file_names)
+                {
+                    config_ifs_.emplace_back();
+                    config_ifs_.back().open(file_name.c_str());
+                    if (!config_ifs_.back().good())
+                    {
+                        const std::string file_name_default = file_name;
+                        config_ifs_.back().open(file_name_default.c_str());
+                    }
+                    CPPUT_PERSISTENT_ASSERT(
+                            config_ifs_.back().good(), "Could not open configuration file: ", file_name.c_str());
+
+                    input_streams_.emplace_back(&config_ifs_.back());
+                }
+            }
+
+            explicit FileVisitorImplementation(const std::vector<std::istream *> &input_streams)
+            {
+                input_streams_ = input_streams;
+            }
+
+
+            explicit FileVisitorImplementation(const std::string &file_name)
+              : FileVisitorImplementation(std::vector{ file_name })
+            {
             }
 
             explicit FileVisitorImplementation(std::istream &input_stream)
+              : FileVisitorImplementation(std::vector{ &input_stream })
             {
-                input_stream_ = &input_stream;
-            }
-
-
-            /**
-             * @brief open configuration file
-             *
-             * @param[in] file_name
-             */
-            void openFile(const std::string &file_name)
-            {
-                config_ifs_.open(file_name.c_str());
-                if (!config_ifs_.good())
-                {
-                    std::string file_name_default = file_name;
-                    config_ifs_.open(file_name_default.c_str());
-                }
-                CPPUT_PERSISTENT_ASSERT(config_ifs_.good(), "Could not open configuration file: ", file_name.c_str());
             }
         };
 
