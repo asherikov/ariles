@@ -395,7 +395,6 @@ namespace ariles2
             /**
              * @brief open configuration file
              *
-             * @param[out] config_ofs
              * @param[in] file_name
              */
             void openFile(const std::string &file_name)

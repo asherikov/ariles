@@ -33,7 +33,8 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<NodeWrapper>
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<NodeWrapper>,
+                                                        public read::FileVisitorImplementation
             {
             public:
                 std::string buffer_;
@@ -42,15 +43,20 @@ namespace ariles2
 
 
             public:
+                template <class... t_Args>
+                explicit Reader(t_Args &&...args) : FileVisitorImplementation(std::forward<t_Args>(args)...)
+                {
+                    initialize();
+                }
+
+
                 /**
                  * @brief open configuration file
-                 *
-                 * @param[in] input_stream
                  */
-                void initialize(std::istream &input_stream)
+                void initialize()
                 {
                     std::stringstream str_stream;
-                    str_stream << input_stream.rdbuf();
+                    str_stream << input_stream_->rdbuf();
                     buffer_ = str_stream.str();
 
                     try
@@ -97,17 +103,13 @@ namespace ariles2
     {
         Reader::Reader(const std::string &file_name)
         {
-            std::ifstream config_ifs;
-            read::Visitor::openFile(config_ifs, file_name);
-            makeImplPtr();
-            impl_->initialize(config_ifs);
+            makeImplPtr(file_name);
         }
 
 
         Reader::Reader(std::istream &input_stream)
         {
-            makeImplPtr();
-            impl_->initialize(input_stream);
+            makeImplPtr(input_stream);
         }
 
 

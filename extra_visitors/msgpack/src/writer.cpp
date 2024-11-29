@@ -38,7 +38,7 @@ namespace ariles2
                 void operator=(const Writer &) = delete;
 
 
-                template<class... t_Args>
+                template <class... t_Args>
                 explicit Writer(t_Args &&...args) : FileVisitorImplementation(std::forward<t_Args>(args)...)
                 {
                     packer_ = std::make_shared<::msgpack::packer<std::ostream>>(*output_stream_);

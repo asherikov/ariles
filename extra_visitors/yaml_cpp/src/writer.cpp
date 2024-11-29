@@ -58,7 +58,7 @@ namespace ariles2
                 }
 
             public:
-                template<class... t_Args>
+                template <class... t_Args>
                 explicit Writer(t_Args &&...args) : FileVisitorImplementation(std::forward<t_Args>(args)...)
                 {
                     initEmitter();

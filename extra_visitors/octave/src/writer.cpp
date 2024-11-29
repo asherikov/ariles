@@ -31,7 +31,8 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::NodeStackBase<NodeWrapper>, public write::FileVisitorImplementation
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::NodeStackBase<NodeWrapper>,
+                                                        public write::FileVisitorImplementation
             {
             public:
                 const std::string separator_ = ".";
@@ -50,7 +51,7 @@ namespace ariles2
 
 
             public:
-                template<class... t_Args>
+                template <class... t_Args>
                 explicit Writer(t_Args &&...args) : FileVisitorImplementation(std::forward<t_Args>(args)...)
                 {
                     initEmitter();

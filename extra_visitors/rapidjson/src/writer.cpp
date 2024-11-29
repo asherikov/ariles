@@ -24,10 +24,11 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ariles2::ns_rapidjson::ImplBase<::rapidjson::Value>, public write::FileVisitorImplementation
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ariles2::ns_rapidjson::ImplBase<::rapidjson::Value>,
+                                                        public write::FileVisitorImplementation
             {
             public:
-                template<class... t_Args>
+                template <class... t_Args>
                 explicit Writer(t_Args &&...args) : FileVisitorImplementation(std::forward<t_Args>(args)...)
                 {
                     document_.SetObject();
