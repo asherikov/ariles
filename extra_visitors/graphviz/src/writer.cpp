@@ -71,15 +71,9 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public serialization::NodeStackBase<NodeWrapper>
+            class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public serialization::NodeStackBase<NodeWrapper>, public write::FileVisitorImplementation
             {
             public:
-                /// output file stream
-                std::ofstream config_ofs_;
-
-                /// output stream
-                std::ostream *output_stream_;
-
                 std::set<std::string> all_ids_;
                 const Parameters *parameters_;
 
@@ -87,15 +81,9 @@ namespace ariles2
 
 
             public:
-                explicit Visitor(const std::string &file_name)
+                template<class... t_Args>
+                explicit Visitor(t_Args &&...args) : FileVisitorImplementation(std::forward<t_Args>(args)...)
                 {
-                    ariles2::write::Visitor::openFile(config_ofs_, file_name);
-                    output_stream_ = &config_ofs_;
-                }
-
-                explicit Visitor(std::ostream &output_stream)
-                {
-                    output_stream_ = &output_stream;
                 }
 
 
