@@ -22,18 +22,9 @@ namespace ariles2
 {
     namespace ns_octave
     {
-        using NodeWrapper = serialization::Node<std::string>;
-    }  // namespace ns_octave
-}  // namespace ariles2
-
-
-namespace ariles2
-{
-    namespace ns_octave
-    {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::NodeStackBase<NodeWrapper>,
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::NodeStackBase<serialization::NodeString>,
                                                         public write::FileVisitorImplementation
             {
             public:
@@ -156,7 +147,7 @@ namespace ariles2
 
         void Writer::startVector(const std::size_t /*size*/)
         {
-            impl_->emplace(impl_->back().node_ + " = [", NodeWrapper::Type::MATRIX);
+            impl_->emplace(impl_->back().node_ + " = [", serialization::Node::Type::MATRIX);
             *impl_->output_stream_ << impl_->back().node_;
         }
 
@@ -182,7 +173,7 @@ namespace ariles2
                 const std::size_t /*rows*/,
                 const Parameters & /*param*/)
         {
-            impl_->emplace(impl_->back().node_ + " = [...\n", NodeWrapper::Type::MATRIX);
+            impl_->emplace(impl_->back().node_ + " = [...\n", serialization::Node::Type::MATRIX);
             *impl_->output_stream_ << impl_->back().node_;
         }
 

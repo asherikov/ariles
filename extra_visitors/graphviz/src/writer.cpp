@@ -19,37 +19,35 @@
 #include <boost/lexical_cast.hpp>
 
 
-
 namespace ariles2
 {
     namespace ns_graphviz
     {
-        class NodeWrapper : public serialization::Node<std::string>
+        class NodeWrapper : public serialization::Node
         {
-        public:
-            using Base = serialization::Node<std::string>;
-
         public:
             std::string actual_id_;
             std::string label_;
+            std::string node_;
 
 
         public:
-            explicit NodeWrapper(const std::string &node, const Base::Type type = Base::Type::GENERIC)
-              : Base(node, type)
+            explicit NodeWrapper(
+                    const std::string &node,
+                    const serialization::Node::Type type = serialization::Node::Type::GENERIC)
+              : NodeWrapper(node, node, type)
             {
-                label_ = node;
-                actual_id_ = node;
             }
 
             explicit NodeWrapper(
                     const std::string &node,
                     const std::string &label,
-                    const Base::Type type = Base::Type::GENERIC)
-              : Base(node, type)
+                    const serialization::Node::Type type = serialization::Node::Type::GENERIC)
+              : serialization::Node(type)
             {
                 label_ = label;
                 actual_id_ = node;
+                node_ = node;
             }
 
             NodeWrapper(
@@ -57,10 +55,11 @@ namespace ariles2
                     const std::string &label,
                     const std::size_t index,
                     const std::size_t size)
-              : Base(node, index, size)
+              : serialization::Node(index, size)
             {
                 label_ = label;
                 actual_id_ = node;
+                node_ = node;
             }
         };
     }  // namespace ns_graphviz

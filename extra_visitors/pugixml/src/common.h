@@ -20,6 +20,6 @@ namespace ariles2
 {
     namespace ns_pugixml
     {
-        using NodeWrapper = serialization::Node<pugi::xml_node>;
+        using NodeWrapper = serialization::NodeTemplate<pugi::xml_node, const pugi::xml_node &>;
     }
 }  // namespace ariles2

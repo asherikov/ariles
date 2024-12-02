@@ -18,14 +18,6 @@
 #include <ariles2/visitors_impl/read.h>
 #include <ariles2/visitors_impl/serialization.h>
 
-namespace ariles2
-{
-    namespace ns_msgpack
-    {
-        using NodeWrapper = serialization::Node<const ::msgpack::object *>;
-    }
-}  // namespace ariles2
-
 
 namespace ariles2
 {
@@ -33,8 +25,9 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<NodeWrapper>,
-                                                        public read::FileVisitorImplementation
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader
+              : public serialization::NodeStackBase<serialization::NodeTemplate<const ::msgpack::object *>>,
+                public read::FileVisitorImplementation
             {
             public:
                 std::string buffer_;
@@ -177,7 +170,7 @@ namespace ariles2
         {
             CPPUT_TRACE_FUNCTION;
             const std::size_t size = impl_->getRawNode().via.array.size;
-            impl_->emplace(0, size);
+            impl_->emplace(nullptr, 0, size);
 
             return (size);
         }

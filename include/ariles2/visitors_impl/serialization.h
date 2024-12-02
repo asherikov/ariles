@@ -14,7 +14,6 @@ namespace ariles2
 {
     namespace serialization
     {
-        template <class t_RawNode>
         class ARILES2_VISIBILITY_ATTRIBUTE Node
         {
         public:
@@ -30,7 +29,6 @@ namespace ariles2
 
 
         public:
-            t_RawNode node_;
             std::size_t index_;
             std::size_t size_;
             Type type_;
@@ -41,24 +39,11 @@ namespace ariles2
             {
                 CPPUT_TRACE_FUNCTION;
                 type_ = type;
-            }
-
-            explicit Node(t_RawNode node, const Type type = Type::GENERIC) : node_(node)
-            {
-                CPPUT_TRACE_FUNCTION;
-                type_ = type;
                 index_ = 0;
                 size_ = 0;
             }
 
             Node(const std::size_t index, const std::size_t size) : index_(index), size_(size)
-            {
-                CPPUT_TRACE_FUNCTION;
-                type_ = Type::ARRAY;  // NOLINT
-            }  // NOLINT
-
-            Node(t_RawNode node, const std::size_t index, const std::size_t size)
-              : node_(node), index_(index), size_(size)
             {
                 CPPUT_TRACE_FUNCTION;
                 type_ = Type::ARRAY;
@@ -84,6 +69,23 @@ namespace ariles2
                 return (index_ >= size_);
             }
         };
+
+
+        template <class t_Node, class t_NodeArg = t_Node>
+        class NodeTemplate : public serialization::Node
+        {
+        public:
+            t_Node node_;
+
+        public:
+            template <class... t_Args>
+            NodeTemplate(t_NodeArg node, t_Args &&...args) : serialization::Node(std::forward<t_Args>(args)...)
+            {
+                node_ = node;
+            }
+        };
+
+        using NodeString = NodeTemplate<std::string, const std::string &>;
 
 
         template <class t_Node>

@@ -47,7 +47,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_pugixml
+    }  // namespace ns_pugixml
 }  // namespace ariles2
 
 

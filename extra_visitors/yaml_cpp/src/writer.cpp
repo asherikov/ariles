@@ -23,12 +23,8 @@ namespace ariles2
             class ARILES2_VISIBILITY_ATTRIBUTE Writer : public write::FileVisitorImplementation
             {
             public:
-                using EmitterPtr = std::shared_ptr<YAML::Emitter>;
-
-
-            public:
                 /// instance of YAML emitter, is destroyed and reinitialized by flush()
-                EmitterPtr emitter_;
+                std::shared_ptr<YAML::Emitter> emitter_;
 
                 std::size_t map_depth_;
                 bool skip_root_map_;

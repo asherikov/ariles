@@ -52,7 +52,7 @@ namespace ariles2
         template <class t_NameValuePair>
         class ARILES2_VISIBILITY_ATTRIBUTE GenericWriter
           : public ariles2::write::Visitor,
-            public serialization::NodeStackBase<serialization::Node<std::string>>
+            public serialization::NodeStackBase<serialization::NodeString>
         {
         protected:
             std::size_t reserve_;

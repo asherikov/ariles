@@ -46,13 +46,13 @@ namespace ariles2
     {
         Writer::Writer(const std::string &file_name)
         {
-            impl_ = ImplPtr(new impl::Writer(file_name));
+            makeImplPtr(file_name);
         }
 
 
         Writer::Writer(std::ostream &output_stream)
         {
-            impl_ = ImplPtr(new impl::Writer(output_stream));
+            makeImplPtr(output_stream);
         }
 
 
@@ -101,7 +101,7 @@ namespace ariles2
                 ::rapidjson::Value value;
                 impl_->getRawNode().PushBack(value, impl_->document_.GetAllocator());
             }
-            impl_->emplace(0, size);
+            impl_->emplace(nullptr, 0, size);
         }
 
         void Writer::startArrayElement()

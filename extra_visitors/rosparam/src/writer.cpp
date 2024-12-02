@@ -75,7 +75,7 @@ namespace ariles2
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
             impl_->getRawNode().setSize(static_cast<int>(size));
-            impl_->emplace(0, size);
+            impl_->emplace(nullptr, 0, size);
         }
 
         void Writer::startArrayElement()

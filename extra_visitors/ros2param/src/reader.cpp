@@ -45,7 +45,7 @@ namespace ariles2
             }
 
             explicit ReaderNodeWrapper(const rclcpp::Parameter &&parameter)
-              : NodeBase(NodeBase::Type::ARRAY), parameter_(parameter)
+              : NodeBase("", NodeBase::Type::ARRAY), parameter_(parameter)
             {
                 index_ = 0;
                 array_type_ = ArrayType::BUILTIN;

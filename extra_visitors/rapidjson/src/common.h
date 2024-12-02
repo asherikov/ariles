@@ -31,12 +31,11 @@ namespace ariles2
     namespace ns_rapidjson
     {
         template <class t_Node>
-        class CPPUT_LIB_LOCAL ImplBase : public serialization::NodeStackBase<serialization::Node<t_Node *>>
+        class CPPUT_LIB_LOCAL ImplBase : public serialization::NodeStackBase<serialization::NodeTemplate<t_Node *>>
         {
         public:
-            using serialization::NodeStackBase<serialization::Node<t_Node *>>::node_stack_;
+            using serialization::NodeStackBase<serialization::NodeTemplate<t_Node *>>::node_stack_;
 
-        public:
             /// instance of the parser
             ::rapidjson::Document document_;
 

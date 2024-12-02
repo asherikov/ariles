@@ -23,10 +23,8 @@ namespace ariles2
 {
     namespace ns_rosparam
     {
-        using NodeWrapper = serialization::Node<XmlRpc::XmlRpcValue *>;
-
-
-        class CPPUT_LIB_LOCAL ImplBase : public serialization::NodeStackBase<NodeWrapper>
+        class CPPUT_LIB_LOCAL ImplBase
+          : public serialization::NodeStackBase<serialization::NodeTemplate<XmlRpc::XmlRpcValue *>>
         {
         public:
             std::string root_name_;

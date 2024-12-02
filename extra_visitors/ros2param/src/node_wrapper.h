@@ -12,10 +12,10 @@ namespace ariles2
 {
     namespace ns_ros2param
     {
-        class NodeBase : public serialization::Node<std::string>
+        class NodeBase : public serialization::NodeString
         {
         protected:
-            using Parent = serialization::Node<std::string>;
+            using Parent = serialization::NodeString;
 
         public:
             enum class ArrayType

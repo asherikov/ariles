@@ -18,19 +18,11 @@ namespace ariles2
 {
     namespace ns_yaml_cpp
     {
-        using NodeWrapper = serialization::Node<YAML::Node>;
-    }
-}  // namespace ariles2
-
-
-namespace ariles2
-{
-    namespace ns_yaml_cpp
-    {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<NodeWrapper>,
-                                                        public read::FileVisitorImplementation
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader
+              : public serialization::NodeStackBase<serialization::NodeTemplate<YAML::Node>>,
+                public read::FileVisitorImplementation
             {
             public:
                 std::vector<YAML::const_iterator> iterator_stack_;
@@ -62,7 +54,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_yaml_cpp
+    }  // namespace ns_yaml_cpp
 }  // namespace ariles2
 
 
@@ -163,7 +155,7 @@ namespace ariles2
             CPPUT_ASSERT(impl_->getRawNode().IsSequence(), "Entry is not an array.");
 
             const std::size_t size = impl_->getRawNode().size();
-            impl_->emplace(0, size);
+            impl_->emplace(YAML::Node(), 0, size);
 
             return (size);
         }

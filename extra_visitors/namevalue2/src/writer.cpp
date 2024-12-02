@@ -19,8 +19,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer
-              : public serialization::NodeStackBase<serialization::Node<std::string>>
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::NodeStackBase<serialization::NodeString>
             {
             public:
                 bool initialize_names_;

@@ -132,7 +132,7 @@ namespace ariles2
             CPPUT_ASSERT(XmlRpc::XmlRpcValue::TypeArray == impl_->getRawNode().getType(), "Expected array.");
 
             std::size_t size = impl_->getRawNode().size();
-            impl_->emplace(0, size);
+            impl_->emplace(nullptr, 0, size);
 
             return (size);
         }

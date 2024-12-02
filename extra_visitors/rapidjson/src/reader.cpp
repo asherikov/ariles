@@ -142,7 +142,7 @@ namespace ariles2
             CPPUT_ASSERT(impl_->getRawNode().IsArray(), "Internal error: expected array.");
 
             std::size_t size = impl_->getRawNode().Size();
-            impl_->emplace(0, size);
+            impl_->emplace(nullptr, 0, size);
 
             return (size);
         }
