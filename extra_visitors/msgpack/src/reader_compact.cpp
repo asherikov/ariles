@@ -16,6 +16,8 @@
 #include <msgpack.hpp>
 
 #include <ariles2/visitors/msgpack.h>
+#include <ariles2/visitors_impl/read.h>
+#include <ariles2/visitors_impl/serialization.h>
 
 
 namespace ariles2
@@ -45,15 +47,6 @@ namespace ariles2
             public:
                 template <class... t_Args>
                 explicit Reader(t_Args &&...args) : FileVisitorImplementation(std::forward<t_Args>(args)...)
-                {
-                    initialize();
-                }
-
-
-                /**
-                 * @brief open configuration file
-                 */
-                void initialize()
                 {
                     std::stringstream str_stream;
                     str_stream << input_streams_.back()->rdbuf();
@@ -92,7 +85,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_msgpack_compact
+    }  // namespace ns_msgpack_compact
 }  // namespace ariles2
 
 

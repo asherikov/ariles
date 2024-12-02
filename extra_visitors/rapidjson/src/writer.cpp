@@ -10,6 +10,7 @@
 
 
 #include <ariles2/visitors/rapidjson.h>
+#include <ariles2/visitors_impl/write.h>
 
 #include "common.h"
 
@@ -35,7 +36,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_rapidjson
+    }  // namespace ns_rapidjson
 }  // namespace ariles2
 
 

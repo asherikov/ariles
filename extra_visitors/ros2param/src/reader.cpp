@@ -13,6 +13,7 @@
 #include <boost/lexical_cast.hpp>
 
 #include <ariles2/visitors/ros2param.h>
+#include <ariles2/visitors_impl/serialization.h>
 
 #include "node_wrapper.h"
 
@@ -264,7 +265,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_ros2param
+    }  // namespace ns_ros2param
 }  // namespace ariles2
 
 

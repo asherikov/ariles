@@ -10,6 +10,7 @@
 
 #include <boost/math/special_functions.hpp>
 #include <ariles2/visitors/yaml_cpp.h>
+#include <ariles2/visitors_impl/write.h>
 #include <yaml-cpp/yaml.h>
 
 
@@ -74,7 +75,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_yaml_cpp
+    }  // namespace ns_yaml_cpp
 }  // namespace ariles2
 
 

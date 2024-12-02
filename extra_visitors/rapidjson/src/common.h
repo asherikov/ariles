@@ -17,6 +17,7 @@
 #define RAPIDJSON_WRITE_DEFAULT_FLAGS ::rapidjson::kWriteNanAndInfFlag
 #define RAPIDJSON_PARSE_DEFAULT_FLAGS ::rapidjson::kParseNanAndInfFlag
 
+#include <ariles2/visitors_impl/serialization.h>
 
 #include <boost/lexical_cast.hpp>
 

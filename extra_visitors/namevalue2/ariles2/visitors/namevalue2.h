@@ -32,6 +32,11 @@ namespace ariles2
 {
     namespace ns_namevalue2
     {
+        namespace impl
+        {
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer;
+        }
+
         class NameValueContainer
         {
         public:
@@ -48,20 +53,8 @@ namespace ariles2
         /**
          * @brief Configuration writer class
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Writer
-          : public ariles2::write::Visitor,
-            public serialization::NodeStackBase<serialization::Node<std::string>>
+        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::PIMPLVisitor<write::Visitor, impl::Writer>
         {
-        protected:
-            bool initialize_names_;
-            std::size_t index_;
-            std::shared_ptr<NameValueContainer> name_value_pairs_;
-
-            const std::string separator_ = ".";
-            const std::string bracket_left_ = "{";
-            const std::string bracket_right_ = "}";
-
-
         public:
             explicit Writer(const std::shared_ptr<NameValueContainer> &container, const std::size_t reserve = 0);
             virtual void startRoot(const std::string &name, const Parameters &param);

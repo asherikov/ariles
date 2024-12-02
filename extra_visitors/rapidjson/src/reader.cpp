@@ -10,6 +10,7 @@
 
 #include <boost/math/special_functions.hpp>
 #include <ariles2/visitors/rapidjson.h>
+#include <ariles2/visitors_impl/read.h>
 #include "common.h"
 
 
@@ -28,15 +29,10 @@ namespace ariles2
 
             public:
                 Reader() = default;
+                ~Reader() = default;
 
                 template <class... t_Args>
                 explicit Reader(t_Args &&...args) : FileVisitorImplementation(std::forward<t_Args>(args)...)
-                {
-                    initialize();
-                }
-
-
-                void initialize()
                 {
                     ariles2::ns_rapidjson::IStreamWrapper isw(*input_streams_.back());
                     document_.ParseStream(isw);
@@ -44,7 +40,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_rapidjson
+    }  // namespace ns_rapidjson
 }  // namespace ariles2
 
 

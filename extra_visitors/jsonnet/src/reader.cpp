@@ -60,5 +60,5 @@ namespace ariles2
                 return (jsonnet_output);
             }
         }  // namespace impl
-    }      // namespace ns_jsonnet
+    }  // namespace ns_jsonnet
 }  // namespace ariles2

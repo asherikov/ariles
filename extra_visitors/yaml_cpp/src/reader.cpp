@@ -9,6 +9,7 @@
 */
 
 #include <ariles2/visitors/yaml_cpp.h>
+#include <ariles2/visitors_impl/serialization.h>
 #include <yaml-cpp/yaml.h>
 
 
@@ -52,7 +53,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_yaml_cpp
+    }  // namespace ns_yaml_cpp
 }  // namespace ariles2
 
 

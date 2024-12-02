@@ -35,7 +35,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_pugixml
+    }  // namespace ns_pugixml
 }  // namespace ariles2
 
 
@@ -45,7 +45,7 @@ namespace ariles2
     {
         Reader::Reader(const std::string &file_name)
         {
-            impl_ = std::make_shared<impl::Reader>();
+            makeImplPtr();
 
             const pugi::xml_parse_result result = impl_->document_.load_file(file_name.c_str(), pugi::parse_minimal);
             CPPUT_ASSERT(result, std::string("Parsing of '") + file_name + "' failed: " + result.description());
@@ -55,7 +55,7 @@ namespace ariles2
 
         Reader::Reader(std::istream &input_stream)
         {
-            impl_ = std::make_shared<impl::Reader>();
+            makeImplPtr();
 
             const pugi::xml_parse_result result = impl_->document_.load(input_stream, pugi::parse_minimal);
             CPPUT_ASSERT(result, std::string("Parsing failed: ") + result.description());

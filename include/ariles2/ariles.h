@@ -63,7 +63,7 @@ namespace ariles2
 {
     class ARILES2_VISIBILITY_ATTRIBUTE DefaultBase : public ariles2::Ariles
 #    define ARILES2_VISITOR(visitor) , public ariles2::visitor::Base
-                                                             ARILES2_DEFAULT_VISITORS
+                                                     ARILES2_DEFAULT_VISITORS
 #    undef ARILES2_VISITOR
     {
     protected:

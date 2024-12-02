@@ -12,6 +12,7 @@
 
 
 #include <ariles2/visitors/pugixml.h>
+#include <ariles2/visitors_impl/serialization.h>
 #include <boost/lexical_cast.hpp>
 #include <pugixml.hpp>
 

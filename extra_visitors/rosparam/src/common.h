@@ -12,6 +12,7 @@
 
 
 #include <ariles2/visitors/rosparam.h>
+#include <ariles2/visitors_impl/serialization.h>
 
 
 // http://docs.ros.org/api/xmlrpcpp/html/classXmlRpc_1_1XmlRpcValue.html

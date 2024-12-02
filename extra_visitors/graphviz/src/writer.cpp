@@ -9,6 +9,8 @@
 */
 
 #include <ariles2/visitors/graphviz.h>
+#include <ariles2/visitors_impl/write.h>
+#include <ariles2/visitors_impl/serialization.h>
 
 #include <vector>
 #include <utility>
@@ -132,7 +134,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_graphviz
+    }  // namespace ns_graphviz
 }  // namespace ariles2
 
 

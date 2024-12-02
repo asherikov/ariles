@@ -8,6 +8,7 @@
     @brief
 */
 
+#include <ariles2/visitors_impl/serialization.h>
 #include "node_wrapper.h"
 
 

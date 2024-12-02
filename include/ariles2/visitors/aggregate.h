@@ -61,10 +61,10 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Parameters<>
         {
         public:
-            explicit Parameters(const bool){};
-            Parameters(){};
+            explicit Parameters(const bool) {};
+            Parameters() {};
 
-            void get(){};
+            void get() {};
         };
 
         template <class t_Visitor, class... t_Visitors>

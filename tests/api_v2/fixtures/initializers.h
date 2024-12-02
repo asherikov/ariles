@@ -9,6 +9,9 @@
 
 #pragma once
 
+#include <fstream>
+
+
 namespace ariles_tests
 {
     namespace initializers

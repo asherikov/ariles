@@ -9,6 +9,8 @@
 */
 
 #include <ariles2/visitors/octave.h>
+#include <ariles2/visitors_impl/write.h>
+#include <ariles2/visitors_impl/serialization.h>
 
 #include <limits>
 #include <iomanip>
@@ -40,21 +42,11 @@ namespace ariles2
                 const std::string bracket_right_ = "}";
 
 
-            protected:
-                /**
-                 * @brief Initialize emitter
-                 */
-                void initEmitter() const
-                {
-                    *output_stream_ << std::setprecision(std::numeric_limits<double>::digits10);
-                }
-
-
             public:
                 template <class... t_Args>
                 explicit Writer(t_Args &&...args) : FileVisitorImplementation(std::forward<t_Args>(args)...)
                 {
-                    initEmitter();
+                    *output_stream_ << std::setprecision(std::numeric_limits<double>::digits10);
                 }
 
                 template <typename t_Scalar>
@@ -77,7 +69,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_octave
+    }  // namespace ns_octave
 }  // namespace ariles2
 
 namespace ariles2

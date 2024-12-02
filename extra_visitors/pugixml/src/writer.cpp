@@ -9,6 +9,7 @@
 */
 
 #include "common.h"
+#include <ariles2/visitors_impl/write.h>
 
 namespace ariles2
 {
@@ -42,7 +43,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_pugixml
+    }  // namespace ns_pugixml
 }  // namespace ariles2
 
 
@@ -52,13 +53,13 @@ namespace ariles2
     {
         Writer::Writer(const std::string &file_name)
         {
-            impl_ = std::make_shared<impl::Writer>(file_name);
+            makeImplPtr(file_name);
         }
 
 
         Writer::Writer(std::ostream &output_stream)
         {
-            impl_ = std::make_shared<impl::Writer>(output_stream);
+            makeImplPtr(output_stream);
         }
 
 

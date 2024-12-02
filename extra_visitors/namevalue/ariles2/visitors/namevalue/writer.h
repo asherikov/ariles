@@ -14,6 +14,7 @@
 #include <vector>
 #include <utility>
 #include <boost/lexical_cast.hpp>
+#include <ariles2/visitors_impl/serialization.h>
 
 
 namespace ariles2

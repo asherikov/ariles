@@ -11,7 +11,6 @@
 #pragma once
 
 #include <string>
-#include <fstream>
 #include <stdexcept>
 #include <cmath>
 #include <cstdlib>

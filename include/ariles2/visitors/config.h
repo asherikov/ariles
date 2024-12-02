@@ -41,9 +41,9 @@ namespace ariles2
             template <class... t_Initializers>
             explicit Visitor(t_Initializers &&...initializers)
               : AggregateBase(
-                      std::tuple<>(),
-                      std::forward_as_tuple(std::forward<t_Initializers>(initializers)...),
-                      std::tuple<>())
+                        std::tuple<>(),
+                        std::forward_as_tuple(std::forward<t_Initializers>(initializers)...),
+                        std::tuple<>())
             {
                 CPPUT_TRACE_FUNCTION;
             }

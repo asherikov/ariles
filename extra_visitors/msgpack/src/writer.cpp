@@ -13,6 +13,7 @@
 
 #include <msgpack.hpp>
 #include <ariles2/visitors/msgpack.h>
+#include <ariles2/visitors_impl/write.h>
 
 
 namespace ariles2
@@ -47,7 +48,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_msgpack
+    }  // namespace ns_msgpack
 }  // namespace ariles2
 
 
