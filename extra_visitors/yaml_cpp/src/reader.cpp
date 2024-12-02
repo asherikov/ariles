@@ -10,6 +10,7 @@
 
 #include <ariles2/visitors/yaml_cpp.h>
 #include <ariles2/visitors_impl/serialization.h>
+#include <ariles2/visitors_impl/read.h>
 #include <yaml-cpp/yaml.h>
 
 
@@ -28,13 +29,21 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<NodeWrapper>
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<NodeWrapper>,
+                                                        public read::FileVisitorImplementation
             {
             public:
                 std::vector<YAML::const_iterator> iterator_stack_;
 
 
             public:
+                template <class... t_Args>
+                explicit Reader(t_Args &&...args) : read::FileVisitorImplementation(std::forward<t_Args>(args)...)
+                {
+                    emplace(YAML::Load(*input_streams_.back()));
+                }
+
+
                 const YAML::Node getRawNode(const std::size_t depth)
                 {
                     CPPUT_TRACE_FUNCTION;
@@ -53,7 +62,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }  // namespace ns_yaml_cpp
+    }      // namespace ns_yaml_cpp
 }  // namespace ariles2
 
 
@@ -63,15 +72,13 @@ namespace ariles2
     {
         Reader::Reader(const std::string &file_name)
         {
-            makeImplPtr();
-            impl_->emplace(YAML::LoadFile(file_name));
+            makeImplPtr(file_name);
         }
 
 
         Reader::Reader(std::istream &input_stream)
         {
-            makeImplPtr();
-            impl_->emplace(YAML::Load(input_stream));
+            makeImplPtr(input_stream);
         }
 
 

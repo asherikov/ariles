@@ -10,6 +10,8 @@
 
 
 #include "common.h"
+#include <ariles2/visitors_impl/read.h>
+
 
 namespace ariles2
 {
@@ -17,13 +19,23 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<NodeWrapper>
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<NodeWrapper>,
+                                                        public read::FileVisitorImplementation
             {
             public:
                 pugi::xml_document document_;
 
 
             public:
+                template <class... t_Args>
+                explicit Reader(t_Args &&...args) : read::FileVisitorImplementation(std::forward<t_Args>(args)...)
+                {
+                    const pugi::xml_parse_result result = document_.load(*input_streams_.back(), pugi::parse_minimal);
+                    CPPUT_ASSERT(result, std::string("Parsing failed: ") + result.description());
+                    node_stack_.emplace_back(document_);
+                }
+
+
                 /**
                  * @brief Get current node
                  *
@@ -35,7 +47,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }  // namespace ns_pugixml
+    }      // namespace ns_pugixml
 }  // namespace ariles2
 
 
@@ -45,21 +57,13 @@ namespace ariles2
     {
         Reader::Reader(const std::string &file_name)
         {
-            makeImplPtr();
-
-            const pugi::xml_parse_result result = impl_->document_.load_file(file_name.c_str(), pugi::parse_minimal);
-            CPPUT_ASSERT(result, std::string("Parsing of '") + file_name + "' failed: " + result.description());
-            impl_->node_stack_.emplace_back(impl_->document_);
+            makeImplPtr(file_name);
         }
 
 
         Reader::Reader(std::istream &input_stream)
         {
-            makeImplPtr();
-
-            const pugi::xml_parse_result result = impl_->document_.load(input_stream, pugi::parse_minimal);
-            CPPUT_ASSERT(result, std::string("Parsing failed: ") + result.description());
-            impl_->node_stack_.emplace_back(impl_->document_);
+            makeImplPtr(input_stream);
         }
 
 
