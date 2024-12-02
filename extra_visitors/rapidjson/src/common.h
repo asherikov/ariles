@@ -31,11 +31,12 @@ namespace ariles2
     namespace ns_rapidjson
     {
         template <class t_Node>
-        class CPPUT_LIB_LOCAL ImplBase : public serialization::NodeStackBase<serialization::NodeTemplate<t_Node *>>
+        class CPPUT_LIB_LOCAL ImplBase : public serialization::NodeStackBase<t_Node>
         {
         public:
-            using serialization::NodeStackBase<serialization::NodeTemplate<t_Node *>>::node_stack_;
+            using RawNode = decltype(t_Node::node_);
 
+        public:
             /// instance of the parser
             ::rapidjson::Document document_;
 
@@ -46,25 +47,25 @@ namespace ariles2
              *
              * @return pointer to the current node
              */
-            t_Node &getRawNode(const std::size_t depth)
+            RawNode getRawNode(const std::size_t depth)
             {
-                if (node_stack_[depth].isArray())
+                if (this->node_stack_[depth].isArray())
                 {
-                    return (getRawNode(depth - 1)[node_stack_[depth].index_]);
+                    return (&(*getRawNode(depth - 1))[this->node_stack_[depth].index_]);
                 }
 
-                return (*node_stack_[depth].node_);
+                return (this->node_stack_[depth].node_);
             }
 
 
-            t_Node &getRawNode()
+            RawNode getRawNode()
             {
-                if (node_stack_.empty())
+                if (this->node_stack_.empty())
                 {
-                    return (document_);
+                    return (&document_);
                 }
 
-                return (getRawNode(node_stack_.size() - 1));
+                return (getRawNode(this->node_stack_.size() - 1));
             }
         };
     }  // namespace ns_rapidjson

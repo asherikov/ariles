@@ -20,13 +20,25 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader
-              : public ariles2::ns_rapidjson::ImplBase<const ::rapidjson::Value>,
-                public read::FileVisitorImplementation
+            class Node : public serialization::Node
             {
             public:
-                std::vector<::rapidjson::Value::ConstMemberIterator> iterator_stack_;
+                const ::rapidjson::Value *node_;
+                ::rapidjson::Value::ConstMemberIterator iterator_;
 
+            public:
+                template <class... t_Args>
+                explicit Node(const ::rapidjson::Value *node, t_Args &&...args)
+                  : serialization::Node(std::forward<t_Args>(args)...)
+                {
+                    node_ = node;
+                }
+            };
+
+
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ariles2::ns_rapidjson::ImplBase<Node>,
+                                                        public read::FileVisitorImplementation
+            {
             public:
                 Reader() = default;
                 ~Reader() = default;
@@ -71,14 +83,14 @@ namespace ariles2
         void Reader::startMap(const SizeLimitEnforcementType limit_type, const std::size_t min, const std::size_t max)
         {
             CPPUT_TRACE_FUNCTION;
-            checkSize(limit_type, impl_->getRawNode().MemberCount(), min, max);
+            checkSize(limit_type, impl_->getRawNode()->MemberCount(), min, max);
         }
 
         bool Reader::startMapEntry(const std::string &child_name)
         {
-            const ::rapidjson::Value::ConstMemberIterator child = impl_->getRawNode().FindMember(child_name.c_str());
+            const ::rapidjson::Value::ConstMemberIterator child = impl_->getRawNode()->FindMember(child_name.c_str());
 
-            if (impl_->getRawNode().MemberEnd() == child)
+            if (impl_->getRawNode()->MemberEnd() == child)
             {
                 return (false);
             }
@@ -98,14 +110,14 @@ namespace ariles2
                 const std::size_t max)
         {
             CPPUT_TRACE_FUNCTION;
-            checkSize(limit_type, impl_->getRawNode().MemberCount(), min, max);
+            checkSize(limit_type, impl_->getRawNode()->MemberCount(), min, max);
 
 
-            const ::rapidjson::Value &selected_node = impl_->getRawNode();
+            impl::Reader::RawNode selected_node = impl_->getRawNode();
 
-            if (selected_node.IsObject())
+            if (selected_node->IsObject())
             {
-                impl_->iterator_stack_.push_back(selected_node.MemberBegin());
+                impl_->back().iterator_ = selected_node->MemberBegin();
                 return (true);
             }
             return (false);
@@ -113,10 +125,10 @@ namespace ariles2
 
         bool Reader::startIteratedMapElement(std::string &entry_name)
         {
-            if (impl_->iterator_stack_.back() != impl_->getRawNode().MemberEnd())
+            if (impl_->back().iterator_ != impl_->getRawNode()->MemberEnd())
             {
-                impl_->emplace(&(impl_->iterator_stack_.back()->value));
-                entry_name = impl_->iterator_stack_.back()->name.GetString();
+                entry_name = impl_->back().iterator_->name.GetString();
+                impl_->emplace(&(impl_->back().iterator_->value));
                 return (true);
             }
             return (false);
@@ -124,24 +136,23 @@ namespace ariles2
 
         void Reader::endIteratedMapElement()
         {
-            ++impl_->iterator_stack_.back();
             impl_->pop();
+            ++impl_->back().iterator_;
         }
 
         void Reader::endIteratedMap()
         {
             CPPUT_ASSERT(
-                    impl_->iterator_stack_.back() == impl_->getRawNode().MemberEnd(),
+                    impl_->back().iterator_ == impl_->getRawNode()->MemberEnd(),
                     "End of iterated map has not been reached.");
-            impl_->iterator_stack_.pop_back();
         }
 
 
         std::size_t Reader::startArray()
         {
-            CPPUT_ASSERT(impl_->getRawNode().IsArray(), "Internal error: expected array.");
+            CPPUT_ASSERT(impl_->getRawNode()->IsArray(), "Internal error: expected array.");
 
-            std::size_t size = impl_->getRawNode().Size();
+            std::size_t size = impl_->getRawNode()->Size();
             impl_->emplace(nullptr, 0, size);
 
             return (size);
@@ -170,22 +181,22 @@ namespace ariles2
 
         void Reader::readElement(std::string &element)
         {
-            element = impl_->getRawNode().GetString();
+            element = impl_->getRawNode()->GetString();
         }
 
 
         void Reader::readElement(bool &element)
         {
-            element = impl_->getRawNode().GetBool();
+            element = impl_->getRawNode()->GetBool();
         }
 
 
         void Reader::readElement(float &element)
         {
             float tmp_value = 0.0;
-            if (impl_->getRawNode().IsString())
+            if (impl_->getRawNode()->IsString())
             {
-                tmp_value = boost::lexical_cast<float>(impl_->getRawNode().GetString());
+                tmp_value = boost::lexical_cast<float>(impl_->getRawNode()->GetString());
                 if (boost::math::isnan(tmp_value))
                 {
                     element = std::numeric_limits<float>::signaling_NaN();
@@ -199,8 +210,8 @@ namespace ariles2
             }
             else
             {
-                tmp_value = static_cast<float>(impl_->getRawNode().GetDouble());  // old API compatibility
-                // tmp_value = impl_->getRawNode().GetFloat();
+                tmp_value = static_cast<float>(impl_->getRawNode()->GetDouble());  // old API compatibility
+                // tmp_value = impl_->getRawNode()->GetFloat();
             }
             CPPUT_ASSERT(
                     tmp_value <= std::numeric_limits<float>::max() && tmp_value >= -std::numeric_limits<float>::max(),
@@ -212,9 +223,9 @@ namespace ariles2
         void Reader::readElement(double &element)
         {
             double tmp_value = 0.0;
-            if (impl_->getRawNode().IsString())
+            if (impl_->getRawNode()->IsString())
             {
-                tmp_value = boost::lexical_cast<double>(impl_->getRawNode().GetString());
+                tmp_value = boost::lexical_cast<double>(impl_->getRawNode()->GetString());
                 if (boost::math::isnan(tmp_value))
                 {
                     element = std::numeric_limits<double>::signaling_NaN();
@@ -228,7 +239,7 @@ namespace ariles2
             }
             else
             {
-                tmp_value = impl_->getRawNode().GetDouble();
+                tmp_value = impl_->getRawNode()->GetDouble();
             }
             CPPUT_ASSERT(
                     tmp_value <= std::numeric_limits<double>::max() && tmp_value >= -std::numeric_limits<double>::max(),
@@ -240,7 +251,7 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
-        int64_t tmp_value = impl_->getRawNode().GetInt64();                                                            \
+        int64_t tmp_value = impl_->getRawNode()->GetInt64();                                                           \
         CPPUT_ASSERT(                                                                                                  \
                 tmp_value <= std::numeric_limits<type>::max() && tmp_value >= std::numeric_limits<type>::min(),        \
                 "Value is out of range.");                                                                             \
@@ -255,7 +266,7 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
-        uint64_t tmp_value = impl_->getRawNode().GetUint64();                                                          \
+        uint64_t tmp_value = impl_->getRawNode()->GetUint64();                                                         \
         CPPUT_ASSERT(tmp_value <= std::numeric_limits<type>::max(), "Value is too large.");                            \
         element = static_cast<type>(tmp_value);                                                                        \
     }

@@ -25,8 +25,9 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ariles2::ns_rapidjson::ImplBase<::rapidjson::Value>,
-                                                        public write::FileVisitorImplementation
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer
+              : public ariles2::ns_rapidjson::ImplBase<serialization::NodeTemplate<::rapidjson::Value *>>,
+                public write::FileVisitorImplementation
             {
             public:
                 template <class... t_Args>
@@ -68,20 +69,20 @@ namespace ariles2
 
         void Writer::startMap(const Parameters &, const std::size_t /*num_entries*/)
         {
-            impl_->getRawNode().SetObject();
+            impl_->getRawNode()->SetObject();
             // not provided in older versions
-            // impl_->getRawNode().MemberReserve(num_entries, impl_->document_.GetAllocator());
+            // impl_->getRawNode()->MemberReserve(num_entries, impl_->document_.GetAllocator());
         }
 
         void Writer::startMapEntry(const std::string &map_name)
         {
             ::rapidjson::Value key(map_name.c_str(), impl_->document_.GetAllocator());
             ::rapidjson::Value value;
-            impl_->getRawNode().AddMember(key, value, impl_->document_.GetAllocator());
+            impl_->getRawNode()->AddMember(key, value, impl_->document_.GetAllocator());
 
             // hack, we assume that the last added
             // child is the last in the list
-            const ::rapidjson::Value::MemberIterator child = --(impl_->getRawNode().MemberEnd());
+            const ::rapidjson::Value::MemberIterator child = --(impl_->getRawNode()->MemberEnd());
             impl_->emplace(&(child->value));
         }
 
@@ -94,12 +95,12 @@ namespace ariles2
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
             CPPUT_TRACE_FUNCTION;
-            impl_->getRawNode().SetArray();
-            impl_->getRawNode().Reserve(size, impl_->document_.GetAllocator());
+            impl_->getRawNode()->SetArray();
+            impl_->getRawNode()->Reserve(size, impl_->document_.GetAllocator());
             for (std::size_t i = 0; i < size; ++i)
             {
                 ::rapidjson::Value value;
-                impl_->getRawNode().PushBack(value, impl_->document_.GetAllocator());
+                impl_->getRawNode()->PushBack(value, impl_->document_.GetAllocator());
             }
             impl_->emplace(nullptr, 0, size);
         }
@@ -132,12 +133,12 @@ namespace ariles2
          */
         void Writer::writeElement(const std::string &element, const Parameters &)
         {
-            impl_->getRawNode().SetString(element.c_str(), impl_->document_.GetAllocator());
+            impl_->getRawNode()->SetString(element.c_str(), impl_->document_.GetAllocator());
         }
 
         void Writer::writeElement(const bool &element, const Parameters &)
         {
-            impl_->getRawNode().SetBool(element);
+            impl_->getRawNode()->SetBool(element);
         }
 
 
@@ -145,13 +146,13 @@ namespace ariles2
         {
             if (param.fallback_to_string_floats_)
             {
-                impl_->getRawNode().SetString(
+                impl_->getRawNode()->SetString(
                         boost::lexical_cast<std::string>(element).c_str(), impl_->document_.GetAllocator());
             }
             else
             {
-                impl_->getRawNode().SetDouble(element);  // old API compatibility
-                // impl_->getRawNode().SetFloat(element);
+                impl_->getRawNode()->SetDouble(element);  // old API compatibility
+                // impl_->getRawNode()->SetFloat(element);
             }
         }
 
@@ -160,12 +161,12 @@ namespace ariles2
         {
             if (param.fallback_to_string_floats_)
             {
-                impl_->getRawNode().SetString(
+                impl_->getRawNode()->SetString(
                         boost::lexical_cast<std::string>(element).c_str(), impl_->document_.GetAllocator());
             }
             else
             {
-                impl_->getRawNode().SetDouble(element);
+                impl_->getRawNode()->SetDouble(element);
             }
         }
 
@@ -174,7 +175,7 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
-        impl_->getRawNode().SetInt64(element);                                                                         \
+        impl_->getRawNode()->SetInt64(element);                                                                        \
     }
 
         CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_SIGNED_INTEGER_TYPES_LIST)
@@ -185,7 +186,7 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
-        impl_->getRawNode().SetUint64(element);                                                                        \
+        impl_->getRawNode()->SetUint64(element);                                                                       \
     }
 
         CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_UNSIGNED_INTEGER_TYPES_LIST)

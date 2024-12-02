@@ -59,7 +59,7 @@ namespace ariles2
                     }
                 }
 
-                void startMap(const std::size_t num_entries)
+                void startMap(const std::size_t num_entries)  // NOLINT
                 {
                     if (initialize_names_)
                     {

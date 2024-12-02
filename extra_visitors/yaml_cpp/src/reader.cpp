@@ -20,14 +20,24 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader
-              : public serialization::NodeStackBase<serialization::NodeTemplate<YAML::Node>>,
-                public read::FileVisitorImplementation
+            class Node : public serialization::Node
             {
             public:
-                std::vector<YAML::const_iterator> iterator_stack_;
+                const YAML::Node node_;
+                YAML::const_iterator iterator_;
+
+            public:
+                template <class... t_Args>
+                explicit Node(const YAML::Node &node, t_Args &&...args)
+                  : serialization::Node(std::forward<t_Args>(args)...), node_(node) // NOLINT
+                {
+                }
+            };
 
 
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<Node>,
+                                                        public read::FileVisitorImplementation
+            {
             public:
                 template <class... t_Args>
                 explicit Reader(t_Args &&...args) : read::FileVisitorImplementation(std::forward<t_Args>(args)...)
@@ -114,7 +124,7 @@ namespace ariles2
 
             if (selected_node.IsMap())
             {
-                impl_->iterator_stack_.emplace_back(selected_node.begin());
+                impl_->back().iterator_ = selected_node.begin();
                 return (true);
             }
             return (false);
@@ -123,10 +133,10 @@ namespace ariles2
         bool Reader::startIteratedMapElement(std::string &entry_name)
         {
             CPPUT_TRACE_FUNCTION;
-            if (impl_->iterator_stack_.back() != impl_->getRawNode().end())
+            if (impl_->back().iterator_ != impl_->getRawNode().end())
             {
-                impl_->emplace(impl_->iterator_stack_.back()->second);
-                entry_name = impl_->iterator_stack_.back()->first.as<std::string>();
+                entry_name = impl_->back().iterator_->first.as<std::string>();
+                impl_->emplace(impl_->back().iterator_->second);
                 return (true);
             }
             return (false);
@@ -135,17 +145,15 @@ namespace ariles2
         void Reader::endIteratedMapElement()
         {
             CPPUT_TRACE_FUNCTION;
-            ++impl_->iterator_stack_.back();
             impl_->pop();
+            ++impl_->back().iterator_;
         }
 
         void Reader::endIteratedMap()
         {
             CPPUT_TRACE_FUNCTION;
             CPPUT_ASSERT(
-                    impl_->iterator_stack_.back() == impl_->getRawNode().end(),
-                    "End of iterated map has not been reached.");
-            impl_->iterator_stack_.pop_back();
+                    impl_->back().iterator_ == impl_->getRawNode().end(), "End of iterated map has not been reached.");
         }
 
 
