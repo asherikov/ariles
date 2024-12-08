@@ -20,7 +20,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ariles2::ns_rosparam::ImplBase
+            class ARILES2_VISIBILITY_PUBLIC Reader : public ariles2::ns_rosparam::ImplBase
             {
             public:
                 std::vector<XmlRpc::XmlRpcValue::iterator> iterator_stack_;

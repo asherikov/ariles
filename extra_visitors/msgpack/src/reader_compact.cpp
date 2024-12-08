@@ -26,7 +26,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader
+            class ARILES2_VISIBILITY_PUBLIC Reader
               : public serialization::NodeStackBase<serialization::NodeTemplate<const ::msgpack::object *>>,
                 public read::FileVisitorImplementation
             {

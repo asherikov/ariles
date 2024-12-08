@@ -26,8 +26,7 @@ namespace ariles2
         using Parameters = visitor::Parameters;
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor
-          : public ariles2::visitor::Base<Visitor, count::Parameters, std::size_t>
+        class ARILES2_VISIBILITY_PUBLIC Visitor : public ariles2::visitor::Base<Visitor, count::Parameters, std::size_t>
         {
         public:
             using Parameters = count::Parameters;

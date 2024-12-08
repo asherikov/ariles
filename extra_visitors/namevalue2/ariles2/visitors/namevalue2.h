@@ -34,10 +34,10 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer;
+            class ARILES2_VISIBILITY_PUBLIC Writer;
         }
 
-        class NameValueContainer
+        class ARILES2_VISIBILITY_PUBLIC NameValueContainer
         {
         public:
             virtual ~NameValueContainer() = default;
@@ -53,7 +53,7 @@ namespace ariles2
         /**
          * @brief Configuration writer class
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::PIMPLVisitor<write::Visitor, impl::Writer>
+        class ARILES2_VISIBILITY_PUBLIC Writer : public serialization::PIMPLVisitor<write::Visitor, impl::Writer>
         {
         public:
             explicit Writer(const std::shared_ptr<NameValueContainer> &container, const std::size_t reserve = 0);
@@ -89,7 +89,7 @@ namespace ariles2
      * @brief NameValue2 visitor.
      * @ingroup namevalue2
      */
-    struct ARILES2_VISIBILITY_ATTRIBUTE namevalue2
+    struct ARILES2_VISIBILITY_PUBLIC namevalue2
     {
         using NameValueContainer = ns_namevalue2::NameValueContainer;
         using Writer = ns_namevalue2::Writer;

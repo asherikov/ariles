@@ -16,7 +16,7 @@
 namespace ariles2
 {
     template <class t_Value>
-    class PointerHandler<boost::optional<t_Value>>
+    class ARILES2_VISIBILITY_PUBLIC PointerHandler<boost::optional<t_Value>>
     {
     public:
         using Pointer = boost::optional<t_Value>;

@@ -17,9 +17,9 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE JsonnetPreprocessor;
+            class ARILES2_VISIBILITY_PUBLIC JsonnetPreprocessor;
 
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader
+            class ARILES2_VISIBILITY_PUBLIC Reader
             {
             protected:
                 using JsonnetPreprocessorPtr = std::shared_ptr<JsonnetPreprocessor>;
@@ -40,7 +40,7 @@ namespace ariles2
 
 
         template <class t_ParentVisitor>
-        class ARILES2_VISIBILITY_ATTRIBUTE Reader : public t_ParentVisitor
+        class ARILES2_VISIBILITY_PUBLIC Reader : public t_ParentVisitor
         {
         protected:
             impl::Reader impl_;

@@ -33,7 +33,7 @@ namespace ariles2
 {
     namespace ns_protobuf3
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Base
+        class ARILES2_VISIBILITY_PUBLIC Base
         {
         };
 
@@ -99,7 +99,7 @@ namespace ariles2
      * @brief protobuf3 visitor.
      * @ingroup protobuf3
      */
-    struct ARILES2_VISIBILITY_ATTRIBUTE protobuf3
+    struct ARILES2_VISIBILITY_PUBLIC protobuf3
     {
         using Base = ns_protobuf3::Base;
         using Reader = ns_protobuf3::Reader;

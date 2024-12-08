@@ -24,8 +24,8 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::NodeStackBase<serialization::NodeString>,
-                                                        public write::FileVisitorImplementation
+            class ARILES2_VISIBILITY_PUBLIC Writer : public serialization::NodeStackBase<serialization::NodeString>,
+                                                     public write::FileVisitorImplementation
             {
             public:
                 const std::string separator_ = ".";

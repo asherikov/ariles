@@ -14,7 +14,7 @@ namespace ariles2
 {
     namespace serialization
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Node
+        class ARILES2_VISIBILITY_PRIVATE Node
         {
         public:
             enum class Type
@@ -72,7 +72,7 @@ namespace ariles2
 
 
         template <class t_Node, class t_NodeArg = t_Node>
-        class NodeTemplate : public serialization::Node
+        class ARILES2_VISIBILITY_PRIVATE NodeTemplate : public serialization::Node
         {
         public:
             t_Node node_;
@@ -89,7 +89,7 @@ namespace ariles2
 
 
         template <class t_Node>
-        class NodeStackBase
+        class ARILES2_VISIBILITY_PRIVATE NodeStackBase
         {
         public:
             std::vector<t_Node> node_stack_;

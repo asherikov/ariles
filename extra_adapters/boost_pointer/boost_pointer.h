@@ -17,7 +17,7 @@
 namespace ariles2
 {
     template <class t_Value>
-    class PointerHandler<boost::shared_ptr<t_Value>>
+    class ARILES2_VISIBILITY_PUBLIC PointerHandler<boost::shared_ptr<t_Value>>
     {
     public:
         using Pointer = boost::shared_ptr<t_Value>;
@@ -54,7 +54,7 @@ namespace ariles2
 namespace ariles2
 {
     template <class t_Value>
-    class PointerHandler<boost::movelib::unique_ptr<t_Value>>
+    class ARILES2_VISIBILITY_PUBLIC PointerHandler<boost::movelib::unique_ptr<t_Value>>
     {
     public:
         using Pointer = boost::movelib::unique_ptr<t_Value>;

@@ -20,7 +20,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class Node : public serialization::Node
+            class ARILES2_VISIBILITY_PRIVATE Node : public serialization::Node
             {
             public:
                 const YAML::Node node_;
@@ -29,14 +29,14 @@ namespace ariles2
             public:
                 template <class... t_Args>
                 explicit Node(const YAML::Node &node, t_Args &&...args)
-                  : serialization::Node(std::forward<t_Args>(args)...), node_(node) // NOLINT
+                  : serialization::Node(std::forward<t_Args>(args)...), node_(node)  // NOLINT
                 {
                 }
             };
 
 
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<Node>,
-                                                        public read::FileVisitorImplementation
+            class ARILES2_VISIBILITY_PUBLIC Reader : public serialization::NodeStackBase<Node>,
+                                                     public read::FileVisitorImplementation
             {
             public:
                 template <class... t_Args>

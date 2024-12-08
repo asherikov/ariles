@@ -31,7 +31,7 @@ namespace ariles2
     namespace ns_rapidjson
     {
         template <class t_Node>
-        class CPPUT_LIB_LOCAL ImplBase : public serialization::NodeStackBase<t_Node>
+        class ARILES2_VISIBILITY_PRIVATE ImplBase : public serialization::NodeStackBase<t_Node>
         {
         public:
             using RawNode = decltype(t_Node::node_);

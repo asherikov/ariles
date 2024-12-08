@@ -25,13 +25,13 @@ namespace ariles2
 
 
         template <class t_NameValuePair>
-        class ARILES2_VISIBILITY_ATTRIBUTE NameValuePairHandler
+        class ARILES2_VISIBILITY_PUBLIC NameValuePairHandler
         {
         };
 
 
         template <>
-        class ARILES2_VISIBILITY_ATTRIBUTE NameValuePairHandler<NameValuePair>
+        class ARILES2_VISIBILITY_PUBLIC NameValuePairHandler<NameValuePair>
         {
         public:
             static inline std::string &name(NameValuePair &pair)  // cppcheck-suppress constParameter
@@ -50,9 +50,8 @@ namespace ariles2
          * @brief Configuration writer class
          */
         template <class t_NameValuePair>
-        class ARILES2_VISIBILITY_ATTRIBUTE GenericWriter
-          : public ariles2::write::Visitor,
-            public serialization::NodeStackBase<serialization::NodeString>
+        class ARILES2_VISIBILITY_PUBLIC GenericWriter : public ariles2::write::Visitor,
+                                                        public serialization::NodeStackBase<serialization::NodeString>
         {
         protected:
             std::size_t reserve_;

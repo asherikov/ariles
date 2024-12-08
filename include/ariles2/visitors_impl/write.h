@@ -17,7 +17,7 @@ namespace ariles2
 {
     namespace write
     {
-        class FileVisitorImplementation
+        class ARILES2_VISIBILITY_PRIVATE FileVisitorImplementation
         {
         public:
             /// output file stream

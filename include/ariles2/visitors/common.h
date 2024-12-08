@@ -19,7 +19,7 @@ namespace ariles2
 {
     namespace visitor
     {
-        class Parameters
+        class ARILES2_VISIBILITY_PUBLIC Parameters
         {
         public:
             bool override_parameters_;
@@ -32,7 +32,7 @@ namespace ariles2
         };
 
 
-        class Visitor
+        class ARILES2_VISIBILITY_PUBLIC Visitor
         {
         protected:
             Visitor() {};
@@ -41,7 +41,7 @@ namespace ariles2
 
 
         template <class t_Derived, class t_Parameters, class t_ReturnType = void>
-        class ARILES2_VISIBILITY_ATTRIBUTE Base : public Visitor
+        class ARILES2_VISIBILITY_PUBLIC Base : public Visitor
         {
         public:
             using ReturnType = t_ReturnType;
@@ -81,7 +81,7 @@ namespace ariles2
     namespace entry
     {
         template <class t_Visitor>
-        class ARILES2_VISIBILITY_ATTRIBUTE Base
+        class ARILES2_VISIBILITY_PUBLIC Base
         {
         public:
             virtual typename t_Visitor::ReturnType arilesVirtualVisit(
@@ -97,7 +97,7 @@ namespace ariles2
 
 
         template <class t_Visitor>
-        class ARILES2_VISIBILITY_ATTRIBUTE ConstBase
+        class ARILES2_VISIBILITY_PUBLIC ConstBase
         {
         public:
             virtual typename t_Visitor::ReturnType arilesVirtualVisit(

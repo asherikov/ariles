@@ -49,7 +49,7 @@ namespace ariles2
         */
 
         template <typename StreamType>
-        class CPPUT_LIB_LOCAL BasicIStreamWrapper
+        class ARILES2_VISIBILITY_PRIVATE BasicIStreamWrapper
         {
         public:
             using Ch = typename StreamType::char_type;

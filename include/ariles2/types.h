@@ -13,7 +13,7 @@
 namespace ariles2
 {
     template <template <class> class t_Pointer, class t_Base, class t_Instantiator>
-    class ARILES2_VISIBILITY_ATTRIBUTE Any : public ariles2::DefaultBase
+    class ARILES2_VISIBILITY_PUBLIC Any : public ariles2::DefaultBase
     {
 #define ARILES2_ENTRIES(v)                                                                                             \
     ARILES2_TYPED_ENTRY_(v, id, std::string)                                                                           \
@@ -218,7 +218,7 @@ namespace ariles2
 namespace ariles2
 {
     template <template <class> class t_Pointer, class t_Base, class t_Instantiator>
-    class ARILES2_VISIBILITY_ATTRIBUTE Any2 : public ariles2::DefaultBase
+    class ARILES2_VISIBILITY_PUBLIC Any2 : public ariles2::DefaultBase
     {
 #define ARILES2_ENTRIES(v)                                                                                             \
     ARILES2_TYPED_ENTRY_(v, id, std::string)                                                                           \
@@ -450,7 +450,7 @@ namespace ariles2
 namespace ariles2
 {
     template <class t_Pointer>
-    class ARILES2_VISIBILITY_ATTRIBUTE CustomPointerBase
+    class ARILES2_VISIBILITY_PUBLIC CustomPointerBase
     {
     public:
         using BasePointer = t_Pointer;
@@ -583,7 +583,7 @@ namespace ariles2
 
 
     template <class t_Pointer>
-    class ARILES2_VISIBILITY_ATTRIBUTE NonNullPointer : public CustomPointerBase<t_Pointer>, public ariles2::DefaultBase
+    class ARILES2_VISIBILITY_PUBLIC NonNullPointer : public CustomPointerBase<t_Pointer>, public ariles2::DefaultBase
     {
 #include ARILES2_INITIALIZE
 
@@ -662,8 +662,7 @@ namespace ariles2
 
 
     template <class t_Pointer>
-    class ARILES2_VISIBILITY_ATTRIBUTE OptionalPointer : public CustomPointerBase<t_Pointer>,
-                                                         public ariles2::DefaultBase
+    class ARILES2_VISIBILITY_PUBLIC OptionalPointer : public CustomPointerBase<t_Pointer>, public ariles2::DefaultBase
     {
 #include ARILES2_INITIALIZE
 

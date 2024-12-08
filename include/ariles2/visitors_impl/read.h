@@ -18,7 +18,7 @@ namespace ariles2
 {
     namespace read
     {
-        class FileVisitorImplementation
+        class ARILES2_VISIBILITY_PRIVATE FileVisitorImplementation
         {
         protected:
             std::vector<std::ifstream> config_ifs_;

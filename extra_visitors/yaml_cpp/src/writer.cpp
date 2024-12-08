@@ -20,7 +20,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public write::FileVisitorImplementation
+            class ARILES2_VISIBILITY_PUBLIC Writer : public write::FileVisitorImplementation
             {
             public:
                 /// instance of YAML emitter, is destroyed and reinitialized by flush()

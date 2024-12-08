@@ -22,7 +22,7 @@ namespace ariles2
         namespace parameters
         {
             template <class t_Parameters>
-            class SloppyMixin : public t_Parameters
+            class ARILES2_VISIBILITY_PUBLIC SloppyMixin : public t_Parameters
             {
             public:
                 SloppyMixin()
@@ -33,7 +33,7 @@ namespace ariles2
             };
 
             template <class t_Parameters>
-            class RelaxedMixin : public t_Parameters
+            class ARILES2_VISIBILITY_PUBLIC RelaxedMixin : public t_Parameters
             {
             public:
                 RelaxedMixin()
@@ -43,7 +43,7 @@ namespace ariles2
             };
 
             template <class t_Parameters>
-            class NonFlatMatricesMixin : public t_Parameters
+            class ARILES2_VISIBILITY_PUBLIC NonFlatMatricesMixin : public t_Parameters
             {
             public:
                 NonFlatMatricesMixin()
@@ -55,7 +55,7 @@ namespace ariles2
 
 
         template <class t_ReadParameters, class t_WriteParameters>
-        class NonDefaultBaseTemplate : public DefaultBase
+        class ARILES2_VISIBILITY_PUBLIC NonDefaultBaseTemplate : public DefaultBase
         {
         public:
             using DefaultBase::arilesGetParameters;

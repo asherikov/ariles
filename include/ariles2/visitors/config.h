@@ -30,7 +30,7 @@ namespace ariles2
     namespace cfgread
     {
         template <class t_Reader>
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor
+        class ARILES2_VISIBILITY_PUBLIC Visitor
           : public aggregate::Visitor<cfgread::Visitor<t_Reader>, Defaults, t_Reader, Finalize>
         {
         public:
@@ -58,7 +58,7 @@ namespace ariles2
     namespace cfgwrite
     {
         template <class t_Writer>
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor
+        class ARILES2_VISIBILITY_PUBLIC Visitor
           : public aggregate::Visitor<cfgwrite::Visitor<t_Writer>, PreWrite, t_Writer>
         {
         public:

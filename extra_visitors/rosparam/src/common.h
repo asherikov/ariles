@@ -23,7 +23,7 @@ namespace ariles2
 {
     namespace ns_rosparam
     {
-        class CPPUT_LIB_LOCAL ImplBase
+        class ARILES2_VISIBILITY_PRIVATE ImplBase
           : public serialization::NodeStackBase<serialization::NodeTemplate<XmlRpc::XmlRpcValue *>>
         {
         public:

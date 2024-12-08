@@ -37,7 +37,7 @@ namespace ariles2
      * @brief JSON visitor.
      * @ingroup rapidjson
      */
-    struct ARILES2_VISIBILITY_ATTRIBUTE rapidjson
+    struct ARILES2_VISIBILITY_PUBLIC rapidjson
     {
         using ReaderBase = ns_rapidjson::Reader;
         using WriterBase = ns_rapidjson::Writer;

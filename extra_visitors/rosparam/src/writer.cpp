@@ -18,7 +18,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ariles2::ns_rosparam::ImplBase
+            class ARILES2_VISIBILITY_PUBLIC Writer : public ariles2::ns_rosparam::ImplBase
             {
             public:
                 explicit Writer(const ::ros::NodeHandle &nh)

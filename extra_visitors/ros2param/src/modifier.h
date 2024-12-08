@@ -16,7 +16,7 @@ namespace ariles2
 {
     namespace ns_ros2param
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE ModifierImplBase : public serialization::NodeStackBase<ModifierNode>
+        class ARILES2_VISIBILITY_PUBLIC ModifierImplBase : public serialization::NodeStackBase<ModifierNode>
         {
         public:
             // https://docs.ros2.org/latest/api/rclcpp/classrclcpp_1_1Node.html

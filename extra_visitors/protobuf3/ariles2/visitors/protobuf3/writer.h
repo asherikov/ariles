@@ -14,7 +14,7 @@ namespace ariles2
 {
     namespace ns_protobuf3
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public visitor::Base<Writer, visitor::Parameters>
+        class ARILES2_VISIBILITY_PUBLIC Writer : public visitor::Base<Writer, visitor::Parameters>
         {
         public:
             using Parameters = visitor::Parameters;

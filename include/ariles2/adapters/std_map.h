@@ -32,7 +32,7 @@ namespace ariles2
     namespace read
     {
         template <class t_Visitor, class... t_Args>
-        void ARILES2_VISIBILITY_ATTRIBUTE
+        void ARILES2_VISIBILITY_PUBLIC
                 apply_read(t_Visitor &visitor, std::map<t_Args...> &entry, const typename t_Visitor::Parameters &param)
         {
             CPPUT_TRACE_FUNCTION;
@@ -52,7 +52,7 @@ namespace ariles2
 
 
         template <class t_Visitor, class... t_Args>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
+        void ARILES2_VISIBILITY_PUBLIC apply_read(
                 t_Visitor &visitor,
                 std::map<std::string, t_Args...> &entry,
                 const typename t_Visitor::Parameters &parameters)
@@ -83,7 +83,7 @@ namespace ariles2
     namespace write
     {
         template <class t_Visitor, class... t_Args>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
+        void ARILES2_VISIBILITY_PUBLIC apply_write(
                 t_Visitor &writer,
                 const std::map<t_Args...> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -99,7 +99,7 @@ namespace ariles2
 
 
         template <class t_Visitor, class... t_Args>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
+        void ARILES2_VISIBILITY_PUBLIC apply_write(
                 t_Visitor &writer,
                 const std::map<std::string, t_Args...> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -130,7 +130,7 @@ namespace ariles2
     namespace compare
     {
         template <class t_Visitor, class... t_Args>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
+        void ARILES2_VISIBILITY_PUBLIC apply_compare(
                 t_Visitor &visitor,
                 const std::map<t_Args...> &left,
                 const std::map<t_Args...> &right,
@@ -159,7 +159,7 @@ namespace ariles2
     namespace defaults
     {
         template <class t_Visitor, class... t_Args>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
+        void ARILES2_VISIBILITY_PUBLIC apply_defaults(
                 const t_Visitor & /*visitor*/,
                 std::map<t_Args...> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
@@ -176,7 +176,7 @@ namespace ariles2
     namespace process
     {
         template <class t_Visitor, class... t_Args>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_process(
+        void ARILES2_VISIBILITY_PUBLIC apply_process(
                 const t_Visitor &visitor,
                 std::map<t_Args...> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -197,7 +197,7 @@ namespace ariles2
     namespace copyfrom
     {
         template <class t_Visitor, class... t_ArgsLeft, class... t_ArgsRight>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+        void ARILES2_VISIBILITY_PUBLIC apply_copyfrom(
                 t_Visitor &visitor,
                 std::map<t_ArgsLeft...> &left,
                 const std::map<t_ArgsRight...> &right,
@@ -223,7 +223,7 @@ namespace ariles2
     namespace copyto
     {
         template <class t_Visitor, class... t_ArgsLeft, class... t_ArgsRight>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+        void ARILES2_VISIBILITY_PUBLIC apply_copyto(
                 t_Visitor &visitor,
                 const std::map<t_ArgsLeft...> &left,
                 std::map<t_ArgsRight...> &right,

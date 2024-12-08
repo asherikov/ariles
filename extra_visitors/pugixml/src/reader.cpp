@@ -19,8 +19,8 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<NodeWrapper>,
-                                                        public read::FileVisitorImplementation
+            class ARILES2_VISIBILITY_PUBLIC Reader : public serialization::NodeStackBase<NodeWrapper>,
+                                                     public read::FileVisitorImplementation
             {
             public:
                 pugi::xml_document document_;

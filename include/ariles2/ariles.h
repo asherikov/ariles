@@ -61,9 +61,9 @@
 
 namespace ariles2
 {
-    class ARILES2_VISIBILITY_ATTRIBUTE DefaultBase : public ariles2::Ariles
+    class ARILES2_VISIBILITY_PUBLIC DefaultBase : public ariles2::Ariles
 #    define ARILES2_VISITOR(visitor) , public ariles2::visitor::Base
-                                                     ARILES2_DEFAULT_VISITORS
+                                                  ARILES2_DEFAULT_VISITORS
 #    undef ARILES2_VISITOR
     {
     protected:
@@ -89,7 +89,7 @@ namespace ariles2
 namespace ariles2
 {
     // Some classes may inherit from this
-    class ARILES2_VISIBILITY_ATTRIBUTE DefaultBase
+    class ARILES2_VISIBILITY_PUBLIC DefaultBase
     {
     protected:
         /**

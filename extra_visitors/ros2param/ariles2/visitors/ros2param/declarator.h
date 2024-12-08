@@ -17,7 +17,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Declarator;
+            class ARILES2_VISIBILITY_PUBLIC Declarator;
         }
 
 
@@ -25,7 +25,7 @@ namespace ariles2
         /**
          * @brief Parameter declarator
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Declarator
+        class ARILES2_VISIBILITY_PUBLIC Declarator
           : public serialization::PIMPLVisitor<write::Visitor, impl::Declarator>
         {
         public:

@@ -23,7 +23,7 @@ namespace ariles2
     /// @ingroup copyfrom
     namespace copyfrom
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
+        class ARILES2_VISIBILITY_PUBLIC Parameters : public visitor::Parameters
         {
         public:
             bool deep_copy_;
@@ -36,7 +36,7 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<Visitor, copyfrom::Parameters>
+        class ARILES2_VISIBILITY_PUBLIC Visitor : public visitor::Base<Visitor, copyfrom::Parameters>
         {
         public:
             using Parameters = copyfrom::Parameters;
@@ -78,7 +78,7 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Base
+        class ARILES2_VISIBILITY_PUBLIC Base
         {
         };
 

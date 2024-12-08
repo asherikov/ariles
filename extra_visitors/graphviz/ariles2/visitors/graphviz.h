@@ -34,14 +34,14 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Visitor;
+            class ARILES2_VISIBILITY_PUBLIC Visitor;
         }
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public write::Parameters
+        class ARILES2_VISIBILITY_PUBLIC Parameters : public write::Parameters
         {
         public:
-            class ARILES2_VISIBILITY_ATTRIBUTE NodeOptions
+            class ARILES2_VISIBILITY_PUBLIC NodeOptions
             {
             public:
                 std::string id_;
@@ -104,7 +104,7 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor
+        class ARILES2_VISIBILITY_PUBLIC Visitor
           : public serialization::PIMPLVisitor<write::VisitorBase<Visitor, Parameters>, impl::Visitor>
         {
         protected:
@@ -150,7 +150,7 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Base : public entry::ConstBase<Visitor>
+        class ARILES2_VISIBILITY_PUBLIC Base : public entry::ConstBase<Visitor>
         {
         };
 
@@ -183,7 +183,7 @@ namespace ariles2
      * @brief Graphviz visitor.
      * @ingroup graphviz
      */
-    struct ARILES2_VISIBILITY_ATTRIBUTE graphviz
+    struct ARILES2_VISIBILITY_PUBLIC graphviz
     {
         using Parameters = ns_graphviz::Parameters;
         using Visitor = ns_graphviz::Visitor;

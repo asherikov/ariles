@@ -39,7 +39,7 @@ namespace ariles2
      * @brief MessagePack visitor.
      * @ingroup msgpack
      */
-    struct ARILES2_VISIBILITY_ATTRIBUTE msgpack
+    struct ARILES2_VISIBILITY_PUBLIC msgpack
     {
         using Reader = ariles2::cfgread::Visitor<ns_msgpack::Reader>;
         using Writer = ariles2::cfgwrite::Visitor<ns_msgpack::Writer>;
@@ -55,7 +55,7 @@ namespace ariles2
      *
      * @ingroup msgpack
      */
-    struct ARILES2_VISIBILITY_ATTRIBUTE msgpack_compact
+    struct ARILES2_VISIBILITY_PUBLIC msgpack_compact
     {
         using Reader = ariles2::cfgread::Visitor<ns_msgpack_compact::Reader>;
         using Writer = ariles2::cfgwrite::Visitor<ns_msgpack_compact::Writer>;

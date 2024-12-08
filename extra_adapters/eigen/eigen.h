@@ -20,7 +20,7 @@ namespace ariles2
     namespace read
     {
         template <class t_Visitor, typename t_Scalar, int t_rows, int t_flags>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
+        void ARILES2_VISIBILITY_PUBLIC apply_read(
                 t_Visitor &visitor,
                 Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -47,7 +47,7 @@ namespace ariles2
 
 
         template <class t_Visitor, typename t_Scalar, int t_rows, int t_cols, int t_flags>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
+        void ARILES2_VISIBILITY_PUBLIC apply_read(
                 t_Visitor &visitor,
                 Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
                 const typename t_Visitor::Parameters &parameters)
@@ -83,7 +83,7 @@ namespace ariles2
 
 
         template <class t_Visitor, typename t_Scalar, int t_dim, int t_mode, int t_options>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
+        void ARILES2_VISIBILITY_PUBLIC apply_read(
                 t_Visitor &visitor,
                 Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -100,7 +100,7 @@ namespace ariles2
 
 
         template <class t_Visitor, typename t_Scalar, int t_options>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
+        void ARILES2_VISIBILITY_PUBLIC apply_read(
                 t_Visitor &visitor,
                 Eigen::Quaternion<t_Scalar, t_options> &entry,
                 const typename t_Visitor::Parameters &parameters)
@@ -126,7 +126,7 @@ namespace ariles2
     namespace write
     {
         template <class t_Visitor, typename t_Scalar, int t_rows, int t_flags>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
+        void ARILES2_VISIBILITY_PUBLIC apply_write(
                 t_Visitor &writer,
                 const Eigen::Matrix<t_Scalar, t_rows, 1, t_flags> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -142,7 +142,7 @@ namespace ariles2
 
 
         template <class t_Visitor, typename t_Scalar, int t_rows, int t_cols, int t_flags>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
+        void ARILES2_VISIBILITY_PUBLIC apply_write(
                 t_Visitor &writer,
                 const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -166,7 +166,7 @@ namespace ariles2
 
 
         template <class t_Visitor, typename t_Scalar, int t_dim, int t_mode, int t_options>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
+        void ARILES2_VISIBILITY_PUBLIC apply_write(
                 t_Visitor &writer,
                 const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -177,7 +177,7 @@ namespace ariles2
 
 
         template <class t_Visitor, typename t_Scalar, int t_options, class t_Flags>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
+        void ARILES2_VISIBILITY_PUBLIC apply_write(
                 t_Visitor &writer,
                 const Eigen::Quaternion<t_Scalar, t_options> &entry,
                 const t_Flags &param)
@@ -203,7 +203,7 @@ namespace ariles2
     namespace compare
     {
         template <class t_Visitor, typename t_Scalar, int t_dim, int t_mode, int t_options>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
+        void ARILES2_VISIBILITY_PUBLIC apply_compare(
                 t_Visitor &visitor,
                 const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &left,
                 const Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &right,
@@ -215,7 +215,7 @@ namespace ariles2
 
 
         template <class t_Visitor, typename t_Scalar, int t_options>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
+        void ARILES2_VISIBILITY_PUBLIC apply_compare(
                 t_Visitor &visitor,
                 const Eigen::Quaternion<t_Scalar, t_options> &left,
                 const Eigen::Quaternion<t_Scalar, t_options> &right,
@@ -227,7 +227,7 @@ namespace ariles2
 
 
         template <class t_Visitor, typename t_Scalar, int t_rows, int t_cols, int t_flags>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
+        void ARILES2_VISIBILITY_PUBLIC apply_compare(
                 t_Visitor &visitor,
                 const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &left,
                 const Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &right,
@@ -246,7 +246,7 @@ namespace ariles2
     namespace defaults
     {
         template <class t_Visitor, typename t_Scalar, int t_rows, int t_cols, int t_flags>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
+        void ARILES2_VISIBILITY_PUBLIC apply_defaults(
                 const t_Visitor & /*visitor*/,
                 Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -278,7 +278,7 @@ namespace ariles2
 
 
         template <class t_Visitor, typename t_Scalar, int t_dim, int t_mode, int t_options>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
+        void ARILES2_VISIBILITY_PUBLIC apply_defaults(
                 const t_Visitor & /*visitor*/,
                 Eigen::Transform<t_Scalar, t_dim, t_mode, t_options> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
@@ -289,7 +289,7 @@ namespace ariles2
 
 
         template <class t_Visitor, typename t_Scalar, int t_options>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
+        void ARILES2_VISIBILITY_PUBLIC apply_defaults(
                 const t_Visitor & /*visitor*/,
                 Eigen::Quaternion<t_Scalar, t_options> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
@@ -306,7 +306,7 @@ namespace ariles2
     namespace copyfrom
     {
         template <class t_Visitor, class t_Left, class t_Right>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+        void ARILES2_VISIBILITY_PUBLIC apply_copyfrom(
                 t_Visitor & /*visitor*/,
                 t_Left &left,
                 const t_Right &right,
@@ -323,7 +323,7 @@ namespace ariles2
     namespace copyto
     {
         template <class t_Visitor, class t_Left, class t_Right>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+        void ARILES2_VISIBILITY_PUBLIC apply_copyto(
                 t_Visitor & /*visitor*/,
                 const t_Left &left,
                 t_Right &right,

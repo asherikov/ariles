@@ -21,7 +21,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public write::FileVisitorImplementation
+            class ARILES2_VISIBILITY_PUBLIC Writer : public write::FileVisitorImplementation
             {
             public:
                 std::shared_ptr<::msgpack::packer<std::ostream>> packer_;

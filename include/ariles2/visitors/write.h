@@ -26,7 +26,7 @@ namespace ariles2
     /// @ingroup write
     namespace write
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public serialization::Parameters
+        class ARILES2_VISIBILITY_PUBLIC Parameters : public serialization::Parameters
         {
         public:
             bool compact_arrays_;
@@ -42,7 +42,7 @@ namespace ariles2
 
 
         template <class t_Derived, class t_Parameters>
-        class ARILES2_VISIBILITY_ATTRIBUTE VisitorBase : public serialization::Base<t_Derived, t_Parameters>
+        class ARILES2_VISIBILITY_PUBLIC VisitorBase : public serialization::Base<t_Derived, t_Parameters>
         {
         public:
             virtual void startRoot(const std::string &name, const t_Parameters & /*param*/)
@@ -348,7 +348,7 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public VisitorBase<Visitor, Parameters>
+        class ARILES2_VISIBILITY_PUBLIC Visitor : public VisitorBase<Visitor, Parameters>
         {
         protected:
             Visitor() = default;

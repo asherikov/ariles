@@ -23,7 +23,7 @@ namespace ariles2
     /// @ingroup serialization
     namespace serialization
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
+        class ARILES2_VISIBILITY_PUBLIC Parameters : public visitor::Parameters
         {
         public:
             bool sloppy_maps_;                /// Treat key values in maps as entry names if they are strings
@@ -50,7 +50,7 @@ namespace ariles2
 
 
         template <class t_Visitor, class t_Implementation>
-        class ARILES2_VISIBILITY_ATTRIBUTE PIMPLVisitor : public t_Visitor
+        class ARILES2_VISIBILITY_PUBLIC PIMPLVisitor : public t_Visitor
         {
         protected:
             using Impl = t_Implementation;

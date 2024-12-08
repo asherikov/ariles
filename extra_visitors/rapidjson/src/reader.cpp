@@ -20,7 +20,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class Node : public serialization::Node
+            class ARILES2_VISIBILITY_PRIVATE Node : public serialization::Node
             {
             public:
                 const ::rapidjson::Value *node_;
@@ -36,8 +36,8 @@ namespace ariles2
             };
 
 
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ariles2::ns_rapidjson::ImplBase<Node>,
-                                                        public read::FileVisitorImplementation
+            class ARILES2_VISIBILITY_PUBLIC Reader : public ariles2::ns_rapidjson::ImplBase<Node>,
+                                                     public read::FileVisitorImplementation
             {
             public:
                 Reader() = default;

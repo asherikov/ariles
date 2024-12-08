@@ -22,7 +22,7 @@ namespace ariles2
 {
     namespace ns_ros2param
     {
-        class ReaderNodeWrapper : public NodeBase
+        class ARILES2_VISIBILITY_PRIVATE ReaderNodeWrapper : public NodeBase
         {
         protected:
             std::set<std::string> childs_;
@@ -142,7 +142,7 @@ namespace ariles2
 
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<ReaderNodeWrapper>
+            class ARILES2_VISIBILITY_PUBLIC Reader : public serialization::NodeStackBase<ReaderNodeWrapper>
             {
             public:
                 // https://docs.ros2.org/latest/api/rclcpp/classrclcpp_1_1Node.html

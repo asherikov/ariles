@@ -16,14 +16,14 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer;
+            class ARILES2_VISIBILITY_PUBLIC Writer;
         }
 
 
         /**
          * @brief Configuration writer class
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::PIMPLVisitor<write::Visitor, impl::Writer>
+        class ARILES2_VISIBILITY_PUBLIC Writer : public serialization::PIMPLVisitor<write::Visitor, impl::Writer>
         {
         public:
             explicit Writer(const std::string &file_name);

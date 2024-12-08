@@ -33,7 +33,7 @@ namespace ariles2
      * @brief NameValue visitor.
      * @ingroup namevalue
      */
-    struct ARILES2_VISIBILITY_ATTRIBUTE namevalue
+    struct ARILES2_VISIBILITY_PUBLIC namevalue
     {
         using Writer = ariles2::cfgwrite::Visitor<ns_namevalue::Writer>;
     };

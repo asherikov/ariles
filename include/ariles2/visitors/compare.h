@@ -24,7 +24,7 @@ namespace ariles2
     /// @ingroup compare
     namespace compare
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
+        class ARILES2_VISIBILITY_PUBLIC Parameters : public visitor::Parameters
         {
         public:
             float float_tolerance_;
@@ -75,7 +75,7 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public visitor::Base<Visitor, compare::Parameters, bool>
+        class ARILES2_VISIBILITY_PUBLIC Visitor : public visitor::Base<Visitor, compare::Parameters, bool>
         {
         public:
             using Parameters = compare::Parameters;
@@ -163,7 +163,7 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Base
+        class ARILES2_VISIBILITY_PUBLIC Base
         {
         };
 

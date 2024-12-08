@@ -25,7 +25,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer
+            class ARILES2_VISIBILITY_PUBLIC Writer
               : public ariles2::ns_rapidjson::ImplBase<serialization::NodeTemplate<::rapidjson::Value *>>,
                 public write::FileVisitorImplementation
             {

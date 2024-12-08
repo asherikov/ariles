@@ -12,7 +12,7 @@ namespace ariles2
 {
     namespace ns_ros2param
     {
-        class NodeBase : public serialization::NodeString
+        class ARILES2_VISIBILITY_PRIVATE NodeBase : public serialization::NodeString
         {
         protected:
             using Parent = serialization::NodeString;
@@ -43,7 +43,7 @@ namespace ariles2
         };
 
 
-        class ModifierNode : public NodeBase
+        class ARILES2_VISIBILITY_PRIVATE ModifierNode : public NodeBase
         {
         public:
             std::variant<

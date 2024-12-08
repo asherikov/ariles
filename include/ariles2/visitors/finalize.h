@@ -28,7 +28,7 @@ namespace ariles2
         using Parameters = visitor::Parameters;
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor
+        class ARILES2_VISIBILITY_PUBLIC Visitor
           : public ariles2::process::Visitor<const finalize::Visitor, finalize::Parameters>
         {
         public:

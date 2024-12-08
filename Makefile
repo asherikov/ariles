@@ -168,7 +168,6 @@ updateutils: addutils
 	git show remotes/cmakeut/master:cmake/cmakeut_list_filenames.cmake > cmake/cmakeut_list_filenames.cmake
 	#
 	git show remotes/cpput/master:include/cpput/exception.h  > include/ariles2/internal/exception.h
-	git show remotes/cpput/master:include/cpput/visibility.h > include/ariles2/internal/visibility.h
 	git show remotes/cpput/master:include/cpput/misc.h       > include/ariles2/internal/misc.h
 	git show remotes/cpput/master:include/cpput/trace.h      > include/ariles2/internal/trace.h
 	git show remotes/cpput/master:include/cpput/concat.h     > include/ariles2/internal/concat.h

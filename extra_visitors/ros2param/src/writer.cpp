@@ -23,7 +23,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ModifierImplBase
+            class ARILES2_VISIBILITY_PUBLIC Writer : public ModifierImplBase
             {
             public:
                 using ModifierImplBase::ModifierImplBase;
