@@ -7,6 +7,7 @@
 
     @brief
 */
+// cppcheck-suppress-file duplInheritedMember
 
 #include <boost/math/special_functions.hpp>
 

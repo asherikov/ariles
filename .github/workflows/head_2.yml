@@ -8,7 +8,7 @@ env:
     CATKIN_OPTIONS: $GITHUB_WORKSPACE/catkin.options
 
 jobs:
-    jammy_deb_packages:
+    noble_deb_packages:
         runs-on: ubuntu-22.04
 
         steps:
@@ -20,6 +20,17 @@ jobs:
                 make deb-install DEB_TARGET=jammy
                 # make cmake_dependency  # requires ROS
 
+    jammy_deb_packages:
+        runs-on: ubuntu-22.04
+
+        steps:
+            - uses: actions/checkout@v4
+            - run: sudo make install-deps
+            - run: $APT fakeroot devscripts build-essential
+            - run: |
+                make deb-build DEB_TARGET=jammy
+                make deb-install DEB_TARGET=jammy
+                # make cmake_dependency  # requires ROS
 
     focal_deb_packages:
         runs-on: ubuntu-20.04
@@ -41,13 +52,28 @@ jobs:
                 make cmake_dependency
 
 
-    clang_noros:
-        runs-on: ubuntu-22.04
+    noble_gcc_noros:
+        runs-on: ubuntu-24.04
         steps:
             - uses: actions/checkout@v4
             - run: sudo apt update
             - run: sudo make install-deps
-            - run: make build-tests TYPE=Debug OPTIONS=noros TARGETS="all" TC=clang ARGS=-V
+            - run: make build-tests TYPE=Debug OPTIONS=noros TARGETS="all" TC=gcc ARGS=-V
+
+    noble_gcc_ros:
+        runs-on: ubuntu-24.04
+
+        env:
+            ROS_DISTRO: jazzy
+            ROS_CI_DESKTOP: noble
+
+        steps:
+            - uses: actions/checkout@v4
+            - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
+            - run: sudo make install-deps
+            - run: |
+                source /opt/ros/$ROS_DISTRO/setup.bash
+                make build-tests TYPE=Debug OPTIONS=ros2 TARGETS="all" TC=gcc ARGS=-V
 
 
     jammy_gcc_noros:
@@ -82,24 +108,6 @@ jobs:
             - run: sudo make install-deps
             - run: make build-tests TYPE=Debug OPTIONS=noros TARGETS="all" TC=gcc ARGS=-V
 
-
-    focal_clang_ros:
-        runs-on: ubuntu-20.04
-
-        env:
-            ROS_DISTRO: noetic
-            ROS_HOSTNAME: localhost
-            ROS_CI_DESKTOP: focal
-
-        steps:
-            - uses: actions/checkout@v4
-            - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
-            - run: sudo make install-deps
-            - run: |
-                source /opt/ros/$ROS_DISTRO/setup.bash
-                make build-tests TYPE=Debug OPTIONS=ros TARGETS="all" TC=clang ARGS=-V
-
-
     focal_gcc_ros:
         runs-on: ubuntu-20.04
 
@@ -123,57 +131,38 @@ jobs:
         steps:
             - uses: actions/checkout@v4
             - run: sudo apt update
-            - run: $APT cppcheck
             - run: $APT python3-pip python3-setuptools
             - run: sudo pip3 install scspell3k
-            - run: make cppcheck
             - run: make spell
 
 
-    focal_gcc_ros_scanbuild:
-        runs-on: ubuntu-20.04
+    noble_clang_ros_scanbuild:
+        runs-on: ubuntu-24.04
 
         env:
-            ROS_DISTRO: noetic
-            ROS_HOSTNAME: localhost
-            ROS_CI_DESKTOP: focal
+            ROS_DISTRO: jazzy
+            ROS_CI_DESKTOP: noble
 
         steps:
             - uses: actions/checkout@v4
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: sudo make install-deps
-            - run: $APT clang-tools-12 clang-tidy-12
+            - run: $APT clang-tools-18 clang-tidy-18
             - run: |
                 source /opt/ros/$ROS_DISTRO/setup.bash
-                make clangcheck SCANBUILD=scan-build-12 OPTIONS=ros_tidy TC=gcc
+                make clangcheck SCANBUILD=scan-build-18 OPTIONS=ros2_tidy TC=clang
 
 
-    jammy_gcc_ros_scanbuild:
-        runs-on: ubuntu-22.04
-
-        env:
-            ROS_DISTRO: humble
-            ROS_CI_DESKTOP: jammy
-
-        steps:
-            - uses: actions/checkout@v4
-            - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
-            - run: sudo make install-deps
-            - run: $APT clang-tools-15 clang-tidy-15
-            - run: |
-                source /opt/ros/$ROS_DISTRO/setup.bash
-                make clangcheck SCANBUILD=scan-build-15 OPTIONS=ros2_tidy TC=gcc
-
-
-    jammy_gcc_noros_scanbuild:
-        runs-on: ubuntu-22.04
+    noble_clang_noros_scanbuild:
+        runs-on: ubuntu-24.04
 
         steps:
             - uses: actions/checkout@v4
             - run: sudo apt update
             - run: sudo make install-deps
-            - run: $APT clang-tools-15 clang-tidy-15
-            - run: make clangcheck SCANBUILD=scan-build-15 OPTIONS=noros_tidy TC=gcc
+            - run: $APT clang-tools-18 clang-tidy-18
+            - run: make clangcheck SCANBUILD=scan-build-18 OPTIONS=noros_tidy TC=clang
+
 
     jammy_ccws:
         runs-on: ubuntu-22.04
@@ -198,4 +187,31 @@ jobs:
             - run: make dep_install PKG=ariles2_ros2param_ws
             - run: make dep_install PKG=ariles2_yamlcpp_ws
             - run: make _ws BUILD_PROFILE=scan_build
+            - run: make bp_install_build BUILD_PROFILE=cppcheck
+            - run: make BUILD_PROFILE=static_checks BASE_BUILD_PROFILE=scan_build
 
+    noble_ccws:
+        runs-on: ubuntu-24.04
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                repository: asherikov/ccws
+            - uses: actions/checkout@v4
+              with:
+                ref: pkg_ws_2
+                path: src/ariles_ws
+            - run: cd src/ariles_ws; make update VERSION=${GITHUB_SHA}; rm -Rf ariles2_rosparam_ws demo
+            - run: make bp_install_build BUILD_PROFILE=static_checks
+            - run: make BUILD_PROFILE=static_checks
+            - run: make bp_install_build BUILD_PROFILE=scan_build
+            - run: make dep_install PKG=ariles2_core_ws
+            - run: make dep_install PKG=ariles2_graphviz_ws
+            - run: make dep_install PKG=ariles2_namevalue2_ws
+            - run: make dep_install PKG=ariles2_octave_ws
+            - run: make dep_install PKG=ariles2_pugixml_ws
+            - run: make dep_install PKG=ariles2_rapidjson_ws
+            - run: make dep_install PKG=ariles2_ros2param_ws
+            - run: make dep_install PKG=ariles2_yamlcpp_ws
+            - run: make _ws BUILD_PROFILE=scan_build
+            - run: make bp_install_build BUILD_PROFILE=cppcheck
+            - run: make BUILD_PROFILE=static_checks BASE_BUILD_PROFILE=scan_build

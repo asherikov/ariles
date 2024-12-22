@@ -67,7 +67,7 @@ namespace ariles2
         void Declarator::flush()
         {
             CPPUT_TRACE_FUNCTION;
-            CPPUT_ASSERT(impl_->publishParameters(), "Failed to set parameters.");
+            CPPUT_ASSERT(impl_->publishParameters(), "Failed to declare parameters.");
         }
 
 

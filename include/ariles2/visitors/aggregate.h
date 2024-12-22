@@ -7,11 +7,11 @@
 
     @brief
 */
+// cppcheck-suppress-file duplInheritedMember
 
 #pragma once
 
 #include "common.h"
-
 
 namespace ariles2
 {

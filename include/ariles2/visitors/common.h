@@ -7,6 +7,7 @@
 
     @brief
 */
+// cppcheck-suppress-file duplInheritedMember
 
 #pragma once
 
@@ -54,6 +55,7 @@ namespace ariles2
                 return parameters;
             }
 
+            // cppcheck-suppress duplInheritedMember
             template <class t_Ariles>
             const t_Parameters &getParameters(const t_Ariles &ariles_class) const
             {

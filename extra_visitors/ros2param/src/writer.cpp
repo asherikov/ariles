@@ -30,6 +30,10 @@ namespace ariles2
 
                 [[nodiscard]] bool publishParameters() const
                 {
+                    if (parameters_.empty())
+                    {
+                        return (true);
+                    }
                     return (nh_->set_parameters_atomically(parameters_).successful);
                 }
             };

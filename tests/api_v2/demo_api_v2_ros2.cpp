@@ -7,6 +7,7 @@
 
     @brief
 */
+// cppcheck-suppress-file duplInheritedMember
 
 
 // ============================================================================
@@ -132,7 +133,7 @@ int main(int argc, char *argv[])
     try
     {
         rclcpp::init(argc, argv);
-        rclcpp::Node::SharedPtr nh = rclcpp::Node::make_shared(
+        const rclcpp::Node::SharedPtr nh = rclcpp::Node::make_shared(
                 "demo_api_v2_ros2",
                 // although ariles provides Declarator visitor, declaring
                 // parameters in general case is not possible since generic
