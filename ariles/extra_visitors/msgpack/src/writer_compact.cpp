@@ -20,19 +20,13 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public write::FileVisitorImplementation
             {
             public:
                 using PackerPtr = std::shared_ptr<::msgpack::packer<std::ostream>>;
 
 
             public:
-                /// output file stream
-                std::ofstream config_ofs_;
-
-                /// output stream
-                std::ostream *output_stream_;
-
                 PackerPtr packer_;
 
             public:
@@ -40,17 +34,9 @@ namespace ariles2
                 void operator=(const Writer &) = delete;
 
 
-                explicit Writer(const std::string &file_name)
+                template <class... t_Args>
+                explicit Writer(t_Args &&...args) : FileVisitorImplementation(std::forward<t_Args>(args)...)
                 {
-                    ariles2::write::Visitor::openFile(config_ofs_, file_name);
-                    output_stream_ = &config_ofs_;
-                    packer_ = std::make_shared<::msgpack::packer<std::ostream>>(*output_stream_);
-                }
-
-
-                explicit Writer(std::ostream &output_stream)
-                {
-                    output_stream_ = &output_stream;
                     packer_ = std::make_shared<::msgpack::packer<std::ostream>>(*output_stream_);
                 }
             };

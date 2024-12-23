@@ -1,6 +1,6 @@
 # General parameters
 cmake_minimum_required (VERSION 3.5.0)
-project(ariles2 VERSION 2.3.2)
+project(ariles2 VERSION 2.4.0)
 
 
 set(ARILES_HOMEPAGE http://asherikov.github.io/ariles/2)
@@ -27,7 +27,7 @@ option (ARILES_ADAPTER_ROSMSG           "ROS message conversions." ON)
 option (ARILES_CPP_SANITIZERS           "Enable sanitizers"                 OFF)
 option (ARILES_CPP_CLANG_TIDY           "Enable clang-tidy"                 OFF)
 option (ARILES_VERBOSE                  "Verbose build"                     ON)
-option (ARILES_BUILD_REGRESSION_TESTS   "Build regression tests."           ON)
+option (ARILES_BUILD_REGRESSION_TESTS   "Build regression tests."           OFF)
 option (ARILES_CCACHE                   "Enable ccache if available"        ON)
 set    (ARILES_DEB_TARGETS              "" CACHE STRING "Enable debian package generation.")
 

@@ -70,24 +70,6 @@ namespace ariles2
             }
 
 
-            /**
-             * @brief open configuration file
-             *
-             * @param[out] config_ifs
-             * @param[in] file_name
-             */
-            static void openFile(std::ifstream &config_ifs, const std::string &file_name)
-            {
-                config_ifs.open(file_name.c_str());
-                if (!config_ifs.good())
-                {
-                    std::string file_name_default = file_name;
-                    config_ifs.open(file_name_default.c_str());
-                }
-                CPPUT_PERSISTENT_ASSERT(config_ifs.good(), "Could not open configuration file: ", file_name.c_str());
-            }
-
-
             virtual bool startRoot(const std::string &name)
             {
                 CPPUT_TRACE_FUNCTION;
@@ -504,13 +486,53 @@ namespace ariles2
         };
 
 
+        class FileVisitorImplementation
+        {
+        protected:
+            std::ifstream config_ifs_;
+
+            std::istream *input_stream_;
+
+        protected:
+            FileVisitorImplementation() = default;
+
+            explicit FileVisitorImplementation(const std::string &file_name)
+            {
+                openFile(file_name);
+                input_stream_ = &config_ifs_;
+            }
+
+            explicit FileVisitorImplementation(std::istream &input_stream)
+            {
+                input_stream_ = &input_stream;
+            }
+
+
+            /**
+             * @brief open configuration file
+             *
+             * @param[in] file_name
+             */
+            void openFile(const std::string &file_name)
+            {
+                config_ifs_.open(file_name.c_str());
+                if (!config_ifs_.good())
+                {
+                    std::string file_name_default = file_name;
+                    config_ifs_.open(file_name_default.c_str());
+                }
+                CPPUT_PERSISTENT_ASSERT(config_ifs_.good(), "Could not open configuration file: ", file_name.c_str());
+            }
+        };
+
+
         using Base = entry::Base<read::Visitor>;
 
 
 #define ARILES2_NAMED_ENTRY_read(v, entry, name) visitor.visitMapEntry(entry, #name, parameters);
 #define ARILES2_PARENT_read(v, entry)
 #define ARILES2_VISIT_read                                                                                             \
-    template <class t_Visitor>                                                                                         \
+    template <class t_Visitor> /* cppcheck-suppress duplInheritedMember */                                             \
     void arilesVisit(                                                                                                  \
             t_Visitor &visitor,                                                                                        \
             const typename t_Visitor::Parameters &parameters,                                                          \

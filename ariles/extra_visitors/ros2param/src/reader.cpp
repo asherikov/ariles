@@ -184,7 +184,6 @@ namespace ariles2
                 {
                     clear();
 
-                    rcl_interfaces::msg::ListParametersResult list_msg;
                     parameter_names_ = std::move(nh_->list_parameters({}, std::numeric_limits<uint64_t>::max()).names);
                 }
 

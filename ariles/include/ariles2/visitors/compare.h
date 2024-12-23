@@ -172,7 +172,7 @@ namespace ariles2
 #define ARILES2_PARENT_compare(v, entry) entry::arilesVisit(visitor, other, parameters);
 
 #define ARILES2_VISIT_compare                                                                                          \
-    template <class t_Other>                                                                                           \
+    template <class t_Other> /* cppcheck-suppress duplInheritedMember */                                               \
     void arilesVisit(                                                                                                  \
             ariles2::compare::Visitor &visitor,                                                                        \
             const t_Other &other,                                                                                      \

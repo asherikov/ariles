@@ -217,6 +217,238 @@ namespace ariles2
 
 namespace ariles2
 {
+    template <template <class> class t_Pointer, class t_Base, class t_Instantiator>
+    class ARILES2_VISIBILITY_ATTRIBUTE Any2 : public ariles2::DefaultBase
+    {
+#define ARILES2_ENTRIES(v)                                                                                             \
+    ARILES2_TYPED_ENTRY_(v, id, std::string)                                                                           \
+    ARILES2_TYPED_ENTRY_(v, value, t_Pointer<t_Base>)
+#include ARILES2_INITIALIZE
+
+    protected:
+        bool isConsistent() const
+        {
+            if (("" != id_) && (nullptr != value_.get()))
+            {
+                return (true);
+            }
+
+            if (("" == id_) && (nullptr == value_.get()))
+            {
+                return (true);
+            }
+
+            return (false);
+        }
+
+
+    public:
+        Any2()
+        {
+            ariles2::apply<ariles2::Defaults>(*this);
+        }
+
+
+        explicit Any2(const std::string &id)
+        {
+            build(id);
+        }
+
+
+        void build(const std::string &id)
+        {
+            id_ = id;
+            value_ = t_Instantiator::instantiate(id_);
+            CPPUT_ASSERT(nullptr != value_.get(), "Could not instantiate class.");
+        }
+
+
+        bool isInitialized() const
+        {
+            return ("" != id_ && nullptr != value_.get());
+        }
+
+
+        /// @{
+        /**
+         * @brief Cast methods are potentially dangerous, no id checks are
+         * performed. If value is not initialized the returned pointer may
+         * be nullptr.
+         */
+        template <class t_Derived>
+        t_Derived *cast()
+        {
+            return (dynamic_cast<t_Derived *>(value_.get()));
+        }
+
+
+        template <class t_Derived>
+        const t_Derived *cast() const
+        {
+            return (dynamic_cast<const t_Derived *>(value_.get()));
+        }
+        /// @}
+
+
+        /// @{
+        /**
+         * @brief These casts succeed if the Ariles config section id
+         * matches the given string.
+         */
+        template <class t_Derived>
+        t_Derived *cast(const std::string &config_section_id)
+        {
+            if (isInitialized())
+            {
+                if (config_section_id == value_->arilesDefaultID())
+                {
+                    return (dynamic_cast<t_Derived *>(value_.get()));
+                }
+            }
+            return (nullptr);
+        }
+
+
+        template <class t_Derived>
+        const t_Derived *cast(const std::string &config_section_id) const
+        {
+            if (isInitialized())
+            {
+                if (config_section_id == value_->arilesDefaultID())
+                {
+                    return (dynamic_cast<t_Derived *>(value_.get()));
+                }
+            }
+            return (nullptr);
+        }
+        /// @}
+
+
+        t_Base *operator->()
+        {
+            CPPUT_ASSERT(isInitialized(), "Not initialized");
+            return (value_.get());
+        }
+
+
+        const t_Base *operator->() const
+        {
+            CPPUT_ASSERT(isInitialized(), "Not initialized");
+            return (value_.get());
+        }
+
+
+        t_Base &operator*()
+        {
+            CPPUT_ASSERT(isInitialized(), "Not initialized");
+            return (*value_);
+        }
+
+
+        const t_Base &operator*() const
+        {
+            CPPUT_ASSERT(isInitialized(), "Not initialized");
+            return (*value_);
+        }
+
+
+        // Ariles methods
+
+        void arilesVisit(ariles2::Write &visitor, const ariles2::Write::Parameters &param) const
+        {
+            CPPUT_TRACE_FUNCTION;
+            CPPUT_ASSERT(
+                    isConsistent(),
+                    "Could not write config: entry is in an inconsistent (partially initialized) state.");
+
+            visitor.visitMapEntry(id_, "id", param);
+            if (isInitialized())
+            {
+                value_->arilesVirtualVisit(visitor, param);
+            }
+        }
+
+
+        void arilesVisit(ariles2::Read &visitor, const ariles2::Read::Parameters &param)
+        {
+            CPPUT_TRACE_FUNCTION;
+
+            if (visitor.visitMapEntry(id_, "id", param))
+            {
+                if ("" == id_)
+                {
+                    CPPUT_ASSERT(param.allow_missing_entries_, "Id is empty, value cannot be read.");
+                }
+                else
+                {
+                    build(id_);
+
+                    try
+                    {
+                        value_->arilesVirtualVisit(visitor, param);
+                    }
+                    catch (const std::exception &e)
+                    {
+                        CPPUT_THROW("Failed to parse entry <", id_, "> ||  ", e.what());
+                    }
+                }
+            }
+        }
+
+
+        void arilesVisit(const ariles2::Finalize &visitor, const ariles2::Finalize::Parameters &param)
+        {
+            CPPUT_TRACE_FUNCTION;
+            if (isInitialized())
+            {
+                value_->arilesVirtualVisit(visitor, param);
+            }
+        }
+
+
+        void arilesVisit(const ariles2::PreWrite &visitor, const ariles2::PreWrite::Parameters &param)
+        {
+            CPPUT_TRACE_FUNCTION;
+            if (isInitialized())
+            {
+                value_->arilesVirtualVisit(visitor, param);
+            }
+        }
+
+
+        void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)
+        {
+            CPPUT_TRACE_FUNCTION;
+            if (isInitialized())
+            {
+                value_->arilesVirtualVisit(visitor, param);
+            }
+        }
+
+
+        std::size_t arilesVisit(const ariles2::Count &visitor, const ariles2::Count::Parameters &param) const
+        {
+            if (isInitialized())
+            {
+                return (this->value_->arilesVirtualVisit(visitor, param) + 1);
+            }
+
+            return (1);
+        }
+
+
+        std::size_t arilesVisit(const ariles2::CountMissing &visitor, const ariles2::CountMissing::Parameters &param)
+                const
+        {
+            CPPUT_ASSERT(isInitialized(), "Not initialized");
+            return (this->value_->arilesVirtualVisit(visitor, param));
+        }
+    };
+}  // namespace ariles2
+
+
+namespace ariles2
+{
     template <class t_Pointer>
     class ARILES2_VISIBILITY_ATTRIBUTE CustomPointerBase
     {

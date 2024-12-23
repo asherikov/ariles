@@ -87,7 +87,7 @@ namespace ariles2
 #define ARILES2_PARENT_copyfrom(v, entry) entry::arilesVisit(visitor, other, parameters);
 
 #define ARILES2_VISIT_copyfrom                                                                                         \
-    template <class t_Other>                                                                                           \
+    template <class t_Other> /* cppcheck-suppress duplInheritedMember */                                               \
     void arilesVisit(                                                                                                  \
             ariles2::copyfrom::Visitor &visitor,                                                                       \
             const t_Other &other,                                                                                      \

@@ -31,15 +31,10 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::NodeStackBase<NodeWrapper>
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::NodeStackBase<NodeWrapper>,
+                                                        public write::FileVisitorImplementation
             {
             public:
-                /// output file stream
-                std::ofstream config_ofs_;
-
-                /// output stream
-                std::ostream *output_stream_;
-
                 const std::string separator_ = ".";
                 const std::string bracket_left_ = "{";
                 const std::string bracket_right_ = "}";
@@ -56,16 +51,9 @@ namespace ariles2
 
 
             public:
-                explicit Writer(const std::string &file_name)
+                template <class... t_Args>
+                explicit Writer(t_Args &&...args) : FileVisitorImplementation(std::forward<t_Args>(args)...)
                 {
-                    ariles2::write::Visitor::openFile(config_ofs_, file_name);
-                    output_stream_ = &config_ofs_;
-                    initEmitter();
-                }
-
-                explicit Writer(std::ostream &output_stream)
-                {
-                    output_stream_ = &output_stream;
                     initEmitter();
                 }
 

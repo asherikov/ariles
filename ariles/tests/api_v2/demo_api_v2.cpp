@@ -7,6 +7,7 @@
 
     @brief
 */
+// cppcheck-suppress-file duplInheritedMember
 
 
 // ============================================================================

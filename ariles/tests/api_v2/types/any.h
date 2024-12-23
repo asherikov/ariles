@@ -5,6 +5,7 @@
 
     @brief
 */
+// cppcheck-suppress-file duplInheritedMember
 
 #pragma once
 
@@ -180,6 +181,59 @@ namespace ariles_tests
     };
 
 
+    template <template <class> class t_Pointer, class t_Instantiator>
+    class CommonAny2 : public ariles2::Any2<t_Pointer, Base, t_Instantiator>
+    {
+    public:
+#ifndef ARILES_TESTS_RANDOMIZE_DISABLED
+        void randomize()
+        {
+            boost::random::random_device random_generator;
+            BOOST_CHECK(not this->isInitialized());
+
+            this->id_ = "test";
+            BOOST_CHECK(not this->isInitialized());
+
+            BOOST_CHECK_THROW(this->build("test"), std::exception);
+
+            BOOST_CHECK_NO_THROW(this->build("Derived1"));
+            BOOST_CHECK(this->isInitialized());
+
+            BOOST_CHECK(nullptr != this->template cast<Derived1>());
+            BOOST_CHECK(nullptr != this->template cast<Derived1>("Derived1"));
+            BOOST_CHECK(nullptr == this->template cast<Derived1>("Derived2"));
+
+            double test = 0.0;
+
+            this->operator->()->real_ = 10.0;
+            test = this->operator->()->real_;
+            BOOST_CHECK_EQUAL(test, 10.0);
+
+            this->operator*().real_ = 10.0;
+            test = this->operator*().real_;
+            BOOST_CHECK_EQUAL(test, 10.0);
+
+            this->template cast<Derived1>()->real1_ = 10.0;
+            test = this->template cast<Derived1>()->real1_;
+            BOOST_CHECK_EQUAL(test, 10.0);
+
+
+            test = GET_RANDOM_REAL;
+            if (test > 0.0)
+            {
+                this->build("Derived1");
+            }
+            else
+            {
+                this->build("Derived2");
+            }
+
+            this->value_->randomize();
+        }
+#endif
+    };
+
+
 #ifdef ARILES_ADAPTER_BOOST_POINTER
     class BoostPtrInstantiator
     {
@@ -226,17 +280,21 @@ namespace ariles_tests
 #define ARILES2_ENTRIES_0(v)
 
         CommonAny<std::shared_ptr, StdPtrInstantiator> std_any_;
+        CommonAny2<std::shared_ptr, StdPtrInstantiator> std_any2_;
 
 #define ARILES2_ENTRIES_1(v)                                                                                           \
     ARILES2_ENTRIES_0(v)                                                                                               \
-    ARILES2_ENTRY_(v, std_any)
+    ARILES2_ENTRY_(v, std_any)                                                                                         \
+    ARILES2_ENTRY_(v, std_any2)
 
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
         CommonAny<boost::shared_ptr, BoostPtrInstantiator> boost_any_;
+        CommonAny2<boost::shared_ptr, BoostPtrInstantiator> boost_any2_;
 #    define ARILES2_ENTRIES_2(v)                                                                                       \
         ARILES2_ENTRIES_1(v)                                                                                           \
-        ARILES2_ENTRY_(v, boost_any)
+        ARILES2_ENTRY_(v, boost_any)                                                                                   \
+        ARILES2_ENTRY_(v, boost_any2)
 #else
 #    define ARILES2_ENTRIES_2(v) ARILES2_ENTRIES_1(v)
 #endif
@@ -261,9 +319,11 @@ namespace ariles_tests
         {
             boost::random::random_device random_generator;
             std_any_.randomize();
+            std_any2_.randomize();
 
 #    ifdef ARILES_ADAPTER_BOOST_POINTER
             boost_any_.randomize();
+            boost_any2_.randomize();
 #    endif
         }
 #endif
@@ -272,63 +332,47 @@ namespace ariles_tests
 
 #ifndef ARILES_TESTS_COMPARE_DISABLED
     template <class t_Configurable_out, class t_Configurable_in>
+    void compare_any(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)
+    {
+        BOOST_CHECK_EQUAL(configurable_out.id_, configurable_in.id_);
+        BOOST_CHECK_CLOSE((*configurable_out).real_, (*configurable_in).real_, g_tolerance);
+        if ("Derived1" == configurable_out.id_)
+        {
+            BOOST_CHECK_CLOSE(
+                    configurable_out.template cast<Derived1>()->real1_,
+                    configurable_in.template cast<Derived1>()->real1_,
+                    g_tolerance);
+            BOOST_CHECK_CLOSE(
+                    configurable_out.template cast<Derived1>("Derived1")->real1_,
+                    configurable_in.template cast<Derived1>("Derived1")->real1_,
+                    g_tolerance);
+        }
+        if ("Derived2" == configurable_out.id_)
+        {
+            BOOST_CHECK_CLOSE(
+                    configurable_out.template cast<Derived2>()->real2_,
+                    configurable_in.template cast<Derived2>()->real2_,
+                    g_tolerance);
+            BOOST_CHECK_CLOSE(
+                    configurable_out.template cast<Derived2>("Derived2")->real2_,
+                    configurable_in.template cast<Derived2>("Derived2")->real2_,
+                    g_tolerance);
+        }
+        BOOST_CHECK(configurable_in->defaults_check_flag_);
+        BOOST_CHECK(configurable_in->finalize_check_flag_);
+    }
+
+
+    template <class t_Configurable_out, class t_Configurable_in>
     void compare(const t_Configurable_out &configurable_out, const t_Configurable_in &configurable_in)
     {
-        BOOST_CHECK_EQUAL(configurable_out.std_any_.id_, configurable_in.std_any_.id_);
-        BOOST_CHECK_CLOSE((*configurable_out.std_any_).real_, (*configurable_in.std_any_).real_, g_tolerance);
-        if ("Derived1" == configurable_out.std_any_.id_)
-        {
-            BOOST_CHECK_CLOSE(
-                    configurable_out.std_any_.template cast<Derived1>()->real1_,
-                    configurable_in.std_any_.template cast<Derived1>()->real1_,
-                    g_tolerance);
-            BOOST_CHECK_CLOSE(
-                    configurable_out.std_any_.template cast<Derived1>("Derived1")->real1_,
-                    configurable_in.std_any_.template cast<Derived1>("Derived1")->real1_,
-                    g_tolerance);
-        }
-        if ("Derived2" == configurable_out.std_any_.id_)
-        {
-            BOOST_CHECK_CLOSE(
-                    configurable_out.std_any_.template cast<Derived2>()->real2_,
-                    configurable_in.std_any_.template cast<Derived2>()->real2_,
-                    g_tolerance);
-            BOOST_CHECK_CLOSE(
-                    configurable_out.std_any_.template cast<Derived2>("Derived2")->real2_,
-                    configurable_in.std_any_.template cast<Derived2>("Derived2")->real2_,
-                    g_tolerance);
-        }
-        BOOST_CHECK(configurable_in.std_any_->defaults_check_flag_);
-        BOOST_CHECK(configurable_in.std_any_->finalize_check_flag_);
+        compare_any(configurable_out.std_any_, configurable_in.std_any_);
+        compare_any(configurable_out.std_any2_, configurable_in.std_any2_);
 
 
 #    ifdef ARILES_ADAPTER_BOOST_POINTER
-        BOOST_CHECK_EQUAL(configurable_out.boost_any_.id_, configurable_in.boost_any_.id_);
-        BOOST_CHECK_CLOSE((*configurable_out.boost_any_).real_, (*configurable_in.boost_any_).real_, g_tolerance);
-        if ("Derived1" == configurable_out.boost_any_.id_)
-        {
-            BOOST_CHECK_CLOSE(
-                    configurable_out.boost_any_.template cast<Derived1>()->real1_,
-                    configurable_in.boost_any_.template cast<Derived1>()->real1_,
-                    g_tolerance);
-            BOOST_CHECK_CLOSE(
-                    configurable_out.boost_any_.template cast<Derived1>("Derived1")->real1_,
-                    configurable_in.boost_any_.template cast<Derived1>("Derived1")->real1_,
-                    g_tolerance);
-        }
-        if ("Derived2" == configurable_out.boost_any_.id_)
-        {
-            BOOST_CHECK_CLOSE(
-                    configurable_out.boost_any_.template cast<Derived2>()->real2_,
-                    configurable_in.boost_any_.template cast<Derived2>()->real2_,
-                    g_tolerance);
-            BOOST_CHECK_CLOSE(
-                    configurable_out.boost_any_.template cast<Derived2>("Derived2")->real2_,
-                    configurable_in.boost_any_.template cast<Derived2>("Derived2")->real2_,
-                    g_tolerance);
-        }
-        BOOST_CHECK(configurable_in.boost_any_->defaults_check_flag_);
-        BOOST_CHECK(configurable_in.boost_any_->finalize_check_flag_);
+        compare_any(configurable_out.boost_any_, configurable_in.boost_any_);
+        compare_any(configurable_out.boost_any2_, configurable_in.boost_any2_);
 #    endif
     }
 #endif

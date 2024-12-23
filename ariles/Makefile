@@ -51,12 +51,13 @@ build:
 	mkdir -p ${BUILD_SUBDIR};
 	cd ${BUILD_SUBDIR}; cmake 	-C ${ROOT_DIR}/cmake/options_${OPTIONS}.cmake\
 								-DCMAKE_BUILD_TYPE=${TYPE} \
-								-DCMAKE_TOOLCHAIN_FILE=${CMAKE_DIR}/toolchain_${TC}.cmake\
+								-DCMAKE_TOOLCHAIN_FILE=${CMAKE_DIR}/toolchain_${TC}.cmake \
 								${EXTRA_CMAKE_PARAM} \
 								${ROOT_DIR};
 	cd ${BUILD_SUBDIR}; ${MAKE} ${MAKE_FLAGS} ${TARGETS}
 
-build-tests: build
+build-tests:
+	${MAKE} build EXTRA_CMAKE_PARAM="-DARILES_BUILD_REGRESSION_TESTS=ON ${EXTRA_CMAKE_PARAM}"
 	cd ${BUILD_SUBDIR}; env ${TEST_ENV} ctest ${ARGS}
 #	cd ${BUILD_SUBDIR}; ${MAKE} ${MAKE_FLAGS} test ${ARGS}
 
@@ -190,7 +191,7 @@ install-ros:
 	wget -qO- https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo tee /etc/apt/trusted.gpg.d/ros.asc
 	${MAKE} install-ros-${ROS_DISTRO}
 	${APT_INSTALL} dpkg
-	${APT_INSTALL} python3-rosdep python3-rosinstall python3-rosinstall-generator build-essential
+	${APT_INSTALL} python3-rosdep build-essential
 	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; rosdep init'
 	rosdep update
 
@@ -198,13 +199,19 @@ install-ros-noetic:
 	sh -c 'test -f /etc/apt/sources.list.d/ros-latest.list \
         || (echo "deb http://packages.ros.org/ros/ubuntu ${UBUNTU_DISTRO} main" > /etc/apt/sources.list.d/ros-latest.list)'
 	apt update -qq
-	${APT_INSTALL} ros-${ROS_DISTRO}-ros-base
+	${APT_INSTALL} ros-${ROS_DISTRO}-ros-base python3-rosinstall python3-rosinstall-generator
 
-install-ros-humble:
+install-ros2-common:
 	sh -c 'test -f /etc/apt/sources.list.d/ros2-latest.list \
         || (echo "deb [arch=amd64,arm64] http://repo.ros2.org/ubuntu/main ${UBUNTU_DISTRO} main" > /etc/apt/sources.list.d/ros2-latest.list)'
 	apt update -qq
 	${APT_INSTALL} ros-${ROS_DISTRO}-rclcpp
+
+install-ros-humble: install-ros2-common
+	${APT_INSTALL} python3-rosinstall python3-rosinstall-generator
+
+install-ros-jazzy: install-ros2-common
+	#
 
 
 install-deps:
@@ -215,7 +222,7 @@ install-deps:
 
 
 format:
-	${FIND_ARILES_SOURCES} | grep -v "better_enum.h" | xargs clang-format15 -verbose -i
+	${FIND_ARILES_SOURCES} | grep -v "better_enum.h" | xargs clang-format-15 -verbose -i
 
 cppcheck:
 	# --inconclusive
@@ -332,7 +339,7 @@ clangcheck:
 		-enable-checker valist.CopyToSelf \
 		-enable-checker valist.Uninitialized \
 		-enable-checker valist.Unterminated \
-		${MAKE} build TC=${TC} TYPE=${TYPE} OPTIONS=${OPTIONS} TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="-DBUILD_SHARED_LIBS=OFF ${EXTRA_CMAKE_PARAM}"
+		${MAKE} build TC=${TC} TYPE=${TYPE} OPTIONS=${OPTIONS} TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="-DARILES_BUILD_REGRESSION_TESTS=ON -DBUILD_SHARED_LIBS=OFF ${EXTRA_CMAKE_PARAM}"
 #		-enable-checker cplusplus.NewDelete
 #		-enable-checker optin.cplusplus.VirtualCall
 

@@ -45,22 +45,6 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE VisitorBase : public serialization::Base<t_Derived, t_Parameters>
         {
         public:
-            /**
-             * @brief open configuration file
-             *
-             * @param[out] config_ofs
-             * @param[in] file_name
-             */
-            static void openFile(std::ofstream &config_ofs, const std::string &file_name)
-            {
-                config_ofs.open(file_name.c_str());
-
-                CPPUT_PERSISTENT_ASSERT(
-                        config_ofs.good(), "Could not open configuration file for writing: ", file_name.c_str());
-            }
-
-
-        public:
             virtual void startRoot(const std::string &name, const t_Parameters & /*param*/)
             {
                 CPPUT_TRACE_FUNCTION;
@@ -367,12 +351,8 @@ namespace ariles2
         class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public VisitorBase<Visitor, Parameters>
         {
         protected:
-            Visitor()
-            {
-            }
-            ~Visitor()
-            {
-            }
+            Visitor() = default;
+            ~Visitor() = default;
 
         public:
             template <class t_Entry>
@@ -390,13 +370,50 @@ namespace ariles2
         };
 
 
+        class FileVisitorImplementation
+        {
+        public:
+            /// output file stream
+            std::ofstream config_ofs_;
+
+            /// output stream
+            std::ostream *output_stream_;
+
+
+        protected:
+            explicit FileVisitorImplementation(const std::string &file_name)
+            {
+                openFile(file_name);
+                output_stream_ = &config_ofs_;
+            }
+
+            explicit FileVisitorImplementation(std::ostream &output_stream)
+            {
+                output_stream_ = &output_stream;
+            }
+
+            /**
+             * @brief open configuration file
+             *
+             * @param[in] file_name
+             */
+            void openFile(const std::string &file_name)
+            {
+                config_ofs_.open(file_name.c_str());
+
+                CPPUT_PERSISTENT_ASSERT(
+                        config_ofs_.good(), "Could not open configuration file for writing: ", file_name.c_str());
+            }
+        };
+
+
         using Base = entry::ConstBase<write::Visitor>;
 
 
 #define ARILES2_NAMED_ENTRY_write(v, entry, name) visitor.visitMapEntry(entry, #name, parameters);
 #define ARILES2_PARENT_write(v, entry)
 #define ARILES2_VISIT_write                                                                                            \
-    template <class t_Visitor>                                                                                         \
+    template <class t_Visitor> /* cppcheck-suppress duplInheritedMember */                                             \
     void arilesVisit(                                                                                                  \
             t_Visitor &visitor,                                                                                        \
             const typename t_Visitor::Parameters &parameters,                                                          \

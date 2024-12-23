@@ -24,27 +24,13 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ariles2::ns_rapidjson::ImplBase<::rapidjson::Value>
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public ariles2::ns_rapidjson::ImplBase<::rapidjson::Value>,
+                                                        public write::FileVisitorImplementation
             {
             public:
-                /// output file stream
-                std::ofstream config_ofs_;
-
-                /// output stream
-                std::ostream *output_stream_;
-
-            public:
-                explicit Writer(const std::string &file_name)
+                template <class... t_Args>
+                explicit Writer(t_Args &&...args) : FileVisitorImplementation(std::forward<t_Args>(args)...)
                 {
-                    ariles2::write::Visitor::openFile(config_ofs_, file_name);
-                    output_stream_ = &config_ofs_;
-                    document_.SetObject();
-                }
-
-
-                explicit Writer(std::ostream &output_stream)
-                {
-                    output_stream_ = &output_stream;
                     document_.SetObject();
                 }
             };

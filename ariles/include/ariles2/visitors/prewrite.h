@@ -38,7 +38,7 @@ namespace ariles2
 #define ARILES2_NAMED_ENTRY_prewrite(v, entry, name) visitor.visitMapEntry(entry, #name, parameters);
 #define ARILES2_PARENT_prewrite(v, entry)
 #define ARILES2_VISIT_prewrite                                                                                         \
-    template <class t_Visitor>                                                                                         \
+    template <class t_Visitor> /* cppcheck-suppress duplInheritedMember */                                             \
     void arilesVisit(                                                                                                  \
             const t_Visitor &visitor,                                                                                  \
             const typename t_Visitor::Parameters &parameters,                                                          \

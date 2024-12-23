@@ -14,6 +14,7 @@ update:
 	git read-tree --prefix=ariles -u ${VERSION}
 	${MAKE} cleanup
 	touch ariles/CATKIN_IGNORE
+	git add ariles/CATKIN_IGNORE
 
 update_head:
 	${MAKE} update VERSION="origin/head_2"

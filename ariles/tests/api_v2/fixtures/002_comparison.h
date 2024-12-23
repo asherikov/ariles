@@ -33,8 +33,11 @@ namespace ariles_tests
             // -------
 
             t_Configurable configurable_in;
+            /*
             BOOST_CHECK_NO_THROW(ariles2::apply<typename t_Visitor::Reader>(
-                                         getReaderInitializer("configurable_match_simple.cfg"), configurable_in););
+                                         getReaderInitializer("configurable_match_simple.cfg"), configurable_in););*/
+            ariles2::apply<typename t_Visitor::Reader>(
+                    getReaderInitializer("configurable_match_simple.cfg"), configurable_in);
 
             // -------
 

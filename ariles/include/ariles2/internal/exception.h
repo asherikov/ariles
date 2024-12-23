@@ -21,7 +21,7 @@
 
 
 #define CPPUT_PERSISTENT_ASSERT(condition, ...)                                                                        \
-    if (!(condition))                                                                                                  \
+    if (!(condition)) /* NOLINT */                                                                                     \
     {                                                                                                                  \
         CPPUT_THROW(__VA_ARGS__);                                                                                      \
     };

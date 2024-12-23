@@ -1,6 +1,19 @@
 CHANGELOG
 =========
 
+UNRELEASED
+==========
+
+2.4.0
+=====
+
+Added
+-----
+* `ariles2::Any2`: a replacement for deprecated `ariles2::Any`.
+* read/write `FileVisitorImplementation`: internal helper class for consistent file handling.
+* Ubuntu 24 Noetic tests and binary packages.
+
+
 2.3.2
 =====
 

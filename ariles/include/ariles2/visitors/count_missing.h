@@ -51,7 +51,7 @@ namespace ariles2
 #define ARILES2_PARENT_count_missing(v, entry) +entry::arilesVisit(visitor, parameters)
 
 #define ARILES2_VISIT_count_missing                                                                                    \
-    template <class t_Visitor>                                                                                         \
+    template <class t_Visitor> /* cppcheck-suppress duplInheritedMember */                                             \
     std::size_t arilesVisit(                                                                                           \
             const t_Visitor &visitor,                                                                                  \
             const typename t_Visitor::Parameters &parameters,                                                          \

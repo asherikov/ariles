@@ -5,6 +5,7 @@
 
     @brief
 */
+// cppcheck-suppress-file duplInheritedMember
 
 #pragma once
 

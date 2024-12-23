@@ -16,31 +16,17 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::NodeStackBase<NodeWrapper>
+            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::NodeStackBase<NodeWrapper>,
+                                                        public write::FileVisitorImplementation
             {
             public:
                 pugi::xml_document document_;
 
-                /// output file stream
-                std::ofstream config_ofs_;
-
-                /// output stream
-                std::ostream *output_stream_;
-
-
 
             public:
-                explicit Writer(const std::string &file_name)
+                template <class... t_Args>
+                explicit Writer(t_Args &&...args) : FileVisitorImplementation(std::forward<t_Args>(args)...)
                 {
-                    ariles2::write::Visitor::openFile(config_ofs_, file_name);
-                    output_stream_ = &config_ofs_;
-                    node_stack_.emplace_back(document_);
-                }
-
-
-                explicit Writer(std::ostream &output_stream)
-                {
-                    output_stream_ = &output_stream;
                     node_stack_.emplace_back(document_);
                 }
 

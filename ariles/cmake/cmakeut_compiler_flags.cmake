@@ -103,7 +103,7 @@ function(cmakeut_compiler_flags STANDARD)
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-llvmlibc-*")
 
         # noisy
-        set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-altera-unroll-loops,-altera-id-dependent-backward-branch,-readability-identifier-length,-misc-include-cleaner")
+        set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-altera-unroll-loops,-altera-id-dependent-backward-branch,-readability-identifier-length,-misc-include-cleaner,-performance-avoid-endl")
         # false positives?
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-bugprone-exception-escape,-clang-analyzer-cplusplus.NewDelete")
         # may be later

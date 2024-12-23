@@ -19,15 +19,26 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public ariles2::ns_rapidjson::ImplBase<const ::rapidjson::Value>
+            class ARILES2_VISIBILITY_ATTRIBUTE Reader
+              : public ariles2::ns_rapidjson::ImplBase<const ::rapidjson::Value>,
+                public read::FileVisitorImplementation
             {
             public:
                 std::vector<::rapidjson::Value::ConstMemberIterator> iterator_stack_;
 
             public:
-                void initialize(std::istream &input_stream)
+                Reader() = default;
+
+                template <class... t_Args>
+                explicit Reader(t_Args &&...args) : FileVisitorImplementation(std::forward<t_Args>(args)...)
                 {
-                    ariles2::ns_rapidjson::IStreamWrapper isw(input_stream);
+                    initialize();
+                }
+
+
+                void initialize()
+                {
+                    ariles2::ns_rapidjson::IStreamWrapper isw(*input_stream_);
                     document_.ParseStream(isw);
                     CPPUT_ASSERT(not document_.HasParseError(), "Parsing failed");
                 }
@@ -44,23 +55,19 @@ namespace ariles2
     {
         Reader::Reader(const std::string &file_name)
         {
-            std::ifstream config_ifs;
-            read::Visitor::openFile(config_ifs, file_name);
-            impl_ = ImplPtr(new impl::Reader());
-            impl_->initialize(config_ifs);
+            makeImplPtr(file_name);
         }
 
 
         Reader::Reader(std::istream &input_stream)
         {
-            impl_ = ImplPtr(new impl::Reader());
-            impl_->initialize(input_stream);
+            makeImplPtr(input_stream);
         }
 
 
         void Reader::constructFromString(const char *input_string)
         {
-            impl_ = ImplPtr(new impl::Reader());
+            makeImplPtr();
             impl_->document_.Parse(input_string);
         }
 
