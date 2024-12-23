@@ -152,10 +152,10 @@ var menudata={children:[
 {text:"File Members",url:"globals.html",children:[
 {text:"All",url:"globals.html",children:[
 {text:"a",url:"globals.html#index_a"},
-{text:"c",url:"globals.html#index_c"},
-{text:"h",url:"globals.html#index_h"},
-{text:"m",url:"globals.html#index_m"},
-{text:"r",url:"globals.html#index_r"}]},
+{text:"c",url:"globals_c.html#index_c"},
+{text:"h",url:"globals_h.html#index_h"},
+{text:"m",url:"globals_m.html#index_m"},
+{text:"r",url:"globals_r.html#index_r"}]},
 {text:"Functions",url:"globals_func.html"},
 {text:"Macros",url:"globals_defs.html",children:[
 {text:"a",url:"globals_defs.html#index_a"},

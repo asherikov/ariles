@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['t_5fparameters_715',['t_Parameters',['../classt__Parameters.html',1,'']]],
-  ['t_5fparentvisitor_716',['t_ParentVisitor',['../classt__ParentVisitor.html',1,'']]]
+  ['sloppymixin_0',['SloppyMixin',['../classariles2_1_1serialization_1_1parameters_1_1SloppyMixin.html',1,'ariles2::serialization::parameters']]]
 ];

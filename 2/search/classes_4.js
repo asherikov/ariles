@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['genericwriter_658',['GenericWriter',['../classariles2_1_1ns__namevalue_1_1GenericWriter.html',1,'ariles2::ns_namevalue']]],
-  ['graphviz_659',['graphviz',['../structariles2_1_1graphviz.html',1,'ariles2']]]
+  ['filevisitorimplementation_0',['FileVisitorImplementation',['../classariles2_1_1read_1_1FileVisitorImplementation.html',1,'ariles2::read::FileVisitorImplementation'],['../classariles2_1_1write_1_1FileVisitorImplementation.html',1,'ariles2::write::FileVisitorImplementation']]]
 ];
