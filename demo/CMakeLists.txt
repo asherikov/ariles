@@ -41,21 +41,21 @@ if (DEFINED CATKIN_DEVEL_PREFIX)
 else()
     project(ariles2_demo)
 
-    find_package(ariles2_core_ws REQUIRED)
-    find_package(ariles2_rosparam_ws REQUIRED)
-    find_package(ariles2_rapidjson_ws REQUIRED)
-    find_package(ariles2_yamlcpp_ws REQUIRED)
-    find_package(ariles2_octave_ws REQUIRED)
-    find_package(ariles2_pugixml_ws REQUIRED)
+    find_package(ariles2-core REQUIRED)
+    find_package(ariles2-rosparam REQUIRED)
+    find_package(ariles2-rapidjson REQUIRED)
+    find_package(ariles2-yaml-cpp REQUIRED)
+    find_package(ariles2-octave REQUIRED)
+    find_package(ariles2-pugixml REQUIRED)
 
 
     add_executable(demo demo.cpp)
     target_link_libraries(demo
-        ${ariles2_core_ws_LIBRARIES}
-        ${ariles2_rosparam_ws_LIBRARIES}
-        ${ariles2_rapidjson_ws_LIBRARIES}
-        ${ariles2_yamlcpp_ws_LIBRARIES}
-        ${ariles2_octave_ws_LIBRARIES}
-        ${ariles2_pugixml_ws_LIBRARIES}
+        ariles2::core
+        ariles2::rosparam
+        ariles2::rapidjson
+        ariles2::yaml-cpp
+        ariles2::octave
+        ariles2::pugixml
     )
 endif()

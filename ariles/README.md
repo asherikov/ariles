@@ -35,9 +35,11 @@ Ariles
         <a href="https://cloudsmith.io/~asherikov-aV7/repos/all/packages/detail/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Ffocal;t=binary/">
         <img src="https://api-prd.cloudsmith.io/v1/badges/version/asherikov-aV7/all/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Ffocal;t=binary/?render=true&show_latest=true" alt="Latest version of 'ariles' @ Cloudsmith">
         </a>
+        <br />
         <a href="https://cloudsmith.io/~asherikov-aV7/repos/all/packages/detail/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fjammy;t=binary/">
         <img src="https://api-prd.cloudsmith.io/v1/badges/version/asherikov-aV7/all/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fjammy;t=binary/?render=true&show_latest=true" alt="Latest version of 'ariles' @ Cloudsmith">
         </a>
+        <br />
         <a href="https://cloudsmith.io/~asherikov-aV7/repos/all/packages/detail/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fnoble;t=binary/">
         <img src="https://api-prd.cloudsmith.io/v1/badges/version/asherikov-aV7/all/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fnoble;t=binary/?render=true&show_latest=true" alt="Latest version of 'ariles' @ Cloudsmith">
         </a>
