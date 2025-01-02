@@ -4,6 +4,11 @@ CHANGELOG
 UNRELEASED
 ==========
 
+Changed
+-------
+* Rename exported cmake targets: use namespace and consistent naming.
+
+
 2.4.0
 =====
 

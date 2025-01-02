@@ -273,14 +273,14 @@ list(REMOVE_ITEM ARILES_CORE_DEPENDENCY_INCLUDES "")
 if (${ARILES_ENABLE_CORE})
     set(ARILES_CORE_BUILD_INCLUDES      "${PROJECT_BINARY_DIR}/include/core/")
 
-    add_library(${PROJECT_NAME}-core INTERFACE)
-    target_include_directories(${PROJECT_NAME}-core INTERFACE
+    add_library(core INTERFACE)
+    add_library(${PROJECT_NAME}::core ALIAS core)
+    target_include_directories(core INTERFACE
         "$<BUILD_INTERFACE:${ARILES_CORE_BUILD_INCLUDES}>"
         "$<INSTALL_INTERFACE:include/>"
         "$<INSTALL_INTERFACE:${ARILES_CORE_DEPENDENCY_INCLUDES}>"
     )
-    target_compile_features(${PROJECT_NAME}-core INTERFACE "cxx_std_${CMAKE_CXX_STANDARD}")
-
+    target_compile_features(core INTERFACE "cxx_std_${CMAKE_CXX_STANDARD}")
 
     # --------------
     # build config
@@ -327,7 +327,7 @@ if (${ARILES_ENABLE_CORE})
 
 
     set(ariles_LIBRARIES "${PROJECT_NAME}-core_LIBRARIES")
-    set(ARILES_LIBRARIES "${PROJECT_NAME}-core")
+    set(ARILES_LIBRARIES "${PROJECT_NAME}::core")
 
     set(ARILES_COMPONENT_CMAKE_DIR "share/${PROJECT_NAME}-core/")
 
@@ -351,7 +351,7 @@ if (${ARILES_ENABLE_CORE})
 
 
     install(
-        TARGETS ${PROJECT_NAME}-core EXPORT core_targets
+        TARGETS core EXPORT core_targets
         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         COMPONENT core
         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
@@ -377,6 +377,7 @@ if (${ARILES_ENABLE_CORE})
         EXPORT core_targets
         DESTINATION ${ARILES_COMPONENT_CMAKE_DIR}
         COMPONENT core
+        NAMESPACE ${PROJECT_NAME}::
     )
 
 
