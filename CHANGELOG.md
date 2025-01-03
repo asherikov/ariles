@@ -8,6 +8,10 @@ Changed
 -------
 * Rename exported cmake targets: use namespace and consistent naming.
 
+Removed
+-------
+* Deprecated `${PROJECT_NAME}-${ARILES_COMPONENT}_LIBRARIES` cmake variables.
+
 
 2.4.0
 =====
