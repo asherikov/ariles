@@ -126,7 +126,6 @@ int main()
     demo::MyContainerClass my_container_class;
 
     // access members as usual
-    my_container_class.my_class_vector_.size();
     my_container_class.my_class_vector_.push_back(demo::MyClass());
     ariles2::apply<ariles2::Defaults>(my_container_class.my_class_vector_[0]);
 

@@ -10,7 +10,7 @@ WS_PKGS= \
 			ariles2_rosparam_ws \
 			ariles2_pugixml_ws
 
-CATKIN_DEPENDENCY_TEST_PKG=ariles2_ws_demo
+CATKIN_DEPENDENCY_TEST_PKG=ariles2_catkin_demo
 CATKIN_ARGS=--cmake-args -DARILES_ROS_ENABLE_TESTS=ON
 CATKIN_TARGETS=all test
 
@@ -76,7 +76,7 @@ catkin_test_deb: clean
 	echo ${WS_PKGS} | tr " " "\n" | xargs -I {} ${MAKE} catkin_test_deb_pkg PKG="{}" ROS_DISTRO=${ROS_DISTRO}
 	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; \
 		cd build/dependency_test; \
-		cmake ../../${DEPENDENCY_PATH}/; \
+		cmake ../../${DEPENDENCY_PATH}/plain_ros1; \
 		${MAKE} ${MAKE_FLAGS}'
 
 
@@ -105,7 +105,7 @@ catkin_old_deb: catkin_prepare_workspace
 	${MAKE} catkin_test_deb
 	${MAKE} catkin_prepare_workspace
 	cd ${CATKIN_PKGS_PATH}/; ls -1A | grep -v demo | xargs rm -Rf
-	cd ${CATKIN_PKGS_PATH}/demo; mv package.xml.disable package.xml
+	cd ${CATKIN_PKGS_PATH}/demo/catkin; mv package.xml.disable package.xml
 	cd ${CATKIN_WORKING_DIR}/src; catkin_init_workspace
 	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated --pkg ${CATKIN_DEPENDENCY_TEST_PKG}
 	sudo ${MAKE} clean_deb clean_rosdep
@@ -116,7 +116,7 @@ catkin_new_build: catkin_prepare_workspace
 	cd ${CATKIN_WORKING_DIR}; catkin build -i --verbose --summary ${WS_PKGS} --make-args ${CATKIN_TARGETS} ${CATKIN_ARGS}
 
 catkin_new_build_with_dependent: catkin_prepare_workspace
-	cd ${CATKIN_PKGS_PATH}/demo; mv package.xml.disable package.xml
+	cd ${CATKIN_PKGS_PATH}/demo/catkin; mv package.xml.disable package.xml
 	cd ${CATKIN_WORKING_DIR}; catkin init
 	cd ${CATKIN_WORKING_DIR}; catkin build -i --verbose --summary ${CATKIN_DEPENDENCY_TEST_PKG}
 
@@ -124,7 +124,7 @@ catkin_new_deb:
 	${MAKE} catkin_test_deb
 	${MAKE} catkin_prepare_workspace
 	cd ${CATKIN_PKGS_PATH}; ls -1A | grep -v demo | xargs rm -Rf
-	cd ${CATKIN_PKGS_PATH}/demo; mv package.xml.disable package.xml
+	cd ${CATKIN_PKGS_PATH}/demo/catkin; mv package.xml.disable package.xml
 	cd ${CATKIN_WORKING_DIR}; catkin init
 	cd ${CATKIN_WORKING_DIR}; catkin build -i --verbose --summary ${CATKIN_DEPENDENCY_TEST_PKG}
 	sudo ${MAKE} clean_deb
@@ -161,7 +161,6 @@ ros_prerelease: ros_prerelease_deps
 	# dirty workaround for ccache permissions issue
 	cd ./build/ros_prerelease; sed -i "s|\(-e=TRAVIS\)|-eCCACHE_DIR=./.ccache/ \1|" *.sh
 	cd ./build/ros_prerelease; env ABORT_ON_TEST_FAILURE=1 CCACHE_DIR=`pwd`/.ccache ./prerelease.sh
-
 
 # docker
 #----------------------------------------------
