@@ -1,5 +1,5 @@
 # General parameters
-cmake_minimum_required (VERSION 3.5.0)
+cmake_minimum_required (VERSION 3.13.0)
 project(ariles2 VERSION 2.4.0)
 
 
@@ -325,9 +325,6 @@ if (${ARILES_ENABLE_CORE})
         DESCRIPTION "Core headers and STL adapters"
         ARCHIVE_FILE "${CPACK_PACKAGE_NAME}-core-${CPACK_PACKAGE_VERSION}")
 
-
-    set(ariles_LIBRARIES "${PROJECT_NAME}-core_LIBRARIES")
-    set(ARILES_LIBRARIES "${PROJECT_NAME}::core")
 
     set(ARILES_COMPONENT_CMAKE_DIR "share/${PROJECT_NAME}-core/")
 

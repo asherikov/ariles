@@ -6,7 +6,13 @@ UNRELEASED
 
 Changed
 -------
+* API BROKEN: cmake changes not backward compatible!
 * Rename exported cmake targets: use namespace and consistent naming.
+* Require cmake >= 3.13.
+
+Removed
+-------
+* Deprecated `${PROJECT_NAME}-${ARILES_COMPONENT}_LIBRARIES` cmake variables.
 
 
 2.4.0
