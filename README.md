@@ -232,7 +232,7 @@ Dependencies and compilation
 Dependencies
 ------------
 
-- `cmake` >= 3.1
+- `cmake` >= 3.13
 - `C++17` compatible compiler
 - `boost`
 

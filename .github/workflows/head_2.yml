@@ -132,7 +132,7 @@ jobs:
                 make build-tests TYPE=Debug OPTIONS=ros TARGETS="all" TC=gcc ARGS=-V
 
 
-    jammy_static_checks:
+    jammy_spelling:
         runs-on: ubuntu-22.04
 
         steps:
