@@ -45,7 +45,7 @@ jobs:
             - uses: actions/checkout@v4
               with:
                 path: src/ariles_ws
-            - run: cd src/ariles_ws/demo/plain/ && mv package.xml.disable package.xml
+            - run: rm src/ariles_ws/demo/plain/CATKIN_IGNORE
             - run: make bp_install_build BUILD_PROFILE=reldebug
             - run: make dep_install PKG=ariles2_plain_demo
             - run: make ariles2_plain_demo
@@ -61,7 +61,7 @@ jobs:
             - uses: actions/checkout@v4
               with:
                 path: src/ariles_ws
-            - run: cd src/ariles_ws/demo/plain/ && mv package.xml.disable package.xml
+            - run: rm src/ariles_ws/demo/plain/CATKIN_IGNORE
             - run: make bp_install_build BUILD_PROFILE=reldebug
             - run: make dep_install PKG=ariles2_plain_demo
             - run: make ariles2_plain_demo

@@ -105,7 +105,7 @@ catkin_old_deb: catkin_prepare_workspace
 	${MAKE} catkin_test_deb
 	${MAKE} catkin_prepare_workspace
 	cd ${CATKIN_PKGS_PATH}/; ls -1A | grep -v demo | xargs rm -Rf
-	cd ${CATKIN_PKGS_PATH}/demo/catkin; mv package.xml.disable package.xml
+	rm ${CATKIN_PKGS_PATH}/demo/catkin/CATKIN_IGNORE
 	cd ${CATKIN_WORKING_DIR}/src; catkin_init_workspace
 	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated --pkg ${CATKIN_DEPENDENCY_TEST_PKG}
 	sudo ${MAKE} clean_deb clean_rosdep
@@ -116,7 +116,7 @@ catkin_new_build: catkin_prepare_workspace
 	cd ${CATKIN_WORKING_DIR}; catkin build -i --verbose --summary ${WS_PKGS} --make-args ${CATKIN_TARGETS} ${CATKIN_ARGS}
 
 catkin_new_build_with_dependent: catkin_prepare_workspace
-	cd ${CATKIN_PKGS_PATH}/demo/catkin; mv package.xml.disable package.xml
+	rm ${CATKIN_PKGS_PATH}/demo/catkin/CATKIN_IGNORE
 	cd ${CATKIN_WORKING_DIR}; catkin init
 	cd ${CATKIN_WORKING_DIR}; catkin build -i --verbose --summary ${CATKIN_DEPENDENCY_TEST_PKG}
 
@@ -124,7 +124,7 @@ catkin_new_deb:
 	${MAKE} catkin_test_deb
 	${MAKE} catkin_prepare_workspace
 	cd ${CATKIN_PKGS_PATH}; ls -1A | grep -v demo | xargs rm -Rf
-	cd ${CATKIN_PKGS_PATH}/demo/catkin; mv package.xml.disable package.xml
+	rm ${CATKIN_PKGS_PATH}/demo/catkin/CATKIN_IGNORE
 	cd ${CATKIN_WORKING_DIR}; catkin init
 	cd ${CATKIN_WORKING_DIR}; catkin build -i --verbose --summary ${CATKIN_DEPENDENCY_TEST_PKG}
 	sudo ${MAKE} clean_deb
