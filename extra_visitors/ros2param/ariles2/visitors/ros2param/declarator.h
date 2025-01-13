@@ -17,7 +17,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Declarator;
+            class Declarator;
         }
 
 
@@ -25,8 +25,7 @@ namespace ariles2
         /**
          * @brief Parameter declarator
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Declarator
-          : public serialization::PIMPLVisitor<write::Visitor, impl::Declarator>
+        class Declarator : public serialization::PIMPLVisitor<write::Visitor, impl::Declarator>
         {
         public:
             explicit Declarator(const rclcpp::node_interfaces::NodeParametersInterface::SharedPtr &nh);

@@ -42,7 +42,7 @@ namespace ariles2
 
 
         template <class t_Derived, class t_Parameters, class t_ReturnType = void>
-        class ARILES2_VISIBILITY_ATTRIBUTE Base : public Visitor
+        class Base : public Visitor
         {
         public:
             using ReturnType = t_ReturnType;
@@ -83,7 +83,7 @@ namespace ariles2
     namespace entry
     {
         template <class t_Visitor>
-        class ARILES2_VISIBILITY_ATTRIBUTE Base
+        class Base
         {
         public:
             virtual typename t_Visitor::ReturnType arilesVirtualVisit(
@@ -99,7 +99,7 @@ namespace ariles2
 
 
         template <class t_Visitor>
-        class ARILES2_VISIBILITY_ATTRIBUTE ConstBase
+        class ConstBase
         {
         public:
             virtual typename t_Visitor::ReturnType arilesVirtualVisit(

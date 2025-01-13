@@ -32,7 +32,7 @@ namespace ariles2
      * @ingroup jsonnet
      */
     template <class t_ParentVisitor>
-    struct ARILES2_VISIBILITY_ATTRIBUTE jsonnet
+    struct jsonnet
     {
         using Reader = ariles2::cfgread::Visitor<ns_jsonnet::Reader<typename t_ParentVisitor::ReaderBase>>;
         using Writer = ariles2::cfgwrite::Visitor<typename t_ParentVisitor::WriterBase>;

@@ -38,7 +38,7 @@ namespace ariles2
      * @brief YAML C++11 visitor.
      * @ingroup yaml_cpp
      */
-    struct ARILES2_VISIBILITY_ATTRIBUTE yaml_cpp
+    struct yaml_cpp
     {
         using Reader = ariles2::cfgread::Visitor<ns_yaml_cpp::Reader>;
         using Writer = ariles2::cfgwrite::Visitor<ns_yaml_cpp::Writer>;

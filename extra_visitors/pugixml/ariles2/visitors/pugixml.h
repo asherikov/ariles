@@ -37,7 +37,7 @@ namespace ariles2
      * @brief pugixml visitor.
      * @ingroup pugixml
      */
-    struct ARILES2_VISIBILITY_ATTRIBUTE pugixml
+    struct pugixml
     {
         using Reader = ariles2::cfgread::Visitor<ns_pugixml::Reader>;
         using Writer = ariles2::cfgwrite::Visitor<ns_pugixml::Writer>;

@@ -29,10 +29,7 @@ namespace ariles2
     namespace read
     {
         template <class t_Visitor, class... t_Args>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
-                t_Visitor &visitor,
-                std::vector<t_Args...> &entry,
-                const typename t_Visitor::Parameters &param)
+        void apply_read(t_Visitor &visitor, std::vector<t_Args...> &entry, const typename t_Visitor::Parameters &param)
         {
             CPPUT_TRACE_FUNCTION;
             entry.resize(visitor.startArray());
@@ -44,7 +41,7 @@ namespace ariles2
         }
 
         template <class t_Visitor, class... t_Args>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
+        void apply_read(
                 t_Visitor &visitor,
                 std::vector<bool, t_Args...> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -68,7 +65,7 @@ namespace ariles2
     namespace write
     {
         template <class t_Visitor, class... t_Args>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
+        void apply_write(
                 t_Visitor &writer,
                 const std::vector<t_Args...> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -90,7 +87,7 @@ namespace ariles2
     namespace compare
     {
         template <class t_Visitor, class... t_Args>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
+        void apply_compare(
                 t_Visitor &visitor,
                 const std::vector<t_Args...> &left,
                 const std::vector<t_Args...> &right,
@@ -114,7 +111,7 @@ namespace ariles2
     namespace defaults
     {
         template <class t_Visitor, class... t_Args>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
+        void apply_defaults(
                 const t_Visitor & /*visitor*/,
                 std::vector<t_Args...> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
@@ -132,7 +129,7 @@ namespace ariles2
     namespace process
     {
         template <class t_Visitor, class... t_Args>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_process(
+        void apply_process(
                 const t_Visitor &visitor,
                 std::vector<t_Args...> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -145,7 +142,7 @@ namespace ariles2
         }
 
         template <class t_Visitor, class... t_Args>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_process(
+        void apply_process(
                 const t_Visitor &visitor,
                 std::vector<bool, t_Args...> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -167,7 +164,7 @@ namespace ariles2
     namespace copyfrom
     {
         template <class t_Visitor, class... t_LeftArgs, class... t_RightArgs>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+        void apply_copyfrom(
                 t_Visitor &visitor,
                 std::vector<t_LeftArgs...> &left,
                 const std::vector<t_RightArgs...> &right,
@@ -190,7 +187,7 @@ namespace ariles2
     namespace copyto
     {
         template <class t_Visitor, class... t_LeftArgs, class... t_RightArgs>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+        void apply_copyto(
                 t_Visitor &visitor,
                 const std::vector<t_LeftArgs...> &left,
                 std::vector<t_RightArgs...> &right,

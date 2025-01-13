@@ -33,8 +33,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<NodeWrapper>,
-                                                        public read::FileVisitorImplementation
+            class Reader : public serialization::NodeStackBase<NodeWrapper>, public read::FileVisitorImplementation
             {
             public:
                 std::string buffer_;

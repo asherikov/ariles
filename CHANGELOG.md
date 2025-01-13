@@ -9,6 +9,7 @@ Changed
 * API BROKEN: cmake changes not backward compatible!
 * Rename exported cmake targets: use namespace and consistent naming.
 * Require cmake >= 3.13.
+* Use visibility attributes to hide stuff instead of making it public explicitly.
 
 Removed
 -------

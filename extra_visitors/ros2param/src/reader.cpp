@@ -141,7 +141,7 @@ namespace ariles2
 
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<ReaderNodeWrapper>
+            class Reader : public serialization::NodeStackBase<ReaderNodeWrapper>
             {
             public:
                 // https://docs.ros2.org/latest/api/rclcpp/classrclcpp_1_1Node.html

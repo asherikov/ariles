@@ -19,7 +19,7 @@ namespace ariles2
     namespace aggregate
     {
         template <class t_Visitor>
-        class ARILES2_VISIBILITY_ATTRIBUTE ParametersWrapper
+        class ParametersWrapper
         {
         public:
             typename t_Visitor::Parameters parameters_;
@@ -55,10 +55,10 @@ namespace ariles2
         };
 
         template <class... t_Visitors>
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters;
+        class Parameters;
 
         template <>
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters<>
+        class Parameters<>
         {
         public:
             explicit Parameters(const bool){};
@@ -68,8 +68,8 @@ namespace ariles2
         };
 
         template <class t_Visitor, class... t_Visitors>
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters<t_Visitor, t_Visitors...> : public ParametersWrapper<t_Visitor>,
-                                                                                  public Parameters<t_Visitors...>
+        class Parameters<t_Visitor, t_Visitors...> : public ParametersWrapper<t_Visitor>,
+                                                     public Parameters<t_Visitors...>
         {
         public:
             explicit Parameters(const bool override_parameters = true)
@@ -106,7 +106,7 @@ namespace ariles2
 
 
         template <class t_Visitor>
-        class ARILES2_VISIBILITY_ATTRIBUTE BaseVisitorWrapper
+        class BaseVisitorWrapper
         {
         public:
             t_Visitor visitor_;
@@ -140,10 +140,10 @@ namespace ariles2
         };
 
         template <class... t_Visitors>
-        class ARILES2_VISIBILITY_ATTRIBUTE BaseVisitor;
+        class BaseVisitor;
 
         template <>
-        class ARILES2_VISIBILITY_ATTRIBUTE BaseVisitor<>
+        class BaseVisitor<>
         {
         public:
             BaseVisitor()
@@ -161,8 +161,8 @@ namespace ariles2
         };
 
         template <class t_Visitor, class... t_Visitors>
-        class ARILES2_VISIBILITY_ATTRIBUTE BaseVisitor<t_Visitor, t_Visitors...> : public BaseVisitorWrapper<t_Visitor>,
-                                                                                   public BaseVisitor<t_Visitors...>
+        class BaseVisitor<t_Visitor, t_Visitors...> : public BaseVisitorWrapper<t_Visitor>,
+                                                      public BaseVisitor<t_Visitors...>
         {
         public:
             template <class t_ConstructorTuple, class... t_Args>
@@ -187,8 +187,7 @@ namespace ariles2
 
 
         template <class t_Derived, class... t_Visitors>
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public BaseVisitor<t_Visitors...>,
-                                                     public visitor::Base<t_Derived, Parameters<t_Visitors...>>
+        class Visitor : public BaseVisitor<t_Visitors...>, public visitor::Base<t_Derived, Parameters<t_Visitors...>>
         {
         public:
             using Parameters = aggregate::Parameters<t_Visitors...>;
