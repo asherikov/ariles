@@ -5,10 +5,6 @@ on:
 
 env:
     APT: sudo apt install -y --no-install-recommends
-    # Set the python path manually to include /usr/-/python2.7/dist-packages
-    # as this is where apt-get installs python packages.
-    ROSINSTALL_FILE: $GITHUB_WORKSPACE/dependencies.rosinstall
-    CATKIN_OPTIONS: $GITHUB_WORKSPACE/catkin.options
 
 jobs:
     noble_deb_packages_cloudsmith:
@@ -61,3 +57,25 @@ jobs:
                 make deb-build DEB_TARGET=$DEB_TARGET
             - run: pip install --upgrade cloudsmith-cli
             - run: env CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }} make deb-cloudsmith DEB_TARGET=$DEB_TARGET
+
+
+    gh_pages:
+        runs-on: ubuntu-22.04
+
+        permissions:
+            contents: write
+
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                submodules: true
+                fetch-depth: 0
+            - run: $APT doxygen
+            - run: make dox
+            - run: |
+                cd doc/dox
+                git config user.name github-actions
+                git config user.email github-actions@github.com
+                git add *
+                git commit -a -m "Automated update ${{ github.ref_name }}"
+                git push
