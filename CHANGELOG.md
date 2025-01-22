@@ -4,6 +4,9 @@ CHANGELOG
 UNRELEASED
 ==========
 
+2.5.0
+=====
+
 Changed
 -------
 * API BROKEN: cmake changes not backward compatible!
