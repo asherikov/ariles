@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(ariles2_rapidjson_ws VERSION 2.3.2)
+project(ariles2_rapidjson_ws VERSION 2.5.0)
 
 
 option(ARILES_ROS_ENABLE_TESTS "Enable tests." OFF)
