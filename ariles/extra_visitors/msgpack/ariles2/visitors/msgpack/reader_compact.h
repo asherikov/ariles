@@ -21,14 +21,14 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader;
+            class Reader;
         }
 
 
         /**
          * @brief Configuration reader class
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::PIMPLVisitor<read::Visitor, impl::Reader>
+        class Reader : public serialization::PIMPLVisitor<read::Visitor, impl::Reader>
         {
         public:
             /**

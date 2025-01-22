@@ -17,7 +17,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer;
+            class Writer;
         }
 
 
@@ -25,7 +25,7 @@ namespace ariles2
         /**
          * @brief Configuration writer class
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::PIMPLVisitor<write::Visitor, impl::Writer>
+        class Writer : public serialization::PIMPLVisitor<write::Visitor, impl::Writer>
         {
         public:
             explicit Writer(const ::ros::NodeHandle &nh);

@@ -19,9 +19,8 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader
-              : public ariles2::ns_rapidjson::ImplBase<const ::rapidjson::Value>,
-                public read::FileVisitorImplementation
+            class Reader : public ariles2::ns_rapidjson::ImplBase<const ::rapidjson::Value>,
+                           public read::FileVisitorImplementation
             {
             public:
                 std::vector<::rapidjson::Value::ConstMemberIterator> iterator_stack_;

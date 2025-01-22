@@ -32,7 +32,7 @@ namespace ariles2
 {
     namespace ns_namevalue2
     {
-        class NameValueContainer
+        class ARILES2_LOCAL NameValueContainer
         {
         public:
             virtual ~NameValueContainer() = default;
@@ -48,9 +48,8 @@ namespace ariles2
         /**
          * @brief Configuration writer class
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Writer
-          : public ariles2::write::Visitor,
-            public serialization::NodeStackBase<serialization::Node<std::string>>
+        class ARILES2_LOCAL Writer : public ariles2::write::Visitor,
+                                     public serialization::NodeStackBase<serialization::Node<std::string>>
         {
         protected:
             bool initialize_names_;
@@ -96,7 +95,7 @@ namespace ariles2
      * @brief NameValue2 visitor.
      * @ingroup namevalue2
      */
-    struct ARILES2_VISIBILITY_ATTRIBUTE namevalue2
+    struct ARILES2_LOCAL namevalue2
     {
         using NameValueContainer = ns_namevalue2::NameValueContainer;
         using Writer = ns_namevalue2::Writer;

@@ -24,7 +24,7 @@ namespace ariles2
     /// @ingroup defaults
     namespace defaults
     {
-        class ARILES2_VISIBILITY_ATTRIBUTE Parameters : public visitor::Parameters
+        class Parameters : public visitor::Parameters
         {
         public:
             double default_double_value_;
@@ -70,7 +70,7 @@ namespace ariles2
         };
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public ariles2::visitor::Base<Visitor, defaults::Parameters>
+        class Visitor : public ariles2::visitor::Base<Visitor, defaults::Parameters>
         {
         public:
             using Parameters = defaults::Parameters;

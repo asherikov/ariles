@@ -16,8 +16,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::NodeStackBase<NodeWrapper>,
-                                                        public write::FileVisitorImplementation
+            class Writer : public serialization::NodeStackBase<NodeWrapper>, public write::FileVisitorImplementation
             {
             public:
                 pugi::xml_document document_;

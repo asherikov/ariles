@@ -18,7 +18,7 @@ namespace ariles2
     namespace read
     {
         template <class t_Visitor, class t_Entry>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
+        void apply_read(
                 t_Visitor &visitor,
                 t_Entry &entry,
                 const typename t_Visitor::Parameters &parameters,
@@ -48,8 +48,7 @@ namespace ariles2
                 class t_Visitor,
                 typename t_Enumeration,
                 typename = std::enable_if_t<std::is_enum<t_Enumeration>::value>>
-        void ARILES2_VISIBILITY_ATTRIBUTE
-                apply_read(t_Visitor &visitor, t_Enumeration &entry, const typename t_Visitor::Parameters & /*param*/)
+        void apply_read(t_Visitor &visitor, t_Enumeration &entry, const typename t_Visitor::Parameters & /*param*/)
         {
             CPPUT_TRACE_FUNCTION;
             int tmp_value = 0;
@@ -60,8 +59,7 @@ namespace ariles2
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     template <class t_Visitor>                                                                                         \
-    void ARILES2_VISIBILITY_ATTRIBUTE apply_read(                                                                      \
-            t_Visitor &visitor, type &entry, const typename t_Visitor::Parameters &param)                              \
+    void apply_read(t_Visitor &visitor, type &entry, const typename t_Visitor::Parameters &param)                      \
     {                                                                                                                  \
         CPPUT_TRACE_FUNCTION;                                                                                          \
         CPPUT_UNUSED_ARG(param);                                                                                       \
@@ -81,7 +79,7 @@ namespace ariles2
     namespace write
     {
         template <class t_Visitor, class t_Entry>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
+        void apply_write(
                 t_Visitor &writer,
                 const t_Entry &entry,
                 const typename t_Visitor::Parameters &parameters,
@@ -108,8 +106,7 @@ namespace ariles2
                 class t_Visitor,
                 typename t_Enumeration,
                 typename = std::enable_if_t<std::is_enum<t_Enumeration>::value>>
-        void ARILES2_VISIBILITY_ATTRIBUTE
-                apply_write(t_Visitor &writer, const t_Enumeration entry, const typename t_Visitor::Parameters &param)
+        void apply_write(t_Visitor &writer, const t_Enumeration entry, const typename t_Visitor::Parameters &param)
         {
             CPPUT_TRACE_FUNCTION;
             writer.writeElement(static_cast<int>(entry), param);
@@ -118,8 +115,7 @@ namespace ariles2
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     template <class t_Visitor>                                                                                         \
-    void ARILES2_VISIBILITY_ATTRIBUTE apply_write(                                                                     \
-            t_Visitor &writer, const type &entry, const typename t_Visitor::Parameters &param)                         \
+    void apply_write(t_Visitor &writer, const type &entry, const typename t_Visitor::Parameters &param)                \
     {                                                                                                                  \
         CPPUT_TRACE_FUNCTION;                                                                                          \
         writer.writeElement(entry, param);                                                                             \
@@ -141,7 +137,7 @@ namespace ariles2
     namespace compare
     {
         template <class t_Visitor, class t_Left, class t_Right, typename = ariles2::traits::is_ariles_t<t_Left>>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
+        void apply_compare(
                 t_Visitor &visitor,
                 const t_Left &left,
                 const t_Right &right,
@@ -160,7 +156,7 @@ namespace ariles2
                 class t_Visitor,
                 typename t_Enumeration,
                 typename = std::enable_if_t<std::is_enum<t_Enumeration>::value>>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
+        void apply_compare(
                 t_Visitor &visitor,
                 const t_Enumeration &left,
                 const t_Enumeration &right,
@@ -172,7 +168,7 @@ namespace ariles2
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     template <class t_Visitor>                                                                                         \
-    inline void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(                                                            \
+    inline void apply_compare(                                                                                         \
             t_Visitor &visitor, const type &left, const type &right, const typename t_Visitor::Parameters &)           \
     {                                                                                                                  \
         visitor.equal_ &= (left == right);                                                                             \
@@ -193,7 +189,7 @@ namespace ariles2
 
 
         template <class t_Visitor, class t_Scalar>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
+        void apply_compare(
                 t_Visitor &visitor,
                 const std::complex<t_Scalar> &left,
                 const std::complex<t_Scalar> &right,
@@ -205,7 +201,7 @@ namespace ariles2
 
 
         template <class t_Visitor>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
+        void apply_compare(
                 t_Visitor &visitor,
                 const float &left,
                 const float &right,
@@ -216,7 +212,7 @@ namespace ariles2
 
 
         template <class t_Visitor>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
+        void apply_compare(
                 t_Visitor &visitor,
                 const double &left,
                 const double &right,
@@ -233,7 +229,7 @@ namespace ariles2
     namespace defaults
     {
         template <class t_Visitor, class t_Entry>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
+        void apply_defaults(
                 const t_Visitor &visitor,
                 t_Entry &entry,
                 const typename t_Visitor::Parameters &param,
@@ -248,7 +244,7 @@ namespace ariles2
                 class t_Visitor,
                 typename t_Enumeration,
                 typename = std::enable_if_t<std::is_enum<t_Enumeration>::value>>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
+        void apply_defaults(
                 const t_Visitor & /*visitor*/,
                 t_Enumeration & /*entry*/,
                 const typename t_Visitor::Parameters & /*param*/)
@@ -258,7 +254,7 @@ namespace ariles2
 
 
         template <class t_Visitor, typename t_Scalar>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
+        void apply_defaults(
                 const t_Visitor & /*visitor*/,
                 std::complex<t_Scalar> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -271,8 +267,7 @@ namespace ariles2
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     template <class t_Visitor>                                                                                         \
-    void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(                                                                  \
-            const t_Visitor &, type &entry, const typename t_Visitor::Parameters &param)                               \
+    void apply_defaults(const t_Visitor &, type &entry, const typename t_Visitor::Parameters &param)                   \
     {                                                                                                                  \
         CPPUT_TRACE_FUNCTION;                                                                                          \
         entry = param.template getDefault<type>();                                                                     \
@@ -291,8 +286,7 @@ namespace ariles2
     namespace process
     {
         template <class t_Visitor, class t_Entry>
-        void ARILES2_VISIBILITY_ATTRIBUTE
-                apply_process(const t_Visitor &visitor, t_Entry &entry, const typename t_Visitor::Parameters &param)
+        void apply_process(const t_Visitor &visitor, t_Entry &entry, const typename t_Visitor::Parameters &param)
         {
             CPPUT_TRACE_FUNCTION;
             if constexpr (std::is_base_of_v<ariles2::Ariles, t_Entry>)
@@ -310,7 +304,7 @@ namespace ariles2
     namespace copyfrom
     {
         template <class t_Visitor, class t_Left, class t_Right, typename = ariles2::traits::is_ariles_t<t_Left>>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+        void apply_copyfrom(
                 t_Visitor &visitor,
                 t_Left &left,
                 const t_Right &right,
@@ -326,8 +320,7 @@ namespace ariles2
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     template <class t_Visitor>                                                                                         \
-    void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(                                                                  \
-            t_Visitor &, type &left, const type &right, const typename t_Visitor::Parameters &)                        \
+    void apply_copyfrom(t_Visitor &, type &left, const type &right, const typename t_Visitor::Parameters &)            \
     {                                                                                                                  \
         CPPUT_TRACE_FUNCTION;                                                                                          \
         left = right;                                                                                                  \
@@ -342,7 +335,7 @@ namespace ariles2
                 class t_Visitor,
                 typename t_Enumeration,
                 typename = std::enable_if_t<std::is_enum<t_Enumeration>::value>>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+        void apply_copyfrom(
                 t_Visitor &,
                 t_Enumeration &left,
                 const t_Enumeration &right,
@@ -357,7 +350,7 @@ namespace ariles2
     namespace copyto
     {
         template <class t_Visitor, class t_Left, class t_Right, typename = ariles2::traits::is_ariles_t<t_Left>>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+        void apply_copyto(
                 t_Visitor &visitor,
                 const t_Left &left,
                 t_Right &right,
@@ -373,8 +366,7 @@ namespace ariles2
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     template <class t_Visitor>                                                                                         \
-    void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(                                                                    \
-            t_Visitor &, const type &left, type &right, const typename t_Visitor::Parameters &)                        \
+    void apply_copyto(t_Visitor &, const type &left, type &right, const typename t_Visitor::Parameters &)              \
     {                                                                                                                  \
         CPPUT_TRACE_FUNCTION;                                                                                          \
         right = left;                                                                                                  \
@@ -389,7 +381,7 @@ namespace ariles2
                 class t_Visitor,
                 typename t_Enumeration,
                 typename = std::enable_if_t<std::is_enum<t_Enumeration>::value>>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+        void apply_copyto(
                 t_Visitor &,
                 const t_Enumeration &left,
                 t_Enumeration &right,

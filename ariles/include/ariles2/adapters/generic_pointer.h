@@ -24,7 +24,7 @@ namespace ariles2
     namespace read
     {
         template <class t_Visitor, typename t_Entry>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_read(
+        void apply_read(
                 t_Visitor &reader,
                 ARILES2_POINTER_TYPE<t_Entry> &entry,
                 const typename t_Visitor::Parameters &parameters)
@@ -51,7 +51,7 @@ namespace ariles2
     namespace write
     {
         template <class t_Visitor, typename t_Entry>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_write(
+        void apply_write(
                 t_Visitor &writer,
                 const ARILES2_POINTER_TYPE<t_Entry> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -76,7 +76,7 @@ namespace ariles2
     namespace compare
     {
         template <class t_Visitor, typename t_Entry>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_compare(
+        void apply_compare(
                 t_Visitor &visitor,
                 const ARILES2_POINTER_TYPE<t_Entry> &left,
                 const ARILES2_POINTER_TYPE<t_Entry> &right,
@@ -111,7 +111,7 @@ namespace ariles2
     namespace defaults
     {
         template <class t_Visitor, typename t_Entry>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_defaults(
+        void apply_defaults(
                 const t_Visitor & /*visitor*/,
                 ARILES2_POINTER_TYPE<t_Entry> &entry,
                 const typename t_Visitor::Parameters & /*param*/)
@@ -128,7 +128,7 @@ namespace ariles2
     namespace process
     {
         template <class t_Visitor, typename t_Entry>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_process(
+        void apply_process(
                 const t_Visitor &visitor,
                 ARILES2_POINTER_TYPE<t_Entry> &entry,
                 const typename t_Visitor::Parameters &param)
@@ -148,7 +148,7 @@ namespace ariles2
     namespace copyfrom
     {
         template <class t_Visitor, typename t_Entry>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+        void apply_copyfrom(
                 t_Visitor &visitor,
                 ARILES2_POINTER_TYPE<t_Entry> &left,
                 const ARILES2_POINTER_TYPE<t_Entry> &right,
@@ -178,7 +178,7 @@ namespace ariles2
         }
 
         template <class t_Visitor, typename t_Left, typename t_Right>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+        void apply_copyfrom(
                 t_Visitor &visitor,
                 ARILES2_POINTER_TYPE<t_Left> &left,
                 const ARILES2_POINTER_TYPE<t_Right> &right,
@@ -219,7 +219,7 @@ namespace ariles2
     namespace copyto
     {
         template <class t_Visitor, typename t_Entry>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+        void apply_copyto(
                 t_Visitor &visitor,
                 const ARILES2_POINTER_TYPE<t_Entry> &left,
                 ARILES2_POINTER_TYPE<t_Entry> &right,
@@ -249,7 +249,7 @@ namespace ariles2
         }
 
         template <class t_Visitor, typename t_Left, typename t_Right>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+        void apply_copyto(
                 t_Visitor &visitor,
                 const ARILES2_POINTER_TYPE<t_Left> &left,
                 ARILES2_POINTER_TYPE<t_Right> &right,

@@ -35,7 +35,7 @@ namespace ariles2
      * @brief ROS parameter server visitor.
      * @ingroup rosparam
      */
-    struct ARILES2_VISIBILITY_ATTRIBUTE rosparam
+    struct rosparam
     {
         using Reader = ariles2::cfgread::Visitor<ns_rosparam::Reader>;
         using Writer = ariles2::cfgwrite::Visitor<ns_rosparam::Writer>;

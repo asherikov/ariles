@@ -36,14 +36,13 @@ namespace ariles2
      * @brief ROS parameter server visitor.
      * @ingroup ros2param
      */
-    struct ARILES2_VISIBILITY_ATTRIBUTE ros2param
+    struct ros2param
     {
         using Reader = ariles2::cfgread::Visitor<ns_ros2param::Reader>;
         using Writer = ariles2::cfgwrite::Visitor<ns_ros2param::Writer>;
 
 
-        class ARILES2_VISIBILITY_ATTRIBUTE Declarator
-          : public aggregate::Visitor<ros2param::Declarator, Defaults, ns_ros2param::Declarator>
+        class Declarator : public aggregate::Visitor<ros2param::Declarator, Defaults, ns_ros2param::Declarator>
         {
         public:
             using AggregateBase = aggregate::Visitor<ros2param::Declarator, Defaults, ns_ros2param::Declarator>;

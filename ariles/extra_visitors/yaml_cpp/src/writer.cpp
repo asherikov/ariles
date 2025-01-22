@@ -19,7 +19,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer : public write::FileVisitorImplementation
+            class Writer : public write::FileVisitorImplementation
             {
             public:
                 using EmitterPtr = std::shared_ptr<YAML::Emitter>;

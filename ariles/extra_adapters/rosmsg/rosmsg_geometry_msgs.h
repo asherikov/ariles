@@ -18,7 +18,7 @@ namespace ariles2
     namespace copyfrom
     {
         template <class t_Visitor, typename t_Scalar, int t_flags>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+        void apply_copyfrom(
                 t_Visitor & /*visitor*/,
                 Eigen::Matrix<t_Scalar, 3, 1, t_flags> &left,
                 const geometry_msgs::Vector3 &right,
@@ -31,7 +31,7 @@ namespace ariles2
         }
 
         template <class t_Visitor, typename t_Scalar, int t_flags>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+        void apply_copyfrom(
                 t_Visitor & /*visitor*/,
                 Eigen::Matrix<t_Scalar, Eigen::Dynamic, 1, t_flags> &left,
                 const geometry_msgs::Vector3 &right,
@@ -46,7 +46,7 @@ namespace ariles2
 
 
         template <class t_Visitor, typename t_Scalar, int t_options>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+        void apply_copyfrom(
                 const t_Visitor & /*visitor*/,
                 Eigen::Quaternion<t_Scalar, t_options> &left,
                 const geometry_msgs::Quaternion &right,
@@ -61,7 +61,7 @@ namespace ariles2
 
 
         template <class t_Visitor, typename t_Scalar, int t_mode, int t_options>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyfrom(
+        void apply_copyfrom(
                 const t_Visitor &visitor,
                 Eigen::Transform<t_Scalar, 3, t_mode, t_options> &left,
                 const geometry_msgs::Transform &right,
@@ -85,7 +85,7 @@ namespace ariles2
     namespace copyto
     {
         template <class t_Visitor, typename t_Scalar, int t_flags>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+        void apply_copyto(
                 t_Visitor & /*visitor*/,
                 const Eigen::Matrix<t_Scalar, 3, 1, t_flags> &left,
                 geometry_msgs::Vector3 &right,
@@ -98,7 +98,7 @@ namespace ariles2
         }
 
         template <class t_Visitor, typename t_XprType, bool t_InnerPanel>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+        void apply_copyto(
                 t_Visitor & /*visitor*/,
                 const Eigen::Block<t_XprType, 3, 1, t_InnerPanel> &left,
                 geometry_msgs::Vector3 &right,
@@ -111,7 +111,7 @@ namespace ariles2
         }
 
         template <class t_Visitor, typename t_Scalar, int t_flags>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+        void apply_copyto(
                 t_Visitor & /*visitor*/,
                 const Eigen::Matrix<t_Scalar, Eigen::Dynamic, 1, t_flags> &left,
                 geometry_msgs::Vector3 &right,
@@ -126,7 +126,7 @@ namespace ariles2
 
 
         template <class t_Visitor, typename t_Scalar, int t_options>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+        void apply_copyto(
                 const t_Visitor & /*visitor*/,
                 const Eigen::Quaternion<t_Scalar, t_options> &left,
                 geometry_msgs::Quaternion &right,
@@ -141,7 +141,7 @@ namespace ariles2
 
 
         template <class t_Visitor, typename t_Scalar, int t_mode, int t_options>
-        void ARILES2_VISIBILITY_ATTRIBUTE apply_copyto(
+        void apply_copyto(
                 const t_Visitor &visitor,
                 const Eigen::Transform<t_Scalar, 3, t_mode, t_options> &left,
                 geometry_msgs::Transform &right,

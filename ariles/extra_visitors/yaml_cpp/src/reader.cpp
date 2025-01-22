@@ -27,7 +27,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::NodeStackBase<NodeWrapper>
+            class Reader : public serialization::NodeStackBase<NodeWrapper>
             {
             public:
                 std::vector<YAML::const_iterator> iterator_stack_;

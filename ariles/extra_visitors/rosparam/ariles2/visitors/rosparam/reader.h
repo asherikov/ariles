@@ -17,7 +17,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Reader;
+            class Reader;
         }
 
 
@@ -25,7 +25,7 @@ namespace ariles2
         /**
          * @brief Configuration reader class
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Reader : public serialization::PIMPLVisitor<read::Visitor, impl::Reader>
+        class Reader : public serialization::PIMPLVisitor<read::Visitor, impl::Reader>
         {
         protected:
             bool startRoot(const std::string &name);

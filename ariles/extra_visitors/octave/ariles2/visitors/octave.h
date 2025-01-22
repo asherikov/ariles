@@ -35,14 +35,14 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Writer;
+            class Writer;
         }
 
 
         /**
          * @brief Configuration writer class
          */
-        class ARILES2_VISIBILITY_ATTRIBUTE Writer : public serialization::PIMPLVisitor<write::Visitor, impl::Writer>
+        class Writer : public serialization::PIMPLVisitor<write::Visitor, impl::Writer>
         {
         public:
             explicit Writer(const std::string &file_name);
@@ -102,7 +102,7 @@ namespace ariles2
      * @brief Octave visitor.
      * @ingroup octave
      */
-    struct ARILES2_VISIBILITY_ATTRIBUTE octave
+    struct octave
     {
         using Writer = ariles2::cfgwrite::Visitor<ns_octave::Writer>;
     };

@@ -26,16 +26,11 @@
 #            define CPPUT_TRACE_FUNCTION_NAME __func__
 #        endif
 
-#        ifndef CPPUT_VISIBILITY_ATTRIBUTE
-#            include "visibility.h"
-#            define CPPUT_VISIBILITY_ATTRIBUTE CPPUT_LIB_LOCAL
-#        endif
-
 namespace cpput
 {
     namespace trace
     {
-        class CPPUT_VISIBILITY_ATTRIBUTE Tracer
+        class Tracer
         {
         public:
             std::string tabulation_;

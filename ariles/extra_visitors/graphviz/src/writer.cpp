@@ -71,8 +71,7 @@ namespace ariles2
     {
         namespace impl
         {
-            class ARILES2_VISIBILITY_ATTRIBUTE Visitor : public serialization::NodeStackBase<NodeWrapper>,
-                                                         public write::FileVisitorImplementation
+            class Visitor : public serialization::NodeStackBase<NodeWrapper>, public write::FileVisitorImplementation
             {
             public:
                 std::set<std::string> all_ids_;
