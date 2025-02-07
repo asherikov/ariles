@@ -36,6 +36,9 @@ public:
         const std::string &
         arilesDefaultID() const override
 {
+    static_assert(
+            std::is_base_of_v<ariles2::Ariles, typename std::decay<decltype(*this)>::type>,
+            "Class where ARILES2_INITIALIZE is included must inherit from an ariles class.");
     static const std::string name(ARILES2_DEFAULT_ID);
     return (name);
 }

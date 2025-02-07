@@ -13,6 +13,9 @@
     template <class t_Visitor, typename = ariles2::traits::is_visitor_t<t_Visitor>>                                    \
     void arilesVisitParents(t_Visitor &visitor, const typename t_Visitor::Parameters &parameters)                      \
     {                                                                                                                  \
+        static_assert(                                                                                                 \
+                std::is_base_of_v<ariles2::Ariles, typename std::decay<decltype(*this)>::type>,                        \
+                "Class where ARILES2_INITIALIZE is included must inherit from an ariles class.");                      \
         CPPUT_UNUSED_ARG(visitor);                                                                                     \
         CPPUT_UNUSED_ARG(parameters);                                                                                  \
         CPPUT_TRACE_FUNCTION;                                                                                          \
