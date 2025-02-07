@@ -55,6 +55,7 @@ Contents
 * [Links](#links)
 * [Introduction](#intro)
     * [Use cases](#uses)
+    * [Applications](#apps)
 * [Minimal example](#example)
 * [Visitors](#visitors)
 * [Supported types](#types)
@@ -106,6 +107,13 @@ Use cases
 
 5. Implementation of parsers for specific data formats, e.g., `URDF`.
 
+
+<a name="apps"></a>
+Applications
+------------
+
+- <https://github.com/asherikov/ariles_urdf>: proof of concept `URDF` parser.
+- <https://github.com/asherikov/intrometry>: telemetry collection library.
 
 
 <a name="example"></a>
@@ -182,7 +190,7 @@ representation formats, in particular:
 * `Octave` script, output only, no dependencies:
   <https://asherikov.github.io/ariles/2/group__octave.html>
 
-* `ROS` parameter server, via standard `ROS` libs:
+* `ROS` parameter server, via `ROS` libs:
   <https://asherikov.github.io/ariles/2/group__rosparam.html>
 
 * A set of flattened key-value pairs, output only, no dependencies:
@@ -191,9 +199,9 @@ representation formats, in particular:
 * `graphviz` dot files for diagram generation:
   <https://asherikov.github.io/ariles/2/group__graphviz.html>
 
-* `ROS2` parameters, via standard `rclcpp` lib:
+* `ROS2` parameters, via `rclcpp` lib:
   <https://asherikov.github.io/ariles/2/group__ros2param.html> `ROS2`
-  parameters is not designed to fully reflect yaml structure as explained here
+  parameters are not designed to fully reflect yaml structure as explained here
   <https://github.com/ros2/rcl/issues/463>, so while `ariles` can dump and read
   anything, there are certain workarounds in place that are described in more
   details in the `ROS2` demo [`./tests/api_v2/demo_api_v2_ros2.cpp`]
