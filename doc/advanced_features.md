@@ -6,7 +6,7 @@ Advanced features
   supported by the data format. For example:
 ```
     std_map:
-        key: value
+        pair_first: pair_second
 ```
   instead of
 ```
