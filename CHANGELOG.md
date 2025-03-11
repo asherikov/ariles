@@ -4,6 +4,11 @@ CHANGELOG
 UNRELEASED
 ==========
 
+Changed
+-------
+* Improve documentation of some advanced features.
+
+
 2.5.0
 =====
 

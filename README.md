@@ -60,6 +60,8 @@ Contents
 * [Visitors](#visitors)
 * [Supported types](#types)
 * [Dependencies and compilation](#compilation)
+* [Advanced features](#advanced)
+* [Tips](#tips)
 * [Related software](#related)
 
 
@@ -254,6 +256,53 @@ Compilation in a ROS1/ROS2 workspace
 ROS1/ROS2 compatible packages are provided in the `pkg_ws_2` branch of the main
 repository -> <https://github.com/asherikov/ariles/tree/pkg_ws_2>.
 
+
+<a name="advanced"></a>
+Advanced features
+=================
+
+Sloppy maps and pairs
+---------------------
+
+`std::pair` is by default represented in the following way:
+```
+    my_pair:
+        first: first_value
+        second: second_value
+```
+The default behavior is generic and robust, but some users prefer to use a more
+compact form provided that the first value is represented by `std::string`:
+```
+    my_pair:
+        first_value: second_value
+```
+The alternative behavior can be enabled using `sloppy_pairs_` flag in
+`serialization::Parameters`. Note that in general it is up to the user to
+ensure that `first_value` is a valid map key in the target serialization
+format. `std::map` with string keys are handled in a similar way when
+`sloppy_maps_` parameter is enabled. If you are inheriting from a "sloppy"
+`ariles` base classes, e.g., `ariles2::SloppyBase` (see `ariles2/extra.h`
+header), both of these flags are enabled by default.
+
+
+"Any": polymorphic configurations
+---------------------------------
+
+`ariles2::Any2` class defined in `ariles2/types.h` provides functionality similar
+to `protobuf::Any`: it allows automatic instantiation and configuration reading
+of user-defined classes based on their string ids. See
+`tests/api_v2/types/any.h` for an example.
+
+
+<a name="tips"></a>
+Tips
+====
+
+Ariles can read what it writes
+------------------------------
+
+If you are having problems figuring out the correct confguration file layout
+for an `ariles` class, try writing it first to get an example.
 
 
 <a name="related"></a>
