@@ -55,10 +55,13 @@ Contents
 * [Links](#links)
 * [Introduction](#intro)
     * [Use cases](#uses)
+    * [Applications](#apps)
 * [Minimal example](#example)
 * [Visitors](#visitors)
 * [Supported types](#types)
 * [Dependencies and compilation](#compilation)
+* [Advanced features](#advanced)
+* [Tips](#tips)
 * [Related software](#related)
 
 
@@ -104,8 +107,15 @@ Use cases
 
 4. Exporting of numerical data to an `Octave` script for debugging purposes.
 
-5. Implemetation of parsers for specific data formats, e.g., `URDF`.
+5. Implementation of parsers for specific data formats, e.g., `URDF`.
 
+
+<a name="apps"></a>
+Applications
+------------
+
+- <https://github.com/asherikov/ariles_urdf>: proof of concept `URDF` parser.
+- <https://github.com/asherikov/intrometry>: telemetry collection library.
 
 
 <a name="example"></a>
@@ -154,7 +164,7 @@ ariles2::apply<ariles2::rosparam::Writer>(nh, configurable, "/some_namespace/");
 Note that ROS/ROS2 compatible packages are available in a separate branch
 <https://github.com/asherikov/ariles/tree/pkg_ws_2>.
 
-See demo for more exaples: <https://asherikov.github.io/ariles/2/DEMO.html>
+See demo for more examples: <https://asherikov.github.io/ariles/2/DEMO.html>
 [`./tests/api_v2/demo_api_v2.cpp`]
 
 
@@ -182,7 +192,7 @@ representation formats, in particular:
 * `Octave` script, output only, no dependencies:
   <https://asherikov.github.io/ariles/2/group__octave.html>
 
-* `ROS` parameter server, via standard `ROS` libs:
+* `ROS` parameter server, via `ROS` libs:
   <https://asherikov.github.io/ariles/2/group__rosparam.html>
 
 * A set of flattened key-value pairs, output only, no dependencies:
@@ -191,9 +201,9 @@ representation formats, in particular:
 * `graphviz` dot files for diagram generation:
   <https://asherikov.github.io/ariles/2/group__graphviz.html>
 
-* `ROS2` parameters, via standard `rclcpp` lib:
+* `ROS2` parameters, via `rclcpp` lib:
   <https://asherikov.github.io/ariles/2/group__ros2param.html> `ROS2`
-  parameters is not designed to fully reflect yaml structure as explained here
+  parameters are not designed to fully reflect yaml structure as explained here
   <https://github.com/ros2/rcl/issues/463>, so while `ariles` can dump and read
   anything, there are certain workarounds in place that are described in more
   details in the `ROS2` demo [`./tests/api_v2/demo_api_v2_ros2.cpp`]
@@ -215,9 +225,9 @@ The complete list of modules is available at
 Supported data types
 ====================
 
-`ariles` provides serialization wrappers for the follwing types:
+`ariles` provides serialization wrappers for the following types:
 
-* Fundametal types: integers, floats, booleans.
+* Fundamental types: integers, floats, booleans.
 * Some STL classes (WIP): `std::string`, `std::vector`, `std::map`, `std::pair`, `std::shared_ptr`, `std::unique_ptr`.
 * `Eigen` types: matrices, transforms, quaternions.
 * `Boost` classes: `boost::optional`, `boost::movelib::unique_ptr`. `boost::shared_ptr`.
@@ -240,12 +250,59 @@ Visitors and corresponding dependencies can be enabled or disabled via cmake
 options, the same applies to data types which depend on external libraries.
 
 
-Compilation in a ROS1/ROS2 wrokspace
+Compilation in a ROS1/ROS2 workspace
 ------------------------------------
 
-ROS1/ROS2 compatible packages are provided in `pkg_ws_2` branch of the main
+ROS1/ROS2 compatible packages are provided in the `pkg_ws_2` branch of the main
 repository -> <https://github.com/asherikov/ariles/tree/pkg_ws_2>.
 
+
+<a name="advanced"></a>
+Advanced features
+=================
+
+Sloppy maps and pairs
+---------------------
+
+`std::pair` is by default represented in the following way:
+```
+    my_pair:
+        first: first_value
+        second: second_value
+```
+The default behavior is generic and robust, but some users prefer to use a more
+compact form provided that the first value is represented by `std::string`:
+```
+    my_pair:
+        first_value: second_value
+```
+The alternative behavior can be enabled using `sloppy_pairs_` flag in
+`serialization::Parameters`. Note that in general it is up to the user to
+ensure that `first_value` is a valid map key in the target serialization
+format. `std::map` with string keys are handled in a similar way when
+`sloppy_maps_` parameter is enabled. If you are inheriting from a "sloppy"
+`ariles` base classes, e.g., `ariles2::SloppyBase` (see `ariles2/extra.h`
+header), both of these flags are enabled by default.
+
+
+"Any": polymorphic configurations
+---------------------------------
+
+`ariles2::Any2` class defined in `ariles2/types.h` provides functionality similar
+to `protobuf::Any`: it allows automatic instantiation and configuration reading
+of user-defined classes based on their string ids. See
+`tests/api_v2/types/any.h` for an example.
+
+
+<a name="tips"></a>
+Tips
+====
+
+Ariles can read what it writes
+------------------------------
+
+If you are having problems figuring out the correct confguration file layout
+for an `ariles` class, try writing it first to get an example.
 
 
 <a name="related"></a>

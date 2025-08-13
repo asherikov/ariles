@@ -4,6 +4,18 @@ CHANGELOG
 UNRELEASED
 ==========
 
+2.5.1
+=====
+
+Fixed
+-----
+* CI workflows
+
+Changed
+-------
+* Improve documentation of some advanced features.
+
+
 2.5.0
 =====
 

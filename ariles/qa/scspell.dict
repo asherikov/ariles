@@ -25,6 +25,7 @@ cxxabi
 cygwin
 dcheck
 declspec
+decltype
 defgroup
 defs
 demangle
