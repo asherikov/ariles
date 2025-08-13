@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['advanced_20features_1314',['Advanced features',['../md_doc_advanced_features.html',1,'']]],
-  ['api_20demo_1315',['API demo',['../DEMO.html',1,'']]],
-  ['ariles_1316',['Ariles',['../index.html',1,'']]]
+  ['1_20x_20to_202_20x_0',['Migration from version 1.X to 2.X',['../md_doc_2migration__1to2.html',1,'']]]
 ];

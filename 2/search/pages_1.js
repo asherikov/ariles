@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['changelog_1317',['Changelog',['../CHANGELOG.html',1,'']]],
-  ['changelog_1318',['CHANGELOG',['../md_CHANGELOG.html',1,'']]]
+  ['2_20x_0',['Migration from version 1.X to 2.X',['../md_doc_2migration__1to2.html',1,'']]]
 ];
