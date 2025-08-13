@@ -15,6 +15,7 @@ jobs:
 
         steps:
             - uses: actions/checkout@v4
+            - run: sudo apt update
             - run: sudo make install-deps
             - run: $APT fakeroot devscripts build-essential
             - run: make deb-build DEB_TARGET=$DEB_TARGET
@@ -30,6 +31,7 @@ jobs:
 
         steps:
             - uses: actions/checkout@v4
+            - run: sudo apt update
             - run: sudo make install-deps
             - run: $APT fakeroot devscripts build-essential
             - run: make deb-build DEB_TARGET=$DEB_TARGET
