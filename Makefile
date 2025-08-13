@@ -193,7 +193,7 @@ install-ros:
 	${APT_INSTALL} dpkg
 	${APT_INSTALL} python3-rosdep build-essential
 	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; rosdep init'
-	rosdep update
+	rosdep update --rosdistro ${ROS_DISTRO}
 
 install-ros-noetic:
 	sh -c 'test -f /etc/apt/sources.list.d/ros-latest.list \

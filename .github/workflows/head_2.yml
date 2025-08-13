@@ -40,7 +40,8 @@ jobs:
                 # make cmake_dependency  # requires ROS
 
     focal_deb_packages:
-        runs-on: ubuntu-20.04
+        container: ros:noetic-ros-base-focal
+        runs-on: ubuntu-latest
 
         env:
             ROS_DISTRO: noetic
@@ -49,10 +50,13 @@ jobs:
 
         steps:
             - uses: actions/checkout@v4
-            - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
-            - run: sudo make install-deps
+            - run: apt update && apt install -y --no-install-recommends make wget sudo
+            - run: rm /etc/ros/rosdep/sources.list.d/20-default.list
+            - run: make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
+            - run: make install-deps
             - run: $APT fakeroot devscripts build-essential
-            - run: |
+            - shell: bash
+              run: |
                 source /opt/ros/$ROS_DISTRO/setup.bash
                 make deb-build DEB_TARGET=focal
                 make deb-install DEB_TARGET=focal
@@ -108,15 +112,18 @@ jobs:
 
 
     focal_gcc_noros:
-        runs-on: ubuntu-20.04
+        container: ros:noetic-ros-base-focal
+        runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
-            - run: sudo apt update
-            - run: sudo make install-deps
+            - run: rm /etc/ros/rosdep/sources.list.d/20-default.list
+            - run: apt update && apt install -y --no-install-recommends make wget sudo
+            - run: make install-deps
             - run: make build-tests TYPE=Debug OPTIONS=noros TARGETS="all" TC=gcc ARGS=-V
 
     focal_gcc_ros:
-        runs-on: ubuntu-20.04
+        container: ros:noetic-ros-base-focal
+        runs-on: ubuntu-latest
 
         env:
             ROS_DISTRO: noetic
@@ -125,9 +132,12 @@ jobs:
 
         steps:
             - uses: actions/checkout@v4
-            - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
-            - run: sudo make install-deps
-            - run: |
+            - run: rm /etc/ros/rosdep/sources.list.d/20-default.list
+            - run: apt update && apt install -y --no-install-recommends make wget sudo
+            - run: make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
+            - run: make install-deps
+            - shell: bash
+              run: |
                 source /opt/ros/$ROS_DISTRO/setup.bash
                 make build-tests TYPE=Debug OPTIONS=ros TARGETS="all" TC=gcc ARGS=-V
 
