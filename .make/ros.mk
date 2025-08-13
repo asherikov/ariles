@@ -67,13 +67,14 @@ ros_install_deps:
 catkin_test_deb_pkg:
 	cd ${CATKIN_PKGS_PATH}/${PKG}; bloom-generate rosdebian --os-name ubuntu --ros-distro ${ROS_DISTRO} ./
 	cd ${CATKIN_PKGS_PATH}/${PKG}; fakeroot debian/rules binary
-	echo ${PKG} | tr "_" "-" | xargs -I {} sudo /bin/sh -c 'dpkg -i ${CATKIN_PKGS_PATH}/ros*{}*.deb'
+	ls -l ${CATKIN_PKGS_PATH}
+	echo ${PKG} | tr "_" "-" | xargs --verbose -I {} sudo sh -c "dpkg -i ${CATKIN_PKGS_PATH}/ros*{}*.deb"
 
 catkin_test_deb: clean
 	${MAKE} catkin_prepare_workspace
 	${MAKE} catkin_fake_rosdep
 	mkdir -p build/dependency_test
-	echo ${WS_PKGS} | tr " " "\n" | xargs -I {} ${MAKE} catkin_test_deb_pkg PKG="{}" ROS_DISTRO=${ROS_DISTRO}
+	echo ${WS_PKGS} | tr " " "\n" | xargs -I {} sh -c "${MAKE} catkin_test_deb_pkg PKG="{}" ROS_DISTRO=${ROS_DISTRO} || exit 255"
 	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; \
 		cd build/dependency_test; \
 		cmake ../../${DEPENDENCY_PATH}/plain_ros1; \
@@ -90,7 +91,7 @@ catkin_fake_rosdep:
 	sudo rm -Rf /tmp/rosdep.yaml
 	echo ${WS_PKGS} | tr " " "\n" | \
 		xargs -I {} sudo /bin/sh -c 'echo "{}:" >> /tmp/rosdep.yaml; echo "  ubuntu: [ros-${ROS_DISTRO}-{}]" | tr "_" "-" >> /tmp/rosdep.yaml'
-	rosdep update
+	rosdep update --rosdistro ${ROS_DISTRO}
 
 
 catkin_old_build: catkin_prepare_workspace
