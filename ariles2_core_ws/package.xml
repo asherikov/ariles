@@ -11,8 +11,15 @@
 
   <buildtool_depend>cmake</buildtool_depend>
 
-  <depend>eigen</depend>
-  <depend>boost</depend>
+  <build_depend>eigen</build_depend>
+  <build_export_depend>eigen</build_export_depend>
+
+  <build_depend>libboost-dev</build_depend>
+  <build_export_depend>libboost-dev</build_export_depend>
+
+  <build_depend>libboost-math-dev</build_depend>
+  <build_export_depend>libboost-math-dev</build_export_depend>
+  <exec_depend>libboost-math</exec_depend>
 
   <export>
     <build_type>cmake</build_type>
