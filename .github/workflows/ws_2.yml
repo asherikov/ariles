@@ -10,7 +10,7 @@ jobs:
         container: ros:noetic-ros-base-focal
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - run: rm -Rf ariles2_ros2param_ws
             - run: |
                 source /opt/ros/noetic/setup.bash
@@ -20,7 +20,7 @@ jobs:
         container: ros:noetic-ros-base-focal
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - run: |
                 source /opt/ros/noetic/setup.bash
                 make catkin_test_new ROS_DISTRO=noetic UBUNTU_DISTRO=focal
@@ -29,7 +29,7 @@ jobs:
     #prerelease:
     #    runs-on: ubuntu-20.04
     #    steps:
-    #        - uses: actions/checkout@v4
+    #        - uses: actions/checkout@v5
     #          with:
     #              fetch-depth: 0
     #        - run: make ros_prerelease ROS_DISTRO=noetic UBUNTU_DISTRO=focal BRANCH=`git branch --show-current`
@@ -37,33 +37,29 @@ jobs:
     #              CCACHE_DIR: ${GITHUB_WORKSPACE}/.ccache
 
     jammy_ccws:
-        runs-on: ubuntu-22.04
+        container: asherikov/ccws_jammy
+        runs-on: ubuntu-latest
+        env:
+            WORKSPACE_SRC: ${GITHUB_WORKSPACE}
         steps:
-            - uses: actions/checkout@v4
-              with:
-                repository: asherikov/ccws
-            - uses: actions/checkout@v4
-              with:
-                path: src/ariles_ws
-            - run: rm src/ariles_ws/demo/plain/CATKIN_IGNORE
-            - run: make bp_install_build BUILD_PROFILE=reldebug
-            - run: make dep_install PKG=ariles2_plain_demo
-            - run: make ariles2_plain_demo
-            - run: make dep_install PKG=ariles2_ros2param_ws
-            - run: make ariles2_ros2param_ws
+            - uses: actions/checkout@v5
+            - run: rm demo/plain/CATKIN_IGNORE
+            - run: |
+                cd /ccws
+                apt update
+                make dep_install
+                make ariles2_plain_demo ariles2_ros2param_ws
 
     noble_ccws:
-        runs-on: ubuntu-24.04
+        container: asherikov/ccws_noble
+        runs-on: ubuntu-latest
+        env:
+            WORKSPACE_SRC: ${GITHUB_WORKSPACE}
         steps:
-            - uses: actions/checkout@v4
-              with:
-                repository: asherikov/ccws
-            - uses: actions/checkout@v4
-              with:
-                path: src/ariles_ws
-            - run: rm src/ariles_ws/demo/plain/CATKIN_IGNORE
-            - run: make bp_install_build BUILD_PROFILE=reldebug
-            - run: make dep_install PKG=ariles2_plain_demo
-            - run: make ariles2_plain_demo
-            - run: make dep_install PKG=ariles2_ros2param_ws
-            - run: make ariles2_ros2param_ws
+            - uses: actions/checkout@v5
+            - run: rm demo/plain/CATKIN_IGNORE
+            - run: |
+                cd /ccws
+                apt update
+                make dep_install
+                make ariles2_plain_demo ariles2_ros2param_ws

@@ -84,6 +84,7 @@ catkin_test_deb: clean
 catkin_prepare_workspace: clean
 	mkdir -p ${CATKIN_PKGS_PATH}
 	ls -1A | grep -v build | xargs cp -R -t ${CATKIN_PKGS_PATH}
+	rm -f ${CATKIN_PKGS_PATH}/ariles2_rosparam_ws/CATKIN_IGNORE
 
 catkin_fake_rosdep:
 	# https://answers.ros.org/question/280213/generate-deb-from-dependent-res-package-locally/#280235
