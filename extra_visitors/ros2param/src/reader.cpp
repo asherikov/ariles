@@ -150,7 +150,7 @@ namespace ariles2
                 std::vector<std::string> parameter_names_;
 
                 const std::string separator_ = ".";
-                std::string prefix_ = "";
+                std::string prefix_;
 
 
             public:
@@ -162,10 +162,12 @@ namespace ariles2
                 void setPrefix(const std::string &prefix)
                 {
                     if (prefix.empty())
+                    {
                         return;
+                    }
                     if (prefix.length() >= separator_.length())
                     {
-                        std::string prefix_end = prefix.substr(prefix.length() - separator_.length());
+                        const std::string prefix_end = prefix.substr(prefix.length() - separator_.length());
                         if (prefix_end == separator_)
                         {
                             // Separator at the end of the provided prefix
