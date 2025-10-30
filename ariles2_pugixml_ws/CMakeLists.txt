@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13.0)
-project(ariles2_pugixml_ws VERSION 2.5.1)
+project(ariles2_pugixml_ws VERSION 2.5.2)
 
 
 option(ARILES_ROS_ENABLE_TESTS "Enable tests." OFF)

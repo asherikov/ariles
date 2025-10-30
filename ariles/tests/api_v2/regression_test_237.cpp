@@ -10,11 +10,7 @@
 
 
 #include "utility.h"
-
-#ifdef ARILES_VISITOR_ros2param
-#    include <ariles2/visitors/ros2param.h>
-#endif
-
+#include "all_enabled_visitors.h"
 #include "all_enabled_adapters.h"
 
 #define ARILES2_DEFAULT_VISITORS                                                                                       \
@@ -35,7 +31,7 @@
 // TYPES
 // ===============================================================
 
-#include "types/simple_auto_declare.h"
+#include "types/complex_sloppy.h"
 
 
 
@@ -44,8 +40,11 @@
 // ===============================================================
 
 
-#include "fixtures/initializer_ros2_with_declarator.h"
-#include "fixtures/022_ros2_with_declarator.h"
+#include "fixtures/initializers.h"
+#include "fixtures/000_basic_interface.h"
+#include "fixtures/002_comparison.h"
+#include "fixtures/003_comparison_vector.h"
+#include "fixtures/004_comparison_equivalence.h"
 
 
 // ===============================================================
@@ -53,7 +52,10 @@
 // ===============================================================
 
 #define ARILES_TESTS(VISITOR_ID, NAMESPACE, INITIALIZER)                                                               \
-    ARILES_FIXTURE_TEST_CASE(ROS2ComparisonFixture, VISITOR_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
+    ARILES_FIXTURE_TEST_CASE(BasicInterfaceFixture, VISITOR_ID, NAMESPACE, ConfigurableComplexSloppy, INITIALIZER)     \
+    ARILES_FIXTURE_TEST_CASE(ComparisonSimpleFixture, VISITOR_ID, NAMESPACE, ConfigurableComplexSloppy, INITIALIZER)   \
+    ARILES_FIXTURE_TEST_CASE(ComparisonMultiFixture, VISITOR_ID, NAMESPACE, ConfigurableComplexSloppy, INITIALIZER)    \
+    ARILES_FIXTURE_TEST_CASE(ComparisonVectorFixture, VISITOR_ID, NAMESPACE, ConfigurableComplexSloppy, INITIALIZER)
 
 
 #include "instantiate.h"
