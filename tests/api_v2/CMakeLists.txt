@@ -81,3 +81,5 @@ ariles_define_regression_test("233" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # su
 ariles_define_regression_test("234" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # OptionalPointer
 ariles_define_regression_test("235" "ros2param")                            # Parameter declaration
 ariles_define_regression_test("236" "namevalue2")                           # namevalue2
+ariles_define_regression_test("237" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # complex sloppy
+ariles_define_regression_test("238" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # ros2param segfault

@@ -116,7 +116,7 @@ namespace ariles_tests
 
 
 #ifndef ARILES_TESTS_RANDOMIZE_DISABLED
-        void randomize()
+        virtual void randomize()
         {
             boost::random::random_device random_generator;
             t_ConfigurableComplex *impl = static_cast<t_ConfigurableComplex *>(this);

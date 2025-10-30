@@ -228,15 +228,13 @@ namespace ariles_tests
 
             ~ROS2Initializer()
             {
-                /*
                 rcl_interfaces::msg::ListParametersResult parameters = nh_->list_parameters({}, 100);
                 std::cout << ">>>>>>>>>" << std::endl;
-                for (const std::string & name : parameters.names)
+                for (const std::string &name : parameters.names)
                 {
                     std::cout << name << " = " << nh_->get_parameter(name).value_to_string() << std::endl;
                 }
                 std::cout << ">>>>>>>>>" << std::endl;
-                */
                 rclcpp::shutdown();
             }
 
