@@ -19,7 +19,7 @@ jobs:
         runs-on: ubuntu-22.04
 
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - run: sudo make install-deps
             - run: $APT fakeroot devscripts build-essential
             - run: |
@@ -31,7 +31,7 @@ jobs:
         runs-on: ubuntu-22.04
 
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - run: sudo make install-deps
             - run: $APT fakeroot devscripts build-essential
             - run: |
@@ -49,7 +49,7 @@ jobs:
             ROS_CI_DESKTOP: focal
 
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - run: apt update && apt install -y --no-install-recommends make wget sudo
             - run: rm /etc/ros/rosdep/sources.list.d/20-default.list
             - run: make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
@@ -66,7 +66,7 @@ jobs:
     noble_gcc_noros:
         runs-on: ubuntu-24.04
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - run: sudo apt update
             - run: sudo make install-deps
             - run: make build-tests TYPE=Debug OPTIONS=noros TARGETS="all" TC=gcc ARGS=-V
@@ -79,7 +79,7 @@ jobs:
             ROS_CI_DESKTOP: noble
 
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: sudo make install-deps
             - run: |
@@ -90,7 +90,7 @@ jobs:
     jammy_gcc_noros:
         runs-on: ubuntu-22.04
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - run: sudo apt update
             - run: sudo make install-deps
             - run: make build-tests TYPE=Debug OPTIONS=noros TARGETS="all" TC=gcc ARGS=-V
@@ -103,7 +103,7 @@ jobs:
             ROS_CI_DESKTOP: jammy
 
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: sudo make install-deps
             - run: |
@@ -115,7 +115,7 @@ jobs:
         container: ros:noetic-ros-base-focal
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - run: rm /etc/ros/rosdep/sources.list.d/20-default.list
             - run: apt update && apt install -y --no-install-recommends make wget sudo
             - run: make install-deps
@@ -131,7 +131,7 @@ jobs:
             ROS_CI_DESKTOP: focal
 
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - run: rm /etc/ros/rosdep/sources.list.d/20-default.list
             - run: apt update && apt install -y --no-install-recommends make wget sudo
             - run: make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
@@ -146,7 +146,7 @@ jobs:
         runs-on: ubuntu-22.04
 
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - run: sudo apt update
             - run: $APT python3-pip python3-setuptools
             - run: sudo pip3 install scspell3k
@@ -161,7 +161,7 @@ jobs:
             ROS_CI_DESKTOP: noble
 
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: sudo make install-deps
             - run: $APT clang-tools-18 clang-tidy-18
@@ -174,7 +174,7 @@ jobs:
         runs-on: ubuntu-24.04
 
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - run: sudo apt update
             - run: sudo make install-deps
             - run: $APT clang-tools-18 clang-tidy-18
@@ -184,10 +184,10 @@ jobs:
     jammy_ccws:
         runs-on: ubuntu-22.04
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
               with:
                 repository: asherikov/ccws
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
               with:
                 ref: pkg_ws_2
                 path: src/ariles_ws
@@ -210,10 +210,10 @@ jobs:
     noble_ccws:
         runs-on: ubuntu-24.04
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
               with:
                 repository: asherikov/ccws
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
               with:
                 ref: pkg_ws_2
                 path: src/ariles_ws

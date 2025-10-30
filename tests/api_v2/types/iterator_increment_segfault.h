@@ -28,7 +28,6 @@ namespace ariles_tests
         {
             map_member_["a"] = 1;
             map_member_["b"] = 2;
-            map_member_["c"] = 2;
         }
 #endif
     };

@@ -8,8 +8,6 @@
     @brief
 */
 
-#include <set>
-
 #include <boost/lexical_cast.hpp>
 
 #include <ariles2/visitors/ros2param.h>
@@ -24,23 +22,21 @@ namespace ariles2
         class ReaderNodeWrapper : public NodeBase
         {
         protected:
-            std::set<std::string> childs_;
-            std::set<std::string>::const_iterator childs_iterator_;
+            std::vector<std::string> childs_;
             const rclcpp::Parameter parameter_;
 
         public:
             using NodeBase::NodeBase;
 
-            ReaderNodeWrapper(const std::string &name, std::set<std::string> childs)
-              : NodeBase(name, NodeBase::Type::ITERATED_MAP), childs_(std::move(childs))
+            ReaderNodeWrapper(const std::string &name, std::vector<std::string> childs)
+              : NodeBase(name, NodeBase::Type::ITERATED_MAP), childs_(childs.begin(), childs.end())
             {
                 size_ = childs_.size();
-                childs_iterator_ = childs_.begin();
             }
 
             const std::string &getChildName()
             {
-                return (*childs_iterator_++);
+                return (childs_[index_]);
             }
 
             explicit ReaderNodeWrapper(const rclcpp::Parameter &&parameter)
@@ -215,7 +211,7 @@ namespace ariles2
                 }
 
 
-                [[nodiscard]] std::set<std::string> listParameters() const
+                [[nodiscard]] std::vector<std::string> listParameters() const
                 {
                     std::size_t substr_start = 0;
 
@@ -224,13 +220,21 @@ namespace ariles2
                         substr_start = back().node_.size() + 1;  // + 1 for dot
                     }
 
-                    std::set<std::string> names;
+                    // is needed to avoid duplicates?
+                    std::vector<std::string> names;
                     for (const std::string &name : parameter_names_)
                     {
                         if (isPrefix(back().node_, name))
                         {
                             const std::size_t substr_end = name.find('.', substr_start);
-                            names.insert(name.substr(substr_start, substr_end - substr_start));
+                            std::string name_part = name.substr(substr_start, substr_end - substr_start);
+
+                            const std::vector<std::string>::iterator it =
+                                    std::lower_bound(names.begin(), names.end(), name_part);
+                            if (it == names.end() or *it != name_part)
+                            {
+                                names.insert(it, std::move(name_part));
+                            }
                         }
                     }
 
@@ -263,7 +267,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_ros2param
+    }  // namespace ns_ros2param
 }  // namespace ariles2
 
 
@@ -319,7 +323,7 @@ namespace ariles2
         {
             CPPUT_TRACE_FUNCTION;
 
-            std::set<std::string> name_list = impl_->listParameters();
+            std::vector<std::string> name_list = impl_->listParameters();
 
             checkSize(limit_type, name_list.size(), min, max);
 

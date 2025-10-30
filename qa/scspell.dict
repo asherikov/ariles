@@ -9,6 +9,7 @@ ariles
 asherikov
 auxillary
 backtrace
+cbegin
 cfgread
 cfgwrite
 classrclcpp
