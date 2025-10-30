@@ -36,6 +36,7 @@ namespace ariles2
              *
              * @param[in] nh NodeHandle
              */
+            explicit Reader(const std::tuple<rclcpp::node_interfaces::NodeParametersInterface::SharedPtr, std::string> &params);
             explicit Reader(const rclcpp::node_interfaces::NodeParametersInterface::SharedPtr &nh);
 
 

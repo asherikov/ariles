@@ -150,6 +150,7 @@ namespace ariles2
                 std::vector<std::string> parameter_names_;
 
                 const std::string separator_ = ".";
+                std::string prefix_ = "";
 
 
             public:
@@ -158,13 +159,28 @@ namespace ariles2
                     nh_ = nh;
                 }
 
-
+                void setPrefix(const std::string &prefix)
+                {
+                    if (prefix.empty())
+                        return;
+                    if (prefix.length() >= separator_.length())
+                    {
+                        std::string prefix_end = prefix.substr(prefix.length() - separator_.length());
+                        if (prefix_end == separator_)
+                        {
+                            // Separator at the end of the provided prefix
+                            prefix_ = prefix;
+                            return;
+                        }
+                    }
+                    prefix_ = prefix + separator_;
+                }
                 bool getParameter(rclcpp::Parameter &parameter) const
                 {
                     CPPUT_TRACE_FUNCTION;
                     CPPUT_TRACE_VALUE(back().node_);
 
-                    return (nh_->get_parameter(back().node_, parameter));
+                    return (nh_->get_parameter(prefix_ + back().node_, parameter));
                 }
 
 
@@ -276,6 +292,11 @@ namespace ariles2
             makeImplPtr(nh);
         }
 
+        Reader::Reader(const std::tuple<rclcpp::node_interfaces::NodeParametersInterface::SharedPtr , std::string> &params)
+        {
+            makeImplPtr(std::get<0>(params));
+            impl_->setPrefix(std::get<1>(params));
+        }
 
         bool Reader::startRoot(const std::string &name)
         {
