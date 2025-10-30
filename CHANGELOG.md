@@ -4,6 +4,9 @@ CHANGELOG
 UNRELEASED
 ==========
 
+2.5.2
+=====
+
 Fixed
 -----
 * Invalid iterator bug in ros2param.
