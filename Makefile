@@ -22,9 +22,10 @@ ARGS?=
 DEB_TARGET?=xenial
 
 SUPP_PATH=../../../qa/sanitizers/
+# new_delete_type_mismatch=0 ROS2 issue -> https://github.com/ros2/rclcpp/issues/2220
 TEST_ENV=UBSAN_OPTIONS=print_stacktrace=1:halt_on_error=1:suppressions=${SUPP_PATH}/undefined.supp \
-		 ASAN_OPTIONS=suppressions=${SUPP_PATH}/address.supp \
-		 LSAN_OPTIONS=suppressions=${SUPP_PATH}/leak.supp
+		ASAN_OPTIONS=new_delete_type_mismatch=0:suppressions=${SUPP_PATH}/address.supp \
+		LSAN_OPTIONS=suppressions=${SUPP_PATH}/leak.supp
 
 PKG_NAME=ariles2
 
@@ -57,7 +58,7 @@ build:
 	cd ${BUILD_SUBDIR}; ${MAKE} ${MAKE_FLAGS} ${TARGETS}
 
 build-tests:
-	${MAKE} build EXTRA_CMAKE_PARAM="-DARILES_BUILD_REGRESSION_TESTS=ON ${EXTRA_CMAKE_PARAM}"
+	${MAKE} build EXTRA_CMAKE_PARAM="-DARILES_CPP_SANITIZERS=ON -DARILES_BUILD_REGRESSION_TESTS=ON ${EXTRA_CMAKE_PARAM}"
 	cd ${BUILD_SUBDIR}; env ${TEST_ENV} ctest ${ARGS}
 #	cd ${BUILD_SUBDIR}; ${MAKE} ${MAKE_FLAGS} test ${ARGS}
 
@@ -148,7 +149,7 @@ test-ros2: clean
 
 test-noros: clean
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
-	${MAKE} clangcheck SCANBUILD=scan-build18 OPTIONS=noros_tidy
+	${MAKE} clangcheck SCANBUILD=scan-build20 OPTIONS=noros_tidy
 	${MAKE} cppcheck
 	${MAKE} spell
 

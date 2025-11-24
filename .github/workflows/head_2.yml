@@ -164,10 +164,10 @@ jobs:
             - uses: actions/checkout@v5
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: sudo make install-deps
-            - run: $APT clang-tools-18 clang-tidy-18
+            - run: $APT clang-tools-20 clang-tidy-20
             - run: |
                 source /opt/ros/$ROS_DISTRO/setup.bash
-                make clangcheck SCANBUILD=scan-build-18 OPTIONS=ros2_tidy TC=clang
+                make clangcheck SCANBUILD=scan-build-20 OPTIONS=ros2_tidy TC=clang
 
 
     noble_clang_noros_scanbuild:
@@ -177,6 +177,7 @@ jobs:
             - uses: actions/checkout@v5
             - run: sudo apt update
             - run: sudo make install-deps
+            # old clang due to https://github.com/Tencent/rapidjson/issues/2347
             - run: $APT clang-tools-18 clang-tidy-18
             - run: make clangcheck SCANBUILD=scan-build-18 OPTIONS=noros_tidy TC=clang
 
@@ -229,6 +230,8 @@ jobs:
             - run: make dep_install PKG=ariles2_rapidjson_ws
             - run: make dep_install PKG=ariles2_ros2param_ws
             - run: make dep_install PKG=ariles2_yamlcpp_ws
+            # disable due to https://github.com/Tencent/rapidjson/issues/2347
+            - run: touch src/ariles_ws/ariles2_rapidjson_ws/COLCON_IGNORE
             - run: make _ws BUILD_PROFILE=scan_build
             - run: make bp_install_build BUILD_PROFILE=cppcheck
             - run: make BUILD_PROFILE=static_checks BASE_BUILD_PROFILE=scan_build

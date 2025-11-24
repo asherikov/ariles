@@ -9,7 +9,7 @@ function(cmakeut_compiler_flags STANDARD)
             # workaround for clang50
             set(CXX_WARNINGS "${CXX_WARNINGS} -Wno-error=unused-command-line-argument")
         endif()
-        set(CXX_WARNINGS "${CXX_WARNINGS} -Werror=extra-tokens")
+        set(CXX_WARNINGS "${CXX_WARNINGS} -Werror=extra-tokens -Wno-nullability-extension")
 
     elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 
@@ -35,7 +35,7 @@ function(cmakeut_compiler_flags STANDARD)
                 # -fsanitize=address segfaults on boost UTF.
                 set(CXX_SANITIZERS "-fsanitize=undefined")
             else()
-                set(CXX_SANITIZERS "-fsanitize=address -fsanitize=undefined")
+                set(CXX_SANITIZERS "-fsanitize=address -fsanitize=undefined -fno-omit-frame-pointer")
             endif()
 
         elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")

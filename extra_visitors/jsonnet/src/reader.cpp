@@ -42,22 +42,27 @@ namespace ariles2
             }
 
 
-            const char *Reader::fromFile(const std::string &file_name)
+            char *Reader::fromFile(const std::string &file_name)
             {
                 int error = 0;
-                const char *jsonnet_output = ::jsonnet_evaluate_file(preprocessor_->vm_, file_name.c_str(), &error);
+                char *jsonnet_output = ::jsonnet_evaluate_file(preprocessor_->vm_, file_name.c_str(), &error);
                 CPPUT_ASSERT(0 == error, jsonnet_output);
                 return (jsonnet_output);
             }
 
 
-            const char *Reader::fromString(const std::string &input_string)
+            char *Reader::fromString(const std::string &input_string)
             {
                 int error = 0;
-                const char *jsonnet_output =
+                char *jsonnet_output =
                         ::jsonnet_evaluate_snippet(preprocessor_->vm_, "<input steam>", input_string.c_str(), &error);
                 CPPUT_ASSERT(0 == error, jsonnet_output);
                 return (jsonnet_output);
+            }
+
+            void Reader::free(char *jsonnet_data)
+            {
+                cpput::ignoreResult(jsonnet_realloc(preprocessor_->vm_, jsonnet_data, 0));
             }
         }  // namespace impl
     }      // namespace ns_jsonnet

@@ -33,8 +33,9 @@ namespace ariles2
                 ~Reader();
 
 
-                const char *fromFile(const std::string &file_name);
-                const char *fromString(const std::string &input_string);
+                char *fromFile(const std::string &file_name);
+                char *fromString(const std::string &input_string);
+                void free(char *jsonnet_data);
             };
         }  // namespace impl
 
@@ -49,8 +50,9 @@ namespace ariles2
         public:
             explicit Reader(const std::string &file_name)
             {
-                const char *jsonnet_output = impl_.fromFile(file_name);
+                char *jsonnet_output = impl_.fromFile(file_name);
                 t_ParentVisitor::constructFromString(jsonnet_output);
+                impl_.free(jsonnet_output);
             }
 
 
@@ -65,8 +67,9 @@ namespace ariles2
                 input_string.append(buffer, input_stream.gcount());
 
 
-                const char *jsonnet_output = impl_.fromString(input_string);
+                char *jsonnet_output = impl_.fromString(input_string);
                 t_ParentVisitor::constructFromString(jsonnet_output);
+                impl_.free(jsonnet_output);
             }
         };
     }  // namespace ns_jsonnet
