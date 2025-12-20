@@ -4,6 +4,7 @@ MAKE_FLAGS?=-j14
 
 CMAKE_DIR=./cmake/
 BUILD_DIR=./build/
+INSTALL_DIR=./install/
 ROOT_DIR=../../
 
 
@@ -47,12 +48,14 @@ clean:
 #----------------------------------------------
 
 BUILD_SUBDIR=${BUILD_DIR}/${TC}-${TYPE}-OPTIONS_${OPTIONS}
+INSTALL_SUBDIR=${INSTALL_DIR}/${TC}-${TYPE}-OPTIONS_${OPTIONS}
 
 build:
 	mkdir -p ${BUILD_SUBDIR};
 	cd ${BUILD_SUBDIR}; cmake 	-C ${ROOT_DIR}/cmake/options_${OPTIONS}.cmake\
 								-DCMAKE_BUILD_TYPE=${TYPE} \
 								-DCMAKE_TOOLCHAIN_FILE=${CMAKE_DIR}/toolchain_${TC}.cmake \
+								-DCMAKE_INSTALL_PREFIX=${INSTALL_SUBDIR} \
 								${EXTRA_CMAKE_PARAM} \
 								${ROOT_DIR};
 	cd ${BUILD_SUBDIR}; ${MAKE} ${MAKE_FLAGS} ${TARGETS}

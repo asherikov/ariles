@@ -16,4 +16,5 @@ endif()
 
 add_library(${TGT_ARILES_VISITOR_LIB} INTERFACE)
 
+set(ARILES_COMPONENT_CMAKE_DEPS "Protobuf")
 include(ariles_install_component)

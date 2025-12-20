@@ -4,6 +4,16 @@ CHANGELOG
 UNRELEASED
 ==========
 
+2.5.3
+=====
+
+Fixed
+-----
+* Reenable sanitizers in CI.
+* Memory leak in jsonnet reader.
+* cmake fixes: `find_dependency`, installation of target files.
+
+
 2.5.2
 =====
 

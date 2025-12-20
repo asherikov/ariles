@@ -22,6 +22,7 @@ if(NOT ARILES_DEB_TARGETS)
     )
 endif()
 
+set(ARILES_COMPONENT_CMAKE_DEPS "roscpp")
 include(ariles_install_component)
 set(ARILES_ROS_DISTRO "${ARILES_VISITOR_rosparam}")
 set(DEB_${ARILES_COMPONENT}_DEPENDS "ros-${ARILES_ROS_DISTRO}-ros-base")
