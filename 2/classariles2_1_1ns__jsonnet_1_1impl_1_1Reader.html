@@ -93,10 +93,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afc03402597a09c9af0dae400aa495765"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4801e2cbc8d97e6e88b2277036757ee" id="r_ab4801e2cbc8d97e6e88b2277036757ee"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__jsonnet_1_1impl_1_1Reader.html#ab4801e2cbc8d97e6e88b2277036757ee">~Reader</a> ()</td></tr>
 <tr class="separator:ab4801e2cbc8d97e6e88b2277036757ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9fc807468b57739d40662129910701f" id="r_aa9fc807468b57739d40662129910701f"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__jsonnet_1_1impl_1_1Reader.html#aa9fc807468b57739d40662129910701f">fromFile</a> (const std::string &amp;file_name)</td></tr>
-<tr class="separator:aa9fc807468b57739d40662129910701f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae592c161eaf6f7c104bf6a42fbaff652" id="r_ae592c161eaf6f7c104bf6a42fbaff652"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__jsonnet_1_1impl_1_1Reader.html#ae592c161eaf6f7c104bf6a42fbaff652">fromString</a> (const std::string &amp;input_string)</td></tr>
-<tr class="separator:ae592c161eaf6f7c104bf6a42fbaff652"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab397a6cabd29dabebd43492bf10b0534" id="r_ab397a6cabd29dabebd43492bf10b0534"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__jsonnet_1_1impl_1_1Reader.html#ab397a6cabd29dabebd43492bf10b0534">fromFile</a> (const std::string &amp;file_name)</td></tr>
+<tr class="separator:ab397a6cabd29dabebd43492bf10b0534"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91313b8db3bc0470797bcbb26ef640c1" id="r_a91313b8db3bc0470797bcbb26ef640c1"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__jsonnet_1_1impl_1_1Reader.html#a91313b8db3bc0470797bcbb26ef640c1">fromString</a> (const std::string &amp;input_string)</td></tr>
+<tr class="separator:a91313b8db3bc0470797bcbb26ef640c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3d209e04741fe4ae9c3f63f1714e62f" id="r_ae3d209e04741fe4ae9c3f63f1714e62f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1ns__jsonnet_1_1impl_1_1Reader.html#ae3d209e04741fe4ae9c3f63f1714e62f">free</a> (char *jsonnet_data)</td></tr>
+<tr class="separator:ae3d209e04741fe4ae9c3f63f1714e62f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-types" name="pro-types"></a>
 Protected Types</h2></td></tr>
@@ -173,14 +175,34 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa9fc807468b57739d40662129910701f" name="aa9fc807468b57739d40662129910701f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9fc807468b57739d40662129910701f">&#9670;&#160;</a></span>fromFile()</h2>
+<a id="ae3d209e04741fe4ae9c3f63f1714e62f" name="ae3d209e04741fe4ae9c3f63f1714e62f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3d209e04741fe4ae9c3f63f1714e62f">&#9670;&#160;</a></span>free()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const char * ariles2::ns_jsonnet::impl::Reader::fromFile </td>
+          <td class="memname">void ariles2::ns_jsonnet::impl::Reader::free </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>jsonnet_data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="jsonnet_2src_2reader_8cpp_source.html#l00063">63</a> of file <a class="el" href="jsonnet_2src_2reader_8cpp_source.html">reader.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab397a6cabd29dabebd43492bf10b0534" name="ab397a6cabd29dabebd43492bf10b0534"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab397a6cabd29dabebd43492bf10b0534">&#9670;&#160;</a></span>fromFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * ariles2::ns_jsonnet::impl::Reader::fromFile </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>file_name</em></td><td>)</td>
@@ -193,14 +215,14 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ae592c161eaf6f7c104bf6a42fbaff652" name="ae592c161eaf6f7c104bf6a42fbaff652"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae592c161eaf6f7c104bf6a42fbaff652">&#9670;&#160;</a></span>fromString()</h2>
+<a id="a91313b8db3bc0470797bcbb26ef640c1" name="a91313b8db3bc0470797bcbb26ef640c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91313b8db3bc0470797bcbb26ef640c1">&#9670;&#160;</a></span>fromString()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const char * ariles2::ns_jsonnet::impl::Reader::fromString </td>
+          <td class="memname">char * ariles2::ns_jsonnet::impl::Reader::fromString </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>input_string</em></td><td>)</td>

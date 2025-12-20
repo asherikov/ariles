@@ -199,8 +199,10 @@ $(function() {
 <h2>"Any": polymorphic configurations </h2>
 <p><code>ariles2::Any2</code> class defined in <code>ariles2/types.h</code> provides functionality similar to <code>protobuf::Any</code>: it allows automatic instantiation and configuration reading of user-defined classes based on their string ids. See <code>tests/api_v2/types/any.h</code> for an example.</p>
 <p><a class="anchor" id="tips"></a> </p><h1>Tips </h1>
-<h2>Ariles can read what it writes </h2>
-<p>If you are having problems figuring out the correct confguration file layout for an <code>ariles</code> class, try writing it first to get an example.</p>
+<ul>
+<li>If you are having problems figuring out the correct configuration file layout for an <code>ariles</code> class, try writing it first to get an example. <code>ariles</code> can parse its own output.</li>
+<li>It is not possible to make some members optional and require the rest. However, you can wrap these members with smart pointers or <code>boost::optional</code>, which may be uninitialized. <code>ariles</code> automatically adds <code>is_null</code> flag for each of such variables in configuration files.</li>
+</ul>
 <p><a class="anchor" id="related"></a> </p><h1>Related software </h1>
 <ul>
 <li><a href="https://github.com/PickNikRobotics/rosparam_shortcuts">https://github.com/PickNikRobotics/rosparam_shortcuts</a>: a set of wrapper functions to read individual parameters from ROS parameter server. This tool serves pretty much the same purpose as <code>ariles2::rosparam::Reader</code>, but its functionality is more limited.</li>
