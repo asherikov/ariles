@@ -1,6 +1,6 @@
 # General parameters
 cmake_minimum_required (VERSION 3.13.0)
-project(ariles2 VERSION 2.5.2)
+project(ariles2 VERSION 2.5.3)
 
 
 set(ARILES_HOMEPAGE http://asherikov.github.io/ariles/2)
@@ -201,8 +201,8 @@ endif(CMAKE_TOOLCHAIN_FILE)
 #  Release        : w/o debug symbols, w/ optimization
 #  RelWithDebInfo : w/ debug symbols, w/ optimization
 #  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
-if(NOT CMAKE_BUILD_TYPE)
-    set (CMAKE_BUILD_TYPE Debug)
+if(NOT DEFINED CMAKE_BUILD_TYPE)
+    set (CMAKE_BUILD_TYPE RelWithDebInfo)
 endif (NOT CMAKE_BUILD_TYPE)
 
 set(CMAKEUT_CPP_SANITIZERS  ${ARILES_CPP_SANITIZERS})

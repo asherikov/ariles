@@ -298,11 +298,14 @@ of user-defined classes based on their string ids. See
 Tips
 ====
 
-Ariles can read what it writes
-------------------------------
+- If you are having problems figuring out the correct configuration file layout
+  for an `ariles` class, try writing it first to get an example. `ariles` can
+  parse its own output.
 
-If you are having problems figuring out the correct confguration file layout
-for an `ariles` class, try writing it first to get an example.
+- It is not possible to make some members optional and require the rest.
+  However, you can wrap these members with smart pointers or `boost::optional`,
+  which may be uninitialized. `ariles` automatically adds `is_null` flag for
+  each of such variables in configuration files.
 
 
 <a name="related"></a>

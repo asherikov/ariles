@@ -181,7 +181,7 @@ namespace ariles2
             {
                 ariles2::apply(BaseVisitorWrapper<t_Visitor>::visitor_, entry, path, param.template get<t_Visitor>());
 
-                BaseVisitor<t_Visitors...>::template visit(entry, path, param);
+                BaseVisitor<t_Visitors...>::visit(entry, path, param);
             }
         };
 
@@ -210,7 +210,7 @@ namespace ariles2
             template <class t_Entry, class t_Path>
             void visit(t_Entry &entry, const t_Path &path, const Parameters &param)
             {
-                BaseVisitor<t_Visitors...>::template visit(entry, path, param);
+                BaseVisitor<t_Visitors...>::visit(entry, path, param);
             }
         };
     }  // namespace aggregate

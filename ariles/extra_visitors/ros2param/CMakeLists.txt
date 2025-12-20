@@ -17,6 +17,7 @@ if(NOT ARILES_DEB_TARGETS)
     )
 endif()
 
+set(ARILES_COMPONENT_CMAKE_DEPS "rclcpp")
 include(ariles_install_component)
 set(ARILES_ROS_DISTRO "${ARILES_VISITOR_ros2param}")
 set(DEB_${ARILES_COMPONENT}_DEPENDS "ros-${ARILES_ROS_DISTRO}-rclcpp")

@@ -4,6 +4,7 @@ if(NOT ARILES_DEB_TARGETS)
     find_package(yaml-cpp)
 
     if(yaml-cpp_FOUND)
+        set(ARILES_COMPONENT_CMAKE_DEPS "yaml-cpp")
         set(ARILES_VISITOR_${ARILES_VISITOR}_INCLUDES "${YAML_CPP_INCLUDE_DIR}")
         if(TARGET yaml-cpp)
             set(ARILES_VISITOR_${ARILES_VISITOR}_LIBS "yaml-cpp")
