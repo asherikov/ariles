@@ -4,6 +4,13 @@ CHANGELOG
 UNRELEASED
 ==========
 
+2.5.4
+=====
+
+Changed
+-------
+* Do not explicitly set `CMAKE_BUILD_TYPE` if not defined.
+
 2.5.3
 =====
 
