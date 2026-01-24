@@ -4,6 +4,10 @@ CHANGELOG
 UNRELEASED
 ==========
 
+Added
+-----
+* New adapters: `std::array`, `std::deque`, `std::list`, `std::set`, `std::unordered_map`, `std::unordered_set`
+
 2.5.4
 =====
 

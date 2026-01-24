@@ -152,7 +152,7 @@ test-ros2: clean
 
 test-noros: clean
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
-	${MAKE} clangcheck SCANBUILD=scan-build20 OPTIONS=noros_tidy
+	${MAKE} clangcheck SCANBUILD=scan-build-20 OPTIONS=noros_tidy
 	${MAKE} cppcheck
 	${MAKE} spell
 

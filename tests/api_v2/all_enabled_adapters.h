@@ -10,9 +10,15 @@
 
 #pragma once
 
-#include <ariles2/adapters/std_vector.h>
-#include <ariles2/adapters/std_pair.h>
+#include <ariles2/adapters/std_array.h>
+#include <ariles2/adapters/std_deque.h>
+#include <ariles2/adapters/std_list.h>
 #include <ariles2/adapters/std_map.h>
+#include <ariles2/adapters/std_pair.h>
+#include <ariles2/adapters/std_set.h>
+#include <ariles2/adapters/std_unordered_map.h>
+#include <ariles2/adapters/std_unordered_set.h>
+#include <ariles2/adapters/std_vector.h>
 #include <ariles2/adapters/pointer.h>
 
 #ifdef ARILES_ADAPTER_EIGEN

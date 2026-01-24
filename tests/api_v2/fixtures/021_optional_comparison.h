@@ -2,7 +2,7 @@
     @file
     @author  Alexander Sherikov
 
-    @copyright 2017-2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
+    @copyright 2017-2026 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
 
     @brief
@@ -29,7 +29,7 @@ namespace ariles_tests
             ariles2::Compare::Parameters param;
             param.double_tolerance_ = g_tolerance;
             param.compare_number_of_entries_ = true;
-            BOOST_CHECK(ariles2::apply(visitor, out, in, param));
+            compareAndCheckWithBacktrace(visitor, out, in, param, "Optional comparison failed");
         }
 
 

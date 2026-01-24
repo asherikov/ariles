@@ -2,7 +2,7 @@
     @file
     @author  Alexander Sherikov
 
-    @copyright 2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
+    @copyright 2018-2026 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
 
     @brief
@@ -35,6 +35,14 @@ namespace ariles_tests
 
         std::pair<std::string, double> std_pair;
         std::map<std::string, std::vector<std::string>> std_map;
+
+
+        std::array<double, 5> std_array;
+        std::deque<double> std_deque;
+        std::list<double> std_list;
+        std::set<int> std_set;
+        std::unordered_map<std::string, double> std_unordered_map;
+        std::unordered_set<int> std_unordered_set;
 
 
 #ifdef ARILES_ADAPTER_EIGEN
