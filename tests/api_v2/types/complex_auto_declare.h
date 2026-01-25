@@ -29,6 +29,10 @@ namespace ariles_tests
     ARILES2_TYPED_ENTRY_(v, some_enum, SomeEnum)                                                                       \
     ARILES2_TYPED_ENTRY_(v, boolean_true, bool)                                                                        \
     ARILES2_TYPED_ENTRY_(v, boolean_false, bool)                                                                       \
+    ARILES2_TYPED_ENTRY_(v, chrono_seconds, std::chrono::seconds)                                                      \
+    ARILES2_TYPED_ENTRY_(v, chrono_milliseconds, std::chrono::milliseconds)                                            \
+    ARILES2_TYPED_ENTRY_(v, chrono_duration, std::chrono::duration<double>)                                            \
+    ARILES2_TYPED_ENTRY_(v, chrono_time_point, std::chrono::steady_clock::time_point)                                  \
     ARILES2_ENTRY_(v, std_pair)                                                                                        \
     ARILES2_ENTRY_(v, std_map)                                                                                         \
     ARILES2_ENTRY_(v, std_array)                                                                                       \
@@ -81,6 +85,7 @@ namespace ariles_tests
         std::set<int> std_set_;
         std::unordered_map<std::string, double> std_unordered_map_;
         std::unordered_set<int> std_unordered_set_;
+
 
 
     public:

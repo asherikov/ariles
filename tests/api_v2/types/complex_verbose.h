@@ -30,6 +30,10 @@ namespace ariles_tests
     ARILES2_ENTRY_(v, some_enum)                                                                                       \
     ARILES2_ENTRY_(v, boolean_true)                                                                                    \
     ARILES2_ENTRY_(v, boolean_false)                                                                                   \
+    ARILES2_ENTRY_(v, chrono_seconds)                                                                                  \
+    ARILES2_ENTRY_(v, chrono_milliseconds)                                                                             \
+    ARILES2_ENTRY_(v, chrono_duration)                                                                                 \
+    ARILES2_ENTRY_(v, chrono_time_point)                                                                               \
     ARILES2_ENTRY_(v, std_pair)                                                                                        \
     ARILES2_ENTRY_(v, std_map)                                                                                         \
     ARILES2_ENTRY_(v, std_array)                                                                                       \
@@ -100,6 +104,12 @@ namespace ariles_tests
         std::set<int> std_set_;
         std::unordered_map<std::string, double> std_unordered_map_;
         std::unordered_set<int> std_unordered_set_;
+
+        std::chrono::seconds chrono_seconds_;
+        std::chrono::milliseconds chrono_milliseconds_;
+        std::chrono::duration<double> chrono_duration_;
+        std::chrono::steady_clock::time_point chrono_time_point_;
+
 
 
 #ifdef ARILES_ADAPTER_EIGEN

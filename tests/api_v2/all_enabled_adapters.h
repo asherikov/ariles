@@ -11,6 +11,7 @@
 #pragma once
 
 #include <ariles2/adapters/std_array.h>
+#include <ariles2/adapters/std_chrono.h>
 #include <ariles2/adapters/std_deque.h>
 #include <ariles2/adapters/std_list.h>
 #include <ariles2/adapters/std_map.h>

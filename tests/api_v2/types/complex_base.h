@@ -109,6 +109,11 @@ namespace ariles_tests
             impl->std_unordered_set_.insert(2);
             impl->std_unordered_set_.insert(3);
 
+            impl->chrono_seconds_ = std::chrono::seconds(10);
+            impl->chrono_milliseconds_ = std::chrono::milliseconds(500);
+            impl->chrono_duration_ = std::chrono::duration<double>(3.14);
+            impl->chrono_time_point_ = std::chrono::steady_clock::now();
+
 
 #ifdef ARILES_ADAPTER_EIGEN
             impl->vector_.setConstant(3);
@@ -225,6 +230,11 @@ namespace ariles_tests
             impl->std_unordered_set_.insert(GET_RANDOM_INT);
             impl->std_unordered_set_.insert(GET_RANDOM_INT);
             impl->std_unordered_set_.insert(GET_RANDOM_INT);
+
+            impl->chrono_seconds_ = std::chrono::seconds(GET_RANDOM_INT % 100);
+            impl->chrono_milliseconds_ = std::chrono::milliseconds(GET_RANDOM_INT % 1000);
+            impl->chrono_duration_ = std::chrono::duration<double>(GET_RANDOM_REAL);
+            impl->chrono_time_point_ = std::chrono::steady_clock::now(); // Use current time
 
 
 #    ifdef ARILES_ADAPTER_EIGEN
@@ -426,6 +436,12 @@ namespace ariles_tests
                 BOOST_CHECK_EQUAL(*search, value);
             }
         }
+
+        // Compare std::chrono types
+        BOOST_CHECK_EQUAL(configurable_out.chrono_seconds_.count(), configurable_in.chrono_seconds_.count());
+        BOOST_CHECK_EQUAL(configurable_out.chrono_milliseconds_.count(), configurable_in.chrono_milliseconds_.count());
+        BOOST_CHECK_CLOSE(configurable_out.chrono_duration_.count(), configurable_in.chrono_duration_.count(), g_tolerance);
+        BOOST_CHECK(configurable_out.chrono_time_point_ == configurable_in.chrono_time_point_);
 
 
 #    ifdef ARILES_ADAPTER_EIGEN

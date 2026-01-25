@@ -44,6 +44,11 @@ namespace ariles_tests
         std::unordered_map<std::string, double> std_unordered_map;
         std::unordered_set<int> std_unordered_set;
 
+        std::chrono::seconds chrono_seconds;
+        std::chrono::milliseconds chrono_milliseconds;
+        std::chrono::duration<double> chrono_duration;
+        std::chrono::steady_clock::time_point chrono_time_point;
+
 
 #ifdef ARILES_ADAPTER_EIGEN
         Eigen::Vector3d vector;
