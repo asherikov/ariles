@@ -74,12 +74,18 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">ariles2::copyto Namespace Reference<div class="ingroups"><a class="el" href="group__copyto.html">CopyTo</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespaceariles2_1_1copyto_1_1impl" id="r_namespaceariles2_1_1copyto_1_1impl"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceariles2_1_1copyto_1_1impl.html">impl</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classariles2_1_1copyto_1_1Base.html">Base</a></td></tr>
@@ -103,12 +109,42 @@ Functions</h2></td></tr>
 <tr class="memitem:a602a6f482b85544861ca60656b83351e" id="r_a602a6f482b85544861ca60656b83351e"><td class="memTemplParams" colspan="2">template&lt;class t_Visitor , typename t_Left , typename t_Right &gt; </td></tr>
 <tr class="memitem:a602a6f482b85544861ca60656b83351e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles2_1_1copyto.html#a602a6f482b85544861ca60656b83351e">apply_copyto</a> (t_Visitor &amp;visitor, const <a class="el" href="pointer_8h.html#a2940a36967b110d130a4c8546674fc5d">ARILES2_POINTER_TYPE</a>&lt; t_Left &gt; &amp;left, <a class="el" href="pointer_8h.html#a2940a36967b110d130a4c8546674fc5d">ARILES2_POINTER_TYPE</a>&lt; t_Right &gt; &amp;right, const typename t_Visitor::Parameters &amp;param)</td></tr>
 <tr class="separator:a602a6f482b85544861ca60656b83351e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba305d49b24535a2f23fc5f7c240f7f3" id="r_aba305d49b24535a2f23fc5f7c240f7f3"><td class="memTemplParams" colspan="2">template&lt;class t_Visitor , class t_LeftType , class t_RightType , std::size_t t_Size&gt; </td></tr>
+<tr class="memitem:aba305d49b24535a2f23fc5f7c240f7f3"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles2_1_1copyto.html#aba305d49b24535a2f23fc5f7c240f7f3">apply_copyto</a> (t_Visitor &amp;visitor, const std::array&lt; t_LeftType, t_Size &gt; &amp;left, std::array&lt; t_RightType, t_Size &gt; &amp;right, const typename t_Visitor::Parameters &amp;param)</td></tr>
+<tr class="separator:aba305d49b24535a2f23fc5f7c240f7f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62002473d204b53067fe5cbd877feb55" id="r_a62002473d204b53067fe5cbd877feb55"><td class="memTemplParams" colspan="2">template&lt;class t_Visitor , class t_Rep , class t_Period &gt; </td></tr>
+<tr class="memitem:a62002473d204b53067fe5cbd877feb55"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles2_1_1copyto.html#a62002473d204b53067fe5cbd877feb55">apply_copyto</a> (t_Visitor &amp;, const std::chrono::duration&lt; t_Rep, t_Period &gt; &amp;left, std::chrono::duration&lt; t_Rep, t_Period &gt; &amp;right, const typename t_Visitor::Parameters &amp;)</td></tr>
+<tr class="separator:a62002473d204b53067fe5cbd877feb55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91e795a7cf464bdc0c341b17732028ca" id="r_a91e795a7cf464bdc0c341b17732028ca"><td class="memTemplParams" colspan="2">template&lt;class t_Visitor , class t_Clock , class t_Duration &gt; </td></tr>
+<tr class="memitem:a91e795a7cf464bdc0c341b17732028ca"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles2_1_1copyto.html#a91e795a7cf464bdc0c341b17732028ca">apply_copyto</a> (t_Visitor &amp;, const std::chrono::time_point&lt; t_Clock, t_Duration &gt; &amp;left, std::chrono::time_point&lt; t_Clock, t_Duration &gt; &amp;right, const typename t_Visitor::Parameters &amp;)</td></tr>
+<tr class="separator:a91e795a7cf464bdc0c341b17732028ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad33e8693a1b130b6e331a577ee831284" id="r_ad33e8693a1b130b6e331a577ee831284"><td class="memTemplParams" colspan="2">template&lt;class t_Visitor , class... t_LeftArgs, class... t_RightArgs&gt; </td></tr>
+<tr class="memitem:ad33e8693a1b130b6e331a577ee831284"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles2_1_1copyto.html#ad33e8693a1b130b6e331a577ee831284">apply_copyto</a> (t_Visitor &amp;visitor, const std::deque&lt; t_LeftArgs... &gt; &amp;left, std::deque&lt; t_RightArgs... &gt; &amp;right, const typename t_Visitor::Parameters &amp;param)</td></tr>
+<tr class="separator:ad33e8693a1b130b6e331a577ee831284"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7883bc1d80fa30e58c0f97c1634227c1" id="r_a7883bc1d80fa30e58c0f97c1634227c1"><td class="memTemplParams" colspan="2">template&lt;class t_Visitor &gt; </td></tr>
+<tr class="memitem:a7883bc1d80fa30e58c0f97c1634227c1"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles2_1_1copyto.html#a7883bc1d80fa30e58c0f97c1634227c1">apply_copyto</a> (t_Visitor &amp;, const std::filesystem::path &amp;left, std::filesystem::path &amp;right, const typename t_Visitor::Parameters &amp;)</td></tr>
+<tr class="separator:a7883bc1d80fa30e58c0f97c1634227c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af812ccfda01caed1a650fb78c5b7d1d1" id="r_af812ccfda01caed1a650fb78c5b7d1d1"><td class="memTemplParams" colspan="2">template&lt;class t_Visitor , class... t_LeftArgs, class... t_RightArgs&gt; </td></tr>
+<tr class="memitem:af812ccfda01caed1a650fb78c5b7d1d1"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles2_1_1copyto.html#af812ccfda01caed1a650fb78c5b7d1d1">apply_copyto</a> (t_Visitor &amp;visitor, const std::list&lt; t_LeftArgs... &gt; &amp;left, std::list&lt; t_RightArgs... &gt; &amp;right, const typename t_Visitor::Parameters &amp;param)</td></tr>
+<tr class="separator:af812ccfda01caed1a650fb78c5b7d1d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd066cdc971340b558e8b3dd95bc6795" id="r_afd066cdc971340b558e8b3dd95bc6795"><td class="memTemplParams" colspan="2">template&lt;class t_Visitor , class... t_ArgsLeft, class... t_ArgsRight&gt; </td></tr>
 <tr class="memitem:afd066cdc971340b558e8b3dd95bc6795"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles2_1_1copyto.html#afd066cdc971340b558e8b3dd95bc6795">apply_copyto</a> (t_Visitor &amp;visitor, const std::map&lt; t_ArgsLeft... &gt; &amp;left, std::map&lt; t_ArgsRight... &gt; &amp;right, const typename t_Visitor::Parameters &amp;param)</td></tr>
 <tr class="separator:afd066cdc971340b558e8b3dd95bc6795"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add6434b0a2c2e69ccb4cfd1f75a160da" id="r_add6434b0a2c2e69ccb4cfd1f75a160da"><td class="memTemplParams" colspan="2">template&lt;class t_Visitor , typename t_FirstLeft , typename t_SecondLeft , typename t_FirstRight , typename t_SecondRight &gt; </td></tr>
 <tr class="memitem:add6434b0a2c2e69ccb4cfd1f75a160da"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles2_1_1copyto.html#add6434b0a2c2e69ccb4cfd1f75a160da">apply_copyto</a> (t_Visitor &amp;visitor, const std::pair&lt; t_FirstLeft, t_SecondLeft &gt; &amp;left, std::pair&lt; t_FirstRight, t_SecondRight &gt; &amp;right, const typename t_Visitor::Parameters &amp;param)</td></tr>
 <tr class="separator:add6434b0a2c2e69ccb4cfd1f75a160da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3b42e08dd015c3ac0a162df36868726" id="r_ad3b42e08dd015c3ac0a162df36868726"><td class="memTemplParams" colspan="2">template&lt;class t_Visitor , class... t_LeftArgs, class... t_RightArgs&gt; </td></tr>
+<tr class="memitem:ad3b42e08dd015c3ac0a162df36868726"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles2_1_1copyto.html#ad3b42e08dd015c3ac0a162df36868726">apply_copyto</a> (t_Visitor &amp;visitor, const std::set&lt; t_LeftArgs... &gt; &amp;left, std::set&lt; t_RightArgs... &gt; &amp;right, const typename t_Visitor::Parameters &amp;param)</td></tr>
+<tr class="separator:ad3b42e08dd015c3ac0a162df36868726"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad96b2ee44746ab2843ac99a522591b75" id="r_ad96b2ee44746ab2843ac99a522591b75"><td class="memTemplParams" colspan="2">template&lt;class t_Visitor , typename... t_Args&gt; </td></tr>
+<tr class="memitem:ad96b2ee44746ab2843ac99a522591b75"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles2_1_1copyto.html#ad96b2ee44746ab2843ac99a522591b75">apply_copyto</a> (t_Visitor &amp;visitor, const std::tuple&lt; t_Args... &gt; &amp;left, std::tuple&lt; t_Args... &gt; &amp;right, const typename t_Visitor::Parameters &amp;param)</td></tr>
+<tr class="separator:ad96b2ee44746ab2843ac99a522591b75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa61d3ad220ba75d6fee37ceaeb4b7dcb" id="r_aa61d3ad220ba75d6fee37ceaeb4b7dcb"><td class="memTemplParams" colspan="2">template&lt;class t_Visitor , class... t_ArgsLeft, class... t_ArgsRight&gt; </td></tr>
+<tr class="memitem:aa61d3ad220ba75d6fee37ceaeb4b7dcb"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles2_1_1copyto.html#aa61d3ad220ba75d6fee37ceaeb4b7dcb">apply_copyto</a> (t_Visitor &amp;visitor, const std::unordered_map&lt; t_ArgsLeft... &gt; &amp;left, std::unordered_map&lt; t_ArgsRight... &gt; &amp;right, const typename t_Visitor::Parameters &amp;param)</td></tr>
+<tr class="separator:aa61d3ad220ba75d6fee37ceaeb4b7dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2673a5799e7b7d42e7d2704052217c1" id="r_ae2673a5799e7b7d42e7d2704052217c1"><td class="memTemplParams" colspan="2">template&lt;class t_Visitor , class... t_LeftArgs, class... t_RightArgs&gt; </td></tr>
+<tr class="memitem:ae2673a5799e7b7d42e7d2704052217c1"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles2_1_1copyto.html#ae2673a5799e7b7d42e7d2704052217c1">apply_copyto</a> (t_Visitor &amp;visitor, const std::unordered_set&lt; t_LeftArgs... &gt; &amp;left, std::unordered_set&lt; t_RightArgs... &gt; &amp;right, const typename t_Visitor::Parameters &amp;param)</td></tr>
+<tr class="separator:ae2673a5799e7b7d42e7d2704052217c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e5499283da3004d1b974cac35efa93b" id="r_a6e5499283da3004d1b974cac35efa93b"><td class="memTemplParams" colspan="2">template&lt;class t_Visitor , class... t_LeftArgs, class... t_RightArgs&gt; </td></tr>
 <tr class="memitem:a6e5499283da3004d1b974cac35efa93b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceariles2_1_1copyto.html#a6e5499283da3004d1b974cac35efa93b">apply_copyto</a> (t_Visitor &amp;visitor, const std::vector&lt; t_LeftArgs... &gt; &amp;left, std::vector&lt; t_RightArgs... &gt; &amp;right, const typename t_Visitor::Parameters &amp;param)</td></tr>
 <tr class="separator:a6e5499283da3004d1b974cac35efa93b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,7 +172,7 @@ Functions</h2></td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a190008c75aa85b37564dc5f97de3ee99" name="a190008c75aa85b37564dc5f97de3ee99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a190008c75aa85b37564dc5f97de3ee99">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[1/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a190008c75aa85b37564dc5f97de3ee99">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[1/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,7 +216,7 @@ template&lt;class t_Visitor , typename t_Scalar , int t_options&gt; </div>
 </div>
 </div>
 <a id="ae512f41139d221e5bc70ac07e18d8389" name="ae512f41139d221e5bc70ac07e18d8389"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae512f41139d221e5bc70ac07e18d8389">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[2/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae512f41139d221e5bc70ac07e18d8389">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[2/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -224,7 +260,7 @@ template&lt;class t_Visitor , typename t_Scalar , int t_mode, int t_options&gt; 
 </div>
 </div>
 <a id="a2b36d8a5c0d9fd77240b5e96933a83b6" name="a2b36d8a5c0d9fd77240b5e96933a83b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b36d8a5c0d9fd77240b5e96933a83b6">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[3/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b36d8a5c0d9fd77240b5e96933a83b6">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[3/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -268,7 +304,7 @@ template&lt;class t_Visitor , typename t_XprType , bool t_InnerPanel&gt; </div>
 </div>
 </div>
 <a id="a5628d1449be944f27d8e1ba919cc1924" name="a5628d1449be944f27d8e1ba919cc1924"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5628d1449be944f27d8e1ba919cc1924">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[4/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5628d1449be944f27d8e1ba919cc1924">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[4/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -312,7 +348,7 @@ template&lt;class t_Visitor , typename t_Scalar , int t_flags&gt; </div>
 </div>
 </div>
 <a id="a7eb91daeff64e548e90d20e38af1faef" name="a7eb91daeff64e548e90d20e38af1faef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7eb91daeff64e548e90d20e38af1faef">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[5/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7eb91daeff64e548e90d20e38af1faef">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[5/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -355,8 +391,140 @@ template&lt;class t_Visitor , typename t_Scalar , int t_flags&gt; </div>
 
 </div>
 </div>
+<a id="a62002473d204b53067fe5cbd877feb55" name="a62002473d204b53067fe5cbd877feb55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62002473d204b53067fe5cbd877feb55">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[6/24]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class t_Visitor , class t_Rep , class t_Period &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void ariles2::copyto::apply_copyto </td>
+          <td>(</td>
+          <td class="paramtype">t_Visitor &amp;&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::chrono::duration&lt; t_Rep, t_Period &gt; &amp;&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::chrono::duration&lt; t_Rep, t_Period &gt; &amp;&#160;</td>
+          <td class="paramname"><em>right</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const typename t_Visitor::Parameters &amp;&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="std__chrono_8h_source.html#l00221">221</a> of file <a class="el" href="std__chrono_8h_source.html">std_chrono.h</a>.</p>
+
+</div>
+</div>
+<a id="a91e795a7cf464bdc0c341b17732028ca" name="a91e795a7cf464bdc0c341b17732028ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91e795a7cf464bdc0c341b17732028ca">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[7/24]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class t_Visitor , class t_Clock , class t_Duration &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void ariles2::copyto::apply_copyto </td>
+          <td>(</td>
+          <td class="paramtype">t_Visitor &amp;&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::chrono::time_point&lt; t_Clock, t_Duration &gt; &amp;&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::chrono::time_point&lt; t_Clock, t_Duration &gt; &amp;&#160;</td>
+          <td class="paramname"><em>right</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const typename t_Visitor::Parameters &amp;&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="std__chrono_8h_source.html#l00237">237</a> of file <a class="el" href="std__chrono_8h_source.html">std_chrono.h</a>.</p>
+
+</div>
+</div>
+<a id="a7883bc1d80fa30e58c0f97c1634227c1" name="a7883bc1d80fa30e58c0f97c1634227c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7883bc1d80fa30e58c0f97c1634227c1">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[8/24]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class t_Visitor &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void ariles2::copyto::apply_copyto </td>
+          <td>(</td>
+          <td class="paramtype">t_Visitor &amp;&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::filesystem::path &amp;&#160;</td>
+          <td class="paramname"><em>right</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const typename t_Visitor::Parameters &amp;&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="std__filesystem__path_8h_source.html#l00126">126</a> of file <a class="el" href="std__filesystem__path_8h_source.html">std_filesystem_path.h</a>.</p>
+
+</div>
+</div>
 <a id="ab362d9a3bc488f60d95bbdb0a34677fa" name="ab362d9a3bc488f60d95bbdb0a34677fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab362d9a3bc488f60d95bbdb0a34677fa">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[6/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab362d9a3bc488f60d95bbdb0a34677fa">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[9/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -430,7 +598,7 @@ template&lt;class t_Visitor , class t_BetterEnum &gt; </div>
 </div>
 </div>
 <a id="a21a06ed1bb70373131b0551b5262e617" name="a21a06ed1bb70373131b0551b5262e617"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21a06ed1bb70373131b0551b5262e617">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[7/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a21a06ed1bb70373131b0551b5262e617">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[10/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -474,7 +642,7 @@ template&lt;class t_Visitor , typename t_Enumeration , typename  = std::enable_i
 </div>
 </div>
 <a id="a51c7a9f76a2dd636ca9c1fdab80af4c8" name="a51c7a9f76a2dd636ca9c1fdab80af4c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a51c7a9f76a2dd636ca9c1fdab80af4c8">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[8/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a51c7a9f76a2dd636ca9c1fdab80af4c8">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[11/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -530,7 +698,7 @@ template&lt;class t_Visitor , class t_Left , class t_Right &gt; </div>
 </div>
 </div>
 <a id="a022a4eb4fc873b57078da46c491ea96a" name="a022a4eb4fc873b57078da46c491ea96a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a022a4eb4fc873b57078da46c491ea96a">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[9/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a022a4eb4fc873b57078da46c491ea96a">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[12/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -574,7 +742,7 @@ template&lt;class t_Visitor , typename t_Entry &gt; </div>
 </div>
 </div>
 <a id="a602a6f482b85544861ca60656b83351e" name="a602a6f482b85544861ca60656b83351e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a602a6f482b85544861ca60656b83351e">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[10/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a602a6f482b85544861ca60656b83351e">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[13/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -617,8 +785,140 @@ template&lt;class t_Visitor , typename t_Left , typename t_Right &gt; </div>
 
 </div>
 </div>
+<a id="aba305d49b24535a2f23fc5f7c240f7f3" name="aba305d49b24535a2f23fc5f7c240f7f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba305d49b24535a2f23fc5f7c240f7f3">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[14/24]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class t_Visitor , class t_LeftType , class t_RightType , std::size_t t_Size&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void ariles2::copyto::apply_copyto </td>
+          <td>(</td>
+          <td class="paramtype">t_Visitor &amp;&#160;</td>
+          <td class="paramname"><em>visitor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::array&lt; t_LeftType, t_Size &gt; &amp;&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::array&lt; t_RightType, t_Size &gt; &amp;&#160;</td>
+          <td class="paramname"><em>right</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const typename t_Visitor::Parameters &amp;&#160;</td>
+          <td class="paramname"><em>param</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="std__array_8h_source.html#l00163">163</a> of file <a class="el" href="std__array_8h_source.html">std_array.h</a>.</p>
+
+</div>
+</div>
+<a id="ad33e8693a1b130b6e331a577ee831284" name="ad33e8693a1b130b6e331a577ee831284"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad33e8693a1b130b6e331a577ee831284">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[15/24]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class t_Visitor , class... t_LeftArgs, class... t_RightArgs&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void ariles2::copyto::apply_copyto </td>
+          <td>(</td>
+          <td class="paramtype">t_Visitor &amp;&#160;</td>
+          <td class="paramname"><em>visitor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::deque&lt; t_LeftArgs... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::deque&lt; t_RightArgs... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>right</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const typename t_Visitor::Parameters &amp;&#160;</td>
+          <td class="paramname"><em>param</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="std__deque_8h_source.html#l00162">162</a> of file <a class="el" href="std__deque_8h_source.html">std_deque.h</a>.</p>
+
+</div>
+</div>
+<a id="af812ccfda01caed1a650fb78c5b7d1d1" name="af812ccfda01caed1a650fb78c5b7d1d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af812ccfda01caed1a650fb78c5b7d1d1">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[16/24]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class t_Visitor , class... t_LeftArgs, class... t_RightArgs&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void ariles2::copyto::apply_copyto </td>
+          <td>(</td>
+          <td class="paramtype">t_Visitor &amp;&#160;</td>
+          <td class="paramname"><em>visitor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::list&lt; t_LeftArgs... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::list&lt; t_RightArgs... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>right</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const typename t_Visitor::Parameters &amp;&#160;</td>
+          <td class="paramname"><em>param</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="std__list_8h_source.html#l00163">163</a> of file <a class="el" href="std__list_8h_source.html">std_list.h</a>.</p>
+
+</div>
+</div>
 <a id="afd066cdc971340b558e8b3dd95bc6795" name="afd066cdc971340b558e8b3dd95bc6795"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd066cdc971340b558e8b3dd95bc6795">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[11/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afd066cdc971340b558e8b3dd95bc6795">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[17/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -662,7 +962,7 @@ template&lt;class t_Visitor , class... t_ArgsLeft, class... t_ArgsRight&gt; </di
 </div>
 </div>
 <a id="add6434b0a2c2e69ccb4cfd1f75a160da" name="add6434b0a2c2e69ccb4cfd1f75a160da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add6434b0a2c2e69ccb4cfd1f75a160da">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[12/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#add6434b0a2c2e69ccb4cfd1f75a160da">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[18/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -705,8 +1005,184 @@ template&lt;class t_Visitor , typename t_FirstLeft , typename t_SecondLeft , typ
 
 </div>
 </div>
+<a id="ad3b42e08dd015c3ac0a162df36868726" name="ad3b42e08dd015c3ac0a162df36868726"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3b42e08dd015c3ac0a162df36868726">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[19/24]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class t_Visitor , class... t_LeftArgs, class... t_RightArgs&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void ariles2::copyto::apply_copyto </td>
+          <td>(</td>
+          <td class="paramtype">t_Visitor &amp;&#160;</td>
+          <td class="paramname"><em>visitor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::set&lt; t_LeftArgs... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::set&lt; t_RightArgs... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>right</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const typename t_Visitor::Parameters &amp;&#160;</td>
+          <td class="paramname"><em>param</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="std__set_8h_source.html#l00171">171</a> of file <a class="el" href="std__set_8h_source.html">std_set.h</a>.</p>
+
+</div>
+</div>
+<a id="ad96b2ee44746ab2843ac99a522591b75" name="ad96b2ee44746ab2843ac99a522591b75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad96b2ee44746ab2843ac99a522591b75">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[20/24]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class t_Visitor , typename... t_Args&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void ariles2::copyto::apply_copyto </td>
+          <td>(</td>
+          <td class="paramtype">t_Visitor &amp;&#160;</td>
+          <td class="paramname"><em>visitor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::tuple&lt; t_Args... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::tuple&lt; t_Args... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>right</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const typename t_Visitor::Parameters &amp;&#160;</td>
+          <td class="paramname"><em>param</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="std__tuple_8h_source.html#l00231">231</a> of file <a class="el" href="std__tuple_8h_source.html">std_tuple.h</a>.</p>
+
+</div>
+</div>
+<a id="aa61d3ad220ba75d6fee37ceaeb4b7dcb" name="aa61d3ad220ba75d6fee37ceaeb4b7dcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa61d3ad220ba75d6fee37ceaeb4b7dcb">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[21/24]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class t_Visitor , class... t_ArgsLeft, class... t_ArgsRight&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void ariles2::copyto::apply_copyto </td>
+          <td>(</td>
+          <td class="paramtype">t_Visitor &amp;&#160;</td>
+          <td class="paramname"><em>visitor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::unordered_map&lt; t_ArgsLeft... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unordered_map&lt; t_ArgsRight... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>right</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const typename t_Visitor::Parameters &amp;&#160;</td>
+          <td class="paramname"><em>param</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="std__unordered__map_8h_source.html#l00234">234</a> of file <a class="el" href="std__unordered__map_8h_source.html">std_unordered_map.h</a>.</p>
+
+</div>
+</div>
+<a id="ae2673a5799e7b7d42e7d2704052217c1" name="ae2673a5799e7b7d42e7d2704052217c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2673a5799e7b7d42e7d2704052217c1">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[22/24]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class t_Visitor , class... t_LeftArgs, class... t_RightArgs&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void ariles2::copyto::apply_copyto </td>
+          <td>(</td>
+          <td class="paramtype">t_Visitor &amp;&#160;</td>
+          <td class="paramname"><em>visitor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::unordered_set&lt; t_LeftArgs... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unordered_set&lt; t_RightArgs... &gt; &amp;&#160;</td>
+          <td class="paramname"><em>right</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const typename t_Visitor::Parameters &amp;&#160;</td>
+          <td class="paramname"><em>param</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="std__unordered__set_8h_source.html#l00172">172</a> of file <a class="el" href="std__unordered__set_8h_source.html">std_unordered_set.h</a>.</p>
+
+</div>
+</div>
 <a id="a6e5499283da3004d1b974cac35efa93b" name="a6e5499283da3004d1b974cac35efa93b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e5499283da3004d1b974cac35efa93b">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[13/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e5499283da3004d1b974cac35efa93b">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[23/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -750,7 +1226,7 @@ template&lt;class t_Visitor , class... t_LeftArgs, class... t_RightArgs&gt; </di
 </div>
 </div>
 <a id="ab6ac9d0d84aa747f186d3790a1e0f80a" name="ab6ac9d0d84aa747f186d3790a1e0f80a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6ac9d0d84aa747f186d3790a1e0f80a">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[14/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6ac9d0d84aa747f186d3790a1e0f80a">&#9670;&#160;</a></span>apply_copyto() <span class="overload">[24/24]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
