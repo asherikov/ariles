@@ -4,6 +4,9 @@ CHANGELOG
 UNRELEASED
 ==========
 
+2.6.0
+=====
+
 Added
 -----
 * New containers adapters: `std::array`, `std::deque`, `std::list`, `std::set`,
