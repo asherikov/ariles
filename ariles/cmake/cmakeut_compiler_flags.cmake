@@ -59,7 +59,7 @@ function(cmakeut_compiler_flags STANDARD)
 
 
     if (CMAKEUT_CLANG_TIDY)
-        find_program(CLANG_TIDY_EXECUTABLE NAMES clang-tidy clang-tidy18 clang-tidy15 clang-tidy-15 clang-tidy-14 clang-tidy-12 REQUIRED)
+        find_program(CLANG_TIDY_EXECUTABLE NAMES clang-tidy clang-tidy-20 clang-tidy18 clang-tidy15 clang-tidy-15 clang-tidy-14 clang-tidy-12 REQUIRED)
 
         set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXECUTABLE};-warnings-as-errors=*;-checks=*")
 

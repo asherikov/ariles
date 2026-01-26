@@ -65,5 +65,5 @@ namespace ariles2
                 cpput::ignoreResult(jsonnet_realloc(preprocessor_->vm_, jsonnet_data, 0));
             }
         }  // namespace impl
-    }      // namespace ns_jsonnet
+    }  // namespace ns_jsonnet
 }  // namespace ariles2

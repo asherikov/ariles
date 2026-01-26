@@ -2,7 +2,7 @@
     @file
     @author  Alexander Sherikov
 
-    @copyright 2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
+    @copyright 2018-2026 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
 
     @brief
@@ -81,6 +81,39 @@ namespace ariles_tests
             impl->std_map_["two"] = std_map_test;
             std_map_test.push_back("three");
             impl->std_map_["three"] = std_map_test;
+
+
+            for (std::size_t i = 0; i < impl->std_array_.size(); ++i)
+            {
+                impl->std_array_[i] = i * 2.5 + 1.0;
+            }
+
+            impl->std_deque_.push_back(10.5);
+            impl->std_deque_.push_back(20.5);
+            impl->std_deque_.push_back(30.5);
+
+            impl->std_list_.push_back(100.25);
+            impl->std_list_.push_back(200.25);
+            impl->std_list_.push_back(300.25);
+
+            impl->std_set_.insert(1);
+            impl->std_set_.insert(2);
+            impl->std_set_.insert(3);
+
+            impl->std_unordered_map_["first"] = 1.0;
+            impl->std_unordered_map_["second"] = 2.0;
+            impl->std_unordered_map_["third"] = 3.0;
+
+
+            impl->std_unordered_set_.insert(1);
+            impl->std_unordered_set_.insert(2);
+            impl->std_unordered_set_.insert(3);
+
+            impl->chrono_seconds_ = std::chrono::seconds(10);
+            impl->chrono_milliseconds_ = std::chrono::milliseconds(500);
+            impl->chrono_duration_ = std::chrono::duration<double>(3.14);
+            impl->chrono_time_point_ = std::chrono::steady_clock::time_point(std::chrono::milliseconds(10));
+            impl->std_filesystem_path_ = std::filesystem::path("/tmp/test");
 
 
 #ifdef ARILES_ADAPTER_EIGEN
@@ -166,6 +199,48 @@ namespace ariles_tests
             impl->std_map_["three3"] = std_map_test;
             std_map_test.push_back("4four");
             impl->std_map_["four4"] = std_map_test;
+
+
+            for (std::size_t i = 0; i < impl->std_array_.size(); ++i)
+            {
+                impl->std_array_[i] = GET_RANDOM_REAL;
+            }
+
+            impl->std_deque_.clear();
+            impl->std_deque_.push_back(GET_RANDOM_REAL);
+            impl->std_deque_.push_back(GET_RANDOM_REAL);
+            impl->std_deque_.push_back(GET_RANDOM_REAL);
+
+            impl->std_list_.clear();
+            impl->std_list_.push_back(GET_RANDOM_REAL);
+            impl->std_list_.push_back(GET_RANDOM_REAL);
+            impl->std_list_.push_back(GET_RANDOM_REAL);
+
+            impl->std_set_.clear();
+            impl->std_set_.insert(GET_RANDOM_INT);
+            impl->std_set_.insert(GET_RANDOM_INT);
+            impl->std_set_.insert(GET_RANDOM_INT);
+
+            impl->std_unordered_map_.clear();
+            impl->std_unordered_map_["first_random"] = GET_RANDOM_REAL;
+            impl->std_unordered_map_["second_random"] = GET_RANDOM_REAL;
+            impl->std_unordered_map_["third_random"] = GET_RANDOM_REAL;
+
+
+            impl->std_unordered_set_.clear();
+            impl->std_unordered_set_.insert(GET_RANDOM_INT);
+            impl->std_unordered_set_.insert(GET_RANDOM_INT);
+            impl->std_unordered_set_.insert(GET_RANDOM_INT);
+
+            impl->chrono_seconds_ = std::chrono::seconds(GET_RANDOM_INT % 100);
+            impl->chrono_milliseconds_ = std::chrono::milliseconds(GET_RANDOM_INT % 1000);
+            impl->chrono_duration_ = std::chrono::duration<double>(GET_RANDOM_REAL);
+            impl->chrono_time_point_ =
+                    std::chrono::steady_clock::time_point(std::chrono::milliseconds(GET_RANDOM_INT % 100));
+            {
+                std::string random_path = "/tmp/random_" + std::to_string(GET_RANDOM_INT);
+                impl->std_filesystem_path_ = std::filesystem::path(random_path);
+            }
 
 
 #    ifdef ARILES_ADAPTER_EIGEN
@@ -277,6 +352,107 @@ namespace ariles_tests
                 BOOST_CHECK_EQUAL(it->second[i], search->second[i]);
             }
         }
+
+
+        // Compare std::array
+        for (std::size_t i = 0; i < configurable_out.std_array_.size(); ++i)
+        {
+            BOOST_CHECK_CLOSE(configurable_out.std_array_[i], configurable_in.std_array_[i], g_tolerance);
+        }
+
+        // Compare std::deque
+        BOOST_CHECK_EQUAL(configurable_out.std_deque_.size(), configurable_in.std_deque_.size());
+        {
+            auto out_it = configurable_out.std_deque_.begin();
+            auto in_it = configurable_in.std_deque_.begin();
+            for (; out_it != configurable_out.std_deque_.end() && in_it != configurable_in.std_deque_.end();
+                 ++out_it, ++in_it)
+            {
+                BOOST_CHECK_CLOSE(*out_it, *in_it, g_tolerance);
+            }
+        }
+
+        // Compare std::list
+        BOOST_CHECK_EQUAL(configurable_out.std_list_.size(), configurable_in.std_list_.size());
+        {
+            auto out_it = configurable_out.std_list_.begin();
+            auto in_it = configurable_in.std_list_.begin();
+            for (; out_it != configurable_out.std_list_.end() && in_it != configurable_in.std_list_.end();
+                 ++out_it, ++in_it)
+            {
+                BOOST_CHECK_CLOSE(*out_it, *in_it, g_tolerance);
+            }
+        }
+
+        // Compare std::set
+        BOOST_CHECK_EQUAL(configurable_out.std_set_.size(), configurable_in.std_set_.size());
+        {
+            auto out_it = configurable_out.std_set_.begin();
+            auto in_it = configurable_in.std_set_.begin();
+            for (; out_it != configurable_out.std_set_.end() && in_it != configurable_in.std_set_.end();
+                 ++out_it, ++in_it)
+            {
+                BOOST_CHECK_EQUAL(*out_it, *in_it);
+            }
+        }
+
+        // Compare std::unordered_map
+        BOOST_CHECK_EQUAL(configurable_out.std_unordered_map_.size(), configurable_in.std_unordered_map_.size());
+        for (const auto &pair : configurable_in.std_unordered_map_)
+        {
+            auto search = configurable_out.std_unordered_map_.find(pair.first);
+            BOOST_CHECK(search != configurable_out.std_unordered_map_.end());
+            if (search != configurable_out.std_unordered_map_.end())
+            {
+                BOOST_CHECK_CLOSE(search->second, pair.second, g_tolerance);
+            }
+        }
+
+        // Also check the reverse direction to ensure all keys match
+        for (const auto &pair : configurable_out.std_unordered_map_)
+        {
+            auto search = configurable_in.std_unordered_map_.find(pair.first);
+            BOOST_CHECK(search != configurable_in.std_unordered_map_.end());
+            if (search != configurable_in.std_unordered_map_.end())
+            {
+                BOOST_CHECK_CLOSE(pair.second, search->second, g_tolerance);
+            }
+        }
+
+
+        // Compare std::unordered_set
+        BOOST_CHECK_EQUAL(configurable_out.std_unordered_set_.size(), configurable_in.std_unordered_set_.size());
+        for (const auto &value : configurable_in.std_unordered_set_)
+        {
+            auto search = configurable_out.std_unordered_set_.find(value);
+            BOOST_CHECK(search != configurable_out.std_unordered_set_.end());
+            if (search != configurable_out.std_unordered_set_.end())
+            {
+                BOOST_CHECK_EQUAL(*search, value);
+            }
+        }
+
+        // Also check the reverse direction to ensure all values match
+        for (const auto &value : configurable_out.std_unordered_set_)
+        {
+            auto search = configurable_in.std_unordered_set_.find(value);
+            BOOST_CHECK(search != configurable_in.std_unordered_set_.end());
+            if (search != configurable_in.std_unordered_set_.end())
+            {
+                BOOST_CHECK_EQUAL(*search, value);
+            }
+        }
+
+        // Compare std::chrono types
+        BOOST_CHECK_EQUAL(configurable_out.chrono_seconds_.count(), configurable_in.chrono_seconds_.count());
+        BOOST_CHECK_EQUAL(configurable_out.chrono_milliseconds_.count(), configurable_in.chrono_milliseconds_.count());
+        BOOST_CHECK_CLOSE(
+                configurable_out.chrono_duration_.count(), configurable_in.chrono_duration_.count(), g_tolerance);
+        BOOST_CHECK(configurable_out.chrono_time_point_ == configurable_in.chrono_time_point_);
+
+        // Compare std::filesystem::path type
+        BOOST_CHECK_EQUAL(
+                configurable_out.std_filesystem_path_.string(), configurable_in.std_filesystem_path_.string());
 
 
 #    ifdef ARILES_ADAPTER_EIGEN

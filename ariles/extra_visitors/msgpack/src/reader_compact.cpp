@@ -91,7 +91,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_msgpack_compact
+    }  // namespace ns_msgpack_compact
 }  // namespace ariles2
 
 

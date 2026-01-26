@@ -152,7 +152,7 @@ test-ros2: clean
 
 test-noros: clean
 	${MAKE} build-tests TC=${TC} TYPE=Debug OPTIONS=noros TARGETS="${TARGETS}" EXTRA_CMAKE_PARAM="${EXTRA_CMAKE_PARAM}"
-	${MAKE} clangcheck SCANBUILD=scan-build20 OPTIONS=noros_tidy
+	${MAKE} clangcheck SCANBUILD=scan-build-20 OPTIONS=noros_tidy
 	${MAKE} cppcheck
 	${MAKE} spell
 
@@ -226,7 +226,7 @@ install-deps:
 
 
 format:
-	${FIND_ARILES_SOURCES} | grep -v "better_enum.h" | xargs clang-format-15 -verbose -i
+	${FIND_ARILES_SOURCES} | grep -v "better_enum.h" | xargs clang-format-20 -verbose -i
 
 cppcheck:
 	# --inconclusive

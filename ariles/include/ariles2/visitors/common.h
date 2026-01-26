@@ -36,8 +36,8 @@ namespace ariles2
         class Visitor
         {
         protected:
-            Visitor(){};
-            ~Visitor(){};
+            Visitor() {};
+            ~Visitor() {};
         };
 
 

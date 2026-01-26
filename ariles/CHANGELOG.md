@@ -4,6 +4,16 @@ CHANGELOG
 UNRELEASED
 ==========
 
+2.6.0
+=====
+
+Added
+-----
+* New containers adapters: `std::array`, `std::deque`, `std::list`, `std::set`,
+  `std::unordered_map`, `std::unordered_set`.
+* Other STL adapters: `std::chrono`, `std::optional`, `std::filesystem::path`,
+  `std::tuple`.
+
 2.5.4
 =====
 

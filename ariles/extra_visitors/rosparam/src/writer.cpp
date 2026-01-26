@@ -27,7 +27,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_rosparam
+    }  // namespace ns_rosparam
 }  // namespace ariles2
 
 

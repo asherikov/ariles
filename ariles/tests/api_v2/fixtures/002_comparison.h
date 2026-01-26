@@ -2,7 +2,7 @@
     @file
     @author  Alexander Sherikov
 
-    @copyright 2017-2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
+    @copyright 2017-2026 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
 
     @brief
@@ -27,8 +27,9 @@ namespace ariles_tests
         {
             t_Configurable configurable_out;
             configurable_out.randomize();
-            BOOST_CHECK_NO_THROW(ariles2::apply<typename t_Visitor::Writer>(
-                                         getWriterInitializer("configurable_match_simple.cfg"), configurable_out););
+            BOOST_CHECK_NO_THROW(
+                    ariles2::apply<typename t_Visitor::Writer>(
+                            getWriterInitializer("configurable_match_simple.cfg"), configurable_out););
 
             // -------
 
@@ -47,7 +48,8 @@ namespace ariles_tests
             ariles2::Compare::Parameters param;
             param.double_tolerance_ = g_tolerance;
             param.compare_number_of_entries_ = true;
-            BOOST_CHECK(ariles2::apply(visitor, configurable_out, configurable_in, param));
+            compareAndCheckWithBacktrace(
+                    visitor, configurable_out, configurable_in, param, "ComparisonSimpleFixture failed");
         }
     };
 
@@ -94,8 +96,10 @@ namespace ariles_tests
             ariles2::Compare::Parameters param;
             param.double_tolerance_ = g_tolerance;
             param.compare_number_of_entries_ = true;
-            BOOST_CHECK(ariles2::apply(visitor, configurable_out1, configurable_in1, param));
-            BOOST_CHECK(ariles2::apply(visitor, configurable_out2, configurable_in2, param));
+            compareAndCheckWithBacktrace(
+                    visitor, configurable_out1, configurable_in1, param, "ComparisonMultiFixture 1 failed");
+            compareAndCheckWithBacktrace(
+                    visitor, configurable_out2, configurable_in2, param, "ComparisonMultiFixture 2 failed");
         }
     };
 }  // namespace ariles_tests

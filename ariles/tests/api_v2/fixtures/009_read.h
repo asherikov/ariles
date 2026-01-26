@@ -24,8 +24,9 @@ namespace ariles_tests
         template <class t_Configurable, class t_Visitor>
         void test()
         {
-            BOOST_CHECK_NO_THROW(t_Configurable configurable; ariles2::apply<typename t_Visitor::Reader>(
-                                         getReaderInitializer("configurable.cfg"), configurable););
+            BOOST_CHECK_NO_THROW(
+                    t_Configurable configurable; ariles2::apply<typename t_Visitor::Reader>(
+                            getReaderInitializer("configurable.cfg"), configurable););
         }
     };
 }  // namespace ariles_tests

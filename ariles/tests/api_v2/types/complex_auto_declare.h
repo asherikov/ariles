@@ -2,7 +2,7 @@
     @file
     @author  Alexander Sherikov
 
-    @copyright 2018 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
+    @copyright 2018-2026 Alexander Sherikov, Licensed under the Apache License, Version 2.0.
     (see @ref LICENSE or http://www.apache.org/licenses/LICENSE-2.0)
 
     @brief
@@ -15,6 +15,8 @@
 
 namespace ariles_tests
 {
+    using ConfigurableComplexTuple = std::tuple<int, double, std::string>;
+
     class ConfigurableComplex : public ARILES_TEST_DEFAULT_BASE, public ConfigurableComplexBase<ConfigurableComplex>
     {
 #define ARILES2_ENTRIES_STANDARD_TYPES(v)                                                                              \
@@ -29,8 +31,20 @@ namespace ariles_tests
     ARILES2_TYPED_ENTRY_(v, some_enum, SomeEnum)                                                                       \
     ARILES2_TYPED_ENTRY_(v, boolean_true, bool)                                                                        \
     ARILES2_TYPED_ENTRY_(v, boolean_false, bool)                                                                       \
+    ARILES2_TYPED_ENTRY_(v, chrono_seconds, std::chrono::seconds)                                                      \
+    ARILES2_TYPED_ENTRY_(v, chrono_milliseconds, std::chrono::milliseconds)                                            \
+    ARILES2_TYPED_ENTRY_(v, chrono_duration, std::chrono::duration<double>)                                            \
+    ARILES2_TYPED_ENTRY_(v, chrono_time_point, std::chrono::steady_clock::time_point)                                  \
+    ARILES2_TYPED_ENTRY_(v, std_tuple, ConfigurableComplexTuple)                                                       \
+    ARILES2_TYPED_ENTRY_(v, std_filesystem_path, std::filesystem::path)                                                \
     ARILES2_ENTRY_(v, std_pair)                                                                                        \
-    ARILES2_ENTRY_(v, std_map)
+    ARILES2_ENTRY_(v, std_map)                                                                                         \
+    ARILES2_ENTRY_(v, std_array)                                                                                       \
+    ARILES2_ENTRY_(v, std_deque)                                                                                       \
+    ARILES2_ENTRY_(v, std_list)                                                                                        \
+    ARILES2_ENTRY_(v, std_set)                                                                                         \
+    ARILES2_ENTRY_(v, std_unordered_map)                                                                               \
+    ARILES2_ENTRY_(v, std_unordered_set)
 
 
 #ifdef ARILES_ADAPTER_EIGEN
@@ -67,6 +81,15 @@ namespace ariles_tests
     public:
         std::pair<std::string, double> std_pair_;
         std::map<std::string, std::vector<std::string>> std_map_;
+
+
+        std::array<double, 5> std_array_;
+        std::deque<double> std_deque_;
+        std::list<double> std_list_;
+        std::set<int> std_set_;
+        std::unordered_map<std::string, double> std_unordered_map_;
+        std::unordered_set<int> std_unordered_set_;
+
 
 
     public:

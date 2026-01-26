@@ -76,7 +76,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_octave
+    }  // namespace ns_octave
 }  // namespace ariles2
 
 namespace ariles2
