@@ -74,7 +74,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_yaml_cpp
+    }  // namespace ns_yaml_cpp
 }  // namespace ariles2
 
 

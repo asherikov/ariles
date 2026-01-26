@@ -29,7 +29,10 @@ namespace ariles2
     namespace read
     {
         template <class t_Visitor, class... t_Args>
-        void apply_read(t_Visitor &visitor, std::unordered_set<t_Args...> &entry, const typename t_Visitor::Parameters &param)
+        void apply_read(
+                t_Visitor &visitor,
+                std::unordered_set<t_Args...> &entry,
+                const typename t_Visitor::Parameters &param)
         {
             CPPUT_TRACE_FUNCTION;
             const std::size_t size = visitor.startArray();

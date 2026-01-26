@@ -90,7 +90,7 @@ namespace ariles2
             {
                 CPPUT_TRACE_FUNCTION
                 type_ = Type::ARRAY;  // NOLINT
-            }                         // NOLINT
+            }  // NOLINT
 
             Node(t_RawNode node, const std::size_t index, const std::size_t size)
               : node_(node), index_(index), size_(size)
@@ -195,8 +195,8 @@ namespace ariles2
             PIMPLVisitor &operator=(const PIMPLVisitor &);
 
         protected:
-            PIMPLVisitor(){};
-            ~PIMPLVisitor(){};
+            PIMPLVisitor() {};
+            ~PIMPLVisitor() {};
 
             template <class... t_Args>
             void makeImplPtr(t_Args &&...args)

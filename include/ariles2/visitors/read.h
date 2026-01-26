@@ -249,7 +249,7 @@ namespace ariles2
 
 
             virtual std::size_t startArray() = 0;
-            virtual void startArrayElement(){};
+            virtual void startArrayElement() {};
             virtual void endArrayElement() = 0;
             virtual void endArray() = 0;
 
@@ -421,7 +421,7 @@ namespace ariles2
                     t_Entry &entry,
                     const std::string &name,
                     const Parameters &param,
-                    const bool override_missing_entries_locally = false)
+                    const bool require_entries_locally = false)
             {
                 CPPUT_TRACE_FUNCTION;
                 CPPUT_TRACE_VALUE(name);
@@ -444,7 +444,7 @@ namespace ariles2
                 else
                 {
                     CPPUT_PERSISTENT_ASSERT(
-                            not override_missing_entries_locally and param.allow_missing_entries_,
+                            not require_entries_locally and param.allow_missing_entries_,
                             "Configuration file does not contain entry '",
                             name,
                             "'.");

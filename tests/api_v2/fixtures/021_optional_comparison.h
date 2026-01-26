@@ -44,18 +44,20 @@ namespace ariles_tests
 
             {
                 t_Configurable configurable_out;
-                BOOST_CHECK_NO_THROW(ariles2::apply<typename t_Visitor::Writer>(
-                                             getWriterInitializer("configurable_match_simple.cfg"),
-                                             configurable_out,
-                                             writer_parameters););
+                BOOST_CHECK_NO_THROW(
+                        ariles2::apply<typename t_Visitor::Writer>(
+                                getWriterInitializer("configurable_match_simple.cfg"),
+                                configurable_out,
+                                writer_parameters););
 
                 // -------
 
                 t_Configurable configurable_in;
-                BOOST_CHECK_NO_THROW(ariles2::apply<typename t_Visitor::Reader>(
-                                             getReaderInitializer("configurable_match_simple.cfg"),
-                                             configurable_in,
-                                             reader_parameters););
+                BOOST_CHECK_NO_THROW(
+                        ariles2::apply<typename t_Visitor::Reader>(
+                                getReaderInitializer("configurable_match_simple.cfg"),
+                                configurable_in,
+                                reader_parameters););
 
                 // -------
 

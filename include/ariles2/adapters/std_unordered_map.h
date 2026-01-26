@@ -33,14 +33,20 @@ namespace ariles2
     namespace read
     {
         template <class t_Visitor, class... t_Args>
-        void apply_read(t_Visitor &visitor, std::unordered_map<t_Args...> &entry, const typename t_Visitor::Parameters &param)
+        void apply_read(
+                t_Visitor &visitor,
+                std::unordered_map<t_Args...> &entry,
+                const typename t_Visitor::Parameters &param)
         {
             CPPUT_TRACE_FUNCTION;
             const std::size_t size = visitor.startArray();
             entry.clear();
             for (std::size_t i = 0; i < size; ++i)
             {
-                std::pair<typename std::unordered_map<t_Args...>::key_type, typename std::unordered_map<t_Args...>::mapped_type> map_entry;
+                std::pair<
+                        typename std::unordered_map<t_Args...>::key_type,
+                        typename std::unordered_map<t_Args...>::mapped_type>
+                        map_entry;
 
                 visitor.startArrayElement();
                 apply_read(visitor, map_entry, param);

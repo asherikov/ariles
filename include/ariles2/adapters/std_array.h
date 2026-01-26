@@ -29,13 +29,17 @@ namespace ariles2
     namespace read
     {
         template <class t_Visitor, class t_Type, std::size_t t_Size>
-        void apply_read(t_Visitor &visitor, std::array<t_Type, t_Size> &entry, const typename t_Visitor::Parameters &param)
+        void apply_read(
+                t_Visitor &visitor,
+                std::array<t_Type, t_Size> &entry,
+                const typename t_Visitor::Parameters &param)
         {
             CPPUT_TRACE_FUNCTION;
             const std::size_t size = visitor.startArray();
             if (size != t_Size)
             {
-                throw std::runtime_error("Array size mismatch: expected " + std::to_string(t_Size) + ", got " + std::to_string(size));
+                throw std::runtime_error(
+                        "Array size mismatch: expected " + std::to_string(t_Size) + ", got " + std::to_string(size));
             }
             for (std::size_t i = 0; i < t_Size; ++i)
             {

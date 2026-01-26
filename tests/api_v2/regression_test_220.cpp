@@ -61,5 +61,6 @@ BOOST_FIXTURE_TEST_CASE(CompareInheritance, ariles_tests::DummyFixture)
     compareAndCheckWithBacktrace(visitor, configurable1, configurable2, param, "Inheritance comparison 1 failed");
 
     configurable1.randomize();
-    compareExpectingFailureAndCheckWithBacktrace(visitor, configurable1, configurable2, param, "Inheritance comparison 2 unexpectedly passed");
+    compareExpectingFailureAndCheckWithBacktrace(
+            visitor, configurable1, configurable2, param, "Inheritance comparison 2 unexpectedly passed");
 }

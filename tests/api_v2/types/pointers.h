@@ -121,7 +121,9 @@ namespace ariles_tests
     ARILES2_ENTRIES_0(v)                                                                                               \
     ARILES2_TYPED_ENTRY_(v, std_shared_ptr_test, std::shared_ptr<Minimal>)                                             \
     ARILES2_TYPED_ENTRY_(v, std_shared_ptr_test_non_null, ariles2::NonNullPointer<std::shared_ptr<Minimal>>)           \
-    ARILES2_TYPED_ENTRY_(v, std_unique_ptr_test, std::unique_ptr<Minimal>)
+    ARILES2_TYPED_ENTRY_(v, std_unique_ptr_test, std::unique_ptr<Minimal>)                                             \
+    ARILES2_TYPED_ENTRY_(v, std_optional_test, std::optional<Minimal>)                                                 \
+    ARILES2_TYPED_ENTRY_(v, std_optional_test_null, std::optional<Minimal>)
 
 
 #ifdef ARILES_ADAPTER_BOOST_POINTER
@@ -185,6 +187,9 @@ namespace ariles_tests
             optional_test_ = boost::none;
             optional_test_null_ = boost::none;
 #endif
+
+            std_optional_test_ = std::nullopt;
+            std_optional_test_null_ = std::nullopt;
         }
 
 
@@ -224,6 +229,13 @@ namespace ariles_tests
                 optional_test_null_ = boost::none;
             }
 #    endif
+
+            {
+                Minimal minimal;
+                minimal.randomize();
+                std_optional_test_ = minimal;
+                std_optional_test_null_ = std::nullopt;
+            }
         }
 #endif
     };
@@ -313,6 +325,13 @@ namespace ariles_tests
         BOOST_CHECK(configurable_in.optional_test_null_ == boost::none);
         BOOST_CHECK(configurable_in.optional_test_->finalize_check_flag_);
 #    endif
+
+        BOOST_CHECK(configurable_out.std_optional_test_ != std::nullopt);
+        BOOST_CHECK(configurable_in.std_optional_test_ != std::nullopt);
+        compareMinimal(configurable_out.std_optional_test_, configurable_in.std_optional_test_);
+        BOOST_CHECK(configurable_out.std_optional_test_null_ == std::nullopt);
+        BOOST_CHECK(configurable_in.std_optional_test_null_ == std::nullopt);
+        BOOST_CHECK(configurable_in.std_optional_test_->finalize_check_flag_);
     }
 #endif
 }  // namespace ariles_tests

@@ -15,6 +15,8 @@
 
 namespace ariles_tests
 {
+    using ConfigurableComplexTuple = std::tuple<int, double, std::string>;
+
     class ConfigurableComplex : public ARILES_TEST_DEFAULT_BASE, public ConfigurableComplexBase<ConfigurableComplex>
     {
 #define ARILES2_ENTRIES_STANDARD_TYPES(v)                                                                              \
@@ -33,13 +35,15 @@ namespace ariles_tests
     ARILES2_TYPED_ENTRY_(v, chrono_milliseconds, std::chrono::milliseconds)                                            \
     ARILES2_TYPED_ENTRY_(v, chrono_duration, std::chrono::duration<double>)                                            \
     ARILES2_TYPED_ENTRY_(v, chrono_time_point, std::chrono::steady_clock::time_point)                                  \
+    ARILES2_TYPED_ENTRY_(v, std_tuple, ConfigurableComplexTuple)                                                       \
+    ARILES2_TYPED_ENTRY_(v, std_filesystem_path, std::filesystem::path)                                                \
     ARILES2_ENTRY_(v, std_pair)                                                                                        \
     ARILES2_ENTRY_(v, std_map)                                                                                         \
     ARILES2_ENTRY_(v, std_array)                                                                                       \
     ARILES2_ENTRY_(v, std_deque)                                                                                       \
     ARILES2_ENTRY_(v, std_list)                                                                                        \
     ARILES2_ENTRY_(v, std_set)                                                                                         \
-    ARILES2_ENTRY_(v, std_unordered_map)                                                                                         \
+    ARILES2_ENTRY_(v, std_unordered_map)                                                                               \
     ARILES2_ENTRY_(v, std_unordered_set)
 
 

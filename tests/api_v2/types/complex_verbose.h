@@ -34,13 +34,15 @@ namespace ariles_tests
     ARILES2_ENTRY_(v, chrono_milliseconds)                                                                             \
     ARILES2_ENTRY_(v, chrono_duration)                                                                                 \
     ARILES2_ENTRY_(v, chrono_time_point)                                                                               \
+    ARILES2_ENTRY_(v, std_tuple)                                                                                       \
+    ARILES2_TYPED_ENTRY_(v, std_filesystem_path, std::filesystem::path)                                                \
     ARILES2_ENTRY_(v, std_pair)                                                                                        \
     ARILES2_ENTRY_(v, std_map)                                                                                         \
     ARILES2_ENTRY_(v, std_array)                                                                                       \
     ARILES2_ENTRY_(v, std_deque)                                                                                       \
     ARILES2_ENTRY_(v, std_list)                                                                                        \
     ARILES2_ENTRY_(v, std_set)                                                                                         \
-    ARILES2_ENTRY_(v, std_unordered_map)                                                                                         \
+    ARILES2_ENTRY_(v, std_unordered_map)                                                                               \
     ARILES2_ENTRY_(v, std_unordered_set)
 
 #ifdef ARILES_ADAPTER_EIGEN
@@ -109,6 +111,7 @@ namespace ariles_tests
         std::chrono::milliseconds chrono_milliseconds_;
         std::chrono::duration<double> chrono_duration_;
         std::chrono::steady_clock::time_point chrono_time_point_;
+        std::tuple<int, double, std::string> std_tuple_;
 
 
 

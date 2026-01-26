@@ -131,7 +131,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_graphviz
+    }  // namespace ns_graphviz
 }  // namespace ariles2
 
 

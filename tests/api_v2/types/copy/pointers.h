@@ -59,6 +59,10 @@ namespace ariles_tests
         boost::optional<Minimal> optional_test_null;
 #endif
 
+        std::optional<Minimal> std_optional_test;
+        std::optional<Minimal> std_optional_test_null;
+
+
     public:
         CopyPointers()
         {

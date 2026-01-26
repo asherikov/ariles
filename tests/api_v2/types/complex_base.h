@@ -112,7 +112,8 @@ namespace ariles_tests
             impl->chrono_seconds_ = std::chrono::seconds(10);
             impl->chrono_milliseconds_ = std::chrono::milliseconds(500);
             impl->chrono_duration_ = std::chrono::duration<double>(3.14);
-            impl->chrono_time_point_ = std::chrono::steady_clock::now();
+            impl->chrono_time_point_ = std::chrono::steady_clock::time_point(std::chrono::milliseconds(10));
+            impl->std_filesystem_path_ = std::filesystem::path("/tmp/test");
 
 
 #ifdef ARILES_ADAPTER_EIGEN
@@ -234,7 +235,12 @@ namespace ariles_tests
             impl->chrono_seconds_ = std::chrono::seconds(GET_RANDOM_INT % 100);
             impl->chrono_milliseconds_ = std::chrono::milliseconds(GET_RANDOM_INT % 1000);
             impl->chrono_duration_ = std::chrono::duration<double>(GET_RANDOM_REAL);
-            impl->chrono_time_point_ = std::chrono::steady_clock::now(); // Use current time
+            impl->chrono_time_point_ =
+                    std::chrono::steady_clock::time_point(std::chrono::milliseconds(GET_RANDOM_INT % 100));
+            {
+                std::string random_path = "/tmp/random_" + std::to_string(GET_RANDOM_INT);
+                impl->std_filesystem_path_ = std::filesystem::path(random_path);
+            }
 
 
 #    ifdef ARILES_ADAPTER_EIGEN
@@ -392,7 +398,7 @@ namespace ariles_tests
 
         // Compare std::unordered_map
         BOOST_CHECK_EQUAL(configurable_out.std_unordered_map_.size(), configurable_in.std_unordered_map_.size());
-        for (const auto& pair : configurable_in.std_unordered_map_)
+        for (const auto &pair : configurable_in.std_unordered_map_)
         {
             auto search = configurable_out.std_unordered_map_.find(pair.first);
             BOOST_CHECK(search != configurable_out.std_unordered_map_.end());
@@ -403,7 +409,7 @@ namespace ariles_tests
         }
 
         // Also check the reverse direction to ensure all keys match
-        for (const auto& pair : configurable_out.std_unordered_map_)
+        for (const auto &pair : configurable_out.std_unordered_map_)
         {
             auto search = configurable_in.std_unordered_map_.find(pair.first);
             BOOST_CHECK(search != configurable_in.std_unordered_map_.end());
@@ -416,7 +422,7 @@ namespace ariles_tests
 
         // Compare std::unordered_set
         BOOST_CHECK_EQUAL(configurable_out.std_unordered_set_.size(), configurable_in.std_unordered_set_.size());
-        for (const auto& value : configurable_in.std_unordered_set_)
+        for (const auto &value : configurable_in.std_unordered_set_)
         {
             auto search = configurable_out.std_unordered_set_.find(value);
             BOOST_CHECK(search != configurable_out.std_unordered_set_.end());
@@ -427,7 +433,7 @@ namespace ariles_tests
         }
 
         // Also check the reverse direction to ensure all values match
-        for (const auto& value : configurable_out.std_unordered_set_)
+        for (const auto &value : configurable_out.std_unordered_set_)
         {
             auto search = configurable_in.std_unordered_set_.find(value);
             BOOST_CHECK(search != configurable_in.std_unordered_set_.end());
@@ -440,8 +446,13 @@ namespace ariles_tests
         // Compare std::chrono types
         BOOST_CHECK_EQUAL(configurable_out.chrono_seconds_.count(), configurable_in.chrono_seconds_.count());
         BOOST_CHECK_EQUAL(configurable_out.chrono_milliseconds_.count(), configurable_in.chrono_milliseconds_.count());
-        BOOST_CHECK_CLOSE(configurable_out.chrono_duration_.count(), configurable_in.chrono_duration_.count(), g_tolerance);
+        BOOST_CHECK_CLOSE(
+                configurable_out.chrono_duration_.count(), configurable_in.chrono_duration_.count(), g_tolerance);
         BOOST_CHECK(configurable_out.chrono_time_point_ == configurable_in.chrono_time_point_);
+
+        // Compare std::filesystem::path type
+        BOOST_CHECK_EQUAL(
+                configurable_out.std_filesystem_path_.string(), configurable_in.std_filesystem_path_.string());
 
 
 #    ifdef ARILES_ADAPTER_EIGEN

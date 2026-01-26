@@ -86,6 +86,7 @@ nolint
 nolintbegin
 nolintend
 npos
+nullopt
 nullptr
 ofstream
 opencv

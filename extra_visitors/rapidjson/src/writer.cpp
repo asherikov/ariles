@@ -35,7 +35,7 @@ namespace ariles2
                 }
             };
         }  // namespace impl
-    }      // namespace ns_rapidjson
+    }  // namespace ns_rapidjson
 }  // namespace ariles2
 
 

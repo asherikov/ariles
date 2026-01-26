@@ -48,6 +48,8 @@ namespace ariles_tests
         std::chrono::milliseconds chrono_milliseconds;
         std::chrono::duration<double> chrono_duration;
         std::chrono::steady_clock::time_point chrono_time_point;
+        std::tuple<int, double, std::string> std_tuple;
+        std::filesystem::path std_filesystem_path;
 
 
 #ifdef ARILES_ADAPTER_EIGEN

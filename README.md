@@ -232,6 +232,8 @@ Supported data types
   `std::pair`, `std::shared_ptr`, `std::unique_ptr`, `std::array`,
   `std::deque`, `std::list`, `std::set`, `std::unordered_map`,
   `std::unordered_set`, `std::chrono::duration`, `std::chrono::time_point`.
+  `std::unordered_set`, `std::chrono::duration`, `std::chrono::time_point`,
+  `std::optional`, `std::filesystem::path`, `std::tuple`.
 * `Eigen` types: matrices, transforms, quaternions.
 * `Boost` classes: `boost::optional`, `boost::movelib::unique_ptr`. `boost::shared_ptr`.
 * Better enums -> <https://github.com/aantron/better-enums>.
