@@ -45,8 +45,8 @@ ariles_define_regression_test("203" ""      "${ARILES_TEST_ALL_VISITORS}")  # fi
 ariles_define_regression_test("204" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # no all_enabled_adapters.h
 ariles_define_regression_test("205" ""      "${ARILES_TEST_ALL_VISITORS}")  # disabled ariles
 ariles_define_regression_test("209" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # pointers (scalar)
-ariles_define_regression_test("210" "rapidjson;jsonnet")                    # jsonnet
-ariles_define_regression_test("211" "rapidjson;yaml_cpp")                   # visitor inclusion order # TODO
+ariles_define_regression_test("210" "rapidjson;jsonnet;nlohmann_json")      # jsonnet
+ariles_define_regression_test("211" "rapidjson;yaml_cpp;nlohmann_json")     # visitor inclusion order # TODO
 ariles_define_regression_test("212" "octave")                               # octave: complex, pointers
 ariles_define_regression_test("213" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # special floats
 ariles_define_regression_test("214" "ANY"   "${ARILES_TEST_FILE_VISITORS}") # filenames
@@ -58,7 +58,7 @@ ariles_define_regression_test("219" "")                                     # co
 ariles_define_regression_test("220" "")                                     # comparison (inheritance)
 ariles_define_regression_test("221" "namevalue")                            # namevalue
 ariles_define_regression_test("222" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # flags
-ariles_define_regression_test("223" "rapidjson")                            # json floats, flags
+ariles_define_regression_test("223" "rapidjson;nlohmann_json")              # json floats, flags
 ariles_define_regression_test("224" "yaml_cpp")                             # missing entries
 ariles_define_regression_test("225" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # 201, but with sloppy pairs and maps
 ariles_define_regression_test("226" "graphviz")                             # graphviz: complex, pointers

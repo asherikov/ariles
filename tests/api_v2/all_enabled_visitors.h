@@ -30,6 +30,10 @@
 #    include <ariles2/visitors/rapidjson.h>
 #endif
 
+#ifdef ARILES_VISITOR_nlohmann_json
+#    include <ariles2/visitors/nlohmann_json.h>
+#endif
+
 #ifdef ARILES_VISITOR_pugixml
 #    include <ariles2/visitors/pugixml.h>
 #endif

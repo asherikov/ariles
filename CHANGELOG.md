@@ -4,6 +4,10 @@ CHANGELOG
 UNRELEASED
 ==========
 
+Added
+-----
+* New visitor: `nlohmann_json`. Replacement for deprecated `rapidjson`.
+
 2.6.0
 =====
 

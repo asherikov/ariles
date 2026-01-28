@@ -79,6 +79,7 @@ movelib
 msgpack
 msgs
 namevalue
+nlohmann
 nocase
 nodiscard
 noexcept

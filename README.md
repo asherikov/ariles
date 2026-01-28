@@ -344,6 +344,9 @@ Related software
 Deprecated
 ==========
 
-- `ariles2::namevalue`, replaced by ``ariles2::namevalue2`
+- `ariles2::namevalue`, replaced by `ariles2::namevalue2`
 - `ariles2::Any`, replaced by `ariles2::Any2`
 - `rosparam`: ROS1 is EOL.
+- `rapidjson`: poorly maintained, Ubuntu packages are based on an old release
+  with a bug https://github.com/Tencent/rapidjson/issues/718. Replaced by
+  `nlohmann_json`.

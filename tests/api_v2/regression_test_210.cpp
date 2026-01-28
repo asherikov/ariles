@@ -13,6 +13,7 @@
 
 #include <ariles2/visitors/jsonnet.h>
 #include <ariles2/visitors/rapidjson.h>
+#include <ariles2/visitors/nlohmann_json.h>
 
 #include <ariles2/ariles.h>
 
@@ -62,3 +63,4 @@ namespace ariles_tests
     ARILES_FIXTURE_TEST_CASE(ReadFixture, VISITOR_ID, NAMESPACE, ConfigurableAutoDeclare, INITIALIZER)
 
 ARILES_TESTS(rapidjson_jsonnet, jsonnet<ariles2::rapidjson>, FilenameReaderInitializer210)
+ARILES_TESTS(nlohmann_json_jsonnet, jsonnet<ariles2::nlohmann_json>, FilenameReaderInitializer210)

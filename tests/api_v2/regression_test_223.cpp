@@ -11,6 +11,7 @@
 #include "utility.h"
 
 #include <ariles2/visitors/rapidjson.h>
+#include <ariles2/visitors/nlohmann_json.h>
 #include <ariles2/ariles.h>
 
 
@@ -115,3 +116,16 @@ ARILES_FIXTURE_TEST_CASE(
         ConfigurableSimpleFloats,
         FilenameReaderInitializer223_Float)
 ARILES_FIXTURE_TEST_CASE(WriteDiffFixture, rapidjson, rapidjson, ConfigurableSimpleFloats, FilenameInitializer)
+ARILES_FIXTURE_TEST_CASE(
+        ReadCompareFixture,
+        nlohmann_json,
+        nlohmann_json,
+        ConfigurableSimpleFloats,
+        FilenameReaderInitializer223_String)
+ARILES_FIXTURE_TEST_CASE(
+        ReadCompareFixture,
+        nlohmann_json,
+        nlohmann_json,
+        ConfigurableSimpleFloats,
+        FilenameReaderInitializer223_Float)
+ARILES_FIXTURE_TEST_CASE(WriteDiffFixture, nlohmann_json, nlohmann_json, ConfigurableSimpleFloats, FilenameInitializer)
