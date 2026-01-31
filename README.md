@@ -182,8 +182,8 @@ representation formats, in particular:
 * `msgpack` via `msgpack-c`:
   <https://asherikov.github.io/ariles/2/group__msgpack.html>.
 
-* `JSON` via `RapidJSON`, with optional Jsonnet preprocessing:
-  <https://asherikov.github.io/ariles/2/group__rapidjson.html> and
+* `JSON` via `nlohmann_json`, with optional Jsonnet preprocessing:
+  <https://asherikov.github.io/ariles/2/group__nlohmann__json.html> and
   <https://asherikov.github.io/ariles/2/group__jsonnet.html>.
 
 * `XML` via `PugiXML`:
@@ -191,6 +191,9 @@ representation formats, in particular:
 
 * `Octave` script, output only, no dependencies:
   <https://asherikov.github.io/ariles/2/group__octave.html>
+
+* `Python` script, output only, no dependencies, uses numpy for vectors and matrices:
+  <https://asherikov.github.io/ariles/2/group__python.html>
 
 * `ROS` parameter server, via `ROS` libs:
   <https://asherikov.github.io/ariles/2/group__rosparam.html>

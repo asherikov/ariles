@@ -89,6 +89,7 @@ nolintend
 npos
 nullopt
 nullptr
+numpy
 ofstream
 opencv
 opensource

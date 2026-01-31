@@ -83,3 +83,4 @@ ariles_define_regression_test("235" "ros2param")                            # Pa
 ariles_define_regression_test("236" "namevalue2")                           # namevalue2
 ariles_define_regression_test("237" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # complex sloppy
 ariles_define_regression_test("238" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # ros2param segfault
+ariles_define_regression_test("239" "python")                               # python: complex, pointers
