@@ -4,6 +4,12 @@ CHANGELOG
 UNRELEASED
 ==========
 
+Added
+-----
+* New visitor: `nlohmann_json`. Replacement for deprecated `rapidjson`.
+* New visitor: `python`. Serialize to Python script using numpy for vectors and
+  matrices.
+
 2.6.0
 =====
 

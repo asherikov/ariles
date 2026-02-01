@@ -5,7 +5,7 @@ VERSION?="XXX__version_not_set__XXX"
 
 REPO=https://github.com/asherikov/ariles.git
 DEPENDENCY_PATH=./demo/
-DEBIAN_SYSTEM_DEPENDENCIES=libeigen3-dev octave libyaml-cpp-dev rapidjson-dev libpugixml-dev libboost-all-dev
+DEBIAN_SYSTEM_DEPENDENCIES=libeigen3-dev octave libyaml-cpp-dev libpugixml-dev libboost-all-dev
 
 
 update:

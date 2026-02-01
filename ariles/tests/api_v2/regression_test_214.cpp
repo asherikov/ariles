@@ -26,6 +26,10 @@
 #    include <ariles2/visitors/rapidjson.h>
 #endif
 
+#ifdef ARILES_VISITOR_nlohmann_json
+#    include <ariles2/visitors/nlohmann_json.h>
+#endif
+
 #ifdef ARILES_VISITOR_pugixml
 #    include <ariles2/visitors/pugixml.h>
 #endif
@@ -83,9 +87,19 @@ ARILES_TESTS_SHORTCUT(rapidjson, FilenameInitializer)
 #    undef ComparisonMultiFixture
 #endif
 
+#ifdef ARILES2_VISITOR_INCLUDED_nlohmann_json
+ARILES_TESTS_SHORTCUT(nlohmann_json, FilenameInitializer)
+#endif
+
 #ifdef ARILES2_VISITOR_INCLUDED_jsonnet
+#    ifdef ARILES2_VISITOR_INCLUDED_rapidjson
 // A dirty hack to avoid fixture, which is known to fail for JSON.
-#    define ComparisonMultiFixture ComparisonSimpleFixture
+#        define ComparisonMultiFixture ComparisonSimpleFixture
 ARILES_TESTS(rapidjson_jsonnet, jsonnet<ariles2::rapidjson>, FilenameInitializer)
-#    undef ComparisonMultiFixture
+#        undef ComparisonMultiFixture
+#    endif
+
+#    ifdef ARILES2_VISITOR_INCLUDED_nlohmann_json
+ARILES_TESTS(nlohmann_json_jsonnet, jsonnet<ariles2::nlohmann_json>, FilenameInitializer)
+#    endif
 #endif

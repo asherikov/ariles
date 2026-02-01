@@ -49,6 +49,10 @@ ARILES_TESTS_SHORTCUT(ros2param, ROS2Initializer)
 ARILES_TESTS_SHORTCUT(octave, FilenameInitializer)
 #endif
 
+#ifdef ARILES2_VISITOR_INCLUDED_python
+ARILES_TESTS_SHORTCUT(python, FilenameInitializer)
+#endif
+
 #ifdef ARILES2_VISITOR_INCLUDED_namevalue
 ARILES_TESTS_SHORTCUT(namevalue, SizeInitializer)
 #endif

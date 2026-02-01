@@ -30,6 +30,10 @@
 #    include <ariles2/visitors/rapidjson.h>
 #endif
 
+#ifdef ARILES_VISITOR_nlohmann_json
+#    include <ariles2/visitors/nlohmann_json.h>
+#endif
+
 #ifdef ARILES_VISITOR_pugixml
 #    include <ariles2/visitors/pugixml.h>
 #endif
@@ -38,10 +42,15 @@
 #    include <ariles2/visitors/ros2param.h>
 #endif
 
+
 // Do not have Reader and therefore are excluded from most of the tests
 //
 // #ifdef ARILES_VISITOR_octave
 // #include <ariles2/visitors/octave.h>
+// #endif
+//
+// #ifdef ARILES_VISITOR_python
+// #include <ariles2/visitors/python.h>
 // #endif
 //
 // #ifdef ARILES_VISITOR_namevalue

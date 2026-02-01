@@ -11,7 +11,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v5
-            - run: rm -Rf ariles2_ros2param_ws
+            - run: rm -Rf ariles2_ros2param_ws ariles2_nlohmann_json_ws
             - run: |
                 source /opt/ros/noetic/setup.bash
                 make catkin_test_old ROS_DISTRO=noetic UBUNTU_DISTRO=focal

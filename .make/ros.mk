@@ -5,7 +5,7 @@ WS_PKGS= \
 			ariles2_namevalue2_ws \
 			ariles2_graphviz_ws \
 			ariles2_octave_ws \
-			ariles2_rapidjson_ws \
+			ariles2_python_ws \
 			ariles2_yamlcpp_ws \
 			ariles2_rosparam_ws \
 			ariles2_pugixml_ws

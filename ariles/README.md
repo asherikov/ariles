@@ -182,8 +182,8 @@ representation formats, in particular:
 * `msgpack` via `msgpack-c`:
   <https://asherikov.github.io/ariles/2/group__msgpack.html>.
 
-* `JSON` via `RapidJSON`, with optional Jsonnet preprocessing:
-  <https://asherikov.github.io/ariles/2/group__rapidjson.html> and
+* `JSON` via `nlohmann_json`, with optional Jsonnet preprocessing:
+  <https://asherikov.github.io/ariles/2/group__nlohmann__json.html> and
   <https://asherikov.github.io/ariles/2/group__jsonnet.html>.
 
 * `XML` via `PugiXML`:
@@ -191,6 +191,9 @@ representation formats, in particular:
 
 * `Octave` script, output only, no dependencies:
   <https://asherikov.github.io/ariles/2/group__octave.html>
+
+* `Python` script, output only, no dependencies, uses numpy for vectors and matrices:
+  <https://asherikov.github.io/ariles/2/group__python.html>
 
 * `ROS` parameter server, via `ROS` libs:
   <https://asherikov.github.io/ariles/2/group__rosparam.html>
@@ -228,12 +231,11 @@ Supported data types
 `ariles` provides serialization wrappers for the following types:
 
 * Fundamental types: integers, floats, booleans.
-* Some STL classes (WIP): `std::string`, `std::vector`, `std::map`,
-  `std::pair`, `std::shared_ptr`, `std::unique_ptr`, `std::array`,
-  `std::deque`, `std::list`, `std::set`, `std::unordered_map`,
-  `std::unordered_set`, `std::chrono::duration`, `std::chrono::time_point`.
-  `std::unordered_set`, `std::chrono::duration`, `std::chrono::time_point`,
-  `std::optional`, `std::filesystem::path`, `std::tuple`.
+* STL classes: `std::string`, `std::vector`, `std::map`, `std::pair`,
+  `std::shared_ptr`, `std::unique_ptr`, `std::array`, `std::deque`,
+  `std::list`, `std::set`, `std::unordered_map`, `std::unordered_set`,
+  `std::chrono::duration`, `std::chrono::time_point`, `std::optional`,
+  `std::filesystem::path`, `std::tuple`.
 * `Eigen` types: matrices, transforms, quaternions.
 * `Boost` classes: `boost::optional`, `boost::movelib::unique_ptr`. `boost::shared_ptr`.
 * Better enums -> <https://github.com/aantron/better-enums>.
@@ -345,5 +347,11 @@ Related software
 Deprecated
 ==========
 
-- `ariles2::namevalue`
-- `ariles2::Any`
+To be removed in the next major release:
+
+- `ariles2::namevalue`, replaced by `ariles2::namevalue2`
+- `ariles2::Any`, replaced by `ariles2::Any2`
+- `rosparam`: ROS1 is EOL.
+- `rapidjson`: poorly maintained, Ubuntu packages are based on an old release
+  with a bug https://github.com/Tencent/rapidjson/issues/718. Replaced by
+  `nlohmann_json`.

@@ -79,6 +79,7 @@ movelib
 msgpack
 msgs
 namevalue
+nlohmann
 nocase
 nodiscard
 noexcept
@@ -88,6 +89,7 @@ nolintend
 npos
 nullopt
 nullptr
+numpy
 ofstream
 opencv
 opensource
