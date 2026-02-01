@@ -347,6 +347,8 @@ Related software
 Deprecated
 ==========
 
+To be removed in the next major release:
+
 - `ariles2::namevalue`, replaced by `ariles2::namevalue2`
 - `ariles2::Any`, replaced by `ariles2::Any2`
 - `rosparam`: ROS1 is EOL.
