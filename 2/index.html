@@ -154,9 +154,10 @@ $(function() {
 <ul>
 <li><code>YAML</code> via <code>yaml-cpp</code>: <a href="https://asherikov.github.io/ariles/2/group__yaml__cpp.html">https://asherikov.github.io/ariles/2/group__yaml__cpp.html</a>.</li>
 <li><code>msgpack</code> via <code>msgpack-c</code>: <a href="https://asherikov.github.io/ariles/2/group__msgpack.html">https://asherikov.github.io/ariles/2/group__msgpack.html</a>.</li>
-<li><code>JSON</code> via <code>RapidJSON</code>, with optional Jsonnet preprocessing: <a href="https://asherikov.github.io/ariles/2/group__rapidjson.html">https://asherikov.github.io/ariles/2/group__rapidjson.html</a> and <a href="https://asherikov.github.io/ariles/2/group__jsonnet.html">https://asherikov.github.io/ariles/2/group__jsonnet.html</a>.</li>
+<li><code>JSON</code> via <code>nlohmann_json</code>, with optional Jsonnet preprocessing: <a href="https://asherikov.github.io/ariles/2/group__nlohmann__json.html">https://asherikov.github.io/ariles/2/group__nlohmann__json.html</a> and <a href="https://asherikov.github.io/ariles/2/group__jsonnet.html">https://asherikov.github.io/ariles/2/group__jsonnet.html</a>.</li>
 <li><code>XML</code> via <code>PugiXML</code>: <a href="https://asherikov.github.io/ariles/2/group__pugixml.html">https://asherikov.github.io/ariles/2/group__pugixml.html</a></li>
 <li><code>Octave</code> script, output only, no dependencies: <a href="https://asherikov.github.io/ariles/2/group__octave.html">https://asherikov.github.io/ariles/2/group__octave.html</a></li>
+<li><code>Python</code> script, output only, no dependencies, uses numpy for vectors and matrices: <a href="https://asherikov.github.io/ariles/2/group__python.html">https://asherikov.github.io/ariles/2/group__python.html</a></li>
 <li><code>ROS</code> parameter server, via <code>ROS</code> libs: <a href="https://asherikov.github.io/ariles/2/group__rosparam.html">https://asherikov.github.io/ariles/2/group__rosparam.html</a></li>
 <li>A set of flattened key-value pairs, output only, no dependencies: <a href="https://asherikov.github.io/ariles/2/group__namevalue2.html">https://asherikov.github.io/ariles/2/group__namevalue2.html</a></li>
 <li><code>graphviz</code> dot files for diagram generation: <a href="https://asherikov.github.io/ariles/2/group__graphviz.html">https://asherikov.github.io/ariles/2/group__graphviz.html</a></li>
@@ -173,7 +174,7 @@ $(function() {
 <p><code>ariles</code> provides serialization wrappers for the following types:</p>
 <ul>
 <li>Fundamental types: integers, floats, booleans.</li>
-<li>Some STL classes (WIP): <code>std::string</code>, <code>std::vector</code>, <code>std::map</code>, <code>std::pair</code>, <code>std::shared_ptr</code>, <code>std::unique_ptr</code>, <code>std::array</code>, <code>std::deque</code>, <code>std::list</code>, <code>std::set</code>, <code>std::unordered_map</code>, <code>std::unordered_set</code>, <code>std::chrono::duration</code>, <code>std::chrono::time_point</code>. <code>std::unordered_set</code>, <code>std::chrono::duration</code>, <code>std::chrono::time_point</code>, <code>std::optional</code>, <code>std::filesystem::path</code>, <code>std::tuple</code>.</li>
+<li>STL classes: <code>std::string</code>, <code>std::vector</code>, <code>std::map</code>, <code>std::pair</code>, <code>std::shared_ptr</code>, <code>std::unique_ptr</code>, <code>std::array</code>, <code>std::deque</code>, <code>std::list</code>, <code>std::set</code>, <code>std::unordered_map</code>, <code>std::unordered_set</code>, <code>std::chrono::duration</code>, <code>std::chrono::time_point</code>, <code>std::optional</code>, <code>std::filesystem::path</code>, <code>std::tuple</code>.</li>
 <li><code>Eigen</code> types: matrices, transforms, quaternions.</li>
 <li><code>Boost</code> classes: <code>boost::optional</code>, <code>boost::movelib::unique_ptr</code>. <code>boost::shared_ptr</code>.</li>
 <li>Better enums -&gt; <a href="https://github.com/aantron/better-enums">https://github.com/aantron/better-enums</a>.</li>
@@ -213,9 +214,12 @@ $(function() {
 <li>A library with similar functionality in C++17 <a href="https://github.com/injae/serdepp">https://github.com/injae/serdepp</a>.</li>
 </ul>
 <h1>Deprecated </h1>
+<p>To be removed in the next major release:</p>
 <ul>
-<li><code>ariles2::namevalue</code></li>
-<li><code>ariles2::Any</code> </li>
+<li><code>ariles2::namevalue</code>, replaced by <code>ariles2::namevalue2</code></li>
+<li><code>ariles2::Any</code>, replaced by <code>ariles2::Any2</code></li>
+<li><code>rosparam</code>: ROS1 is EOL.</li>
+<li><code>rapidjson</code>: poorly maintained, Ubuntu packages are based on an old release with a bug <a href="https://github.com/Tencent/rapidjson/issues/718">https://github.com/Tencent/rapidjson/issues/718</a>. Replaced by <code>nlohmann_json</code>. </li>
 </ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->

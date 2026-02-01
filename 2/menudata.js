@@ -155,6 +155,6 @@ var menudata={children:[
 {text:"Functions",url:"globals_func.html"},
 {text:"Macros",url:"globals_defs.html",children:[
 {text:"a",url:"globals_defs.html#index_a"},
-{text:"c",url:"globals_defs.html#index_c"},
-{text:"h",url:"globals_defs.html#index_h"},
-{text:"r",url:"globals_defs.html#index_r"}]}]}]}]}
+{text:"c",url:"globals_defs_c.html#index_c"},
+{text:"h",url:"globals_defs_h.html#index_h"},
+{text:"r",url:"globals_defs_r.html#index_r"}]}]}]}]}
