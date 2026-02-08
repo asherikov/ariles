@@ -1,0 +1,185 @@
+PROJECT=ariles2
+
+WS_PKGS= \
+			ariles2_core_ws \
+			ariles2_namevalue2_ws \
+			ariles2_graphviz_ws \
+			ariles2_octave_ws \
+			ariles2_python_ws \
+			ariles2_yamlcpp_ws \
+			ariles2_rosparam_ws \
+			ariles2_pugixml_ws \
+			ariles2_msgpack_ws
+
+CATKIN_DEPENDENCY_TEST_PKG=ariles2_catkin_demo
+CATKIN_ARGS=--cmake-args -DARILES_ROS_ENABLE_TESTS=ON
+CATKIN_TARGETS=all test
+
+CATKIN_WORKING_DIR=./build/catkin_workspace
+CATKIN_PKGS_PATH=${CATKIN_WORKING_DIR}/src/${PROJECT}
+
+PIP_INSTALL=sudo python3 -m pip install
+
+
+# release
+#----------------------------------------------
+
+ros_release:
+	# 0. Add Forthcoming section to the changelog
+	${MAKE} update_version VERSION=${VERSION}
+	-git commit -a
+	catkin_prepare_release -t 'ws-' --version "${VERSION}" -y
+	# initial release -> https://wiki.ros.org/bloom/Tutorials/FirstTimeRelease
+	# subsequent releases -> bloom-release --rosdistro melodic --track melodic ${PKG}
+
+
+# catkin
+#----------------------------------------------
+
+ros_add_repos:
+	sh -c "echo \"deb http://packages.ros.org/ros/ubuntu ${UBUNTU_DISTRO} main\" > /etc/apt/sources.list.d/ros-latest.list"
+	sh -c "apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 \
+		|| apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 \
+		|| apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654"
+	sh -c "apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 6B05F25D762E3157 \
+		|| apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 6B05F25D762E3157 \
+		|| apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key 6B05F25D762E3157"
+	apt-get update -qq
+	${APT_INSTALL} dpkg
+	apt update -y
+
+ros_install:
+	${APT_INSTALL} -y ros-${ROS_DISTRO}-ros-base
+	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; rosdep init'
+
+ros_install_deps:
+	apt update
+	#apt upgrade -y
+	${APT_INSTALL} libeigen3-dev octave libyaml-cpp-dev libpugixml-dev libboost-all-dev libmsgpack-dev nlohmann-json3-dev
+	bash -c "${APT_INSTALL} python-bloom || ${APT_INSTALL} python3-bloom"
+	${APT_INSTALL} \
+		devscripts \
+		debhelper \
+		fakeroot
+	bash -c "${APT_INSTALL} python-catkin-tools || ${APT_INSTALL} python3-catkin-tools python3-osrf-pycommon"
+
+
+catkin_test_deb_pkg:
+	cd ${CATKIN_PKGS_PATH}/${PKG}; bloom-generate rosdebian --os-name ubuntu --ros-distro ${ROS_DISTRO} ./
+	cd ${CATKIN_PKGS_PATH}/${PKG}; fakeroot debian/rules binary
+	ls -l ${CATKIN_PKGS_PATH}
+	echo ${PKG} | tr "_" "-" | xargs --verbose -I {} sudo sh -c "dpkg -i ${CATKIN_PKGS_PATH}/ros*{}*.deb"
+
+catkin_test_deb: clean
+	${MAKE} catkin_prepare_workspace
+	${MAKE} catkin_fake_rosdep
+	mkdir -p build/dependency_test
+	echo ${WS_PKGS} | tr " " "\n" | xargs -I {} sh -c "${MAKE} catkin_test_deb_pkg PKG="{}" ROS_DISTRO=${ROS_DISTRO} || exit 255"
+	bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash; \
+		cd build/dependency_test; \
+		cmake ../../demo_cmake_ros1; \
+		${MAKE} ${MAKE_FLAGS}'
+
+
+catkin_prepare_workspace: clean
+	mkdir -p ${CATKIN_PKGS_PATH}
+	ls -1A | grep -v build | xargs cp -R -t ${CATKIN_PKGS_PATH}
+	rm -f ${CATKIN_PKGS_PATH}/ariles2_rosparam_ws/CATKIN_IGNORE
+
+catkin_fake_rosdep:
+	# https://answers.ros.org/question/280213/generate-deb-from-dependent-res-package-locally/#280235
+	sudo /bin/sh -c 'echo "yaml file:///tmp/rosdep.yaml" > /etc/ros/rosdep/sources.list.d/50-ariles2.list'
+	sudo rm -Rf /tmp/rosdep.yaml
+	echo ${WS_PKGS} | tr " " "\n" | \
+		xargs -I {} sudo /bin/sh -c 'echo "{}:" >> /tmp/rosdep.yaml; echo "  ubuntu: [ros-${ROS_DISTRO}-{}]" | tr "_" "-" >> /tmp/rosdep.yaml'
+	rosdep update --rosdistro ${ROS_DISTRO}
+
+
+catkin_old_build: catkin_prepare_workspace
+	cd ${CATKIN_WORKING_DIR}/src; catkin_init_workspace
+	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated --pkg ${WS_PKGS} ${CATKIN_ARGS} --make-args ${CATKIN_TARGETS} # old
+
+catkin_old_build_with_dependent: catkin_prepare_workspace
+	cd ${CATKIN_WORKING_DIR}/src; catkin_init_workspace
+	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated
+
+catkin_old_deb: catkin_prepare_workspace
+	${MAKE} catkin_test_deb
+	${MAKE} catkin_prepare_workspace
+	cd ${CATKIN_PKGS_PATH}/; ls -1A | grep -v demo | xargs rm -Rf
+	rm ${CATKIN_PKGS_PATH}/demo_catkin/CATKIN_IGNORE
+	cd ${CATKIN_WORKING_DIR}/src; catkin_init_workspace
+	cd ${CATKIN_WORKING_DIR}; catkin_make_isolated --pkg ${CATKIN_DEPENDENCY_TEST_PKG}
+	sudo ${MAKE} clean_deb clean_rosdep
+
+
+catkin_new_build: catkin_prepare_workspace
+	cd ${CATKIN_WORKING_DIR}; catkin init
+	cd ${CATKIN_WORKING_DIR}; catkin build -i --verbose --summary ${WS_PKGS} --make-args ${CATKIN_TARGETS} ${CATKIN_ARGS}
+
+catkin_new_build_with_dependent: catkin_prepare_workspace
+	rm ${CATKIN_PKGS_PATH}/demo_catkin/CATKIN_IGNORE
+	cd ${CATKIN_WORKING_DIR}; catkin init
+	cd ${CATKIN_WORKING_DIR}; catkin build -i --verbose --summary ${CATKIN_DEPENDENCY_TEST_PKG}
+
+catkin_new_deb:
+	${MAKE} catkin_test_deb
+	${MAKE} catkin_prepare_workspace
+	cd ${CATKIN_PKGS_PATH}; ls -1A | grep -v demo | xargs rm -Rf
+	rm ${CATKIN_PKGS_PATH}/demo_catkin/CATKIN_IGNORE
+	cd ${CATKIN_WORKING_DIR}; catkin init
+	cd ${CATKIN_WORKING_DIR}; catkin build -i --verbose --summary ${CATKIN_DEPENDENCY_TEST_PKG}
+	sudo ${MAKE} clean_deb
+
+
+catkin_test_old: ros_install_deps
+	${MAKE} catkin_old_build
+	${MAKE} catkin_old_build_with_dependent
+	${MAKE} catkin_old_deb
+
+catkin_test_new: ros_install_deps
+	${MAKE} catkin_new_build
+	${MAKE} catkin_new_build_with_dependent
+	${MAKE} catkin_new_deb
+
+
+ros_prerelease_deps:
+	sudo ${MAKE} ros_add_repos UBUNTU_DISTRO=${UBUNTU_DISTRO}
+	${PIP_INSTALL} empy==3.3.4
+	${PIP_INSTALL} ros_buildfarm
+
+ros_prerelease: ros_prerelease_deps
+	# sudo apt install docker.io
+	# sudo adduser username docker
+	generate_prerelease_script.py \
+		https://raw.githubusercontent.com/ros-infrastructure/ros_buildfarm_config/production/index.yaml \
+		${ROS_DISTRO} default ubuntu ${UBUNTU_DISTRO} amd64 \
+		--level 0 --custom-repo ${PROJECT}:git:${REPO}:${BRANCH} \
+		--output-dir ./build/ros_prerelease
+	# dirty fix to break interactive part of the script
+	cd ./build/ros_prerelease; sed -i -e "/_ls_prerelease_scripts=/d" prerelease.sh
+	# shell script debug
+	cd ./build/ros_prerelease; sed -i 's=\(#!.*sh\)=#!/bin/sh -x=' *.sh
+	# dirty workaround for ccache permissions issue
+	cd ./build/ros_prerelease; sed -i "s|\(-e=TRAVIS\)|-eCCACHE_DIR=./.ccache/ \1|" *.sh
+	cd ./build/ros_prerelease; env ABORT_ON_TEST_FAILURE=1 CCACHE_DIR=`pwd`/.ccache ./prerelease.sh
+
+# docker
+#----------------------------------------------
+ros_make_docker:
+	docker pull ros:${ROS_DISTRO}-ros-base-${UBUNTU_DISTRO}
+	docker run -ti ros:${ROS_DISTRO}-ros-base-${UBUNTU_DISTRO} \
+		/bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
+		&& git clone -b ${BRANCH} ${REPO} ${PROJECT} \
+		&& cd ${PROJECT} \
+		&& make ${TARGET} ROS_DISTRO=${ROS_DISTRO} UBUNTU_DISTRO=${UBUNTU_DISTRO}"
+
+
+# other
+#----------------------------------------------
+clean_deb:
+	dpkg --get-selections | grep ariles2 | cut -f 1 | xargs sudo dpkg -r
+
+clean_rosdep:
+	rm -Rf /tmp/rosdep.yaml /etc/ros/rosdep/sources.list.d/50-ariles2.list
+	rosdep update

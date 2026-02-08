@@ -3,13 +3,9 @@ Ariles
 
 <table>
   <tr>
-    <th>branch</th>
+    <th></th>
     <td align="center">
         <a href="https://github.com/asherikov/ariles/tree/head_2">HEAD v2</a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/asherikov/ariles/tree/pkg_ws_2">pkg_ws_2</a><br/>
-        (ROS/ROS2 packages)
     </td>
   </tr>
   <tr>
@@ -19,14 +15,20 @@ Ariles
         <img src="https://github.com/asherikov/ariles/actions/workflows/.github/workflows/head_2.yml/badge.svg?branch=head_2" alt="Build Status">
         </a>
     </td>
-    <td align="center">
-        <a href="https://github.com/asherikov/ariles/actions?query=workflow%3A.github%2Fworkflows%2Fws_2.yml+branch%3Apkg_ws_2">
-        <img src="https://github.com/asherikov/ariles/actions/workflows/.github/workflows/ws_2.yml/badge.svg?branch=pkg_ws_2" alt="Build Status">
-        </a>
-    </td>
   </tr>
   <tr>
-    <th>package</th>
+    <th>latest</th>
+    <td align="center">
+        <a href="https://cloudsmith.io/~asherikov-aV7/repos/all/packages/detail/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fjammy;t=binary/">
+        <img src="https://api-prd.cloudsmith.io/v1/badges/version/asherikov-aV7/all/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fjammy;t=binary/?render=true&show_latest=true" alt="Latest version of 'ariles' @ Cloudsmith">
+        </a>
+        <br />
+        <a href="https://cloudsmith.io/~asherikov-aV7/repos/all/packages/detail/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fnoble;t=binary/">
+        <img src="https://api-prd.cloudsmith.io/v1/badges/version/asherikov-aV7/all/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fnoble;t=binary/?render=true&show_latest=true" alt="Latest version of 'ariles' @ Cloudsmith">
+        </a>
+  </tr>
+  <tr>
+    <th>legacy</th>
     <td align="center">
         <a href="https://cloudsmith.io/~asherikov-aV7/repos/all/packages/detail/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fbionic;t=binary/">
         <img src="https://api-prd.cloudsmith.io/v1/badges/version/asherikov-aV7/all/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fbionic;t=binary/?render=true&show_latest=true" alt="Latest version of 'ariles' @ Cloudsmith">
@@ -35,16 +37,7 @@ Ariles
         <a href="https://cloudsmith.io/~asherikov-aV7/repos/all/packages/detail/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Ffocal;t=binary/">
         <img src="https://api-prd.cloudsmith.io/v1/badges/version/asherikov-aV7/all/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Ffocal;t=binary/?render=true&show_latest=true" alt="Latest version of 'ariles' @ Cloudsmith">
         </a>
-        <br />
-        <a href="https://cloudsmith.io/~asherikov-aV7/repos/all/packages/detail/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fjammy;t=binary/">
-        <img src="https://api-prd.cloudsmith.io/v1/badges/version/asherikov-aV7/all/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fjammy;t=binary/?render=true&show_latest=true" alt="Latest version of 'ariles' @ Cloudsmith">
         </a>
-        <br />
-        <a href="https://cloudsmith.io/~asherikov-aV7/repos/all/packages/detail/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fnoble;t=binary/">
-        <img src="https://api-prd.cloudsmith.io/v1/badges/version/asherikov-aV7/all/deb/ariles2-core/latest/a=amd64;d=ubuntu%252Fnoble;t=binary/?render=true&show_latest=true" alt="Latest version of 'ariles' @ Cloudsmith">
-        </a>
-    </td>
-    <td align="center"></td>
   </tr>
 </table>
 
@@ -54,8 +47,6 @@ Contents
 ========
 * [Links](#links)
 * [Introduction](#intro)
-    * [Use cases](#uses)
-    * [Applications](#apps)
 * [Minimal example](#example)
 * [Visitors](#visitors)
 * [Supported types](#types)
@@ -63,6 +54,7 @@ Contents
 * [Advanced features](#advanced)
 * [Tips](#tips)
 * [Related software](#related)
+* [Legacy](#legacy)
 
 
 <a name="links"></a>
@@ -70,8 +62,6 @@ Links
 =====
 * Documentation (Doxygen): <https://asherikov.github.io/ariles/2/>
 * GitHub: <https://github.com/asherikov/ariles>
-* Legacy 1.x.x version: <https://github.com/asherikov/ariles/tree/head_1>
-  (migration guide <https://asherikov.github.io/ariles/2/md_doc_migration_1to2.html>)
 
 
 <a name="intro"></a>
@@ -103,19 +93,14 @@ Use cases
    complete data structure must be represented in C++ code.
 
 3. Flattening of a class hierarchy to a list of name-value pairs
-   (string-double), which is useful for collection of time-series data.
+   (string-double), which is useful for collection of time-series data, see
+   telemetry collection library <https://github.com/asherikov/intrometry>.
 
-4. Exporting of numerical data to an `Octave` script for debugging purposes.
+4. Exporting of numerical data to an `Octave` or `python `script for debugging
+   purposes.
 
-5. Implementation of parsers for specific data formats, e.g., `URDF`.
-
-
-<a name="apps"></a>
-Applications
-------------
-
-- <https://github.com/asherikov/ariles_urdf>: proof of concept `URDF` parser.
-- <https://github.com/asherikov/intrometry>: telemetry collection library.
+5. Implementation of parsers for specific data formats, e.g., a proof of
+   concept `URDF` parser <https://github.com/asherikov/ariles_urdf>.
 
 
 <a name="example"></a>
@@ -161,11 +146,8 @@ ariles2::apply<ariles2::yaml_cpp::Reader>("config.yaml", configurable);
 ariles2::apply<ariles2::rosparam::Writer>(nh, configurable, "/some_namespace/");
 ```
 
-Note that ROS/ROS2 compatible packages are available in a separate branch
-<https://github.com/asherikov/ariles/tree/pkg_ws_2>.
-
 See demo for more examples: <https://asherikov.github.io/ariles/2/DEMO.html>
-[`./tests/api_v2/demo_api_v2.cpp`]
+[`./ariles/tests/api_v2/demo_api_v2.cpp`]
 
 
 
@@ -246,22 +228,23 @@ Supported data types
 Dependencies and compilation
 ============================
 
-Dependencies
-------------
+The library is organized in a core package and a set of dependent visitor
+packages. It can be built in two different ways:
+
+- using plain cmake with features configured by cmake options -- the project is
+  located in `ariles` subdirectory;
+- using catkin/colcon in a ROS1/ROS2 workspace, in which case features are
+  selected by building corresponding wrapper packages, see `ariles2_*_ws`
+  directories.
+
+
+Core dependencies
+-----------------
 
 - `cmake` >= 3.13
 - `C++17` compatible compiler
 - `boost`
 
-Visitors and corresponding dependencies can be enabled or disabled via cmake
-options, the same applies to data types which depend on external libraries.
-
-
-Compilation in a ROS1/ROS2 workspace
-------------------------------------
-
-ROS1/ROS2 compatible packages are provided in the `pkg_ws_2` branch of the main
-repository -> <https://github.com/asherikov/ariles/tree/pkg_ws_2>.
 
 
 <a name="advanced"></a>
@@ -344,14 +327,38 @@ Related software
   <https://github.com/injae/serdepp>.
 
 
-Deprecated
-==========
+<a name="legacy"></a>
+Legacy
+======
 
-To be removed in the next major release:
+Version 1
+---------
 
-- `ariles2::namevalue`, replaced by `ariles2::namevalue2`
-- `ariles2::Any`, replaced by `ariles2::Any2`
+- Source code: <https://github.com/asherikov/ariles/tree/head_1>
+- ROS workspace branch: <https://github.com/asherikov/ariles/tree/pkg_ros>
+- Documentation: <https://asherikov.github.io/ariles/1/>
+- Migration guide: <https://asherikov.github.io/ariles/2/md_doc_migration_1to2.html>
+
+Version 2
+---------
+
+Refer to changelog for more details.
+
+- APIv1 has been removed.
+- Dropped support for legacy Ubuntu versions, old C++ standards, old cmake
+  versions in minor releases.
+- Dropped ROS workspace branches:
+    - <https://github.com/asherikov/ariles/tree/pkg_catkin_2> up to version 2.2.0.
+    - <https://github.com/asherikov/ariles/tree/pkg_ws_2> up to version 2.7.0.
+
+Version 3 (planned)
+-------------------
+
+To be removed:
+
+- `ariles2::namevalue`: replaced by `ariles2::namevalue2`
+- `ariles2::Any`: replaced by `ariles2::Any2`
 - `rosparam`: ROS1 is EOL.
-- `rapidjson`: poorly maintained, Ubuntu packages are based on an old release
-  with a bug https://github.com/Tencent/rapidjson/issues/718. Replaced by
+- `rapidjson`: poorly maintained, Ubuntu packages are based on an old buggy
+  release <https://github.com/Tencent/rapidjson/issues/718>. Replaced by
   `nlohmann_json`.

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ariles2_core_ws</name>
+  <version>2.7.0</version>
+  <description>Ariles serialization/configuration library (core module)</description>
+
+  <maintainer email="asherikov@yandex.com">Alexander Sherikov</maintainer>
+
+  <license>Apache 2.0</license>
+  <url type="website">https://github.com/asherikov/ariles</url>
+
+  <buildtool_depend>cmake</buildtool_depend>
+
+  <build_depend>eigen</build_depend>
+  <build_export_depend>eigen</build_export_depend>
+
+  <build_depend>libboost-dev</build_depend>
+  <build_export_depend>libboost-dev</build_export_depend>
+
+  <build_depend>libboost-math-dev</build_depend>
+  <build_export_depend>libboost-math-dev</build_export_depend>
+  <exec_depend>libboost-math</exec_depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>

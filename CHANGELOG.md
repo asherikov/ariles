@@ -4,6 +4,13 @@ CHANGELOG
 UNRELEASED
 ==========
 
+Changed
+-------
+* Merge `pkg_ws_2` branch into `head_2`: no more dedicated branch for ROS builds.
+
+2.7.0
+=====
+
 Added
 -----
 * New visitor: `nlohmann_json`. Replacement for deprecated `rapidjson`.

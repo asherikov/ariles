@@ -1,3 +1,5 @@
+REPO=https://github.com/asherikov/ariles.git
+
 APT_INSTALL?=env DEBIAN_FRONTEND=noninteractive apt --yes --no-install-recommends install
 MAKE_FLAGS?=-j14
 
@@ -22,7 +24,7 @@ ARGS?=
 
 DEB_TARGET?=xenial
 
-SUPP_PATH=../../../qa/sanitizers/
+SUPP_PATH=../../../ariles/qa/sanitizers/
 # new_delete_type_mismatch=0 ROS2 issue -> https://github.com/ros2/rclcpp/issues/2220
 TEST_ENV=UBSAN_OPTIONS=print_stacktrace=1:halt_on_error=1:suppressions=${SUPP_PATH}/undefined.supp \
 		ASAN_OPTIONS=new_delete_type_mismatch=0:suppressions=${SUPP_PATH}/address.supp \
@@ -30,7 +32,10 @@ TEST_ENV=UBSAN_OPTIONS=print_stacktrace=1:halt_on_error=1:suppressions=${SUPP_PA
 
 PKG_NAME=ariles2
 
-FIND_ARILES_SOURCES=find ./extra_* ./tests/ ./include/ -iname "*.h" -or -iname "*.cpp"
+FIND_ARILES_SOURCES=find ./ariles/extra_* ./ariles/tests/ ./ariles/include/ -iname "*.h" -or -iname "*.cpp"
+
+include .make/common.mk
+include .make/ros.mk
 
 
 #----------------------------------------------
@@ -38,8 +43,10 @@ FIND_ARILES_SOURCES=find ./extra_* ./tests/ ./include/ -iname "*.h" -or -iname "
 #----------------------------------------------
 
 clean:
-	rm -Rf build;
-	rm -Rf include/${PKG_NAME}/internal/cpput_*.h
+	rm -Rf build
+	rm -Rf ariles/include/${PKG_NAME}/internal/cpput_*.h
+	rm -Rf debian
+	rm -Rf obj*
 	#git submodule update --init doc/dox/; cd doc/dox/; git clean -f; git reset --hard
 
 
@@ -52,12 +59,12 @@ INSTALL_SUBDIR=${INSTALL_DIR}/${TC}-${TYPE}-OPTIONS_${OPTIONS}
 
 build:
 	mkdir -p ${BUILD_SUBDIR};
-	cd ${BUILD_SUBDIR}; cmake 	-C ${ROOT_DIR}/cmake/options_${OPTIONS}.cmake\
+	cd ${BUILD_SUBDIR}; cmake 	-C ${ROOT_DIR}/ariles/cmake/options_${OPTIONS}.cmake\
 								-DCMAKE_BUILD_TYPE=${TYPE} \
 								-DCMAKE_TOOLCHAIN_FILE=${CMAKE_DIR}/toolchain_${TC}.cmake \
 								-DCMAKE_INSTALL_PREFIX=${INSTALL_SUBDIR} \
 								${EXTRA_CMAKE_PARAM} \
-								${ROOT_DIR};
+								${ROOT_DIR}/ariles;
 	cd ${BUILD_SUBDIR}; ${MAKE} ${MAKE_FLAGS} ${TARGETS}
 
 build-tests:
@@ -123,7 +130,7 @@ deb-cloudsmith:
 
 cmake_dependency: clean
 	mkdir -p build/cmake_dependency_test
-	cd build/cmake_dependency_test; cmake ../../tests/dependency/ -DARILES_COMPONENTS="rosparam;yaml-cpp;octave"
+	cd build/cmake_dependency_test; cmake ../../ariles/tests/dependency/ -DARILES_COMPONENTS="rosparam;yaml-cpp;octave"
 	cd build/cmake_dependency_test; ${MAKE} ${MAKE_FLAGS}
 
 #ppa-upload:
@@ -232,7 +239,7 @@ cppcheck:
 	# --inconclusive
 	# false positive: constStatement, unsignedLessThanZero
 	cppcheck \
-		./ \
+		./ariles \
 		--inline-suppr \
 		--relative-paths \
 		--quiet --verbose --force \
@@ -353,8 +360,8 @@ spell_interactive:
 # https://github.com/myint/scspell
 spell:
 	${FIND_ARILES_SOURCES} \
-		| grep -v "./tests/common/better_enum.h" \
-		| grep -v "./extra_visitors/rapidjson/src/istreamwrapper.h" \
-		| xargs ${SPELL_XARGS_ARG} scspell --use-builtin-base-dict --override-dictionary ./qa/scspell.dict
+		| grep -v "./ariles/tests/common/better_enum.h" \
+		| grep -v "./ariles/extra_visitors/rapidjson/src/istreamwrapper.h" \
+		| xargs ${SPELL_XARGS_ARG} scspell --use-builtin-base-dict --override-dictionary ./ariles/qa/scspell.dict
 
 .PHONY: clean cmake build

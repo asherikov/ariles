@@ -7,6 +7,10 @@ on:
     pull_request:
         types: [opened, reopened]
 
+defaults:
+    run:
+        shell: bash
+
 env:
     APT: sudo apt install -y --no-install-recommends
     # Set the python path manually to include /usr/-/python2.7/dist-packages
@@ -181,56 +185,73 @@ jobs:
             - run: make clangcheck SCANBUILD=scan-build-20 OPTIONS=noros_tidy TC=clang
 
 
-    jammy_ccws:
-        runs-on: ubuntu-22.04
+    # focal
+    focal_noetic_catkin_old:
+        container: ros:noetic-ros-base-focal
+        runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v5
-              with:
-                repository: asherikov/ccws
+            - run: rm -Rf ariles2_nlohmann_json_ws ariles2_jsonnet_ws ariles2_namevalue_ws ariles2_ros2param_ws ariles2_protobuf3_ws ariles2_rosparam_ws/CATKIN_IGNORE
+            - run: |
+                source /opt/ros/noetic/setup.bash
+                make catkin_test_old ROS_DISTRO=noetic UBUNTU_DISTRO=focal
+
+    focal_noetic_catkin_new:
+        container: ros:noetic-ros-base-focal
+        runs-on: ubuntu-latest
+        steps:
             - uses: actions/checkout@v5
-              with:
-                ref: pkg_ws_2
-                path: src/ariles_ws
-            - run: cd src/ariles_ws; make update VERSION=${GITHUB_SHA}; rm -Rf ariles2_rosparam_ws demo
-            - run: make bp_install_build BUILD_PROFILE=static_checks
-            - run: make BUILD_PROFILE=static_checks
-            - run: make bp_install_build BUILD_PROFILE=scan_build
-            - run: make dep_install PKG=ariles2_core_ws
-            - run: make dep_install PKG=ariles2_graphviz_ws
-            - run: make dep_install PKG=ariles2_namevalue2_ws
-            - run: make dep_install PKG=ariles2_octave_ws
-            - run: make dep_install PKG=ariles2_pugixml_ws
-            - run: make dep_install PKG=ariles2_rapidjson_ws
-            - run: make dep_install PKG=ariles2_ros2param_ws
-            - run: make dep_install PKG=ariles2_yamlcpp_ws
-            - run: make _ws BUILD_PROFILE=scan_build
-            - run: make bp_install_build BUILD_PROFILE=cppcheck
-            - run: make BUILD_PROFILE=static_checks BASE_BUILD_PROFILE=scan_build
+            - run: rm -Rf ariles2_nlohmann_json_ws ariles2_rosparam_ws/CATKIN_IGNORE
+            - run: |
+                source /opt/ros/noetic/setup.bash
+                make catkin_test_new ROS_DISTRO=noetic UBUNTU_DISTRO=focal
+
+    # does not work with ros2param (rclcpp dependency)
+    #prerelease:
+    #    runs-on: ubuntu-20.04
+    #    steps:
+    #        - uses: actions/checkout@v5
+    #          with:
+    #              fetch-depth: 0
+    #        - run: make ros_prerelease ROS_DISTRO=noetic UBUNTU_DISTRO=focal BRANCH=`git branch --show-current`
+    #          env:
+    #              CCACHE_DIR: ${GITHUB_WORKSPACE}/.ccache
+
+    jammy_ccws:
+        container: asherikov/ccws_jammy
+        runs-on: ubuntu-latest
+        env:
+            WORKSPACE_SRC: ${GITHUB_WORKSPACE}
+        steps:
+            - uses: actions/checkout@v5
+            - run: rm demo_cmake/CATKIN_IGNORE
+            - run: |
+                cd /ccws
+                apt update
+                make dep_install
+                make ariles2_cmake_demo ariles2_ros2param_ws
+            - run: |
+                cd /ccws
+                make BUILD_PROFILE=static_checks
+                make _ws BUILD_PROFILE=scan_build
+                make BUILD_PROFILE=static_checks BASE_BUILD_PROFILE=scan_build
 
     noble_ccws:
-        runs-on: ubuntu-24.04
+        container: asherikov/ccws_noble
+        runs-on: ubuntu-latest
+        env:
+            WORKSPACE_SRC: ${GITHUB_WORKSPACE}
         steps:
             - uses: actions/checkout@v5
-              with:
-                repository: asherikov/ccws
-            - uses: actions/checkout@v5
-              with:
-                ref: pkg_ws_2
-                path: src/ariles_ws
-            - run: cd src/ariles_ws; make update VERSION=${GITHUB_SHA}; rm -Rf ariles2_rosparam_ws demo
-            - run: make bp_install_build BUILD_PROFILE=static_checks
-            - run: make BUILD_PROFILE=static_checks
-            - run: make bp_install_build BUILD_PROFILE=scan_build
-            - run: make dep_install PKG=ariles2_core_ws
-            - run: make dep_install PKG=ariles2_graphviz_ws
-            - run: make dep_install PKG=ariles2_namevalue2_ws
-            - run: make dep_install PKG=ariles2_octave_ws
-            - run: make dep_install PKG=ariles2_pugixml_ws
-            - run: make dep_install PKG=ariles2_rapidjson_ws
-            - run: make dep_install PKG=ariles2_ros2param_ws
-            - run: make dep_install PKG=ariles2_yamlcpp_ws
-            # disable due to https://github.com/Tencent/rapidjson/issues/2347
-            - run: touch src/ariles_ws/ariles2_rapidjson_ws/COLCON_IGNORE
-            - run: make _ws BUILD_PROFILE=scan_build
-            - run: make bp_install_build BUILD_PROFILE=cppcheck
-            - run: make BUILD_PROFILE=static_checks BASE_BUILD_PROFILE=scan_build
+            - run: rm demo_cmake/CATKIN_IGNORE
+            - run: |
+                cd /ccws
+                apt update
+                make dep_install
+                make ariles2_cmake_demo ariles2_ros2param_ws
+            - run: |
+                cd /ccws
+                make BUILD_PROFILE=static_checks
+                make _ws BUILD_PROFILE=scan_build
+                make BUILD_PROFILE=static_checks BASE_BUILD_PROFILE=scan_build
+
