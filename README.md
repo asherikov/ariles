@@ -75,6 +75,12 @@ also provides a number of (de)serializers based on these APIs, e.g., `YAML`,
 wrappers for some types, e.g., `STL` containers, smart pointers, `Eigen`
 matrices, etc.
 
+Unlike many modern C++ reflection/serialization libraries (see a list of
+related software below) `ariles` uses macro approach for injecting code. This
+is not an archaism, but a design choice which enables a different set of
+features: virtual serialization methods, no constraints on class construction
+or inheritance, etc.
+
 
 <a name="uses"></a>
 Use cases
@@ -319,6 +325,9 @@ Related software
 * <https://github.com/apolukhin/magic_get> (aka `pfr`): C++14 library providing
   tuple like methods for aggregate initializable structures. Addresses a
   somewhat different but related problem.
+
+* <https://github.com/getml/reflect-cpp>: a powerful C++20 POD-type reflection
+  library.
 
 * Serialization libraries, e.g., `boost::serialization`,
   <https://github.com/USCiLab/cereal>.
