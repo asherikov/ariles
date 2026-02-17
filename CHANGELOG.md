@@ -4,6 +4,10 @@ CHANGELOG
 UNRELEASED
 ==========
 
+Fixed
+-----
+* Instantiation of `nlohmann_json` test.
+
 Changed
 -------
 * Merge `pkg_ws_2` branch into `head_2`: no more dedicated branch for ROS builds.

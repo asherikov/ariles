@@ -37,6 +37,19 @@ ARILES_TESTS(rapidjson_jsonnet, jsonnet<ariles2::rapidjson>, StreamInitializer)
 #    undef ComparisonMultiFixture
 #endif
 
+#ifdef ARILES2_VISITOR_INCLUDED_nlohmann_json
+// A dirty hack to avoid fixture, which is known to fail for JSON.
+#    define ComparisonMultiFixture ComparisonSimpleFixture
+ARILES_TESTS_SHORTCUT(nlohmann_json, FilenameInitializer)
+ARILES_TESTS_SHORTCUT(nlohmann_json, StreamInitializer)
+
+#    ifdef ARILES2_VISITOR_INCLUDED_jsonnet
+ARILES_TESTS(nlohmann_json_jsonnet, jsonnet<ariles2::nlohmann_json>, FilenameInitializer)
+ARILES_TESTS(nlohmann_json_jsonnet, jsonnet<ariles2::nlohmann_json>, StreamInitializer)
+#    endif
+#    undef ComparisonMultiFixture
+#endif
+
 #ifdef ARILES2_VISITOR_INCLUDED_rosparam
 ARILES_TESTS_SHORTCUT(rosparam, ROSInitializer)
 #endif
