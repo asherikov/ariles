@@ -54,8 +54,11 @@ namespace
 
         // This method is called every time you deserialize a class. If
         // omitted, the default automatically generated method is used.
-        void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
+        void arilesVisit(const ariles2::Defaults & visitor, const ariles2::Defaults::Parameters & param)
         {
+            // automatically generated default method is always available
+            // and can be invoked to pre-initialize parameters
+            arilesVisit<ariles2::Defaults>(visitor, param);
             real_member = 0.0;
             integer_member_ = 12;
         }

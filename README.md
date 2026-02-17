@@ -303,6 +303,14 @@ Tips
   which may be uninitialized. `ariles` automatically adds `is_null` flag for
   each of such variables in configuration files.
 
+- Configuration file readers are defined as aggregate visitors that
+  sequentially do the following: (1) reset values to defaults, (2) read values,
+  (3) finalize values. In some cases you may want to skip (1) and (3), which
+  can be achieved by using `ns_ros2param::Reader` (pick desired reader
+  namespace) directly or defining your own aggregate visitor. It would be
+  necessary when reading data from multiple partially initialized sources to
+  avoid resets.
+
 
 <a name="related"></a>
 Related software
