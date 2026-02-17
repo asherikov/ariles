@@ -85,8 +85,8 @@ function(cmakeut_compiler_flags STANDARD)
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-readability-redundant-access-specifiers")
         # issues on many macro
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-cppcoreguidelines-pro-type-vararg,-hicpp-vararg")
-        # there is no from_string
-        set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-boost-use-to-string")
+        # there is no from_string, dont rely on boost too much
+        set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-boost-use-to-string,-boost-use-ranges")
         # too common
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-cppcoreguidelines-pro-bounds-array-to-pointer-decay,-hicpp-no-array-decay")
         # long functions are ok

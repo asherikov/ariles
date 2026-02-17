@@ -6,6 +6,7 @@ UNRELEASED
 
 Fixed
 -----
+* Handling of missing entries by `ros2param`.
 * Instantiation of `nlohmann_json` test.
 
 Changed

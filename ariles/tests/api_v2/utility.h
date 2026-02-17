@@ -112,9 +112,9 @@ namespace ariles_tests
     inline void printComparisonBacktrace(const ariles2::Compare &visitor, const std::string &message)
     {
         std::cout << message << " Backtrace: ";
-        for (const auto &trace : visitor.backtrace_)
+        for (const std::string &trace : visitor.backtrace_)
         {
-            std::cout << trace << " -> ";
+            std::cout << "[" << trace << "] -> ";
         }
         std::cout << std::endl;
     }

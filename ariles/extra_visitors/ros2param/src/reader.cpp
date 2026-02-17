@@ -305,7 +305,12 @@ namespace ariles2
                 impl_->concatWithNodeAndEmplace(impl_->separator_, child_name);
             }
 
-            return (impl_->hasParameterPrefix());
+            const bool result = impl_->hasParameterPrefix();
+            if (not result)
+            {
+                impl_->pop();
+            }
+            return (result);
         }
 
         void Reader::endMapEntry()

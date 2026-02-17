@@ -84,3 +84,5 @@ ariles_define_regression_test("236" "namevalue2")                           # na
 ariles_define_regression_test("237" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # complex sloppy
 ariles_define_regression_test("238" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # ros2param segfault
 ariles_define_regression_test("239" "python")                               # python: complex, pointers
+ariles_define_regression_test("240" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # missing entries
+ariles_define_regression_test("241" "ros2param")                            # https://github.com/asherikov/ariles/issues/27
