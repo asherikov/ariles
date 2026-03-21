@@ -4,6 +4,9 @@ CHANGELOG
 UNRELEASED
 ==========
 
+2.8.0
+=====
+
 Fixed
 -----
 * Handling of missing entries by `ros2param`.
