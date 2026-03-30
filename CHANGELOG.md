@@ -4,6 +4,10 @@ CHANGELOG
 UNRELEASED
 ==========
 
+Fixed
+-----
+* Allow overriding cmake C++ standard.
+
 2.8.0
 =====
 

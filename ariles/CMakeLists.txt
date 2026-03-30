@@ -203,7 +203,9 @@ set(CMAKEUT_CPP_SANITIZERS  ${ARILES_CPP_SANITIZERS})
 set(CMAKEUT_CLANG_TIDY      ${ARILES_CPP_CLANG_TIDY})
 set(CMAKEUT_CLANG_TIDY_EXTRA_IGNORES
     "-cppcoreguidelines-special-member-functions,-hicpp-special-member-functions,-altera-struct-pack-align,-llvm-namespace-comment,-misc-no-recursion,-readability-const-return-type,-google-default-arguments,-bugprone-macro-parentheses,-cppcoreguidelines-pro-type-union-access,-hicpp-named-parameter,-readability-named-parameter,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-pro-type-union-access,-cppcoreguidelines-avoid-non-const-global-variables,-cert-err58-cpp,-cert-env33-c")
-set(CMAKE_CXX_STANDARD "17")
+if(NOT CMAKE_CXX_STANDARD)
+    set(CMAKE_CXX_STANDARD "17")
+endif()
 cmakeut_compiler_flags("c++${CMAKE_CXX_STANDARD}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKEUT_CXX_FLAGS}")
 
