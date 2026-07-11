@@ -34,6 +34,7 @@ namespace ariles_tests
         /**
          * @brief This method must be defined
          */
+        // cppcheck-suppress functionStatic
         void arilesVisit(
                 const ariles2::Defaults & /*visitor*/,
                 const ariles2::Defaults::Parameters & /*param*/)  // NOLINT
