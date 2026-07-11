@@ -85,7 +85,7 @@ namespace demo
 
 
     public:
-        virtual ~MyClass(){};  // added to suppress compiler warnings
+        ~MyClass() override{};  // added to suppress compiler warnings
 
 
         void arilesVisit(const ariles2::Defaults &visitor, const ariles2::Defaults::Parameters &param)

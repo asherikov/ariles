@@ -305,6 +305,7 @@ namespace ariles2
                 CPPUT_TRACE_VALUE(entry_name);
                 CPPUT_TRACE_TYPE(entry);
 
+                // cppcheck-suppress knownConditionTrueFalse
                 if (param.allow_missing_entries_ and isMissing(entry))
                 {
                     return;

@@ -81,20 +81,20 @@ namespace ariles2
                 return count_;
             }
 
-            Ch *PutBegin()
+            static Ch *PutBegin()
             {
                 RAPIDJSON_ASSERT(false);
                 return 0;
             }
-            void Put(Ch)
+            static void Put(Ch)
             {
                 RAPIDJSON_ASSERT(false);
             }
-            void Flush()
+            static void Flush()
             {
                 RAPIDJSON_ASSERT(false);
             }
-            size_t PutEnd(Ch *)
+            static size_t PutEnd(Ch *)
             {
                 RAPIDJSON_ASSERT(false);
                 return 0;

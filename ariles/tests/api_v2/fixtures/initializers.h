@@ -20,12 +20,12 @@ namespace ariles_tests
             {
             }
 
-            const std::string getReaderInitializer(const std::string &string_id) const
+            static const std::string getReaderInitializer(const std::string &string_id)
             {
                 return (string_id);
             }
 
-            const std::string getWriterInitializer(const std::string &string_id) const
+            static const std::string getWriterInitializer(const std::string &string_id)
             {
                 return (string_id);
             }
@@ -39,12 +39,12 @@ namespace ariles_tests
             {
             }
 
-            std::size_t getReaderInitializer(const std::string & /*string_id*/) const
+            static std::size_t getReaderInitializer(const std::string & /*string_id*/)
             {
                 return (0);
             }
 
-            std::size_t getWriterInitializer(const std::string & /*string_id*/) const
+            static std::size_t getWriterInitializer(const std::string & /*string_id*/)
             {
                 return (0);
             }

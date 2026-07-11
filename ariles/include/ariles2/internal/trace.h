@@ -39,7 +39,7 @@ namespace cpput
             const int line_number_;
 
         protected:
-            std::size_t getDepth(const bool increment = true)
+            static std::size_t getDepth(const bool increment = true)
             {
                 static std::size_t depth = 0;
                 if (true == increment)
@@ -53,14 +53,14 @@ namespace cpput
             }
 
             template <class t_First, class... t_Args>
-            void outputFirst(t_First &&first, t_Args &&...args)
+            static void outputFirst(t_First &&first, t_Args &&...args)
             {
                 std::cout << first;
                 outputFirst(std::forward<t_Args>(args)...);
             }
 
             template <class t_Last>
-            void outputFirst(t_Last &&last)
+            static void outputFirst(t_Last &&last)
             {
                 std::cout << last << std::endl;
             }
@@ -95,7 +95,7 @@ namespace cpput
                 outputFirst(std::forward<t_Args>(args)...);
             }
 
-            std::string demangle(const char *name) const
+            static std::string demangle(const char *name)
             {
                 std::size_t len = 0;
                 int status = 0;

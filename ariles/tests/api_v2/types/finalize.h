@@ -80,7 +80,7 @@ namespace ariles_tests
             ariles2::apply<ariles2::Finalize>(*this);
         }
 
-        virtual ~ConfigurableFinalize()
+        ~ConfigurableFinalize() override
         {
         }
 

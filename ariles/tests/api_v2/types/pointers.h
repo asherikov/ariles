@@ -69,7 +69,7 @@ namespace ariles_tests
                 finalize_check_flag_ = false;
             }
 
-            virtual ~Minimal()
+            ~Minimal() override
             {
             }
 

@@ -34,7 +34,9 @@ namespace ariles_tests
         /**
          * @brief This method must be defined
          */
-        void arilesVisit(const ariles2::Defaults & /*visitor*/, const ariles2::Defaults::Parameters & /*param*/)
+        void arilesVisit(
+                const ariles2::Defaults & /*visitor*/,
+                const ariles2::Defaults::Parameters & /*param*/)  // NOLINT
         {
         }
 

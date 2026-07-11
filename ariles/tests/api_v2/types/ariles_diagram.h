@@ -153,7 +153,7 @@ namespace ariles_tests
                     ArilesDependency("yaml_cpp", "https://github.com/jbeder/yaml-cpp"));
         }
 
-        void randomize()
+        static void randomize()
         {
         }
     };

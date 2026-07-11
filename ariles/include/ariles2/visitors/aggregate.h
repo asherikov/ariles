@@ -64,7 +64,7 @@ namespace ariles2
             explicit Parameters(const bool) {};
             Parameters() {};
 
-            void get() {};
+            static void get() {};
         };
 
         template <class t_Visitor, class... t_Visitors>
@@ -150,12 +150,12 @@ namespace ariles2
             {
             }
 
-            void get() const
+            static void get()
             {
             }
 
             template <class t_Entry, class t_Path, class t_Parameters>
-            void visit(t_Entry &, const t_Path &, const t_Parameters &)
+            static void visit(t_Entry &, const t_Path &, const t_Parameters &)
             {
             }
         };

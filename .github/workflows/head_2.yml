@@ -218,7 +218,7 @@ jobs:
     #              CCACHE_DIR: ${GITHUB_WORKSPACE}/.ccache
 
     jammy_ccws:
-        container: asherikov/ccws_jammy
+        container: asherikov/ccws:jammy
         runs-on: ubuntu-latest
         env:
             WORKSPACE_SRC: ${GITHUB_WORKSPACE}
@@ -237,7 +237,7 @@ jobs:
                 make BUILD_PROFILE=static_checks BASE_BUILD_PROFILE=scan_build
 
     noble_ccws:
-        container: asherikov/ccws_noble
+        container: asherikov/ccws:noble
         runs-on: ubuntu-latest
         env:
             WORKSPACE_SRC: ${GITHUB_WORKSPACE}
