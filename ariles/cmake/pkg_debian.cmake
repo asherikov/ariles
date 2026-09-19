@@ -69,14 +69,43 @@ foreach(UBUNTU_NAME ${DEB_UBUNTU_CODENAMES})
 
     execute_process(COMMAND ${CMAKE_COMMAND} -E remove_directory "${DEBIAN_BASE_DIR}")
     execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${DEBIAN_BASE_DIR})
-
-    execute_process(COMMAND ${CMAKE_COMMAND} -E tar cvf ${DEBIAN_BASE_DIR}.tar ${DEB_ARCHIVE_FILES}
-                    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
-
     execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory "${DEBIAN_SOURCE_DIR}")
 
+    foreach(DEB_ARCHIVE_FILE ${DEB_ARCHIVE_FILES})
+        if(IS_ABSOLUTE "${DEB_ARCHIVE_FILE}")
+            set(DEB_ARCHIVE_FILE_PATH "${DEB_ARCHIVE_FILE}")
+        else()
+            set(DEB_ARCHIVE_FILE_PATH "${PROJECT_SOURCE_DIR}/${DEB_ARCHIVE_FILE}")
+        endif()
+        get_filename_component(DEB_ARCHIVE_FILE_PATH "${DEB_ARCHIVE_FILE_PATH}" ABSOLUTE)
+
+        string(FIND "${DEB_ARCHIVE_FILE_PATH}" "${PROJECT_SOURCE_DIR}/" DEB_ARCHIVE_FILE_POS)
+        if(NOT DEB_ARCHIVE_FILE_POS EQUAL 0)
+            get_filename_component(DEB_ARCHIVE_FILE_NAME "${DEB_ARCHIVE_FILE_PATH}" NAME)
+            execute_process(COMMAND ${CMAKE_COMMAND} -E copy
+                            "${DEB_ARCHIVE_FILE_PATH}"
+                            "${DEBIAN_SOURCE_DIR}/${DEB_ARCHIVE_FILE_NAME}"
+                            RESULT_VARIABLE DEB_FILE_COPY_RESULT)
+            if(DEB_FILE_COPY_RESULT)
+                message(FATAL_ERROR "Failed to copy ${DEB_ARCHIVE_FILE_PATH} into ${DEBIAN_SOURCE_DIR}")
+            endif()
+            list(REMOVE_ITEM DEB_ARCHIVE_FILES "${DEB_ARCHIVE_FILE}")
+        endif()
+    endforeach()
+
+    execute_process(COMMAND ${CMAKE_COMMAND} -E tar cvf ${DEBIAN_BASE_DIR}.tar ${DEB_ARCHIVE_FILES}
+                    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+                    RESULT_VARIABLE DEB_TAR_CREATE_RESULT)
+    if(DEB_TAR_CREATE_RESULT)
+        message(FATAL_ERROR "Failed to create ${DEBIAN_BASE_DIR}.tar")
+    endif()
+
     execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzf ${DEBIAN_BASE_DIR}.tar
-                    WORKING_DIRECTORY ${DEBIAN_SOURCE_DIR})
+                    WORKING_DIRECTORY ${DEBIAN_SOURCE_DIR}
+                    RESULT_VARIABLE DEB_TAR_EXTRACT_RESULT)
+    if(DEB_TAR_EXTRACT_RESULT)
+        message(FATAL_ERROR "Failed to extract ${DEBIAN_BASE_DIR}.tar into ${DEBIAN_SOURCE_DIR}")
+    endif()
 
 
     execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory "${DEBIAN_SOURCE_DIR}/debian")

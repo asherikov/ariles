@@ -70,7 +70,7 @@ namespace ariles2
         DefaultBase()
         {
         }
-        ~DefaultBase()
+        virtual ~DefaultBase()
         {
         }
 
@@ -92,14 +92,14 @@ namespace ariles2
     class DefaultBase
     {
     protected:
+        DefaultBase()
+        {
+        }
         /**
          * @brief Protected destructor: prevent destruction of derived
          * classes via base pointer.
          */
-        ~DefaultBase()
-        {
-        }
-        DefaultBase()
+        virtual ~DefaultBase()
         {
         }
 

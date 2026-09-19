@@ -19,11 +19,24 @@ env:
     CATKIN_OPTIONS: $GITHUB_WORKSPACE/catkin.options
 
 jobs:
+    resolute_deb_packages:
+        runs-on: ubuntu-26.04
+
+        steps:
+            - uses: actions/checkout@v7
+            - run: sudo apt update
+            - run: sudo make install-deps
+            - run: $APT fakeroot devscripts build-essential
+            - run: |
+                make deb-build DEB_TARGET=resolute
+                make deb-install DEB_TARGET=resolute
+                # make cmake_dependency  # requires ROS
+
     noble_deb_packages:
         runs-on: ubuntu-24.04
 
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
             - run: sudo apt update
             - run: sudo make install-deps
             - run: $APT fakeroot devscripts build-essential
@@ -36,7 +49,7 @@ jobs:
         runs-on: ubuntu-22.04
 
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
             - run: sudo make install-deps
             - run: $APT fakeroot devscripts build-essential
             - run: |
@@ -46,7 +59,7 @@ jobs:
 
     focal_deb_packages:
         container: ros:noetic-ros-base-focal
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
 
         env:
             ROS_DISTRO: noetic
@@ -54,7 +67,7 @@ jobs:
             ROS_CI_DESKTOP: focal
 
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
             - run: apt update && apt install -y --no-install-recommends make wget sudo
             - run: rm /etc/ros/rosdep/sources.list.d/20-default.list
             - run: make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
@@ -69,10 +82,35 @@ jobs:
                 make cmake_dependency
 
 
+    resolute_gcc_noros:
+        runs-on: ubuntu-26.04
+        steps:
+            - uses: actions/checkout@v7
+            - run: sudo apt update
+            - run: sudo make install-deps
+            - run: make build-tests TYPE=Debug OPTIONS=noros TARGETS="all" TC=gcc ARGS=-V
+
+    resolute_gcc_ros:
+        runs-on: ubuntu-26.04
+
+        env:
+            ROS_DISTRO: lyrical
+            ROS_CI_DESKTOP: resolute
+
+        steps:
+            - uses: actions/checkout@v7
+            - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
+            - run: sudo make install-deps
+            - run: |
+                source /opt/ros/$ROS_DISTRO/setup.bash
+                rm ariles2_msgpack_ws/CATKIN_IGNORE
+                make build-tests TYPE=Debug OPTIONS=ros2 TARGETS="all" TC=gcc ARGS=-V
+
+
     noble_gcc_noros:
         runs-on: ubuntu-24.04
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
             - run: sudo apt update
             - run: sudo make install-deps
             - run: make build-tests TYPE=Debug OPTIONS=noros TARGETS="all" TC=gcc ARGS=-V
@@ -85,7 +123,7 @@ jobs:
             ROS_CI_DESKTOP: noble
 
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: sudo make install-deps
             - run: |
@@ -97,7 +135,7 @@ jobs:
     jammy_gcc_noros:
         runs-on: ubuntu-22.04
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
             - run: sudo apt update
             - run: sudo make install-deps
             - run: make build-tests TYPE=Debug OPTIONS=noros TARGETS="all" TC=gcc ARGS=-V
@@ -110,7 +148,7 @@ jobs:
             ROS_CI_DESKTOP: jammy
 
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: sudo make install-deps
             - run: |
@@ -121,9 +159,9 @@ jobs:
 
     focal_gcc_noros:
         container: ros:noetic-ros-base-focal
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
             - run: rm /etc/ros/rosdep/sources.list.d/20-default.list
             - run: apt update && apt install -y --no-install-recommends make wget sudo
             - run: make install-deps
@@ -131,7 +169,7 @@ jobs:
 
     focal_gcc_ros:
         container: ros:noetic-ros-base-focal
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
 
         env:
             ROS_DISTRO: noetic
@@ -139,7 +177,7 @@ jobs:
             ROS_CI_DESKTOP: focal
 
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
             - run: rm /etc/ros/rosdep/sources.list.d/20-default.list
             - run: apt update && apt install -y --no-install-recommends make wget sudo
             - run: make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
@@ -155,11 +193,40 @@ jobs:
         runs-on: ubuntu-22.04
 
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
             - run: sudo apt update
             - run: $APT python3-pip python3-setuptools
             - run: sudo pip3 install scspell3k
             - run: make spell
+
+
+    resolute_clang_ros_scanbuild:
+        runs-on: ubuntu-26.04
+
+        env:
+            ROS_DISTRO: lyrical
+            ROS_CI_DESKTOP: resolute
+
+        steps:
+            - uses: actions/checkout@v7
+            - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
+            - run: sudo make install-deps
+            - run: $APT clang-tools-20 clang-tidy-20
+            - run: |
+                rm ariles2_msgpack_ws/CATKIN_IGNORE
+                source /opt/ros/$ROS_DISTRO/setup.bash
+                make clangcheck SCANBUILD=scan-build-20 OPTIONS=ros2_tidy TC=clang
+
+
+    resolute_clang_noros_scanbuild:
+        runs-on: ubuntu-26.04
+
+        steps:
+            - uses: actions/checkout@v7
+            - run: sudo apt update
+            - run: sudo make install-deps
+            - run: $APT clang-tools-20 clang-tidy-20
+            - run: make clangcheck SCANBUILD=scan-build-20 OPTIONS=noros_tidy TC=clang
 
 
     noble_clang_ros_scanbuild:
@@ -170,7 +237,7 @@ jobs:
             ROS_CI_DESKTOP: noble
 
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
             - run: sudo make install-ros ROS_DISTRO=$ROS_DISTRO UBUNTU_DISTRO=$ROS_CI_DESKTOP
             - run: sudo make install-deps
             - run: $APT clang-tools-20 clang-tidy-20
@@ -184,7 +251,7 @@ jobs:
         runs-on: ubuntu-24.04
 
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
             - run: sudo apt update
             - run: sudo make install-deps
             - run: $APT clang-tools-20 clang-tidy-20
@@ -194,9 +261,9 @@ jobs:
     # focal
     focal_noetic_catkin_old:
         container: ros:noetic-ros-base-focal
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
             - run: rm -Rf ariles2_nlohmann_json_ws ariles2_jsonnet_ws ariles2_namevalue_ws ariles2_ros2param_ws ariles2_protobuf3_ws ariles2_rosparam_ws/CATKIN_IGNORE
             - run: |
                 rm ariles2_msgpack_ws/CATKIN_IGNORE
@@ -205,9 +272,9 @@ jobs:
 
     focal_noetic_catkin_new:
         container: ros:noetic-ros-base-focal
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
             - run: rm -Rf ariles2_nlohmann_json_ws ariles2_rosparam_ws/CATKIN_IGNORE
             - run: |
                 rm ariles2_msgpack_ws/CATKIN_IGNORE
@@ -218,7 +285,7 @@ jobs:
     #prerelease:
     #    runs-on: ubuntu-20.04
     #    steps:
-    #        - uses: actions/checkout@v5
+    #        - uses: actions/checkout@v7
     #          with:
     #              fetch-depth: 0
     #        - run: make ros_prerelease ROS_DISTRO=noetic UBUNTU_DISTRO=focal BRANCH=`git branch --show-current`
@@ -226,12 +293,14 @@ jobs:
     #              CCACHE_DIR: ${GITHUB_WORKSPACE}/.ccache
 
     jammy_ccws:
-        container: asherikov/ccws:jammy
+        container:
+            image: asherikov/ccws:jammy
+            options: --user root
         runs-on: ubuntu-latest
         env:
             WORKSPACE_SRC: ${GITHUB_WORKSPACE}
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
             - run: rm demo_cmake/CATKIN_IGNORE ariles2_msgpack_ws/CATKIN_IGNORE
             - run: |
                 cd /ccws
@@ -242,15 +311,17 @@ jobs:
                 cd /ccws
                 make BUILD_PROFILE=static_checks
                 make _ws BUILD_PROFILE=scan_build
-                make BUILD_PROFILE=static_checks BASE_BUILD_PROFILE=scan_build
+                make BUILD_PROFILE=static_checks,scan_build
 
     noble_ccws:
-        container: asherikov/ccws:noble
+        container:
+            image: asherikov/ccws:noble
+            options: --user root
         runs-on: ubuntu-latest
         env:
             WORKSPACE_SRC: ${GITHUB_WORKSPACE}
         steps:
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
             - run: rm demo_cmake/CATKIN_IGNORE ariles2_msgpack_ws/CATKIN_IGNORE
             - run: |
                 cd /ccws
@@ -261,5 +332,29 @@ jobs:
                 cd /ccws
                 make BUILD_PROFILE=static_checks
                 make _ws BUILD_PROFILE=scan_build
-                make BUILD_PROFILE=static_checks BASE_BUILD_PROFILE=scan_build
+                make BUILD_PROFILE=static_checks,scan_build
 
+    resolute_ccws:
+        container:
+            image: asherikov/ccws:resolute
+            options: --user root
+        runs-on: ubuntu-latest
+        env:
+            WORKSPACE_SRC: ${GITHUB_WORKSPACE}
+        steps:
+            - uses: actions/checkout@v7
+            - run: rm demo_cmake/CATKIN_IGNORE ariles2_msgpack_ws/CATKIN_IGNORE
+            # TODO: libmsgpack-cxx-dev is a new separate package in Ubuntu 26,
+            # specifying the dependency explicitly in the manifest breaks releases
+            # on older systems
+            - run: |
+                cd /ccws
+                apt update
+                $APT libmsgpack-cxx-dev
+                make dep_install
+                make ariles2_cmake_demo ariles2_ros2param_ws
+            - run: |
+                cd /ccws
+                make BUILD_PROFILE=static_checks
+                make _ws BUILD_PROFILE=scan_build
+                make BUILD_PROFILE=static_checks,scan_build

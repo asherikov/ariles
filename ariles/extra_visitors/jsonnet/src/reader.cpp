@@ -45,7 +45,8 @@ namespace ariles2
             char *Reader::fromFile(const std::string &file_name)
             {
                 int error = 0;
-                char *jsonnet_output = ::jsonnet_evaluate_file(preprocessor_->vm_, file_name.c_str(), &error);
+                char *jsonnet_output =  // NOLINT
+                        ::jsonnet_evaluate_file(preprocessor_->vm_, file_name.c_str(), &error);
                 CPPUT_ASSERT(0 == error, jsonnet_output);
                 return (jsonnet_output);
             }
@@ -54,8 +55,9 @@ namespace ariles2
             char *Reader::fromString(const std::string &input_string)
             {
                 int error = 0;
-                char *jsonnet_output =
-                        ::jsonnet_evaluate_snippet(preprocessor_->vm_, "<input steam>", input_string.c_str(), &error);
+                char *jsonnet_output =  // NOLINT
+                        ::jsonnet_evaluate_snippet(
+                                preprocessor_->vm_, "<input steam>", input_string.c_str(), &error);
                 CPPUT_ASSERT(0 == error, jsonnet_output);
                 return (jsonnet_output);
             }

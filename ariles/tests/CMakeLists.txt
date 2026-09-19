@@ -1,4 +1,4 @@
-find_package(Boost REQUIRED unit_test_framework timer random system)
+find_package(Boost REQUIRED unit_test_framework timer random headers)
 include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 include_directories(SYSTEM "${PROJECT_BINARY_DIR}/tests/3rdparty")
 configure_file("${CMAKE_CURRENT_LIST_DIR}/common/better_enum.h.hide" "${PROJECT_BINARY_DIR}/tests/3rdparty/better_enum.h" COPYONLY)

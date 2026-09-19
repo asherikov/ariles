@@ -10,6 +10,7 @@
 #pragma once
 
 #include <iostream>
+#include <boost/version.hpp>
 namespace ariles_tests
 {
     class ConfigurablePointersScalar : public ariles2::DefaultBase

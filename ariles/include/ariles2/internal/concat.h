@@ -12,6 +12,7 @@
 
 #include <string>
 #include <string_view>
+#include <type_traits>
 
 namespace cpput
 {
@@ -21,8 +22,8 @@ namespace cpput
         std::string reserve_strings(const t_String &...strings)
         {
             std::string result;
-            result.reserve((strings.size() + ...));
-            (result += ... += strings);
+            result.reserve((0 + ... + strings.size()));
+            static_cast<void>((result += ... += strings));
             return (result);
         }
 
@@ -37,8 +38,12 @@ namespace cpput
         template <typename... t_String>
         std::string simple(t_String &&...strings)
         {
+            static_assert(
+                    (std::is_convertible_v<t_String, std::string_view> && ...)
+                            || (std::is_convertible_v<t_String, std::string> && ...),
+                    "cpput::concat::simple() only accepts strings.");
             std::string result;
-            (result += ... += strings);
+            static_cast<void>((result += ... += strings));
             return result;
         }
     }  // namespace concat

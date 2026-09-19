@@ -224,12 +224,16 @@ install-ros-humble: install-ros2-common
 install-ros-jazzy: install-ros2-common
 	#
 
+install-ros-lyrical: install-ros2-common
+	#
 
 install-deps:
 	${APT_INSTALL} cmake libboost-all-dev libeigen3-dev
 	${APT_INSTALL} octave libpugixml-dev libyaml-cpp-dev rapidjson-dev libmsgpack-dev graphviz nlohmann-json3-dev python3-numpy
 	${APT_INSTALL} libprotobuf-dev protobuf-compiler
 	${APT_INSTALL} libjsonnet-dev libjsonnet0
+	# ubuntu 26
+	${APT_INSTALL} libmsgpack-cxx-dev || true
 
 
 format:

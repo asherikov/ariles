@@ -9,6 +9,7 @@
 #pragma once
 
 #include <iostream>
+#include <boost/version.hpp>
 #include <ariles2/types.h>
 
 namespace ariles_tests

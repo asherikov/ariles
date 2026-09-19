@@ -7,6 +7,22 @@ env:
     APT: sudo apt install -y --no-install-recommends
 
 jobs:
+    resolute_deb_packages_cloudsmith:
+        runs-on: ubuntu-26.04
+
+        env:
+            DEB_TARGET: resolute
+
+        steps:
+            - uses: actions/checkout@v7
+            - run: sudo apt update
+            - run: sudo make install-deps
+            - run: $APT fakeroot devscripts build-essential
+            - run: make deb-build DEB_TARGET=$DEB_TARGET
+            - run: pip install --upgrade cloudsmith-cli
+            - run: env CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }} make deb-cloudsmith DEB_TARGET=$DEB_TARGET
+
+
     noble_deb_packages_cloudsmith:
         runs-on: ubuntu-24.04
 
@@ -14,7 +30,7 @@ jobs:
             DEB_TARGET: noble
 
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v7
             - run: sudo apt update
             - run: sudo make install-deps
             - run: $APT fakeroot devscripts build-essential
@@ -30,7 +46,7 @@ jobs:
             DEB_TARGET: jammy
 
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v7
             - run: sudo apt update
             - run: sudo make install-deps
             - run: $APT fakeroot devscripts build-essential
@@ -46,7 +62,7 @@ jobs:
             contents: write
 
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v7
               with:
                 submodules: true
                 fetch-depth: 0

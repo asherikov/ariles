@@ -64,7 +64,7 @@ function(cmakeut_compiler_flags STANDARD)
         set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXECUTABLE};-warnings-as-errors=*;-checks=*")
 
         # too annoying
-        set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-llvm-include-order,-google-readability-todo,-readability-static-accessed-through-instance")
+        set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-llvm-include-order,-google-readability-todo,-readability-static-accessed-through-instance,-readability-ambiguous-smartptr-reset-call")
         # do not enforce auto
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-modernize-use-trailing-return-type,-hicpp-use-auto,-modernize-use-auto")
         # do not enforce capitalization of literal suffix, e.g., x = 1u -> x = 1U.
@@ -104,10 +104,15 @@ function(cmakeut_compiler_flags STANDARD)
 
         # noisy
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-altera-unroll-loops,-altera-id-dependent-backward-branch,-readability-identifier-length,-misc-include-cleaner,-performance-avoid-endl")
+        set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-cppcoreguidelines-explicit-virtual-functions,-hicpp-use-override,-modernize-use-override")
+
         # false positives?
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-bugprone-exception-escape,-clang-analyzer-cplusplus.NewDelete")
         # may be later
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-cppcoreguidelines-avoid-const-or-ref-data-members")
+
+        # C++20
+        set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},-modernize-use-starts-ends-with,-modernize-use-ranges,-modernize-use-integer-sign-comparison")
 
         set(CMAKE_CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY},${CMAKEUT_CLANG_TIDY_EXTRA_IGNORES}")
 
