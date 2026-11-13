@@ -131,6 +131,7 @@ sint
 sstream
 stackexchange
 stdexcept
+streamsize
 stringbuffer
 stringized
 stringstream

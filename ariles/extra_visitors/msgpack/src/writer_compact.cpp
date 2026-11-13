@@ -11,23 +11,26 @@
     @brief
 */
 
-#include <msgpack.hpp>
+#include <limits>
+
 #include <ariles2/visitors/msgpack.h>
+#include "writer_common.h"
+
 
 namespace ariles2
 {
     namespace ns_msgpack_compact
     {
+        using ns_msgpack_c::packValue;
+
+
         namespace impl
         {
             class Writer : public write::FileVisitorImplementation
             {
             public:
-                using PackerPtr = std::shared_ptr<::msgpack::packer<std::ostream>>;
+                msgpack_packer packer_;
 
-
-            public:
-                PackerPtr packer_;
 
             public:
                 Writer(const Writer &) = delete;
@@ -37,7 +40,7 @@ namespace ariles2
                 template <class... t_Args>
                 explicit Writer(t_Args &&...args) : FileVisitorImplementation(std::forward<t_Args>(args)...)
                 {
-                    packer_ = std::make_shared<::msgpack::packer<std::ostream>>(*output_stream_);
+                    msgpack_packer_init(&packer_, output_stream_, ns_msgpack_c::writeToStream);
                 }
             };
         }  // namespace impl
@@ -63,7 +66,7 @@ namespace ariles2
 
         void Writer::startMap(const Parameters &, const std::size_t num_entries)
         {
-            impl_->packer_->pack_array(num_entries);
+            msgpack_pack_array(&impl_->packer_, num_entries);
         }
 
 
@@ -76,14 +79,14 @@ namespace ariles2
         void Writer::startArray(const std::size_t size, const bool /*compact*/)
         {
             CPPUT_ASSERT(size <= std::numeric_limits<uint32_t>::max(), "Vector is too long.");
-            impl_->packer_->pack_array(size);
+            msgpack_pack_array(&impl_->packer_, size);
         }
 
 
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
-        impl_->packer_->pack(element);                                                                                 \
+        packValue(&impl_->packer_, element);                                                                           \
     }
 
         CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)

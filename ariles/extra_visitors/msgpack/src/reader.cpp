@@ -12,23 +12,21 @@
 */
 
 #include <sstream>
-#include <msgpack.hpp>
 
 #include <ariles2/visitors/msgpack.h>
-
-namespace ariles2
-{
-    namespace ns_msgpack
-    {
-        using NodeWrapper = serialization::Node<const ::msgpack::object *>;
-    }
-}  // namespace ariles2
+#include "reader_common.h"
 
 
 namespace ariles2
 {
     namespace ns_msgpack
     {
+        using NodeWrapper = serialization::Node<const msgpack_object *>;
+
+        using ns_msgpack_c::isEqual;
+        using ns_msgpack_c::readValue;
+
+
         namespace impl
         {
             class Reader : public serialization::NodeStackBase<NodeWrapper>, public read::FileVisitorImplementation
@@ -36,12 +34,21 @@ namespace ariles2
             public:
                 std::string buffer_;
 
-                std::vector<std::shared_ptr<::msgpack::object_handle>> handles_;
+                std::vector<msgpack_unpacked> handles_;
 
                 std::size_t nameless_counter_;
 
 
             public:
+                Reader(const Reader &) = delete;
+                void operator=(const Reader &) = delete;
+
+                ~Reader()
+                {
+                    clear();
+                }
+
+
                 template <class... t_Args>
                 explicit Reader(t_Args &&...args) : FileVisitorImplementation(std::forward<t_Args>(args)...)
                 {
@@ -59,25 +66,33 @@ namespace ariles2
                     str_stream << input_stream_->rdbuf();
                     buffer_ = str_stream.str();
 
+                    clear();
 
-                    handles_.clear();
-                    try
+                    std::size_t buffer_offset = 0;
+
+                    while (buffer_offset < buffer_.size())
                     {
-                        std::size_t buffer_offset = 0;
-
-                        while (buffer_offset != buffer_.size())
+                        msgpack_unpacked handle = {};
+                        if (MSGPACK_UNPACK_SUCCESS
+                            != msgpack_unpack_next(&handle, buffer_.data(), buffer_.size(), &buffer_offset))
                         {
-                            handles_.push_back(std::make_shared<::msgpack::object_handle>());
-
-                            unpack(*handles_.back(), buffer_.data(), buffer_.size(), buffer_offset);
+                            msgpack_unpacked_destroy(&handle);
+                            CPPUT_THROW("Failed to parse the configuration file.");
                         }
-                    }
-                    catch (const std::exception &e)
-                    {
-                        CPPUT_THROW("Failed to parse the configuration file: ", e.what());
+                        handles_.push_back(handle);
                     }
 
                     nameless_counter_ = 0;
+                }
+
+
+                void clear()
+                {
+                    for (msgpack_unpacked &handle : handles_)
+                    {
+                        msgpack_unpacked_destroy(&handle);
+                    }
+                    handles_.clear();
                 }
 
 
@@ -86,7 +101,7 @@ namespace ariles2
                  *
                  * @return pointer to the current node
                  */
-                const ::msgpack::object &getRawNode(const std::size_t depth)
+                const msgpack_object &getRawNode(const std::size_t depth)
                 {
                     CPPUT_TRACE_FUNCTION;
                     if (node_stack_[depth].isArray())
@@ -97,7 +112,7 @@ namespace ariles2
                 }
 
 
-                const ::msgpack::object &getRawNode()
+                const msgpack_object &getRawNode()
                 {
                     CPPUT_TRACE_FUNCTION;
                     return (getRawNode(node_stack_.size() - 1));
@@ -138,30 +153,28 @@ namespace ariles2
             CPPUT_TRACE_VALUE(child_name);
             if (impl_->empty())
             {
-                for (std::size_t i = 0; i < impl_->handles_.size(); ++i)
+                for (const msgpack_unpacked &handle : impl_->handles_)
                 {
-                    if (::msgpack::type::MAP == impl_->handles_[i]->get().type)
+                    const msgpack_object &root = handle.data;
+                    if (MSGPACK_OBJECT_MAP == root.type && root.via.map.size > 0
+                        && isEqual(root.via.map.ptr[0].key, child_name)
+                        && MSGPACK_OBJECT_MAP == root.via.map.ptr[0].val.type)
                     {
-                        if (child_name == impl_->handles_[i]->get().via.map.ptr[0].key.as<std::string>())
-                        {
-                            if (::msgpack::type::MAP == impl_->handles_[i]->get().via.map.ptr[0].val.type)
-                            {
-                                impl_->emplace(&(impl_->handles_[i]->get().via.map.ptr[0].val));
-                                return (true);
-                            }
-                        }
+                        impl_->emplace(&(root.via.map.ptr[0].val));
+                        return (true);
                     }
                 }
             }
             else
             {
-                if (::msgpack::type::MAP == impl_->getRawNode().type)
+                if (MSGPACK_OBJECT_MAP == impl_->getRawNode().type)
                 {
-                    for (std::size_t i = 0; i < impl_->getRawNode().via.map.size; ++i)
+                    const msgpack_object_map &map = impl_->getRawNode().via.map;
+                    for (std::size_t i = 0; i < map.size; ++i)
                     {
-                        if (child_name == impl_->getRawNode().via.map.ptr[i].key.as<std::string>())
+                        if (isEqual(map.ptr[i].key, child_name))
                         {
-                            impl_->emplace(&(impl_->getRawNode().via.map.ptr[i].val));
+                            impl_->emplace(&(map.ptr[i].val));
                             return (true);
                         }
                     }
@@ -236,7 +249,7 @@ namespace ariles2
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
         CPPUT_TRACE_FUNCTION;                                                                                          \
-        impl_->getRawNode() >> element;                                                                                \
+        readValue(impl_->getRawNode(), element);                                                                       \
     }
 
         CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)

@@ -11,24 +11,25 @@
     @brief
 */
 
-#include <msgpack.hpp>
+#include <limits>
+
 #include <ariles2/visitors/msgpack.h>
+#include "writer_common.h"
 
 
 namespace ariles2
 {
     namespace ns_msgpack
     {
+        using ns_msgpack_c::packValue;
+
+
         namespace impl
         {
             class Writer : public write::FileVisitorImplementation
             {
             public:
-                using PackerPtr = std::shared_ptr<::msgpack::packer<std::ostream>>;
-
-
-            public:
-                PackerPtr packer_;
+                msgpack_packer packer_;
 
                 std::size_t nameless_counter_;
 
@@ -41,7 +42,7 @@ namespace ariles2
                 template <class... t_Args>
                 explicit Writer(t_Args &&...args) : FileVisitorImplementation(std::forward<t_Args>(args)...)
                 {
-                    packer_ = std::make_shared<::msgpack::packer<std::ostream>>(*output_stream_);
+                    msgpack_packer_init(&packer_, output_stream_, ns_msgpack_c::writeToStream);
 
                     nameless_counter_ = 0;
                 }
@@ -70,14 +71,15 @@ namespace ariles2
         void Writer::startMap(const Parameters &, const std::size_t num_entries)
         {
             CPPUT_TRACE_FUNCTION;
-            impl_->packer_->pack_map(num_entries);
+            msgpack_pack_map(&impl_->packer_, num_entries);
         }
 
         void Writer::startMapEntry(const std::string &map_name)
         {
             CPPUT_TRACE_FUNCTION;
             CPPUT_TRACE_VALUE(map_name);
-            impl_->packer_->pack(map_name);
+            msgpack_pack_str(&impl_->packer_, map_name.size());
+            msgpack_pack_str_body(&impl_->packer_, map_name.data(), map_name.size());
         }
 
 
@@ -93,7 +95,7 @@ namespace ariles2
             CPPUT_TRACE_FUNCTION;
             CPPUT_ASSERT(size <= std::numeric_limits<uint32_t>::max(), "Vector is too long.");
 
-            impl_->packer_->pack_array(size);
+            msgpack_pack_array(&impl_->packer_, size);
         }
 
 
@@ -106,12 +108,12 @@ namespace ariles2
                         0 == impl_->nameless_counter_,
                         "Multiple nameless root entries are not supported, specify root names explicitly.");
                 ++impl_->nameless_counter_;
-                impl_->packer_->pack_map(1);
+                msgpack_pack_map(&impl_->packer_, 1);
                 startMapEntry("ariles");
             }
             else
             {
-                impl_->packer_->pack_map(1);
+                msgpack_pack_map(&impl_->packer_, 1);
                 startMapEntry(name);
             }
         }
@@ -127,7 +129,7 @@ namespace ariles2
     void Writer::writeElement(const type &element, const Parameters &)                                                 \
     {                                                                                                                  \
         CPPUT_TRACE_FUNCTION;                                                                                          \
-        impl_->packer_->pack(element);                                                                                 \
+        packValue(&impl_->packer_, element);                                                                           \
     }
 
         CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)

@@ -11,26 +11,22 @@
     @brief
 */
 
-#include <sstream>
 #include <iostream>
-#include <msgpack.hpp>
+#include <sstream>
 
 #include <ariles2/visitors/msgpack.h>
+#include "reader_common.h"
 
 
 namespace ariles2
 {
     namespace ns_msgpack_compact
     {
-        using NodeWrapper = serialization::Node<const ::msgpack::object *>;
-    }
-}  // namespace ariles2
+        using NodeWrapper = serialization::Node<const msgpack_object *>;
+
+        using ns_msgpack_c::readValue;
 
 
-namespace ariles2
-{
-    namespace ns_msgpack_compact
-    {
         namespace impl
         {
             class Reader : public serialization::NodeStackBase<NodeWrapper>, public read::FileVisitorImplementation
@@ -38,10 +34,19 @@ namespace ariles2
             public:
                 std::string buffer_;
 
-                ::msgpack::object_handle handle_;
+                msgpack_unpacked handle_ = {};
 
 
             public:
+                Reader(const Reader &) = delete;
+                void operator=(const Reader &) = delete;
+
+                ~Reader()
+                {
+                    msgpack_unpacked_destroy(&handle_);
+                }
+
+
                 template <class... t_Args>
                 explicit Reader(t_Args &&...args) : FileVisitorImplementation(std::forward<t_Args>(args)...)
                 {
@@ -58,15 +63,12 @@ namespace ariles2
                     str_stream << input_stream_->rdbuf();
                     buffer_ = str_stream.str();
 
-                    try
+                    if (MSGPACK_UNPACK_SUCCESS
+                        != msgpack_unpack_next(&handle_, buffer_.data(), buffer_.size(), nullptr))
                     {
-                        unpack(handle_, buffer_.data(), buffer_.size(), nullptr);
-                        emplace(&handle_.get());
+                        CPPUT_THROW("Failed to parse the configuration file.");
                     }
-                    catch (const std::exception &e)
-                    {
-                        CPPUT_THROW("Failed to parse the configuration file: ", e.what());
-                    }
+                    emplace(&handle_.data);
                 }
 
 
@@ -75,7 +77,7 @@ namespace ariles2
                  *
                  * @return pointer to the current node
                  */
-                const ::msgpack::object &getRawNode(const std::size_t depth)
+                const msgpack_object &getRawNode(const std::size_t depth)
                 {
                     if (node_stack_[depth].isArray())
                     {
@@ -85,7 +87,7 @@ namespace ariles2
                 }
 
 
-                const ::msgpack::object &getRawNode()
+                const msgpack_object &getRawNode()
                 {
                     return (getRawNode(node_stack_.size() - 1));
                 }
@@ -176,7 +178,7 @@ namespace ariles2
 #define ARILES2_BASIC_TYPE(type)                                                                                       \
     void Reader::readElement(type &element)                                                                            \
     {                                                                                                                  \
-        impl_->getRawNode() >> element;                                                                                \
+        readValue(impl_->getRawNode(), element);                                                                       \
     }
 
         CPPUT_MACRO_SUBSTITUTE(ARILES2_BASIC_TYPES_LIST)
