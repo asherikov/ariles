@@ -41,6 +41,9 @@ namespace ariles2
     struct yaml_cpp
     {
         using Reader = ariles2::cfgread::Visitor<ns_yaml_cpp::Reader>;
+        using PlainReader = ns_yaml_cpp::Reader;
+
         using Writer = ariles2::cfgwrite::Visitor<ns_yaml_cpp::Writer>;
+        using PlainWriter = ns_yaml_cpp::Writer;
     };
 }  // namespace ariles2

@@ -38,6 +38,9 @@ namespace ariles2
     struct rosparam
     {
         using Reader = ariles2::cfgread::Visitor<ns_rosparam::Reader>;
+        using PlainReader = ns_rosparam::Reader;
+
         using Writer = ariles2::cfgwrite::Visitor<ns_rosparam::Writer>;
+        using PlainWriter = ns_rosparam::Writer;
     };
 }  // namespace ariles2

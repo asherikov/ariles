@@ -42,7 +42,10 @@ namespace ariles2
     struct msgpack
     {
         using Reader = ariles2::cfgread::Visitor<ns_msgpack::Reader>;
+        using PlainReader = ns_msgpack::Reader;
+
         using Writer = ariles2::cfgwrite::Visitor<ns_msgpack::Writer>;
+        using PlainWriter = ns_msgpack::Writer;
     };
 }  // namespace ariles2
 
@@ -58,6 +61,9 @@ namespace ariles2
     struct msgpack_compact
     {
         using Reader = ariles2::cfgread::Visitor<ns_msgpack_compact::Reader>;
+        using PlainReader = ns_msgpack_compact::Reader;
+
         using Writer = ariles2::cfgwrite::Visitor<ns_msgpack_compact::Writer>;
+        using PlainWriter = ns_msgpack_compact::Writer;
     };
 }  // namespace ariles2

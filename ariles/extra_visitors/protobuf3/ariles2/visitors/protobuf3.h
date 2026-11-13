@@ -103,6 +103,8 @@ namespace ariles2
     {
         using Base = ns_protobuf3::Base;
         using Reader = ns_protobuf3::Reader;
+        using PlainReader = ns_protobuf3::Reader;
         using Writer = ns_protobuf3::Writer;
+        using PlainWriter = ns_protobuf3::Writer;
     };
 }  // namespace ariles2

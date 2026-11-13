@@ -40,6 +40,9 @@ namespace ariles2
     struct pugixml
     {
         using Reader = ariles2::cfgread::Visitor<ns_pugixml::Reader>;
+        using PlainReader = ns_pugixml::Reader;
+
         using Writer = ariles2::cfgwrite::Visitor<ns_pugixml::Writer>;
+        using PlainWriter = ns_pugixml::Writer;
     };
 }  // namespace ariles2

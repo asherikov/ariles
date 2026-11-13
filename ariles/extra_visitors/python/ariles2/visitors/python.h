@@ -46,7 +46,7 @@ namespace ariles2
      */
     struct python
     {
-        using WriterBase = ns_python::Writer;
+        using PlainWriter = ns_python::Writer;
 
         using Writer = ariles2::cfgwrite::Visitor<ns_python::Writer>;
 

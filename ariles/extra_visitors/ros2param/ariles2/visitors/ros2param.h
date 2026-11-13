@@ -39,7 +39,10 @@ namespace ariles2
     struct ros2param
     {
         using Reader = ariles2::cfgread::Visitor<ns_ros2param::Reader>;
+        using PlainReader = ns_ros2param::Reader;
+
         using Writer = ariles2::cfgwrite::Visitor<ns_ros2param::Writer>;
+        using PlainWriter = ns_ros2param::Writer;
 
 
         class Declarator : public aggregate::Visitor<ros2param::Declarator, Defaults, ns_ros2param::Declarator>

@@ -105,5 +105,6 @@ namespace ariles2
     struct octave
     {
         using Writer = ariles2::cfgwrite::Visitor<ns_octave::Writer>;
+        using PlainWriter = ns_octave::Writer;
     };
 }  // namespace ariles2

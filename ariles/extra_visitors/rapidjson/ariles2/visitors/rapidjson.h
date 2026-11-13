@@ -39,8 +39,8 @@ namespace ariles2
      */
     struct rapidjson
     {
-        using ReaderBase = ns_rapidjson::Reader;
-        using WriterBase = ns_rapidjson::Writer;
+        using PlainReader = ns_rapidjson::Reader;
+        using PlainWriter = ns_rapidjson::Writer;
 
         using Reader = ariles2::cfgread::Visitor<ns_rapidjson::Reader>;
         using Writer = ariles2::cfgwrite::Visitor<ns_rapidjson::Writer>;

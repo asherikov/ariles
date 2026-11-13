@@ -86,3 +86,4 @@ ariles_define_regression_test("238" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # ro
 ariles_define_regression_test("239" "python")                               # python: complex, pointers
 ariles_define_regression_test("240" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # missing entries
 ariles_define_regression_test("241" "ros2param")                            # https://github.com/asherikov/ariles/issues/27
+ariles_define_regression_test("242" "ANY"   "${ARILES_TEST_ALL_VISITORS}")  # plain visitors without pre/post processing

@@ -39,8 +39,8 @@ namespace ariles2
      */
     struct nlohmann_json
     {
-        using ReaderBase = ns_nlohmann_json::Reader;
-        using WriterBase = ns_nlohmann_json::Writer;
+        using PlainReader = ns_nlohmann_json::Reader;
+        using PlainWriter = ns_nlohmann_json::Writer;
 
         using Reader = ariles2::cfgread::Visitor<ns_nlohmann_json::Reader>;
         using Writer = ariles2::cfgwrite::Visitor<ns_nlohmann_json::Writer>;

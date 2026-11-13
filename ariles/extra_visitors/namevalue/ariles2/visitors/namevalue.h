@@ -36,5 +36,6 @@ namespace ariles2
     struct namevalue
     {
         using Writer = ariles2::cfgwrite::Visitor<ns_namevalue::Writer>;
+        using PlainWriter = ns_namevalue::Writer;
     };
 }  // namespace ariles2

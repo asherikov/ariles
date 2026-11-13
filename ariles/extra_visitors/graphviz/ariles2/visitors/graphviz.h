@@ -187,6 +187,7 @@ namespace ariles2
         using Parameters = ns_graphviz::Parameters;
         using Visitor = ns_graphviz::Visitor;
         using Writer = ns_graphviz::Visitor;
+        using PlainWriter = ns_graphviz::Visitor;
         using Base = ns_graphviz::Base;
     };
 

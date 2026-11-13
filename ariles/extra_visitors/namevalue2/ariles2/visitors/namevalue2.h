@@ -99,5 +99,6 @@ namespace ariles2
     {
         using NameValueContainer = ns_namevalue2::NameValueContainer;
         using Writer = ns_namevalue2::Writer;
+        using PlainWriter = ns_namevalue2::Writer;
     };
 }  // namespace ariles2

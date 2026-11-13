@@ -34,7 +34,10 @@ namespace ariles2
     template <class t_ParentVisitor>
     struct jsonnet
     {
-        using Reader = ariles2::cfgread::Visitor<ns_jsonnet::Reader<typename t_ParentVisitor::ReaderBase>>;
-        using Writer = ariles2::cfgwrite::Visitor<typename t_ParentVisitor::WriterBase>;
+        using Reader = ariles2::cfgread::Visitor<ns_jsonnet::Reader<typename t_ParentVisitor::PlainReader>>;
+        using PlainReader = ns_jsonnet::Reader<typename t_ParentVisitor::PlainReader>;
+
+        using Writer = ariles2::cfgwrite::Visitor<typename t_ParentVisitor::PlainWriter>;
+        using PlainWriter = typename t_ParentVisitor::PlainWriter;
     };
 }  // namespace ariles2
